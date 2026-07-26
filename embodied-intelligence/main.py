@@ -42,22 +42,30 @@ def main():
     if command == "train":
         print("[INFO] 启动课程学习训练...", flush=True)
         os.chdir(script_dir)
-        exec(open("train_curriculum.py", encoding="utf-8").read())
+        import subprocess
+        result = subprocess.run([sys.executable, "train_curriculum.py"], capture_output=False)
+        sys.exit(result.returncode)
 
     elif command == "test":
         print("[INFO] 测试所有课程进度成功率（50轮/级）...", flush=True)
         os.chdir(script_dir)
-        exec(open("test_final_all.py", encoding="utf-8").read())
+        import subprocess
+        result = subprocess.run([sys.executable, "test_final_all.py"], capture_output=False)
+        sys.exit(result.returncode)
 
     elif command == "evaluate":
         print("[INFO] 评估模型泛化能力...", flush=True)
         os.chdir(script_dir)
-        exec(open("evaluate_generalization.py", encoding="utf-8").read())
+        import subprocess
+        result = subprocess.run([sys.executable, "evaluate_generalization.py"], capture_output=False)
+        sys.exit(result.returncode)
 
     elif command == "deploy":
         print("[INFO] 启动部署模式...", flush=True)
         os.chdir(script_dir)
-        exec(open("deploy_main.py", encoding="utf-8").read())
+        import subprocess
+        result = subprocess.run([sys.executable, "deploy_main.py"], capture_output=False)
+        sys.exit(result.returncode)
 
     elif command == "benchmark":
         print("[INFO] 性能基准测试...", flush=True)
@@ -97,7 +105,9 @@ def main():
     elif command == "smoke":
         print("[INFO] 运行回归测试套件（12项核心功能验证）...", flush=True)
         os.chdir(script_dir)
-        exec(open("test_smoke.py", encoding="utf-8").read())
+        import subprocess
+        result = subprocess.run([sys.executable, "test_smoke.py"], capture_output=False)
+        sys.exit(result.returncode)
 
     elif command in ["help", "-h", "--help"]:
         print_usage()
