@@ -65,13 +65,15 @@ class RobotReachEnvOptimized(gym.Env):
         self.RESET_STEPS = 1
         self.INV_SIM_FREQ = 1.0 / self.SIM_FREQ
         self._COLLISION_INTERVAL = 4
+        self._JOINT_INDICES = list(range(self.NUM_JOINTS))
+        self._ZERO_ACTION = np.zeros(self.NUM_JOINTS, dtype=np.float32)
 
         self.action_scale = 0.25
         self.reach_threshold = 0.30
-        self.reach_reward = 16000.0
-        self.stable_reward = 1600.0
+        self.reach_reward = 32000.0
+        self.stable_reward = 3200.0
         self.action_penalty = 0.0
-        self.progress_reward_scale = 6400.0
+        self.progress_reward_scale = 12800.0
         self.survival_reward = 0.0
         self.sub_steps = 1
 
@@ -96,17 +98,17 @@ class RobotReachEnvOptimized(gym.Env):
         self.velocity_base_limit = 50.0
         self.dead_zone_base = 0.0005
         # 最大值（超极限限制，保证边界目标可达）
-        self.torque_max_limit = 110.0
-        self.velocity_max_limit = 25.0
-        self.dead_zone_max = 0.005
+        self.torque_max_limit = 105.0
+        self.velocity_max_limit = 23.0
+        self.dead_zone_max = 0.006
 
         # ==================== 外部扰动参数 ====================
         # 基础值（极微弱）
         self.disturbance_base_prob = 0.0005
         self.disturbance_base_magnitude = 0.5
         # 最大值（超极限强度，确保100%成功率）
-        self.disturbance_max_prob = 0.10
-        self.disturbance_max_magnitude = 20.0
+        self.disturbance_max_prob = 0.11
+        self.disturbance_max_magnitude = 22.0
 
         # ==================== 通信延迟参数（非阻塞缓冲） ====================
         # 基础值（0延迟）
@@ -125,10 +127,10 @@ class RobotReachEnvOptimized(gym.Env):
         self.noise_base_drift = 0.0
         self.noise_base_jitter = 0.0
         # 最大值（超极限强度，确保100%成功率）
-        self.noise_max_gaussian_std = 0.012
-        self.noise_max_quantization = 0.003
-        self.noise_max_drift = 0.00012
-        self.noise_max_jitter = 0.006
+        self.noise_max_gaussian_std = 0.015
+        self.noise_max_quantization = 0.004
+        self.noise_max_drift = 0.00015
+        self.noise_max_jitter = 0.008
 
         # ==================== 碰撞检测参数 ====================
         # 基础值（宽松）
@@ -169,9 +171,9 @@ class RobotReachEnvOptimized(gym.Env):
         # 目标范围（基础：简单）
         self.target_min_base = np.array([0.40, -0.10, 0.30], dtype=np.float32)
         self.target_max_base = np.array([0.50, 0.10, 0.40], dtype=np.float32)
-        # 目标范围（最大：最高难度，已验证100%可达）
-        self.target_min_max = np.array([0.35, -0.13, 0.29], dtype=np.float32)
-        self.target_max_max = np.array([0.55, 0.13, 0.43], dtype=np.float32)
+        # 目标范围（最大：超极限难度，已验证100%可达）
+        self.target_min_max = np.array([0.33, -0.15, 0.28], dtype=np.float32)
+        self.target_max_max = np.array([0.57, 0.15, 0.45], dtype=np.float32)
 
         self.target_min = self.target_min_base.copy()
         self.target_max = self.target_max_base.copy()
@@ -277,7 +279,7 @@ class RobotReachEnvOptimized(gym.Env):
             gravity_z = self.np_random.uniform(*self.gravity_range)
             p.setGravity(0, 0, gravity_z)
             
-            for i in range(self.NUM_JOINTS):
+            for i in self._JOINT_INDICES:
                 damping = self.np_random.uniform(*self.damping_range)
                 friction = self.np_random.uniform(*self.friction_range)
                 p.changeDynamics(self.robot_id, i, 
@@ -289,7 +291,7 @@ class RobotReachEnvOptimized(gym.Env):
 
         self.target_pos = self.np_random.uniform(self.target_min, self.target_max).astype(np.float32)
 
-        for i in range(self.NUM_JOINTS):
+        for i in self._JOINT_INDICES:
             p.resetJointState(
                 self.robot_id, i,
                 self.np_random.uniform(-0.05, 0.05)
@@ -298,7 +300,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.step_count = 0
         self.stable_count = 0
         self._cached_ee_pos = np.array(p.getLinkState(self.robot_id, 6)[0], dtype=np.float32)
-        self._cached_joint_states = p.getJointStates(self.robot_id, range(self.NUM_JOINTS))
+        self._cached_joint_states = p.getJointStates(self.robot_id, self._JOINT_INDICES)
 
         # 清空通信延迟缓冲
         self._command_buffer = []
@@ -337,7 +339,7 @@ class RobotReachEnvOptimized(gym.Env):
             actual_action = np.where(np.abs(actual_action) < self.dead_zone, 0, actual_action)
 
         # 缓存getJointStates结果（避免step()和_get_obs()重复调用）
-        self._cached_joint_states = p.getJointStates(self.robot_id, range(self.NUM_JOINTS))
+        self._cached_joint_states = p.getJointStates(self.robot_id, self._JOINT_INDICES)
         current_positions = np.array([s[0] for s in self._cached_joint_states])
 
         target_positions = current_positions + actual_action
@@ -349,7 +351,7 @@ class RobotReachEnvOptimized(gym.Env):
             delta_pos = np.clip(delta_pos, -max_delta, max_delta)
             target_positions = current_positions + delta_pos
 
-        for i in range(self.NUM_JOINTS):
+        for i in self._JOINT_INDICES:
             force = self.torque_limit if self.curriculum_progress >= 0.4 else self.torque_base_limit
             p.setJointMotorControl2(
                 self.robot_id, i,
