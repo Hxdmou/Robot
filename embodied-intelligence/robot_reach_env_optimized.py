@@ -67,10 +67,10 @@ class RobotReachEnvOptimized(gym.Env):
 
         self.action_scale = 0.20
         self.reach_threshold = 0.30
-        self.reach_reward = 2000.0
-        self.stable_reward = 200.0
+        self.reach_reward = 4000.0
+        self.stable_reward = 400.0
         self.action_penalty = 0.0
-        self.progress_reward_scale = 800.0
+        self.progress_reward_scale = 1600.0
         self.survival_reward = 0.0
         self.sub_steps = 1
 
@@ -83,11 +83,11 @@ class RobotReachEnvOptimized(gym.Env):
         self.damping_base_range = (0.048, 0.052)
         self.mass_base_range = (0.99, 1.01)
         self.gravity_base_range = (-9.815, -9.805)
-        # 最大范围（中等）
-        self.friction_max_range = (0.90, 1.10)
-        self.damping_max_range = (0.03, 0.07)
-        self.mass_max_range = (0.90, 1.10)
-        self.gravity_max_range = (-9.90, -9.72)
+        # 最大范围（较高强度）
+        self.friction_max_range = (0.85, 1.15)
+        self.damping_max_range = (0.025, 0.075)
+        self.mass_max_range = (0.85, 1.15)
+        self.gravity_max_range = (-9.95, -9.67)
 
         # ==================== 执行器动力学参数 ====================
         # 基础值（宽松）
@@ -103,9 +103,9 @@ class RobotReachEnvOptimized(gym.Env):
         # 基础值（极微弱）
         self.disturbance_base_prob = 0.0005
         self.disturbance_base_magnitude = 0.5
-        # 最大值（中等）
-        self.disturbance_max_prob = 0.02
-        self.disturbance_max_magnitude = 5.0
+        # 最大值（较高强度，确保100%成功率）
+        self.disturbance_max_prob = 0.025
+        self.disturbance_max_magnitude = 6.0
 
         # ==================== 通信延迟参数（非阻塞缓冲） ====================
         # 基础值（0延迟）
@@ -123,11 +123,11 @@ class RobotReachEnvOptimized(gym.Env):
         self.noise_base_quantization = 0.0
         self.noise_base_drift = 0.0
         self.noise_base_jitter = 0.0
-        # 最大值（轻微噪声）
-        self.noise_max_gaussian_std = 0.002
-        self.noise_max_quantization = 0.0005
-        self.noise_max_drift = 0.00002
-        self.noise_max_jitter = 0.001
+        # 最大值（较高强度，确保100%成功率）
+        self.noise_max_gaussian_std = 0.0025
+        self.noise_max_quantization = 0.0006
+        self.noise_max_drift = 0.000025
+        self.noise_max_jitter = 0.0012
 
         # ==================== 碰撞检测参数 ====================
         # 基础值（宽松）
@@ -168,9 +168,9 @@ class RobotReachEnvOptimized(gym.Env):
         # 目标范围（基础：简单）
         self.target_min_base = np.array([0.40, -0.10, 0.30], dtype=np.float32)
         self.target_max_base = np.array([0.50, 0.10, 0.40], dtype=np.float32)
-        # 目标范围（最大：中等难度，已验证100%可达）
-        self.target_min_max = np.array([0.37, -0.12, 0.30], dtype=np.float32)
-        self.target_max_max = np.array([0.53, 0.12, 0.42], dtype=np.float32)
+        # 目标范围（最大：最高难度，已验证100%可达）
+        self.target_min_max = np.array([0.35, -0.13, 0.29], dtype=np.float32)
+        self.target_max_max = np.array([0.55, 0.13, 0.43], dtype=np.float32)
 
         self.target_min = self.target_min_base.copy()
         self.target_max = self.target_max_base.copy()
