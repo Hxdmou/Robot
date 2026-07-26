@@ -63,13 +63,14 @@ class RobotReachEnvOptimized(gym.Env):
         self.SIM_FREQ = 240.0
         self.NUM_JOINTS = 7
         self.RESET_STEPS = 2
+        self.INV_SIM_FREQ = 1.0 / self.SIM_FREQ
 
         self.action_scale = 0.20
         self.reach_threshold = 0.30
         self.reach_reward = 2000.0
-        self.stable_reward = 150.0
+        self.stable_reward = 200.0
         self.action_penalty = 0.0
-        self.progress_reward_scale = 500.0
+        self.progress_reward_scale = 800.0
         self.survival_reward = 0.0
         self.sub_steps = 1
 
@@ -296,6 +297,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.step_count = 0
         self.stable_count = 0
         self._cached_ee_pos = np.array(p.getLinkState(self.robot_id, 6)[0], dtype=np.float32)
+        self._cached_joint_states = p.getJointStates(self.robot_id, range(self.NUM_JOINTS))
 
         # 清空通信延迟缓冲
         self._command_buffer = []
@@ -333,16 +335,16 @@ class RobotReachEnvOptimized(gym.Env):
         if self.curriculum_progress >= 0.4:
             actual_action = np.where(np.abs(actual_action) < self.dead_zone, 0, actual_action)
 
-        states = p.getJointStates(self.robot_id, range(self.NUM_JOINTS))
-        current_positions = np.array([s[0] for s in states])
-        current_velocities = np.array([s[1] for s in states])
+        # 缓存getJointStates结果（避免step()和_get_obs()重复调用）
+        self._cached_joint_states = p.getJointStates(self.robot_id, range(self.NUM_JOINTS))
+        current_positions = np.array([s[0] for s in self._cached_joint_states])
 
         target_positions = current_positions + actual_action
 
         # 执行器动力学：速度限制
         if self.curriculum_progress >= 0.4:
             delta_pos = actual_action
-            max_delta = self.velocity_limit * (1 / self.SIM_FREQ)
+            max_delta = self.velocity_limit * self.INV_SIM_FREQ
             delta_pos = np.clip(delta_pos, -max_delta, max_delta)
             target_positions = current_positions + delta_pos
 
@@ -358,6 +360,11 @@ class RobotReachEnvOptimized(gym.Env):
         for _ in range(self.sub_steps):
             p.stepSimulation()
 
+        self.step_count += 1
+
+        # 缓存getLinkState结果（避免step()/外部扰动/_get_obs()重复调用）
+        self._cached_ee_pos = np.array(p.getLinkState(self.robot_id, 6)[0], dtype=np.float32)
+
         # 外部扰动
         if self.curriculum_progress >= 0.6:
             if self.np_random.random() < self.disturbance_prob:
@@ -367,14 +374,9 @@ class RobotReachEnvOptimized(gym.Env):
                 p.applyExternalForce(
                     self.robot_id, 6,
                     forceObj=disturbance,
-                    posObj=np.array(p.getLinkState(self.robot_id, 6)[0]),
+                    posObj=self._cached_ee_pos,
                     flags=p.WORLD_FRAME
                 )
-
-        self.step_count += 1
-
-        # 缓存getLinkState结果（避免step()和_get_obs()重复调用）
-        self._cached_ee_pos = np.array(p.getLinkState(self.robot_id, 6)[0], dtype=np.float32)
 
         obs = self._get_obs()
 
@@ -429,7 +431,8 @@ class RobotReachEnvOptimized(gym.Env):
         return obs, reward, terminated, truncated, info
 
     def _get_obs(self):
-        states = p.getJointStates(self.robot_id, range(self.NUM_JOINTS))
+        # 使用step()中缓存的joint_states，避免重复调用getJointStates
+        states = self._cached_joint_states
         joint_pos = np.array([s[0] for s in states], dtype=np.float32)
         # 使用step()中缓存的ee_pos，避免重复调用getLinkState
         ee_pos = self._cached_ee_pos
