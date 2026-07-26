@@ -98,26 +98,16 @@ if __name__ == "__main__":
     env = DummyVecEnv([make_env(i, max_steps=600) for i in range(n_envs)])
     env = VecMonitor(env)
 
-    model = PPO(
-        "MlpPolicy",
-        env,
-        learning_rate=3e-4,
-        n_steps=4096,
-        batch_size=1024,
-        n_epochs=3,
-        gamma=0.99,
-        gae_lambda=0.95,
-        clip_range=0.2,
-        ent_coef=0.005,
-        vf_coef=0.5,
-        max_grad_norm=0.5,
-        verbose=0,
-        device="cpu",
-        policy_kwargs={"net_arch": [256, 256]}
-    )
+    sys.stderr = old_stderr
+    print(f"\nLoading pre-trained model (ppo_robot_reach_final_5m_enhanced)...", flush=True)
+    sys.stderr = open(os.devnull, 'w')
+    
+    model = PPO.load("ppo_robot_reach_final_5m_enhanced", env=env, device="cpu")
+    model.learning_rate = 1e-4
+    model.ent_coef = 0.001
 
     sys.stderr = old_stderr
-    print(f"\nStarting Curriculum Training...", flush=True)
+    print(f"\nStarting Curriculum Fine-tuning...", flush=True)
     print(f"   [Target] FPS: 6000+ | Success: 100% | Reward: Maximize", flush=True)
     start_time = time.time()
     sys.stderr = open(os.devnull, 'w')

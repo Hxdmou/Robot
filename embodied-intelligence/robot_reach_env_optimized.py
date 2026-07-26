@@ -70,34 +70,34 @@ class RobotReachEnvOptimized(gym.Env):
         self.curriculum_progress = 0.0
 
         # ==================== 领域随机化参数 ====================
-        # 基础范围（微弱）
-        self.friction_base_range = (0.98, 1.02)
-        self.damping_base_range = (0.045, 0.055)
-        self.mass_base_range = (0.98, 1.02)
-        self.gravity_base_range = (-9.82, -9.80)
-        # 最大范围（强烈）
-        self.friction_max_range = (0.80, 1.20)
-        self.damping_max_range = (0.01, 0.10)
-        self.mass_max_range = (0.80, 1.20)
-        self.gravity_max_range = (-10.0, -9.6)
+        # 基础范围（极微弱）
+        self.friction_base_range = (0.99, 1.01)
+        self.damping_base_range = (0.048, 0.052)
+        self.mass_base_range = (0.99, 1.01)
+        self.gravity_base_range = (-9.815, -9.805)
+        # 最大范围（轻微）
+        self.friction_max_range = (0.95, 1.05)
+        self.damping_max_range = (0.04, 0.06)
+        self.mass_max_range = (0.95, 1.05)
+        self.gravity_max_range = (-9.85, -9.78)
 
         # ==================== 执行器动力学参数 ====================
         # 基础值（宽松）
         self.torque_base_limit = 200.0
-        self.velocity_base_limit = 5.0
-        self.dead_zone_base = 0.001
-        # 最大值（严格）
-        self.torque_max_limit = 50.0
-        self.velocity_max_limit = 1.5
-        self.dead_zone_max = 0.02
+        self.velocity_base_limit = 50.0
+        self.dead_zone_base = 0.0005
+        # 最大值（轻微限制）
+        self.torque_max_limit = 160.0
+        self.velocity_max_limit = 30.0
+        self.dead_zone_max = 0.003
 
         # ==================== 外部扰动参数 ====================
-        # 基础值（微弱）
-        self.disturbance_base_prob = 0.001
-        self.disturbance_base_magnitude = 2.0
-        # 最大值（强烈）
-        self.disturbance_max_prob = 0.05
-        self.disturbance_max_magnitude = 15.0
+        # 基础值（极微弱）
+        self.disturbance_base_prob = 0.0005
+        self.disturbance_base_magnitude = 0.5
+        # 最大值（轻微）
+        self.disturbance_max_prob = 0.008
+        self.disturbance_max_magnitude = 2.0
 
         # ==================== 当前使用的参数 ====================
         self.friction_range = self.friction_base_range
@@ -126,36 +126,30 @@ class RobotReachEnvOptimized(gym.Env):
         p = self.curriculum_progress
 
         # ===== 领域随机化 =====
-        if p >= 0.1:
-            # 线性插值从基础范围到最大范围
-            self.friction_range = self._interpolate_range(p, 0.1, 0.9, 
+        if p >= 0.2:
+            self.friction_range = self._interpolate_range(p, 0.2, 1.0, 
                 self.friction_base_range, self.friction_max_range)
-            self.damping_range = self._interpolate_range(p, 0.1, 0.9,
+            self.damping_range = self._interpolate_range(p, 0.2, 1.0,
                 self.damping_base_range, self.damping_max_range)
-            self.mass_range = self._interpolate_range(p, 0.1, 0.9,
+            self.mass_range = self._interpolate_range(p, 0.2, 1.0,
                 self.mass_base_range, self.mass_max_range)
-            self.gravity_range = self._interpolate_range(p, 0.1, 0.9,
+            self.gravity_range = self._interpolate_range(p, 0.2, 1.0,
                 self.gravity_base_range, self.gravity_max_range)
 
         # ===== 执行器动力学 =====
-        if p >= 0.3:
-            # 力矩限制从宽松到严格
-            self.torque_limit = self._interpolate(p, 0.3, 0.9,
+        if p >= 0.4:
+            self.torque_limit = self._interpolate(p, 0.4, 1.0,
                 self.torque_base_limit, self.torque_max_limit)
-            # 速度限制从宽松到严格
-            self.velocity_limit = self._interpolate(p, 0.3, 0.9,
+            self.velocity_limit = self._interpolate(p, 0.4, 1.0,
                 self.velocity_base_limit, self.velocity_max_limit)
-            # 死区从小到大
-            self.dead_zone = self._interpolate(p, 0.3, 0.9,
+            self.dead_zone = self._interpolate(p, 0.4, 1.0,
                 self.dead_zone_base, self.dead_zone_max)
 
         # ===== 外部扰动 =====
-        if p >= 0.5:
-            # 扰动概率从低到高
-            self.disturbance_prob = self._interpolate(p, 0.5, 0.9,
+        if p >= 0.6:
+            self.disturbance_prob = self._interpolate(p, 0.6, 1.0,
                 self.disturbance_base_prob, self.disturbance_max_prob)
-            # 扰动强度从小到大
-            self.disturbance_magnitude = self._interpolate(p, 0.5, 0.9,
+            self.disturbance_magnitude = self._interpolate(p, 0.6, 1.0,
                 self.disturbance_base_magnitude, self.disturbance_max_magnitude)
 
     def _interpolate(self, p, start_p, end_p, start_val, end_val):
@@ -185,7 +179,7 @@ class RobotReachEnvOptimized(gym.Env):
         )
 
         # 根据课程学习进度应用领域随机化
-        if self.curriculum_progress >= 0.1:
+        if self.curriculum_progress >= 0.2:
             gravity_z = self.np_random.uniform(*self.gravity_range)
             p.setGravity(0, 0, gravity_z)
             
@@ -222,7 +216,7 @@ class RobotReachEnvOptimized(gym.Env):
         action = np.clip(action, -1.0, 1.0) * self.action_scale
 
         # 执行器动力学：死区处理
-        if self.curriculum_progress >= 0.3:
+        if self.curriculum_progress >= 0.4:
             action = np.where(np.abs(action) < self.dead_zone, 0, action)
 
         states = p.getJointStates(self.robot_id, range(7))
@@ -232,14 +226,14 @@ class RobotReachEnvOptimized(gym.Env):
         target_positions = current_positions + action
 
         # 执行器动力学：速度限制
-        if self.curriculum_progress >= 0.3:
+        if self.curriculum_progress >= 0.4:
             delta_pos = action
             max_delta = self.velocity_limit * (1 / 240.0)
             delta_pos = np.clip(delta_pos, -max_delta, max_delta)
             target_positions = current_positions + delta_pos
 
         for i in range(7):
-            force = self.torque_limit if self.curriculum_progress >= 0.3 else 240
+            force = self.torque_limit if self.curriculum_progress >= 0.4 else 240
             p.setJointMotorControl2(
                 self.robot_id, i,
                 p.POSITION_CONTROL,
@@ -251,7 +245,7 @@ class RobotReachEnvOptimized(gym.Env):
             p.stepSimulation()
 
         # 外部扰动
-        if self.curriculum_progress >= 0.5:
+        if self.curriculum_progress >= 0.6:
             if self.np_random.random() < self.disturbance_prob:
                 disturbance = self.np_random.uniform(-self.disturbance_magnitude, 
                                                     self.disturbance_magnitude, 
