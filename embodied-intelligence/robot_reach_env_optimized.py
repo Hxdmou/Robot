@@ -159,8 +159,15 @@ class RobotReachEnvOptimized(gym.Env):
         self._drift_state = np.zeros(7, dtype=np.float32)
         self._drift_last_time = time.time()
 
-        self.target_min = np.array([0.40, -0.10, 0.30], dtype=np.float32)
-        self.target_max = np.array([0.50, 0.10, 0.40], dtype=np.float32)
+        # 目标范围（基础：简单）
+        self.target_min_base = np.array([0.40, -0.10, 0.30], dtype=np.float32)
+        self.target_max_base = np.array([0.50, 0.10, 0.40], dtype=np.float32)
+        # 目标范围（最大：中等难度）
+        self.target_min_max = np.array([0.35, -0.15, 0.25], dtype=np.float32)
+        self.target_max_max = np.array([0.55, 0.15, 0.45], dtype=np.float32)
+
+        self.target_min = self.target_min_base.copy()
+        self.target_max = self.target_max_base.copy()
 
         self.stable_count = 0
         self.stable_threshold = 2
@@ -174,7 +181,22 @@ class RobotReachEnvOptimized(gym.Env):
         # 根据进度更新增强模块参数
         p = self.curriculum_progress
 
-        # ===== 领域随机化 =====
+        # ===== 目标范围（从进度0.3开始逐步扩大） =====
+        self.target_min = (self.target_min_base + self._interpolate(p, 0.3, 1.0, 0, 1) * (self.target_min_max - self.target_min_base)).astype(np.float32)
+        self.target_max = (self.target_max_base + self._interpolate(p, 0.3, 1.0, 0, 1) * (self.target_max_max - self.target_max_base)).astype(np.float32)
+
+        # ===== 传感器噪声（从进度0.1开始） =====
+        if p >= 0.1:
+            self.noise_gaussian_std = self._interpolate(p, 0.1, 1.0,
+                self.noise_base_gaussian_std, self.noise_max_gaussian_std)
+            self.noise_quantization = self._interpolate(p, 0.1, 1.0,
+                self.noise_base_quantization, self.noise_max_quantization)
+            self.noise_drift = self._interpolate(p, 0.1, 1.0,
+                self.noise_base_drift, self.noise_max_drift)
+            self.noise_jitter = self._interpolate(p, 0.1, 1.0,
+                self.noise_base_jitter, self.noise_max_jitter)
+
+        # ===== 领域随机化（从进度0.2开始） =====
         if p >= 0.2:
             self.friction_range = self._interpolate_range(p, 0.2, 1.0, 
                 self.friction_base_range, self.friction_max_range)
@@ -194,14 +216,21 @@ class RobotReachEnvOptimized(gym.Env):
             self.dead_zone = self._interpolate(p, 0.4, 1.0,
                 self.dead_zone_base, self.dead_zone_max)
 
-        # ===== 外部扰动 =====
+        # ===== 碰撞检测（从进度0.5开始） =====
+        if p >= 0.5:
+            self.collision_safety_dist = self._interpolate(p, 0.5, 1.0,
+                self.collision_base_safety_dist, self.collision_max_safety_dist)
+            self.collision_penalty = self._interpolate(p, 0.5, 1.0,
+                self.collision_base_penalty, self.collision_max_penalty)
+
+        # ===== 外部扰动（从进度0.6开始） =====
         if p >= 0.6:
             self.disturbance_prob = self._interpolate(p, 0.6, 1.0,
                 self.disturbance_base_prob, self.disturbance_max_prob)
             self.disturbance_magnitude = self._interpolate(p, 0.6, 1.0,
                 self.disturbance_base_magnitude, self.disturbance_max_magnitude)
 
-        # ===== 通信延迟 =====
+        # ===== 通信延迟（从进度0.8开始） =====
         if p >= 0.8:
             self.command_delay_steps = int(self._interpolate(p, 0.8, 1.0,
                 self.command_delay_base_steps, self.command_delay_max_steps))
@@ -209,24 +238,6 @@ class RobotReachEnvOptimized(gym.Env):
                 self.state_delay_base_steps, self.state_delay_max_steps))
             self.packet_drop_rate = self._interpolate(p, 0.8, 1.0,
                 self.packet_drop_base_rate, self.packet_drop_max_rate)
-
-        # ===== 传感器噪声（从进度0.1开始，最早引入） =====
-        if p >= 0.1:
-            self.noise_gaussian_std = self._interpolate(p, 0.1, 1.0,
-                self.noise_base_gaussian_std, self.noise_max_gaussian_std)
-            self.noise_quantization = self._interpolate(p, 0.1, 1.0,
-                self.noise_base_quantization, self.noise_max_quantization)
-            self.noise_drift = self._interpolate(p, 0.1, 1.0,
-                self.noise_base_drift, self.noise_max_drift)
-            self.noise_jitter = self._interpolate(p, 0.1, 1.0,
-                self.noise_base_jitter, self.noise_max_jitter)
-
-        # ===== 碰撞检测（从进度0.5开始） =====
-        if p >= 0.5:
-            self.collision_safety_dist = self._interpolate(p, 0.5, 1.0,
-                self.collision_base_safety_dist, self.collision_max_safety_dist)
-            self.collision_penalty = self._interpolate(p, 0.5, 1.0,
-                self.collision_base_penalty, self.collision_max_penalty)
 
     def _interpolate(self, p, start_p, end_p, start_val, end_val):
         """线性插值"""

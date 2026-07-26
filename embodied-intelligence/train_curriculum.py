@@ -1,12 +1,13 @@
 """
 课程学习训练脚本 - 渐进式引入增强模块
 训练阶段：
-Stage 1 (0-10%): 纯基础环境，无增强
-Stage 2 (10-30%): 引入微弱领域随机化
-Stage 3 (30-50%): 引入微弱执行器动力学
-Stage 4 (50-70%): 引入微弱外部扰动
-Stage 5 (70-90%): 所有增强模块强度增加
-Stage 6 (90-100%): 所有增强模块最大强度
+Stage 1 (0-10%):  纯基础环境
+Stage 2 (10-20%): 引入传感器噪声
+Stage 3 (20-40%): 引入领域随机化
+Stage 4 (40-50%): 引入执行器动力学
+Stage 5 (50-60%): 引入碰撞检测
+Stage 6 (60-80%): 引入外部扰动
+Stage 7 (80-100%): 引入通信延迟 + 全部模块最大强度
 """
 
 import sys
@@ -86,11 +87,12 @@ if __name__ == "__main__":
     print(f"   Total Steps: {total_timesteps:,}", flush=True)
     print(f"\n[CURRICULUM STAGES]", flush=True)
     print(f"   Stage 1 (0-10%):    Pure base environment", flush=True)
-    print(f"   Stage 2 (10-30%):   Weak domain randomization", flush=True)
-    print(f"   Stage 3 (30-50%):   Weak actuator dynamics", flush=True)
-    print(f"   Stage 4 (50-70%):   Weak external disturbance", flush=True)
-    print(f"   Stage 5 (70-90%):   Increasing all enhancements", flush=True)
-    print(f"   Stage 6 (90-100%):  Max enhancement intensity", flush=True)
+    print(f"   Stage 2 (10-20%):   Sensor noise (Gaussian/quantization/drift/jitter)", flush=True)
+    print(f"   Stage 3 (20-40%):   Domain randomization (friction/damping/mass/gravity)", flush=True)
+    print(f"   Stage 4 (40-50%):   Actuator dynamics (torque/velocity/dead-zone)", flush=True)
+    print(f"   Stage 5 (50-60%):   Collision detection (safety penalty)", flush=True)
+    print(f"   Stage 6 (60-80%):   External disturbances (random forces)", flush=True)
+    print(f"   Stage 7 (80-100%):  Communication latency + all modules max intensity", flush=True)
 
     print(f"\nCreating {n_envs} parallel environments...", flush=True)
     sys.stderr = open(os.devnull, 'w')
