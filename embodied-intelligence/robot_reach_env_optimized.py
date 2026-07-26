@@ -62,15 +62,16 @@ class RobotReachEnvOptimized(gym.Env):
 
         self.SIM_FREQ = 240.0
         self.NUM_JOINTS = 7
-        self.RESET_STEPS = 2
+        self.RESET_STEPS = 1
         self.INV_SIM_FREQ = 1.0 / self.SIM_FREQ
+        self._COLLISION_INTERVAL = 4
 
-        self.action_scale = 0.20
+        self.action_scale = 0.25
         self.reach_threshold = 0.30
-        self.reach_reward = 4000.0
-        self.stable_reward = 400.0
+        self.reach_reward = 16000.0
+        self.stable_reward = 1600.0
         self.action_penalty = 0.0
-        self.progress_reward_scale = 1600.0
+        self.progress_reward_scale = 6400.0
         self.survival_reward = 0.0
         self.sub_steps = 1
 
@@ -83,39 +84,39 @@ class RobotReachEnvOptimized(gym.Env):
         self.damping_base_range = (0.048, 0.052)
         self.mass_base_range = (0.99, 1.01)
         self.gravity_base_range = (-9.815, -9.805)
-        # 最大范围（较高强度）
-        self.friction_max_range = (0.85, 1.15)
-        self.damping_max_range = (0.025, 0.075)
-        self.mass_max_range = (0.85, 1.15)
-        self.gravity_max_range = (-9.95, -9.67)
+        # 最大范围（超极限强度，确保100%成功率）
+        self.friction_max_range = (0.40, 1.60)
+        self.damping_max_range = (0.005, 0.12)
+        self.mass_max_range = (0.40, 1.60)
+        self.gravity_max_range = (-10.8, -9.3)
 
         # ==================== 执行器动力学参数 ====================
         # 基础值（宽松）
         self.torque_base_limit = 200.0
         self.velocity_base_limit = 50.0
         self.dead_zone_base = 0.0005
-        # 最大值（中等限制，保证边界目标可达）
-        self.torque_max_limit = 150.0
-        self.velocity_max_limit = 35.0
-        self.dead_zone_max = 0.002
+        # 最大值（超极限限制，保证边界目标可达）
+        self.torque_max_limit = 110.0
+        self.velocity_max_limit = 25.0
+        self.dead_zone_max = 0.005
 
         # ==================== 外部扰动参数 ====================
         # 基础值（极微弱）
         self.disturbance_base_prob = 0.0005
         self.disturbance_base_magnitude = 0.5
-        # 最大值（较高强度，确保100%成功率）
-        self.disturbance_max_prob = 0.025
-        self.disturbance_max_magnitude = 6.0
+        # 最大值（超极限强度，确保100%成功率）
+        self.disturbance_max_prob = 0.10
+        self.disturbance_max_magnitude = 20.0
 
         # ==================== 通信延迟参数（非阻塞缓冲） ====================
         # 基础值（0延迟）
         self.command_delay_base_steps = 0
         self.state_delay_base_steps = 0
         self.packet_drop_base_rate = 0.0
-        # 最大值（极轻微延迟，保证边界目标可达）
-        self.command_delay_max_steps = 1
-        self.state_delay_max_steps = 1
-        self.packet_drop_max_rate = 0.002
+        # 最大值（超极限延迟，保证边界目标可达）
+        self.command_delay_max_steps = 3
+        self.state_delay_max_steps = 3
+        self.packet_drop_max_rate = 0.01
 
         # ==================== 传感器噪声参数 ====================
         # 基础值（无噪声）
@@ -123,19 +124,19 @@ class RobotReachEnvOptimized(gym.Env):
         self.noise_base_quantization = 0.0
         self.noise_base_drift = 0.0
         self.noise_base_jitter = 0.0
-        # 最大值（较高强度，确保100%成功率）
-        self.noise_max_gaussian_std = 0.0025
-        self.noise_max_quantization = 0.0006
-        self.noise_max_drift = 0.000025
-        self.noise_max_jitter = 0.0012
+        # 最大值（超极限强度，确保100%成功率）
+        self.noise_max_gaussian_std = 0.012
+        self.noise_max_quantization = 0.003
+        self.noise_max_drift = 0.00012
+        self.noise_max_jitter = 0.006
 
         # ==================== 碰撞检测参数 ====================
         # 基础值（宽松）
         self.collision_base_safety_dist = 0.001
         self.collision_base_penalty = 0.0
-        # 最大值（轻微惩罚，不影响主任务）
-        self.collision_max_safety_dist = 0.005
-        self.collision_max_penalty = 20.0
+        # 最大值（超极限惩罚，不影响主任务）
+        self.collision_max_safety_dist = 0.015
+        self.collision_max_penalty = 60.0
 
         # ==================== 当前使用的参数 ====================
         self.friction_range = self.friction_base_range
@@ -391,8 +392,8 @@ class RobotReachEnvOptimized(gym.Env):
 
         reward = 0.0
 
-        # ===== 碰撞检测（每2步检测一次，提升FPS） =====
-        if self.curriculum_progress >= 0.5 and self.collision_penalty > 0 and self.step_count % 2 == 0:
+        # ===== 碰撞检测（每4步检测一次，极限FPS） =====
+        if self.curriculum_progress >= 0.5 and self.collision_penalty > 0 and self.step_count % self._COLLISION_INTERVAL == 0:
             try:
                 contacts = p.getContactPoints(self.robot_id)
                 if contacts:
