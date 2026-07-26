@@ -60,6 +60,10 @@ class RobotReachEnvOptimized(gym.Env):
         self.robot_id = None
         self.target_pos = None
 
+        self.SIM_FREQ = 240.0
+        self.NUM_JOINTS = 7
+        self.RESET_STEPS = 2
+
         self.action_scale = 0.20
         self.reach_threshold = 0.30
         self.reach_reward = 2000.0
@@ -156,7 +160,7 @@ class RobotReachEnvOptimized(gym.Env):
         self._state_buffer = []
 
         # 传感器漂移噪声状态
-        self._drift_state = np.zeros(7, dtype=np.float32)
+        self._drift_state = np.zeros(self.NUM_JOINTS, dtype=np.float32)
         self._drift_last_time = time.time()
 
         # 目标范围（基础：简单）
@@ -258,7 +262,7 @@ class RobotReachEnvOptimized(gym.Env):
         super().reset(seed=seed)
 
         p.resetSimulation()
-        p.setTimeStep(1 / 240.0)
+        p.setTimeStep(1 / self.SIM_FREQ)
         p.loadURDF("plane.urdf")
 
         self.robot_id = p.loadURDF(
@@ -270,7 +274,7 @@ class RobotReachEnvOptimized(gym.Env):
             gravity_z = self.np_random.uniform(*self.gravity_range)
             p.setGravity(0, 0, gravity_z)
             
-            for i in range(7):
+            for i in range(self.NUM_JOINTS):
                 damping = self.np_random.uniform(*self.damping_range)
                 friction = self.np_random.uniform(*self.friction_range)
                 p.changeDynamics(self.robot_id, i, 
@@ -282,7 +286,7 @@ class RobotReachEnvOptimized(gym.Env):
 
         self.target_pos = self.np_random.uniform(self.target_min, self.target_max).astype(np.float32)
 
-        for i in range(7):
+        for i in range(self.NUM_JOINTS):
             p.resetJointState(
                 self.robot_id, i,
                 self.np_random.uniform(-0.05, 0.05)
@@ -296,10 +300,10 @@ class RobotReachEnvOptimized(gym.Env):
         self._state_buffer = []
 
         # 重置传感器漂移噪声
-        self._drift_state = np.zeros(7, dtype=np.float32)
+        self._drift_state = np.zeros(self.NUM_JOINTS, dtype=np.float32)
         self._drift_last_time = time.time()
 
-        for _ in range(2):
+        for _ in range(self.RESET_STEPS):
             p.stepSimulation()
 
         ee_pos = np.array(p.getLinkState(self.robot_id, 6)[0])
@@ -327,7 +331,7 @@ class RobotReachEnvOptimized(gym.Env):
         if self.curriculum_progress >= 0.4:
             actual_action = np.where(np.abs(actual_action) < self.dead_zone, 0, actual_action)
 
-        states = p.getJointStates(self.robot_id, range(7))
+        states = p.getJointStates(self.robot_id, range(self.NUM_JOINTS))
         current_positions = np.array([s[0] for s in states])
         current_velocities = np.array([s[1] for s in states])
 
@@ -336,12 +340,12 @@ class RobotReachEnvOptimized(gym.Env):
         # 执行器动力学：速度限制
         if self.curriculum_progress >= 0.4:
             delta_pos = actual_action
-            max_delta = self.velocity_limit * (1 / 240.0)
+            max_delta = self.velocity_limit * (1 / self.SIM_FREQ)
             delta_pos = np.clip(delta_pos, -max_delta, max_delta)
             target_positions = current_positions + delta_pos
 
-        for i in range(7):
-            force = self.torque_limit if self.curriculum_progress >= 0.4 else 240
+        for i in range(self.NUM_JOINTS):
+            force = self.torque_limit if self.curriculum_progress >= 0.4 else self.torque_base_limit
             p.setJointMotorControl2(
                 self.robot_id, i,
                 p.POSITION_CONTROL,
@@ -420,14 +424,14 @@ class RobotReachEnvOptimized(gym.Env):
         return obs, reward, terminated, truncated, info
 
     def _get_obs(self):
-        states = p.getJointStates(self.robot_id, range(7))
+        states = p.getJointStates(self.robot_id, range(self.NUM_JOINTS))
         joint_pos = np.array([s[0] for s in states], dtype=np.float32)
         ee_pos = np.array(p.getLinkState(self.robot_id, 6)[0], dtype=np.float32)
 
         # ===== 传感器噪声 =====
         if self.curriculum_progress >= 0.1 and self.noise_gaussian_std > 0:
             # 1. 高斯噪声
-            joint_pos += np.random.normal(0, self.noise_gaussian_std, size=7).astype(np.float32)
+            joint_pos += np.random.normal(0, self.noise_gaussian_std, size=self.NUM_JOINTS).astype(np.float32)
 
             # 2. 量化噪声
             if self.noise_quantization > 0:
@@ -438,13 +442,13 @@ class RobotReachEnvOptimized(gym.Env):
                 current_time = time.time()
                 dt = current_time - self._drift_last_time
                 self._drift_last_time = current_time
-                self._drift_state += np.random.normal(0, self.noise_drift * dt, size=7).astype(np.float32)
+                self._drift_state += np.random.normal(0, self.noise_drift * dt, size=self.NUM_JOINTS).astype(np.float32)
                 self._drift_state = np.clip(self._drift_state, -0.01, 0.01)
                 joint_pos += self._drift_state
 
             # 4. 抖动噪声
             if self.noise_jitter > 0:
-                joint_pos += np.random.uniform(-self.noise_jitter, self.noise_jitter, size=7).astype(np.float32)
+                joint_pos += np.random.uniform(-self.noise_jitter, self.noise_jitter, size=self.NUM_JOINTS).astype(np.float32)
 
         return np.concatenate([
             joint_pos, ee_pos, self.target_pos
