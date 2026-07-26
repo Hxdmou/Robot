@@ -75,29 +75,39 @@ class RobotReachEnvOptimized(gym.Env):
         self.damping_base_range = (0.048, 0.052)
         self.mass_base_range = (0.99, 1.01)
         self.gravity_base_range = (-9.815, -9.805)
-        # 最大范围（轻微）
-        self.friction_max_range = (0.95, 1.05)
-        self.damping_max_range = (0.04, 0.06)
-        self.mass_max_range = (0.95, 1.05)
-        self.gravity_max_range = (-9.85, -9.78)
+        # 最大范围（中等）
+        self.friction_max_range = (0.90, 1.10)
+        self.damping_max_range = (0.03, 0.07)
+        self.mass_max_range = (0.90, 1.10)
+        self.gravity_max_range = (-9.90, -9.72)
 
         # ==================== 执行器动力学参数 ====================
         # 基础值（宽松）
         self.torque_base_limit = 200.0
         self.velocity_base_limit = 50.0
         self.dead_zone_base = 0.0005
-        # 最大值（轻微限制）
-        self.torque_max_limit = 160.0
-        self.velocity_max_limit = 30.0
-        self.dead_zone_max = 0.003
+        # 最大值（中等限制）
+        self.torque_max_limit = 120.0
+        self.velocity_max_limit = 20.0
+        self.dead_zone_max = 0.005
 
         # ==================== 外部扰动参数 ====================
         # 基础值（极微弱）
         self.disturbance_base_prob = 0.0005
         self.disturbance_base_magnitude = 0.5
-        # 最大值（轻微）
-        self.disturbance_max_prob = 0.008
-        self.disturbance_max_magnitude = 2.0
+        # 最大值（中等）
+        self.disturbance_max_prob = 0.02
+        self.disturbance_max_magnitude = 5.0
+
+        # ==================== 通信延迟参数（非阻塞缓冲） ====================
+        # 基础值（0延迟）
+        self.command_delay_base_steps = 0
+        self.state_delay_base_steps = 0
+        self.packet_drop_base_rate = 0.0
+        # 最大值（轻微延迟：1-2步延迟）
+        self.command_delay_max_steps = 2
+        self.state_delay_max_steps = 1
+        self.packet_drop_max_rate = 0.005
 
         # ==================== 当前使用的参数 ====================
         self.friction_range = self.friction_base_range
@@ -109,6 +119,13 @@ class RobotReachEnvOptimized(gym.Env):
         self.dead_zone = self.dead_zone_base
         self.disturbance_prob = self.disturbance_base_prob
         self.disturbance_magnitude = self.disturbance_base_magnitude
+        self.command_delay_steps = self.command_delay_base_steps
+        self.state_delay_steps = self.state_delay_base_steps
+        self.packet_drop_rate = self.packet_drop_base_rate
+
+        # 通信延迟缓冲（非阻塞）
+        self._command_buffer = []
+        self._state_buffer = []
 
         self.target_min = np.array([0.40, -0.10, 0.30], dtype=np.float32)
         self.target_max = np.array([0.50, 0.10, 0.40], dtype=np.float32)
@@ -151,6 +168,15 @@ class RobotReachEnvOptimized(gym.Env):
                 self.disturbance_base_prob, self.disturbance_max_prob)
             self.disturbance_magnitude = self._interpolate(p, 0.6, 1.0,
                 self.disturbance_base_magnitude, self.disturbance_max_magnitude)
+
+        # ===== 通信延迟 =====
+        if p >= 0.8:
+            self.command_delay_steps = int(self._interpolate(p, 0.8, 1.0,
+                self.command_delay_base_steps, self.command_delay_max_steps))
+            self.state_delay_steps = int(self._interpolate(p, 0.8, 1.0,
+                self.state_delay_base_steps, self.state_delay_max_steps))
+            self.packet_drop_rate = self._interpolate(p, 0.8, 1.0,
+                self.packet_drop_base_rate, self.packet_drop_max_rate)
 
     def _interpolate(self, p, start_p, end_p, start_val, end_val):
         """线性插值"""
@@ -204,6 +230,10 @@ class RobotReachEnvOptimized(gym.Env):
         self.step_count = 0
         self.stable_count = 0
 
+        # 清空通信延迟缓冲
+        self._command_buffer = []
+        self._state_buffer = []
+
         for _ in range(2):
             p.stepSimulation()
 
@@ -215,19 +245,32 @@ class RobotReachEnvOptimized(gym.Env):
     def step(self, action):
         action = np.clip(action, -1.0, 1.0) * self.action_scale
 
+        # ===== 通信延迟：动作缓冲 =====
+        if self.curriculum_progress >= 0.8 and self.command_delay_steps > 0:
+            self._command_buffer.append(action.copy())
+            if len(self._command_buffer) > self.command_delay_steps:
+                actual_action = self._command_buffer.pop(0)
+            else:
+                actual_action = action.copy()
+            # 模拟丢包
+            if self.packet_drop_rate > 0 and self.np_random.random() < self.packet_drop_rate:
+                actual_action = np.zeros_like(actual_action)
+        else:
+            actual_action = action
+
         # 执行器动力学：死区处理
         if self.curriculum_progress >= 0.4:
-            action = np.where(np.abs(action) < self.dead_zone, 0, action)
+            actual_action = np.where(np.abs(actual_action) < self.dead_zone, 0, actual_action)
 
         states = p.getJointStates(self.robot_id, range(7))
         current_positions = np.array([s[0] for s in states])
         current_velocities = np.array([s[1] for s in states])
 
-        target_positions = current_positions + action
+        target_positions = current_positions + actual_action
 
         # 执行器动力学：速度限制
         if self.curriculum_progress >= 0.4:
-            delta_pos = action
+            delta_pos = actual_action
             max_delta = self.velocity_limit * (1 / 240.0)
             delta_pos = np.clip(delta_pos, -max_delta, max_delta)
             target_positions = current_positions + delta_pos
@@ -260,6 +303,13 @@ class RobotReachEnvOptimized(gym.Env):
         self.step_count += 1
 
         obs = self._get_obs()
+
+        # ===== 通信延迟：状态缓冲 =====
+        if self.curriculum_progress >= 0.8 and self.state_delay_steps > 0:
+            self._state_buffer.append(obs.copy())
+            if len(self._state_buffer) > self.state_delay_steps:
+                obs = self._state_buffer.pop(0)
+
         ee_pos = np.array(p.getLinkState(self.robot_id, 6)[0])
         dist = np.linalg.norm(ee_pos - self.target_pos)
 
