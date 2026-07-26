@@ -22,6 +22,7 @@ def print_usage():
     print("    test            测试所有课程进度成功率")
     print("    deploy          启动部署模式（含真实机械臂对接）")
     print("    benchmark       性能基准测试（FPS等）")
+    print("    smoke           回归测试套件（12项核心功能验证）")
     print("")
     print("  示例:")
     print("    python main.py train")
@@ -92,6 +93,11 @@ def main():
         print("  启用模块:    全部8大模块", flush=True)
         print("=" * 50, flush=True)
         env.close()
+
+    elif command == "smoke":
+        print("[INFO] 运行回归测试套件（12项核心功能验证）...", flush=True)
+        os.chdir(script_dir)
+        exec(open("test_smoke.py", encoding="utf-8").read())
 
     elif command in ["help", "-h", "--help"]:
         print_usage()
