@@ -67,8 +67,9 @@ class RobotReachEnvOptimized(gym.Env):
         self.action_scale = 0.20
         self.reach_threshold = 0.30
         self.reach_reward = 2000.0
+        self.stable_reward = 150.0
         self.action_penalty = 0.0
-        self.progress_reward_scale = 200.0
+        self.progress_reward_scale = 500.0
         self.survival_reward = 0.0
         self.sub_steps = 1
 
@@ -294,6 +295,7 @@ class RobotReachEnvOptimized(gym.Env):
 
         self.step_count = 0
         self.stable_count = 0
+        self._cached_ee_pos = np.array(p.getLinkState(self.robot_id, 6)[0], dtype=np.float32)
 
         # 清空通信延迟缓冲
         self._command_buffer = []
@@ -371,6 +373,9 @@ class RobotReachEnvOptimized(gym.Env):
 
         self.step_count += 1
 
+        # 缓存getLinkState结果（避免step()和_get_obs()重复调用）
+        self._cached_ee_pos = np.array(p.getLinkState(self.robot_id, 6)[0], dtype=np.float32)
+
         obs = self._get_obs()
 
         # ===== 通信延迟：状态缓冲 =====
@@ -379,13 +384,13 @@ class RobotReachEnvOptimized(gym.Env):
             if len(self._state_buffer) > self.state_delay_steps:
                 obs = self._state_buffer.pop(0)
 
-        ee_pos = np.array(p.getLinkState(self.robot_id, 6)[0])
+        ee_pos = self._cached_ee_pos
         dist = np.linalg.norm(ee_pos - self.target_pos)
 
         reward = 0.0
 
-        # ===== 碰撞检测 =====
-        if self.curriculum_progress >= 0.5 and self.collision_penalty > 0:
+        # ===== 碰撞检测（每2步检测一次，提升FPS） =====
+        if self.curriculum_progress >= 0.5 and self.collision_penalty > 0 and self.step_count % 2 == 0:
             try:
                 contacts = p.getContactPoints(self.robot_id)
                 if contacts:
@@ -401,7 +406,7 @@ class RobotReachEnvOptimized(gym.Env):
 
         if dist < self.reach_threshold:
             self.stable_count += 1
-            reward += 100.0
+            reward += self.stable_reward
             if self.stable_count >= self.stable_threshold:
                 reward += self.reach_reward
                 terminated = True
@@ -426,7 +431,8 @@ class RobotReachEnvOptimized(gym.Env):
     def _get_obs(self):
         states = p.getJointStates(self.robot_id, range(self.NUM_JOINTS))
         joint_pos = np.array([s[0] for s in states], dtype=np.float32)
-        ee_pos = np.array(p.getLinkState(self.robot_id, 6)[0], dtype=np.float32)
+        # 使用step()中缓存的ee_pos，避免重复调用getLinkState
+        ee_pos = self._cached_ee_pos
 
         # ===== 传感器噪声 =====
         if self.curriculum_progress >= 0.1 and self.noise_gaussian_std > 0:
