@@ -19,6 +19,8 @@ import numpy as np
 import pybullet as p
 import pybullet_data
 import gc
+import random
+import time
 
 
 class RobotReachEnvOptimized(gym.Env):
@@ -109,6 +111,26 @@ class RobotReachEnvOptimized(gym.Env):
         self.state_delay_max_steps = 1
         self.packet_drop_max_rate = 0.005
 
+        # ==================== 传感器噪声参数 ====================
+        # 基础值（无噪声）
+        self.noise_base_gaussian_std = 0.0
+        self.noise_base_quantization = 0.0
+        self.noise_base_drift = 0.0
+        self.noise_base_jitter = 0.0
+        # 最大值（轻微噪声）
+        self.noise_max_gaussian_std = 0.002
+        self.noise_max_quantization = 0.0005
+        self.noise_max_drift = 0.00002
+        self.noise_max_jitter = 0.001
+
+        # ==================== 碰撞检测参数 ====================
+        # 基础值（宽松）
+        self.collision_base_safety_dist = 0.001
+        self.collision_base_penalty = 0.0
+        # 最大值（中等）
+        self.collision_max_safety_dist = 0.005
+        self.collision_max_penalty = 50.0
+
         # ==================== 当前使用的参数 ====================
         self.friction_range = self.friction_base_range
         self.damping_range = self.damping_base_range
@@ -122,10 +144,20 @@ class RobotReachEnvOptimized(gym.Env):
         self.command_delay_steps = self.command_delay_base_steps
         self.state_delay_steps = self.state_delay_base_steps
         self.packet_drop_rate = self.packet_drop_base_rate
+        self.noise_gaussian_std = self.noise_base_gaussian_std
+        self.noise_quantization = self.noise_base_quantization
+        self.noise_drift = self.noise_base_drift
+        self.noise_jitter = self.noise_base_jitter
+        self.collision_safety_dist = self.collision_base_safety_dist
+        self.collision_penalty = self.collision_base_penalty
 
         # 通信延迟缓冲（非阻塞）
         self._command_buffer = []
         self._state_buffer = []
+
+        # 传感器漂移噪声状态
+        self._drift_state = np.zeros(7, dtype=np.float32)
+        self._drift_last_time = time.time()
 
         self.target_min = np.array([0.40, -0.10, 0.30], dtype=np.float32)
         self.target_max = np.array([0.50, 0.10, 0.40], dtype=np.float32)
@@ -177,6 +209,24 @@ class RobotReachEnvOptimized(gym.Env):
                 self.state_delay_base_steps, self.state_delay_max_steps))
             self.packet_drop_rate = self._interpolate(p, 0.8, 1.0,
                 self.packet_drop_base_rate, self.packet_drop_max_rate)
+
+        # ===== 传感器噪声（从进度0.1开始，最早引入） =====
+        if p >= 0.1:
+            self.noise_gaussian_std = self._interpolate(p, 0.1, 1.0,
+                self.noise_base_gaussian_std, self.noise_max_gaussian_std)
+            self.noise_quantization = self._interpolate(p, 0.1, 1.0,
+                self.noise_base_quantization, self.noise_max_quantization)
+            self.noise_drift = self._interpolate(p, 0.1, 1.0,
+                self.noise_base_drift, self.noise_max_drift)
+            self.noise_jitter = self._interpolate(p, 0.1, 1.0,
+                self.noise_base_jitter, self.noise_max_jitter)
+
+        # ===== 碰撞检测（从进度0.5开始） =====
+        if p >= 0.5:
+            self.collision_safety_dist = self._interpolate(p, 0.5, 1.0,
+                self.collision_base_safety_dist, self.collision_max_safety_dist)
+            self.collision_penalty = self._interpolate(p, 0.5, 1.0,
+                self.collision_base_penalty, self.collision_max_penalty)
 
     def _interpolate(self, p, start_p, end_p, start_val, end_val):
         """线性插值"""
@@ -233,6 +283,10 @@ class RobotReachEnvOptimized(gym.Env):
         # 清空通信延迟缓冲
         self._command_buffer = []
         self._state_buffer = []
+
+        # 重置传感器漂移噪声
+        self._drift_state = np.zeros(7, dtype=np.float32)
+        self._drift_last_time = time.time()
 
         for _ in range(2):
             p.stepSimulation()
@@ -315,6 +369,15 @@ class RobotReachEnvOptimized(gym.Env):
 
         reward = 0.0
 
+        # ===== 碰撞检测 =====
+        if self.curriculum_progress >= 0.5 and self.collision_penalty > 0:
+            try:
+                contacts = p.getContactPoints(self.robot_id)
+                if contacts:
+                    reward -= self.collision_penalty
+            except:
+                pass
+
         if self.last_distance is not None:
             distance_change = self.last_distance - dist
             reward += distance_change * self.progress_reward_scale
@@ -349,6 +412,28 @@ class RobotReachEnvOptimized(gym.Env):
         states = p.getJointStates(self.robot_id, range(7))
         joint_pos = np.array([s[0] for s in states], dtype=np.float32)
         ee_pos = np.array(p.getLinkState(self.robot_id, 6)[0], dtype=np.float32)
+
+        # ===== 传感器噪声 =====
+        if self.curriculum_progress >= 0.1 and self.noise_gaussian_std > 0:
+            # 1. 高斯噪声
+            joint_pos += np.random.normal(0, self.noise_gaussian_std, size=7).astype(np.float32)
+
+            # 2. 量化噪声
+            if self.noise_quantization > 0:
+                joint_pos = np.round(joint_pos / self.noise_quantization) * self.noise_quantization
+
+            # 3. 漂移噪声（随时间累积）
+            if self.noise_drift > 0:
+                current_time = time.time()
+                dt = current_time - self._drift_last_time
+                self._drift_last_time = current_time
+                self._drift_state += np.random.normal(0, self.noise_drift * dt, size=7).astype(np.float32)
+                self._drift_state = np.clip(self._drift_state, -0.01, 0.01)
+                joint_pos += self._drift_state
+
+            # 4. 抖动噪声
+            if self.noise_jitter > 0:
+                joint_pos += np.random.uniform(-self.noise_jitter, self.noise_jitter, size=7).astype(np.float32)
 
         return np.concatenate([
             joint_pos, ee_pos, self.target_pos
