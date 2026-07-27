@@ -375,6 +375,188 @@ ARM_DATABASE = {
             },
         },
     },
+
+    # ============================================================
+    # AIRBOT P7 (七轴科研级机械臂 - 内置旭日5 AI芯片)
+    # ============================================================
+    "airbot_p7": {
+        "brand": "AIRBOT (求之科技)",
+        "model": "P7",
+        "type": "research_intelligent",
+        "degrees_of_freedom": 7,
+        "payload_kg": 3.0,
+        "reach_mm": 640,
+        "weight_kg": 5.0,
+        "repeatability_mm": 0.1,
+        "protection_rating": "IP54",
+        "power_consumption_w": 60,
+
+        # 关节参数（J1-J7七轴）
+        "joint_indices": [0, 1, 2, 3, 4, 5, 6],
+        "joint_names": ["J1", "J2", "J3", "J4", "J5", "J6", "J7"],
+        "joint_limits": {
+            "lower": [-3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142],
+            "upper": [3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142],
+            "speed": [3.142] * 7,  # rad/s
+            "effort": [30.0] * 7,   # Nm
+        },
+        "start_joint_positions": [0, -1.57, 0, 1.57, 0, -1.57, 0],
+        "ee_link": "end_effector_link",
+
+        # 工作空间
+        "workspace": {
+            "radius_m": 0.640,
+            "min_z_m": -0.1,
+            "max_z_m": 0.9,
+        },
+
+        # 通信配置（多接口）
+        "communication": {
+            "protocol": "AIRBOT SDK (Python/C++/ROS2)",
+            "default_host": "192.168.1.100",
+            "default_port": 8080,
+            "alternative_ports": [3000, 5000, 9090],
+            "required_packages": ["airbot_sdk", "rclpy", "python-can"],
+            "connection_type": "ethernet",
+            "interfaces": {
+                "end_effector": ["USB Type-C 3.0", "USB Type-C 2.0"],
+                "base": ["Ethernet", "CAN FD", "Power 24-48V/5A"],
+            },
+            "supported_bus": ["CAN FD", "Ethernet TCP/IP"],
+        },
+
+        # 内置AI计算能力
+        "edge_ai": {
+            "chip": "旭日5 (Sunrise 5)",
+            "ai_tops": 10.0,
+            "cpu_cores": 8,
+            "cpu_type": "ARM Cortex-A55",
+            "native_supported_models": ["Transformer", "ViT", "CNN"],
+            "standalone_capabilities": [
+                "目标检测",
+                "深度估算",
+                "操作策略推理",
+                "视觉伺服控制",
+            ],
+            "deployment_modes": {
+                "edge_only": "仅使用内置AI算力（无需外置计算设备）",
+                "edge_plus_pc": "内置AI+PC混合计算",
+                "pc_only": "纯外置PC计算（传统模式）",
+            },
+        },
+
+        # 控制模式
+        "control_modes": {
+            "position": {
+                "name": "位置控制",
+                "description": "关节位置/笛卡尔空间位置控制",
+                "supported": True,
+            },
+            "velocity": {
+                "name": "速度控制",
+                "description": "关节速度/笛卡尔空间速度控制",
+                "supported": True,
+            },
+            "torque": {
+                "name": "力矩控制",
+                "description": "关节力矩控制/力反馈控制",
+                "supported": True,
+            },
+            "gravity_compensation": {
+                "name": "重力补偿",
+                "description": "全域重力补偿，支持柔顺拖动示教",
+                "supported": True,
+            },
+            "drag_teach": {
+                "name": "拖动示教",
+                "description": "手动拖拽录制操作流程，支持回放",
+                "supported": True,
+            },
+        },
+
+        # 仿真配置
+        "simulation": {
+            "urdf_path": "airbot_p7/airbot_p7.urdf",
+            "pybullet_available": True,
+        },
+
+        # 安全限制
+        "safety": {
+            "max_joint_speed": 3.142,
+            "max_cartesian_speed": 1.0,
+            "max_force_translational": 80.0,
+            "max_force_rotational": 8.0,
+            "max_payload": 3.0,
+            "collision_sensitivity": "medium",
+            "has_self_collision_guard": True,
+            "has_torque_sensors": True,
+            "has_brake_lock": True,
+            "brake_lock_description": "全关节内置抱闸，意外断电自动锁止",
+        },
+
+        # 末端执行器支持
+        "end_effectors": {
+            "g2p_gripper": {
+                "name": "G2P二指夹爪",
+                "type": "gripper",
+                "stroke_mm": 95,
+                "max_force_n": 30,
+                "mount_type": "quick_change",
+            },
+            "inspire_hand": {
+                "name": "因时灵巧手",
+                "type": "dexterous_hand",
+                "fingers": 5,
+                "mount_type": "quick_change",
+            },
+            "ql_brain_hand": {
+                "name": "强脑灵巧手",
+                "type": "dexterous_hand",
+                "fingers": 5,
+                "mount_type": "quick_change",
+            },
+            "critical_point_hand": {
+                "name": "临界点灵巧手",
+                "type": "dexterous_hand",
+                "fingers": 5,
+                "mount_type": "quick_change",
+            },
+        },
+
+        # 相机支持
+        "cameras": {
+            "rgb_camera": {
+                "name": "RGB相机",
+                "type": "rgb",
+                "resolution": "1920x1080",
+                "mount_type": "wrist",
+            },
+            "rgbd_camera": {
+                "name": "RGB-D相机",
+                "type": "rgbd",
+                "resolution": "1280x720",
+                "depth_range": "0.1-10m",
+                "mount_type": "wrist",
+            },
+        },
+
+        # 部署要求
+        "deployment_requirements": {
+            "power_voltage": "24-48V DC",
+            "power_current": "5A",
+            "network": "Gigabit Ethernet / CAN FD",
+            "environment_temp": "-10°C 至 55°C",
+            "humidity": "10-90% (非凝结)",
+            "protection": "IP54",
+            "min_compute_requirements": {
+                "cpu_cores": 2,
+                "ram_gb": 4,
+                "os": "Linux (Ubuntu 20.04+) 或 Windows 10/11",
+                "note": "使用边缘模式时无需高性能PC，P7内置旭日5芯片可独立推理",
+            },
+            "edge_deployment_note": "内置10TOPS AI算力，支持独立完成目标检测、深度估算、操作策略推理",
+        },
+    },
 }
 
 

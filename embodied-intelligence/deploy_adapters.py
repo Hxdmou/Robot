@@ -257,7 +257,10 @@ class MultiProtocolAdapter:
         "egm": {"name": "EGM (ABB)", "type": "udp"},
         "modbus_tcp": {"name": "Modbus TCP", "type": "tcp"},
         "serial": {"name": "Serial (USB/RS232)", "type": "serial"},
+        "can_fd": {"name": "CAN FD", "type": "can"},
     }
+
+    BUS_PRIORITY = ["can_fd", "ethernet"]
 
     def __init__(self, arm_key: str):
         self.arm_key = arm_key
@@ -266,11 +269,19 @@ class MultiProtocolAdapter:
         self.connection = None
         self.connected = False
         self.protocol = None
+        self.canfd_adapter = None
 
     def detect_protocol(self) -> Optional[str]:
         if not self.arm_config:
             return None
         return self.arm_config.get("communication", {}).get("protocol", "unknown")
+
+    def get_available_buses(self) -> List[str]:
+        """获取可用的总线接口"""
+        if not self.arm_config:
+            return []
+        comm = self.arm_config.get("communication", {})
+        return comm.get("supported_bus", ["Ethernet TCP/IP"])
 
     def connect(self, host: str = None, port: int = None, **kwargs) -> bool:
         if not self.arm_config:
