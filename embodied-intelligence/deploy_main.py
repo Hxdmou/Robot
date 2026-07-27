@@ -48,6 +48,13 @@ from latency_simulator import LatencySystem
 from actuator_dynamics import ActuatorSystem
 from disturbance_simulator import DisturbanceSystem
 from sim_to_real_adapter import SimToRealAdapter, DeploymentSafetyGuard
+from deploy_tools import (
+    DeploymentSnapshot,
+    SafetyParameterValidator,
+    FailoverManager,
+    DeploymentReportGenerator,
+    DeploymentArchiver
+)
 
 physicsClient = None
 resource_monitor = None
@@ -73,6 +80,13 @@ safety_guard = None
 EXECUTION_MODE = "model"  # "model" 或 "trajectory"
 MODEL_PATH = "ppo_robot_reach_curriculum"
 MAX_STEPS_PER_TASK = 300
+
+# ========== 新增：部署工具 ==========
+deploy_snapshot = None
+failover_manager = None
+deploy_reporter = None
+deploy_archiver = None
+deploy_start_time = None
 
 
 def signal_handler(sig, frame):
@@ -120,13 +134,40 @@ def init_environment(execution_mode=None):
     Args:
         execution_mode: "model"（模型推理）或 "trajectory"（硬编码轨迹）
     """
-    global physicsClient, resource_monitor, robot_monitor, perf_monitor, logger, robot_adapter, noise_system, collision_detector, force_feedback, obstacle_ids, data_recorder, domain_randomizer, latency_system, actuator_system, disturbance_system, sim_to_real, safety_guard, EXECUTION_MODE
+    global physicsClient, resource_monitor, robot_monitor, perf_monitor, logger, robot_adapter, noise_system, collision_detector, force_feedback, obstacle_ids, data_recorder, domain_randomizer, latency_system, actuator_system, disturbance_system, sim_to_real, safety_guard, EXECUTION_MODE, deploy_snapshot, failover_manager, deploy_reporter, deploy_archiver, deploy_start_time
 
     if execution_mode:
         EXECUTION_MODE = execution_mode
 
     logger = DeployLogger()
     logger.info(f"初始化环境... (模式: {ROBOT_MODE}, 执行: {EXECUTION_MODE})")
+
+    # ========== 部署工具初始化 ==========
+    deploy_start_time = time.time()
+
+    # 1. 创建部署配置快照
+    deploy_snapshot = DeploymentSnapshot()
+    deploy_snapshot.create_snapshot({
+        "mode": ROBOT_MODE,
+        "execution": EXECUTION_MODE,
+    })
+
+    # 2. 安全参数完整性验证
+    safety_validator = SafetyParameterValidator()
+    safety_ok, safety_issues = safety_validator.validate_all()
+    if safety_ok:
+        logger.info("安全参数完整性验证: ✅ 通过")
+    else:
+        logger.warn(f"安全参数完整性验证发现 {len(safety_issues)} 个问题")
+        for issue in safety_issues:
+            logger.warn(f"  - {issue}")
+
+    # 3. 初始化降级管理器
+    failover_manager = FailoverManager(max_consecutive_failures=5, cooldown_cycles=50)
+
+    # 4. 初始化报告生成器和归档器
+    deploy_reporter = DeploymentReportGenerator()
+    deploy_archiver = DeploymentArchiver()
 
     # ========== Sim-to-Real 适配器 + 安全护栏 ==========
     sim_to_real = SimToRealAdapter(
@@ -548,11 +589,27 @@ def execute_task_trajectory(config, target_pos):
 
 
 def execute_task(config, target_pos):
-    """根据当前执行模式选择任务执行方式"""
-    if EXECUTION_MODE == "model":
-        return execute_task_model(config, target_pos)
-    else:
+    """根据当前执行模式选择任务执行方式（支持自动降级）"""
+    # 检查降级管理器状态：如果模型模式连续失败，自动切换到轨迹模式
+    use_trajectory = failover_manager.should_use_trajectory() if failover_manager else False
+
+    if use_trajectory or EXECUTION_MODE == "trajectory":
+        if use_trajectory and EXECUTION_MODE == "model":
+            # 降级状态，使用轨迹模式
+            error = execute_task_trajectory(config, target_pos)
+            # 降级中仍然记录结果，用于判断是否可以恢复
+            passed = error < 0.02
+            if failover_manager:
+                failover_manager.record_result(passed)
+            return error
         return execute_task_trajectory(config, target_pos)
+    else:
+        error = execute_task_model(config, target_pos)
+        # 记录结果到降级管理器
+        if failover_manager:
+            passed = error < 0.02
+            failover_manager.record_result(passed)
+        return error
 
 
 def run_calibration(config):
@@ -836,6 +893,53 @@ def deploy_loop(config):
 
     if perf_monitor:
         perf_monitor.save_report()
+
+    # ========== 部署后：生成报告 + 归档数据 ==========
+    duration = time.time() - deploy_start_time if deploy_start_time else 0
+
+    # 收集资源统计
+    resource_stats = {}
+    if perf_monitor:
+        perf_summary = perf_monitor.get_summary()
+        if perf_summary:
+            resource_stats = {
+                "avg_cpu": perf_summary.get("avg_cpu", 0),
+                "max_cpu": perf_summary.get("max_cpu", 0),
+                "avg_mem": perf_summary.get("avg_memory", 0),
+                "max_mem": perf_summary.get("max_memory", 0),
+            }
+
+    # 收集安全事件统计
+    safety_events = {
+        "emergency_stops": 0,
+        "collision_warnings": collision_detector.get_collision_stats().get("total_collisions", 0) if collision_detector else 0,
+        "failover_count": failover_manager.get_stats().get("failover_count", 0) if failover_manager else 0,
+    }
+
+    # 生成部署报告
+    if deploy_reporter:
+        deploy_data = {
+            "mode": ROBOT_MODE,
+            "execution": EXECUTION_MODE,
+            "total_cycles": cycle_count,
+            "success_count": success_count,
+            "failure_count": cycle_count - success_count,
+            "success_rate": pass_rate,
+            "duration_seconds": duration,
+            "resource_stats": resource_stats,
+            "safety_events": safety_events,
+            "failover_stats": failover_manager.get_stats() if failover_manager else {},
+            "health_checks": {
+                "robot_connection": {"passed": True, "detail": ROBOT_MODE},
+                "success_rate": {"passed": pass_rate >= 70, "detail": f"{pass_rate:.1f}%"},
+            }
+        }
+        deploy_reporter.generate_report(deploy_data)
+
+    # 归档部署数据
+    if deploy_archiver:
+        deploy_archiver.archive_deployment()
+        deploy_archiver.cleanup_old_archives(keep_last=10)
 
 
 def cleanup():

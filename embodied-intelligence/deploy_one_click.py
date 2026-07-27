@@ -174,6 +174,26 @@ def run_checklist(mode, robot_host=None, robot_port=8080):
     check_config_file()
     check_model_file()
 
+    # 新增：安全参数完整性验证
+    try:
+        from deploy_tools import SafetyParameterValidator
+        validator = SafetyParameterValidator()
+        safety_ok, safety_issues = validator.validate_all()
+        CHECKLIST["safety_params"] = {
+            "name": "安全参数完整性",
+            "passed": safety_ok,
+            "detail": f"发现{len(safety_issues)}个问题" if not safety_ok else "全部通过"
+        }
+        if safety_issues:
+            for issue in safety_issues[:3]:
+                print(f"    ⚠️  {issue}")
+    except Exception as e:
+        CHECKLIST["safety_params"] = {
+            "name": "安全参数完整性",
+            "passed": False,
+            "detail": f"验证异常: {e}"
+        }
+
     if mode == "real":
         host = robot_host or "192.168.3.100"
         check_robot_ip(host)
