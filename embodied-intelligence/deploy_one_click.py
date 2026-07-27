@@ -283,11 +283,17 @@ def print_quick_start_guide(mode):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="一键部署脚本")
+    parser = argparse.ArgumentParser(description="一键部署脚本（支持多种真实机械臂）")
     parser.add_argument("--mode", choices=["sim", "real"], default="sim",
                         help="部署模式: sim=仿真(默认), real=真实机械臂")
     parser.add_argument("--execution", choices=["model", "trajectory"], default="model",
                         help="执行模式: model=模型推理(默认), trajectory=轨迹插值")
+    parser.add_argument("--arm", default=None,
+                        help="机械臂型号key (如: franka_panda, ur_ur5e, kuka_iiwa14, abb_yumi, dobot_magician)")
+    parser.add_argument("--check-level", choices=["minimal", "standard", "strict"], default="standard",
+                        help="部署前检查级别 (默认: standard)")
+    parser.add_argument("--list-arms", action="store_true",
+                        help="列出所有支持的机械臂型号")
     parser.add_argument("--host", default=None, help="机械臂IP地址（真实模式）")
     parser.add_argument("--port", type=int, default=8080, help="机械臂端口（真实模式）")
     parser.add_argument("--check-only", action="store_true", help="只运行验证检查，不启动部署")
@@ -295,8 +301,44 @@ def main():
 
     args = parser.parse_args()
 
-    # ========== 1. 运行验证清单 ==========
-    ok = run_checklist(args.mode, args.host, args.port)
+    # 列出支持的机械臂
+    if args.list_arms:
+        from robot_arm_db import RobotArmDB
+        db = RobotArmDB()
+        db.print_all_summaries()
+        sys.exit(0)
+
+    # 选择机械臂型号
+    arm_key = args.arm or "franka_panda"
+    if not args.arm and args.mode == "real":
+        # 真实模式下提示选择
+        from robot_arm_db import RobotArmDB
+        db = RobotArmDB()
+        print("\n请选择机械臂型号（默认 franka_panda）：")
+        arms = db.list_available_arms()
+        for i, key in enumerate(arms, 1):
+            s = db.get_summary(key)
+            print(f"  {i}. {key} ({s['brand']} {s['model']}, {s['dof']}轴)")
+        try:
+            choice = input("\n请输入编号 (默认1): ").strip()
+            if choice and int(choice) >= 1 and int(choice) <= len(arms):
+                arm_key = arms[int(choice) - 1]
+        except:
+            pass
+    print(f"\n[DEPLOY] 目标机械臂: {arm_key}")
+
+    # ========== 1. 运行部署前检查（使用新的动态检查器） ==========
+    from deploy_adapters import run_deployment_preflight
+    ok = run_deployment_preflight(
+        arm_key=arm_key,
+        check_level=args.check_level,
+        host=args.host,
+        port=args.port,
+        interactive=not args.no_guide
+    )
+
+    # 同时运行原有清单（向后兼容）
+    run_checklist(args.mode, args.host, args.port)
 
     if args.check_only:
         sys.exit(0 if ok else 1)
