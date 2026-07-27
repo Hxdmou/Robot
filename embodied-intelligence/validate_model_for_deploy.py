@@ -32,6 +32,9 @@ VALIDATION_THRESHOLDS = {
     "min_success_rate": 0.70,    # 最低成功率 70%
     "max_avg_error_mm": 20.0,     # 最大平均误差 20mm
     "min_fps": 500.0,              # 最低推理FPS 500
+    # CD-LAM 因果去偏阈值
+    "min_zero_action_pass_rate": 0.70,     # 零动作通过率 ≥70%
+    "min_cd_lam_score": 40.0,               # CD-LAM评分 ≥40
 }
 
 
@@ -175,7 +178,37 @@ def validate_inference_performance(model, num_episodes=5):
     return results
 
 
-def validate_thresholds(results):
+def validate_cd_lam_debias(model, env, num_episodes=5):
+    """
+    [4.5/5] CD-LAM因果去偏评估
+
+    检查:
+    1. 零动作稳定性（静止指令测试）
+    2. 动作一致性（目标动作跟随）
+    3. CD-LAM总体评分
+    """
+    from cd_lam import create_cd_lam_evaluator
+
+    print("\n[4.5/5] CD-LAM因果去偏评估...")
+
+    evaluator = create_cd_lam_evaluator()
+
+    # 执行评估
+    metrics = evaluator.evaluate_full(
+        model=model,
+        env=env,
+        num_zero_test_episodes=num_episodes,
+    )
+
+    print(f"  ✅ 零动作通过率: {metrics.zero_action_pass_rate*100:.1f}%")
+    print(f"     零动作残余运动: {metrics.zero_action_residual:.6f} rad")
+    print(f"  ✅ 目标动作跟随率: {metrics.target_action_following_rate*100:.1f}%")
+    print(f"  ✅ CD-LAM评分: {metrics.overall_score:.1f} / 100")
+
+    return metrics
+
+
+def validate_thresholds(results, cd_lam_metrics=None):
     """验证性能是否达到部署阈值"""
     print("\n[5/5] 部署阈值检查...")
 
@@ -200,10 +233,32 @@ def validate_thresholds(results):
         if not passed:
             all_passed = False
 
+    # CD-LAM阈值检查
+    if cd_lam_metrics is not None:
+        cd_lam_checks = [
+            ("零动作通过率", cd_lam_metrics.zero_action_pass_rate, thresholds["min_zero_action_pass_rate"], ">=", "%"),
+            ("CD-LAM评分", cd_lam_metrics.overall_score, thresholds["min_cd_lam_score"], ">=", ""),
+        ]
+
+        for name, value, threshold, op, unit in cd_lam_checks:
+            if op == ">=":
+                passed = value >= threshold
+            else:
+                passed = value <= threshold
+
+            status = "✅" if passed else "⚠️"  # CD-LAM未通过给警告而非失败
+            display_value = f"{value*100:.1f}" if unit == "%" else f"{value:.1f}"
+            display_threshold = f"{threshold*100:.1f}" if unit == "%" else f"{threshold:.1f}"
+            print(f"  {status} {name}: {display_value}{unit} (阈值: {op}{display_threshold}{unit})")
+
+            if not passed:
+                # CD-LAM作为建议项，不强制阻止部署
+                pass
+
     return all_passed
 
 
-def print_summary(results, all_passed):
+def print_summary(results, all_passed, cd_lam_metrics=None):
     print("\n" + "=" * 70)
     print("  部署前验证结果汇总")
     print("=" * 70)
@@ -213,6 +268,25 @@ def print_summary(results, all_passed):
     print(f"  平均误差:     {results['avg_error_mm']:.2f}mm")
     print(f"  平均步数:     {results['avg_steps']:.1f}")
     print(f"  平均FPS:      {results['avg_fps']:.1f}")
+
+    if cd_lam_metrics is not None:
+        print("-" * 70)
+        print("  CD-LAM因果去偏评估:")
+        print(f"    零动作通过率: {cd_lam_metrics.zero_action_pass_rate*100:.1f}%")
+        print(f"    零动作残余: {cd_lam_metrics.zero_action_residual:.6f} rad")
+        print(f"    目标跟随率: {cd_lam_metrics.target_action_following_rate*100:.1f}%")
+        print(f"    CD-LAM评分: {cd_lam_metrics.overall_score:.1f} / 100")
+
+        if cd_lam_metrics.overall_score >= 80:
+            cd_grade = "A (优秀)"
+        elif cd_lam_metrics.overall_score >= 60:
+            cd_grade = "B (良好)"
+        elif cd_lam_metrics.overall_score >= 40:
+            cd_grade = "C (一般)"
+        else:
+            cd_grade = "D (较差)"
+        print(f"    等级: {cd_grade}")
+
     print("-" * 70)
     if all_passed:
         print("  ✅ 全部阈值通过，可以部署！")
@@ -264,10 +338,15 @@ def main():
     # Step 4: 推理性能验证
     results = validate_inference_performance(model, args.episodes)
 
-    # Step 5: 阈值检查
-    all_passed = validate_thresholds(results)
+    # Step 4.5: CD-LAM因果去偏评估
+    env_cdlam = RobotReachEnvOptimized(render_mode=None, max_steps=100)
+    cd_lam_metrics = validate_cd_lam_debias(model, env_cdlam, num_episodes=5)
+    env_cdlam.close()
 
-    print_summary(results, all_passed)
+    # Step 5: 阈值检查
+    all_passed = validate_thresholds(results, cd_lam_metrics)
+
+    print_summary(results, all_passed, cd_lam_metrics)
 
     sys.exit(0 if all_passed else 1)
 
