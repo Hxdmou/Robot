@@ -68,12 +68,12 @@ class RobotReachEnvOptimized(gym.Env):
         self._JOINT_INDICES = list(range(self.NUM_JOINTS))
         self._ZERO_ACTION = np.zeros(self.NUM_JOINTS, dtype=np.float32)
 
-        self.action_scale = 3.00
+        self.action_scale = 5.00
         self.reach_threshold = 1.50
-        self.reach_reward = 8_000_000.0
-        self.stable_reward = 800_000.0
+        self.reach_reward = 50_000_000.0
+        self.stable_reward = 5_000_000.0
         self.action_penalty = 0.0
-        self.progress_reward_scale = 3_200_000.0
+        self.progress_reward_scale = 20_000_000.0
         self.survival_reward = 0.0
         self.sub_steps = 1
 
@@ -87,10 +87,10 @@ class RobotReachEnvOptimized(gym.Env):
         self.mass_base_range = (0.99, 1.01)
         self.gravity_base_range = (-9.815, -9.805)
         # 最大范围（终极极限强度，确保100%成功率）
-        self.friction_max_range = (0.005, 20.00)
-        self.damping_max_range = (0.00005, 2.50)
-        self.mass_max_range = (0.005, 20.00)
-        self.gravity_max_range = (-30.0, -1.0)
+        self.friction_max_range = (0.001, 50.00)
+        self.damping_max_range = (0.00001, 5.00)
+        self.mass_max_range = (0.001, 50.00)
+        self.gravity_max_range = (-40.0, -0.5)
 
         # ==================== 执行器动力学参数 ====================
         # 基础值（宽松）
@@ -108,7 +108,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.disturbance_base_magnitude = 0.5
         # 最大值（终极极限强度，确保100%成功率）
         self.disturbance_max_prob = 1.0
-        self.disturbance_max_magnitude = 400.0
+        self.disturbance_max_magnitude = 1000.0
 
         # ==================== 通信延迟参数（非阻塞缓冲） ====================
         # 基础值（0延迟）
@@ -116,9 +116,9 @@ class RobotReachEnvOptimized(gym.Env):
         self.state_delay_base_steps = 0
         self.packet_drop_base_rate = 0.0
         # 最大值（终极极限延迟，保证边界目标可达）
-        self.command_delay_max_steps = 40
-        self.state_delay_max_steps = 40
-        self.packet_drop_max_rate = 0.90
+        self.command_delay_max_steps = 80
+        self.state_delay_max_steps = 80
+        self.packet_drop_max_rate = 0.95
 
         # ==================== 传感器噪声参数 ====================
         # 基础值（无噪声）
@@ -127,10 +127,10 @@ class RobotReachEnvOptimized(gym.Env):
         self.noise_base_drift = 0.0
         self.noise_base_jitter = 0.0
         # 最大值（终极极限强度，确保100%成功率）
-        self.noise_max_gaussian_std = 0.30
+        self.noise_max_gaussian_std = 0.80
         self.noise_max_quantization = 0.08
-        self.noise_max_drift = 0.003
-        self.noise_max_jitter = 0.15
+        self.noise_max_drift = 0.008
+        self.noise_max_jitter = 0.40
 
         # ==================== 碰撞检测参数 ====================
         # 基础值（宽松）
@@ -138,27 +138,27 @@ class RobotReachEnvOptimized(gym.Env):
         self.collision_base_penalty = 0.0
         # 最大值（终极极限惩罚，不影响主任务）
         self.collision_max_safety_dist = 0.40
-        self.collision_max_penalty = 1600.0
+        self.collision_max_penalty = 10_000.0
 
         # ==================== 动态目标参数（新课程） ====================
         self.dynamic_target_base_enabled = False
         self.dynamic_target_base_speed = 0.0
         self.dynamic_target_max_enabled = True
-        self.dynamic_target_max_speed = 0.80
+        self.dynamic_target_max_speed = 1.50
         self.dynamic_target_enabled = False
         self.dynamic_target_speed = 0.0
         self.dynamic_target_velocity = np.zeros(3, dtype=np.float32)
 
         # ==================== 观测缺失参数（新课程） ====================
         self.obs_drop_base_rate = 0.0
-        self.obs_drop_max_rate = 0.90
+        self.obs_drop_max_rate = 0.95
         self.obs_drop_rate = 0.0
 
         # ==================== 对抗性扰动参数（新课程） ====================
         self.adversarial_base_prob = 0.0
         self.adversarial_base_magnitude = 0.0
         self.adversarial_max_prob = 1.0
-        self.adversarial_max_magnitude = 300.0
+        self.adversarial_max_magnitude = 500.0
         self.adversarial_prob = 0.0
         self.adversarial_magnitude = 0.0
 
@@ -184,7 +184,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.energy_opt_base_enabled = False
         self.energy_opt_base_weight = 0.0
         self.energy_opt_max_enabled = True
-        self.energy_opt_max_weight = 12000.0
+        self.energy_opt_max_weight = 50000.0
         self.energy_opt_enabled = False
         self.energy_opt_weight = 0.0
 
@@ -192,7 +192,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.smooth_opt_base_enabled = False
         self.smooth_opt_base_weight = 0.0
         self.smooth_opt_max_enabled = True
-        self.smooth_opt_max_weight = 20000.0
+        self.smooth_opt_max_weight = 100000.0
         self.smooth_opt_enabled = False
         self.smooth_opt_weight = 0.0
         self._last_joint_vel = np.zeros(self.NUM_JOINTS, dtype=np.float32)
@@ -201,7 +201,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.joint_limit_pen_base_enabled = False
         self.joint_limit_pen_base_weight = 0.0
         self.joint_limit_pen_max_enabled = True
-        self.joint_limit_pen_max_weight = 8000.0
+        self.joint_limit_pen_max_weight = 50000.0
         self.joint_limit_pen_enabled = False
         self.joint_limit_pen_weight = 0.0
 
@@ -209,7 +209,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.singularity_avoid_base_enabled = False
         self.singularity_avoid_base_weight = 0.0
         self.singularity_avoid_max_enabled = True
-        self.singularity_avoid_max_weight = 16000.0
+        self.singularity_avoid_max_weight = 100000.0
         self.singularity_avoid_enabled = False
         self.singularity_avoid_weight = 0.0
 
@@ -233,7 +233,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.task_space_constraint_base_enabled = False
         self.task_space_pen_base_weight = 0.0
         self.task_space_constraint_max_enabled = True
-        self.task_space_pen_max_weight = 12000.0
+        self.task_space_pen_max_weight = 50000.0
         self.task_space_constraint_enabled = False
         self.task_space_pen_weight = 0.0
 
@@ -241,7 +241,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.contact_model_base_enabled = False
         self.contact_model_base_stiffness = 100.0
         self.contact_model_max_enabled = True
-        self.contact_model_max_stiffness = 200000.0
+        self.contact_model_max_stiffness = 500000.0
         self.contact_model_enabled = False
         self.contact_model_stiffness = 100.0
 
@@ -249,7 +249,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.time_optimal_base_enabled = False
         self.time_optimal_base_weight = 0.0
         self.time_optimal_max_enabled = True
-        self.time_optimal_max_weight = 6000.0
+        self.time_optimal_max_weight = 30000.0
         self.time_optimal_enabled = False
         self.time_optimal_weight = 0.0
 
@@ -265,7 +265,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.gear_backlash_base_enabled = False
         self.gear_backlash_base_amount = 0.0
         self.gear_backlash_max_enabled = True
-        self.gear_backlash_max_amount = 0.10
+        self.gear_backlash_max_amount = 0.30
         self.gear_backlash_enabled = False
         self.gear_backlash_amount = 0.0
 
@@ -273,7 +273,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.flexible_joint_base_enabled = False
         self.flexible_joint_base_stiffness = 10000.0
         self.flexible_joint_max_enabled = True
-        self.flexible_joint_max_stiffness = 100.0
+        self.flexible_joint_max_stiffness = 20.0
         self.flexible_joint_enabled = False
         self.flexible_joint_stiffness = 10000.0
 
@@ -281,7 +281,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.motor_saturation_base_enabled = False
         self.motor_saturation_base_factor = 1.0
         self.motor_saturation_max_enabled = True
-        self.motor_saturation_max_factor = 0.1
+        self.motor_saturation_max_factor = 0.05
         self.motor_saturation_enabled = False
         self.motor_saturation_factor = 1.0
 
@@ -289,7 +289,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.thermal_drift_base_enabled = False
         self.thermal_drift_base_rate = 0.0
         self.thermal_drift_max_enabled = True
-        self.thermal_drift_max_rate = 0.05
+        self.thermal_drift_max_rate = 0.20
         self.thermal_drift_enabled = False
         self.thermal_drift_rate = 0.0
         self._thermal_drift_state = np.zeros(7, dtype=np.float32)
@@ -298,7 +298,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.encoder_resolution_base_enabled = False
         self.encoder_resolution_base_bits = 32
         self.encoder_resolution_max_enabled = True
-        self.encoder_resolution_max_bits = 4
+        self.encoder_resolution_max_bits = 2
         self.encoder_resolution_enabled = False
         self.encoder_resolution_bits = 32
 
@@ -306,7 +306,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.payload_variation_base_enabled = False
         self.payload_variation_base_magnitude = 0.0
         self.payload_variation_max_enabled = True
-        self.payload_variation_max_magnitude = 20.0
+        self.payload_variation_max_magnitude = 50.0
         self.payload_variation_enabled = False
         self.payload_variation_magnitude = 0.0
 
@@ -314,7 +314,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.base_vibration_base_enabled = False
         self.base_vibration_base_magnitude = 0.0
         self.base_vibration_max_enabled = True
-        self.base_vibration_max_magnitude = 0.08
+        self.base_vibration_max_magnitude = 0.20
         self.base_vibration_enabled = False
         self.base_vibration_magnitude = 0.0
         self._base_vibration_phase = 0.0
@@ -323,7 +323,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.cable_drag_base_enabled = False
         self.cable_drag_base_coefficient = 0.0
         self.cable_drag_max_enabled = True
-        self.cable_drag_max_coefficient = 80.0
+        self.cable_drag_max_coefficient = 200.0
         self.cable_drag_enabled = False
         self.cable_drag_coefficient = 0.0
 
@@ -331,7 +331,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.inertia_variation_base_enabled = False
         self.inertia_variation_base_factor = 1.0
         self.inertia_variation_max_enabled = True
-        self.inertia_variation_max_factor = 0.2
+        self.inertia_variation_max_factor = 0.5
         self.inertia_variation_enabled = False
         self.inertia_variation_factor = 1.0
 
@@ -339,7 +339,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.torque_ripple_base_enabled = False
         self.torque_ripple_base_magnitude = 0.0
         self.torque_ripple_max_enabled = True
-        self.torque_ripple_max_magnitude = 0.8
+        self.torque_ripple_max_magnitude = 2.0
         self.torque_ripple_enabled = False
         self.torque_ripple_magnitude = 0.0
 
@@ -347,7 +347,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.sensor_bias_drift_base_enabled = False
         self.sensor_bias_drift_base_rate = 0.0
         self.sensor_bias_drift_max_enabled = True
-        self.sensor_bias_drift_max_rate = 0.05
+        self.sensor_bias_drift_max_rate = 0.20
         self.sensor_bias_drift_enabled = False
         self.sensor_bias_drift_rate = 0.0
         self._sensor_bias_state = np.zeros(7, dtype=np.float32)
@@ -356,19 +356,183 @@ class RobotReachEnvOptimized(gym.Env):
         self.clock_drift_base_enabled = False
         self.clock_drift_base_ppm = 0.0
         self.clock_drift_max_enabled = True
-        self.clock_drift_max_ppm = 20000.0
+        self.clock_drift_max_ppm = 50000.0
         self.clock_drift_enabled = False
         self.clock_drift_ppm = 0.0
         self._clock_drift_accum = 0.0
 
+        # ==================== 科里奥利力效应（新课程，非摄像头） ====================
+        self.coriolis_base_enabled = False
+        self.coriolis_base_strength = 0.0
+        self.coriolis_max_enabled = True
+        self.coriolis_max_strength = 1.0
+        self.coriolis_enabled = False
+        self.coriolis_strength = 0.0
+
+        # ==================== 离心力效应（新课程，非摄像头） ====================
+        self.centrifugal_base_enabled = False
+        self.centrifugal_base_strength = 0.0
+        self.centrifugal_max_enabled = True
+        self.centrifugal_max_strength = 1.0
+        self.centrifugal_enabled = False
+        self.centrifugal_strength = 0.0
+
+        # ==================== 关节弹性振动（新课程，非摄像头） ====================
+        self.joint_vibration_base_enabled = False
+        self.joint_vibration_base_amplitude = 0.0
+        self.joint_vibration_max_enabled = True
+        self.joint_vibration_max_amplitude = 0.50
+        self.joint_vibration_enabled = False
+        self.joint_vibration_amplitude = 0.0
+        self._joint_vibration_phase = 0.0
+
+        # ==================== PID参数自适应（新课程，非摄像头） ====================
+        self.pid_adaptive_base_enabled = False
+        self.pid_adaptive_base_noise = 0.0
+        self.pid_adaptive_max_enabled = True
+        self.pid_adaptive_max_noise = 0.80
+        self.pid_adaptive_enabled = False
+        self.pid_adaptive_noise = 0.0
+
+        # ==================== 滑模控制模拟（新课程，非摄像头） ====================
+        self.sliding_mode_base_enabled = False
+        self.sliding_mode_base_ripple = 0.0
+        self.sliding_mode_max_enabled = True
+        self.sliding_mode_max_ripple = 1.50
+        self.sliding_mode_enabled = False
+        self.sliding_mode_ripple = 0.0
+
+        # ==================== 传感器故障检测（新课程，非摄像头） ====================
+        self.sensor_fault_base_enabled = False
+        self.sensor_fault_base_prob = 0.0
+        self.sensor_fault_max_enabled = True
+        self.sensor_fault_max_prob = 0.30
+        self.sensor_fault_enabled = False
+        self.sensor_fault_prob = 0.0
+
+        # ==================== 电机过热降额（新课程，非摄像头） ====================
+        self.motor_thermal_base_enabled = False
+        self.motor_thermal_base_derate = 0.0
+        self.motor_thermal_max_enabled = True
+        self.motor_thermal_max_derate = 0.50
+        self.motor_thermal_enabled = False
+        self.motor_thermal_derate = 0.0
+
+        # ==================== 障碍物规避（新课程，非摄像头） ====================
+        self.obstacle_avoid_base_enabled = False
+        self.obstacle_avoid_base_weight = 0.0
+        self.obstacle_avoid_max_enabled = True
+        self.obstacle_avoid_max_weight = 50000.0
+        self.obstacle_avoid_enabled = False
+        self.obstacle_avoid_weight = 0.0
+
+        # ==================== 人工势场（新课程，非摄像头） ====================
+        self.artificial_pf_base_enabled = False
+        self.artificial_pf_base_strength = 0.0
+        self.artificial_pf_max_enabled = True
+        self.artificial_pf_max_strength = 10.0
+        self.artificial_pf_enabled = False
+        self.artificial_pf_strength = 0.0
+
+        # ==================== 迭代学习控制（新课程，非摄像头） ====================
+        self.iterative_learn_base_enabled = False
+        self.iterative_learn_base_error = 0.0
+        self.iterative_learn_max_enabled = True
+        self.iterative_learn_max_error = 0.30
+        self.iterative_learn_enabled = False
+        self.iterative_learn_error = 0.0
+
+        # ==================== 自适应阻抗控制（新课程，非摄像头） ====================
+        self.adaptive_impedance_base_enabled = False
+        self.adaptive_impedance_base_stiffness = 10000.0
+        self.adaptive_impedance_max_enabled = True
+        self.adaptive_impedance_max_stiffness = 50.0
+        self.adaptive_impedance_enabled = False
+        self.adaptive_impedance_stiffness = 10000.0
+
+        # ==================== 前馈补偿控制（新课程，非摄像头） ====================
+        self.feedforward_base_enabled = False
+        self.feedforward_base_gain = 0.0
+        self.feedforward_max_enabled = True
+        self.feedforward_max_gain = 2.0
+        self.feedforward_enabled = False
+        self.feedforward_gain = 0.0
+
+        # ==================== 模型预测控制误差（新课程，非摄像头） ====================
+        self.mpc_error_base_enabled = False
+        self.mpc_error_base_magnitude = 0.0
+        self.mpc_error_max_enabled = True
+        self.mpc_error_max_magnitude = 0.30
+        self.mpc_error_enabled = False
+        self.mpc_error_magnitude = 0.0
+
+        # ==================== 鲁棒控制不确定性（新课程，非摄像头） ====================
+        self.robust_ctrl_base_enabled = False
+        self.robust_ctrl_base_uncertainty = 0.0
+        self.robust_ctrl_max_enabled = True
+        self.robust_ctrl_max_uncertainty = 0.50
+        self.robust_ctrl_enabled = False
+        self.robust_ctrl_uncertainty = 0.0
+
+        # ==================== 自适应控制参数漂移（新课程，非摄像头） ====================
+        self.adaptive_ctrl_base_enabled = False
+        self.adaptive_ctrl_base_drift = 0.0
+        self.adaptive_ctrl_max_enabled = True
+        self.adaptive_ctrl_max_drift = 0.40
+        self.adaptive_ctrl_enabled = False
+        self.adaptive_ctrl_drift = 0.0
+        self._adaptive_ctrl_state = np.zeros(7, dtype=np.float32)
+
+        # ==================== 重复控制周期误差（新课程，非摄像头） ====================
+        self.repetitive_ctrl_base_enabled = False
+        self.repetitive_ctrl_base_error = 0.0
+        self.repetitive_ctrl_max_enabled = True
+        self.repetitive_ctrl_max_error = 0.25
+        self.repetitive_ctrl_enabled = False
+        self.repetitive_ctrl_error = 0.0
+        self._repetitive_phase = 0.0
+
+        # ==================== 学习控制遗忘因子（新课程，非摄像头） ====================
+        self.learning_ctrl_base_enabled = False
+        self.learning_ctrl_base_forgetting = 0.0
+        self.learning_ctrl_max_enabled = True
+        self.learning_ctrl_max_forgetting = 0.60
+        self.learning_ctrl_enabled = False
+        self.learning_ctrl_forgetting = 0.0
+        self._learning_ctrl_memory = np.zeros(7, dtype=np.float32)
+
+        # ==================== 无源控制能量耗散（新课程，非摄像头） ====================
+        self.passive_ctrl_base_enabled = False
+        self.passive_ctrl_base_dissipation = 0.0
+        self.passive_ctrl_max_enabled = True
+        self.passive_ctrl_max_dissipation = 50.0
+        self.passive_ctrl_enabled = False
+        self.passive_ctrl_dissipation = 0.0
+
+        # ==================== 反步控制虚拟误差（新课程，非摄像头） ====================
+        self.backstep_ctrl_base_enabled = False
+        self.backstep_ctrl_base_error = 0.0
+        self.backstep_ctrl_max_enabled = True
+        self.backstep_ctrl_max_error = 0.35
+        self.backstep_ctrl_enabled = False
+        self.backstep_ctrl_error = 0.0
+
+        # ==================== 滑模变结构切换增益（新课程，非摄像头） ====================
+        self.vss_smc_base_enabled = False
+        self.vss_smc_base_gain = 0.0
+        self.vss_smc_max_enabled = True
+        self.vss_smc_max_gain = 1.0
+        self.vss_smc_enabled = False
+        self.vss_smc_gain = 0.0
+
         # ==================== 奖励机制增强参数（极限最大值，再翻倍） ====================
-        self.early_reward_bonus = 2_000_000.0     # 提前到达奖励
-        self.distance_shaped_reward = 80_000.0      # 距离成型奖励
-        self.action_smoothness_reward = 40_000.0     # 动作平滑奖励
-        self.time_penalty = 2_000.0                   # 每步时间惩罚（激励快速到达）
-        self.orientation_reward = 120_000.0          # 姿态对齐奖励
-        self.velocity_penalty_at_target = 60_000.0   # 目标处速度惩罚
-        self.reliability_reward = 4_000_000.0        # 连续成功可靠性奖励
+        self.early_reward_bonus = 10_000_000.0
+        self.distance_shaped_reward = 400_000.0
+        self.action_smoothness_reward = 200_000.0
+        self.time_penalty = 10_000.0
+        self.orientation_reward = 600_000.0
+        self.velocity_penalty_at_target = 300_000.0
+        self.reliability_reward = 20_000_000.0
         self._consecutive_success = 0
 
         # ==================== 当前使用的参数 ====================
@@ -403,8 +567,8 @@ class RobotReachEnvOptimized(gym.Env):
         self.target_min_base = np.array([0.40, -0.10, 0.30], dtype=np.float32)
         self.target_max_base = np.array([0.50, 0.10, 0.40], dtype=np.float32)
         # 目标范围（最大：终极极限难度，已验证100%可达）
-        self.target_min_max = np.array([0.10, -0.50, 0.05], dtype=np.float32)
-        self.target_max_max = np.array([0.90, 0.50, 0.85], dtype=np.float32)
+        self.target_min_max = np.array([0.05, -0.55, 0.03], dtype=np.float32)
+        self.target_max_max = np.array([0.95, 0.55, 0.90], dtype=np.float32)
 
         self.target_min = self.target_min_base.copy()
         self.target_max = self.target_max_base.copy()
@@ -641,6 +805,126 @@ class RobotReachEnvOptimized(gym.Env):
             self.clock_drift_ppm = self._interpolate(p, 0.65, 1.0,
                 self.clock_drift_base_ppm, self.clock_drift_max_ppm)
 
+        # ===== 科里奥利力效应（新课程，从进度0.67开始） =====
+        if p >= 0.67:
+            self.coriolis_enabled = True
+            self.coriolis_strength = self._interpolate(p, 0.67, 1.0,
+                self.coriolis_base_strength, self.coriolis_max_strength)
+
+        # ===== 离心力效应（新课程，从进度0.69开始） =====
+        if p >= 0.69:
+            self.centrifugal_enabled = True
+            self.centrifugal_strength = self._interpolate(p, 0.69, 1.0,
+                self.centrifugal_base_strength, self.centrifugal_max_strength)
+
+        # ===== 关节弹性振动（新课程，从进度0.71开始） =====
+        if p >= 0.71:
+            self.joint_vibration_enabled = True
+            self.joint_vibration_amplitude = self._interpolate(p, 0.71, 1.0,
+                self.joint_vibration_base_amplitude, self.joint_vibration_max_amplitude)
+
+        # ===== PID参数自适应（新课程，从进度0.73开始） =====
+        if p >= 0.73:
+            self.pid_adaptive_enabled = True
+            self.pid_adaptive_noise = self._interpolate(p, 0.73, 1.0,
+                self.pid_adaptive_base_noise, self.pid_adaptive_max_noise)
+
+        # ===== 滑模控制模拟（新课程，从进度0.75开始） =====
+        if p >= 0.75:
+            self.sliding_mode_enabled = True
+            self.sliding_mode_ripple = self._interpolate(p, 0.75, 1.0,
+                self.sliding_mode_base_ripple, self.sliding_mode_max_ripple)
+
+        # ===== 传感器故障检测（新课程，从进度0.77开始） =====
+        if p >= 0.77:
+            self.sensor_fault_enabled = True
+            self.sensor_fault_prob = self._interpolate(p, 0.77, 1.0,
+                self.sensor_fault_base_prob, self.sensor_fault_max_prob)
+
+        # ===== 电机过热降额（新课程，从进度0.79开始） =====
+        if p >= 0.79:
+            self.motor_thermal_enabled = True
+            self.motor_thermal_derate = self._interpolate(p, 0.79, 1.0,
+                self.motor_thermal_base_derate, self.motor_thermal_max_derate)
+
+        # ===== 障碍物规避（新课程，从进度0.81开始） =====
+        if p >= 0.81:
+            self.obstacle_avoid_enabled = True
+            self.obstacle_avoid_weight = self._interpolate(p, 0.81, 1.0,
+                self.obstacle_avoid_base_weight, self.obstacle_avoid_max_weight)
+
+        # ===== 人工势场（新课程，从进度0.83开始） =====
+        if p >= 0.83:
+            self.artificial_pf_enabled = True
+            self.artificial_pf_strength = self._interpolate(p, 0.83, 1.0,
+                self.artificial_pf_base_strength, self.artificial_pf_max_strength)
+
+        # ===== 迭代学习控制（新课程，从进度0.85开始） =====
+        if p >= 0.85:
+            self.iterative_learn_enabled = True
+            self.iterative_learn_error = self._interpolate(p, 0.85, 1.0,
+                self.iterative_learn_base_error, self.iterative_learn_max_error)
+
+        # ===== 自适应阻抗控制（新课程，从进度0.86开始） =====
+        if p >= 0.86:
+            self.adaptive_impedance_enabled = True
+            self.adaptive_impedance_stiffness = self._interpolate(p, 0.86, 1.0,
+                self.adaptive_impedance_base_stiffness, self.adaptive_impedance_max_stiffness)
+
+        # ===== 前馈补偿控制（新课程，从进度0.87开始） =====
+        if p >= 0.87:
+            self.feedforward_enabled = True
+            self.feedforward_gain = self._interpolate(p, 0.87, 1.0,
+                self.feedforward_base_gain, self.feedforward_max_gain)
+
+        # ===== 模型预测控制误差（新课程，从进度0.88开始） =====
+        if p >= 0.88:
+            self.mpc_error_enabled = True
+            self.mpc_error_magnitude = self._interpolate(p, 0.88, 1.0,
+                self.mpc_error_base_magnitude, self.mpc_error_max_magnitude)
+
+        # ===== 鲁棒控制不确定性（新课程，从进度0.89开始） =====
+        if p >= 0.89:
+            self.robust_ctrl_enabled = True
+            self.robust_ctrl_uncertainty = self._interpolate(p, 0.89, 1.0,
+                self.robust_ctrl_base_uncertainty, self.robust_ctrl_max_uncertainty)
+
+        # ===== 自适应控制参数漂移（新课程，从进度0.90开始） =====
+        if p >= 0.90:
+            self.adaptive_ctrl_enabled = True
+            self.adaptive_ctrl_drift = self._interpolate(p, 0.90, 1.0,
+                self.adaptive_ctrl_base_drift, self.adaptive_ctrl_max_drift)
+
+        # ===== 重复控制周期误差（新课程，从进度0.91开始） =====
+        if p >= 0.91:
+            self.repetitive_ctrl_enabled = True
+            self.repetitive_ctrl_error = self._interpolate(p, 0.91, 1.0,
+                self.repetitive_ctrl_base_error, self.repetitive_ctrl_max_error)
+
+        # ===== 学习控制遗忘因子（新课程，从进度0.92开始） =====
+        if p >= 0.92:
+            self.learning_ctrl_enabled = True
+            self.learning_ctrl_forgetting = self._interpolate(p, 0.92, 1.0,
+                self.learning_ctrl_base_forgetting, self.learning_ctrl_max_forgetting)
+
+        # ===== 无源控制能量耗散（新课程，从进度0.93开始） =====
+        if p >= 0.93:
+            self.passive_ctrl_enabled = True
+            self.passive_ctrl_dissipation = self._interpolate(p, 0.93, 1.0,
+                self.passive_ctrl_base_dissipation, self.passive_ctrl_max_dissipation)
+
+        # ===== 反步控制虚拟误差（新课程，从进度0.94开始） =====
+        if p >= 0.94:
+            self.backstep_ctrl_enabled = True
+            self.backstep_ctrl_error = self._interpolate(p, 0.94, 1.0,
+                self.backstep_ctrl_base_error, self.backstep_ctrl_max_error)
+
+        # ===== 滑模变结构切换增益（新课程，从进度0.95开始） =====
+        if p >= 0.95:
+            self.vss_smc_enabled = True
+            self.vss_smc_gain = self._interpolate(p, 0.95, 1.0,
+                self.vss_smc_base_gain, self.vss_smc_max_gain)
+
     def _interpolate(self, p, start_p, end_p, start_val, end_val):
         """线性插值"""
         if p < start_p:
@@ -752,6 +1036,10 @@ class RobotReachEnvOptimized(gym.Env):
         self._base_vibration_phase = 0.0
         self._clock_drift_accum = 0.0
         self._last_joint_vel = np.zeros(self.NUM_JOINTS, dtype=np.float32)
+        self._joint_vibration_phase = 0.0
+        self._adaptive_ctrl_state = np.zeros(self.NUM_JOINTS, dtype=np.float32)
+        self._repetitive_phase = 0.0
+        self._learning_ctrl_memory = np.zeros(self.NUM_JOINTS, dtype=np.float32)
 
         for _ in range(self.RESET_STEPS):
             p.stepSimulation()
@@ -818,6 +1106,96 @@ class RobotReachEnvOptimized(gym.Env):
             except:
                 pass
 
+        # 柔性关节模拟（新课程）—— 关节弹性导致的位置偏差
+        if self.flexible_joint_enabled and self.flexible_joint_stiffness < 10000.0:
+            try:
+                # 低刚度意味着关节会"弹性弯曲"，产生与目标位置的偏差
+                deflection = (target_positions - current_positions) * (1.0 - self.flexible_joint_stiffness / 10000.0) * 0.3
+                target_positions = current_positions + (target_positions - current_positions) * (self.flexible_joint_stiffness / 10000.0) + deflection * 0.1
+            except:
+                pass
+
+        # 滑模控制模拟（新课程）—— 抖振效应
+        if self.sliding_mode_enabled and self.sliding_mode_ripple > 0:
+            try:
+                # 滑模控制的高频切换产生抖振
+                chattering = np.sign(target_positions - current_positions) * self.sliding_mode_ripple
+                target_positions += chattering * self.INV_SIM_FREQ
+            except:
+                pass
+
+        # PID参数自适应噪声（新课程）—— 控制器参数扰动
+        if self.pid_adaptive_enabled and self.pid_adaptive_noise > 0:
+            try:
+                # 模拟PID增益自适应过程中的参数波动
+                pid_noise = np.random.normal(0, self.pid_adaptive_noise, size=self.NUM_JOINTS).astype(np.float32)
+                target_positions += pid_noise * (target_positions - current_positions) * 0.5
+            except:
+                pass
+
+        # 电机过热降额（新课程）—— 温度升高降低输出能力
+        if self.motor_thermal_enabled and self.motor_thermal_derate > 0:
+            try:
+                # 过热导致输出扭矩和速度能力下降
+                derate_factor = 1.0 - self.motor_thermal_derate * 0.5
+                target_positions = current_positions + (target_positions - current_positions) * derate_factor
+            except:
+                pass
+
+        # 迭代学习控制误差（新课程）—— 重复轨迹误差补偿
+        if self.iterative_learn_enabled and self.iterative_learn_error > 0:
+            try:
+                # 模拟迭代学习过程中的残余误差
+                learn_error = np.random.normal(0, self.iterative_learn_error, size=self.NUM_JOINTS).astype(np.float32)
+                target_positions += learn_error * 0.1
+            except:
+                pass
+
+        # 前馈补偿控制（新课程）—— 前馈增益导致的位置过冲
+        if self.feedforward_enabled and self.feedforward_gain > 0:
+            try:
+                # 前馈补偿过度导致的超调
+                overshoot = (target_positions - current_positions) * self.feedforward_gain * 0.15
+                target_positions += overshoot
+            except:
+                pass
+
+        # 模型预测控制误差（新课程）—— MPC预测不精确
+        if self.mpc_error_enabled and self.mpc_error_magnitude > 0:
+            try:
+                mpc_err = np.random.normal(0, self.mpc_error_magnitude, size=self.NUM_JOINTS).astype(np.float32)
+                target_positions += mpc_err * 0.1
+            except:
+                pass
+
+        # 鲁棒控制不确定性（新课程）—— 模型不确定性扰动
+        if self.robust_ctrl_enabled and self.robust_ctrl_uncertainty > 0:
+            try:
+                uncertainty = np.random.uniform(
+                    1.0 - self.robust_ctrl_uncertainty,
+                    1.0 + self.robust_ctrl_uncertainty,
+                    size=self.NUM_JOINTS
+                )
+                target_positions = current_positions + (target_positions - current_positions) * uncertainty
+            except:
+                pass
+
+        # 反步控制虚拟误差（新课程）—— 反步设计中的虚拟控制误差
+        if self.backstep_ctrl_enabled and self.backstep_ctrl_error > 0:
+            try:
+                backstep_err = np.random.normal(0, self.backstep_ctrl_error, size=self.NUM_JOINTS).astype(np.float32)
+                target_positions += backstep_err * 0.08
+            except:
+                pass
+
+        # 滑模变结构切换增益（新课程）—— 变结构控制的切换振荡
+        if self.vss_smc_enabled and self.vss_smc_gain > 0:
+            try:
+                vss_switch = np.sign(np.random.randn(self.NUM_JOINTS)) * self.vss_smc_gain
+                target_positions += vss_switch * self.INV_SIM_FREQ * 10
+            except:
+                pass
+
         for i in self._JOINT_INDICES:
             force = self.torque_limit if self.curriculum_progress >= 0.05 else self.torque_base_limit
             p.setJointMotorControl2(
@@ -832,10 +1210,109 @@ class RobotReachEnvOptimized(gym.Env):
 
         self.step_count += 1
 
-        # 时钟漂移模拟（新课程）
+        # 自适应阻抗控制（新课程）—— 可变阻抗的关节行为
+        if self.adaptive_impedance_enabled and self.adaptive_impedance_stiffness < 10000.0:
+            try:
+                states = p.getJointStates(self.robot_id, self._JOINT_INDICES)
+                for i, s in enumerate(states):
+                    pos = s[0]
+                    vel = s[1]
+                    # 自适应阻抗：根据运动状态调整刚度，产生阻尼力
+                    impedance_force = -self.adaptive_impedance_stiffness * 0.0005 * vel * abs(vel)
+                    p.applyExternalTorque(self.robot_id, i, [impedance_force, 0, 0], flags=p.LINK_FRAME)
+            except:
+                pass
+
+        # 自适应控制参数漂移（新课程）—— 控制器参数随时间漂移
+        if self.adaptive_ctrl_enabled and self.adaptive_ctrl_drift > 0:
+            try:
+                self._adaptive_ctrl_state += np.random.normal(
+                    0, self.adaptive_ctrl_drift, size=self.NUM_JOINTS
+                ).astype(np.float32) * self.INV_SIM_FREQ
+                self._adaptive_ctrl_state = np.clip(self._adaptive_ctrl_state, -0.1, 0.1)
+                for i in self._JOINT_INDICES:
+                    p.applyExternalTorque(self.robot_id, i, [self._adaptive_ctrl_state[i] * 10, 0, 0], flags=p.LINK_FRAME)
+            except:
+                pass
+
+        # 重复控制周期误差（新课程）—— 周期性重复误差
+        if self.repetitive_ctrl_enabled and self.repetitive_ctrl_error > 0:
+            try:
+                self._repetitive_phase += 2 * np.pi * 2.0 * self.INV_SIM_FREQ
+                periodic_error = np.sin(self._repetitive_phase) * self.repetitive_ctrl_error
+                for i in self._JOINT_INDICES:
+                    p.applyExternalTorque(self.robot_id, i, [periodic_error * 5, 0, 0], flags=p.LINK_FRAME)
+            except:
+                pass
+
+        # 学习控制遗忘因子（新课程）—— 学习记忆随时间衰减
+        if self.learning_ctrl_enabled and self.learning_ctrl_forgetting > 0:
+            try:
+                # 遗忘导致控制精度下降
+                self._learning_ctrl_memory *= (1.0 - self.learning_ctrl_forgetting * self.INV_SIM_FREQ)
+                self._learning_ctrl_memory += np.random.normal(0, 0.001, size=self.NUM_JOINTS).astype(np.float32)
+                forget_force = self._learning_ctrl_memory * self.learning_ctrl_forgetting * 50
+                for i in self._JOINT_INDICES:
+                    p.applyExternalTorque(self.robot_id, i, [forget_force[i], 0, 0], flags=p.LINK_FRAME)
+            except:
+                pass
+
+        # 无源控制能量耗散（新课程）—— 系统能量耗散效应
+        if self.passive_ctrl_enabled and self.passive_ctrl_dissipation > 0:
+            try:
+                states = p.getJointStates(self.robot_id, self._JOINT_INDICES)
+                for i, s in enumerate(states):
+                    vel = s[1]
+                    # 无源控制：保证能量耗散的阻尼力
+                    passive_force = -self.passive_ctrl_dissipation * vel * 0.01
+                    p.applyExternalTorque(self.robot_id, i, [passive_force, 0, 0], flags=p.LINK_FRAME)
+            except:
+                pass
+
+        # 时钟漂移模拟（新课程）—— 影响实际仿真步长
         if self.clock_drift_enabled and self.clock_drift_ppm > 0:
             try:
                 self._clock_drift_accum += self.clock_drift_ppm * 1e-6 * self.INV_SIM_FREQ
+                # 时钟漂移导致的累积时间误差（在长时间运行后影响控制精度）
+                drift_error = np.sin(self._clock_drift_accum * 100.0) * self.clock_drift_ppm * 1e-9
+                for i in self._JOINT_INDICES:
+                    current_joint_pos = p.getJointState(self.robot_id, i)[0]
+                    p.resetJointState(self.robot_id, i, current_joint_pos + drift_error)
+            except:
+                pass
+
+        # 科里奥利力效应（新课程）—— 旋转参考系中的惯性力
+        if self.coriolis_enabled and self.coriolis_strength > 0:
+            try:
+                states = p.getJointStates(self.robot_id, self._JOINT_INDICES)
+                for i, s in enumerate(states):
+                    vel = s[1]
+                    # 科里奥利力：F_c = -2m(ω × v)，简化为与速度平方相关的扰动力
+                    coriolis_force = -2.0 * self.coriolis_strength * vel * abs(vel) * 0.01
+                    p.applyExternalTorque(self.robot_id, i, [coriolis_force, 0, 0], flags=p.LINK_FRAME)
+            except:
+                pass
+
+        # 离心力效应（新课程）—— 关节高速运动时的径向力
+        if self.centrifugal_enabled and self.centrifugal_strength > 0:
+            try:
+                states = p.getJointStates(self.robot_id, self._JOINT_INDICES)
+                for i, s in enumerate(states):
+                    vel = s[1]
+                    pos = s[0]
+                    # 离心力：F_cent = mω²r，简化为与速度平方成正比的扩张力
+                    centrifugal_force = self.centrifugal_strength * vel * vel * np.sign(pos) * 0.05
+                    p.applyExternalTorque(self.robot_id, i, [centrifugal_force, 0, 0], flags=p.LINK_FRAME)
+            except:
+                pass
+
+        # 关节弹性振动（新课程）—— 关节柔性导致的振荡
+        if self.joint_vibration_enabled and self.joint_vibration_amplitude > 0:
+            try:
+                self._joint_vibration_phase += 2 * np.pi * 50.0 * self.INV_SIM_FREQ
+                vibration = np.sin(self._joint_vibration_phase) * self.joint_vibration_amplitude
+                for i in self._JOINT_INDICES:
+                    p.applyExternalTorque(self.robot_id, i, [vibration * 0.1, 0, 0], flags=p.LINK_FRAME)
             except:
                 pass
 
@@ -863,6 +1340,114 @@ class RobotReachEnvOptimized(gym.Env):
                     vel = s[1]
                     drag_force = -self.cable_drag_coefficient * vel * self.INV_SIM_FREQ
                     p.applyExternalTorque(self.robot_id, i, [0, 0, drag_force], flags=p.LINK_FRAME)
+            except:
+                pass
+
+        # 传感器故障检测（新课程）—— 偶发性传感器读数跳变
+        if self.sensor_fault_enabled and self.sensor_fault_prob > 0:
+            try:
+                if self.np_random.random() < self.sensor_fault_prob:
+                    # 模拟传感器故障：随机一个关节读数跳变
+                    fault_joint = self.np_random.choice(self._JOINT_INDICES)
+                    current_joint_pos = p.getJointState(self.robot_id, fault_joint)[0]
+                    # 故障时关节位置读数被重置（通过施加一个大的瞬时扰动）
+                    p.applyExternalTorque(self.robot_id, fault_joint, [self.np_random.uniform(-50, 50), 0, 0], flags=p.LINK_FRAME)
+            except:
+                pass
+
+        # 障碍物规避（新课程）—— 工作空间中的排斥力场
+        if self.obstacle_avoid_enabled and self.obstacle_avoid_weight > 0:
+            try:
+                # 模拟虚拟障碍物（工作空间边界和随机障碍点）
+                ee_pos_current = np.array(p.getLinkState(self.robot_id, 6)[0], dtype=np.float32)
+                # 边界排斥力
+                boundary_center = np.array([0.5, 0.0, 0.45], dtype=np.float32)
+                boundary_radius = 0.55
+                dist_to_center = np.linalg.norm(ee_pos_current - boundary_center)
+                if dist_to_center > boundary_radius * 0.8:
+                    penalty = self.obstacle_avoid_weight * ((dist_to_center - boundary_radius * 0.8) / (boundary_radius * 0.2)) ** 2
+                    reward -= penalty * self.INV_SIM_FREQ
+            except:
+                pass
+
+        # 人工势场（新课程）—— 目标吸引力+障碍物排斥力
+        if self.artificial_pf_enabled and self.artificial_pf_strength > 0:
+            try:
+                ee_pos_current = np.array(p.getLinkState(self.robot_id, 6)[0], dtype=np.float32)
+                # 势场梯度惩罚（与目标距离相关的额外势场）
+                dist = np.linalg.norm(ee_pos_current - self.target_pos)
+                # 当距离较远时施加额外的势场导向奖励
+                pf_reward = self.artificial_pf_strength * (1.0 / (dist + 0.1)) * self.INV_SIM_FREQ
+                reward += pf_reward
+            except:
+                pass
+
+        # 加速度限制（新课程）—— 限制关节加速度
+        if self.accel_limit_enabled and self.accel_limit_max < 100.0:
+            try:
+                states = p.getJointStates(self.robot_id, self._JOINT_INDICES)
+                current_vel = np.array([s[1] for s in states], dtype=np.float32)
+                # 计算加速度并限制
+                accel = (current_vel - self._last_joint_vel) / self.INV_SIM_FREQ
+                accel_penalty = np.sum(np.abs(accel)) * self.accel_limit_max * 0.001
+                reward -= accel_penalty * self.INV_SIM_FREQ
+                self._last_joint_vel = current_vel
+            except:
+                pass
+
+        # 力控精度（新课程）—— 模拟力传感器精度限制
+        if self.force_ctrl_enabled and self.force_ctrl_precision < 1.0:
+            try:
+                # 低精度力传感器导致的控制误差
+                states = p.getJointStates(self.robot_id, self._JOINT_INDICES)
+                for i, s in enumerate(states):
+                    torque = s[3] if len(s) > 3 else 0.0
+                    # 量化力反馈误差
+                    quantized_torque = np.round(torque / self.force_ctrl_precision) * self.force_ctrl_precision
+                    torque_error = torque - quantized_torque
+                    p.applyExternalTorque(self.robot_id, i, [torque_error * 0.01, 0, 0], flags=p.LINK_FRAME)
+            except:
+                pass
+
+        # 任务空间约束（新课程）—— 末端执行器操作空间约束
+        if self.task_space_constraint_enabled and self.task_space_pen_weight > 0:
+            try:
+                ee_pos_current = np.array(p.getLinkState(self.robot_id, 6)[0], dtype=np.float32)
+                # 约束末端在合理操作空间内
+                min_workspace = np.array([0.0, -0.6, 0.0], dtype=np.float32)
+                max_workspace = np.array([1.0, 0.6, 1.0], dtype=np.float32)
+                constraint_penalty = 0.0
+                for dim in range(3):
+                    if ee_pos_current[dim] < min_workspace[dim]:
+                        constraint_penalty += (min_workspace[dim] - ee_pos_current[dim]) ** 2
+                    elif ee_pos_current[dim] > max_workspace[dim]:
+                        constraint_penalty += (ee_pos_current[dim] - max_workspace[dim]) ** 2
+                reward -= self.task_space_pen_weight * constraint_penalty * self.INV_SIM_FREQ
+            except:
+                pass
+
+        # 环境接触建模（新课程）—— 高刚度接触力
+        if self.contact_model_enabled and self.contact_model_stiffness > 100.0:
+            try:
+                # 检测与地面的接触并施加接触力
+                contacts = p.getContactPoints(self.robot_id)
+                if contacts:
+                    contact_penalty = len(contacts) * self.contact_model_stiffness * 0.0001
+                    reward -= contact_penalty * self.INV_SIM_FREQ
+            except:
+                pass
+
+        # 柔顺控制模拟（新课程）—— 低刚度柔顺行为
+        if self.compliant_ctrl_enabled and self.compliant_ctrl_stiffness < 10000.0:
+            try:
+                # 柔顺控制：位置误差转化为弹性恢复力
+                states = p.getJointStates(self.robot_id, self._JOINT_INDICES)
+                for i, s in enumerate(states):
+                    pos = s[0]
+                    vel = s[1]
+                    # 低刚度下关节对位置指令的跟踪有延迟和偏差
+                    compliance_force = -self.compliant_ctrl_stiffness * 0.001 * vel
+                    p.applyExternalTorque(self.robot_id, i, [compliance_force, 0, 0], flags=p.LINK_FRAME)
             except:
                 pass
 
