@@ -316,7 +316,7 @@ class SimOptimizer:
                 self._update_visuals()
                 
                 # 控制帧率
-                time.sleep(1.0 / 60.0)
+                time.sleep(1.0 / 120.0)
                 
                 # 检查退出（按ESC键退出）
                 keys = p.getKeyboardEvents()

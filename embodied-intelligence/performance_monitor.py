@@ -9,7 +9,7 @@ import threading
 import os
 
 class PerformanceMonitor:
-    def __init__(self, log_interval=5.0, max_samples=100):
+    def __init__(self, log_interval=2.5, max_samples=200):
         self.log_interval = log_interval
         self.max_samples = max_samples
         self.running = False

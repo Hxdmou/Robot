@@ -26,7 +26,7 @@ import time
 class RobotReachEnvOptimized(gym.Env):
     """优化版机械臂到达环境 - 课程学习增强版"""
 
-    metadata = {"render_modes": ["human", "rgb_array"], "render_fps": 60}
+    metadata = {"render_modes": ["human", "rgb_array"], "render_fps": 120}
 
     def __init__(self, render_mode=None, max_steps=800):
         super().__init__()
@@ -55,25 +55,25 @@ class RobotReachEnvOptimized(gym.Env):
 
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0, 0, -9.81)
-        p.setTimeStep(1 / 240.0)
+        p.setTimeStep(1 / 480.0)
 
         self.robot_id = None
         self.target_pos = None
 
-        self.SIM_FREQ = 240.0
+        self.SIM_FREQ = 480.0
         self.NUM_JOINTS = 7
         self.RESET_STEPS = 1
         self.INV_SIM_FREQ = 1.0 / self.SIM_FREQ
-        self._COLLISION_INTERVAL = 8
+        self._COLLISION_INTERVAL = 16
         self._JOINT_INDICES = list(range(self.NUM_JOINTS))
         self._ZERO_ACTION = np.zeros(self.NUM_JOINTS, dtype=np.float32)
 
-        self.action_scale = 0.25
-        self.reach_threshold = 0.30
-        self.reach_reward = 64000.0
-        self.stable_reward = 6400.0
+        self.action_scale = 0.50
+        self.reach_threshold = 0.50
+        self.reach_reward = 256000.0
+        self.stable_reward = 25600.0
         self.action_penalty = 0.0
-        self.progress_reward_scale = 25600.0
+        self.progress_reward_scale = 102400.0
         self.survival_reward = 0.0
         self.sub_steps = 1
 
@@ -87,10 +87,10 @@ class RobotReachEnvOptimized(gym.Env):
         self.mass_base_range = (0.99, 1.01)
         self.gravity_base_range = (-9.815, -9.805)
         # 最大范围（终极极限强度，确保100%成功率）
-        self.friction_max_range = (0.30, 1.70)
-        self.damping_max_range = (0.003, 0.15)
-        self.mass_max_range = (0.30, 1.70)
-        self.gravity_max_range = (-11.0, -9.0)
+        self.friction_max_range = (0.10, 2.50)
+        self.damping_max_range = (0.001, 0.30)
+        self.mass_max_range = (0.10, 2.50)
+        self.gravity_max_range = (-13.0, -7.0)
 
         # ==================== 执行器动力学参数 ====================
         # 基础值（宽松）
@@ -98,17 +98,17 @@ class RobotReachEnvOptimized(gym.Env):
         self.velocity_base_limit = 50.0
         self.dead_zone_base = 0.0005
         # 最大值（终极极限限制，保证边界目标可达）
-        self.torque_max_limit = 95.0
-        self.velocity_max_limit = 20.0
-        self.dead_zone_max = 0.007
+        self.torque_max_limit = 50.0
+        self.velocity_max_limit = 10.0
+        self.dead_zone_max = 0.015
 
         # ==================== 外部扰动参数 ====================
         # 基础值（极微弱）
         self.disturbance_base_prob = 0.0005
         self.disturbance_base_magnitude = 0.5
         # 最大值（终极极限强度，确保100%成功率）
-        self.disturbance_max_prob = 0.11
-        self.disturbance_max_magnitude = 22.0
+        self.disturbance_max_prob = 0.25
+        self.disturbance_max_magnitude = 50.0
 
         # ==================== 通信延迟参数（非阻塞缓冲） ====================
         # 基础值（0延迟）
@@ -116,9 +116,9 @@ class RobotReachEnvOptimized(gym.Env):
         self.state_delay_base_steps = 0
         self.packet_drop_base_rate = 0.0
         # 最大值（终极极限延迟，保证边界目标可达）
-        self.command_delay_max_steps = 2
-        self.state_delay_max_steps = 2
-        self.packet_drop_max_rate = 0.01
+        self.command_delay_max_steps = 5
+        self.state_delay_max_steps = 5
+        self.packet_drop_max_rate = 0.03
 
         # ==================== 传感器噪声参数 ====================
         # 基础值（无噪声）
@@ -127,18 +127,58 @@ class RobotReachEnvOptimized(gym.Env):
         self.noise_base_drift = 0.0
         self.noise_base_jitter = 0.0
         # 最大值（终极极限强度，确保100%成功率）
-        self.noise_max_gaussian_std = 0.015
-        self.noise_max_quantization = 0.004
-        self.noise_max_drift = 0.00015
-        self.noise_max_jitter = 0.008
+        self.noise_max_gaussian_std = 0.04
+        self.noise_max_quantization = 0.01
+        self.noise_max_drift = 0.0004
+        self.noise_max_jitter = 0.02
 
         # ==================== 碰撞检测参数 ====================
         # 基础值（宽松）
         self.collision_base_safety_dist = 0.001
         self.collision_base_penalty = 0.0
         # 最大值（终极极限惩罚，不影响主任务）
-        self.collision_max_safety_dist = 0.02
-        self.collision_max_penalty = 80.0
+        self.collision_max_safety_dist = 0.05
+        self.collision_max_penalty = 200.0
+
+        # ==================== 动态目标参数（新课程） ====================
+        self.dynamic_target_base_enabled = False
+        self.dynamic_target_base_speed = 0.0
+        self.dynamic_target_max_enabled = True
+        self.dynamic_target_max_speed = 0.08
+        self.dynamic_target_enabled = False
+        self.dynamic_target_speed = 0.0
+        self.dynamic_target_velocity = np.zeros(3, dtype=np.float32)
+
+        # ==================== 观测缺失参数（新课程） ====================
+        self.obs_drop_base_rate = 0.0
+        self.obs_drop_max_rate = 0.15
+        self.obs_drop_rate = 0.0
+
+        # ==================== 对抗性扰动参数（新课程） ====================
+        self.adversarial_base_prob = 0.0
+        self.adversarial_base_magnitude = 0.0
+        self.adversarial_max_prob = 0.20
+        self.adversarial_max_magnitude = 35.0
+        self.adversarial_prob = 0.0
+        self.adversarial_magnitude = 0.0
+
+        # ==================== 动态物理变化参数（新课程） ====================
+        self.phy_dynamic_base_enabled = False
+        self.phy_dynamic_base_change_rate = 0.0
+        self.phy_dynamic_max_enabled = True
+        self.phy_dynamic_max_change_rate = 0.005
+        self.phy_dynamic_enabled = False
+        self.phy_dynamic_change_rate = 0.0
+
+        # ==================== 多目标切换参数（新课程） ====================
+        self.multi_target_base_enabled = False
+        self.multi_target_base_switch_prob = 0.0
+        self.multi_target_max_enabled = True
+        self.multi_target_max_switch_prob = 0.02
+        self.multi_target_enabled = False
+        self.multi_target_switch_prob = 0.0
+        self.multi_target_list = []
+        self.current_target_idx = 0
 
         # ==================== 当前使用的参数 ====================
         self.friction_range = self.friction_base_range
@@ -172,8 +212,8 @@ class RobotReachEnvOptimized(gym.Env):
         self.target_min_base = np.array([0.40, -0.10, 0.30], dtype=np.float32)
         self.target_max_base = np.array([0.50, 0.10, 0.40], dtype=np.float32)
         # 目标范围（最大：终极极限难度，已验证100%可达）
-        self.target_min_max = np.array([0.32, -0.16, 0.27], dtype=np.float32)
-        self.target_max_max = np.array([0.58, 0.16, 0.46], dtype=np.float32)
+        self.target_min_max = np.array([0.25, -0.25, 0.20], dtype=np.float32)
+        self.target_max_max = np.array([0.65, 0.25, 0.55], dtype=np.float32)
 
         self.target_min = self.target_min_base.copy()
         self.target_max = self.target_max_base.copy()
@@ -248,6 +288,36 @@ class RobotReachEnvOptimized(gym.Env):
             self.packet_drop_rate = self._interpolate(p, 0.85, 1.0,
                 self.packet_drop_base_rate, self.packet_drop_max_rate)
 
+        # ===== 动态目标（从进度0.92开始，新课程） =====
+        if p >= 0.92:
+            self.dynamic_target_enabled = True
+            self.dynamic_target_speed = self._interpolate(p, 0.92, 1.0,
+                self.dynamic_target_base_speed, self.dynamic_target_max_speed)
+
+        # ===== 观测缺失（从进度0.93开始，新课程） =====
+        if p >= 0.93:
+            self.obs_drop_rate = self._interpolate(p, 0.93, 1.0,
+                self.obs_drop_base_rate, self.obs_drop_max_rate)
+
+        # ===== 对抗性扰动（从进度0.95开始，新课程） =====
+        if p >= 0.95:
+            self.adversarial_prob = self._interpolate(p, 0.95, 1.0,
+                self.adversarial_base_prob, self.adversarial_max_prob)
+            self.adversarial_magnitude = self._interpolate(p, 0.95, 1.0,
+                self.adversarial_base_magnitude, self.adversarial_max_magnitude)
+
+        # ===== 动态物理变化（从进度0.97开始，新课程） =====
+        if p >= 0.97:
+            self.phy_dynamic_enabled = True
+            self.phy_dynamic_change_rate = self._interpolate(p, 0.97, 1.0,
+                self.phy_dynamic_base_change_rate, self.phy_dynamic_max_change_rate)
+
+        # ===== 多目标切换（从进度0.98开始，新课程） =====
+        if p >= 0.98:
+            self.multi_target_enabled = True
+            self.multi_target_switch_prob = self._interpolate(p, 0.98, 1.0,
+                self.multi_target_base_switch_prob, self.multi_target_max_switch_prob)
+
     def _interpolate(self, p, start_p, end_p, start_val, end_val):
         """线性插值"""
         if p < start_p:
@@ -290,6 +360,25 @@ class RobotReachEnvOptimized(gym.Env):
             p.setGravity(0, 0, -9.81)
 
         self.target_pos = self.np_random.uniform(self.target_min, self.target_max).astype(np.float32)
+
+        # 多目标初始化（新课程）
+        if self.multi_target_enabled:
+            self.multi_target_list = []
+            for _ in range(5):
+                t = self.np_random.uniform(self.target_min, self.target_max).astype(np.float32)
+                self.multi_target_list.append(t)
+            self.current_target_idx = 0
+            self.target_pos = self.multi_target_list[0].copy()
+
+        # 动态目标初始化（新课程）
+        if self.dynamic_target_enabled:
+            angle = self.np_random.uniform(0, 2 * np.pi)
+            speed = self.dynamic_target_speed
+            self.dynamic_target_velocity = np.array([
+                np.cos(angle) * speed,
+                np.sin(angle) * speed * 0.5,
+                np.sin(angle * 1.3) * speed * 0.3
+            ], dtype=np.float32)
 
         for i in self._JOINT_INDICES:
             p.resetJointState(
@@ -365,6 +454,35 @@ class RobotReachEnvOptimized(gym.Env):
 
         self.step_count += 1
 
+        # 动态目标更新（新课程）
+        if self.dynamic_target_enabled:
+            self.target_pos += self.dynamic_target_velocity * self.INV_SIM_FREQ
+            # 边界反弹
+            for i in range(3):
+                if self.target_pos[i] < self.target_min[i]:
+                    self.target_pos[i] = self.target_min[i]
+                    self.dynamic_target_velocity[i] *= -1
+                elif self.target_pos[i] > self.target_max[i]:
+                    self.target_pos[i] = self.target_max[i]
+                    self.dynamic_target_velocity[i] *= -1
+
+        # 多目标切换（新课程）
+        if self.multi_target_enabled and self.multi_target_list:
+            if self.np_random.random() < self.multi_target_switch_prob:
+                self.current_target_idx = (self.current_target_idx + 1) % len(self.multi_target_list)
+                self.target_pos = self.multi_target_list[self.current_target_idx].copy()
+                self.stable_count = 0
+
+        # 动态物理变化（新课程）
+        if self.phy_dynamic_enabled and self.step_count % 20 == 0:
+            if self.np_random.random() < self.phy_dynamic_change_rate:
+                try:
+                    joint = self.np_random.choice(self._JOINT_INDICES)
+                    new_damping = self.np_random.uniform(*self.damping_range)
+                    p.changeDynamics(self.robot_id, joint, angularDamping=new_damping)
+                except:
+                    pass
+
         # 缓存getLinkState结果（避免step()/外部扰动/_get_obs()重复调用）
         self._cached_ee_pos = np.array(p.getLinkState(self.robot_id, 6)[0], dtype=np.float32)
 
@@ -380,6 +498,22 @@ class RobotReachEnvOptimized(gym.Env):
                     posObj=self._cached_ee_pos,
                     flags=p.WORLD_FRAME
                 )
+
+        # 对抗性扰动（新课程）
+        if self.curriculum_progress >= 0.95 and self.adversarial_prob > 0:
+            if self.np_random.random() < self.adversarial_prob:
+                # 针对末端位置的对抗性力（推离目标）
+                ee_to_target = self.target_pos - self._cached_ee_pos
+                dist = np.linalg.norm(ee_to_target)
+                if dist > 0.001:
+                    adv_dir = -ee_to_target / dist
+                    adv_force = adv_dir * self.adversarial_magnitude
+                    p.applyExternalForce(
+                        self.robot_id, 6,
+                        forceObj=adv_force,
+                        posObj=self._cached_ee_pos,
+                        flags=p.WORLD_FRAME
+                    )
 
         obs = self._get_obs()
 
@@ -461,6 +595,13 @@ class RobotReachEnvOptimized(gym.Env):
             # 4. 抖动噪声
             if self.noise_jitter > 0:
                 joint_pos += np.random.uniform(-self.noise_jitter, self.noise_jitter, size=self.NUM_JOINTS).astype(np.float32)
+
+        # ===== 观测缺失（新课程） =====
+        if self.curriculum_progress >= 0.93 and self.obs_drop_rate > 0:
+            if self.np_random.random() < self.obs_drop_rate:
+                # 随机将部分观测置零（模拟传感器失效）
+                drop_mask = self.np_random.random(self.NUM_JOINTS) < 0.3
+                joint_pos[drop_mask] = 0.0
 
         return np.concatenate([
             joint_pos, ee_pos, self.target_pos

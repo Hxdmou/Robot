@@ -81,7 +81,7 @@ def main():
         env.set_curriculum_progress(1.0)
         obs, _ = env.reset()
         start_time = time.time()
-        n_steps = 1000
+        n_steps = 2000
         for _ in range(n_steps):
             action, _ = model.predict(obs, deterministic=True)
             obs, _, term, trunc, _ = env.step(action)
@@ -97,8 +97,8 @@ def main():
         print("  总步数:      %d" % n_steps, flush=True)
         print("  总耗时:      %.2f 秒" % elapsed, flush=True)
         print("  FPS:         %.1f 步/秒" % fps, flush=True)
-        print("  课程进度:    1.0 (最大强度)", flush=True)
-        print("  启用模块:    全部8大模块", flush=True)
+        print("  课程进度:    1.0 (最大强度 - 14个模块)", flush=True)
+        print("  启用模块:    全部14大模块", flush=True)
         print("=" * 50, flush=True)
         env.close()
 

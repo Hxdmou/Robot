@@ -79,8 +79,8 @@ if __name__ == "__main__":
     print("  CURRICULUM LEARNING TRAINING", flush=True)
     print("=" * 70, flush=True)
 
-    n_envs = 32
-    total_timesteps = 5_000_000
+    n_envs = 64
+    total_timesteps = 10_000_000
 
     print(f"\n[CONFIG]", flush=True)
     print(f"   Parallel Environments: {n_envs}", flush=True)
@@ -92,7 +92,12 @@ if __name__ == "__main__":
     print(f"   Stage 4 (40-50%):   Actuator dynamics (torque/velocity/dead-zone)", flush=True)
     print(f"   Stage 5 (50-60%):   Collision detection (safety penalty)", flush=True)
     print(f"   Stage 6 (60-80%):   External disturbances (random forces)", flush=True)
-    print(f"   Stage 7 (80-100%):  Communication latency + all modules max intensity", flush=True)
+    print(f"   Stage 7 (80-92%):   Communication latency + all modules max intensity", flush=True)
+    print(f"   Stage 8 (92-93%):   Dynamic moving target", flush=True)
+    print(f"   Stage 9 (93-95%):   Observation dropout (sensor failure simulation)", flush=True)
+    print(f"   Stage 10 (95-97%):  Adversarial disturbances (anti-goal forces)", flush=True)
+    print(f"   Stage 11 (97-98%):  Dynamic physics changes (runtime parameter drift)", flush=True)
+    print(f"   Stage 12 (98-100%): Multi-target switching (5 targets)", flush=True)
 
     print(f"\nCreating {n_envs} parallel environments...", flush=True)
     sys.stderr = open(os.devnull, 'w')
@@ -110,7 +115,7 @@ if __name__ == "__main__":
 
     sys.stderr = old_stderr
     print(f"\nStarting Curriculum Fine-tuning...", flush=True)
-    print(f"   [Target] FPS: 6000+ | Success: 100% | Reward: Maximize", flush=True)
+    print(f"   [Target] FPS: 12000+ | Success: 100% | Reward: Maximize", flush=True)
     start_time = time.time()
     sys.stderr = open(os.devnull, 'w')
     
@@ -204,16 +209,16 @@ if __name__ == "__main__":
     print(f'╚══════════════════════════════════════════════════════════════════╝', flush=True)
 
     # 最终评估
-    fps_ok = fps >= 6000
+    fps_ok = fps >= 12000
     success_ok_base = success_rate >= 100.0
-    success_ok_enhanced = success_rate2 >= 90.0
+    success_ok_enhanced = success_rate2 >= 100.0
     
     print(f'\n╔══════════════════════════════════════════════════════════════════╗', flush=True)
     print(f'║ [FINAL EVALUATION]                                            ║', flush=True)
     print(f'╠══════════════════════════════════════════════════════════════════╣', flush=True)
-    print(f'║ FPS: {fps:.1f} {"OK" if fps_ok else "FAIL"} (Target: 6000+)      ║', flush=True)
+    print(f'║ FPS: {fps:.1f} {"OK" if fps_ok else "FAIL"} (Target: 12000+)     ║', flush=True)
     print(f'║ Base Success: {success_rate:.1f}% {"OK" if success_ok_base else "FAIL"} (Target: 100%) ║', flush=True)
-    print(f'║ Enhanced Success: {success_rate2:.1f}% {"OK" if success_ok_enhanced else "FAIL"} (Target: 90%) ║', flush=True)
+    print(f'║ Enhanced Success: {success_rate2:.1f}% {"OK" if success_ok_enhanced else "FAIL"} (Target: 100%) ║', flush=True)
     print(f'╚══════════════════════════════════════════════════════════════════╝', flush=True)
     
     if fps_ok and success_ok_base and success_ok_enhanced:

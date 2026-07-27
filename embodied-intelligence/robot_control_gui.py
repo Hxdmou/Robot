@@ -25,7 +25,7 @@ class RobotControlGUI(QMainWindow):
 
         self.timer = QTimer()
         self.timer.timeout.connect(self.update_state)
-        self.timer.start(50)
+        self.timer.start(25)
 
         print("Control GUI started!")
 
