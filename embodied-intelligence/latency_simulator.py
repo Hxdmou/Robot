@@ -156,16 +156,25 @@ class ControlDelay:
         self.variable = config.get("variable", True)
         self.delay_range = config.get("delay_range", [5, 15])
     
+    def enable(self):
+        self.enabled = True
+
+    def disable(self):
+        self.enabled = False
+
+    def is_enabled(self):
+        return self.enabled
+
     def apply_delay(self):
         """应用控制延迟"""
         if not self.enabled:
             return 0
-        
+
         if self.variable and self.delay_range:
             delay_ms = random.uniform(*self.delay_range)
         else:
             delay_ms = self.delay_ms
-        
+
         delay_s = delay_ms / 1000.0
         time.sleep(delay_s)
         return delay_ms
@@ -191,9 +200,18 @@ class StateDelay:
         else:
             delay_ms = self.delay_ms
         
-        delay_s = delay_ms / 1000.0
+        self.delay_s = delay_ms / 1000.0
         time.sleep(delay_s)
         return delay_ms
+
+    def enable(self):
+        self.enabled = True
+
+    def disable(self):
+        self.enabled = False
+
+    def is_enabled(self):
+        return self.enabled
 
 
 class NetworkLatency:
@@ -247,6 +265,15 @@ class NetworkLatency:
             "mean_rtt_ms": self.mean_rtt_ms,
             "packet_loss_rate": self.packet_loss_rate
         }
+
+    def enable(self):
+        self.enabled = True
+
+    def disable(self):
+        self.enabled = False
+
+    def is_enabled(self):
+        return self.enabled
 
 
 class LatencySystem:

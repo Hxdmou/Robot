@@ -1,5 +1,9 @@
 """
-部署适配主脚本（支持真实机械臂对接）
+部署适配主脚本（支持真实机械臂对接 + PPO模型推理）
+两种任务执行模式：
+  1. trajectory - 硬编码轨迹插值（原模式）
+  2. model      - PPO模型推理驱动（新模式，默认）
+
 安全原则：低资源占用、异常保护、自动恢复、模式隔离
 """
 
@@ -10,6 +14,7 @@ import math
 import threading
 import signal
 import sys
+import os
 
 from deployment_config import (
     CONTROL_PARAMS,
@@ -42,6 +47,7 @@ from domain_randomization import DomainRandomizationSystem
 from latency_simulator import LatencySystem
 from actuator_dynamics import ActuatorSystem
 from disturbance_simulator import DisturbanceSystem
+from sim_to_real_adapter import SimToRealAdapter, DeploymentSafetyGuard
 
 physicsClient = None
 resource_monitor = None
@@ -60,18 +66,89 @@ actuator_system = None
 disturbance_system = None
 running = True
 
+# ========== 新增：模型推理相关 ==========
+ppo_model = None
+sim_to_real = None
+safety_guard = None
+EXECUTION_MODE = "model"  # "model" 或 "trajectory"
+MODEL_PATH = "ppo_robot_reach_curriculum"
+MAX_STEPS_PER_TASK = 300
+
+
 def signal_handler(sig, frame):
     global running
     print("\n[DEPLOY] 收到中断信号，正在安全退出...")
     running = False
 
+
 signal.signal(signal.SIGINT, signal_handler)
 
-def init_environment():
-    global physicsClient, resource_monitor, robot_monitor, perf_monitor, logger, robot_adapter, noise_system, collision_detector, force_feedback, obstacle_ids, data_recorder, domain_randomizer, latency_system, actuator_system, disturbance_system
+
+def load_model(model_path=None):
+    """加载训练好的PPO模型
+
+    Returns:
+        (success, model) 成功返回True和模型对象，失败返回False和None
+    """
+    global ppo_model
+
+    model_path = model_path or MODEL_PATH
+    search_paths = [
+        model_path,
+        f"{model_path}.zip",
+        os.path.join(r"f:\个人作品\具身智能", model_path),
+        os.path.join(r"f:\个人作品\具身智能", f"{model_path}.zip"),
+    ]
+
+    for path in search_paths:
+        if os.path.exists(path) or os.path.exists(path + ".zip"):
+            try:
+                from stable_baselines3 import PPO
+                ppo_model = PPO.load(path, device="cpu")
+                logger.info(f"PPO模型加载成功: {path}")
+                return True, ppo_model
+            except Exception as e:
+                logger.warn(f"模型加载失败 ({path}): {e}")
+
+    logger.warn(f"未找到PPO模型，将使用轨迹模式 (搜索路径: {search_paths})")
+    return False, None
+
+
+def init_environment(execution_mode=None):
+    """初始化部署环境
+
+    Args:
+        execution_mode: "model"（模型推理）或 "trajectory"（硬编码轨迹）
+    """
+    global physicsClient, resource_monitor, robot_monitor, perf_monitor, logger, robot_adapter, noise_system, collision_detector, force_feedback, obstacle_ids, data_recorder, domain_randomizer, latency_system, actuator_system, disturbance_system, sim_to_real, safety_guard, EXECUTION_MODE
+
+    if execution_mode:
+        EXECUTION_MODE = execution_mode
 
     logger = DeployLogger()
-    logger.info(f"初始化环境... (模式: {ROBOT_MODE})")
+    logger.info(f"初始化环境... (模式: {ROBOT_MODE}, 执行: {EXECUTION_MODE})")
+
+    # ========== Sim-to-Real 适配器 + 安全护栏 ==========
+    sim_to_real = SimToRealAdapter(
+        joint_indices=JOINT_INDICES,
+        action_scale=5.0,
+        joint_limits=JOINT_LIMITS
+    )
+    safety_guard = DeploymentSafetyGuard(
+        joint_limits=JOINT_LIMITS,
+        workspace_radius=0.8,
+        min_z=0.05,
+        max_joint_speed=3.0,
+        max_force=100.0
+    )
+    logger.info("Sim-to-Real适配器 + 安全护栏已加载")
+
+    # ========== 加载PPO模型（仅model模式） ==========
+    if EXECUTION_MODE == "model":
+        model_ok, _ = load_model()
+        if not model_ok:
+            logger.warn("切换到轨迹模式（模型加载失败）")
+            EXECUTION_MODE = "trajectory"
 
     noise_system = SensorNoiseSystem(SENSOR_NOISE_CONFIG)
     logger.info(f"传感器噪声模型已加载 (启用: {noise_system.is_enabled()})")
@@ -124,12 +201,12 @@ def init_environment():
     })
     logger.info(f"外部扰动系统已加载 (启用: {disturbance_system.is_enabled()})")
 
-    robot_config = {
+    robot_config_dict = {
         "joint_indices": JOINT_INDICES,
         "joint_limits": JOINT_LIMITS,
         **REAL_ROBOT_CONFIG
     }
-    robot_adapter = RobotAdapter(mode=ROBOT_MODE, config=robot_config)
+    robot_adapter = RobotAdapter(mode=ROBOT_MODE, config=robot_config_dict)
 
     if not robot_adapter.initialize():
         logger.error("机器人适配器初始化失败")
@@ -234,6 +311,43 @@ def init_environment():
         logger.info("真实机械臂环境初始化完成")
         return {"robot_id": None, "ee_index": 7, "joint_indices": JOINT_INDICES}
 
+
+def get_current_state(config):
+    """获取当前机器人状态（兼容仿真和真实模式）
+
+    Returns:
+        (joint_positions, ee_position)
+    """
+    if ROBOT_MODE == "real":
+        states = robot_adapter.get_joint_states()
+        joint_pos = [s.get("position", 0.0) for s in states[:7]]
+        ee_pose = robot_adapter.get_ee_pose()
+        ee_pos = ee_pose["position"]
+    else:
+        states = p.getJointStates(config["robot_id"], config["joint_indices"])
+        joint_pos = [s[0] for s in states]
+        link_state = p.getLinkState(config["robot_id"], config["ee_index"])
+        ee_pos = list(link_state[0])
+
+    return joint_pos, ee_pos
+
+
+def apply_joint_targets(config, target_joints):
+    """应用关节目标到机器人（兼容仿真和真实模式）"""
+    target_joints = safety_guard.clip_joint_targets(target_joints)
+
+    if ROBOT_MODE == "real":
+        robot_adapter.move_joints(target_joints.tolist(), speed=1.0)
+    else:
+        for idx, joint_idx in enumerate(config["joint_indices"]):
+            p.setJointMotorControl2(
+                config["robot_id"], joint_idx, p.POSITION_CONTROL,
+                targetPosition=target_joints[idx], force=CONTROL_PARAMS["force"]
+            )
+        for _ in range(2):
+            p.stepSimulation()
+
+
 def compute_ik(config, target_pos):
     if ROBOT_MODE != "sim" or config["robot_id"] is None:
         return None
@@ -251,6 +365,7 @@ def compute_ik(config, target_pos):
         residualThreshold=CONTROL_PARAMS["ik_threshold"]
     )
     return [ik_joints[idx] if idx < len(ik_joints) else 0.0 for idx in config["joint_indices"]]
+
 
 def move_to_position(config, target_pos, steps=None):
     if ROBOT_MODE == "real":
@@ -270,14 +385,15 @@ def move_to_position(config, target_pos, steps=None):
     for _ in range(steps):
         p.stepSimulation()
         time.sleep(0.001)
-    
+
     link_state = p.getLinkState(config["robot_id"], config["ee_index"])
     actual_pos = link_state[0]
-    
+
     if noise_system:
         actual_pos = noise_system.apply_ee_noise(actual_pos)
-    
+
     return actual_pos
+
 
 def converge_to_target(config, target_pos):
     if ROBOT_MODE == "real":
@@ -291,10 +407,10 @@ def converge_to_target(config, target_pos):
     for _ in range(10):
         link_state = p.getLinkState(config["robot_id"], config["ee_index"])
         current_pos = link_state[0]
-        
+
         if noise_system:
             current_pos = noise_system.apply_ee_noise(current_pos)
-        
+
         error = math.sqrt(
             (current_pos[0] - target_pos[0])**2 +
             (current_pos[1] - target_pos[1])**2 +
@@ -314,6 +430,7 @@ def converge_to_target(config, target_pos):
 
     return error
 
+
 def reset_robot(config):
     if ROBOT_MODE == "real":
         robot_adapter.move_joints(START_JOINT_POSITIONS, speed=0.5)
@@ -325,7 +442,73 @@ def reset_robot(config):
     for _ in range(50):
         p.stepSimulation()
 
-def execute_task(config, target_pos):
+
+def execute_task_model(config, target_pos):
+    """使用PPO模型推理执行任务（新模式）
+
+    Returns:
+        final_error: 末端到目标的最终距离 (m)
+    """
+    reset_robot(config)
+
+    if ppo_model is None or sim_to_real is None:
+        logger.warn("模型未加载，回退到轨迹模式")
+        return execute_task_trajectory(config, target_pos)
+
+    success = False
+    steps = 0
+
+    for steps in range(MAX_STEPS_PER_TASK):
+        if safety_guard.is_emergency_stop():
+            logger.warn("紧急停止已触发，任务中止")
+            break
+
+        joint_pos, ee_pos = get_current_state(config)
+
+        # 安全检查
+        safety_result = safety_guard.check_all(joint_pos, ee_pos)
+        if safety_result["should_stop"]:
+            logger.warn(f"安全违规: {safety_result['violations']}")
+            break
+
+        # 构造观测 → 模型推理 → 转换为关节目标
+        obs = sim_to_real.robot_state_to_obs(joint_pos, ee_pos, target_pos)
+        action, _ = ppo_model.predict(obs, deterministic=True)
+        target_joints = sim_to_real.action_to_joint_targets(action, joint_pos)
+
+        # 应用控制
+        apply_joint_targets(config, target_joints)
+
+        # 检查是否到达目标
+        dist = math.sqrt(
+            (ee_pos[0] - target_pos[0])**2 +
+            (ee_pos[1] - target_pos[1])**2 +
+            (ee_pos[2] - target_pos[2])**2
+        )
+        if dist < 0.01:
+            success = True
+            break
+
+        if ROBOT_MODE == "real":
+            time.sleep(0.01)
+
+    # 获取最终位置
+    _, final_ee = get_current_state(config)
+    final_error = math.sqrt(
+        (final_ee[0] - target_pos[0])**2 +
+        (final_ee[1] - target_pos[1])**2 +
+        (final_ee[2] - target_pos[2])**2
+    )
+
+    if robot_monitor:
+        robot_monitor.log_error(final_error)
+
+    logger.info(f"模型执行完成: 步数={steps+1}, 成功={success}, 误差={final_error*1000:.2f}mm")
+    return final_error
+
+
+def execute_task_trajectory(config, target_pos):
+    """使用硬编码轨迹执行任务（原模式）"""
     reset_robot(config)
 
     start_pos = [0.0, 0.0, 0.6]
@@ -349,7 +532,7 @@ def execute_task(config, target_pos):
     else:
         link_state = p.getLinkState(config["robot_id"], config["ee_index"])
         final_pos = link_state[0]
-        
+
         if noise_system:
             final_pos = noise_system.apply_ee_noise(final_pos)
 
@@ -363,6 +546,15 @@ def execute_task(config, target_pos):
         robot_monitor.log_error(final_error)
     return final_error
 
+
+def execute_task(config, target_pos):
+    """根据当前执行模式选择任务执行方式"""
+    if EXECUTION_MODE == "model":
+        return execute_task_model(config, target_pos)
+    else:
+        return execute_task_trajectory(config, target_pos)
+
+
 def run_calibration(config):
     if ROBOT_MODE != "sim" or config["robot_id"] is None:
         logger.info("跳过校准（真实机械臂模式）")
@@ -373,31 +565,30 @@ def run_calibration(config):
     calibrator.save_results()
     return results
 
+
 def deploy_loop(config):
     global running
     target_pos = [0.25, 0.0, 0.6]
     cycle_count = 0
     success_count = 0
 
-    logger.info(f"开始部署循环... (模式: {ROBOT_MODE})", target_pos=target_pos, force=CONTROL_PARAMS["force"])
+    logger.info(f"开始部署循环... (模式: {ROBOT_MODE}, 执行: {EXECUTION_MODE})",
+                target_pos=target_pos, force=CONTROL_PARAMS["force"])
 
     while running:
         try:
             cycle_count += 1
 
-            # 领域随机化 - 周期性执行
             if domain_randomizer and ROBOT_MODE == "sim":
                 randomize_result = domain_randomizer.check_and_randomize(config["robot_id"], config["joint_indices"])
                 if randomize_result:
                     logger.info(f"领域随机化已执行: {randomize_result}")
 
-            # 应用通信延迟
             if latency_system:
                 latency_system.apply_control_latency()
 
             error = execute_task(config, target_pos)
 
-            # 应用外部扰动
             if disturbance_system and ROBOT_MODE == "sim":
                 disturbances = disturbance_system.apply_disturbances(config["robot_id"], config["ee_index"])
                 if disturbances:
@@ -417,14 +608,13 @@ def deploy_loop(config):
             if collision_detector:
                 collision_detector.update()
 
-            # 获取延迟统计
             latency_stats = latency_system.get_stats() if latency_system else {}
             actuator_stats = actuator_system.get_stats() if actuator_system else {}
             disturbance_stats = disturbance_system.get_stats() if disturbance_system else {}
 
             print(f"[DEPLOY] 循环 {cycle_count}: 误差 {error*1000:.2f}mm | "
                   f"CPU: {stats['cpu_current']:.1f}% | MEM: {stats['mem_current']:.1f}% | "
-                  f"碰撞: {collision_stats.get('recent_collisions', 0)}")
+                  f"碰撞: {collision_stats.get('recent_collisions', 0)} | 模式: {EXECUTION_MODE}")
 
             if data_recorder:
                 if ROBOT_MODE == "real":
@@ -452,7 +642,6 @@ def deploy_loop(config):
                     logger.info("性能统计", avg_cpu=perf_summary["avg_cpu"],
                                avg_memory=perf_summary["avg_memory"])
 
-                # 输出随机化和扰动统计
                 if domain_randomizer:
                     dr_stats = domain_randomizer.get_stats()
                     logger.info("领域随机化统计", **dr_stats)
@@ -471,15 +660,20 @@ def deploy_loop(config):
 
     print(f"\n[DEPLOY] 部署循环结束")
     print(f"[DEPLOY] 总循环次数: {cycle_count}")
+    print(f"[DEPLOY] 执行模式: {EXECUTION_MODE}")
     print(f"[DEPLOY] 成功率: {pass_rate:.1f}%")
 
     if perf_monitor:
         perf_monitor.save_report()
 
+
 def cleanup():
-    global physicsClient, resource_monitor, perf_monitor, logger, robot_adapter, collision_detector, data_recorder, domain_randomizer, latency_system, actuator_system, disturbance_system
+    global physicsClient, resource_monitor, perf_monitor, logger, robot_adapter, collision_detector, data_recorder, domain_randomizer, latency_system, actuator_system, disturbance_system, ppo_model, sim_to_real, safety_guard
 
     print("\n[DEPLOY] 清理资源...")
+
+    if safety_guard:
+        safety_guard.reset_emergency_stop()
 
     if logger:
         logger.close()
@@ -519,6 +713,10 @@ def cleanup():
     if robot_adapter:
         robot_adapter.shutdown()
 
+    ppo_model = None
+    sim_to_real = None
+    safety_guard = None
+
     if physicsClient is not None:
         try:
             p.disconnect(physicsClient)
@@ -526,6 +724,7 @@ def cleanup():
             pass
 
     print("[DEPLOY] 资源清理完成")
+
 
 if __name__ == "__main__":
     try:
