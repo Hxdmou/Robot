@@ -566,6 +566,162 @@ def run_calibration(config):
     return results
 
 
+def emergency_stop_recovery(config):
+    """紧急停止恢复流程
+
+    步骤：
+    1. 停止所有运动
+    2. 检查系统状态
+    3. 移动到安全姿势（参考位置）
+    4. 重置安全护栏状态
+    5. 等待用户确认后恢复运行
+    """
+    print("\n" + "=" * 70)
+    print("  ⚠️  紧急停止恢复流程")
+    print("=" * 70)
+
+    # 1. 停止所有运动
+    print("[1/5] 停止所有运动...")
+    try:
+        if robot_adapter:
+            robot_adapter.stop()
+    except:
+        pass
+
+    # 2. 检查系统状态
+    print("[2/5] 检查系统状态...")
+    try:
+        joint_pos, ee_pos = get_current_state(config)
+        for i, pos in enumerate(joint_pos):
+            print(f"     关节{i}: {pos:.4f} rad")
+        print(f"     末端位置: ({ee_pos[0]:.3f}, {ee_pos[1]:.3f}, {ee_pos[2]:.3f})")
+    except Exception as e:
+        print(f"     ⚠️  状态读取失败: {e}")
+
+    # 3. 移动到安全姿势
+    print("[3/5] 移动到安全参考姿势...")
+    try:
+        reset_robot(config)
+        print("     ✅ 已移动到参考位置")
+    except Exception as e:
+        print(f"     ⚠️  移动失败: {e}")
+
+    # 4. 重置安全状态
+    print("[4/5] 重置安全护栏状态...")
+    if safety_guard:
+        safety_guard.reset_emergency_stop()
+    if robot_adapter and robot_adapter.emergency_stop:
+        robot_adapter.emergency_stop.reset_emergency_stop()
+    print("     ✅ 安全状态已重置")
+
+    # 5. 用户确认
+    print("[5/5] 等待用户确认...")
+    print("     请检查机器人周围环境，确保安全后按回车键继续...")
+
+    if ROBOT_MODE == "real":
+        try:
+            input()
+        except:
+            pass
+
+    print("     ✅ 紧急停止恢复完成")
+    print("=" * 70)
+    return True
+
+
+def post_deployment_health_check(config, cycle_count, success_count):
+    """部署后健康检查
+
+    检查项：
+    1. 机器人连接状态
+    2. 关节位置是否在安全范围
+    3. 末端位置是否在工作空间
+    4. 系统资源（CPU/内存）
+    5. 部署成功率统计
+    """
+    print("\n" + "=" * 70)
+    print("  部署健康检查")
+    print("=" * 70)
+
+    checks = []
+
+    # 1. 连接状态
+    try:
+        connected = robot_adapter.is_connected() if robot_adapter else False
+        status = "✅" if connected else "❌"
+        checks.append(("机器人连接", connected))
+        print(f"  {status} 机器人连接: {'正常' if connected else '断开'}")
+    except Exception as e:
+        checks.append(("机器人连接", False))
+        print(f"  ❌ 机器人连接: 异常 ({e})")
+
+    # 2. 关节位置
+    try:
+        joint_pos, ee_pos = get_current_state(config)
+        joint_safe = True
+        for i, pos in enumerate(joint_pos):
+            lower = JOINT_LIMITS["lower"][i]
+            upper = JOINT_LIMITS["upper"][i]
+            if pos < lower or pos > upper:
+                joint_safe = False
+                break
+        status = "✅" if joint_safe else "❌"
+        checks.append(("关节范围", joint_safe))
+        print(f"  {status} 关节范围: {'正常' if joint_safe else '超限'}")
+    except Exception as e:
+        checks.append(("关节范围", False))
+        print(f"  ❌ 关节范围: 异常 ({e})")
+
+    # 3. 末端位置
+    try:
+        dist = math.sqrt(ee_pos[0]**2 + ee_pos[1]**2)
+        in_ws = dist <= 0.8 and ee_pos[2] >= 0.05
+        status = "✅" if in_ws else "❌"
+        checks.append(("工作空间", in_ws))
+        print(f"  {status} 工作空间: {'正常' if in_ws else '超出'} "
+              f"(距离={dist:.3f}m, Z={ee_pos[2]:.3f}m)")
+    except Exception as e:
+        checks.append(("工作空间", False))
+        print(f"  ❌ 工作空间: 异常 ({e})")
+
+    # 4. 系统资源
+    try:
+        stats = resource_monitor.get_stats() if resource_monitor else {}
+        cpu_ok = stats.get("cpu_current", 100) < 90
+        mem_ok = stats.get("mem_current", 100) < 90
+        resource_ok = cpu_ok and mem_ok
+        status = "✅" if resource_ok else "⚠️"
+        checks.append(("系统资源", resource_ok))
+        print(f"  {status} 系统资源: CPU={stats.get('cpu_current', 0):.1f}% "
+              f"MEM={stats.get('mem_current', 0):.1f}%")
+    except Exception as e:
+        checks.append(("系统资源", False))
+        print(f"  ❌ 系统资源: 异常 ({e})")
+
+    # 5. 成功率统计
+    try:
+        pass_rate = success_count / cycle_count * 100 if cycle_count > 0 else 0
+        rate_ok = pass_rate >= 70
+        status = "✅" if rate_ok else "⚠️"
+        checks.append(("部署成功率", rate_ok))
+        print(f"  {status} 部署成功率: {pass_rate:.1f}% "
+              f"({success_count}/{cycle_count})")
+    except:
+        checks.append(("部署成功率", False))
+        print(f"  ❌ 部署成功率: 未知")
+
+    passed = sum(1 for _, ok in checks if ok)
+    total = len(checks)
+    print("-" * 70)
+    print(f"  健康检查结果: {passed}/{total} 通过")
+    if passed == total:
+        print("  ✅ 系统运行正常")
+    else:
+        print("  ⚠️  部分检查未通过，请关注")
+    print("=" * 70)
+    return passed == total
+
+
 def deploy_loop(config):
     global running
     target_pos = [0.25, 0.0, 0.6]
@@ -649,10 +805,22 @@ def deploy_loop(config):
                     ds_stats = disturbance_system.get_stats()
                     logger.info("扰动统计", **ds_stats)
 
+                # 每10个循环执行一次健康检查
+                post_deployment_health_check(config, cycle_count, success_count)
+
             time.sleep(0.5)
 
         except Exception as e:
             logger.error(f"部署循环异常: {e}")
+
+            # 如果是安全违规导致的异常，触发紧急停止恢复
+            if "安全" in str(e) or "emergency" in str(e).lower():
+                logger.warn("检测到安全相关异常，启动紧急停止恢复...")
+                try:
+                    emergency_stop_recovery(config)
+                except Exception as rec_e:
+                    logger.error(f"紧急停止恢复失败: {rec_e}")
+
             time.sleep(1)
 
     pass_rate = success_count / cycle_count * 100 if cycle_count > 0 else 0
@@ -662,6 +830,9 @@ def deploy_loop(config):
     print(f"[DEPLOY] 总循环次数: {cycle_count}")
     print(f"[DEPLOY] 执行模式: {EXECUTION_MODE}")
     print(f"[DEPLOY] 成功率: {pass_rate:.1f}%")
+
+    # 部署结束后执行最终健康检查
+    post_deployment_health_check(config, cycle_count, success_count)
 
     if perf_monitor:
         perf_monitor.save_report()
