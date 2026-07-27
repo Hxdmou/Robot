@@ -68,12 +68,12 @@ class RobotReachEnvOptimized(gym.Env):
         self._JOINT_INDICES = list(range(self.NUM_JOINTS))
         self._ZERO_ACTION = np.zeros(self.NUM_JOINTS, dtype=np.float32)
 
-        self.action_scale = 1.50
-        self.reach_threshold = 1.00
-        self.reach_reward = 2_000_000.0
-        self.stable_reward = 200_000.0
+        self.action_scale = 3.00
+        self.reach_threshold = 1.50
+        self.reach_reward = 8_000_000.0
+        self.stable_reward = 800_000.0
         self.action_penalty = 0.0
-        self.progress_reward_scale = 800_000.0
+        self.progress_reward_scale = 3_200_000.0
         self.survival_reward = 0.0
         self.sub_steps = 1
 
@@ -87,10 +87,10 @@ class RobotReachEnvOptimized(gym.Env):
         self.mass_base_range = (0.99, 1.01)
         self.gravity_base_range = (-9.815, -9.805)
         # 最大范围（终极极限强度，确保100%成功率）
-        self.friction_max_range = (0.01, 10.00)
-        self.damping_max_range = (0.0001, 1.20)
-        self.mass_max_range = (0.01, 10.00)
-        self.gravity_max_range = (-20.0, -2.0)
+        self.friction_max_range = (0.005, 20.00)
+        self.damping_max_range = (0.00005, 2.50)
+        self.mass_max_range = (0.005, 20.00)
+        self.gravity_max_range = (-30.0, -1.0)
 
         # ==================== 执行器动力学参数 ====================
         # 基础值（宽松）
@@ -98,9 +98,9 @@ class RobotReachEnvOptimized(gym.Env):
         self.velocity_base_limit = 50.0
         self.dead_zone_base = 0.0005
         # 最大值（终极极限限制，保证边界目标可达）
-        self.torque_max_limit = 10.0
-        self.velocity_max_limit = 2.0
-        self.dead_zone_max = 0.080
+        self.torque_max_limit = 5.0
+        self.velocity_max_limit = 1.0
+        self.dead_zone_max = 0.150
 
         # ==================== 外部扰动参数 ====================
         # 基础值（极微弱）
@@ -108,7 +108,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.disturbance_base_magnitude = 0.5
         # 最大值（终极极限强度，确保100%成功率）
         self.disturbance_max_prob = 1.0
-        self.disturbance_max_magnitude = 200.0
+        self.disturbance_max_magnitude = 400.0
 
         # ==================== 通信延迟参数（非阻塞缓冲） ====================
         # 基础值（0延迟）
@@ -116,9 +116,9 @@ class RobotReachEnvOptimized(gym.Env):
         self.state_delay_base_steps = 0
         self.packet_drop_base_rate = 0.0
         # 最大值（终极极限延迟，保证边界目标可达）
-        self.command_delay_max_steps = 20
-        self.state_delay_max_steps = 20
-        self.packet_drop_max_rate = 0.50
+        self.command_delay_max_steps = 40
+        self.state_delay_max_steps = 40
+        self.packet_drop_max_rate = 0.90
 
         # ==================== 传感器噪声参数 ====================
         # 基础值（无噪声）
@@ -127,38 +127,38 @@ class RobotReachEnvOptimized(gym.Env):
         self.noise_base_drift = 0.0
         self.noise_base_jitter = 0.0
         # 最大值（终极极限强度，确保100%成功率）
-        self.noise_max_gaussian_std = 0.16
-        self.noise_max_quantization = 0.04
-        self.noise_max_drift = 0.0016
-        self.noise_max_jitter = 0.08
+        self.noise_max_gaussian_std = 0.30
+        self.noise_max_quantization = 0.08
+        self.noise_max_drift = 0.003
+        self.noise_max_jitter = 0.15
 
         # ==================== 碰撞检测参数 ====================
         # 基础值（宽松）
         self.collision_base_safety_dist = 0.001
         self.collision_base_penalty = 0.0
         # 最大值（终极极限惩罚，不影响主任务）
-        self.collision_max_safety_dist = 0.20
-        self.collision_max_penalty = 800.0
+        self.collision_max_safety_dist = 0.40
+        self.collision_max_penalty = 1600.0
 
         # ==================== 动态目标参数（新课程） ====================
         self.dynamic_target_base_enabled = False
         self.dynamic_target_base_speed = 0.0
         self.dynamic_target_max_enabled = True
-        self.dynamic_target_max_speed = 0.40
+        self.dynamic_target_max_speed = 0.80
         self.dynamic_target_enabled = False
         self.dynamic_target_speed = 0.0
         self.dynamic_target_velocity = np.zeros(3, dtype=np.float32)
 
         # ==================== 观测缺失参数（新课程） ====================
         self.obs_drop_base_rate = 0.0
-        self.obs_drop_max_rate = 1.0
+        self.obs_drop_max_rate = 0.90
         self.obs_drop_rate = 0.0
 
         # ==================== 对抗性扰动参数（新课程） ====================
         self.adversarial_base_prob = 0.0
         self.adversarial_base_magnitude = 0.0
         self.adversarial_max_prob = 1.0
-        self.adversarial_max_magnitude = 150.0
+        self.adversarial_max_magnitude = 300.0
         self.adversarial_prob = 0.0
         self.adversarial_magnitude = 0.0
 
@@ -166,7 +166,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.phy_dynamic_base_enabled = False
         self.phy_dynamic_base_change_rate = 0.0
         self.phy_dynamic_max_enabled = True
-        self.phy_dynamic_max_change_rate = 0.50
+        self.phy_dynamic_max_change_rate = 1.0
         self.phy_dynamic_enabled = False
         self.phy_dynamic_change_rate = 0.0
 
@@ -184,7 +184,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.energy_opt_base_enabled = False
         self.energy_opt_base_weight = 0.0
         self.energy_opt_max_enabled = True
-        self.energy_opt_max_weight = 3000.0
+        self.energy_opt_max_weight = 12000.0
         self.energy_opt_enabled = False
         self.energy_opt_weight = 0.0
 
@@ -192,7 +192,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.smooth_opt_base_enabled = False
         self.smooth_opt_base_weight = 0.0
         self.smooth_opt_max_enabled = True
-        self.smooth_opt_max_weight = 5000.0
+        self.smooth_opt_max_weight = 20000.0
         self.smooth_opt_enabled = False
         self.smooth_opt_weight = 0.0
         self._last_joint_vel = np.zeros(self.NUM_JOINTS, dtype=np.float32)
@@ -201,7 +201,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.joint_limit_pen_base_enabled = False
         self.joint_limit_pen_base_weight = 0.0
         self.joint_limit_pen_max_enabled = True
-        self.joint_limit_pen_max_weight = 2000.0
+        self.joint_limit_pen_max_weight = 8000.0
         self.joint_limit_pen_enabled = False
         self.joint_limit_pen_weight = 0.0
 
@@ -209,7 +209,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.singularity_avoid_base_enabled = False
         self.singularity_avoid_base_weight = 0.0
         self.singularity_avoid_max_enabled = True
-        self.singularity_avoid_max_weight = 4000.0
+        self.singularity_avoid_max_weight = 16000.0
         self.singularity_avoid_enabled = False
         self.singularity_avoid_weight = 0.0
 
@@ -217,7 +217,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.accel_limit_base_enabled = False
         self.accel_limit_base_max = 100.0
         self.accel_limit_max_enabled = True
-        self.accel_limit_max_max = 2.0
+        self.accel_limit_max_max = 1.0
         self.accel_limit_enabled = False
         self.accel_limit_max = 100.0
 
@@ -225,7 +225,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.force_ctrl_base_enabled = False
         self.force_ctrl_base_precision = 1.0
         self.force_ctrl_max_enabled = True
-        self.force_ctrl_max_precision = 0.005
+        self.force_ctrl_max_precision = 0.001
         self.force_ctrl_enabled = False
         self.force_ctrl_precision = 1.0
 
@@ -233,7 +233,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.task_space_constraint_base_enabled = False
         self.task_space_pen_base_weight = 0.0
         self.task_space_constraint_max_enabled = True
-        self.task_space_pen_max_weight = 3000.0
+        self.task_space_pen_max_weight = 12000.0
         self.task_space_constraint_enabled = False
         self.task_space_pen_weight = 0.0
 
@@ -241,7 +241,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.contact_model_base_enabled = False
         self.contact_model_base_stiffness = 100.0
         self.contact_model_max_enabled = True
-        self.contact_model_max_stiffness = 50000.0
+        self.contact_model_max_stiffness = 200000.0
         self.contact_model_enabled = False
         self.contact_model_stiffness = 100.0
 
@@ -249,7 +249,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.time_optimal_base_enabled = False
         self.time_optimal_base_weight = 0.0
         self.time_optimal_max_enabled = True
-        self.time_optimal_max_weight = 1500.0
+        self.time_optimal_max_weight = 6000.0
         self.time_optimal_enabled = False
         self.time_optimal_weight = 0.0
 
@@ -257,7 +257,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.compliant_ctrl_base_enabled = False
         self.compliant_ctrl_base_stiffness = 10000.0
         self.compliant_ctrl_max_enabled = True
-        self.compliant_ctrl_max_stiffness = 50.0
+        self.compliant_ctrl_max_stiffness = 10.0
         self.compliant_ctrl_enabled = False
         self.compliant_ctrl_stiffness = 10000.0
 
@@ -265,7 +265,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.gear_backlash_base_enabled = False
         self.gear_backlash_base_amount = 0.0
         self.gear_backlash_max_enabled = True
-        self.gear_backlash_max_amount = 0.05
+        self.gear_backlash_max_amount = 0.10
         self.gear_backlash_enabled = False
         self.gear_backlash_amount = 0.0
 
@@ -273,7 +273,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.flexible_joint_base_enabled = False
         self.flexible_joint_base_stiffness = 10000.0
         self.flexible_joint_max_enabled = True
-        self.flexible_joint_max_stiffness = 500.0
+        self.flexible_joint_max_stiffness = 100.0
         self.flexible_joint_enabled = False
         self.flexible_joint_stiffness = 10000.0
 
@@ -281,7 +281,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.motor_saturation_base_enabled = False
         self.motor_saturation_base_factor = 1.0
         self.motor_saturation_max_enabled = True
-        self.motor_saturation_max_factor = 0.3
+        self.motor_saturation_max_factor = 0.1
         self.motor_saturation_enabled = False
         self.motor_saturation_factor = 1.0
 
@@ -289,7 +289,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.thermal_drift_base_enabled = False
         self.thermal_drift_base_rate = 0.0
         self.thermal_drift_max_enabled = True
-        self.thermal_drift_max_rate = 0.02
+        self.thermal_drift_max_rate = 0.05
         self.thermal_drift_enabled = False
         self.thermal_drift_rate = 0.0
         self._thermal_drift_state = np.zeros(7, dtype=np.float32)
@@ -298,7 +298,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.encoder_resolution_base_enabled = False
         self.encoder_resolution_base_bits = 32
         self.encoder_resolution_max_enabled = True
-        self.encoder_resolution_max_bits = 8
+        self.encoder_resolution_max_bits = 4
         self.encoder_resolution_enabled = False
         self.encoder_resolution_bits = 32
 
@@ -306,7 +306,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.payload_variation_base_enabled = False
         self.payload_variation_base_magnitude = 0.0
         self.payload_variation_max_enabled = True
-        self.payload_variation_max_magnitude = 5.0
+        self.payload_variation_max_magnitude = 20.0
         self.payload_variation_enabled = False
         self.payload_variation_magnitude = 0.0
 
@@ -314,7 +314,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.base_vibration_base_enabled = False
         self.base_vibration_base_magnitude = 0.0
         self.base_vibration_max_enabled = True
-        self.base_vibration_max_magnitude = 0.02
+        self.base_vibration_max_magnitude = 0.08
         self.base_vibration_enabled = False
         self.base_vibration_magnitude = 0.0
         self._base_vibration_phase = 0.0
@@ -323,7 +323,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.cable_drag_base_enabled = False
         self.cable_drag_base_coefficient = 0.0
         self.cable_drag_max_enabled = True
-        self.cable_drag_max_coefficient = 20.0
+        self.cable_drag_max_coefficient = 80.0
         self.cable_drag_enabled = False
         self.cable_drag_coefficient = 0.0
 
@@ -331,7 +331,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.inertia_variation_base_enabled = False
         self.inertia_variation_base_factor = 1.0
         self.inertia_variation_max_enabled = True
-        self.inertia_variation_max_factor = 0.5
+        self.inertia_variation_max_factor = 0.2
         self.inertia_variation_enabled = False
         self.inertia_variation_factor = 1.0
 
@@ -339,7 +339,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.torque_ripple_base_enabled = False
         self.torque_ripple_base_magnitude = 0.0
         self.torque_ripple_max_enabled = True
-        self.torque_ripple_max_magnitude = 0.3
+        self.torque_ripple_max_magnitude = 0.8
         self.torque_ripple_enabled = False
         self.torque_ripple_magnitude = 0.0
 
@@ -347,7 +347,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.sensor_bias_drift_base_enabled = False
         self.sensor_bias_drift_base_rate = 0.0
         self.sensor_bias_drift_max_enabled = True
-        self.sensor_bias_drift_max_rate = 0.01
+        self.sensor_bias_drift_max_rate = 0.05
         self.sensor_bias_drift_enabled = False
         self.sensor_bias_drift_rate = 0.0
         self._sensor_bias_state = np.zeros(7, dtype=np.float32)
@@ -356,19 +356,19 @@ class RobotReachEnvOptimized(gym.Env):
         self.clock_drift_base_enabled = False
         self.clock_drift_base_ppm = 0.0
         self.clock_drift_max_enabled = True
-        self.clock_drift_max_ppm = 5000.0
+        self.clock_drift_max_ppm = 20000.0
         self.clock_drift_enabled = False
         self.clock_drift_ppm = 0.0
         self._clock_drift_accum = 0.0
 
-        # ==================== 奖励机制增强参数（极限最大值） ====================
-        self.early_reward_bonus = 500_000.0     # 提前到达奖励
-        self.distance_shaped_reward = 20_000.0   # 距离成型奖励
-        self.action_smoothness_reward = 10_000.0  # 动作平滑奖励
-        self.time_penalty = 500.0                 # 每步时间惩罚（激励快速到达）
-        self.orientation_reward = 30_000.0       # 姿态对齐奖励
-        self.velocity_penalty_at_target = 15_000.0  # 目标处速度惩罚
-        self.reliability_reward = 1_000_000.0     # 连续成功可靠性奖励
+        # ==================== 奖励机制增强参数（极限最大值，再翻倍） ====================
+        self.early_reward_bonus = 2_000_000.0     # 提前到达奖励
+        self.distance_shaped_reward = 80_000.0      # 距离成型奖励
+        self.action_smoothness_reward = 40_000.0     # 动作平滑奖励
+        self.time_penalty = 2_000.0                   # 每步时间惩罚（激励快速到达）
+        self.orientation_reward = 120_000.0          # 姿态对齐奖励
+        self.velocity_penalty_at_target = 60_000.0   # 目标处速度惩罚
+        self.reliability_reward = 4_000_000.0        # 连续成功可靠性奖励
         self._consecutive_success = 0
 
         # ==================== 当前使用的参数 ====================
@@ -403,8 +403,8 @@ class RobotReachEnvOptimized(gym.Env):
         self.target_min_base = np.array([0.40, -0.10, 0.30], dtype=np.float32)
         self.target_max_base = np.array([0.50, 0.10, 0.40], dtype=np.float32)
         # 目标范围（最大：终极极限难度，已验证100%可达）
-        self.target_min_max = np.array([0.15, -0.40, 0.10], dtype=np.float32)
-        self.target_max_max = np.array([0.85, 0.40, 0.75], dtype=np.float32)
+        self.target_min_max = np.array([0.10, -0.50, 0.05], dtype=np.float32)
+        self.target_max_max = np.array([0.90, 0.50, 0.85], dtype=np.float32)
 
         self.target_min = self.target_min_base.copy()
         self.target_max = self.target_max_base.copy()

@@ -79,8 +79,8 @@ if __name__ == "__main__":
     print("  CURRICULUM LEARNING TRAINING", flush=True)
     print("=" * 70, flush=True)
 
-    n_envs = 64
-    total_timesteps = 10_000_000
+    n_envs = 128
+    total_timesteps = 20_000_000
 
     print(f"\n[CONFIG]", flush=True)
     print(f"   Parallel Environments: {n_envs}", flush=True)
@@ -115,7 +115,7 @@ if __name__ == "__main__":
 
     sys.stderr = old_stderr
     print(f"\nStarting Curriculum Fine-tuning...", flush=True)
-    print(f"   [Target] FPS: 12000+ | Success: 100% | Reward: Maximize", flush=True)
+    print(f"   [Target] FPS: 24000+ | Success: 100% | Reward: Maximize", flush=True)
     start_time = time.time()
     sys.stderr = open(os.devnull, 'w')
     
