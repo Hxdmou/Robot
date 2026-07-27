@@ -586,353 +586,348 @@ class RobotReachEnvOptimized(gym.Env):
         p = self.curriculum_progress
 
         # ===== 目标范围（从进度0.01开始逐步扩大，1.0时100%最大） =====
-        self.target_min = (self.target_min_base + self._interpolate(p, 0.01, 1.0, 0, 1) * (self.target_min_max - self.target_min_base)).astype(np.float32)
-        self.target_max = (self.target_max_base + self._interpolate(p, 0.01, 1.0, 0, 1) * (self.target_max_max - self.target_max_base)).astype(np.float32)
+        self.target_min = (self.target_min_base + self._interpolate(p, 0.0, 1.0, 0, 1) * (self.target_min_max - self.target_min_base)).astype(np.float32)
+        self.target_max = (self.target_max_base + self._interpolate(p, 0.0, 1.0, 0, 1) * (self.target_max_max - self.target_max_base)).astype(np.float32)
 
         # ===== 传感器噪声（从进度0.005开始，1.0时100%最大） =====
-        if p >= 0.005:
-            self.noise_gaussian_std = self._interpolate(p, 0.005, 1.0,
+        if True:  # 原进度开启点，现统一为0.0
+            self.noise_gaussian_std = self._interpolate(p, 0.0, 1.0,
                 self.noise_base_gaussian_std, self.noise_max_gaussian_std)
-            self.noise_quantization = self._interpolate(p, 0.005, 1.0,
+            self.noise_quantization = self._interpolate(p, 0.0, 1.0,
                 self.noise_base_quantization, self.noise_max_quantization)
-            self.noise_drift = self._interpolate(p, 0.005, 1.0,
+            self.noise_drift = self._interpolate(p, 0.0, 1.0,
                 self.noise_base_drift, self.noise_max_drift)
-            self.noise_jitter = self._interpolate(p, 0.005, 1.0,
+            self.noise_jitter = self._interpolate(p, 0.0, 1.0,
                 self.noise_base_jitter, self.noise_max_jitter)
 
         # ===== 领域随机化（从进度0.03开始，1.0时100%最大） =====
-        if p >= 0.03:
-            self.friction_range = self._interpolate_range(p, 0.03, 1.0, 
+        if True:  # 原进度开启点，现统一为0.0
+            self.friction_range = self._interpolate_range(p, 0.0, 1.0, 
                 self.friction_base_range, self.friction_max_range)
-            self.damping_range = self._interpolate_range(p, 0.03, 1.0,
+            self.damping_range = self._interpolate_range(p, 0.0, 1.0,
                 self.damping_base_range, self.damping_max_range)
-            self.mass_range = self._interpolate_range(p, 0.03, 1.0,
+            self.mass_range = self._interpolate_range(p, 0.0, 1.0,
                 self.mass_base_range, self.mass_max_range)
-            self.gravity_range = self._interpolate_range(p, 0.03, 1.0,
+            self.gravity_range = self._interpolate_range(p, 0.0, 1.0,
                 self.gravity_base_range, self.gravity_max_range)
 
         # ===== 执行器动力学（从进度0.05开始，1.0时100%最大） =====
-        if p >= 0.05:
-            self.torque_limit = self._interpolate(p, 0.05, 1.0,
+        if True:  # 原进度开启点，现统一为0.0
+            self.torque_limit = self._interpolate(p, 0.0, 1.0,
                 self.torque_base_limit, self.torque_max_limit)
-            self.velocity_limit = self._interpolate(p, 0.05, 1.0,
+            self.velocity_limit = self._interpolate(p, 0.0, 1.0,
                 self.velocity_base_limit, self.velocity_max_limit)
-            self.dead_zone = self._interpolate(p, 0.05, 1.0,
+            self.dead_zone = self._interpolate(p, 0.0, 1.0,
                 self.dead_zone_base, self.dead_zone_max)
 
         # ===== 碰撞检测（从进度0.07开始，1.0时100%最大） =====
-        if p >= 0.07:
-            self.collision_safety_dist = self._interpolate(p, 0.07, 1.0,
+        if True:  # 原进度开启点，现统一为0.0
+            self.collision_safety_dist = self._interpolate(p, 0.0, 1.0,
                 self.collision_base_safety_dist, self.collision_max_safety_dist)
-            self.collision_penalty = self._interpolate(p, 0.07, 1.0,
+            self.collision_penalty = self._interpolate(p, 0.0, 1.0,
                 self.collision_base_penalty, self.collision_max_penalty)
 
         # ===== 外部扰动（从进度0.09开始，1.0时100%最大） =====
-        if p >= 0.09:
-            self.disturbance_prob = self._interpolate(p, 0.09, 1.0,
+        if True:  # 原进度开启点，现统一为0.0
+            self.disturbance_prob = self._interpolate(p, 0.0, 1.0,
                 self.disturbance_base_prob, self.disturbance_max_prob)
-            self.disturbance_magnitude = self._interpolate(p, 0.09, 1.0,
+            self.disturbance_magnitude = self._interpolate(p, 0.0, 1.0,
                 self.disturbance_base_magnitude, self.disturbance_max_magnitude)
 
         # ===== 通信延迟（从进度0.11开始，1.0时100%最大） =====
-        if p >= 0.11:
-            self.command_delay_steps = int(self._interpolate(p, 0.11, 1.0,
+        if True:  # 原进度开启点，现统一为0.0
+            self.command_delay_steps = int(self._interpolate(p, 0.0, 1.0,
                 self.command_delay_base_steps, self.command_delay_max_steps))
-            self.state_delay_steps = int(self._interpolate(p, 0.11, 1.0,
+            self.state_delay_steps = int(self._interpolate(p, 0.0, 1.0,
                 self.state_delay_base_steps, self.state_delay_max_steps))
-            self.packet_drop_rate = self._interpolate(p, 0.11, 1.0,
+            self.packet_drop_rate = self._interpolate(p, 0.0, 1.0,
                 self.packet_drop_base_rate, self.packet_drop_max_rate)
 
         # ===== 动态目标（从进度0.13开始，1.0时100%最大） =====
-        if p >= 0.13:
+        if True:  # 原进度开启点，现统一为0.0
             self.dynamic_target_enabled = True
-            self.dynamic_target_speed = self._interpolate(p, 0.13, 1.0,
+            self.dynamic_target_speed = self._interpolate(p, 0.0, 1.0,
                 self.dynamic_target_base_speed, self.dynamic_target_max_speed)
 
         # ===== 观测缺失（从进度0.15开始，1.0时100%最大） =====
-        if p >= 0.15:
-            self.obs_drop_rate = self._interpolate(p, 0.15, 1.0,
+        if True:  # 原进度开启点，现统一为0.0
+            self.obs_drop_rate = self._interpolate(p, 0.0, 1.0,
                 self.obs_drop_base_rate, self.obs_drop_max_rate)
 
         # ===== 对抗性扰动（从进度0.17开始，1.0时100%最大） =====
-        if p >= 0.17:
-            self.adversarial_prob = self._interpolate(p, 0.17, 1.0,
+        if True:  # 原进度开启点，现统一为0.0
+            self.adversarial_prob = self._interpolate(p, 0.0, 1.0,
                 self.adversarial_base_prob, self.adversarial_max_prob)
-            self.adversarial_magnitude = self._interpolate(p, 0.17, 1.0,
+            self.adversarial_magnitude = self._interpolate(p, 0.0, 1.0,
                 self.adversarial_base_magnitude, self.adversarial_max_magnitude)
 
         # ===== 动态物理变化（从进度0.19开始，1.0时100%最大） =====
-        if p >= 0.19:
+        if True:  # 原进度开启点，现统一为0.0
             self.phy_dynamic_enabled = True
-            self.phy_dynamic_change_rate = self._interpolate(p, 0.19, 1.0,
+            self.phy_dynamic_change_rate = self._interpolate(p, 0.0, 1.0,
                 self.phy_dynamic_base_change_rate, self.phy_dynamic_max_change_rate)
 
         # ===== 多目标切换（从进度0.21开始，1.0时100%最大） =====
-        if p >= 0.21:
+        if True:  # 原进度开启点，现统一为0.0
             self.multi_target_enabled = True
-            self.multi_target_switch_prob = self._interpolate(p, 0.21, 1.0,
+            self.multi_target_switch_prob = self._interpolate(p, 0.0, 1.0,
                 self.multi_target_base_switch_prob, self.multi_target_max_switch_prob)
 
         # ===== 能量效率优化（新课程，从进度0.23开始） =====
-        if p >= 0.23:
+        if True:  # 原进度开启点，现统一为0.0
             self.energy_opt_enabled = True
-            self.energy_opt_weight = self._interpolate(p, 0.23, 1.0,
+            self.energy_opt_weight = self._interpolate(p, 0.0, 1.0,
                 self.energy_opt_base_weight, self.energy_opt_max_weight)
 
         # ===== 运动平滑度优化（新课程，从进度0.25开始） =====
-        if p >= 0.25:
+        if True:  # 原进度开启点，现统一为0.0
             self.smooth_opt_enabled = True
-            self.smooth_opt_weight = self._interpolate(p, 0.25, 1.0,
+            self.smooth_opt_weight = self._interpolate(p, 0.0, 1.0,
                 self.smooth_opt_base_weight, self.smooth_opt_max_weight)
 
         # ===== 关节限位惩罚（新课程，从进度0.27开始） =====
-        if p >= 0.27:
+        if True:  # 原进度开启点，现统一为0.0
             self.joint_limit_pen_enabled = True
-            self.joint_limit_pen_weight = self._interpolate(p, 0.27, 1.0,
+            self.joint_limit_pen_weight = self._interpolate(p, 0.0, 1.0,
                 self.joint_limit_pen_base_weight, self.joint_limit_pen_max_weight)
 
         # ===== 奇异位姿规避（新课程，从进度0.29开始） =====
-        if p >= 0.29:
+        if True:  # 原进度开启点，现统一为0.0
             self.singularity_avoid_enabled = True
-            self.singularity_avoid_weight = self._interpolate(p, 0.29, 1.0,
+            self.singularity_avoid_weight = self._interpolate(p, 0.0, 1.0,
                 self.singularity_avoid_base_weight, self.singularity_avoid_max_weight)
 
         # ===== 加速度限制（新课程，从进度0.31开始） =====
-        if p >= 0.31:
+        if True:  # 原进度开启点，现统一为0.0
             self.accel_limit_enabled = True
-            self.accel_limit_max = self._interpolate(p, 0.31, 1.0,
+            self.accel_limit_max = self._interpolate(p, 0.0, 1.0,
                 self.accel_limit_base_max, self.accel_limit_max_max)
 
         # ===== 力控精度（新课程，从进度0.33开始） =====
-        if p >= 0.33:
+        if True:  # 原进度开启点，现统一为0.0
             self.force_ctrl_enabled = True
-            self.force_ctrl_precision = self._interpolate(p, 0.33, 1.0,
+            self.force_ctrl_precision = self._interpolate(p, 0.0, 1.0,
                 self.force_ctrl_base_precision, self.force_ctrl_max_precision)
 
         # ===== 任务空间约束（新课程，从进度0.35开始） =====
-        if p >= 0.35:
+        if True:  # 原进度开启点，现统一为0.0
             self.task_space_constraint_enabled = True
-            self.task_space_pen_weight = self._interpolate(p, 0.35, 1.0,
+            self.task_space_pen_weight = self._interpolate(p, 0.0, 1.0,
                 self.task_space_pen_base_weight, self.task_space_pen_max_weight)
 
         # ===== 环境接触建模（新课程，从进度0.37开始） =====
-        if p >= 0.37:
+        if True:  # 原进度开启点，现统一为0.0
             self.contact_model_enabled = True
-            self.contact_model_stiffness = self._interpolate(p, 0.37, 1.0,
+            self.contact_model_stiffness = self._interpolate(p, 0.0, 1.0,
                 self.contact_model_base_stiffness, self.contact_model_max_stiffness)
 
         # ===== 时间最优控制（新课程，从进度0.39开始） =====
-        if p >= 0.39:
+        if True:  # 原进度开启点，现统一为0.0
             self.time_optimal_enabled = True
-            self.time_optimal_weight = self._interpolate(p, 0.39, 1.0,
+            self.time_optimal_weight = self._interpolate(p, 0.0, 1.0,
                 self.time_optimal_base_weight, self.time_optimal_max_weight)
 
         # ===== 柔顺控制模拟（新课程，从进度0.41开始） =====
-        if p >= 0.41:
+        if True:  # 原进度开启点，现统一为0.0
             self.compliant_ctrl_enabled = True
-            self.compliant_ctrl_stiffness = self._interpolate(p, 0.41, 1.0,
+            self.compliant_ctrl_stiffness = self._interpolate(p, 0.0, 1.0,
                 self.compliant_ctrl_base_stiffness, self.compliant_ctrl_max_stiffness)
 
         # ===== 齿轮间隙模拟（新课程，从进度0.43开始） =====
-        if p >= 0.43:
+        if True:  # 原进度开启点，现统一为0.0
             self.gear_backlash_enabled = True
-            self.gear_backlash_amount = self._interpolate(p, 0.43, 1.0,
+            self.gear_backlash_amount = self._interpolate(p, 0.0, 1.0,
                 self.gear_backlash_base_amount, self.gear_backlash_max_amount)
 
         # ===== 柔性关节模拟（新课程，从进度0.45开始） =====
-        if p >= 0.45:
+        if True:  # 原进度开启点，现统一为0.0
             self.flexible_joint_enabled = True
-            self.flexible_joint_stiffness = self._interpolate(p, 0.45, 1.0,
+            self.flexible_joint_stiffness = self._interpolate(p, 0.0, 1.0,
                 self.flexible_joint_base_stiffness, self.flexible_joint_max_stiffness)
 
         # ===== 电机饱和模拟（新课程，从进度0.47开始） =====
-        if p >= 0.47:
+        if True:  # 原进度开启点，现统一为0.0
             self.motor_saturation_enabled = True
-            self.motor_saturation_factor = self._interpolate(p, 0.47, 1.0,
+            self.motor_saturation_factor = self._interpolate(p, 0.0, 1.0,
                 self.motor_saturation_base_factor, self.motor_saturation_max_factor)
 
         # ===== 温度漂移模拟（新课程，从进度0.49开始） =====
-        if p >= 0.49:
+        if True:  # 原进度开启点，现统一为0.0
             self.thermal_drift_enabled = True
-            self.thermal_drift_rate = self._interpolate(p, 0.49, 1.0,
+            self.thermal_drift_rate = self._interpolate(p, 0.0, 1.0,
                 self.thermal_drift_base_rate, self.thermal_drift_max_rate)
 
         # ===== 编码器分辨率限制（新课程，从进度0.51开始） =====
-        if p >= 0.51:
+        if True:  # 原进度开启点，现统一为0.0
             self.encoder_resolution_enabled = True
-            self.encoder_resolution_bits = int(self._interpolate(p, 0.51, 1.0,
+            self.encoder_resolution_bits = int(self._interpolate(p, 0.0, 1.0,
                 self.encoder_resolution_base_bits, self.encoder_resolution_max_bits))
 
         # ===== 负载变化模拟（新课程，从进度0.53开始） =====
-        if p >= 0.53:
+        if True:  # 原进度开启点，现统一为0.0
             self.payload_variation_enabled = True
-            self.payload_variation_magnitude = self._interpolate(p, 0.53, 1.0,
+            self.payload_variation_magnitude = self._interpolate(p, 0.0, 1.0,
                 self.payload_variation_base_magnitude, self.payload_variation_max_magnitude)
 
         # ===== 基座振动模拟（新课程，从进度0.55开始） =====
-        if p >= 0.55:
+        if True:  # 原进度开启点，现统一为0.0
             self.base_vibration_enabled = True
-            self.base_vibration_magnitude = self._interpolate(p, 0.55, 1.0,
+            self.base_vibration_magnitude = self._interpolate(p, 0.0, 1.0,
                 self.base_vibration_base_magnitude, self.base_vibration_max_magnitude)
 
         # ===== 缆线拖拽模拟（新课程，从进度0.57开始） =====
-        if p >= 0.57:
+        if True:  # 原进度开启点，现统一为0.0
             self.cable_drag_enabled = True
-            self.cable_drag_coefficient = self._interpolate(p, 0.57, 1.0,
+            self.cable_drag_coefficient = self._interpolate(p, 0.0, 1.0,
                 self.cable_drag_base_coefficient, self.cable_drag_max_coefficient)
 
         # ===== 惯量变化模拟（新课程，从进度0.59开始） =====
-        if p >= 0.59:
+        if True:  # 原进度开启点，现统一为0.0
             self.inertia_variation_enabled = True
-            self.inertia_variation_factor = self._interpolate(p, 0.59, 1.0,
+            self.inertia_variation_factor = self._interpolate(p, 0.0, 1.0,
                 self.inertia_variation_base_factor, self.inertia_variation_max_factor)
 
         # ===== 力矩波动模拟（新课程，从进度0.61开始） =====
-        if p >= 0.61:
+        if True:  # 原进度开启点，现统一为0.0
             self.torque_ripple_enabled = True
-            self.torque_ripple_magnitude = self._interpolate(p, 0.61, 1.0,
+            self.torque_ripple_magnitude = self._interpolate(p, 0.0, 1.0,
                 self.torque_ripple_base_magnitude, self.torque_ripple_max_magnitude)
 
         # ===== 传感器偏置漂移（新课程，从进度0.63开始） =====
-        if p >= 0.63:
+        if True:  # 原进度开启点，现统一为0.0
             self.sensor_bias_drift_enabled = True
-            self.sensor_bias_drift_rate = self._interpolate(p, 0.63, 1.0,
+            self.sensor_bias_drift_rate = self._interpolate(p, 0.0, 1.0,
                 self.sensor_bias_drift_base_rate, self.sensor_bias_drift_max_rate)
 
         # ===== 时钟漂移模拟（新课程，从进度0.65开始） =====
-        if p >= 0.65:
+        if True:  # 原进度开启点，现统一为0.0
             self.clock_drift_enabled = True
-            self.clock_drift_ppm = self._interpolate(p, 0.65, 1.0,
+            self.clock_drift_ppm = self._interpolate(p, 0.0, 1.0,
                 self.clock_drift_base_ppm, self.clock_drift_max_ppm)
 
         # ===== 科里奥利力效应（新课程，从进度0.67开始） =====
-        if p >= 0.67:
+        if True:  # 原进度开启点，现统一为0.0
             self.coriolis_enabled = True
-            self.coriolis_strength = self._interpolate(p, 0.67, 1.0,
+            self.coriolis_strength = self._interpolate(p, 0.0, 1.0,
                 self.coriolis_base_strength, self.coriolis_max_strength)
 
         # ===== 离心力效应（新课程，从进度0.69开始） =====
-        if p >= 0.69:
+        if True:  # 原进度开启点，现统一为0.0
             self.centrifugal_enabled = True
-            self.centrifugal_strength = self._interpolate(p, 0.69, 1.0,
+            self.centrifugal_strength = self._interpolate(p, 0.0, 1.0,
                 self.centrifugal_base_strength, self.centrifugal_max_strength)
 
         # ===== 关节弹性振动（新课程，从进度0.71开始） =====
-        if p >= 0.71:
+        if True:  # 原进度开启点，现统一为0.0
             self.joint_vibration_enabled = True
-            self.joint_vibration_amplitude = self._interpolate(p, 0.71, 1.0,
+            self.joint_vibration_amplitude = self._interpolate(p, 0.0, 1.0,
                 self.joint_vibration_base_amplitude, self.joint_vibration_max_amplitude)
 
         # ===== PID参数自适应（新课程，从进度0.73开始） =====
-        if p >= 0.73:
+        if True:  # 原进度开启点，现统一为0.0
             self.pid_adaptive_enabled = True
-            self.pid_adaptive_noise = self._interpolate(p, 0.73, 1.0,
+            self.pid_adaptive_noise = self._interpolate(p, 0.0, 1.0,
                 self.pid_adaptive_base_noise, self.pid_adaptive_max_noise)
 
         # ===== 滑模控制模拟（新课程，从进度0.75开始） =====
-        if p >= 0.75:
+        if True:  # 原进度开启点，现统一为0.0
             self.sliding_mode_enabled = True
-            self.sliding_mode_ripple = self._interpolate(p, 0.75, 1.0,
+            self.sliding_mode_ripple = self._interpolate(p, 0.0, 1.0,
                 self.sliding_mode_base_ripple, self.sliding_mode_max_ripple)
 
         # ===== 传感器故障检测（新课程，从进度0.77开始） =====
-        if p >= 0.77:
+        if True:  # 原进度开启点，现统一为0.0
             self.sensor_fault_enabled = True
-            self.sensor_fault_prob = self._interpolate(p, 0.77, 1.0,
+            self.sensor_fault_prob = self._interpolate(p, 0.0, 1.0,
                 self.sensor_fault_base_prob, self.sensor_fault_max_prob)
 
         # ===== 电机过热降额（新课程，从进度0.79开始） =====
-        if p >= 0.79:
+        if True:  # 原进度开启点，现统一为0.0
             self.motor_thermal_enabled = True
-            self.motor_thermal_derate = self._interpolate(p, 0.79, 1.0,
+            self.motor_thermal_derate = self._interpolate(p, 0.0, 1.0,
                 self.motor_thermal_base_derate, self.motor_thermal_max_derate)
 
         # ===== 障碍物规避（新课程，从进度0.81开始） =====
-        if p >= 0.81:
+        if True:  # 原进度开启点，现统一为0.0
             self.obstacle_avoid_enabled = True
-            self.obstacle_avoid_weight = self._interpolate(p, 0.81, 1.0,
+            self.obstacle_avoid_weight = self._interpolate(p, 0.0, 1.0,
                 self.obstacle_avoid_base_weight, self.obstacle_avoid_max_weight)
 
         # ===== 人工势场（新课程，从进度0.83开始） =====
-        if p >= 0.83:
+        if True:  # 原进度开启点，现统一为0.0
             self.artificial_pf_enabled = True
-            self.artificial_pf_strength = self._interpolate(p, 0.83, 1.0,
+            self.artificial_pf_strength = self._interpolate(p, 0.0, 1.0,
                 self.artificial_pf_base_strength, self.artificial_pf_max_strength)
 
         # ===== 迭代学习控制（新课程，从进度0.85开始） =====
-        if p >= 0.85:
+        if True:  # 原进度开启点，现统一为0.0
             self.iterative_learn_enabled = True
-            self.iterative_learn_error = self._interpolate(p, 0.85, 1.0,
+            self.iterative_learn_error = self._interpolate(p, 0.0, 1.0,
                 self.iterative_learn_base_error, self.iterative_learn_max_error)
 
         # ===== 自适应阻抗控制（新课程，从进度0.86开始） =====
-        if p >= 0.86:
+        if True:  # 原进度开启点，现统一为0.0
             self.adaptive_impedance_enabled = True
-            self.adaptive_impedance_stiffness = self._interpolate(p, 0.86, 1.0,
+            self.adaptive_impedance_stiffness = self._interpolate(p, 0.0, 1.0,
                 self.adaptive_impedance_base_stiffness, self.adaptive_impedance_max_stiffness)
 
         # ===== 前馈补偿控制（新课程，从进度0.87开始） =====
-        if p >= 0.87:
+        if True:  # 原进度开启点，现统一为0.0
             self.feedforward_enabled = True
-            self.feedforward_gain = self._interpolate(p, 0.87, 1.0,
+            self.feedforward_gain = self._interpolate(p, 0.0, 1.0,
                 self.feedforward_base_gain, self.feedforward_max_gain)
 
         # ===== 模型预测控制误差（新课程，从进度0.88开始） =====
-        if p >= 0.88:
+        if True:  # 原进度开启点，现统一为0.0
             self.mpc_error_enabled = True
-            self.mpc_error_magnitude = self._interpolate(p, 0.88, 1.0,
+            self.mpc_error_magnitude = self._interpolate(p, 0.0, 1.0,
                 self.mpc_error_base_magnitude, self.mpc_error_max_magnitude)
 
         # ===== 鲁棒控制不确定性（新课程，从进度0.89开始） =====
-        if p >= 0.89:
+        if True:  # 原进度开启点，现统一为0.0
             self.robust_ctrl_enabled = True
-            self.robust_ctrl_uncertainty = self._interpolate(p, 0.89, 1.0,
+            self.robust_ctrl_uncertainty = self._interpolate(p, 0.0, 1.0,
                 self.robust_ctrl_base_uncertainty, self.robust_ctrl_max_uncertainty)
 
         # ===== 自适应控制参数漂移（新课程，从进度0.90开始） =====
-        if p >= 0.90:
+        if True:  # 原进度开启点，现统一为0.0
             self.adaptive_ctrl_enabled = True
-            self.adaptive_ctrl_drift = self._interpolate(p, 0.90, 1.0,
+            self.adaptive_ctrl_drift = self._interpolate(p, 0.0, 1.0,
                 self.adaptive_ctrl_base_drift, self.adaptive_ctrl_max_drift)
 
         # ===== 重复控制周期误差（新课程，从进度0.91开始） =====
-        if p >= 0.91:
+        if True:  # 原进度开启点，现统一为0.0
             self.repetitive_ctrl_enabled = True
-            self.repetitive_ctrl_error = self._interpolate(p, 0.91, 1.0,
+            self.repetitive_ctrl_error = self._interpolate(p, 0.0, 1.0,
                 self.repetitive_ctrl_base_error, self.repetitive_ctrl_max_error)
 
         # ===== 学习控制遗忘因子（新课程，从进度0.92开始） =====
-        if p >= 0.92:
+        if True:  # 原进度开启点，现统一为0.0
             self.learning_ctrl_enabled = True
-            self.learning_ctrl_forgetting = self._interpolate(p, 0.92, 1.0,
+            self.learning_ctrl_forgetting = self._interpolate(p, 0.0, 1.0,
                 self.learning_ctrl_base_forgetting, self.learning_ctrl_max_forgetting)
 
         # ===== 无源控制能量耗散（新课程，从进度0.93开始） =====
-        if p >= 0.93:
+        if True:  # 原进度开启点，现统一为0.0
             self.passive_ctrl_enabled = True
-            self.passive_ctrl_dissipation = self._interpolate(p, 0.93, 1.0,
+            self.passive_ctrl_dissipation = self._interpolate(p, 0.0, 1.0,
                 self.passive_ctrl_base_dissipation, self.passive_ctrl_max_dissipation)
 
         # ===== 反步控制虚拟误差（新课程，从进度0.94开始） =====
-        if p >= 0.94:
+        if True:  # 原进度开启点，现统一为0.0
             self.backstep_ctrl_enabled = True
-            self.backstep_ctrl_error = self._interpolate(p, 0.94, 1.0,
+            self.backstep_ctrl_error = self._interpolate(p, 0.0, 1.0,
                 self.backstep_ctrl_base_error, self.backstep_ctrl_max_error)
 
         # ===== 滑模变结构切换增益（新课程，从进度0.95开始） =====
-        if p >= 0.95:
+        if True:  # 原进度开启点，现统一为0.0
             self.vss_smc_enabled = True
-            self.vss_smc_gain = self._interpolate(p, 0.95, 1.0,
+            self.vss_smc_gain = self._interpolate(p, 0.0, 1.0,
                 self.vss_smc_base_gain, self.vss_smc_max_gain)
 
     def _interpolate(self, p, start_p, end_p, start_val, end_val):
-        """线性插值"""
-        if p < start_p:
-            return start_val
-        if p >= end_p:
-            return end_val
-        t = (p - start_p) / (end_p - start_p)
-        return start_val + t * (end_val - start_val)
+        """直接返回最大值（所有模块从进度0%即100%达到最大值）"""
+        return end_val
 
     def _interpolate_range(self, p, start_p, end_p, start_range, end_range):
         """对范围进行线性插值"""
@@ -952,7 +947,7 @@ class RobotReachEnvOptimized(gym.Env):
         )
 
         # 根据课程学习进度应用领域随机化
-        if self.curriculum_progress >= 0.03:
+        if self.curriculum_progress >= 0.0:
             gravity_z = self.np_random.uniform(*self.gravity_range)
             p.setGravity(0, 0, gravity_z)
             
@@ -1053,7 +1048,7 @@ class RobotReachEnvOptimized(gym.Env):
         action = np.clip(action, -1.0, 1.0) * self.action_scale
 
         # ===== 通信延迟：动作缓冲 =====
-        if self.curriculum_progress >= 0.11 and self.command_delay_steps > 0:
+        if self.curriculum_progress >= 0.0 and self.command_delay_steps > 0:
             self._command_buffer.append(action.copy())
             if len(self._command_buffer) > self.command_delay_steps:
                 actual_action = self._command_buffer.pop(0)
@@ -1066,7 +1061,7 @@ class RobotReachEnvOptimized(gym.Env):
             actual_action = action
 
         # 执行器动力学：死区处理
-        if self.curriculum_progress >= 0.05:
+        if self.curriculum_progress >= 0.0:
             actual_action = np.where(np.abs(actual_action) < self.dead_zone, 0, actual_action)
 
         # 缓存getJointStates结果（避免step()和_get_obs()重复调用）
@@ -1076,7 +1071,7 @@ class RobotReachEnvOptimized(gym.Env):
         target_positions = current_positions + actual_action
 
         # 执行器动力学：速度限制
-        if self.curriculum_progress >= 0.05:
+        if self.curriculum_progress >= 0.0:
             delta_pos = actual_action
             max_delta = self.velocity_limit * self.INV_SIM_FREQ
             delta_pos = np.clip(delta_pos, -max_delta, max_delta)
@@ -1197,7 +1192,7 @@ class RobotReachEnvOptimized(gym.Env):
                 pass
 
         for i in self._JOINT_INDICES:
-            force = self.torque_limit if self.curriculum_progress >= 0.05 else self.torque_base_limit
+            force = self.torque_limit if self.curriculum_progress >= 0.0 else self.torque_base_limit
             p.setJointMotorControl2(
                 self.robot_id, i,
                 p.POSITION_CONTROL,
@@ -1494,7 +1489,7 @@ class RobotReachEnvOptimized(gym.Env):
         self._cached_ee_pos = np.array(p.getLinkState(self.robot_id, 6)[0], dtype=np.float32)
 
         # 外部扰动
-        if self.curriculum_progress >= 0.09:
+        if self.curriculum_progress >= 0.0:
             if self.np_random.random() < self.disturbance_prob:
                 disturbance = self.np_random.uniform(-self.disturbance_magnitude, 
                                                     self.disturbance_magnitude, 
@@ -1507,7 +1502,7 @@ class RobotReachEnvOptimized(gym.Env):
                 )
 
         # 对抗性扰动（新课程）
-        if self.curriculum_progress >= 0.17 and self.adversarial_prob > 0:
+        if self.curriculum_progress >= 0.0 and self.adversarial_prob > 0:
             if self.np_random.random() < self.adversarial_prob:
                 # 针对末端位置的对抗性力（推离目标）
                 ee_to_target = self.target_pos - self._cached_ee_pos
@@ -1525,7 +1520,7 @@ class RobotReachEnvOptimized(gym.Env):
         obs = self._get_obs()
 
         # ===== 通信延迟：状态缓冲 =====
-        if self.curriculum_progress >= 0.11 and self.state_delay_steps > 0:
+        if self.curriculum_progress >= 0.0 and self.state_delay_steps > 0:
             self._state_buffer.append(obs.copy())
             if len(self._state_buffer) > self.state_delay_steps:
                 obs = self._state_buffer.pop(0)
@@ -1536,7 +1531,7 @@ class RobotReachEnvOptimized(gym.Env):
         reward = 0.0
 
         # ===== 碰撞检测（每COLLISION_INTERVAL步检测一次，极限FPS） =====
-        if self.curriculum_progress >= 0.07 and self.collision_penalty > 0 and self.step_count % self._COLLISION_INTERVAL == 0:
+        if self.curriculum_progress >= 0.0 and self.collision_penalty > 0 and self.step_count % self._COLLISION_INTERVAL == 0:
             try:
                 contacts = p.getContactPoints(self.robot_id)
                 if contacts:
@@ -1674,7 +1669,7 @@ class RobotReachEnvOptimized(gym.Env):
         ee_pos = self._cached_ee_pos
 
         # ===== 传感器噪声 =====
-        if self.curriculum_progress >= 0.005 and self.noise_gaussian_std > 0:
+        if self.curriculum_progress >= 0.0 and self.noise_gaussian_std > 0:
             # 1. 高斯噪声
             joint_pos += np.random.normal(0, self.noise_gaussian_std, size=self.NUM_JOINTS).astype(np.float32)
 
@@ -1722,7 +1717,7 @@ class RobotReachEnvOptimized(gym.Env):
                 pass
 
         # ===== 观测缺失（新课程） =====
-        if self.curriculum_progress >= 0.15 and self.obs_drop_rate > 0:
+        if self.curriculum_progress >= 0.0 and self.obs_drop_rate > 0:
             if self.np_random.random() < self.obs_drop_rate:
                 # 随机将部分观测置零（模拟传感器失效）
                 drop_mask = self.np_random.random(self.NUM_JOINTS) < 0.3
