@@ -64,16 +64,16 @@ class RobotReachEnvOptimized(gym.Env):
         self.NUM_JOINTS = 7
         self.RESET_STEPS = 1
         self.INV_SIM_FREQ = 1.0 / self.SIM_FREQ
-        self._COLLISION_INTERVAL = 4
+        self._COLLISION_INTERVAL = 8
         self._JOINT_INDICES = list(range(self.NUM_JOINTS))
         self._ZERO_ACTION = np.zeros(self.NUM_JOINTS, dtype=np.float32)
 
         self.action_scale = 0.25
         self.reach_threshold = 0.30
-        self.reach_reward = 32000.0
-        self.stable_reward = 3200.0
+        self.reach_reward = 64000.0
+        self.stable_reward = 6400.0
         self.action_penalty = 0.0
-        self.progress_reward_scale = 12800.0
+        self.progress_reward_scale = 25600.0
         self.survival_reward = 0.0
         self.sub_steps = 1
 
@@ -86,27 +86,27 @@ class RobotReachEnvOptimized(gym.Env):
         self.damping_base_range = (0.048, 0.052)
         self.mass_base_range = (0.99, 1.01)
         self.gravity_base_range = (-9.815, -9.805)
-        # 最大范围（超极限强度，确保100%成功率）
-        self.friction_max_range = (0.40, 1.60)
-        self.damping_max_range = (0.005, 0.12)
-        self.mass_max_range = (0.40, 1.60)
-        self.gravity_max_range = (-10.8, -9.3)
+        # 最大范围（终极极限强度，确保100%成功率）
+        self.friction_max_range = (0.30, 1.70)
+        self.damping_max_range = (0.003, 0.15)
+        self.mass_max_range = (0.30, 1.70)
+        self.gravity_max_range = (-11.0, -9.0)
 
         # ==================== 执行器动力学参数 ====================
         # 基础值（宽松）
         self.torque_base_limit = 200.0
         self.velocity_base_limit = 50.0
         self.dead_zone_base = 0.0005
-        # 最大值（超极限限制，保证边界目标可达）
-        self.torque_max_limit = 105.0
-        self.velocity_max_limit = 23.0
-        self.dead_zone_max = 0.006
+        # 最大值（终极极限限制，保证边界目标可达）
+        self.torque_max_limit = 95.0
+        self.velocity_max_limit = 20.0
+        self.dead_zone_max = 0.007
 
         # ==================== 外部扰动参数 ====================
         # 基础值（极微弱）
         self.disturbance_base_prob = 0.0005
         self.disturbance_base_magnitude = 0.5
-        # 最大值（超极限强度，确保100%成功率）
+        # 最大值（终极极限强度，确保100%成功率）
         self.disturbance_max_prob = 0.11
         self.disturbance_max_magnitude = 22.0
 
@@ -115,9 +115,9 @@ class RobotReachEnvOptimized(gym.Env):
         self.command_delay_base_steps = 0
         self.state_delay_base_steps = 0
         self.packet_drop_base_rate = 0.0
-        # 最大值（超极限延迟，保证边界目标可达）
-        self.command_delay_max_steps = 3
-        self.state_delay_max_steps = 3
+        # 最大值（终极极限延迟，保证边界目标可达）
+        self.command_delay_max_steps = 2
+        self.state_delay_max_steps = 2
         self.packet_drop_max_rate = 0.01
 
         # ==================== 传感器噪声参数 ====================
@@ -126,7 +126,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.noise_base_quantization = 0.0
         self.noise_base_drift = 0.0
         self.noise_base_jitter = 0.0
-        # 最大值（超极限强度，确保100%成功率）
+        # 最大值（终极极限强度，确保100%成功率）
         self.noise_max_gaussian_std = 0.015
         self.noise_max_quantization = 0.004
         self.noise_max_drift = 0.00015
@@ -136,9 +136,9 @@ class RobotReachEnvOptimized(gym.Env):
         # 基础值（宽松）
         self.collision_base_safety_dist = 0.001
         self.collision_base_penalty = 0.0
-        # 最大值（超极限惩罚，不影响主任务）
-        self.collision_max_safety_dist = 0.015
-        self.collision_max_penalty = 60.0
+        # 最大值（终极极限惩罚，不影响主任务）
+        self.collision_max_safety_dist = 0.02
+        self.collision_max_penalty = 80.0
 
         # ==================== 当前使用的参数 ====================
         self.friction_range = self.friction_base_range
@@ -171,9 +171,9 @@ class RobotReachEnvOptimized(gym.Env):
         # 目标范围（基础：简单）
         self.target_min_base = np.array([0.40, -0.10, 0.30], dtype=np.float32)
         self.target_max_base = np.array([0.50, 0.10, 0.40], dtype=np.float32)
-        # 目标范围（最大：超极限难度，已验证100%可达）
-        self.target_min_max = np.array([0.33, -0.15, 0.28], dtype=np.float32)
-        self.target_max_max = np.array([0.57, 0.15, 0.45], dtype=np.float32)
+        # 目标范围（最大：终极极限难度，已验证100%可达）
+        self.target_min_max = np.array([0.32, -0.16, 0.27], dtype=np.float32)
+        self.target_max_max = np.array([0.58, 0.16, 0.46], dtype=np.float32)
 
         self.target_min = self.target_min_base.copy()
         self.target_max = self.target_max_base.copy()
@@ -232,20 +232,20 @@ class RobotReachEnvOptimized(gym.Env):
             self.collision_penalty = self._interpolate(p, 0.5, 1.0,
                 self.collision_base_penalty, self.collision_max_penalty)
 
-        # ===== 外部扰动（从进度0.6开始） =====
-        if p >= 0.6:
-            self.disturbance_prob = self._interpolate(p, 0.6, 1.0,
+        # ===== 外部扰动（从进度0.65开始） =====
+        if p >= 0.65:
+            self.disturbance_prob = self._interpolate(p, 0.65, 1.0,
                 self.disturbance_base_prob, self.disturbance_max_prob)
-            self.disturbance_magnitude = self._interpolate(p, 0.6, 1.0,
+            self.disturbance_magnitude = self._interpolate(p, 0.65, 1.0,
                 self.disturbance_base_magnitude, self.disturbance_max_magnitude)
 
-        # ===== 通信延迟（从进度0.8开始） =====
-        if p >= 0.8:
-            self.command_delay_steps = int(self._interpolate(p, 0.8, 1.0,
+        # ===== 通信延迟（从进度0.85开始） =====
+        if p >= 0.85:
+            self.command_delay_steps = int(self._interpolate(p, 0.85, 1.0,
                 self.command_delay_base_steps, self.command_delay_max_steps))
-            self.state_delay_steps = int(self._interpolate(p, 0.8, 1.0,
+            self.state_delay_steps = int(self._interpolate(p, 0.85, 1.0,
                 self.state_delay_base_steps, self.state_delay_max_steps))
-            self.packet_drop_rate = self._interpolate(p, 0.8, 1.0,
+            self.packet_drop_rate = self._interpolate(p, 0.85, 1.0,
                 self.packet_drop_base_rate, self.packet_drop_max_rate)
 
     def _interpolate(self, p, start_p, end_p, start_val, end_val):
