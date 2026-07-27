@@ -96,6 +96,53 @@ ARM_DATABASE = {
                 "os": "Linux (Ubuntu 20.04+) 或 Windows 10/11",
             },
         },
+
+        # 关节驱控方案
+        "joint_control": {
+            "default_scheme": "traditional_silicon",
+            "available_schemes": ["traditional_silicon", "ct2001b_ct1902_gan"],
+            "schemes_detail": {
+                "traditional_silicon": {
+                    "name": "原厂传统硅基方案",
+                    "recommended": True,
+                    "per_joint": {
+                        "driver_board_diameter_mm": 60,
+                        "continuous_torque_nm": 40,
+                        "temp_rise_c": 65,
+                        "control_delay_ns": 2.8,
+                        "current_loop_khz": 50,
+                    },
+                    "total_7_joints": {"estimated_cost_rmb": 70000},
+                    "bus_interfaces": ["EtherCAT"],
+                },
+                "ct2001b_ct1902_gan": {
+                    "name": "升级国产CT-2001B+CT-1902 GaN双芯方案",
+                    "brand": "中科无线半导体",
+                    "recommended": False,
+                    "upgrade_benefits": {
+                        "cost_reduction_percent": 40,
+                        "torque_improvement_percent": 35,
+                        "weight_reduction_percent": 8,
+                        "temp_rise_reduction_c": 30,
+                    },
+                    "per_joint": {
+                        "driver_board_diameter_mm": 36,
+                        "continuous_torque_nm": 60,
+                        "peak_torque_nm": 120,
+                        "temp_rise_c": 35,
+                        "control_delay_ns": 0.2,
+                        "current_loop_khz": 450,
+                    },
+                    "total_7_joints": {
+                        "estimated_cost_rmb": 42000,
+                        "weight_reduction_percent": 8,
+                        "torque_improvement_percent": 35,
+                    },
+                    "bus_interfaces": ["EtherCAT", "CAN FD"],
+                    "features": ["硬件FOC", "自动参数整定", "ADRC自抗扰", "毫秒级同步", "全栈国产"],
+                },
+            },
+        },
     },
 
     # ============================================================
@@ -165,6 +212,35 @@ ARM_DATABASE = {
                 "cpu_cores": 4,
                 "ram_gb": 8,
                 "os": "Linux (Ubuntu 18.04+) 或 Windows 10",
+            },
+        },
+
+        # 关节驱控方案
+        "joint_control": {
+            "default_scheme": "traditional_silicon",
+            "available_schemes": ["traditional_silicon", "ct2001b_ct1902_gan"],
+            "schemes_detail": {
+                "traditional_silicon": {
+                    "name": "原厂传统硅基方案",
+                    "recommended": True,
+                    "per_joint": {
+                        "driver_board_diameter_mm": 60,
+                        "continuous_torque_nm": 40,
+                        "temp_rise_c": 65,
+                    },
+                    "total_7_joints": {"estimated_cost_rmb": 70000},
+                    "bus_interfaces": ["EtherCAT"],
+                },
+                "ct2001b_ct1902_gan": {
+                    "name": "升级国产CT-2001B+CT-1902 GaN双芯方案",
+                    "brand": "中科无线半导体",
+                    "recommended": False,
+                    "upgrade_benefits": {"cost_reduction_percent": 40, "torque_improvement_percent": 35, "weight_reduction_percent": 8},
+                    "per_joint": {"driver_board_diameter_mm": 36, "continuous_torque_nm": 60, "peak_torque_nm": 120, "temp_rise_c": 35, "control_delay_ns": 0.2},
+                    "total_7_joints": {"estimated_cost_rmb": 42000},
+                    "bus_interfaces": ["EtherCAT", "CAN FD"],
+                    "features": ["硬件FOC", "自动参数整定", "ADRC自抗扰", "全栈国产"],
+                },
             },
         },
     },
@@ -238,6 +314,31 @@ ARM_DATABASE = {
                 "os": "Linux 或 Windows",
             },
         },
+
+        # 关节驱控方案（6轴）
+        "joint_control": {
+            "default_scheme": "traditional_silicon",
+            "available_schemes": ["traditional_silicon", "ct2001b_ct1902_gan"],
+            "schemes_detail": {
+                "traditional_silicon": {
+                    "name": "原厂传统硅基方案",
+                    "recommended": True,
+                    "per_joint": {"driver_board_diameter_mm": 60, "continuous_torque_nm": 40, "temp_rise_c": 65},
+                    "total_6_joints": {"estimated_cost_rmb": 60000},
+                    "bus_interfaces": ["EtherCAT"],
+                },
+                "ct2001b_ct1902_gan": {
+                    "name": "升级国产CT-2001B+CT-1902 GaN双芯方案",
+                    "brand": "中科无线半导体",
+                    "recommended": False,
+                    "upgrade_benefits": {"cost_reduction_percent": 40, "torque_improvement_percent": 35},
+                    "per_joint": {"driver_board_diameter_mm": 36, "continuous_torque_nm": 60, "peak_torque_nm": 120, "temp_rise_c": 35},
+                    "total_6_joints": {"estimated_cost_rmb": 36000},
+                    "bus_interfaces": ["EtherCAT", "CAN FD"],
+                    "features": ["硬件FOC", "自动参数整定", "毫秒级同步", "全栈国产"],
+                },
+            },
+        },
     },
 
     # ============================================================
@@ -306,6 +407,31 @@ ARM_DATABASE = {
                 "os": "Linux (Ubuntu 18.04+)",
             },
         },
+
+        # 关节驱控方案（双臂14轴）
+        "joint_control": {
+            "default_scheme": "traditional_silicon",
+            "available_schemes": ["traditional_silicon", "ct2001b_ct1902_gan"],
+            "schemes_detail": {
+                "traditional_silicon": {
+                    "name": "原厂传统硅基方案",
+                    "recommended": True,
+                    "per_joint": {"driver_board_diameter_mm": 50, "continuous_torque_nm": 20, "temp_rise_c": 65},
+                    "total_14_joints": {"estimated_cost_rmb": 120000},
+                    "bus_interfaces": ["EtherCAT"],
+                },
+                "ct2001b_ct1902_gan": {
+                    "name": "升级国产CT-2001B+CT-1902 GaN双芯方案",
+                    "brand": "中科无线半导体",
+                    "recommended": False,
+                    "upgrade_benefits": {"cost_reduction_percent": 40, "torque_improvement_percent": 40, "weight_reduction_percent": 10},
+                    "per_joint": {"driver_board_diameter_mm": 30, "continuous_torque_nm": 28, "temp_rise_c": 35},
+                    "total_14_joints": {"estimated_cost_rmb": 72000},
+                    "bus_interfaces": ["EtherCAT", "CAN FD"],
+                    "features": ["硬件FOC", "自动参数整定", "毫秒级多关节同步", "全栈国产"],
+                },
+            },
+        },
     },
 
     # ============================================================
@@ -372,6 +498,32 @@ ARM_DATABASE = {
                 "cpu_cores": 1,
                 "ram_gb": 1,
                 "os": "Windows 7+ 或 Linux 或 macOS",
+            },
+        },
+
+        # 关节驱控方案（4轴轻量型）
+        "joint_control": {
+            "default_scheme": "traditional_silicon",
+            "available_schemes": ["traditional_silicon", "ct2001b_ct1902_gan"],
+            "schemes_detail": {
+                "traditional_silicon": {
+                    "name": "原厂传统硅基方案（MCU+舵机）",
+                    "recommended": True,
+                    "per_joint": {"driver_board_diameter_mm": 30, "continuous_torque_nm": 2, "temp_rise_c": 45},
+                    "total_4_joints": {"estimated_cost_rmb": 2000},
+                    "bus_interfaces": ["USB Serial"],
+                },
+                "ct2001b_ct1902_gan": {
+                    "name": "升级国产CT-2001B+CT-1902 GaN双芯方案",
+                    "brand": "中科无线半导体",
+                    "recommended": False,
+                    "note": "Dobot为教育轻量型，升级GaN方案可大幅提升动态性能",
+                    "upgrade_benefits": {"cost_reduction_percent": 20, "torque_improvement_percent": 50, "dynamic_response_improvement": "显著"},
+                    "per_joint": {"driver_board_diameter_mm": 20, "continuous_torque_nm": 3, "temp_rise_c": 30},
+                    "total_4_joints": {"estimated_cost_rmb": 1600},
+                    "bus_interfaces": ["CAN FD", "USB Serial"],
+                    "features": ["硬件FOC", "自动参数整定", "毫秒级响应"],
+                },
             },
         },
     },
@@ -732,6 +884,56 @@ ARM_DATABASE = {
                 "note": "使用边缘模式时无需高性能PC，P7内置旭日5芯片可独立推理",
             },
             "edge_deployment_note": "内置10TOPS AI算力，支持独立完成目标检测、深度估算、操作策略推理",
+        },
+
+        # 关节驱控方案
+        "joint_control": {
+            "default_scheme": "ct2001b_ct1902_gan",
+            "available_schemes": ["ct2001b_ct1902_gan", "traditional_silicon"],
+            "schemes_detail": {
+                "ct2001b_ct1902_gan": {
+                    "name": "CT-2001B ASIC + CT-1902 GaN 双芯方案",
+                    "brand": "中科无线半导体",
+                    "recommended": True,
+                    "per_joint": {
+                        "driver_board_diameter_mm": 36,
+                        "continuous_torque_nm": 60,
+                        "peak_torque_nm": 120,
+                        "temp_rise_c": 35,
+                        "control_delay_ns": 0.2,
+                        "current_loop_khz": 450,
+                    },
+                    "total_7_joints": {
+                        "estimated_cost_rmb": 49000,
+                        "weight_reduction_percent": 8,
+                        "torque_improvement_percent": 35,
+                    },
+                    "bus_interfaces": ["EtherCAT", "CAN FD"],
+                    "features": [
+                        "硬件FOC",
+                        "自动参数整定",
+                        "ADRC自抗扰算法",
+                        "毫秒级多关节同步",
+                        "全栈国产自研",
+                    ],
+                },
+                "traditional_silicon": {
+                    "name": "传统硅基多芯片方案",
+                    "recommended": False,
+                    "per_joint": {
+                        "driver_board_diameter_mm": 60,
+                        "continuous_torque_nm": 40,
+                        "peak_torque_nm": 80,
+                        "temp_rise_c": 65,
+                        "control_delay_ns": 2.8,
+                        "current_loop_khz": 50,
+                    },
+                    "total_7_joints": {
+                        "estimated_cost_rmb": 81600,
+                    },
+                    "bus_interfaces": ["EtherCAT"],
+                },
+            },
         },
     },
 }
