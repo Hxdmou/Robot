@@ -64,6 +64,9 @@ class ActionDebiasMetrics:
 @dataclass
 class CDLAMConfig:
     """CD-LAM配置"""
+    # 模型规模（参考CD-LAM论文: 2B / 14B）
+    model_size: str = "2B"  # "2B" 或 "14B"
+
     # 损失函数权重
     lambda_emb: float = 1.0
     lambda_ctr: float = 0.5
@@ -83,6 +86,37 @@ class CDLAMConfig:
         "push", "pull", "rotate", "open", "close",
         "insert", "remove", "flip", "press", "release",
     ])
+
+    # 各模型规模的参考基准数据（CD-LAM论文）
+    # 格式: {model_size: {metric: value}}
+    model_reference_data: Dict[str, Dict[str, float]] = field(default_factory=lambda: {
+        "2B": {
+            "baseline_fdce": 34.00,          # DreamDojo基线FDCE
+            "debiased_fdce": 19.63,           # CD-LAM去偏后FDCE
+            "fdce_reduction": 42.0,           # FDCE降低百分比
+            "robot_fdce_baseline": 12.63,     # 接入真实动作后基线FDCE
+            "robot_fdce_debiased": 8.24,      # 接入真实动作后CD-LAM FDCE
+            "robot_fdce_reduction": 34.8,     # 接入真实动作后FDCE降低%
+            "zero_residual_reduction": 50.0,   # 静止指令残余运动减少%
+            "target_error_reduction": 7.0,     # 目标动作误差再降%
+            "training_steps_to_match": 3000,   # 达到DreamDojo 50000步水平所需步数
+            "training_speedup": 16.7,          # 训练加速倍数
+            "data_efficiency_1h": 0.80,        # 1h视频数据获得1000h的收益比例
+        },
+        "14B": {
+            "baseline_fdce": 42.09,
+            "debiased_fdce": 29.87,
+            "fdce_reduction": 26.0,
+            "robot_fdce_baseline": 11.11,
+            "robot_fdce_debiased": 7.73,
+            "robot_fdce_reduction": 30.4,
+            "zero_residual_reduction": 76.7,
+            "target_error_reduction": 15.0,
+            "training_steps_to_match": 4000,
+            "training_speedup": 12.5,
+            "data_efficiency_1h": 0.80,
+        },
+    })
 
     # 训练效率目标（参考CD-LAM论文数据）
     target_efficiency_ratio: float = 10.0  # 期望10倍加速
@@ -528,14 +562,42 @@ class TrainingEfficiencyMonitor:
     训练效率监控器
 
     参考CD-LAM论文：
-    - CD-LAM 3000步超过DreamDojo 50000步（10倍加速）
+    - 2B模型:  CD-LAM 3000步超过DreamDojo 50000步（16.7倍加速）
+    - 14B模型: CD-LAM 4000步超过DreamDojo 50000步（12.5倍加速）
     - CD-LAM-1h即可获得CD-LAM-1000h的80%收益
     """
 
-    def __init__(self, target_ratio: float = 10.0, target_data_efficiency: float = 0.8):
+    def __init__(self, model_size: str = "2B", target_ratio: float = None, target_data_efficiency: float = 0.8):
+        self.model_size = model_size
+        # 从配置中获取对应模型规模的基准数据
+        default_config = CDLAMConfig()
+        ref = default_config.model_reference_data.get(model_size, {})
+
+        if target_ratio is None:
+            target_ratio = ref.get("training_speedup", 10.0)
+
         self.target_ratio = target_ratio
         self.target_data_efficiency = target_data_efficiency
+        self.baseline_steps = ref.get("training_steps_to_match", 50000)
+        self.debiased_target_steps = ref.get("training_steps_to_match", 3000)
         self.checkpoints = {}  # {step: metrics}
+
+    def get_reference_info(self) -> Dict[str, Any]:
+        """获取当前模型规模的参考基准数据"""
+        config = CDLAMConfig()
+        ref = config.model_reference_data.get(self.model_size, {})
+        return {
+            "model_size": self.model_size,
+            "baseline_fdce": ref.get("baseline_fdce"),
+            "debiased_fdce": ref.get("debiased_fdce"),
+            "fdce_reduction_%": ref.get("fdce_reduction"),
+            "robot_fdce_reduction_%": ref.get("robot_fdce_reduction"),
+            "zero_residual_reduction_%": ref.get("zero_residual_reduction"),
+            "target_error_reduction_%": ref.get("target_error_reduction"),
+            "training_steps_to_match": ref.get("training_steps_to_match"),
+            "training_speedup": ref.get("training_speedup"),
+            "data_efficiency_1h": ref.get("data_efficiency_1h"),
+        }
 
     def record(self, step: int, metrics: ActionDebiasMetrics):
         """记录检查点"""
@@ -615,9 +677,26 @@ if __name__ == "__main__":
     print("  5. TrainingEfficiencyMonitor - 训练效率监控")
     print()
     print("参考数据 (CD-LAM论文):")
-    print("  - 去偏后FDCE降低: 2B模型42%, 14B模型26%")
-    print("  - 接入真实动作后: 2B降34.8%, 14B降30.4%")
-    print("  - 训练效率: 3000步超基线50000步 (10倍加速)")
-    print("  - 数据效率: 1h视频得1000h 80%收益")
+    print("  【去偏后FDCE降低】")
+    print("    - 2B模型:  FDCE 34.00→19.63 (降低42%)")
+    print("    - 14B模型: FDCE 42.09→29.87 (降低26%)")
+    print("  【接入真实动作后FDCE降低】")
+    print("    - 2B模型:  FDCE 12.63→8.24  (降低34.8%)")
+    print("    - 14B模型: FDCE 11.11→7.73  (降低30.4%)")
+    print("  【静止指令测试（残余运动减少）】")
+    print("    - 2B模型:  残余运动减半 (-50%)")
+    print("    - 14B模型:  残余运动减少76.7%")
+    print("  【目标动作测试（误差进一步降低）】")
+    print("    - 2B模型:  误差再降7%")
+    print("    - 14B模型:  误差再降15%")
+    print("  【训练效率（达到相同性能所需步数）】")
+    print("    - 2B模型:  CD-LAM 3000步 = DreamDojo 50000步 (16.7倍加速)")
+    print("    - 14B模型: CD-LAM 4000步 = DreamDojo 50000步 (12.5倍加速)")
+    print("    - 通用:     3000~4000步内越过基线 (≥10倍加速)")
+    print("  【数据效率（去偏视频数据量）】")
+    print("    - CD-LAM-1h:   获得CD-LAM-1000h约80%的收益")
+    print("    - CD-LAM-10h:  获得CD-LAM-1000h约85%的收益")
+    print("    - CD-LAM-100h: 获得CD-LAM-1000h约90%的收益")
+    print("    - 结论:        去偏本身不依赖大规模视频数据")
     print()
     print("模块加载成功 ✅")
