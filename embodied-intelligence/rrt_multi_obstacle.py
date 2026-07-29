@@ -6,6 +6,23 @@ PyBullet 笛卡尔空间 RRT 多障碍物避障路径规划
   2. 安全距离硬编码，确保生效
   3. 多障碍物列表支持
 """
+# ============================================================================
+# 免责声明与AI使用规范
+# ============================================================================
+# 本文件仅供技术研究与学习交流使用，不得用于任何非法用途。
+#
+# AI使用规范：
+#   1. 使用本文件相关内容时须遵守所在地法律法规及伦理准则
+#   2. 不得用于侵犯他人合法权益、危害网络安全、破坏公共秩序的活动
+#   3. 涉及自动化决策的场景须确保人工复核机制与可解释性
+#   4. 处理个人信息时须符合数据保护相关法规要求
+#
+# 风险提示：
+#   本文件内容按"现状"提供，不保证绝对准确无误。
+#   使用者须自行评估风险，因使用本文件导致的任何损失由使用者承担。
+# ============================================================================
+
+
 
 import pybullet as p
 import pybullet_data
@@ -337,8 +354,8 @@ for i, target_pos in enumerate(path_points):
 
 # ================== 生成报告 ==================
 generate_rrt_report(
-    report_filename="F:/个人作品/具身智能/rrt_multi_report.txt",
-    log_filename="F:/个人作品/具身智能/rrt_multi_log.csv",
+    report_filename=os.path.join(PROJECT_ROOT, "rrt_multi_report.txt"),
+    log_filename=os.path.join(PROJECT_ROOT, "rrt_multi_log.csv"),
     path_points=path_points,
     actual_positions=actual_positions,
     joint_positions_history=joint_positions_history,
@@ -361,7 +378,7 @@ generate_rrt_report(
 print("\n[RRT] ========== 多障碍物避障路径规划完成 ==========")
 print(f"[RRT] 目标到达: {'是' if goal_reached else '否'}")
 print(f"[RRT] 碰撞检测: {'发生碰撞' if collision_detected else '未发生碰撞'}")
-print(f"[RRT] 报告: F:/个人作品/具身智能/rrt_multi_report.txt")
+print(f"[RRT] 报告: {output_path}/rrt_multi_report.txt")
 print("[RRT] 按 Ctrl+C 退出。")
 
 try:

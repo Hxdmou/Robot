@@ -90,3 +90,36 @@ legal_knowledge_base/
 /*.h5
 /*.joblib
 /*.pkl
+
+# ===== Screenshots & images (privacy) =====
+transformed_screenshots/
+*_screenshots/
+screenshots/
+*.jpg
+*.jpeg
+*.png
+*.webp
+*.gif
+*.bmp
+
+# ===== Data directories (privacy & large files) =====
+drag_teach_data/
+*_data/
+data/
+
+# ===== Generated reports & logs =====
+*_report.txt
+*_log.csv
+baseline_report*.txt
+baseline_log*.csv
+
+# ===== PPT files (may contain sensitive info) =====
+*.pptx
+*.ppt
+
+# ===== Temporary audit scripts =====
+_*_audit.py
+_*_check.py
+_*_sanitize.py
+_*_disclaimers.py
+_github_audit.py

@@ -1,3 +1,20 @@
+
+# ============================================================================
+# 免责声明与AI使用规范
+# ============================================================================
+# 本文件仅供技术研究与学习交流使用，不得用于任何非法用途。
+#
+# AI使用规范：
+#   1. 使用本文件相关内容时须遵守所在地法律法规及伦理准则
+#   2. 不得用于侵犯他人合法权益、危害网络安全、破坏公共秩序的活动
+#   3. 涉及自动化决策的场景须确保人工复核机制与可解释性
+#   4. 处理个人信息时须符合数据保护相关法规要求
+#
+# 风险提示：
+#   本文件内容按"现状"提供，不保证绝对准确无误。
+#   使用者须自行评估风险，因使用本文件导致的任何损失由使用者承担。
+# ============================================================================
+
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import cm
@@ -186,7 +203,7 @@ def generate_pdf(output_path, system_name, system_file, system_port, description
     
     # Footer
     story.append(Spacer(1, 1*cm))
-    story.append(Paragraph("联系邮箱: support@example.com | 项目地址: https://github.com/Hxdmou/legal-rag-qa-system", styles['Footer']))
+    story.append(Paragraph("联系邮箱: [contact_email_placeholder] | 项目地址: https://github.com/Hxdmou/legal-rag-qa-system", styles['Footer']))
     story.append(Paragraph("Copyright 2026 RAG智能问答系统. 保留所有权利。", styles['Footer']))
     
     doc.build(story)
@@ -194,7 +211,7 @@ def generate_pdf(output_path, system_name, system_file, system_port, description
 
 # E-commerce QA System
 generate_pdf(
-    r"F:\电商零售问答系统介绍.pdf",
+    OUTPUT_DIR  # was: 电商零售问答系统介绍.pdf,
     "电商零售问答系统",
     "e_commerce_qa.py",
     "7874",
@@ -216,7 +233,7 @@ generate_pdf(
 
 # Government QA System
 generate_pdf(
-    r"F:\政务服务问答系统介绍.pdf",
+    OUTPUT_DIR  # was: 政务服务问答系统介绍.pdf,
     "政务服务问答系统",
     "government_qa.py",
     "7875",
@@ -238,7 +255,7 @@ generate_pdf(
 
 # HR QA System
 generate_pdf(
-    r"F:\人力资源问答系统介绍.pdf",
+    OUTPUT_DIR  # was: 人力资源问答系统介绍.pdf,
     "人力资源问答系统",
     "hr_qa.py",
     "7876",
@@ -260,7 +277,7 @@ generate_pdf(
 
 # Academic QA System
 generate_pdf(
-    r"F:\科研学术问答系统介绍.pdf",
+    OUTPUT_DIR  # was: 科研学术问答系统介绍.pdf,
     "科研学术问答系统",
     "academic_qa.py",
     "7877",

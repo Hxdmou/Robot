@@ -3,6 +3,23 @@ PyBullet 仿真物理因素深化模块
 功能：在现有仿真环境中加入关节摩擦力、传感器噪声、通信延迟和重力补偿验证
 目标：让仿真验证的控制策略更接近真实部署时的表现
 """
+# ============================================================================
+# 免责声明与AI使用规范
+# ============================================================================
+# 本文件仅供技术研究与学习交流使用，不得用于任何非法用途。
+#
+# AI使用规范：
+#   1. 使用本文件相关内容时须遵守所在地法律法规及伦理准则
+#   2. 不得用于侵犯他人合法权益、危害网络安全、破坏公共秩序的活动
+#   3. 涉及自动化决策的场景须确保人工复核机制与可解释性
+#   4. 处理个人信息时须符合数据保护相关法规要求
+#
+# 风险提示：
+#   本文件内容按"现状"提供，不保证绝对准确无误。
+#   使用者须自行评估风险，因使用本文件导致的任何损失由使用者承担。
+# ============================================================================
+
+
 
 import pybullet as p
 import pybullet_data
@@ -371,8 +388,8 @@ if len(actual_positions) > 3:
 
 # ================== 生成报告 ==================
 generate_physical_report(
-    report_filename="F:/个人作品/具身智能/physical_report.txt",
-    log_filename="F:/个人作品/具身智能/physical_log.csv",
+    report_filename=os.path.join(PROJECT_ROOT, "physical_report.txt"),
+    log_filename=os.path.join(PROJECT_ROOT, "physical_log.csv"),
     trajectory_points=trajectory_points,
     actual_positions=actual_positions,
     commanded_positions=commanded_positions,
@@ -393,7 +410,7 @@ generate_physical_report(
     vel_noise_std=VELOCITY_NOISE_STD
 )
 
-print("\n[PHYS] 报告已生成: F:/个人作品/具身智能/physical_report.txt")
-print("[PHYS] 日志已保存: F:/个人作品/具身智能/physical_log.csv")
+print("\n[PHYS] 报告已生成: {output_path}/physical_report.txt")
+print("[PHYS] 日志已保存: {output_path}/physical_log.csv")
 print("[PHYS] 物理因素深化仿真完成。")
 p.disconnect()

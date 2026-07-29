@@ -63,9 +63,9 @@ def generate_usage_guide():
 - 每个领域准备5-10个PDF文件，总大小控制在50MB以内（方便上传演示）
 - 确保所有文档来源合法、公开
 
-二、录制屏幕操作（纯文字+静默截图）
+二、录制屏幕操作（纯文字+静默截屏）
 -------------------------------------------
-- 截取关键操作界面并配上文字说明
+- 捕捉关键操作界面并配上文字说明
 - 制作成《系统操作说明书》PDF文档
 - 或在知乎/CSDN撰写图文演示文章
 
@@ -73,7 +73,7 @@ def generate_usage_guide():
 -------------------------------------------
 - 文字描述典型问答案例
 - 远程屏幕共享演示（仅文字描述）
-- 制作"问答案例集"截图文档
+- 制作"问答案例集"界面展示文档
 
 四、敏感数据处理原则
 -------------------------------------------
@@ -95,13 +95,13 @@ def generate_usage_guide():
 需保证文档内容不侵犯第三方权益，我方不承担因文档来源产生的法律责任。
 """
     
-    guide_path = os.path.join(r"F:\个人作品\智能问答系统PDF资源", "使用指南_变现操作手册.txt")
+    guide_path = os.path.join(OUTPUT_DIR  # was: 智能问答系统PDF资源, "使用指南_变现操作手册.txt")
     with open(guide_path, 'w', encoding='utf-8') as f:
         f.write(guide_content)
     print(f"\n✓ 使用指南已生成: {guide_path}")
 
 def main():
-    base_dir = r"F:\个人作品\智能问答系统PDF资源"
+    base_dir = OUTPUT_DIR  # was: 智能问答系统PDF资源
     
     # 显示合法性声明
     print(DISCLAIMER)

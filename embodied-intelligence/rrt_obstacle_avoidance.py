@@ -5,6 +5,23 @@ PyBullet 笛卡尔空间 RRT 避障路径规划（优化版）
   1. 碰撞安全距离（1.5倍障碍物半径）
   2. 路径点插值（相邻点间插2个点，提升轨迹平滑度）
 """
+# ============================================================================
+# 免责声明与AI使用规范
+# ============================================================================
+# 本文件仅供技术研究与学习交流使用，不得用于任何非法用途。
+#
+# AI使用规范：
+#   1. 使用本文件相关内容时须遵守所在地法律法规及伦理准则
+#   2. 不得用于侵犯他人合法权益、危害网络安全、破坏公共秩序的活动
+#   3. 涉及自动化决策的场景须确保人工复核机制与可解释性
+#   4. 处理个人信息时须符合数据保护相关法规要求
+#
+# 风险提示：
+#   本文件内容按"现状"提供，不保证绝对准确无误。
+#   使用者须自行评估风险，因使用本文件导致的任何损失由使用者承担。
+# ============================================================================
+
+
 
 import pybullet as p
 import pybullet_data
@@ -296,8 +313,8 @@ for i, target_pos in enumerate(path_points):
 
 # ================== 生成报告 ==================
 generate_rrt_report(
-    report_filename="F:/个人作品/具身智能/rrt_report.txt",
-    log_filename="F:/个人作品/具身智能/rrt_log.csv",
+    report_filename=os.path.join(PROJECT_ROOT, "rrt_report.txt"),
+    log_filename=os.path.join(PROJECT_ROOT, "rrt_log.csv"),
     path_points=path_points,
     actual_positions=actual_positions,
     joint_positions_history=joint_positions_history,
@@ -318,8 +335,8 @@ generate_rrt_report(
     final_path_len=len(path_points)
 )
 
-print("[RRT] 报告已生成: F:/个人作品/具身智能/rrt_report.txt")
-print("[RRT] 日志已保存: F:/个人作品/具身智能/rrt_log.csv")
+print("[RRT] 报告已生成: {output_path}/rrt_report.txt")
+print("[RRT] 日志已保存: {output_path}/rrt_log.csv")
 print(f"[RRT] 避障路径规划完成。目标到达: {'是' if goal_reached else '否'}, 碰撞检测: {'发生碰撞' if collision_detected else '未发生碰撞'}")
 print("[RRT] 按 Ctrl+C 退出。")
 

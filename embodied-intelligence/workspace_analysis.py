@@ -4,6 +4,23 @@ PyBullet 仿真机械臂工作空间边界分析
 输出：可达区域边界图、可达率统计、推荐放置位置 
 用途：为后续抓取-放置操作提供可达位置参考 
 """ 
+# ============================================================================
+# 免责声明与AI使用规范
+# ============================================================================
+# 本文件仅供技术研究与学习交流使用，不得用于任何非法用途。
+#
+# AI使用规范：
+#   1. 使用本文件相关内容时须遵守所在地法律法规及伦理准则
+#   2. 不得用于侵犯他人合法权益、危害网络安全、破坏公共秩序的活动
+#   3. 涉及自动化决策的场景须确保人工复核机制与可解释性
+#   4. 处理个人信息时须符合数据保护相关法规要求
+#
+# 风险提示：
+#   本文件内容按"现状"提供，不保证绝对准确无误。
+#   使用者须自行评估风险，因使用本文件导致的任何损失由使用者承担。
+# ============================================================================
+
+
 
 import pybullet as p 
 import pybullet_data 
@@ -218,8 +235,8 @@ else:
 
 # ================== 生成报告 ================== 
 generate_workspace_report( 
-    report_filename="F:/个人作品/具身智能/workspace_report.txt", 
-    log_filename="F:/个人作品/具身智能/workspace_log.csv", 
+    report_filename=os.path.join(PROJECT_ROOT, "workspace_report.txt"), 
+    log_filename=os.path.join(PROJECT_ROOT, "workspace_log.csv"), 
     reachable_points=reachable_points, 
     unreachable_points=unreachable_points, 
     total_points=total_points, 
@@ -253,6 +270,6 @@ for pos in valid_recommendations:
     p.createMultiBody(baseMass=0, baseCollisionShapeIndex=sphere_id, 
                       basePosition=pos) 
 
-print(f"\n[WS] 报告已生成: F:/个人作品/具身智能/workspace_report.txt") 
-print("[WS] 日志已保存: F:/个人作品/具身智能/workspace_log.csv") 
+print(f"\n[WS] 报告已生成: {output_path}/workspace_report.txt") 
+print("[WS] 日志已保存: {output_path}/workspace_log.csv") 
 print("[WS] 工作空间分析完成。")

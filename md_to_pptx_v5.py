@@ -704,7 +704,7 @@ def create_related_practice_slide(prs):
         "",
         "5. 联系方式",
         "   - GitHub: https://github.com/Hxdmou",
-        "   - 商务邮箱: business@rag-qa-system.com"
+        "   - 商务邮箱: [contact_email_placeholder]"
     ]
     
     for line in practices:
@@ -930,8 +930,8 @@ def create_pptx_enterprise(chapters, output_path):
     print(f"共生成 {len(chapters) + 4} 页幻灯片")
 
 if __name__ == '__main__':
-    md_file = r'f:\个人作品\legal-rag-qa-system\A2A_ENTERPRISE_PPT.md'
-    output_file = r'f:\个人作品\legal-rag-qa-system\A2A_ENTERPRISE_PPT_V12.pptx'
+    md_file = EXTERNAL_PROJECT_DIR  # was: A2A_ENTERPRISE_PPT.md
+    output_file = EXTERNAL_PROJECT_DIR  # was: A2A_ENTERPRISE_PPT_V12.pptx
     
     with open(md_file, 'r', encoding='utf-8') as f:
         md_content = f.read()

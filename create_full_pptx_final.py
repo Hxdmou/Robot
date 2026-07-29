@@ -1,3 +1,20 @@
+
+# ============================================================================
+# 免责声明与AI使用规范
+# ============================================================================
+# 本文件仅供技术研究与学习交流使用，不得用于任何非法用途。
+#
+# AI使用规范：
+#   1. 使用本文件相关内容时须遵守所在地法律法规及伦理准则
+#   2. 不得用于侵犯他人合法权益、危害网络安全、破坏公共秩序的活动
+#   3. 涉及自动化决策的场景须确保人工复核机制与可解释性
+#   4. 处理个人信息时须符合数据保护相关法规要求
+#
+# 风险提示：
+#   本文件内容按"现状"提供，不保证绝对准确无误。
+#   使用者须自行评估风险，因使用本文件导致的任何损失由使用者承担。
+# ============================================================================
+
 from pptx import Presentation
 from pptx.util import Pt, Inches
 from pptx.dml.color import RGBColor
@@ -439,7 +456,7 @@ def create_full_pptx(add_watermark_flag=True, output_filename="output.pptx"):
         ["智能营销平台", "营销", "GPT-5.0+数据分析+自动化+A/B测试", "ROI+150%|获客成本-40%|转化率+50%|内容生产+300%", "400万", "6个月", "高"],
         ["智慧园区管理", "物业", "AI+IoT+视频分析+能耗优化", "能耗-30%|安保效率+60%|运维成本-40%|满意度+40%", "600万", "10个月", "中"],
         ["AI物流调度", "物流", "AI路径规划+AGV+无人机+数字孪生", "配送效率+50%|成本-30%|准时率99%|碳排放-25%", "700万", "10个月", "中"],
-        ["智慧政务审批", "政府", "AI审批+RPA+知识图谱+OCR", "审批时间-80%|满意度+70%|差错率-90%|人力成本-50%", "500万", "8个月", "高"],
+        ["智慧政务审批", "政府", "AI审批+RPA+知识图谱+文字识别", "审批时间-80%|满意度+70%|差错率-90%|人力成本-50%", "500万", "8个月", "高"],
     ]
     
     table = slide.shapes.add_table(len(data), len(data[0]), left, top, width, height).table
@@ -647,4 +664,20 @@ def create_full_pptx(add_watermark_flag=True, output_filename="output.pptx"):
     table.autofit = True
     
     for i in range(len(data)):
-        for j in range(len
+        for j in range(len(data[i])):
+            if i == 0:
+                set_cell_style(table.cell(i, j), data[i][j], 11, True, RGBColor(0, 200, 255), RGBColor(20, 30, 50))
+            elif j == 0:
+                set_cell_style(table.cell(i, j), data[i][j], 10, True, RGBColor(200, 200, 255), RGBColor(15, 25, 45))
+            elif "完成" in data[i][j]:
+                set_cell_style(table.cell(i, j), data[i][j], 9, True, RGBColor(0, 255, 100), RGBColor(10, 30, 20))
+            else:
+                set_cell_style(table.cell(i, j), data[i][j], 9, False, RGBColor(220, 220, 240), RGBColor(10, 15, 30))
+
+    output_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "具身智能系统架构全景图.pptx")
+    prs.save(output_path)
+    print(f"已创建PPT！保存到: {output_path}")
+
+
+if __name__ == "__main__":
+    create_full_pptx()
