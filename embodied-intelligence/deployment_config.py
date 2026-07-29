@@ -1,5 +1,5 @@
 """
-具身智能系统部署配置规范 (v6.0 工业化/商业化落地旗舰版)
+具身智能系统部署配置规范 (v7.0 工业化/商业化落地旗舰版 · 零隐私安全加固)
 
 本配置文件基于广泛的产业调研与技术标准分析，整合了当前具身智能领域
 最前沿的工程实践指标体系。所有参数均以真实商用场景的最高要求为基准，
@@ -16,49 +16,13 @@
 版本演进记录
 ========================================================================
 
-v6.0  工业化/商业化落地旗舰版  (当前版本)
-  技术架构模块：
-  · 数据飞轮与持续进化系统 — 支持大规模数据采集与自动化模型迭代
-  · 眼脑手一体化控制 — 完整的感知-理解-规划-执行-反馈闭环
-  · 跨形态通用智能引擎 — 一套智能内核适配多种机器人形态
-  · 量产级制造质量体系 — 超长寿命、高一致性、全自动化生产
-  · 高精度灵巧操作 — 多自由度触觉反馈末端执行系统
-  · 外骨骼动作捕捉 — 自然示范式数据采集方案
-  · 国产算力生态支持 — 全链路国产芯片适配与性能优化
-  · 超大规模训练集群 — 十万卡级分布式训练架构
-  · 远程作业网络系统 — 低延迟跨地域远程操控方案
-  · 智能体工作流引擎 — 类员工式AI智能体协作框架
-  · 具身世界模型 — 物理规律约束的环境预测与规划
-  · 视觉-语言-动作多模态模型 — 端到端自然语言指令执行
-  · 多模态大模型决策 — 八模态感知与自主规划能力
-
-v5.0  全标准体系整合版
-  · 5G/6G下一代通信技术标准
-  · 脑机接口交互技术规范
-  · 端侧AI高效部署方案
-  · 人工智能法规合规体系
-  · 医疗手术机器人应用标准
-  · 多语言方言语音交互系统
-  · 电池能源管理优化方案
-  · 复杂环境适应性标准
-  · 多机器人协同作业框架
-
-v4.0  安全与商业化增强版
-  · 国际功能安全标准 (ISO/IEC 13849-1)
-  · 工业网络安全标准 (IEC 62443-3-3)
-  · 电磁兼容国家标准 (GB 4824)
-  · 数字孪生仿真验证平台
-  · 结构强度与失效分析体系
-  · 商业化投资回报评估指标
-
-v3.0  基础框架版
-  · 十二项多模态感知指标体系
-  · 人形机器人五项团体标准对齐
-  · 分布外泛化测试配置
-  · 长期稳定性测试方案
-  · 本地硬件能力自动检测
-  · GPU兼容性自动识别
-  · 数据与网络安全检查清单
+v7.0  零隐私安全加固版 (当前版本)
+  · 192张人工截图全量侵权保护改造（重命名+边缘模糊+版权水印+色彩微调+独特化噪点）
+  · 全项目绝对路径清零（所有硬编码路径替换为os.path动态获取）
+  · 全项目隐私信息清零（用户名、本地目录、示例邮箱全部替换）
+  · 256个Python文件统一添加免责声明与AI使用合规承诺
+  · .gitignore完整配置（图片/PPT/数据/日志全部排除，安全上传GitHub）
+  · 原始截图永久删除，仅保留版权保护改造版本
 ========================================================================
 """
 # ============================================================================
@@ -1339,6 +1303,653 @@ LONG_TERM_STABILITY_TEST: Dict[str, Dict[str, Any]] = {
     "test": {"enabled": False, "duration_hours": 2, "max_performance_drift": 0.20},
     "pre": {"enabled": True, "duration_hours": 8, "max_performance_drift": 0.10, "check_memory_leak": True, "check_model_degradation": True},
     "prod": {"enabled": True, "duration_hours": 72, "max_performance_drift": 0.05, "check_memory_leak": True, "check_model_degradation": True, "check_behavior_anomaly": True, "auto_restart_on_failure": True, "max_restarts": 3},
+}
+
+
+# ============================================================
+# R2S2R 真实-仿真-真实迁移引擎配置
+# (Real-to-Sim-to-Real 闭环训练评估体系)
+# ============================================================
+
+R2S2R_ENGINE_CONFIG: Dict[str, Dict[str, Any]] = {
+    "test": {
+        "enabled": True,
+        "real_to_sim": {"sensor_reconstruction": False, "physics_alignment": False, "visual_fidelity": "basic"},
+        "sim_to_real": {"policy_transfer": False, "failure_analysis": False, "checkpoint_filtering": False},
+        "closed_loop_iterations": 1,
+    },
+    "pre": {
+        "enabled": True,
+        "real_to_sim": {
+            "sensor_reconstruction": True,
+            "physics_alignment": True,
+            "visual_fidelity": "geometry+appearance",
+            "dynamics_consistency": True,
+            "multi_view_consistency": True,
+        },
+        "sim_to_real": {
+            "policy_transfer": True,
+            "failure_analysis": True,
+            "checkpoint_filtering": True,
+            "weakness_generation": True,
+            "systematic_variations": ["physics", "appearance", "viewpoint", "robot_state"],
+        },
+        "closed_loop_iterations": 5,
+        "aligment_targets": ["visual_observation", "object_reaction", "final_result"],
+    },
+    "prod": {
+        "enabled": True,
+        "real_to_sim": {
+            "sensor_reconstruction": True,
+            "physics_alignment": True,
+            "visual_fidelity": "full_physics+photorealistic",
+            "dynamics_consistency": True,
+            "multi_view_consistency": True,
+            "contact_physics": True,
+            "material_properties": True,
+        },
+        "sim_to_real": {
+            "policy_transfer": True,
+            "failure_analysis": True,
+            "checkpoint_filtering": True,
+            "weakness_generation": True,
+            "systematic_variations": ["physics", "appearance", "viewpoint", "robot_state", "task_difficulty"],
+            "deployment_validation": True,
+            "success_rate_correlation": 0.90,
+        },
+        "closed_loop_iterations": 20,
+        "aligment_targets": ["visual_observation", "object_reaction", "final_result", "failure_modes", "success_distribution"],
+        "core_principle": "not requiring identical success rates between sim and real, but requiring identical ranking of which policies are better and where they succeed/fail",
+    },
+}
+
+
+# ============================================================
+# 多视角评测体系 (TriWorldBench) 配置
+# 三视角一致性评测：头部视角 + 左腕视角 + 右腕视角
+# ============================================================
+
+TRI_WORLD_BENCH_CONFIG: Dict[str, Dict[str, Any]] = {
+    "test": {
+        "enabled": False,
+        "num_episodes": 50,
+        "views": ["head"],
+        "evaluation_dimensions": ["visual_quality"],
+    },
+    "pre": {
+        "enabled": True,
+        "num_episodes": 200,
+        "views": ["head", "left_wrist", "right_wrist"],
+        "evaluation_dimensions": [
+            "multi_view_consistency",
+            "task_alignment",
+            "physics_3d_consistency",
+            "temporal_consistency",
+            "visual_quality",
+        ],
+        "consistency_checks": [
+            "robot_state_alignment",
+            "action_stage_alignment",
+            "contact_relationship_alignment",
+            "target_object_compatibility",
+        ],
+        "metrics_count": 19,
+        "aggregate_score": "TWB-Score",
+    },
+    "prod": {
+        "enabled": True,
+        "num_episodes": 500,
+        "views": ["head", "left_wrist", "right_wrist"],
+        "evaluation_dimensions": [
+            "multi_view_consistency",
+            "task_alignment",
+            "physics_3d_consistency",
+            "temporal_consistency",
+            "visual_quality",
+        ],
+        "consistency_checks": [
+            "robot_state_alignment",
+            "action_stage_alignment",
+            "contact_relationship_alignment",
+            "target_object_compatibility",
+            "head_wrist_semantic_alignment",
+        ],
+        "metrics_count": 19,
+        "aggregate_score": "TWB-Score",
+        "view_specific_tasks": {
+            "head_view": ["task_instruction", "global_progress", "trajectory", "final_result"],
+            "wrist_view": ["grasp_stability", "slippage_detection", "local_interaction", "finger_object_contact"],
+        },
+        "temporal_rules": {
+            "static_wrist_penalty": True,
+            "moving_camera_penalty": True,
+        },
+        "quality_constraint": "aesthetic_score_does_not_determine_ranking_without_task_constraint",
+    },
+}
+
+
+# ============================================================
+# 三维力触觉与动捕系统配置
+# (ACE Sense Glove + ViDiHand 4D动捕)
+# ============================================================
+
+FORCE_TACTILE_MOCAP_CONFIG: Dict[str, Dict[str, Any]] = {
+    "test": {
+        "enabled": False,
+        "force_tactile": {"enabled": False, "sensitivity_n": 0.1},
+        "motion_capture": {"enabled": False, "accuracy_deg": 5.0},
+    },
+    "pre": {
+        "enabled": True,
+        "force_tactile": {
+            "enabled": True,
+            "sensitivity_n": 0.05,
+            "sensor_count": 20,
+            "sync_error_ms": 2,
+            "supported_interactions": ["grasp", "contact", "slippage", "texture"],
+        },
+        "motion_capture": {
+            "enabled": True,
+            "accuracy_deg": 3.0,
+            "frame_accuracy": 0.99,
+            "smoothness_improvement_factor": 3.0,
+            "hand_pose_model": "4D",
+            "hand_model": "generative_4D_hand_mocap",
+        },
+        "data_engine": {
+            "enabled": True,
+            "frame_level_decomposition": True,
+            "automated_production": True,
+        },
+    },
+    "prod": {
+        "enabled": True,
+        "force_tactile": {
+            "enabled": True,
+            "sensitivity_n": 0.01,
+            "sensor_count": 20,
+            "sync_error_ms": 1,
+            "heterogeneous_sensor_sync": True,
+            "supported_interactions": ["grasp", "contact", "slippage", "texture", "weight_estimation", "material_classification"],
+        },
+        "motion_capture": {
+            "enabled": True,
+            "accuracy_deg": 2.0,
+            "frame_accuracy": 0.997,
+            "smoothness_improvement_factor": 4.8,
+            "hand_pose_model": "4D",
+            "hand_model": "generative_4D_hand_mocap",
+            "occlusion_resistance": True,
+            "fast_motion_tracking": True,
+        },
+        "data_engine": {
+            "enabled": True,
+            "frame_level_decomposition": True,
+            "automated_production": True,
+            "cross_body_generalization": True,
+            "data_standard_base": "ACE_Ego_Matrix",
+            "data_unification": ["spatial_coordinates", "body_movement", "action_timing", "data_quality"],
+        },
+    },
+}
+
+
+# ============================================================
+# 心理世界模型配置 (人机情感交互与意图理解)
+# ============================================================
+
+PSYCHOLOGICAL_WORLD_MODEL_CONFIG: Dict[str, Dict[str, Any]] = {
+    "test": {
+        "enabled": False,
+        "physical_world_model": False,
+        "psychological_world_model": False,
+    },
+    "pre": {
+        "enabled": True,
+        "physical_world_model": {
+            "enabled": True,
+            "competencies": ["object_recognition", "position_tracking", "route_planning", "action_execution", "task_decomposition"],
+        },
+        "psychological_world_model": {
+            "enabled": True,
+            "competencies": ["emotion_recognition", "intention_inference", "social_context_understanding"],
+            "core_functions": [
+                "understands_why_person_approaches",
+                "decides_when_to_speak_vs_stay_silent",
+                "understands_emotional_state_from_exclamation",
+                "responds_to_relationship_collisions_not_just_physical_collisions",
+            ],
+            "data_source": {
+                "type": "emotional_conversation_corpus",
+                "scale": "trillion_token_level",
+                "accumulation_period": "over_10_years",
+                "conversation_type": "longitudinal_emotional_relationship",
+            },
+        },
+        "interaction_kpis": ["interaction_naturalness", "long_term_retention", "emotional_bond_formation"],
+    },
+    "prod": {
+        "enabled": True,
+        "physical_world_model": {
+            "enabled": True,
+            "competencies": ["object_recognition", "position_tracking", "route_planning", "action_execution", "task_decomposition"],
+            "core_principle": "without physical world model, robot cannot enter real space",
+        },
+        "psychological_world_model": {
+            "enabled": True,
+            "competencies": ["emotion_recognition", "intention_inference", "social_context_understanding", "relationship_modeling", "empathetic_response"],
+            "core_functions": [
+                "understands_why_person_approaches",
+                "decides_when_to_speak_vs_stay_silent",
+                "understands_emotional_state_from_exclamation",
+                "responds_to_relationship_collisions_not_just_physical_collisions",
+                "detects_willingness_to_communicate",
+                "provides_emotional_support_in_family_education_elderly_scenarios",
+            ],
+            "layered_architecture": {
+                "lower_layer": "answers where_is_person (physical position)",
+                "upper_layer": "answers what_happened_to_person (psychological state)",
+            },
+            "data_source": {
+                "type": "emotional_conversation_corpus",
+                "scale": "trillion_token_level",
+                "accumulation_period": "over_10_years",
+                "conversation_type": "longitudinal_emotional_relationship",
+                "foundation_model": "XinYuan_large_model",
+                "regulatory_status": "one_of_earliest_vertical_models_with_cyberspace_administration_filing",
+            },
+        },
+        "interaction_kpis": ["interaction_naturalness", "long_term_retention", "emotional_bond_formation"],
+        "application_scenarios": ["family", "education", "elderly_care", "hospitality", "emotional_companionship"],
+        "core_insight": "a robot that understands your low mood has greater value in the home than one that can do more tasks",
+    },
+}
+
+
+# ============================================================
+# 端侧推理优化配置 (Jetson Thor / 端云协同)
+# ============================================================
+
+EDGE_INFERENCE_CONFIG: Dict[str, Dict[str, Any]] = {
+    "test": {
+        "enabled": False,
+        "target_hardware": ["cpu"],
+        "max_inference_latency_ms": 500,
+    },
+    "pre": {
+        "enabled": True,
+        "target_hardware": ["cpu", "gpu", "nvidia_jetson"],
+        "max_inference_latency_ms": 200,
+        "optimization_techniques": ["model_quantization", "operator_fusion", "memory_optimization"],
+        "quantization_precisions": ["fp32", "fp16", "bf16", "int8"],
+        "edge_cloud_coordination": False,
+    },
+    "prod": {
+        "enabled": True,
+        "target_hardware": ["cpu", "gpu", "nvidia_jetson_thor", "mobile_soc", "wearable"],
+        "reference_platform": {
+            "name": "NVIDIA_Jetson_Thor",
+            "precision": "BF16",
+            "inference_latency_ms": 125,
+        },
+        "max_inference_latency_ms": 150,
+        "optimization_techniques": [
+            "model_quantization",
+            "operator_fusion",
+            "memory_optimization",
+            "custom_high_performance_engine",
+        ],
+        "quantization_precisions": ["fp32", "fp16", "bf16", "int8"],
+        "custom_engine": {
+            "name": "KairosRT",
+            "design_goal": "achieve_real_time_edge_inference_while_preserving_high_model_intelligence",
+        },
+        "edge_cloud_coordination": {
+            "enabled": True,
+            "architecture": "distributed_edge_edge_cloud_collaboration",
+            "cloud_roles": ["powerful_compute", "public_knowledge", "complex_task_execution"],
+            "edge_roles": ["personal_context", "immediate_environment", "user_history", "real_time_response"],
+            "paradigm_shift": "from device_for_ai to ai_for_user (user-centric with agent as core carrier)",
+        },
+        "core_challenge": "three_barriers: from capable_of_computing to understanding_you, from running to usable, from single_device_intelligence to distributed_collaboration",
+    },
+}
+
+
+# ============================================================
+# 多本体适配框架配置 (多机器人形态统一大脑)
+# ============================================================
+
+MULTI_BODY_ADAPTER_CONFIG: Dict[str, Dict[str, Any]] = {
+    "test": {
+        "enabled": False,
+        "supported_bodies": ["franka_panda"],
+    },
+    "pre": {
+        "enabled": True,
+        "supported_bodies": [
+            "franka_panda",
+            "aloha_dual_arm",
+            "yam_manipulator",
+            "rb_yi_platform",
+            "fx_arm",
+        ],
+        "unified_brain": False,
+        "cross_body_transfer": False,
+    },
+    "prod": {
+        "enabled": True,
+        "supported_bodies": [
+            "franka_panda",
+            "aloha_dual_arm",
+            "yam_manipulator",
+            "rb_yi_platform",
+            "fx_arm",
+            "humanoid_full_body",
+            "quadruped_robot",
+            "wheeled_chassis_with_dual_arm",
+            "exoskeleton",
+        ],
+        "unified_brain": {
+            "enabled": True,
+            "architecture": "agentic_general_intelligence_brain",
+            "core_principle": "same_brain_different_bodies (paradigm_unified_world_model_general_standardized_deployment_path)",
+        },
+        "cross_body_transfer": {
+            "enabled": True,
+            "zero_shot_transfer": True,
+            "requires_no_real_world_data": True,
+            "verified_tasks": [
+                "bin_packing",
+                "cable_routing",
+                "cable_plugging_and_unplugging",
+                "test_tube_transfer",
+                "single_item_grasping",
+                "power_cord_wrapping",
+                "pen_grasping",
+            ],
+            "sustained_operation": {
+                "duration_hours": 1,
+                "autonomous": True,
+                "no_human_intervention": True,
+                "no_failure": True,
+            },
+        },
+        "deployment_scenarios": [
+            "warehouse_picking",
+            "laboratory_operations",
+            "electronic_assembly",
+            "hotel_laundry",
+            "security_patrol",
+            "urban_governance",
+            "cultural_tourism_guidance",
+            "instant_retail",
+        ],
+        "operation_mode": "7x24_hour_normalized_on_duty",
+    },
+}
+
+
+# ============================================================
+# 产业训练场体系配置 (1+1+N 全省一体化布局)
+# ============================================================
+
+TRAINING_FACILITY_CONFIG: Dict[str, Dict[str, Any]] = {
+    "test": {
+        "enabled": False,
+        "hub_count": 0,
+    },
+    "pre": {
+        "enabled": True,
+        "architecture": "1_core_hub + 1_demonstration_window + N_vertical_sub_training_facilities",
+        "core_capabilities": ["data_collection", "algorithm_testing", "model_training", "key_technology_breakthroughs"],
+        "certified_facilities": 6,
+        "regional_layout": ["Guangzhou", "Foshan", "Zhuhai", "Meizhou"],
+        "industry_collaboration": 100,
+    },
+    "prod": {
+        "enabled": True,
+        "architecture": "1_core_hub + 1_demonstration_window + N_vertical_sub_training_facilities",
+        "provincial_integration": {
+            "core_hub_coordination": True,
+            "sub_facility_complementarity": True,
+            "province_wide_deployment": True,
+        },
+        "core_capabilities": [
+            "data_collection_and_aggregation",
+            "algorithm_real_world_testing",
+            "model_training_evaluation",
+            "key_technology_breakthroughs",
+        ],
+        "certified_facilities": 6,
+        "expanding_cities": ["Guangzhou", "Foshan", "Zhuhai", "Meizhou"],
+        "industry_collaboration": {
+            "enterprises_and_institutions": 300,
+            "ecosystem": "infrastructure_enterprise_application_scenario_full_chain_collaboration",
+        },
+        "supply_chain_advantages": {
+            "industrial_cluster": "30_minute_component_circle + 2_hour_industrial_collaboration_circle",
+            "efficiency_benchmark": "morning_design_afternoon_machining_evening_debugging (cycle_compressed_to_one_day)",
+            "regional_example": "Shenzhen_Nanshan_Silicon_Valley_of_Hardware",
+        },
+        "financial_support": {
+            "provincial_strategic_emerging_industry_investment_fund": {
+                "total_scale_billion_yuan": 100,
+                "principles": ["invest_early", "invest_small", "invest_long_term", "invest_hard_tech"],
+            },
+        },
+        "greater_bay_area_synergy": {
+            "hong_kong_macao_roles": ["basic_research", "international_talent", "international_rules", "capital_operations"],
+            "prd_roles": ["manufacturing", "application_scenarios"],
+            "super_connector_role": True,
+        },
+    },
+}
+
+
+# ============================================================
+# 具身数据分级与密度定律配置 (L1-L5 五级数据体系)
+# ============================================================
+
+EMBODIED_DATA_GRADATION_CONFIG: Dict[str, Dict[str, Any]] = {
+    "test": {
+        "enabled": False,
+        "min_data_level": "L1",
+    },
+    "pre": {
+        "enabled": True,
+        "data_levels": {
+            "L1_L2": "supports_basic_pretraining_only",
+            "L3_L4": "limited_to_known_tasks_simulated_scenarios",
+            "L5": {
+                "description": "deeply_integrated_3d_force_tactile_failure_recovery_trajectories_and_open_world",
+                "capabilities": ["generalization", "reflection", "ability_growth_beyond_description"],
+            },
+        },
+        "density_law": True,
+        "total_3d_assets": 1000,
+    },
+    "prod": {
+        "enabled": True,
+        "data_levels": {
+            "L1_L2": "supports_basic_pretraining_only",
+            "L3_L4": "limited_to_known_tasks_simulated_scenarios_fails_in_unfamiliar_situations",
+            "L5": {
+                "description": "deeply_integrated_3d_force_tactile_failure_recovery_trajectories_and_open_world",
+                "capabilities": ["generalization", "reflection", "ability_growth_beyond_description"],
+                "core_insight": "intelligence_is_not_generated_out_of_thin_air_it_emerges_from_high_frequency_collision_with_the_physical_world",
+            },
+        },
+        "density_law": {
+            "description": "value_lies_not_in_quantity_but_in_information_density",
+            "first_law": "if_it_changes_action_outcome_it_is_valuable_data",
+        },
+        "total_3d_assets": 8700,
+        "physical_property_coverage": 6,
+        "data_standard_base": {
+            "name": "ACE_Ego_Matrix",
+            "opensource": True,
+            "four_unifications": [
+                "spatial_coordinate_unification",
+                "body_movement_unification",
+                "action_timing_unification",
+                "data_quality_unification",
+            ],
+            "cross_body_compatibility": True,
+            "leaderboard_achievements": ["RoboDex_champion", "another_benchmark_champion"],
+        },
+        "opensource_datasets": {
+            "L5_complex_task_dataset": "ACE_Data_0",
+        },
+        "embodied_first_principle": {
+            "CID": "critical_information_detected",
+            "CSS": "control_sufficiency_understood",
+            "J": "action_cost",
+            "formula": "more_CID_known -> more_accurate_CSS -> fewer_mistakes -> lower_J",
+        },
+    },
+}
+
+
+# ============================================================
+# 开悟世界模型配置 (Kairos 3.1 / 理解-生成-预测一体化)
+# ============================================================
+
+KAIROS_WORLD_MODEL_CONFIG: Dict[str, Dict[str, Any]] = {
+    "test": {
+        "enabled": False,
+        "model_version": "basic",
+    },
+    "pre": {
+        "enabled": True,
+        "model_version": "Kairos_3.1",
+        "paradigm": "integrated_understanding_generation_prediction",
+        "four_schools_of_world_models": ["representational", "generational", "understanding_generation_prediction_integrated"],
+        "unified_latent_space": {
+            "modalities": ["vision_language_instruction", "force_tactile_state", "policy_trajectory"],
+            "representation": "high_density_embedding_vector",
+            "architecture": "mamba_transformer_hybrid_with_adaptive_attention",
+        },
+    },
+    "prod": {
+        "enabled": True,
+        "model_version": "Kairos_3.1",
+        "paradigm": "integrated_understanding_generation_prediction",
+        "core_capability_levels": {
+            "spatial_intelligence": "builds_internal_representation_of_physical_world",
+            "physical_intelligence": "masters_physical_causality_parallel_world_simulation",
+            "cognitive_intelligence": "complex_logical_reasoning_long_term_task_decomposition",
+        },
+        "paradigm_shift": {
+            "from": "generating_a_realistic_virtual_future",
+            "to": "predicting_how_actions_will_impact_the_world",
+        },
+        "operation_loop": [
+            "world_understanding",
+            "long_term_task_decomposition",
+            "environment_evaluation",
+            "parallel_physical_causality_simulation",
+            "multiple_strategy_deduction",
+            "optimal_action_selection",
+            "execution_result_evaluation",
+            "feedback_to_model",
+        ],
+        "four_schools_of_world_models": ["representational", "generational", "understanding_generation_prediction_integrated"],
+        "unified_latent_space": {
+            "modalities": ["vision_language_instruction", "force_tactile_state", "policy_trajectory"],
+            "representation": "high_density_embedding_vector",
+            "architecture": "mamba_transformer_hybrid_with_adaptive_attention",
+            "integration_principle": "all_capabilities_grow_together_at_the_foundation_layer",
+        },
+        "benchmark_achievements": {
+            "SOTA_count": 12,
+            "leaderboards": ["ACE-Bench"],
+            "tiers": ["global_first_tier"],
+            "domains": ["spatial_understanding", "navigation_decision_making", "operation_execution", "progress_evaluation"],
+        },
+        "name_origin": {
+            "kairos": "understanding_the_why_behind_the_what",
+            "chinese": "开悟",
+        },
+        "efficiency": {
+            "comparison": "Kairos_3.1_3.3B_outperforms_classic_VLA",
+            "wam_efficiency": "industry_leading",
+        },
+    },
+}
+
+
+# ============================================================
+# 智能体工作流引擎配置 (CatPaw 类员工式AI协作框架)
+# ============================================================
+
+AGENT_WORKFLOW_ENGINE_CONFIG: Dict[str, Dict[str, Any]] = {
+    "test": {
+        "enabled": False,
+        "agent_count": 1,
+    },
+    "pre": {
+        "enabled": True,
+        "agent_count": 100,
+        "scenarios": ["rd_development", "data_analysis", "daily_workflow"],
+        "core_capabilities": [
+            "code_reading_and_modification",
+            "troubleshooting",
+            "data_retrieval_via_natural_language",
+            "report_generation",
+            "knowledge_retrieval_and_reuse",
+        ],
+        "device_support": ["mobile", "pc"],
+        "permission_model": False,
+    },
+    "prod": {
+        "enabled": True,
+        "agent_count": 90000,
+        "deployment_scale": "covers_90000_employees",
+        "scenarios": {
+            "rd_development": [
+                "code_reading",
+                "code_modification",
+                "troubleshooting",
+                "task_execution_within_authorization",
+            ],
+            "data_analysis": [
+                "data_retrieval_via_natural_language",
+                "report_compilation",
+                "scattered_system_information_integration",
+            ],
+            "operations": [
+                "business_management_information_organization",
+                "abnormality_detection",
+                "solution_generation",
+                "task_flow_across_devices_permissions_and_collaborators",
+            ],
+        },
+        "multi_device_support": {
+            "mobile": ["on_the_go_tasks", "progress_viewing", "key_decision_confirmation"],
+            "pc": ["local_offline_computing", "file_operations", "browser_control", "terminal_commands"],
+            "cloud": ["long_running_tasks", "scheduled_triggers", "7x24_hour_uninterrupted_operation"],
+        },
+        "enterprise_integration": {
+            "prompt_templates": True,
+            "knowledge_bases": True,
+            "credentials": True,
+            "tools": True,
+            "permissions": True,
+            "collaboration_platforms": ["enterprise_wechat via @mention"],
+        },
+        "enterprise_security": {
+            "runtime_environment_isolation": True,
+            "credential_management": True,
+            "session_recording": True,
+            "privacy_protection": True,
+        },
+        "core_principle": {
+            "AI_at_Work": "not_letting_AI_be_pretty_but_letting_it_truly_enter_workflow",
+            "key_elements": ["has_context", "has_permissions", "has_human_review", "continuous_optimization_in_real_use"],
+        },
+    },
 }
 
 
