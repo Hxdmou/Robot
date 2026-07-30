@@ -1,5 +1,5 @@
 """
-具身智能系统部署配置规范 (v7.0 工业化/商业化落地旗舰版 · 零隐私安全加固)
+具身智能系统部署配置规范 (v8.0 工业化/商业化落地旗舰版 · 全栈感知增强)
 
 本配置文件基于广泛的产业调研与技术标准分析，整合了当前具身智能领域
 最前沿的工程实践指标体系。所有参数均以真实商用场景的最高要求为基准，
@@ -16,13 +16,25 @@
 版本演进记录
 ========================================================================
 
-v7.0  零隐私安全加固版 (当前版本)
-  · 192张人工截图全量侵权保护改造（重命名+边缘模糊+版权水印+色彩微调+独特化噪点）
-  · 全项目绝对路径清零（所有硬编码路径替换为os.path动态获取）
-  · 全项目隐私信息清零（用户名、本地目录、示例邮箱全部替换）
-  · 256个Python文件统一添加免责声明与AI使用合规承诺
-  · .gitignore完整配置（图片/PPT/数据/日志全部排除，安全上传GitHub）
-  · 原始截图永久删除，仅保留版权保护改造版本
+v8.0  全栈感知增强版 (当前版本)
+  · 摄像头设备全套模块配置（多摄系统/视觉感知/图像增强/深度感知）
+  · 仿真引擎统一适配（PyBullet/Isaac Sim/Unity/Gazebo/MuJoCo）
+  · ROS/ROS2中间件全栈支持（话题/服务/动作/MoveIt/Nav2）
+  · 工业总线协议全套（CAN/CAN FD/EtherCAT/Modbus/TSN/OPC UA）
+  · 多传感器融合模块（IMU/LiDAR/UWB/mmWave/多摄立体视觉）
+  · 强化学习算法库（PPO/SAC/TD3/BC/Diffusion Policy）
+  · 模型量化部署全栈（INT8/FP16/BF16/剪枝/蒸馏）
+  · 密码学与安全体系（SHA/RSA/AES/TEE/数字签名/安全启动）
+  · 入侵检测防护（IDS/IPS/异常检测/威胁情报）
+  · 异构计算调度（TPU/NPU/ASIC/DSP/FPGA多核协同）
+  · 可信执行环境（TEE/TrustZone/安全飞地）
+  · 热管理与振动分析（热监控/振动诊断/预测性维护/故障诊断）
+  · 无线充电与能源补充（Qi标准/感应式/谐振式）
+  · 联邦学习与隐私计算（横向联邦/纵向联邦/差分隐私）
+  · 模型预测控制（MPC/LQR/线性二次调节器）
+  · RAG检索增强生成（向量库/知识库/重排序/上下文管理）
+  · SLAM与定位建图（视觉SLAM/激光SLAM/ORB/LIO-SAM）
+  · 分布式一致性协议（BASE/CAP/Paxos/Raft/2PC/3PC）
 ========================================================================
 """
 # ============================================================================
@@ -1948,6 +1960,1169 @@ AGENT_WORKFLOW_ENGINE_CONFIG: Dict[str, Dict[str, Any]] = {
         "core_principle": {
             "AI_at_Work": "not_letting_AI_be_pretty_but_letting_it_truly_enter_workflow",
             "key_elements": ["has_context", "has_permissions", "has_human_review", "continuous_optimization_in_real_use"],
+        },
+    },
+}
+
+
+# ============================================================
+# 摄像头与多模态视觉感知系统配置
+# (头部相机/手腕相机/深度相机/立体视觉/鱼眼全景)
+# ============================================================
+
+CAMERA_VISION_SYSTEM_CONFIG: Dict[str, Dict[str, Any]] = {
+    "test": {
+        "enabled": False,
+        "camera_count": 1,
+        "types": ["monocular_rgb"],
+        "resolution": "640x480",
+    },
+    "pre": {
+        "enabled": True,
+        "camera_system": {
+            "head_camera": {
+                "enabled": True,
+                "type": "stereo_rgb",
+                "resolution": "1920x1080",
+                "fps": 30,
+                "fov_deg": 120,
+                "hdr": True,
+                "auto_exposure": True,
+                "auto_white_balance": True,
+            },
+            "wrist_cameras": {
+                "enabled": True,
+                "count": 2,
+                "type": "stereo_rgb_with_force_tactile",
+                "resolution": "1280x720",
+                "fps": 60,
+                "fov_deg": 90,
+                "global_shutter": True,
+                "synchronized_with_force": True,
+            },
+            "depth_camera": {
+                "enabled": True,
+                "type": "structured_light_or_tof",
+                "resolution": "1280x720",
+                "fps": 30,
+                "depth_range_m": [0.1, 5.0],
+                "accuracy_mm": 5,
+            },
+        },
+        "image_processing": {
+            "denoising": True,
+            "distortion_correction": True,
+            "color_calibration": True,
+            "gamma_correction": True,
+            "white_balance": True,
+        },
+        "perception_tasks": [
+            "object_detection",
+            "object_segmentation",
+            "object_pose_estimation",
+            "scene_understanding",
+            "hand_tracking",
+            "gaze_tracking",
+        ],
+    },
+    "prod": {
+        "enabled": True,
+        "camera_system": {
+            "head_camera": {
+                "enabled": True,
+                "type": "trinocular_stereo_rgb",
+                "resolution": "3840x2160",
+                "fps": 60,
+                "fov_deg": 150,
+                "hdr": True,
+                "auto_exposure": True,
+                "auto_white_balance": True,
+                "image_stabilization": True,
+                "low_light_performance": "0.1_lux",
+            },
+            "wrist_cameras": {
+                "enabled": True,
+                "count": 2,
+                "type": "stereo_rgb_with_force_tactile_integration",
+                "resolution": "1920x1080",
+                "fps": 120,
+                "fov_deg": 110,
+                "global_shutter": True,
+                "synchronized_with_force": True,
+                "sync_error_us": 50,
+                "anti_fingerprint_coating": True,
+                "scratch_resistant": True,
+            },
+            "depth_camera": {
+                "enabled": True,
+                "type": "hybrid_structure_light_tof",
+                "resolution": "1920x1080",
+                "fps": 60,
+                "depth_range_m": [0.05, 10.0],
+                "accuracy_mm": 2,
+                "outdoor_capable": True,
+                "sunlight_resistance": "100k_lux",
+            },
+            "fisheye_panoramic": {
+                "enabled": True,
+                "count": 2,
+                "resolution": "1920x1920",
+                "fov_deg": 220,
+                "dewarping": True,
+            },
+            "event_camera": {
+                "enabled": True,
+                "type": "dvs_event_based",
+                "resolution": "1280x720",
+                "temporal_resolution_us": 1,
+                "dynamic_range_db": 140,
+            },
+        },
+        "image_processing": {
+            "denoising": True,
+            "distortion_correction": True,
+            "color_calibration": True,
+            "gamma_correction": True,
+            "white_balance": True,
+            "super_resolution": True,
+            "deblurring": True,
+            "defogging": True,
+            "hdr_tonemapping": True,
+        },
+        "multi_camera_calibration": {
+            "intrinsic_calibration": True,
+            "extrinsic_calibration": True,
+            "stereo_rectification": True,
+            "temporal_sync": True,
+            "hardware_trigger": True,
+        },
+        "perception_tasks": [
+            "object_detection_3d",
+            "instance_segmentation",
+            "semantic_segmentation",
+            "object_pose_estimation_6d",
+            "scene_understanding",
+            "scene_graph_generation",
+            "hand_tracking_3d",
+            "human_pose_estimation",
+            "gaze_tracking",
+            "facial_expression_recognition",
+            "activity_recognition",
+            "anomaly_detection",
+        ],
+        "three_view_consistency": {
+            "head_view_tasks": ["task_instruction", "global_progress", "trajectory", "final_result"],
+            "wrist_view_tasks": ["grasp_stability", "slippage_detection", "local_interaction", "finger_object_contact"],
+            "enforcement": True,
+        },
+    },
+}
+
+
+# ============================================================
+# VR/XR/AR/MR 虚拟现实与混合现实系统配置
+# (沉浸式遥操作/虚拟调试/数字孪生交互/训练仿真)
+# ============================================================
+
+VR_XR_SYSTEM_CONFIG: Dict[str, Dict[str, Any]] = {
+    "test": {
+        "enabled": False,
+        "headset": "basic_mobile_vr",
+        "dof": 3,
+    },
+    "pre": {
+        "enabled": True,
+        "supported_devices": [
+            "Meta_Quest_Pro",
+            "HTC_Vive_XR_Elite",
+            "Pico_4_Ultra",
+            "Microsoft_Hololens_2",
+            "Magic_Leap_2",
+        ],
+        "vr_teleoperation": {
+            "enabled": True,
+            "head_tracking": True,
+            "hand_tracking": True,
+            "controller_input": True,
+            "haptic_feedback": True,
+            "stereo_vision_feed": True,
+            "low_latency_streaming": True,
+            "target_latency_ms": 50,
+        },
+        "ar_assisted_operation": {
+            "enabled": True,
+            "holographic_overlay": True,
+            "spatial_mapping": True,
+            "markerless_tracking": True,
+            "instruction_overlay": True,
+        },
+        "xr_training_simulation": {
+            "enabled": True,
+            "virtual_tasks": ["assembly", "grasping", "navigation"],
+            "physics_simulation": True,
+            "performance_metrics": True,
+        },
+    },
+    "prod": {
+        "enabled": True,
+        "device_ecosystem": {
+            "vr_standalone": ["Meta_Quest_Pro", "Pico_4_Ultra", "HTC_Vive_XR_Elite"],
+            "vr_tethered": ["Valve_Index", "HTC_Vive_Pro_2", "StarVR"],
+            "ar_mr": ["Microsoft_Hololens_2", "Magic_Leap_2", "Apple_Vision_Pro"],
+            "full_body_capture": ["Perception_Neuron", "Xsens", "Vicon"],
+        },
+        "display_specifications": {
+            "resolution_per_eye": "2880x2880",
+            "refresh_rate_hz": 120,
+            "field_of_view_deg": 120,
+            "ppd": 25,
+            "lens_type": "pancake_or_fresnel",
+            "varifocal": True,
+            "ipd_adjustment": True,
+        },
+        "tracking_systems": {
+            "inside_out": {
+                "enabled": True,
+                "degree_of_freedom": 6,
+                "positional_tracking": True,
+                "hand_tracking": True,
+                "finger_tracking": True,
+                "eye_tracking": True,
+                "foveated_rendering": True,
+                "face_tracking": True,
+            },
+            "outside_in": {
+                "enabled": True,
+                "technology": "optical_or_lighthouse",
+                "sub_mm_accuracy": True,
+            },
+        },
+        "haptic_systems": {
+            "controller_haptics": True,
+            "glove_haptics": {
+                "enabled": True,
+                "force_feedback": True,
+                "tactile_feedback": True,
+                "temperature_feedback": False,
+            },
+            "bodysuit_haptics": False,
+        },
+        "vr_teleoperation": {
+            "enabled": True,
+            "head_tracking": True,
+            "hand_tracking": True,
+            "controller_input": True,
+            "haptic_feedback": True,
+            "stereo_vision_feed": True,
+            "low_latency_streaming": True,
+            "target_latency_ms": 20,
+            "force_tactile_feedback": True,
+            "full_body_motion_capture": True,
+            "digit_twin_overlay": True,
+        },
+        "ar_assisted_operation": {
+            "enabled": True,
+            "holographic_overlay": True,
+            "spatial_mapping": True,
+            "markerless_tracking": True,
+            "instruction_overlay": True,
+            "collaborative_ar": True,
+            "remote_expert_assistance": True,
+            "persistent_holograms": True,
+        },
+        "xr_training_simulation": {
+            "enabled": True,
+            "virtual_tasks": ["assembly", "grasping", "navigation", "maintenance", "emergency_response"],
+            "physics_simulation": True,
+            "performance_metrics": True,
+            "skill_assessment": True,
+            "multi_user_training": True,
+            "ai_instructor": True,
+        },
+        "mr_digital_twin": {
+            "enabled": True,
+            "real_world_alignment": True,
+            "virtual_overlays": True,
+            "data_visualization": True,
+            "collaborative_design": True,
+            "remote_inspection": True,
+        },
+        "audio_system": {
+            "spatial_audio": True,
+            "3d_audio": True,
+            "active_noise_cancellation": True,
+            "bone_conduction": False,
+            "voice_input": True,
+            "voice_feedback": True,
+        },
+        "ergonomics": {
+            "weight_g": 500,
+            "balanced_weight_distribution": True,
+            "ventilation": True,
+            "adjustable_headstrap": True,
+            "prescription_lens_support": True,
+        },
+    },
+}
+
+
+# ============================================================
+# 机器人硬件核心零件与执行系统配置
+# (关节模组/伺服电机/减速器/编码器/控制器/驱动器)
+# ============================================================
+
+ROBOT_HARDWARE_CORE_CONFIG: Dict[str, Dict[str, Any]] = {
+    "test": {
+        "enabled": False,
+        "dof": 6,
+    },
+    "pre": {
+        "enabled": True,
+        "joint_modules": {
+            "count": 12,
+            "type": "integrated_joint_module",
+            "components": ["frameless_torque_motor", "harmonic_reducer", "high_resolution_encoder", "joint_controller", "servo_driver"],
+            "peak_torque_nm": 100,
+            "rated_torque_nm": 50,
+            "max_speed_rpm": 30,
+            "gear_ratio": 100,
+            "weight_kg": 1.5,
+        },
+        "actuation_systems": {
+            "electric_motors": {
+                "enabled": True,
+                "types": ["brushless_dc", "frameless_torque"],
+                "torque_density_nm_per_kg": 5,
+                "efficiency": 0.90,
+            },
+            "servo_drivers": {
+                "enabled": True,
+                "control_mode": ["position", "velocity", "torque", "current"],
+                "update_frequency_khz": 20,
+                "field_oriented_control": True,
+            },
+        },
+        "reducers": {
+            "enabled": True,
+            "types": ["harmonic_drive", "cycloidal", "planetary"],
+            "harmonic": {
+                "enabled": True,
+                "reduction_ratio": [50, 100, 160],
+                "backlash_arcmin": 1,
+                "efficiency": 0.80,
+                "life_hours": 10000,
+            },
+            "cycloidal": {
+                "enabled": True,
+                "reduction_ratio": [30, 50, 80],
+                "backlash_arcmin": 0.5,
+                "efficiency": 0.85,
+                "shock_resistance": True,
+            },
+        },
+        "encoders": {
+            "enabled": True,
+            "types": ["absolute", "incremental"],
+            "absolute": {
+                "resolution_bits": 23,
+                "accuracy_arcsec": 50,
+                "bi_ss_cis_interface": True,
+            },
+            "dual_encoder": {
+                "enabled": True,
+                "motor_side": True,
+                "output_side": True,
+                "compliance_estimation": True,
+            },
+        },
+        "force_torque_sensors": {
+            "enabled": True,
+            "placement": ["wrist", "joint"],
+            "resolution_n": 0.01,
+            "sampling_rate_hz": 1000,
+            "temperature_compensation": True,
+            "calibration": True,
+        },
+        "controllers": {
+            "main_controller": {
+                "type": "embedded_x86_or_arm",
+                "cpu_cores": 8,
+                "ram_gb": 16,
+                "storage_gb": 256,
+                "os": "linux_rtos",
+            },
+            "real_time": {
+                "enabled": True,
+                "cycle_time_ms": 1,
+                "jitter_us": 100,
+                "synchronization": True,
+            },
+        },
+        "communication_bus": {
+            "internal": ["ethercat", "can_fd"],
+            "update_rate_khz": 10,
+            "synchronized_sampling": True,
+        },
+    },
+    "prod": {
+        "enabled": True,
+        "joint_modules": {
+            "count": 28,
+            "type": "high_performance_integrated_joint_module",
+            "components": ["high_torque_density_frameless_motor", "zero_backlash_harmonic_or_cycloidal_reducer", "23bit_absolute_dual_encoder", "integrated_joint_controller", "high_efficiency_servo_driver", "embedded_force_sensing"],
+            "peak_torque_nm": 300,
+            "rated_torque_nm": 150,
+            "max_speed_rpm": 45,
+            "gear_ratio": [50, 80, 100, 120, 160],
+            "weight_kg": 1.2,
+            "torque_density_nm_per_kg": 120,
+            "power_density_w_per_kg": 800,
+            "peak_current_a": 50,
+            "rated_voltage_v": 48,
+            "thermal_design": "passive_plus_active",
+            "mtbf_hours": 50000,
+            "protection_grade": "IP54",
+        },
+        "actuation_systems": {
+            "electric_motors": {
+                "enabled": True,
+                "types": ["high_torque_density_brushless_dc", "frameless_torque", "linear_actuators"],
+                "torque_density_nm_per_kg": 8,
+                "efficiency": 0.95,
+                "materials": ["silicon_steel_lamination", "high_temperature_copper_winding", "neodymium_iron_boron_magnets", "aluminum_housing"],
+                "cooling": ["passive", "active_air", "liquid"],
+                "motor_control": {
+                    "field_oriented_control": True,
+                    "sensorless_control": True,
+                    "adaptive_torque_control": True,
+                    "cogging_torque_compensation": True,
+                },
+            },
+            "hydraulic_actuation": {
+                "enabled": False,
+                "note": "optional_for_high_payload_humanoids",
+            },
+            "pneumatic_actuation": {
+                "enabled": False,
+                "note": "optional_for_soft_robotics",
+            },
+            "series_elastic_actuators": {
+                "enabled": True,
+                "type": "rotary_sea",
+                "stiffness": "variable_or_fixed",
+                "energy_storage": True,
+                "shock_absorption": True,
+                "force_control_bandwidth_hz": 100,
+            },
+            "servo_drivers": {
+                "enabled": True,
+                "control_mode": ["position", "velocity", "torque", "current", "field_weakening"],
+                "update_frequency_khz": 40,
+                "field_oriented_control": True,
+                "space_vector_pwm": True,
+                "current_loop_bandwidth_hz": 2000,
+                "velocity_loop_bandwidth_hz": 500,
+                "position_loop_bandwidth_hz": 100,
+                "overcurrent_protection": True,
+                "overvoltage_protection": True,
+                "overtemperature_protection": True,
+            },
+        },
+        "reducers": {
+            "enabled": True,
+            "types": ["harmonic_drive", "cycloidal", "planetary", "worm_gear"],
+            "harmonic": {
+                "enabled": True,
+                "reduction_ratio": [30, 50, 80, 100, 120, 160],
+                "backlash_arcmin": 0.5,
+                "efficiency": 0.85,
+                "life_hours": 20000,
+                "peak_torque_capacity": "3x_rated",
+                "torsional_stiffness": "high",
+                "materials": ["alloy_steel_flexspline", "aluminum_circular_spline", "high_strength_wave_generator"],
+                "lubrication": "grease_lifetime_lubricated",
+            },
+            "cycloidal": {
+                "enabled": True,
+                "reduction_ratio": [11, 17, 29, 43, 59, 71, 87],
+                "backlash_arcmin": 0.3,
+                "efficiency": 0.90,
+                "shock_resistance": "5x_rated_torque",
+                "life_hours": 30000,
+                "torsional_rigidity": "very_high",
+                "applications": ["heavy_payload_joints", "waist", "legs"],
+            },
+            "planetary": {
+                "enabled": True,
+                "reduction_ratio": [4, 16, 64, 256],
+                "backlash_arcmin": 3,
+                "efficiency": 0.95,
+                "applications": ["high_speed_low_torque_joints"],
+            },
+        },
+        "encoders": {
+            "enabled": True,
+            "types": ["absolute_optical", "absolute_magnetic", "incremental", "inductive"],
+            "absolute_optical": {
+                "enabled": True,
+                "resolution_bits": 24,
+                "accuracy_arcsec": 20,
+                "interface": ["bi_ss_cis", "ssi", "spi"],
+                "temperature_range": "-40_to_125C",
+            },
+            "absolute_magnetic": {
+                "enabled": True,
+                "resolution_bits": 19,
+                "accuracy_arcmin": 0.1,
+                "robustness": "high_against_dust_vibration",
+            },
+            "dual_encoder_system": {
+                "enabled": True,
+                "motor_side": "high_resolution_incremental",
+                "output_side": "absolute_encoder",
+                "compliance_estimation": True,
+                "backlash_compensation": True,
+                "output_position_accuracy_arcsec": 30,
+            },
+            "inductive_sensors": {
+                "enabled": True,
+                "applications": ["homing", "limit_switches", "position_verification"],
+            },
+        },
+        "force_torque_sensing": {
+            "enabled": True,
+            "wrist_ft_sensor": {
+                "enabled": True,
+                "axes": 6,
+                "resolution_n": 0.005,
+                "resolution_nm": 0.5,
+                "sampling_rate_khz": 2,
+                "temperature_compensation": True,
+                "calibration_matrix": True,
+                "cross_talk_rejection": "99_percent",
+                "protection_grade": "IP65",
+            },
+            "joint_torque_sensing": {
+                "enabled": True,
+                "type": "strain_gauge_or_sea_spring_deflection",
+                "resolution_percent": 0.1,
+                "sampling_rate_khz": 5,
+            },
+            "tactile_sensor_arrays": {
+                "enabled": True,
+                "placement": ["fingertips", "palm"],
+                "spatial_resolution_mm": 1,
+                "force_range_n": [0.01, 10],
+                "sampling_rate_hz": 500,
+                "temperature_compensation": True,
+            },
+            "skin_pressure_sensors": {
+                "enabled": False,
+                "note": "optional_for_collision_detection_and_safe_interaction",
+            },
+        },
+        "controllers": {
+            "main_computer": {
+                "type": "high_performance_embedded_x86",
+                "cpu": "intel_core_ultra_or_amd_ryzen_embedded",
+                "cores": 20,
+                "threads": 28,
+                "ram_gb": 64,
+                "storage_ssd_tb": 2,
+                "gpu_acceleration": "nvidia_jetson_or_discrete",
+                "os": "ubuntu_lts_with_rt_patch",
+            },
+            "motion_controller": {
+                "type": "fpga_based_or_dsp_based",
+                "real_time_os": "qnx_or_vxworks_or_rtems",
+                "control_cycle_us": 250,
+                "jitter_us": 5,
+                "synchronization_protocol": "ethercat_fsoe",
+            },
+            "distributed_control": {
+                "enabled": True,
+                "joint_level_controllers": True,
+                "central_coordinator": True,
+                "fault_tolerance": True,
+                "graceful_degradation": True,
+            },
+            "safety_controller": {
+                "enabled": True,
+                "standard": "iso_13849_pld_or_plc",
+                "independent_from_main_controller": True,
+                "emergency_stop_circuit": True,
+                "safe_torque_off": True,
+                "safe_speed_monitoring": True,
+                "safe_position_monitoring": True,
+                "collision_detection": True,
+            },
+        },
+        "power_distribution": {
+            "battery_system": {
+                "type": "lithium_ion_or_lfp",
+                "voltage_v": [48, 72],
+                "capacity_ah": 50,
+                "energy_kwh": 3.6,
+                "bms": True,
+                "cell_balancing": True,
+                "thermal_management": True,
+                "fast_charging": True,
+                "swappable": True,
+            },
+            "power_supply": {
+                "input_voltage_v": [24, 48, 72, 110, 220],
+                "ac_dc_converters": True,
+                "dc_dc_converters": True,
+                "power_factor_correction": True,
+                "efficiency": 0.95,
+            },
+            "wiring": {
+                "type": "high_flex_robot_cable",
+                "shielded": True,
+                "twisted_pair": True,
+                "bend_cycles": "10_million",
+            },
+        },
+        "thermal_management": {
+            "cpu_gpu_cooling": "liquid_or_high_performance_air",
+            "motor_cooling": ["passive", "forced_air"],
+            "controller_cooling": "passive",
+            "battery_thermal": "heating_and_cooling",
+            "temperature_monitoring": True,
+            "overtemp_protection": True,
+            "thermal_modeling": True,
+        },
+        "structural_elements": {
+            "frame_materials": ["aircraft_grade_aluminum", "carbon_fiber_composite", "titanium_alloy"],
+            "fabrication": ["cnc_machining", "3d_printing", "composite_layup"],
+            "structural_analysis": "finite_element_method",
+            "vibration_analysis": True,
+            "fatigue_analysis": True,
+            "weight_optimization": "topology_optimization",
+            "stiffness_to_weight_ratio": "maximized",
+        },
+    },
+}
+
+
+# ============================================================
+# 仿真引擎统一适配配置
+# (PyBullet/Isaac Sim/Unity/Gazebo/MuJoCo)
+# ============================================================
+
+SIMULATION_ENGINE_CONFIG: Dict[str, Dict[str, Any]] = {
+    "test": {
+        "enabled": True,
+        "primary_engine": "pybullet",
+    },
+    "pre": {
+        "enabled": True,
+        "supported_engines": {
+            "pybullet": {
+                "enabled": True,
+                "version": "3.2+",
+                "physics": "bullet",
+                "features": ["rigid_body", "constraints", "collision", "gripper_simulation"],
+            },
+            "mujoco": {
+                "enabled": True,
+                "version": "3.0+",
+                "physics": "mujoco",
+                "features": ["rigid_body", "soft_body", "contact_modeling", "actuators"],
+            },
+        },
+        "common_features": {
+            "urdf_import": True,
+            "mjcf_support": True,
+            "headless_rendering": True,
+            "python_api": True,
+            "parallel_environments": 64,
+        },
+    },
+    "prod": {
+        "enabled": True,
+        "supported_engines": {
+            "pybullet": {
+                "enabled": True,
+                "version": "3.2+",
+                "physics": "bullet_3",
+                "features": ["rigid_body", "constraints", "collision", "gripper_simulation", "robot_locomotion"],
+                "use_cases": ["quick_prototyping", "benchmarking", "education"],
+            },
+            "mujoco": {
+                "enabled": True,
+                "version": "3.1+",
+                "physics": "mujoco",
+                "features": ["rigid_body", "soft_body", "contact_modeling", "actuators", "tendon", "muscle"],
+                "contact_model": "elastic_foundation_with_regularized_friction",
+                "solver": ["newton", "cg"],
+                "integrator": ["euler", "rk4", "implicit"],
+                "use_cases": ["high_fidelity_manipulation", "locomotion", "reinforcement_learning"],
+            },
+            "isaac_sim": {
+                "enabled": True,
+                "version": "4.0+",
+                "platform": "nvidia_omniverse",
+                "physics": "physx_5",
+                "rendering": "rtx_raytracing",
+                "features": ["photorealistic_rendering", "gpu_accelerated_physics", "multi_gpu_simulation", "rl_gpu_inference"],
+                "sensors": ["camera", "lidar", "radar", "imu", "force_torque", "contact"],
+                "python_api": True,
+                "omnigraph": True,
+                "extensions": True,
+                "headless": True,
+                "parallel_environments": 8192,
+                "use_cases": ["large_scale_rl", "photorealistic_sensor_simulation", "digital_twin"],
+            },
+            "gazebo": {
+                "enabled": True,
+                "version": "gazebo_11_or_ignition_gazebo",
+                "physics": ["ode", "bullet", "simbody", "dart"],
+                "rendering": "ogre",
+                "ros_integration": True,
+                "features": ["rigid_body", "sensors", "plugins", "cloud_simulation"],
+                "use_cases": ["ros_based_development", "multi_robot_simulation", "sensor_simulation"],
+            },
+            "unity": {
+                "enabled": True,
+                "version": "2023_lts+",
+                "physics": "physx",
+                "rendering": "hdrp_or_urp",
+                "features": ["photorealistic_rendering", "ml_agents", "xr_support", "digital_twin"],
+                "use_cases": ["xr_training", "photorealistic_simulation", "human_robot_interaction"],
+            },
+        },
+        "unified_simulation_interface": {
+            "enabled": True,
+            "abstract_api": True,
+            "engine_switching": True,
+            "environment_persistence": True,
+            "unified_observation_space": True,
+            "unified_action_space": True,
+        },
+        "common_features": {
+            "urdf_import": True,
+            "mjcf_support": True,
+            "sdf_support": True,
+            "usd_support": True,
+            "headless_rendering": True,
+            "python_api": True,
+            "gymnasium_interface": True,
+            "parallel_environments": 4096,
+            "gpu_accelerated": True,
+            "multi_gpu": True,
+            "distributed_simulation": True,
+            "deterministic_mode": True,
+            "randomization": ["domain_randomization", "physics_randomization", "visual_randomization"],
+        },
+        "sim2real_tools": {
+            "domain_randomization": True,
+            "system_identification": True,
+            "reality_gap_analysis": True,
+            "sim2real_policy_transfer": True,
+            "r2s2r_closed_loop": True,
+        },
+        "benchmark_suites": {
+            "manipulation": ["metaworld", "rlbench", "dexart", "aloha_tasks"],
+            "locomotion": ["dm_control", "gymnasium_mujoco", "barkour"],
+            "embodied_ai": ["habitat", "igibson", "threeworldbench"],
+        },
+    },
+}
+
+
+# ============================================================
+# ROS/ROS2 中间件全栈配置
+# (话题/服务/动作/MoveIt/Nav2/多机通信)
+# ============================================================
+
+ROS_MIDDLEWARE_CONFIG: Dict[str, Dict[str, Any]] = {
+    "test": {
+        "enabled": False,
+        "ros_version": "ros2_humble",
+    },
+    "pre": {
+        "enabled": True,
+        "ros_versions": {
+            "ros2_humble": {"enabled": True, "lts": True},
+            "ros2_iron": {"enabled": True},
+            "ros2_jazzy": {"enabled": True},
+        },
+        "core_middleware": {
+            "dds_implementation": "fastrtps_or_cyclonedds",
+            "quality_of_service": True,
+            "discovery": "dynamic_discovery",
+        },
+        "communication_patterns": {
+            "topics": True,
+            "services": True,
+            "actions": True,
+            "parameters": True,
+            "lifespan_nodes": True,
+        },
+        "robot_stacks": {
+            "moveit2": {
+                "enabled": True,
+                "motion_planning": ["ompl", "pilz", "stomp", "chomp"],
+                "collision_checking": True,
+                "kinematics": ["kdl", "ikfast", "trac_ik"],
+            },
+            "nav2": {
+                "enabled": True,
+                "path_planning": ["navfn", "smac", "theta_star"],
+                "local_planner": ["dwb", "teb", "mpc"],
+                "slam_integration": True,
+            },
+        },
+    },
+    "prod": {
+        "enabled": True,
+        "ros_versions": {
+            "ros1_noetic": {"enabled": True, "legacy_support": True},
+            "ros2_humble": {"enabled": True, "lts": True},
+            "ros2_iron": {"enabled": True},
+            "ros2_jazzy": {"enabled": True, "latest_lts": True},
+            "ros2_rolling": {"enabled": True, "bleeding_edge": True},
+        },
+        "core_middleware": {
+            "dds_implementations": ["fastrtps", "cyclonedds", "connext", "iceoryx"],
+            "quality_of_service_profiles": ["sensor_data", "services", "actions", "reliable", "best_effort"],
+            "discovery": "dynamic_discovery_with_manual_peering",
+            "shared_memory_transport": True,
+            "zero_copy_transport": True,
+        },
+        "communication_patterns": {
+            "topics": {
+                "enabled": True,
+                "pub_sub": True,
+                "message_filters": True,
+                "latency_monitoring": True,
+                "throughput_monitoring": True,
+            },
+            "services": {
+                "enabled": True,
+                "sync_async": True,
+                "timeout_handling": True,
+            },
+            "actions": {
+                "enabled": True,
+                "preemptable": True,
+                "feedback": True,
+                "result": True,
+                "goal_state_machine": True,
+            },
+            "parameters": {
+                "enabled": True,
+                "declarative": True,
+                "runtime_updatable": True,
+                "validation": True,
+            },
+            "lifespan_nodes": {
+                "enabled": True,
+                "managed_nodes": True,
+                "lifecycle_states": ["unconfigured", "inactive", "active", "finalized"],
+            },
+        },
+        "robot_stacks": {
+            "moveit2": {
+                "enabled": True,
+                "motion_planning": ["ompl", "pilz", "stomp", "chomp", "trajopt", "lazyrrt", "fmt"],
+                "collision_checking": {"enabled": True, "engine": "fcl"},
+                "kinematics": ["kdl", "ikfast", "trac_ik", "bio_ik"],
+                "perception_pipeline": ["octomap", "pointcloud", "depth_image"],
+                "pick_place": True,
+                "grasp_planning": True,
+                "constraint_aware_planning": True,
+                "time_parameterization": True,
+                "adaptive_planning": True,
+            },
+            "nav2": {
+                "enabled": True,
+                "path_planning": ["navfn", "smac", "theta_star", "a_star", "rrt"],
+                "local_planner": ["dwb", "teb", "mpc", "regulated_pure_pursuit"],
+                "slam_integration": True,
+                "amcl": True,
+                "map_server": True,
+                "behavior_tree": True,
+                "waypoint_following": True,
+                "obstacle_layered_costmap": True,
+                "inflation_layer": True,
+                "voxel_layer": True,
+            },
+            "ros2_control": {
+                "enabled": True,
+                "hardware_interface": True,
+                "controller_manager": True,
+                "controllers": ["joint_trajectory", "joint_state_broadcaster", "diff_drive", "force_torque_sensor_broadcaster", "imu_sensor_broadcaster"],
+                "realtime_safety": True,
+                "chainable_controllers": True,
+            },
+            "perception_pipelines": {
+                "enabled": True,
+                "image_pipeline": True,
+                "depth_image_proc": True,
+                "pointcloud_to_laserscan": True,
+                "laser_filters": True,
+                "imu_filter": True,
+                "robot_localization": True,
+            },
+        },
+        "multi_robot_communication": {
+            "enabled": True,
+            "discovery_server": True,
+            "ros_domain_id": True,
+            "network_traffic_optimization": True,
+            "bandwidth_limiting": True,
+            "message_compression": True,
+            "quality_of_service_prioritization": True,
+            "time_synchronization": True,
+            "distributed_mapping": True,
+            "cooperative_planning": True,
+        },
+        "development_tooling": {
+            "rviz2": True,
+            "gazebo_integration": True,
+            "rqt": True,
+            "ros2cli": True,
+            "ros_test": True,
+            "launch_system": True,
+            "docker_support": True,
+            "ci_cd_integration": True,
+        },
+        "safety_and_security": {
+            "enabled": True,
+            "data_distribution_service_security": True,
+            "tls_for_bridge": True,
+            "node_isolation": True,
+            "permission_management": True,
+            "audit_logging": True,
+            "safety_boundary": True,
+            "emergency_stop_integration": True,
+        },
+    },
+}
+
+
+# ============================================================
+# 工业总线协议全套配置
+# (CAN/CAN FD/EtherCAT/Modbus/TSN/OPC UA/PROFINET)
+# ============================================================
+
+INDUSTRIAL_BUS_PROTOCOL_CONFIG: Dict[str, Dict[str, Any]] = {
+    "test": {
+        "enabled": False,
+        "primary_protocol": "can",
+    },
+    "pre": {
+        "enabled": True,
+        "protocols": {
+            "can": {
+                "enabled": True,
+                "version": "2.0b",
+                "baud_rate_kbps": 500,
+            },
+            "can_fd": {
+                "enabled": True,
+                "baud_rate_arbitration_kbps": 500,
+                "baud_rate_data_mbps": 2,
+            },
+            "modbus_rtu": {
+                "enabled": True,
+                "baud_rate": 9600,
+            },
+            "ethercat": {
+                "enabled": True,
+                "cycle_time_ms": 2,
+            },
+        },
+    },
+    "prod": {
+        "enabled": True,
+        "protocols": {
+            "can_2_0b": {
+                "enabled": True,
+                "standard": "iso_11898",
+                "baud_rate_kbps": [125, 250, 500, 1000],
+                "max_nodes": 110,
+                "arbitration": "csma_cd_non_destructive",
+                "message_types": ["data_frame", "remote_frame", "error_frame", "overload_frame"],
+                "error_handling": "fault_confinement",
+                "bus_off_recovery": True,
+                "transceiver": "iso_1050_or_sn65hvd230",
+                "termination": "120_ohm",
+                "applications": ["motor_controllers", "io_modules", "sensors", "battery_management"],
+            },
+            "can_fd": {
+                "enabled": True,
+                "standard": "iso_11898_1_2015",
+                "arbitration_phase_baud_rate_kbps": [125, 250, 500, 1000],
+                "data_phase_baud_rate_mbps": [2, 5, 8, 12],
+                "data_payload_bytes": [8, 12, 16, 20, 24, 32, 48, 64],
+                "bit_rate_switch": True,
+                "flexible_data_rate": True,
+                "error_detection": "crc_17_and_crc_21",
+                "transceiver": "iso_1042_or_sn65hvd231",
+                "backward_compatible_with_can_2_0": True,
+                "applications": ["high_data_rate_sensors", "firmware_updates_over_can", "complex_motion_control"],
+            },
+            "can_xl": {
+                "enabled": False,
+                "note": "future_proof_for_very_high_data_rates",
+            },
+            "ethercat": {
+                "enabled": True,
+                "standard": "iec_61158",
+                "topology": "line_tree_star",
+                "cycle_time_us": [31.25, 62.5, 125, 250, 500, 1000, 2000],
+                "jitter_ns": 100,
+                "max_nodes": 65535,
+                "data_link_layer": "ethernet_ii_frame",
+                "processing": "on_the_fly",
+                "synchronization": "distributed_clock",
+                "clock_accuracy_ns": 100,
+                "cable_types": ["utp_cat5e", "stp_cat5e", "fiber"],
+                "cable_distance_m": 100,
+                "protocols_on_top": ["ethercat", "coe", "foe", "soe", "voe"],
+                "coe_canopen_over_ethercat": {
+                    "enabled": True,
+                    "object_dictionary": True,
+                    "pdo": True,
+                    "sdo": True,
+                },
+                "applications": ["multi_axis_motion_control", "high_speed_io", "robot_joint_control", "machine_automation"],
+                "master_implementations": ["igh_etherlab", "acontis", "twincat"],
+                "slave_controllers": ["lan9252", "lan9253", "et1100", "et1200", "as5047p_with_coe"],
+            },
+            "profinet": {
+                "enabled": True,
+                "standard": "iec_61158_and_iec_61784",
+                "versions": ["profinet_v2", "profinet_v3"],
+                "performance_classes": ["class_a", "class_b", "class_c_irt"],
+                "cycle_time_class_c_ms": 0.25,
+                "synchronization": "ptp_ieee_1588",
+                "topology": "tree_star_line",
+                "device_profiles": ["compact", "standard", "advanced"],
+                "gmlan": True,
+                "dynamic_reconfiguration": True,
+                "media_redundancy": True,
+                "applications": ["factory_automation", "process_automation", "motion_control"],
+            },
+            "modbus_rtu": {
+                "enabled": True,
+                "standard": "modbus_application_protocol_specification_v1_1b3",
+                "physical_layer": "rs_485",
+                "baud_rate": [1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200],
+                "data_bits": 8,
+                "parity": ["none", "even", "odd"],
+                "stop_bits": [1, 2],
+                "function_codes_supported": [1, 2, 3, 4, 5, 6, 15, 16, 22, 23],
+                "max_devices_on_bus": 247,
+                "cable_type": "twisted_pair_shielded",
+                "cable_distance_m": 1200,
+                "applications": ["simple_sensors", "plcs", "hvac", "power_meters"],
+                "error_checking": "crc_16",
+            },
+            "modbus_tcp": {
+                "enabled": True,
+                "standard": "modbus_messaging_on_tcp_ip",
+                "transport": "tcp_ip",
+                "default_port": 502,
+                "mbap_header": True,
+                "max_clients": 256,
+                "function_codes": "same_as_rtu",
+                "applications": ["ethernet_enabled_devices", "scada", "remote_io"],
+            },
+            "opc_ua": {
+                "enabled": True,
+                "standard": "iec_62541",
+                "versions": ["opc_ua_1_04", "opc_ua_1_05"],
+                "features": [
+                    "address_space_model",
+                    "nodes_and_references",
+                    "data_access",
+                    "alarms_and_conditions",
+                    "historical_access",
+                    "programs",
+                    "discovery",
+                    "subscriptions",
+                    "pub_sub",
+                ],
+                "security_modes": ["none", "sign", "sign_and_encrypt"],
+                "security_policies": ["basic128rsa15", "basic256", "basic256sha256", "aes128_sha256_rsa_oaep", "aes256_sha256_rsa_pss"],
+                "authentication": ["anonymous", "username", "x509_certificate", "issued_token"],
+                "transport_protocols": ["opc_tcp_binary", "http", "https", "mqtt", "udp"],
+                "pub_sub": {
+                    "enabled": True,
+                    "protocols": ["udp", "mqtt", "ethernet"],
+                    "message_mapping": ["json", "binary", "json_network_message", "binary_network_message"],
+                },
+                "companion_specifications": ["robotics", "machinery", "oil_and_gas", "building_automation"],
+                "applications": ["industrial_internet_of_things", "industry_4_0", "digital_twin", "vertical_integration", "cloud_connectivity"],
+                "robotics_companion_spec": "opc_ua_for_robotics",
+            },
+            "tsn_time_sensitive_networking": {
+                "enabled": True,
+                "standards": ["ieee_802_1as", "ieee_802_1qav", "ieee_802_1qbv", "ieee_802_1qbu", "ieee_802_1qci"],
+                "time_synchronization": {
+                    "standard": "ieee_802_1as_generalized_precision_time_protocol",
+                    "grandmaster_clock": True,
+                    "transparency": True,
+                    "synchronization_accuracy_ns": 100,
+                },
+                "scheduling_and_traffic_shaping": {
+                    "ieee_802_1qbv_cyclic_queuing_and_forwarding": True,
+                    "ieee_802_1qav_credit_based_shaper": True,
+                    "ieee_802_1qci_per_stream_filtering_and_policing": True,
+                    "time_aware_scheduler": True,
+                },
+                "reliability": {
+                    "ieee_802_1qbu_frame_preemption": True,
+                    "ieee_802_1cb_frame_replication_and_detection": True,
+                    "ieee_802_1ca_stream_reservation": True,
+                },
+                "traffic_classes": 8,
+                "applications": ["deterministic_industrial_communication", "motion_control", "process_automation", "automotive_ethernet"],
+            },
+            "ethernet_ip": {
+                "enabled": True,
+                "standard": "common_industrial_protocol_over_ethernet",
+                "performance": ["explicit_messaging", "implicit_io"],
+                "cip_sync": True,
+                "cip_safety": True,
+                "cip_energy": True,
+                "topology": "linear_star_daisy_chain",
+                "device_profiles": True,
+                "electronic_data_sheets": True,
+                "applications": ["factory_automation", "process_control", "motion"],
+            },
+            "cc_link_ie": {
+                "enabled": False,
+                "note": "optional_for_japanese_automation_ecosystems",
+            },
+            "powerlink": {
+                "enabled": False,
+                "note": "optional_for_automation_purposes",
+            },
+            "sercos_iii": {
+                "enabled": False,
+                "note": "optional_for_motion_control",
+            },
+        },
+        "gateway_and_bridge": {
+            "enabled": True,
+            "can_to_ethernet": True,
+            "can_fd_to_ethernet": True,
+            "modbus_to_opc_ua": True,
+            "can_to_ethercat": True,
+            "multi_protocol_gateway": True,
+        },
+        "security": {
+            "enabled": True,
+            "bus_monitoring": True,
+            "error_logging": True,
+            "intrusion_detection": True,
+            "secure_boot_for_controllers": True,
+            "firmware_integrity_check": True,
         },
     },
 }
