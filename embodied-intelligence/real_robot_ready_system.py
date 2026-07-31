@@ -137,6 +137,19 @@ class RobotBrand(Enum):
     AI_ELECTRONIC_SKIN = "AI神经网络电子皮肤 (0.005N微力识别, 成都创新中心)"
     # ── 2026浙江人形机器人创新中心系列 ──
     ZHEJIANG_HUMANOID = "浙江人形双臂作业机器人 (服装/汽车装配, 杰克科技2000台订单)"
+    # ── 2026 WAIC世界人工智能大会首发新品 ──
+    QIYUAN_Q1 = "启元Q1 (小尺寸全身力控人形, 88cm/15kg, 上纬新材启元机器人, 2025年底首发)"
+    QIYUAN_T1 = "启元T1 (全球首款可变形个人机器人, 轮足人形/四足切换, 上纬新材启元机器人, WAIC 2026首发, ¥15,999)"
+    LEJU_KUAFU = "乐聚夸父系列 (全尺寸人形, 国产化率>95%, 一汽/长虹/中兴订单, 乐聚机器人, WAIC 2026)"
+    LEJU_LUBAN = "乐聚鲁班 (工业人形机器人, 拆垛/上料, 乐聚机器人, WAIC 2026)"
+    MAGICATOM_X1 = "魔法原子MagicBot X1 (180cm通用人形, 31自由度, 450N·m关节, WAIC 2026首发)"
+    MAGICATOM_D1 = "魔法原子MagicBot D1 (轮式人形, 厂区物料转运, 追觅工厂试点, WAIC 2026)"
+    MAGICATOM_T1 = "魔法原子MagicDog T1 (轻量化四足, 狭小空间巡检, WAIC 2026)"
+    AGIBOT_G2_MAX = "智元精灵G2 Max (轮式仓储人形, 双臂码垛, 京东物流合作, WAIC 2026)"
+    AGIBOT_KUOTUO = "智元酷拓骑行机器人 (可承载75kg, 巡检/代步, WAIC 2026首发)"
+    BEIJING_TIANGONG = "北京人形创新中心·具身天工系列 (工业人形, 化工/电力/油气, WAIC 2026)"
+    ZHONGJI_T800 = "众擎T800 (全尺寸格斗人形, 高强度抗扰测试, WAIC 2026)"
+    PUDU_D7 = "普渡PUDU D7 (类人形智能作业伙伴, 14kg负载/2m作业高度, WAIC 2026)"
     # ── 四足机器人（2025-2026量产）──
     ANYBOTICS = "ANYbotics ANYmal (四足机器人, 瑞士)"
     DEEPROBOTICS = "DeepRobotics Jueying (四足机器人, 中国·云深处)"
@@ -415,6 +428,44 @@ class RobotHAL:
             # ── 2026新品: 浙江人形创新中心 ──
             "zhejiang_humanoid": RobotBrand.ZHEJIANG_HUMANOID,
             "浙江人形": RobotBrand.ZHEJIANG_HUMANOID,
+            # ── 2026 WAIC世界人工智能大会首发新品 ──
+            "qiyuan_q1": RobotBrand.QIYUAN_Q1,
+            "启元q1": RobotBrand.QIYUAN_Q1,
+            "启元Q1": RobotBrand.QIYUAN_Q1,
+            "qiyuan_t1": RobotBrand.QIYUAN_T1,
+            "启元t1": RobotBrand.QIYUAN_T1,
+            "启元T1": RobotBrand.QIYUAN_T1,
+            "启元": RobotBrand.QIYUAN_Q1,
+            "leju_kuafu": RobotBrand.LEJU_KUAFU,
+            "乐聚夸父": RobotBrand.LEJU_KUAFU,
+            "夸父": RobotBrand.LEJU_KUAFU,
+            "leju_luban": RobotBrand.LEJU_LUBAN,
+            "乐聚鲁班": RobotBrand.LEJU_LUBAN,
+            "鲁班": RobotBrand.LEJU_LUBAN,
+            "乐聚": RobotBrand.LEJU_KUAFU,
+            "magicatom_x1": RobotBrand.MAGICATOM_X1,
+            "magicbot_x1": RobotBrand.MAGICATOM_X1,
+            "魔法原子x1": RobotBrand.MAGICATOM_X1,
+            "magicatom_d1": RobotBrand.MAGICATOM_D1,
+            "magicbot_d1": RobotBrand.MAGICATOM_D1,
+            "魔法原子d1": RobotBrand.MAGICATOM_D1,
+            "magicatom_t1": RobotBrand.MAGICATOM_T1,
+            "magicdog_t1": RobotBrand.MAGICATOM_T1,
+            "魔法原子t1": RobotBrand.MAGICATOM_T1,
+            "魔法原子": RobotBrand.MAGICATOM_X1,
+            "agibot_g2_max": RobotBrand.AGIBOT_G2_MAX,
+            "精灵g2_max": RobotBrand.AGIBOT_G2_MAX,
+            "agibot_kuotuo": RobotBrand.AGIBOT_KUOTUO,
+            "酷拓": RobotBrand.AGIBOT_KUOTUO,
+            "beijing_tiangong": RobotBrand.BEIJING_TIANGONG,
+            "具身天工": RobotBrand.BEIJING_TIANGONG,
+            "天工": RobotBrand.BEIJING_TIANGONG,
+            "zhongji_t800": RobotBrand.ZHONGJI_T800,
+            "众擎t800": RobotBrand.ZHONGJI_T800,
+            "众擎": RobotBrand.ZHONGJI_T800,
+            "pudu_d7": RobotBrand.PUDU_D7,
+            "普渡d7": RobotBrand.PUDU_D7,
+            "普渡": RobotBrand.PUDU_D7,
             # ── 2026新品: 四足/AMR ──
             "unitree_go2": RobotBrand.UNITREE_GO2,
             "go2": RobotBrand.UNITREE_GO2,
@@ -601,6 +652,19 @@ class RobotHAL:
             "AI_ELECTRONIC_SKIN": self._connect_ai_skin,
             # 浙江人形创新中心系列
             "ZHEJIANG_HUMANOID": self._connect_zhejiang_humanoid,
+            # WAIC 2026首发新品
+            "QIYUAN_Q1": self._connect_qiyuan,
+            "QIYUAN_T1": self._connect_qiyuan,
+            "LEJU_KUAFU": self._connect_leju,
+            "LEJU_LUBAN": self._connect_leju,
+            "MAGICATOM_X1": self._connect_magicatom,
+            "MAGICATOM_D1": self._connect_magicatom,
+            "MAGICATOM_T1": self._connect_magicatom,
+            "AGIBOT_G2_MAX": self._connect_agibot,
+            "AGIBOT_KUOTUO": self._connect_agibot,
+            "BEIJING_TIANGONG": self._connect_beijing_tiangong,
+            "ZHONGJI_T800": self._connect_zhongji,
+            "PUDU_D7": self._connect_pudu,
             # 四足机器人
             "UNITREE_GO2": self._connect_unitree,
             "UNITREE_B2": self._connect_unitree,
@@ -1097,6 +1161,100 @@ class RobotHAL:
                 "payload": 20.0, "height": 1.75, "weight": 60,
                 "order_size": 2000, "application": "服装/汽车装配",
             },
+            # ── 2026 WAIC世界人工智能大会首发新品 ──
+            "QIYUAN_Q1": {  # 启元Q1 小尺寸全身力控人形
+                "joint_lower": np.ones(22) * -3.14,
+                "joint_upper": np.ones(22) * 3.14,
+                "max_velocity": np.ones(22) * 2.0,
+                "max_torque": np.ones(22) * 25,
+                "payload": 2.0, "height": 0.88, "weight": 15,
+                "force_control": True, "open_source_structure": True,
+            },
+            "QIYUAN_T1": {  # 启元T1 全球首款可变形个人机器人
+                "joint_lower": np.ones(18) * -3.14,
+                "joint_upper": np.ones(18) * 3.14,
+                "max_velocity": np.ones(18) * 3.0,
+                "max_torque": np.ones(18) * 40,
+                "payload": 5.0, "weight": 20,
+                "transformable": True, "modes": ["轮足人形", "四足"],
+                "price": 15999,
+            },
+            "LEJU_KUAFU": {  # 乐聚夸父系列 全尺寸人形
+                "joint_lower": np.ones(35) * -3.14,
+                "joint_upper": np.ones(35) * 3.14,
+                "max_velocity": np.ones(35) * 2.5,
+                "max_torque": np.ones(35) * 80,
+                "payload": 15.0, "height": 1.75, "weight": 65,
+                "localization_rate": 0.95, "customers": ["一汽", "长虹", "中兴"],
+            },
+            "LEJU_LUBAN": {  # 乐聚鲁班 工业人形
+                "joint_lower": np.ones(30) * -3.14,
+                "joint_upper": np.ones(30) * 3.14,
+                "max_velocity": np.ones(30) * 2.0,
+                "max_torque": np.ones(30) * 100,
+                "payload": 20.0, "weight": 70,
+                "scenarios": ["拆垛", "上料", "搬运"],
+            },
+            "MAGICATOM_X1": {  # 魔法原子MagicBot X1 180cm通用人形
+                "joint_lower": np.ones(31) * -3.14,
+                "joint_upper": np.ones(31) * 3.14,
+                "max_velocity": np.ones(31) * 3.0,
+                "max_torque": np.ones(31) * 150,
+                "payload": 30.0, "height": 1.80, "weight": 80,
+                "peak_torque_per_joint": 450,
+            },
+            "MAGICATOM_D1": {  # 魔法原子MagicBot D1 轮式人形
+                "joint_lower": np.ones(20) * -3.14,
+                "joint_upper": np.ones(20) * 3.14,
+                "max_velocity": np.ones(20) * 2.5,
+                "max_torque": np.ones(20) * 60,
+                "payload": 30.0, "weight": 55,
+                "locomotion": "轮式", "scenario": "厂区物料转运",
+            },
+            "MAGICATOM_T1": {  # 魔法原子MagicDog T1 轻量化四足
+                "joint_lower": np.ones(12) * -3.14,
+                "joint_upper": np.ones(12) * 3.14,
+                "max_velocity": np.ones(12) * 4.0,
+                "max_torque": np.ones(12) * 40,
+                "payload": 5.0, "weight": 15,
+                "scenario": "狭小空间巡检",
+            },
+            "AGIBOT_G2_MAX": {  # 智元精灵G2 Max 轮式仓储人形
+                "joint_lower": np.ones(25) * -3.14,
+                "joint_upper": np.ones(25) * 3.14,
+                "max_velocity": np.ones(25) * 2.0,
+                "max_torque": np.ones(25) * 80,
+                "payload": 50.0, "weight": 75,
+                "locomotion": "轮式", "partner": "京东物流",
+            },
+            "AGIBOT_KUOTUO": {  # 智元酷拓骑行机器人
+                "payload": 75.0, "weight": 60,
+                "scenarios": ["巡检", "代步"], "autonomous": True,
+            },
+            "BEIJING_TIANGONG": {  # 北京具身天工系列 工业人形
+                "joint_lower": np.ones(35) * -3.14,
+                "joint_upper": np.ones(35) * 3.14,
+                "max_velocity": np.ones(35) * 2.0,
+                "max_torque": np.ones(35) * 120,
+                "payload": 25.0, "height": 1.75, "weight": 70,
+                "scenarios": ["化工", "电力", "油气"],
+            },
+            "ZHONGJI_T800": {  # 众擎T800 全尺寸格斗人形
+                "joint_lower": np.ones(30) * -3.14,
+                "joint_upper": np.ones(30) * 3.14,
+                "max_velocity": np.ones(30) * 4.0,
+                "max_torque": np.ones(30) * 150,
+                "payload": 20.0, "height": 1.80, "weight": 85,
+                "features": "高强度抗扰",
+            },
+            "PUDU_D7": {  # 普渡PUDU D7 类人形智能作业伙伴
+                "joint_lower": np.ones(20) * -3.14,
+                "joint_upper": np.ones(20) * 3.14,
+                "max_velocity": np.ones(20) * 2.0,
+                "max_torque": np.ones(20) * 50,
+                "payload": 14.0, "working_height": 2.0, "weight": 55,
+                "scenarios": ["工厂", "仓储", "零售"],
+            },
         }
         self._brand_config = brand_configs.get(self.brand.name, {})
 
@@ -1459,6 +1617,56 @@ class RobotHAL:
         self._zjrobot = ZhejiangHumanoid(host, port or 8080)
         self._zjrobot.connect()
         self._comm = "zhejiang_humanoid"
+
+    # ===== WAIC 2026首发新品连接存根 =====
+    def _connect_qiyuan(self, host, port):
+        """启元机器人 (Q1/T1, 上纬新材启元机器人)"""
+        from qiyuan_sdk import QiyuanRobot
+        self._qiyuan = QiyuanRobot(host, port or 8080)
+        self._qiyuan.connect()
+        self._comm = "qiyuan"
+
+    def _connect_leju(self, host, port):
+        """乐聚机器人 (夸父/鲁班系列)"""
+        from leju_sdk import LejuRobot
+        self._leju = LejuRobot(host, port or 8080)
+        self._leju.connect()
+        self._comm = "leju"
+
+    def _connect_magicatom(self, host, port):
+        """魔法原子机器人 (MagicBot X1/D1, MagicDog T1)"""
+        from magicatom_sdk import MagicAtomRobot
+        self._magic = MagicAtomRobot(host, port or 8080)
+        self._magic.connect()
+        self._comm = "magicatom"
+
+    def _connect_agibot(self, host, port):
+        """智元机器人 (精灵G2 Max/酷拓骑行)"""
+        from agibot_sdk import AgibotRobot
+        self._agibot = AgibotRobot(host, port or 8080)
+        self._agibot.connect()
+        self._comm = "agibot"
+
+    def _connect_beijing_tiangong(self, host, port):
+        """北京人形创新中心·具身天工系列"""
+        from tiangong_sdk import TiangongRobot
+        self._tiangong = TiangongRobot(host, port or 8080)
+        self._tiangong.connect()
+        self._comm = "beijing_tiangong"
+
+    def _connect_zhongji(self, host, port):
+        """众擎机器人 (T800格斗人形)"""
+        from zhongji_sdk import ZhongjiRobot
+        self._zhongji = ZhongjiRobot(host, port or 8080)
+        self._zhongji.connect()
+        self._comm = "zhongji"
+
+    def _connect_pudu(self, host, port):
+        """普渡机器人 (PUDU D7类人形作业)"""
+        from pudu_sdk import PuduRobot
+        self._pudu = PuduRobot(host, port or 8080)
+        self._pudu.connect()
+        self._comm = "pudu"
 
     def disconnect(self):
         """断开连接"""
@@ -2795,6 +3003,78 @@ ROBOT_PURCHASE_GUIDE = {
          "cons": "垂直场景优化",
          "use_case": "服装制造、汽车装配、电子3C、石化实验室、多品种小批量生产",
          "source": "浙江人形机器人创新中心 (双臂协同作业机器人, 杰克科技2000台服装场景订单, 工人日报)"},
+        # ── WAIC 2026世界人工智能大会首发新品 ──
+        {"name": "启元Q1", "brand": "启元机器人（上纬新材）", "price": "开发者小批量交付中",
+         "height": "88cm", "weight": "15kg", "dofs": "全身22",
+         "pros": "全球首款小尺寸全身力控人形、<15kg超轻量化、22自由度全身联动、柔性亲肤机身、结构件开源",
+         "cons": "小批量交付中",
+         "use_case": "家庭陪伴、看护、轻交互、开发者改装、教育科研",
+         "source": "启元机器人 (上纬新材旗下消费级具身智能品牌, 2025年底首发, 2026WAIC探索者版, A'Design金奖)"},
+        {"name": "启元T1", "brand": "启元机器人（上纬新材）", "price": "¥15,999（标准版, 9月预售）",
+         "weight": "20kg", "dofs": "全身18+",
+         "pros": "全球首款可变形个人机器人、Transformer跨形态架构、轮足人形/四足自主切换、室内静音/户外越障、智能影像拍摄",
+         "cons": "9月预售, 11月前后公开发售",
+         "use_case": "家庭陪伴、户外伴行、移动拍摄Vlog、露营跟随载物",
+         "source": "启元机器人 (上纬新材启元机器人, 2026WAIC首发, 万台级产线签约蓝思智能, 5城体验店已开)"},
+        {"name": "乐聚夸父系列", "brand": "乐聚机器人", "price": "¥299,000-599,000",
+         "height": "175cm", "weight": "65kg", "dofs": "全身35+",
+         "pros": "国产化率>95%、一汽/长虹/中兴等头部订单、1-2周工业场景部署、全球首条万台级自动化产线（佛山）",
+         "cons": "工业优化为主",
+         "use_case": "汽车制造、电子3C、仓储物流、拆垛码垛、产线上下料",
+         "source": "乐聚机器人 (哈尔滨乐聚智能科技有限公司, WAIC 2026, 工信部2025人工智能应用典型案例)"},
+        {"name": "乐聚鲁班", "brand": "乐聚机器人", "price": "¥259,000-459,000",
+         "height": "170cm", "weight": "70kg", "dofs": "全身30+",
+         "pros": "工业场景专用、拆垛/上料/搬运三大核心作业、8-10小时不间断作业、方案已在工厂稳定运行3-4个月",
+         "cons": "工业场景专用",
+         "use_case": "工厂拆垛、产线上料、物料搬运、仓储作业",
+         "source": "乐聚机器人 (哈尔滨乐聚智能科技有限公司, WAIC 2026工业落地主打产品)"},
+        {"name": "魔法原子MagicBot X1", "brand": "魔法原子", "price": "¥599,000-899,000",
+         "height": "180cm", "weight": "80kg", "dofs": "全身31",
+         "pros": "180cm全尺寸通用人形、单关节峰值450N·m、Magic-VLA K02具身大模型、乒乓球对打/扣篮/击剑等高动态动作",
+         "cons": "价格高",
+         "use_case": "工厂通用作业、商用服务、科研平台、高动态场景",
+         "source": "魔法原子 (MagicAtom, WAIC 2026一次性发布三款新品, 交管机器人已落地无锡马拉松)"},
+        {"name": "魔法原子MagicBot D1", "brand": "魔法原子", "price": "¥299,000-459,000",
+         "weight": "55kg", "dofs": "全身20+",
+         "pros": "轮式人形、纯视觉导航厂区物料转运、已在追觅智能制造工厂试点",
+         "cons": "轮式限制越障",
+         "use_case": "厂区物料转运、车间配送、仓储搬运",
+         "source": "魔法原子 (MagicAtom, WAIC 2026首发, 追觅工厂试点)"},
+        {"name": "魔法原子MagicDog T1", "brand": "魔法原子", "price": "¥149,000-249,000",
+         "weight": "15kg", "dofs": "全身12",
+         "pros": "轻量化四足、狭小空间设备巡检、细微外观缺陷识别",
+         "cons": "负载有限",
+         "use_case": "设备巡检、狭小空间检测、工业质检",
+         "source": "魔法原子 (MagicAtom, WAIC 2026首发)"},
+        {"name": "智元精灵G2 Max", "brand": "智元机器人", "price": "¥259,000-459,000",
+         "weight": "75kg", "dofs": "全身25+",
+         "pros": "轮式仓储人形、双臂码垛50kg、京东物流联合研发、已落地京东物流园区实测",
+         "cons": "轮式底盘限制",
+         "use_case": "电商仓储拣选、料箱转运、货物码垛、高层货架取货",
+         "source": "智元机器人 (Agibot, WAIC 2026首发, 京东物流联合研发)"},
+        {"name": "智元酷拓骑行机器人", "brand": "智元机器人", "price": "¥199,000-359,000",
+         "weight": "60kg", "pros": "可承载75kg人员、自主规划路线绕过人群/障碍、厂区巡检+园区短途代步",
+         "cons": "新品首发",
+         "use_case": "厂区巡检、园区短途代步、安全巡逻",
+         "source": "智元机器人 (Agibot, WAIC 2026首发)"},
+        {"name": "北京具身天工系列", "brand": "北京人形创新中心", "price": "¥499,000-899,000",
+         "height": "175cm", "weight": "70kg", "dofs": "全身35+",
+         "pros": "工业人形标杆、化工/电力/油气等高风险场景、5大标准化商用方案、全自主作业",
+         "cons": "工业场景专用",
+         "use_case": "化工巡检、电力运维、油气仓储、管线监测、应急处置",
+         "source": "北京人形机器人创新中心 (具身天工全系列+慧思开物平台, WAIC 2026)"},
+        {"name": "众擎T800", "brand": "众擎机器人", "price": "¥299,000-599,000",
+         "height": "180cm", "weight": "85kg", "dofs": "全身30+",
+         "pros": "全尺寸格斗人形、高强度抗扰测试、全球人形机器人自由格斗联赛指定机型",
+         "cons": "特殊用途",
+         "use_case": "文旅服务、格斗表演、极限抗扰测试、科研平台",
+         "source": "众擎机器人 (WAIC 2026, 全球人形机器人自由格斗联赛发起方)"},
+        {"name": "普渡PUDU D7", "brand": "普渡科技", "price": "¥199,000-359,000",
+         "weight": "55kg", "dofs": "全身20+",
+         "pros": "类人形智能作业伙伴、14kg负载/2m作业高度、面向工厂仓储零售多场景",
+         "cons": "新品首发",
+         "use_case": "工厂搬运、仓储取放、零售理货、高位作业",
+         "source": "普渡科技 (PUDU, WAIC 2026首发, 一脑多形Physical Agent技术理念)"},
     ],
     # ====================================================================
     # 三、协作机械臂专区（2025-2026国产主力）
