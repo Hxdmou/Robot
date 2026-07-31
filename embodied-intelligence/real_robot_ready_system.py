@@ -296,6 +296,9 @@ class RobotHAL:
             "ufactory": RobotBrand.UFACTORY,
             "xarm": RobotBrand.UFACTORY,
             "jaka": RobotBrand.JAKA,
+            "jaka_zu": RobotBrand.JAKA_ZU,
+            "zu7": RobotBrand.JAKA_ZU,
+            "zu12": RobotBrand.JAKA_ZU,
             "hans": RobotBrand.HAIBOXING,
             "elfin": RobotBrand.HAIBOXING,
             "tiago": RobotBrand.TIAGOA,
@@ -321,12 +324,85 @@ class RobotHAL:
             "anybotics": RobotBrand.ANYBOTICS,
             "anymal": RobotBrand.ANYBOTICS,
             "deeprobotics": RobotBrand.DEEPROBOTICS,
+            # ── 2026新品: 人形机器人 ──
+            "unitree_h2": RobotBrand.UNITREE_H2,
+            "h2": RobotBrand.UNITREE_H2,
+            "unitree_r1": RobotBrand.UNITREE_R1,
+            "r1": RobotBrand.UNITREE_R1,
+            "unitree_gd01": RobotBrand.UNITREE_GD01,
+            "gd01": RobotBrand.UNITREE_GD01,
+            "zhiyuan_a3": RobotBrand.ZHILYUAN_A3,
+            "a3": RobotBrand.ZHILYUAN_A3,
+            "zhiyuan_g2": RobotBrand.ZHILYUAN_G2,
+            "g2": RobotBrand.ZHILYUAN_G2,
+            "zhiyuan_q1": RobotBrand.ZHILYUAN_Q1,
+            "q1": RobotBrand.ZHILYUAN_Q1,
+            "zhiyuan_lingxi_x2": RobotBrand.ZHILINGXI_X2,
+            "lingxi_x2": RobotBrand.ZHILINGXI_X2,
+            "x2": RobotBrand.ZHILINGXI_X2,
+            "ubtech_walker": RobotBrand.UBTECH_WALKER,
+            "walker": RobotBrand.UBTECH_WALKER,
+            "jaka_pi": RobotBrand.JAKA_PI,
+            "pi_zai": RobotBrand.JAKA_PI,
+            "jaka_k1": RobotBrand.JAKA_K1,
+            "k1": RobotBrand.JAKA_K1,
+            "songyan_bumi": RobotBrand.SONGYAN_BUMI,
+            "bumi": RobotBrand.SONGYAN_BUMI,
+            "kepler_k2": RobotBrand.KEPLER_K2,
+            "kepler": RobotBrand.KEPLER_K2,
+            "k2": RobotBrand.KEPLER_K2,
+            "matrix_3": RobotBrand.MATRIX_3,
+            "matrix": RobotBrand.MATRIX_3,
+            "fourier_gr3": RobotBrand.FOURIER_GR3,
+            "fourier": RobotBrand.FOURIER_GR3,
+            "gr3": RobotBrand.FOURIER_GR3,
+            "zhuoyide_moya": RobotBrand.ZHUOYIDE_MOYA,
+            "moya": RobotBrand.ZHUOYIDE_MOYA,
+            "linglong_2": RobotBrand.LINGLONG_2,
+            "linglong": RobotBrand.LINGLONG_2,
+            "xinghaitu_r1": RobotBrand.XINGHAITU_R1,
+            "xinghaitu": RobotBrand.XINGHAITU_R1,
+            "yinhe_galbot_s2": RobotBrand.YINHE_GALBOT_S2,
+            "galbot": RobotBrand.YINHE_GALBOT_S2,
+            "qianxun_moz1": RobotBrand.QIANXUN_MOZ1,
+            "moz1": RobotBrand.QIANXUN_MOZ1,
+            "beijing_tiangong_3": RobotBrand.BEIJING_TIANGONG_3,
+            "tiangong": RobotBrand.BEIJING_TIANGONG_3,
+            "tashi_a3": RobotBrand.TASHI_A3,
+            "zhipingfang_alpha": RobotBrand.ZHIPINGFANG_ALPHA,
+            "zhipingfang": RobotBrand.ZHIPINGFANG_ALPHA,
+            # ── 2026新品: 协作臂 ──
+            "ufactory_cra": RobotBrand.UFACTORY_CRA,
+            "cra": RobotBrand.UFACTORY_CRA,
+            "jaka_zu35": RobotBrand.JAKA_ZU35,
+            "zu35": RobotBrand.JAKA_ZU35,
+            "jaka_ai": RobotBrand.JAKA_AI,
+            "jaka_mini2": RobotBrand.JAKA_MINI2,
+            "mini2": RobotBrand.JAKA_MINI2,
+            "rokae": RobotBrand.ROKAE,
+            "aubo": RobotBrand.AUBO,
+            "elite": RobotBrand.ELITE,
+            # ── 2026新品: 四足/AMR ──
+            "unitree_go2": RobotBrand.UNITREE_GO2,
+            "go2": RobotBrand.UNITREE_GO2,
+            "unitree_b2": RobotBrand.UNITREE_B2,
+            "b2": RobotBrand.UNITREE_B2,
+            "unitree_a2": RobotBrand.UNITREE_A2,
+            "a2": RobotBrand.UNITREE_A2,
+            "hikrobot_amr": RobotBrand.HIKROBOT_AMR,
+            "hikrobot": RobotBrand.HIKROBOT_AMR,
+            "geek_amr": RobotBrand.GEEK_AMR,
+            "geek": RobotBrand.GEEK_AMR,
+            "quickton_amr": RobotBrand.QUICKTON_AMR,
+            "quicktron": RobotBrand.QUICKTON_AMR,
             # AMR
             "agv": RobotBrand.AGV_AMR,
             "amr": RobotBrand.AGV_AMR,
             "turtlebot": RobotBrand.TURTLEBOT,
             "clearpath": RobotBrand.CLEARPATH,
             "husky": RobotBrand.CLEARPATH,
+            "mir": RobotBrand.MIR,
+            "mir_amr": RobotBrand.MIR,
         }
         return mapping.get(self.backend, RobotBrand.SIMULATION)
 
@@ -427,6 +503,7 @@ class RobotHAL:
         # ── 按品牌尝试连接 ──
         connect_map = {
             # 协作臂 - 国际品牌
+            "PANDA": lambda h, p: self._connect_panda(),
             "UNIVERSAL_ROBOTS": self._connect_ur,
             "KUKA_LBR": self._connect_kuka,
             "ABB_YUMI": self._connect_abb,
@@ -435,13 +512,25 @@ class RobotHAL:
             # 协作臂 - 国产品牌
             "ELEPHANT": self._connect_elephant,
             "UFACTORY": self._connect_ufactory,
+            "UFACTORY_CRA": self._connect_ufactory,
             "JAKA": self._connect_jaka,
+            "JAKA_ZU": self._connect_jaka,
+            "JAKA_ZU35": self._connect_jaka,
+            "JAKA_AI": self._connect_jaka,
+            "JAKA_MINI2": self._connect_jaka,
             "HAIBOXING": self._connect_hans,
             "FLEXIV": self._connect_flexiv,
             "TIAGOA": self._connect_tiago,
+            "ROKAE": self._connect_rokae,
+            "AUBO": self._connect_aubo,
+            "ELITE": self._connect_elite,
+            "AIRBOT_P7": lambda h, p: self._connect_airbot_p7(),
             # 人形机器人
             "UNITREE_H1": self._connect_unitree,
+            "UNITREE_H2": self._connect_unitree,
             "UNITREE_G1": self._connect_unitree,
+            "UNITREE_R1": self._connect_unitree,
+            "UNITREE_GD01": self._connect_unitree,
             "FIGURE_01": self._connect_figure,
             "OPTIMUS": self._connect_optimus,
             "XIAOBING": self._connect_galaxy,
@@ -449,8 +538,35 @@ class RobotHAL:
             "AGILITY": self._connect_agility,
             "ANYBOTICS": self._connect_anybotics,
             "DEEPROBOTICS": self._connect_deeprobotics,
+            "ZHILYUAN_A3": self._connect_zhiyuan,
+            "ZHILYUAN_G2": self._connect_zhiyuan,
+            "ZHILYUAN_Q1": self._connect_zhiyuan,
+            "ZHILINGXI_X2": self._connect_zhiyuan,
+            "UBTECH_WALKER": self._connect_ubtech,
+            "JAKA_PI": self._connect_jaka,
+            "JAKA_K1": self._connect_jaka,
+            "SONGYAN_BUMI": self._connect_songyan,
+            "KEPLER_K2": self._connect_kepler,
+            "MATRIX_3": self._connect_matrix,
+            "FOURIER_GR3": self._connect_fourier,
+            "ZHUOYIDE_MOYA": self._connect_zhuoyide,
+            "LINGLONG_2": self._connect_linglong,
+            "XINGHAITU_R1": self._connect_xinghaitu,
+            "YINHE_GALBOT_S2": self._connect_yinhe,
+            "QIANXUN_MOZ1": self._connect_qianxun,
+            "BEIJING_TIANGONG_3": self._connect_beijing_robot,
+            "TASHI_A3": self._connect_tashi,
+            "ZHIPINGFANG_ALPHA": self._connect_zhipingfang,
+            # 四足机器人
+            "UNITREE_GO2": self._connect_unitree,
+            "UNITREE_B2": self._connect_unitree,
+            "UNITREE_A2": self._connect_unitree,
             # AMR
             "AGV_AMR": self._connect_amr,
+            "HIKROBOT_AMR": self._connect_hikrobot,
+            "GEEK_AMR": self._connect_geek,
+            "QUICKTON_AMR": self._connect_quicktron,
+            "MIR": self._connect_amr,
             "TURTLEBOT": self._connect_turtlebot,
             "CLEARPATH": self._connect_clearpath,
         }
@@ -474,6 +590,116 @@ class RobotHAL:
     def _configure_simulation_for_brand(self):
         """根据品牌配置仿真参数（关节限位/速度/力矩等）"""
         brand_configs = {
+            "PANDA": {  # Franka Panda
+                "joint_lower": np.array([-2.89, -1.76, -2.89, -3.07, -2.89, -0.01, -2.89]),
+                "joint_upper": np.array([2.89, 1.76, 2.89, -0.06, 2.89, 3.75, 2.89]),
+                "max_velocity": np.ones(7) * 2.0,
+                "max_torque": np.array([87, 87, 87, 87, 12, 12, 12]),
+                "payload": 3.0, "reach": 0.855,
+            },
+            "ABB_YUMI": {  # ABB YuMi/GoFa
+                "joint_lower": np.ones(6) * -3.14,
+                "joint_upper": np.ones(6) * 3.14,
+                "max_velocity": np.ones(6) * 2.0,
+                "max_torque": np.ones(6) * 30,
+                "payload": 5.0, "reach": 0.95,
+            },
+            "FANUC_CR": {  # Fanuc CRX
+                "joint_lower": np.ones(6) * -3.14,
+                "joint_upper": np.ones(6) * 3.14,
+                "max_velocity": np.ones(6) * 2.5,
+                "max_torque": np.ones(6) * 60,
+                "payload": 10.0, "reach": 1.2,
+            },
+            "DOOSAN": {  # Doosan M/H/A
+                "joint_lower": np.ones(6) * -3.14,
+                "joint_upper": np.ones(6) * 3.14,
+                "max_velocity": np.ones(6) * 2.0,
+                "max_torque": np.ones(6) * 50,
+                "payload": 6.0, "reach": 0.9,
+            },
+            "JAKA_ZU": {  # 节卡 Zu系列
+                "joint_lower": np.array([-6.28, -2.5, -6.28, -2.5, -6.28, -2.5, -6.28]),
+                "joint_upper": np.array([6.28, 2.5, 6.28, 2.5, 6.28, 2.5, 6.28]),
+                "max_velocity": np.ones(7) * 2.0,
+                "max_torque": np.ones(7) * 40,
+                "payload": 12.0, "reach": 1.05,
+            },
+            "HAIBOXING": {  # 大族/Elfin
+                "joint_lower": np.ones(6) * -3.14,
+                "joint_upper": np.ones(6) * 3.14,
+                "max_velocity": np.ones(6) * 2.0,
+                "max_torque": np.ones(6) * 20,
+                "payload": 3.0, "reach": 0.6,
+            },
+            "TIAGOA": {  # PAL Tiago
+                "joint_lower": np.ones(7) * -3.14,
+                "joint_upper": np.ones(7) * 3.14,
+                "max_velocity": np.ones(7) * 1.5,
+                "max_torque": np.ones(7) * 20,
+                "payload": 4.0, "reach": 0.8,
+            },
+            "FIGURE_01": {  # Figure 01
+                "joint_lower": np.ones(40) * -3.14,
+                "joint_upper": np.ones(40) * 3.14,
+                "max_velocity": np.ones(40) * 3.0,
+                "max_torque": np.ones(40) * 100,
+                "payload": 20.0, "height": 1.68, "weight": 60,
+            },
+            "OPTIMUS": {  # Tesla Optimus
+                "joint_lower": np.ones(45) * -3.14,
+                "joint_upper": np.ones(45) * 3.14,
+                "max_velocity": np.ones(45) * 3.0,
+                "max_torque": np.ones(45) * 120,
+                "payload": 20.0, "height": 1.73, "weight": 73,
+            },
+            "XIAOBING": {  # 银河通用 DB1
+                "joint_lower": np.ones(35) * -3.14,
+                "joint_upper": np.ones(35) * 3.14,
+                "max_velocity": np.ones(35) * 2.5,
+                "max_torque": np.ones(35) * 80,
+                "payload": 20.0, "height": 1.7, "weight": 55,
+            },
+            "APPTRONIK": {  # Apptronik Apollo
+                "joint_lower": np.ones(35) * -3.14,
+                "joint_upper": np.ones(35) * 3.14,
+                "max_velocity": np.ones(35) * 2.5,
+                "max_torque": np.ones(35) * 80,
+                "payload": 25.0, "height": 1.7, "weight": 72,
+            },
+            "AGILITY": {  # Agility Digit
+                "joint_lower": np.ones(25) * -3.14,
+                "joint_upper": np.ones(25) * 3.14,
+                "max_velocity": np.ones(25) * 3.0,
+                "max_torque": np.ones(25) * 60,
+                "payload": 18.0, "height": 1.75, "weight": 65,
+            },
+            "ANYBOTICS": {  # ANYbotics ANYmal
+                "joint_lower": np.ones(12) * -3.14,
+                "joint_upper": np.ones(12) * 3.14,
+                "max_velocity": np.ones(12) * 3.0,
+                "max_torque": np.ones(12) * 50,
+                "payload": 10.0, "weight": 35,
+            },
+            "DEEPROBOTICS": {  # 云深处 Jueying
+                "joint_lower": np.ones(12) * -3.14,
+                "joint_upper": np.ones(12) * 3.14,
+                "max_velocity": np.ones(12) * 3.5,
+                "max_torque": np.ones(12) * 45,
+                "payload": 10.0, "weight": 28,
+            },
+            "AGV_AMR": {  # 通用AGV/AMR
+                "max_velocity": 1.5, "payload": 500.0, "battery_hours": 8,
+            },
+            "MIR": {  # Mobile Industrial Robots
+                "max_velocity": 1.5, "payload": 250.0, "battery_hours": 10,
+            },
+            "TURTLEBOT": {  # TurtleBot 3/4
+                "max_velocity": 0.5, "payload": 5.0, "battery_hours": 4,
+            },
+            "CLEARPATH": {  # ClearPath Husky
+                "max_velocity": 1.0, "payload": 75.0, "battery_hours": 6,
+            },
             "UNIVERSAL_ROBOTS": {  # UR5e
                 "joint_lower": np.array([-6.28, -6.28, -3.14, -6.28, -6.28, -6.28]),
                 "joint_upper": np.array([6.28, 6.28, 3.14, 6.28, 6.28, 6.28]),
@@ -508,6 +734,264 @@ class RobotHAL:
                 "max_velocity": np.ones(6) * 1.5,
                 "max_torque": np.ones(6) * 5,
                 "payload": 0.25, "reach": 0.28,
+            },
+            # ── 2026新品: 协作臂 ──
+            "UFACTORY_CRA": {  # 越疆 CRA系列
+                "joint_lower": np.array([-6.28, -2.0, -6.28, -2.0, -6.28, -2.0, -6.28]),
+                "joint_upper": np.array([6.28, 2.0, 6.28, 2.0, 6.28, 2.0, 6.28]),
+                "max_velocity": np.ones(7) * 2.5,
+                "max_torque": np.ones(7) * 40,
+                "payload": 7.0, "reach": 0.75,
+            },
+            "JAKA_ZU35": {  # 节卡 Zu35
+                "joint_lower": np.array([-6.28, -2.5, -6.28, -2.5, -6.28, -2.5, -6.28]),
+                "joint_upper": np.array([6.28, 2.5, 6.28, 2.5, 6.28, 2.5, 6.28]),
+                "max_velocity": np.ones(7) * 2.0,
+                "max_torque": np.ones(7) * 120,
+                "payload": 35.0, "reach": 1.35,
+            },
+            "JAKA_AI": {  # 节卡 AI系列
+                "joint_lower": np.array([-6.28, -2.5, -6.28, -2.5, -6.28, -2.5, -6.28]),
+                "joint_upper": np.array([6.28, 2.5, 6.28, 2.5, 6.28, 2.5, 6.28]),
+                "max_velocity": np.ones(7) * 2.5,
+                "max_torque": np.ones(7) * 35,
+                "payload": 7.0, "reach": 0.95,
+            },
+            "JAKA_MINI2": {  # 节卡 Mini2
+                "joint_lower": np.ones(6) * -3.14,
+                "joint_upper": np.ones(6) * 3.14,
+                "max_velocity": np.ones(6) * 2.0,
+                "max_torque": np.ones(6) * 5,
+                "payload": 1.0, "reach": 0.42,
+            },
+            "ROKAE": {  # 珞石 ROKAE
+                "joint_lower": np.array([-6.28, -2.5, -6.28, -2.5, -6.28, -2.5, -6.28]),
+                "joint_upper": np.array([6.28, 2.5, 6.28, 2.5, 6.28, 2.5, 6.28]),
+                "max_velocity": np.ones(7) * 2.5,
+                "max_torque": np.ones(7) * 35,
+                "payload": 6.0, "reach": 0.9,
+            },
+            "AUBO": {  # 遨博 AUBO
+                "joint_lower": np.ones(6) * -3.14,
+                "joint_upper": np.ones(6) * 3.14,
+                "max_velocity": np.ones(6) * 2.0,
+                "max_torque": np.ones(6) * 30,
+                "payload": 5.0, "reach": 0.85,
+            },
+            "ELITE": {  # 艾利特 ELITE
+                "joint_lower": np.ones(6) * -3.14,
+                "joint_upper": np.ones(6) * 3.14,
+                "max_velocity": np.ones(6) * 2.5,
+                "max_torque": np.ones(6) * 25,
+                "payload": 3.0, "reach": 0.62,
+            },
+            "AIRBOT_P7": {  # 星动纪元 Airbot P7
+                "joint_lower": np.array([-6.28, -2.5, -6.28, -2.5, -6.28, -2.5, -6.28]),
+                "joint_upper": np.array([6.28, 2.5, 6.28, 2.5, 6.28, 2.5, 6.28]),
+                "max_velocity": np.ones(7) * 2.5,
+                "max_torque": np.array([80, 80, 40, 40, 20, 20, 10]),
+                "payload": 10.0, "reach": 0.95,
+            },
+            # ── 2026新品: 人形机器人 (简化为双腿+双臂+头部) ──
+            "UNITREE_H1": {  # 宇树 H1
+                "joint_lower": np.ones(23) * -3.14,
+                "joint_upper": np.ones(23) * 3.14,
+                "max_velocity": np.ones(23) * 3.0,
+                "max_torque": np.ones(23) * 80,
+                "payload": 30.0, "height": 1.8, "weight": 47,
+            },
+            "UNITREE_H2": {  # 宇树 H2
+                "joint_lower": np.ones(25) * -3.14,
+                "joint_upper": np.ones(25) * 3.14,
+                "max_velocity": np.ones(25) * 3.5,
+                "max_torque": np.ones(25) * 100,
+                "payload": 40.0, "height": 1.85, "weight": 50,
+            },
+            "UNITREE_G1": {  # 宇树 G1
+                "joint_lower": np.ones(23) * -3.14,
+                "joint_upper": np.ones(23) * 3.14,
+                "max_velocity": np.ones(23) * 2.5,
+                "max_torque": np.ones(23) * 50,
+                "payload": 10.0, "height": 1.32, "weight": 35,
+            },
+            "UNITREE_R1": {  # 宇树 R1
+                "joint_lower": np.ones(20) * -3.14,
+                "joint_upper": np.ones(20) * 3.14,
+                "max_velocity": np.ones(20) * 2.0,
+                "max_torque": np.ones(20) * 40,
+                "payload": 5.0, "height": 1.1, "weight": 28,
+            },
+            "UNITREE_GD01": {  # 宇树 GD01
+                "joint_lower": np.ones(12) * -3.14,
+                "joint_upper": np.ones(12) * 3.14,
+                "max_velocity": np.ones(12) * 2.0,
+                "max_torque": np.ones(12) * 30,
+                "payload": 3.0, "height": 0.8, "weight": 15,
+            },
+            "ZHILYUAN_A3": {  # 智元远征A3 Ultra
+                "joint_lower": np.ones(52) * -3.14,
+                "joint_upper": np.ones(52) * 3.14,
+                "max_velocity": np.ones(52) * 2.5,
+                "max_torque": np.ones(52) * 120,
+                "payload": 50.0, "height": 1.88, "weight": 65,
+            },
+            "ZHILYUAN_G2": {  # 智元精灵G2
+                "joint_lower": np.ones(38) * -3.14,
+                "joint_upper": np.ones(38) * 3.14,
+                "max_velocity": np.ones(38) * 2.0,
+                "max_torque": np.ones(38) * 50,
+                "payload": 15.0, "height": 1.55, "weight": 45,
+            },
+            "ZHILYUAN_Q1": {  # 智元启元Q1
+                "joint_lower": np.ones(25) * -3.14,
+                "joint_upper": np.ones(25) * 3.14,
+                "max_velocity": np.ones(25) * 2.0,
+                "max_torque": np.ones(25) * 60,
+                "payload": 20.0, "height": 1.7, "weight": 55,
+            },
+            "ZHILINGXI_X2": {  # 智元灵犀X2
+                "joint_lower": np.ones(25) * -3.14,
+                "joint_upper": np.ones(25) * 3.14,
+                "max_velocity": np.ones(25) * 2.0,
+                "max_torque": np.ones(25) * 50,
+                "payload": 15.0, "height": 1.3, "weight": 38,
+            },
+            "UBTECH_WALKER": {  # 优必选 Walker S2
+                "joint_lower": np.ones(41) * -3.14,
+                "joint_upper": np.ones(41) * 3.14,
+                "max_velocity": np.ones(41) * 2.5,
+                "max_torque": np.ones(41) * 80,
+                "payload": 20.0, "height": 1.65, "weight": 55,
+            },
+            "JAKA_PI": {  # 节卡π仔
+                "joint_lower": np.ones(30) * -3.14,
+                "joint_upper": np.ones(30) * 3.14,
+                "max_velocity": np.ones(30) * 2.0,
+                "max_torque": np.ones(30) * 30,
+                "payload": 10.0, "height": 1.2, "weight": 35,
+            },
+            "JAKA_K1": {  # 节卡K1-25
+                "joint_lower": np.ones(40) * -3.14,
+                "joint_upper": np.ones(40) * 3.14,
+                "max_velocity": np.ones(40) * 2.5,
+                "max_torque": np.ones(40) * 150,
+                "payload": 50.0, "height": 1.8, "weight": 75,
+            },
+            "SONGYAN_BUMI": {  # 松延动力Bumi小布米
+                "joint_lower": np.ones(20) * -3.14,
+                "joint_upper": np.ones(20) * 3.14,
+                "max_velocity": np.ones(20) * 1.5,
+                "max_torque": np.ones(20) * 20,
+                "payload": 2.0, "height": 0.94, "weight": 12,
+            },
+            "KEPLER_K2": {  # 开普勒K2大黄蜂
+                "joint_lower": np.ones(52) * -3.14,
+                "joint_upper": np.ones(52) * 3.14,
+                "max_velocity": np.ones(52) * 3.0,
+                "max_torque": np.ones(52) * 180,
+                "payload": 60.0, "height": 1.9, "weight": 70,
+            },
+            "MATRIX_3": {  # 矩阵超智MATRIX-3
+                "joint_lower": np.ones(52) * -3.14,
+                "joint_upper": np.ones(52) * 3.14,
+                "max_velocity": np.ones(52) * 2.5,
+                "max_torque": np.ones(52) * 100,
+                "payload": 30.0, "height": 1.8, "weight": 60,
+            },
+            "FOURIER_GR3": {  # 傅利叶GR-3
+                "joint_lower": np.ones(35) * -3.14,
+                "joint_upper": np.ones(35) * 3.14,
+                "max_velocity": np.ones(35) * 2.0,
+                "max_torque": np.ones(35) * 60,
+                "payload": 15.0, "height": 1.65, "weight": 50,
+            },
+            "ZHUOYIDE_MOYA": {  # 卓益得Moya
+                "joint_lower": np.ones(30) * -3.14,
+                "joint_upper": np.ones(30) * 3.14,
+                "max_velocity": np.ones(30) * 2.0,
+                "max_torque": np.ones(30) * 50,
+                "payload": 10.0, "height": 1.6, "weight": 45,
+            },
+            "LINGLONG_2": {  # 灵龙2.0
+                "joint_lower": np.ones(40) * -3.14,
+                "joint_upper": np.ones(40) * 3.14,
+                "max_velocity": np.ones(40) * 2.5,
+                "max_torque": np.ones(40) * 80,
+                "payload": 25.0, "height": 1.75, "weight": 55,
+            },
+            "XINGHAITU_R1": {  # 星海图R1
+                "joint_lower": np.ones(30) * -3.14,
+                "joint_upper": np.ones(30) * 3.14,
+                "max_velocity": np.ones(30) * 2.0,
+                "max_torque": np.ones(30) * 50,
+                "payload": 15.0, "height": 1.6, "weight": 45,
+            },
+            "YINHE_GALBOT_S2": {  # 银河通用Galbot S2
+                "joint_lower": np.ones(35) * -3.14,
+                "joint_upper": np.ones(35) * 3.14,
+                "max_velocity": np.ones(35) * 2.5,
+                "max_torque": np.ones(35) * 80,
+                "payload": 20.0, "height": 1.7, "weight": 55,
+            },
+            "QIANXUN_MOZ1": {  # 千寻智能Moz1
+                "joint_lower": np.ones(40) * -3.14,
+                "joint_upper": np.ones(40) * 3.14,
+                "max_velocity": np.ones(40) * 2.5,
+                "max_torque": np.ones(40) * 100,
+                "payload": 30.0, "height": 1.8, "weight": 60,
+            },
+            "BEIJING_TIANGONG_3": {  # 北京人形天工3.0
+                "joint_lower": np.ones(45) * -3.14,
+                "joint_upper": np.ones(45) * 3.14,
+                "max_velocity": np.ones(45) * 3.0,
+                "max_torque": np.ones(45) * 120,
+                "payload": 40.0, "height": 1.85, "weight": 65,
+            },
+            "TASHI_A3": {  # 它石智航A3
+                "joint_lower": np.ones(18) * -3.14,
+                "joint_upper": np.ones(18) * 3.14,
+                "max_velocity": np.ones(18) * 2.0,
+                "max_torque": np.ones(18) * 40,
+                "payload": 10.0, "height": 1.2, "weight": 30,
+            },
+            "ZHIPINGFANG_ALPHA": {  # 智平方Alpha
+                "joint_lower": np.ones(40) * -3.14,
+                "joint_upper": np.ones(40) * 3.14,
+                "max_velocity": np.ones(40) * 2.5,
+                "max_torque": np.ones(40) * 80,
+                "payload": 20.0, "height": 1.75, "weight": 55,
+            },
+            # ── 2026新品: 四足机器人 ──
+            "UNITREE_GO2": {  # 宇树Go2
+                "joint_lower": np.ones(12) * -3.14,
+                "joint_upper": np.ones(12) * 3.14,
+                "max_velocity": np.ones(12) * 5.0,
+                "max_torque": np.ones(12) * 40,
+                "payload": 5.0, "weight": 15,
+            },
+            "UNITREE_B2": {  # 宇树B2
+                "joint_lower": np.ones(12) * -3.14,
+                "joint_upper": np.ones(12) * 3.14,
+                "max_velocity": np.ones(12) * 4.0,
+                "max_torque": np.ones(12) * 80,
+                "payload": 20.0, "weight": 50,
+            },
+            "UNITREE_A2": {  # 宇树A2
+                "joint_lower": np.ones(12) * -3.14,
+                "joint_upper": np.ones(12) * 3.14,
+                "max_velocity": np.ones(12) * 3.5,
+                "max_torque": np.ones(12) * 35,
+                "payload": 5.0, "weight": 12,
+            },
+            # ── 2026新品: AMR ──
+            "HIKROBOT_AMR": {  # 海康AMR
+                "max_velocity": 2.0, "payload": 200.0, "battery_hours": 8,
+            },
+            "GEEK_AMR": {  # 极智嘉AMR
+                "max_velocity": 2.5, "payload": 500.0, "battery_hours": 10,
+            },
+            "QUICKTON_AMR": {  # 快仓AMR
+                "max_velocity": 2.0, "payload": 300.0, "battery_hours": 8,
             },
         }
         self._brand_config = brand_configs.get(self.brand.name, {})
@@ -663,6 +1147,149 @@ class RobotHAL:
         self._cp = ClearPathRobot(host, port or 11411)
         self._cp.connect()
         self._comm = "clearpath"
+
+    # ── 2026新品: 国产协作臂连接存根 ──
+    def _connect_rokae(self, host, port):
+        """珞石 ROKAE 机器人"""
+        from rokae_sdk import RokaeRobot
+        self._rokae = RokaeRobot(host, port or 8080)
+        self._rokae.connect()
+        self._comm = "rokae"
+
+    def _connect_aubo(self, host, port):
+        """遨博 AUBO 机器人"""
+        from aubo_sdk import AuboRobot
+        self._aubo = AuboRobot(host, port or 8899)
+        self._aubo.connect()
+        self._comm = "aubo"
+
+    def _connect_elite(self, host, port):
+        """艾利特 ELITE 机器人"""
+        from elite_sdk import EliteRobot
+        self._elite = EliteRobot(host, port or 8080)
+        self._elite.connect()
+        self._comm = "elite"
+
+    # ── 2026新品: 国人形机器人连接存根 ──
+    def _connect_zhiyuan(self, host, port):
+        """智元机器人（远征A3/精灵G2/启元Q1/灵犀X2）"""
+        from zhiyuan_sdk import ZhiyuanRobot
+        self._zhiyuan = ZhiyuanRobot(host, port or 8080)
+        self._zhiyuan.connect()
+        self._comm = "zhiyuan"
+
+    def _connect_ubtech(self, host, port):
+        """优必选 Walker S 系列"""
+        from ubtech_sdk import UbtechRobot
+        self._ubtech = UbtechRobot(host, port or 9090)
+        self._ubtech.connect()
+        self._comm = "ubtech"
+
+    def _connect_songyan(self, host, port):
+        """松延动力 Bumi 小布米"""
+        from songyan_sdk import SongyanRobot
+        self._songyan = SongyanRobot(host, port or 8080)
+        self._songyan.connect()
+        self._comm = "songyan"
+
+    def _connect_kepler(self, host, port):
+        """开普勒 K2 大黄蜂"""
+        from kepler_sdk import KeplerRobot
+        self._kepler = KeplerRobot(host, port or 8080)
+        self._kepler.connect()
+        self._comm = "kepler"
+
+    def _connect_matrix(self, host, port):
+        """矩阵超智 MATRIX-3"""
+        from matrix_sdk import MatrixRobot
+        self._matrix = MatrixRobot(host, port or 8080)
+        self._matrix.connect()
+        self._comm = "matrix"
+
+    def _connect_fourier(self, host, port):
+        """傅利叶 GR-3"""
+        from fourier_sdk import FourierRobot
+        self._fourier = FourierRobot(host, port or 8080)
+        self._fourier.connect()
+        self._comm = "fourier"
+
+    def _connect_zhuoyide(self, host, port):
+        """卓益得 Moya"""
+        from zhuoyide_sdk import ZhuoyideRobot
+        self._zhuoyide = ZhuoyideRobot(host, port or 8080)
+        self._zhuoyide.connect()
+        self._comm = "zhuoyide"
+
+    def _connect_linglong(self, host, port):
+        """国家地方共建 灵龙2.0"""
+        from linglong_sdk import LinglongRobot
+        self._linglong = LinglongRobot(host, port or 8080)
+        self._linglong.connect()
+        self._comm = "linglong"
+
+    def _connect_xinghaitu(self, host, port):
+        """星海图 R1"""
+        from xinghaitu_sdk import XinghaituRobot
+        self._xinghaitu = XinghaituRobot(host, port or 8080)
+        self._xinghaitu.connect()
+        self._comm = "xinghaitu"
+
+    def _connect_yinhe(self, host, port):
+        """银河通用 Galbot S2"""
+        from yinhe_sdk import YinheRobot
+        self._yinhe = YinheRobot(host, port or 8080)
+        self._yinhe.connect()
+        self._comm = "yinhe"
+
+    def _connect_qianxun(self, host, port):
+        """千寻智能 Moz1"""
+        from qianxun_sdk import QianxunRobot
+        self._qianxun = QianxunRobot(host, port or 8080)
+        self._qianxun.connect()
+        self._comm = "qianxun"
+
+    def _connect_beijing_robot(self, host, port):
+        """北京人形 天工3.0"""
+        from beijing_robot_sdk import BeijingRobot
+        self._bjrobot = BeijingRobot(host, port or 8080)
+        self._bjrobot.connect()
+        self._comm = "beijing_robot"
+
+    def _connect_tashi(self, host, port):
+        """它石智航 A3"""
+        from tashi_sdk import TashiRobot
+        self._tashi = TashiRobot(host, port or 8080)
+        self._tashi.connect()
+        self._comm = "tashi"
+
+    def _connect_zhipingfang(self, host, port):
+        """智平方 Alpha"""
+        from zhipingfang_sdk import ZhipingfangRobot
+        self._zhipingfang = ZhipingfangRobot(host, port or 8080)
+        self._zhipingfang.connect()
+        self._comm = "zhipingfang"
+
+    # ── 2026新品: AMR连接存根 ──
+    def _connect_hikrobot(self, host, port):
+        """海康机器人 AMR"""
+        from hikrobot_sdk import HikRobot
+        self._hikrobot = HikRobot(host, port or 8080)
+        self._hikrobot.connect()
+        self._comm = "hikrobot"
+
+    def _connect_geek(self, host, port):
+        """极智嘉 Geek+ AMR"""
+        from geek_sdk import GeekRobot
+        self._geek = GeekRobot(host, port or 8080)
+        self._geek.connect()
+        self._comm = "geek"
+
+    def _connect_quicktron(self, host, port):
+        """快仓 Quicktron AMR"""
+        from quicktron_sdk import QuicktronRobot
+        self._quicktron = QuicktronRobot(host, port or 8080)
+        self._quicktron.connect()
+        self._comm = "quicktron"
 
     def disconnect(self):
         """断开连接"""
