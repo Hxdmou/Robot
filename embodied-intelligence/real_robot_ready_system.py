@@ -181,6 +181,44 @@ class RobotBrand(Enum):
     MIR = "Mobile Industrial Robots (丹麦·MIR, 被泰瑞达收购)"
     TURTLEBOT = "TurtleBot (移动研究平台, 通用)"
     CLEARPATH = "ClearPath Husky/Jackal (移动平台, 加拿大)"
+    # ── AI眼镜/AI穿戴 (WAIC 2026首发) ──
+    IFLYTEK_GLASSES = "科大讯飞AI眼镜 (40g轻量化, 唇动识别多模态降噪, WAIC 2026)"
+    MOONIX_GLASSES = "Moonix莫奈AI眼镜 (14.9g极致轻薄, 主动式AI记录, WAIC 2026首发)"
+    LIWEIKE_XAI = "李未可X-AI记忆眼镜 (以长期记忆为核心, 主动式AI记录, WAIC 2026首发)"
+    ROKID_GLASSES = "Rokid Glasses (乐奇AI助手2.0, 主动智能, WAIC 2026)"
+    QIANWEN_S1 = "阿里千问AI眼镜S1 (热插拔可换电, 智能体眼镜, WAIC 2026)"
+    TENCENT_MEMORY = "腾讯AI记忆眼镜 (首款接入WorkBuddy, WAIC 2026)"
+    # ── AI手机/AI终端 (WAIC 2026首发) ──
+    STEPX_NEO = "阶跃星辰STEPX Neo (全球首款大模型原生智能体手机, Step AOS, WAIC 2026镇馆之宝)"
+    HONOR_ROBOT = "荣耀Robot Phone (全球首款机器人手机, 4自由度云台, Agentic OS, WAIC 2026)"
+    ZTE_NAVIX = "中兴努比亚NaviX Ultra (第二代豆包AI智能体手机, GUI Agent, WAIC 2026)"
+    LENOVO_L3 = "联想L3级AI终端 (18款AI PC/平板/手机, 国标最高等级L3, WAIC 2026)"
+    # ── AI芯片/AI算力 (WAIC 2026首发) ──
+    HUAWEI_ATLAS950 = "华为昇腾950 Atlas 950 SuperPoD (业界最大超节点, 256TB内存, 1024卡互联, WAIC 2026首次真机)"
+    ZTE_OEX = "中兴OEX超节点 (全栈AI算力超节点, WAIC 2026)"
+    MUXI_GPU = "沐曦GPU (国产GPU, ORCA OS适配, WAIC 2026)"
+    PHYTIUM_S2500 = "飞腾S2500 (国产服务器CPU, AI算力支撑, WAIC 2026)"
+    # ── AI自动驾驶/无人车 (WAIC 2026首发) ──
+    WERIDE_GXR = "文远知行Robotaxi GXR (L4级量产Robotaxi, 物理AI计算平台, 四地纯无人运营, WAIC 2026)"
+    JIUZHI_Z5 = "九识智能Z5 2026款 (L4无图方案无人物流车, 全球首个无图量产, 6.5m³/1000kg, WAIC 2026)"
+    SAIC_ROBOTAXI = "上汽Robotaxi量产定制车 (上海首款L4前装量产, 2027亮相, Momenta智驾, 享道运营, WAIC 2026)"
+    HELLO_HR1 = "哈啰Robotaxi HR1 (东风日产启辰定制, L4全栈自研, 广深投放, WAIC 2026)"
+    # ── 车规级AI芯片 (WAIC 2026首发) ──
+    BYD_XUANJI_A3 = "比亚迪璇玑A3 (国内首款量产4nm车规级芯片, 3颗2100TOPS, L3/L4适配, WAIC 2026)"
+    NIO_NX9031 = "蔚来神玑NX9031系列 (5nm车规芯片, 30万颗出货, 蔚来/乐道全系, WAIC 2026)"
+    LI_MAHER_M100 = "理想马赫M100 (自研车规级5nm芯片, 具身智能全栈, WAIC 2026)"
+    # ── AI大模型/世界模型 (WAIC 2026首发) ──
+    WERIDE_WITT = "文远知行WeRide WITT (物理AI认知基础大模型, 道路数据+仿真世界模型双闭环, WAIC 2026)"
+    GEELY_WAM = "吉利WAM世界行为模型 (汽车世界模型, 舱驾融合, WAIC 2026)"
+    BYD_TIANSHE_5 = "比亚迪天神之眼5.0 (全域智驾大模型, 物理世界逻辑推演, 8ms延迟, WAIC 2026)"
+    # ── XR/VR/AR (WAIC 2026首发) ──
+    ROKID_AR = "Rokid AR眼镜/头盔 (Rokid Glasses+AR+Helmet矩阵, 乐奇AI助手2.0, WAIC 2026)"
+    INMO_GLASSES = "INMO影目AI眼镜 (消费级AR眼镜, WAIC 2026)"
+    VITURE_GLASSES = "VITURE AI眼镜 (消费级XR眼镜, WAIC 2026)"
+    # ── AI智能体 (WAIC 2026首发) ──
+    GEELY_EVA = "吉利超级Eva智能体 (WAM世界模型支撑, 舱驾融合, 极氪8X搭载, WAIC 2026)"
+    BYD_DIDIXIA = "比亚迪迪迪虾全域AI智能体 (腾势Z9 GT全系搭载, 90秒免唤醒, 六分区人声, WAIC 2026)"
+    TITAN_NAVOS_2 = "钛动Navos 2.0 (全球首批AI营销智能体, 多智能体协同, 营销全链路, WAIC 2026)"
     # ── 仿真环境 ──
     SIMULATION = "PyBullet/Mujoco 仿真环境 (无需硬件)"
 
@@ -550,6 +588,97 @@ class RobotHAL:
             "husky": RobotBrand.CLEARPATH,
             "mir": RobotBrand.MIR,
             "mir_amr": RobotBrand.MIR,
+            # ── AI眼镜/AI穿戴 (WAIC 2026) ──
+            "iflytek_glasses": RobotBrand.IFLYTEK_GLASSES,
+            "讯飞眼镜": RobotBrand.IFLYTEK_GLASSES,
+            "科大讯飞眼镜": RobotBrand.IFLYTEK_GLASSES,
+            "moonix": RobotBrand.MOONIX_GLASSES,
+            "莫奈": RobotBrand.MOONIX_GLASSES,
+            "moonix_glasses": RobotBrand.MOONIX_GLASSES,
+            "liweike": RobotBrand.LIWEIKE_XAI,
+            "李未可": RobotBrand.LIWEIKE_XAI,
+            "xai": RobotBrand.LIWEIKE_XAI,
+            "rokid": RobotBrand.ROKID_GLASSES,
+            "乐奇": RobotBrand.ROKID_GLASSES,
+            "rokid_glasses": RobotBrand.ROKID_GLASSES,
+            "qianwen_s1": RobotBrand.QIANWEN_S1,
+            "千问眼镜": RobotBrand.QIANWEN_S1,
+            "ali_glasses": RobotBrand.QIANWEN_S1,
+            "tencent_memory": RobotBrand.TENCENT_MEMORY,
+            "腾讯记忆眼镜": RobotBrand.TENCENT_MEMORY,
+            # ── AI手机/AI终端 (WAIC 2026) ──
+            "stepx_neo": RobotBrand.STEPX_NEO,
+            "阶跃星辰": RobotBrand.STEPX_NEO,
+            "stepx": RobotBrand.STEPX_NEO,
+            "honor_robot": RobotBrand.HONOR_ROBOT,
+            "荣耀robot": RobotBrand.HONOR_ROBOT,
+            "荣耀机器人手机": RobotBrand.HONOR_ROBOT,
+            "zte_navix": RobotBrand.ZTE_NAVIX,
+            "中兴navix": RobotBrand.ZTE_NAVIX,
+            "努比亚": RobotBrand.ZTE_NAVIX,
+            "lenovo_l3": RobotBrand.LENOVO_L3,
+            "联想l3": RobotBrand.LENOVO_L3,
+            "联想ai终端": RobotBrand.LENOVO_L3,
+            # ── AI芯片/AI算力 (WAIC 2026) ──
+            "huawei_atlas950": RobotBrand.HUAWEI_ATLAS950,
+            "华为昇腾950": RobotBrand.HUAWEI_ATLAS950,
+            "atlas_950": RobotBrand.HUAWEI_ATLAS950,
+            "zte_oex": RobotBrand.ZTE_OEX,
+            "中兴oex": RobotBrand.ZTE_OEX,
+            "oex超节点": RobotBrand.ZTE_OEX,
+            "muxi_gpu": RobotBrand.MUXI_GPU,
+            "沐曦": RobotBrand.MUXI_GPU,
+            "phytium": RobotBrand.PHYTIUM_S2500,
+            "飞腾": RobotBrand.PHYTIUM_S2500,
+            "s2500": RobotBrand.PHYTIUM_S2500,
+            # ── AI自动驾驶/无人车 ──
+            "weride_gxr": RobotBrand.WERIDE_GXR,
+            "文远知行gxr": RobotBrand.WERIDE_GXR,
+            "robotaxi_gxr": RobotBrand.WERIDE_GXR,
+            "jiuzhi_z5": RobotBrand.JIUZHI_Z5,
+            "九识z5": RobotBrand.JIUZHI_Z5,
+            "九识智能": RobotBrand.JIUZHI_Z5,
+            "saic_robotaxi": RobotBrand.SAIC_ROBOTAXI,
+            "上汽robotaxi": RobotBrand.SAIC_ROBOTAXI,
+            "享道robotaxi": RobotBrand.SAIC_ROBOTAXI,
+            "hello_hr1": RobotBrand.HELLO_HR1,
+            "哈啰hr1": RobotBrand.HELLO_HR1,
+            "哈啰robotaxi": RobotBrand.HELLO_HR1,
+            # ── 车规级AI芯片 ──
+            "byd_xuanji_a3": RobotBrand.BYD_XUANJI_A3,
+            "比亚迪璇玑a3": RobotBrand.BYD_XUANJI_A3,
+            "璇玑a3": RobotBrand.BYD_XUANJI_A3,
+            "nio_nx9031": RobotBrand.NIO_NX9031,
+            "蔚来神玑": RobotBrand.NIO_NX9031,
+            "神玑nx9031": RobotBrand.NIO_NX9031,
+            "li_maher_m100": RobotBrand.LI_MAHER_M100,
+            "理想马赫m100": RobotBrand.LI_MAHER_M100,
+            "马赫m100": RobotBrand.LI_MAHER_M100,
+            # ── AI大模型/世界模型 ──
+            "weride_witt": RobotBrand.WERIDE_WITT,
+            "文远知行witt": RobotBrand.WERIDE_WITT,
+            "geely_wam": RobotBrand.GEELY_WAM,
+            "吉利wam": RobotBrand.GEELY_WAM,
+            "世界行为模型": RobotBrand.GEELY_WAM,
+            "byd_tianshe_5": RobotBrand.BYD_TIANSHE_5,
+            "比亚迪天神之眼5": RobotBrand.BYD_TIANSHE_5,
+            "天神之眼5.0": RobotBrand.BYD_TIANSHE_5,
+            # ── XR/VR/AR ──
+            "rokid_ar": RobotBrand.ROKID_AR,
+            "rokid_helmet": RobotBrand.ROKID_AR,
+            "inmo": RobotBrand.INMO_GLASSES,
+            "影目": RobotBrand.INMO_GLASSES,
+            "viture": RobotBrand.VITURE_GLASSES,
+            # ── AI智能体 ──
+            "geely_eva": RobotBrand.GEELY_EVA,
+            "吉利eva": RobotBrand.GEELY_EVA,
+            "超级eva": RobotBrand.GEELY_EVA,
+            "byd_didixia": RobotBrand.BYD_DIDIXIA,
+            "比亚迪迪迪虾": RobotBrand.BYD_DIDIXIA,
+            "迪迪虾": RobotBrand.BYD_DIDIXIA,
+            "titan_navos_2": RobotBrand.TITAN_NAVOS_2,
+            "钛动navos": RobotBrand.TITAN_NAVOS_2,
+            "navos 2.0": RobotBrand.TITAN_NAVOS_2,
         }
         return mapping.get(self.backend, RobotBrand.SIMULATION)
 
@@ -757,6 +886,44 @@ class RobotHAL:
             "MIR": self._connect_amr,
             "TURTLEBOT": self._connect_turtlebot,
             "CLEARPATH": self._connect_clearpath,
+            # AI眼镜/AI穿戴
+            "IFLYTEK_GLASSES": self._connect_iflytek_glasses,
+            "MOONIX_GLASSES": self._connect_moonix,
+            "LIWEIKE_XAI": self._connect_liweike,
+            "ROKID_GLASSES": self._connect_rokid,
+            "QIANWEN_S1": self._connect_qianwen_glasses,
+            "TENCENT_MEMORY": self._connect_tencent_glasses,
+            # AI手机/AI终端
+            "STEPX_NEO": self._connect_stepx,
+            "HONOR_ROBOT": self._connect_honor_robot,
+            "ZTE_NAVIX": self._connect_zte_navix,
+            "LENOVO_L3": self._connect_lenovo_l3,
+            # AI芯片/AI算力
+            "HUAWEI_ATLAS950": self._connect_huawei_atlas,
+            "ZTE_OEX": self._connect_zte_oex,
+            "MUXI_GPU": self._connect_muxi,
+            "PHYTIUM_S2500": self._connect_phytium,
+            # AI自动驾驶/无人车
+            "WERIDE_GXR": self._connect_weride,
+            "JIUZHI_Z5": self._connect_jiuzhi,
+            "SAIC_ROBOTAXI": self._connect_saic_robotaxi,
+            "HELLO_HR1": self._connect_hello_robotaxi,
+            # 车规级AI芯片
+            "BYD_XUANJI_A3": self._connect_byd_chip,
+            "NIO_NX9031": self._connect_nio_chip,
+            "LI_MAHER_M100": self._connect_li_chip,
+            # AI大模型/世界模型
+            "WERIDE_WITT": self._connect_weride_witt,
+            "GEELY_WAM": self._connect_geely_wam,
+            "BYD_TIANSHE_5": self._connect_byd_tianshe,
+            # XR/VR/AR
+            "ROKID_AR": self._connect_rokid,
+            "INMO_GLASSES": self._connect_inmo,
+            "VITURE_GLASSES": self._connect_viture,
+            # AI智能体
+            "GEELY_EVA": self._connect_geely_eva,
+            "BYD_DIDIXIA": self._connect_byd_didixia,
+            "TITAN_NAVOS_2": self._connect_titan_navos,
         }
 
         connect_fn = connect_map.get(brand_name)
@@ -1436,6 +1603,121 @@ class RobotHAL:
             "ZHONGJIAN_JOINT": {  # 中坚轮毂电机/行星关节模组
                 "type": "关节模组", "motors": ["轮毂电机", "行星关节"],
             },
+            # ── AI眼镜/AI穿戴 ──
+            "IFLYTEK_GLASSES": {  # 科大讯飞AI眼镜
+                "weight": 40, "features": ["唇动识别", "多模态降噪", "多场景翻译"],
+            },
+            "MOONIX_GLASSES": {  # Moonix莫奈AI眼镜
+                "weight": 14.9, "battery_hours": 16, "price": 2299,
+                "features": ["主动式AI记录", "无感记录", "个人数字记忆"],
+            },
+            "LIWEIKE_XAI": {  # 李未可X-AI记忆眼镜
+                "features": ["长期记忆", "主动式AI记录", "会议纪要自动生成"],
+            },
+            "ROKID_GLASSES": {  # Rokid Glasses
+                "features": ["乐奇AI助手2.0", "主动智能", "行程自动记录"],
+            },
+            "QIANWEN_S1": {  # 阿里千问AI眼镜S1
+                "features": ["热插拔可换电", "智能体眼镜", "第三方Skill调用"],
+            },
+            "TENCENT_MEMORY": {  # 腾讯AI记忆眼镜
+                "features": ["WorkBuddy接入", "AI记忆"],
+            },
+            # ── AI手机/AI终端 ──
+            "STEPX_NEO": {  # 阶跃星辰STEPX Neo
+                "os": "Step AOS", "features": ["大模型原生", "智能体手机", "WAIC镇馆之宝"],
+            },
+            "HONOR_ROBOT": {  # 荣耀Robot Phone
+                "dofs_gimbal": 4, "os": "Agentic OS",
+                "features": ["机器人手机", "4自由度云台", "跨App操作"],
+            },
+            "ZTE_NAVIX": {  # 中兴努比亚NaviX Ultra
+                "features": ["第二代豆包AI", "GUI Agent", "跨App模拟点击"],
+            },
+            "LENOVO_L3": {  # 联想L3级AI终端
+                "level": "L3", "devices": 18,
+                "types": ["AI PC", "AI平板", "AI手机"],
+            },
+            # ── AI芯片/AI算力 ──
+            "HUAWEI_ATLAS950": {  # 华为昇腾950
+                "memory_tb": 256, "npu_cards": 1024,
+                "features": ["业界最大超节点", "统一编址", "1024卡高速互联"],
+            },
+            "ZTE_OEX": {  # 中兴OEX超节点
+                "features": ["全栈AI算力超节点"],
+            },
+            "MUXI_GPU": {  # 沐曦GPU
+                "features": ["国产GPU", "ORCA OS适配"],
+            },
+            "PHYTIUM_S2500": {  # 飞腾S2500
+                "features": ["国产服务器CPU", "AI算力支撑"],
+            },
+            # ── AI自动驾驶/无人车 ──
+            "WERIDE_GXR": {  # 文远知行Robotaxi GXR
+                "level": "L4", "cities": 4,
+                "features": ["物理AI计算平台", "纯无人商业化运营"],
+            },
+            "JIUZHI_Z5": {  # 九识智能Z5 2026款
+                "level": "L4", "cargo_volume": "6.5m³", "payload_kg": 1000,
+                "features": ["无图方案", "全球首个无图量产", "1天部署"],
+            },
+            "SAIC_ROBOTAXI": {  # 上汽Robotaxi量产定制车
+                "level": "L4", "launch": 2027,
+                "partners": ["上汽", "Momenta", "享道出行"],
+                "features": ["前装量产", "上海首款"],
+            },
+            "HELLO_HR1": {  # 哈啰Robotaxi HR1
+                "level": "L4", "partner": "东风日产启辰",
+                "features": ["广深投放", "10城覆盖"],
+            },
+            # ── 车规级AI芯片 ──
+            "BYD_XUANJI_A3": {  # 比亚迪璇玑A3
+                "process": "4nm", "tops_total": 2100, "level": ["L3", "L4"],
+                "features": ["国内首款量产4nm车规级", "3颗协同"],
+            },
+            "NIO_NX9031": {  # 蔚来神玑NX9031系列
+                "process": "5nm", "shipments": 300000,
+                "models": ["NX9031X", "NX9031U", "NX9031C"],
+                "vehicles": ["蔚来全系", "乐道全系"],
+            },
+            "LI_MAHER_M100": {  # 理想马赫M100
+                "process": "5nm",
+                "features": ["自研车规级", "具身智能全栈"],
+            },
+            # ── AI大模型/世界模型 ──
+            "WERIDE_WITT": {  # 文远知行WeRide WITT
+                "type": "物理AI认知基础大模型",
+                "features": ["真实道路数据", "仿真世界模型双闭环"],
+            },
+            "GEELY_WAM": {  # 吉利WAM世界行为模型
+                "type": "汽车世界模型",
+                "features": ["舱驾融合", "超级Eva智能体支撑"],
+            },
+            "BYD_TIANSHE_5": {  # 比亚迪天神之眼5.0
+                "type": "全域智驾大模型",
+                "latency_ms": 8,
+                "features": ["物理世界逻辑推演"],
+            },
+            # ── XR/VR/AR ──
+            "INMO_GLASSES": {  # INMO影目AI眼镜
+                "type": "消费级AR眼镜",
+            },
+            "VITURE_GLASSES": {  # VITURE AI眼镜
+                "type": "消费级XR眼镜",
+            },
+            # ── AI智能体 ──
+            "GEELY_EVA": {  # 吉利超级Eva智能体
+                "features": ["高情商情感交互", "长链路推理", "舱驾融合"],
+                "vehicle": "极氪8X",
+            },
+            "BYD_DIDIXIA": {  # 比亚迪迪迪虾全域AI智能体
+                "features": ["90秒免唤醒", "六分区人声", "舱驾联动"],
+                "vehicles": ["腾势Z9 GT全系"],
+            },
+            "TITAN_NAVOS_2": {  # 钛动Navos 2.0
+                "type": "AI营销智能体",
+                "features": ["多智能体协同", "营销全链路"],
+            },
         }
         self._brand_config = brand_configs.get(self.brand.name, {})
 
@@ -1912,6 +2194,130 @@ class RobotHAL:
         self._bt = BlueTouchSensor(host, port or 8080)
         self._bt.connect()
         self._comm = "bluetouch"
+
+    # ===== AI眼镜/AI穿戴连接存根 =====
+    def _connect_iflytek_glasses(self, host, port):
+        """科大讯飞AI眼镜"""
+        self._comm = "iflytek_glasses"
+
+    def _connect_moonix(self, host, port):
+        """Moonix莫奈AI眼镜"""
+        self._comm = "moonix"
+
+    def _connect_liweike(self, host, port):
+        """李未可X-AI记忆眼镜"""
+        self._comm = "liweike"
+
+    def _connect_rokid(self, host, port):
+        """Rokid Glasses"""
+        self._comm = "rokid"
+
+    def _connect_qianwen_glasses(self, host, port):
+        """阿里千问AI眼镜S1"""
+        self._comm = "qianwen_glasses"
+
+    def _connect_tencent_glasses(self, host, port):
+        """腾讯AI记忆眼镜"""
+        self._comm = "tencent_glasses"
+
+    # ===== AI手机/AI终端连接存根 =====
+    def _connect_stepx(self, host, port):
+        """阶跃星辰STEPX Neo"""
+        self._comm = "stepx"
+
+    def _connect_honor_robot(self, host, port):
+        """荣耀Robot Phone"""
+        self._comm = "honor_robot"
+
+    def _connect_zte_navix(self, host, port):
+        """中兴努比亚NaviX Ultra"""
+        self._comm = "zte_navix"
+
+    def _connect_lenovo_l3(self, host, port):
+        """联想L3级AI终端"""
+        self._comm = "lenovo_l3"
+
+    # ===== AI芯片/AI算力连接存根 =====
+    def _connect_huawei_atlas(self, host, port):
+        """华为昇腾950 Atlas 950 SuperPoD"""
+        self._comm = "huawei_atlas"
+
+    def _connect_zte_oex(self, host, port):
+        """中兴OEX超节点"""
+        self._comm = "zte_oex"
+
+    def _connect_muxi(self, host, port):
+        """沐曦GPU"""
+        self._comm = "muxi"
+
+    def _connect_phytium(self, host, port):
+        """飞腾S2500"""
+        self._comm = "phytium"
+
+    # ===== AI自动驾驶/无人车连接存根 =====
+    def _connect_weride(self, host, port):
+        """文远知行Robotaxi GXR"""
+        self._comm = "weride"
+
+    def _connect_jiuzhi(self, host, port):
+        """九识智能Z5"""
+        self._comm = "jiuzhi"
+
+    def _connect_saic_robotaxi(self, host, port):
+        """上汽Robotaxi量产定制车"""
+        self._comm = "saic_robotaxi"
+
+    def _connect_hello_robotaxi(self, host, port):
+        """哈啰Robotaxi HR1"""
+        self._comm = "hello_robotaxi"
+
+    # ===== 车规级AI芯片连接存根 =====
+    def _connect_byd_chip(self, host, port):
+        """比亚迪璇玑A3"""
+        self._comm = "byd_chip"
+
+    def _connect_nio_chip(self, host, port):
+        """蔚来神玑NX9031"""
+        self._comm = "nio_chip"
+
+    def _connect_li_chip(self, host, port):
+        """理想马赫M100"""
+        self._comm = "li_chip"
+
+    # ===== AI大模型/世界模型连接存根 =====
+    def _connect_weride_witt(self, host, port):
+        """文远知行WeRide WITT"""
+        self._comm = "weride_witt"
+
+    def _connect_geely_wam(self, host, port):
+        """吉利WAM世界行为模型"""
+        self._comm = "geely_wam"
+
+    def _connect_byd_tianshe(self, host, port):
+        """比亚迪天神之眼5.0"""
+        self._comm = "byd_tianshe"
+
+    # ===== XR/VR/AR连接存根 =====
+    def _connect_inmo(self, host, port):
+        """INMO影目AI眼镜"""
+        self._comm = "inmo"
+
+    def _connect_viture(self, host, port):
+        """VITURE AI眼镜"""
+        self._comm = "viture"
+
+    # ===== AI智能体连接存根 =====
+    def _connect_geely_eva(self, host, port):
+        """吉利超级Eva智能体"""
+        self._comm = "geely_eva"
+
+    def _connect_byd_didixia(self, host, port):
+        """比亚迪迪迪虾全域AI智能体"""
+        self._comm = "byd_didixia"
+
+    def _connect_titan_navos(self, host, port):
+        """钛动Navos 2.0"""
+        self._comm = "titan_navos"
 
     def disconnect(self):
         """断开连接"""
@@ -2970,7 +3376,7 @@ ROBOT_PURCHASE_GUIDE = {
          "cons": "无手臂、精细操作有限",
          "use_case": "教学科研、娱乐表演、基础巡检",
          "source": "宇树科技 (Unitree, 杭州宇树科技有限公司, 四足入门最低门槛)"},
-        {"name": "松延动力Bumi小布米", "brand": "松延动力", "price": "¥8,000-10,000",
+        {"name": "松延动力 Bumi 小布米", "brand": "松延动力", "price": "¥8,000-10,000",
          "height": "94cm", "weight": "12kg", "dofs": "全身20+",
          "pros": "人形机器人最低门槛、价格不足万元、家庭友好",
          "cons": "尺寸小、负载有限",
@@ -3129,7 +3535,7 @@ ROBOT_PURCHASE_GUIDE = {
          "cons": "手部操作能力有限、价格高",
          "use_case": "人形机器人研发、工业巡检、特种作业、运动测试",
          "source": "宇树科技 (Unitree, 杭州宇树科技有限公司, 全尺寸人形旗舰)"},
-        {"name": "优必选Walker S2", "brand": "优必选", "price": "¥500,000-1,000,000",
+        {"name": "优必选 Walker S2", "brand": "优必选", "price": "¥500,000-1,000,000",
          "height": "160cm", "weight": "67kg", "dofs": "全身41",
          "pros": "工业人形已量产、全年交付千台+、订单1.3万台、汽车产线验证",
          "cons": "价格较高",
@@ -3141,13 +3547,13 @@ ROBOT_PURCHASE_GUIDE = {
          "cons": "交付周期较长",
          "use_case": "工厂作业、家政服务、科研平台、商业服务",
          "source": "银河通用机器人 (北京银河通用机器人有限公司, 前小米机器人团队)"},
-        {"name": "智元精灵G2", "brand": "智元机器人", "price": "¥300,000-500,000",
+        {"name": "智元精灵 G2", "brand": "智元机器人", "price": "¥300,000-500,000",
          "height": "155cm", "weight": "55kg", "dofs": "全身40+",
          "pros": "良品率99.99%、量产爬坡、订单5100+台、2026年数万台目标",
          "cons": "精细操作待验证",
          "use_case": "工厂分拣、产线组装、物流搬运、科研",
          "source": "智元机器人 (Agibot, 上海智元新创技术有限公司, 精灵系列桌面人形)"},
-        {"name": "智元远征A3 Ultra", "brand": "智元机器人", "price": "¥600,000-900,000",
+        {"name": "智元远征 A3 Ultra", "brand": "智元机器人", "price": "¥600,000-900,000",
          "height": "175cm", "weight": "65kg", "dofs": "全身50+",
          "pros": "2026WAIC首发、超拟人灵巧手+柔性腰、全自由度腰部",
          "cons": "价格高、量产初期",
@@ -3165,31 +3571,31 @@ ROBOT_PURCHASE_GUIDE = {
          "cons": "性能有限",
          "use_case": "家庭陪伴、儿童教育、迎宾接待、文化娱乐",
          "source": "宇树科技 (Unitree, 杭州宇树科技有限公司, 消费级人形智能伙伴)"},
-        {"name": "开普勒K2大黄蜂", "brand": "开普勒机器人", "price": "¥400,000-700,000",
+        {"name": "开普勒 K2 大黄蜂", "brand": "开普勒机器人", "price": "¥400,000-700,000",
          "height": "175cm", "weight": "85kg", "dofs": "全身52",
          "pros": "全球首款商用混动架构人形、双臂协同30kg、8小时长续航、能效81.3%",
          "cons": "价格高、量产初期",
          "use_case": "汽车制造、重型搬运、新能源产线、高端工业",
          "source": "开普勒探索机器人 (深圳开普勒探索机器人有限公司, 仿生四足+人形双臂)"},
-        {"name": "智元灵犀X2", "brand": "智元机器人", "price": "¥250,000-400,000",
+        {"name": "智元灵犀 X2", "brand": "智元机器人", "price": "¥250,000-400,000",
          "height": "130cm", "weight": "45kg", "dofs": "全身35+",
          "pros": "iF设计奖、硅光动语多模态大模型、毫秒级情感响应、康养陪护首选",
          "cons": "负载有限",
          "use_case": "康养陪护、家庭陪伴、教育互动、商业服务",
          "source": "智元机器人 (Agibot, 上海智元新创技术有限公司, 灵犀系列女性人形)"},
-        {"name": "傅利叶GR-3", "brand": "傅利叶智能", "price": "¥300,000-500,000",
+        {"name": "傅利叶 GR-3", "brand": "傅利叶智能", "price": "¥300,000-500,000",
          "height": "165cm", "weight": "60kg", "dofs": "全身40+",
          "pros": "业内首款全尺寸情感陪护机器人、柔肤软包、全感交互系统",
          "cons": "工业能力有限",
          "use_case": "康养陪护、情感陪伴、特殊教育、医疗康复",
          "source": "傅利叶智能 (Fourier Intelligence, 上海傅利叶智能科技有限公司, 2025年量产GR-3)"},
-        {"name": "星海图R1", "brand": "星海图机器人", "price": "¥199,000-350,000",
+        {"name": "星海图 R1", "brand": "星海图机器人", "price": "¥199,000-350,000",
          "height": "160cm", "weight": "55kg", "dofs": "全身40+",
          "pros": "清华系、EFM-1双系统一脑多形、G0 VLA开源、150+科研院所使用",
          "cons": "品牌较新",
          "use_case": "顶级科研、具身智能算法、大模型机器人、高校实验室",
          "source": "星海图机器人 (北京星海图机器人有限公司, 清华系EFM-1双系统)"},
-        {"name": "智元远征A3 Ultra", "brand": "智元机器人", "price": "¥600,000-900,000",
+        {"name": "智元远征 A3 Ultra", "brand": "智元机器人", "price": "¥600,000-900,000",
          "height": "175cm", "weight": "65kg", "dofs": "全身50+",
          "pros": "2026WAIC首发、超拟人灵巧手+柔性腰、全自由度腰部",
          "cons": "价格高、量产初期",
@@ -3236,7 +3642,7 @@ ROBOT_PURCHASE_GUIDE = {
          "cons": "需二次开发",
          "use_case": "科研平台、开发者生态、双轮足研究、高校实验室",
          "source": "成都人形机器人创新中心 (全球首个全尺寸重载双轮足开源平台, 本体+软件全开源)"},
-        {"name": "AI神经网络电子皮肤", "brand": "成都人形创新中心", "price": "¥19,900-49,900",
+        {"name": "AI 神经网络电子皮肤", "brand": "成都人形创新中心", "price": "¥19,900-49,900",
          "pros": "0.005N微力识别、全球首个AI神经网络电子皮肤、羽毛级触觉感知",
          "cons": "附件产品",
          "use_case": "精密操作、机器人触觉、人机交互、医疗康复",
@@ -3249,13 +3655,13 @@ ROBOT_PURCHASE_GUIDE = {
          "use_case": "服装制造、汽车装配、电子3C、石化实验室、多品种小批量生产",
          "source": "浙江人形机器人创新中心 (双臂协同作业机器人, 杰克科技2000台服装场景订单, 工人日报)"},
         # ── WAIC 2026世界人工智能大会首发新品 ──
-        {"name": "启元Q1", "brand": "启元机器人（上纬新材）", "price": "开发者小批量交付中",
+        {"name": "启元 Q1", "brand": "启元机器人（上纬新材）", "price": "开发者小批量交付中",
          "height": "88cm", "weight": "15kg", "dofs": "全身22",
          "pros": "全球首款小尺寸全身力控人形、<15kg超轻量化、22自由度全身联动、柔性亲肤机身、结构件开源",
          "cons": "小批量交付中",
          "use_case": "家庭陪伴、看护、轻交互、开发者改装、教育科研",
          "source": "启元机器人 (上纬新材旗下消费级具身智能品牌, 2025年底首发, 2026WAIC探索者版, A'Design金奖)"},
-        {"name": "启元T1", "brand": "启元机器人（上纬新材）", "price": "¥15,999（标准版, 9月预售）",
+        {"name": "启元 T1", "brand": "启元机器人（上纬新材）", "price": "¥15,999（标准版, 9月预售）",
          "weight": "20kg", "dofs": "全身18+",
          "pros": "全球首款可变形个人机器人、Transformer跨形态架构、轮足人形/四足自主切换、室内静音/户外越障、智能影像拍摄",
          "cons": "9月预售, 11月前后公开发售",
@@ -3273,25 +3679,25 @@ ROBOT_PURCHASE_GUIDE = {
          "cons": "工业场景专用",
          "use_case": "工厂拆垛、产线上料、物料搬运、仓储作业",
          "source": "乐聚机器人 (哈尔滨乐聚智能科技有限公司, WAIC 2026工业落地主打产品)"},
-        {"name": "魔法原子MagicBot X1", "brand": "魔法原子", "price": "¥599,000-899,000",
+        {"name": "魔法原子 MagicBot X1", "brand": "魔法原子", "price": "¥599,000-899,000",
          "height": "180cm", "weight": "80kg", "dofs": "全身31",
          "pros": "180cm全尺寸通用人形、单关节峰值450N·m、Magic-VLA K02具身大模型、乒乓球对打/扣篮/击剑等高动态动作",
          "cons": "价格高",
          "use_case": "工厂通用作业、商用服务、科研平台、高动态场景",
          "source": "魔法原子 (MagicAtom, WAIC 2026一次性发布三款新品, 交管机器人已落地无锡马拉松)"},
-        {"name": "魔法原子MagicBot D1", "brand": "魔法原子", "price": "¥299,000-459,000",
+        {"name": "魔法原子 MagicBot D1", "brand": "魔法原子", "price": "¥299,000-459,000",
          "weight": "55kg", "dofs": "全身20+",
          "pros": "轮式人形、纯视觉导航厂区物料转运、已在追觅智能制造工厂试点",
          "cons": "轮式限制越障",
          "use_case": "厂区物料转运、车间配送、仓储搬运",
          "source": "魔法原子 (MagicAtom, WAIC 2026首发, 追觅工厂试点)"},
-        {"name": "魔法原子MagicDog T1", "brand": "魔法原子", "price": "¥149,000-249,000",
+        {"name": "魔法原子 MagicDog T1", "brand": "魔法原子", "price": "¥149,000-249,000",
          "weight": "15kg", "dofs": "全身12",
          "pros": "轻量化四足、狭小空间设备巡检、细微外观缺陷识别",
          "cons": "负载有限",
          "use_case": "设备巡检、狭小空间检测、工业质检",
          "source": "魔法原子 (MagicAtom, WAIC 2026首发)"},
-        {"name": "智元精灵G2 Max", "brand": "智元机器人", "price": "¥259,000-459,000",
+        {"name": "智元精灵 G2 Max", "brand": "智元机器人", "price": "¥259,000-459,000",
          "weight": "75kg", "dofs": "全身25+",
          "pros": "轮式仓储人形、双臂码垛50kg、京东物流联合研发、已落地京东物流园区实测",
          "cons": "轮式底盘限制",
@@ -3308,13 +3714,13 @@ ROBOT_PURCHASE_GUIDE = {
          "cons": "工业场景专用",
          "use_case": "化工巡检、电力运维、油气仓储、管线监测、应急处置",
          "source": "北京人形机器人创新中心 (具身天工全系列+慧思开物平台, WAIC 2026)"},
-        {"name": "众擎T800", "brand": "众擎机器人", "price": "¥299,000-599,000",
+        {"name": "众擎 T800", "brand": "众擎机器人", "price": "¥299,000-599,000",
          "height": "180cm", "weight": "85kg", "dofs": "全身30+",
          "pros": "全尺寸格斗人形、高强度抗扰测试、全球人形机器人自由格斗联赛指定机型",
          "cons": "特殊用途",
          "use_case": "文旅服务、格斗表演、极限抗扰测试、科研平台",
          "source": "众擎机器人 (WAIC 2026, 全球人形机器人自由格斗联赛发起方)"},
-        {"name": "普渡PUDU D7", "brand": "普渡科技", "price": "¥199,000-359,000",
+        {"name": "普渡 PUDU D7", "brand": "普渡科技", "price": "¥199,000-359,000",
          "weight": "55kg", "dofs": "全身20+",
          "pros": "类人形智能作业伙伴、14kg负载/2m作业高度、面向工厂仓储零售多场景",
          "cons": "新品首发",
@@ -3333,54 +3739,54 @@ ROBOT_PURCHASE_GUIDE = {
          "cons": "轮式底盘限制",
          "use_case": "无人零售、货架取货、智能仓储、商场导购",
          "source": "浩海星空 (WAIC 2026首发, 机器人零售星空舱, 极新探展)"},
-        {"name": "节卡JAKA Kargo", "brand": "节卡机器人", "price": "¥359,000-599,000",
+        {"name": "节卡 JAKA Kargo", "brand": "节卡机器人", "price": "¥359,000-599,000",
          "weight": "70kg", "dofs": "全身22+",
          "pros": "轮式人形复合、微米级自主定位底盘、汽车零部件装配、料箱自主堆叠",
          "cons": "高精度场景专用",
          "use_case": "汽车3C高精度柔性产线、零部件装配、料箱搬运",
          "source": "节卡机器人 (JAKA, WAIC 2026首发, 极新探展)"},
-        {"name": "节卡K1-25", "brand": "节卡机器人", "price": "¥499,000-799,000",
+        {"name": "节卡 K1-25", "brand": "节卡机器人", "price": "¥499,000-799,000",
          "weight": "90kg", "dofs": "全身30+",
          "pros": "大负载双臂协作人形、50KG双臂负载、重型物料搬运、大件零部件组装",
          "cons": "大负载专用",
          "use_case": "重型物料搬运、大件组装、产线上下料",
          "source": "节卡机器人 (JAKA, WAIC 2026首发, 极新探展)"},
-        {"name": "宇树As2", "brand": "宇树科技", "price": "¥19,999-39,999",
+        {"name": "宇树 As2", "brand": "宇树科技", "price": "¥19,999-39,999",
          "weight": "12kg", "dofs": "全身12",
          "pros": "消费级四足机器狗、自研仿生具身大模型、空载最快5m/s、攀爬50cm高台/40°斜坡",
          "cons": "四足形态",
          "use_case": "家庭陪伴、户外探索、教育科研、安防巡检",
          "source": "宇树科技 (Unitree, WAIC 2026首发, 极新探展)"},
-        {"name": "智身银毅NE01", "brand": "智身机器人", "price": "¥299,000-599,000",
+        {"name": "智身银毅 NE01", "brand": "智身机器人", "price": "¥299,000-599,000",
          "weight": "60kg", "dofs": "全身30+",
          "pros": "WAIC 2026首发人形机器人、智身品牌全尺寸人形",
          "cons": "新品首发",
          "use_case": "工业作业、商业服务、科研平台",
          "source": "智身机器人 (WAIC 2026首发)"},
-        {"name": "智身钢镚L2", "brand": "智身机器人", "price": "¥99,000-199,000",
+        {"name": "智身钢镚 L2", "brand": "智身机器人", "price": "¥99,000-199,000",
          "weight": "18kg", "dofs": "全身12",
          "pros": "WAIC 2026首发四足机器人、智身品牌轻量化四足",
          "cons": "新品首发",
          "use_case": "巡检、教育、科研展示",
          "source": "智身机器人 (WAIC 2026首发)"},
-        {"name": "中坚桦之坚ZERO", "brand": "中坚机器人", "price": "¥359,000-699,000",
+        {"name": "中坚桦之坚 ZERO", "brand": "中坚机器人", "price": "¥359,000-699,000",
          "weight": "65kg", "dofs": "全身28+",
          "pros": "WAIC 2026首发全尺寸人形、中坚品牌首款人形",
          "cons": "新品首发",
          "use_case": "工业作业、商业服务",
          "source": "中坚机器人 (WAIC 2026首发)"},
-        {"name": "中坚灵睿P1", "brand": "中坚机器人", "price": "¥149,000-299,000",
+        {"name": "中坚灵睿 P1", "brand": "中坚机器人", "price": "¥149,000-299,000",
          "weight": "20kg", "dofs": "全身12",
          "pros": "WAIC 2026首发四足机器人、中坚品牌四足",
          "cons": "新品首发",
          "use_case": "巡检、安防、科研",
          "source": "中坚机器人 (WAIC 2026首发)"},
-        {"name": "它石智航AWE 3.5", "brand": "它石智航", "price": "¥59,000-99,000",
+        {"name": "它石智航 AWE 3.5", "brand": "它石智航", "price": "¥59,000-99,000",
          "pros": "5指灵巧手+具身基座大模型、16自由度、精密操作",
          "cons": "灵巧手单独产品",
          "use_case": "精密操作、科研实验、工业装配",
          "source": "它石智航 (WAIC 2026首发, AWE 3.5灵巧手+具身基座大模型)"},
-        {"name": "天链天真Z1", "brand": "天链机器人", "price": "¥259,000-499,000",
+        {"name": "天链天真 Z1", "brand": "天链机器人", "price": "¥259,000-499,000",
          "weight": "50kg", "dofs": "全身26+",
          "pros": "WAIC 2026首发人形机器人、天链品牌首款人形",
          "cons": "新品首发",
@@ -3392,7 +3798,7 @@ ROBOT_PURCHASE_GUIDE = {
          "cons": "大型设备",
          "use_case": "骑乘代步、重载运输、特种作业",
          "source": "开普勒机器人 (WAIC 2026首发, 麒麟系列混动架构骑乘机器人)"},
-        {"name": "松应ORCA OS物理AI操作系统", "brand": "松应科技", "price": "企业版私有化部署/开发者版免费",
+        {"name": "松应 ORCA OS 物理 AI 操作系统", "brand": "松应科技", "price": "企业版私有化部署/开发者版免费",
          "pros": "全球首款支持多形态机器人协同训练的物理AI操作系统、高保真物理仿真、虚实双环验证、研发周期压缩90%",
          "cons": "软件系统, 非硬件",
          "use_case": "人形/四足/轮式/无人机多智能体协同仿真训练、机器人企业私有化部署、高校科研",
@@ -3402,7 +3808,7 @@ ROBOT_PURCHASE_GUIDE = {
          "cons": "零部件",
          "use_case": "机器人力控、精密装配、触觉感知",
          "source": "蓝点触控 (WAIC 2026首发, 六维力传感器核心零部件)"},
-        {"name": "智身CHAMP冠军关节模组", "brand": "智身机器人", "price": "¥3,999-9,999",
+        {"name": "智身 CHAMP 冠军关节模组", "brand": "智身机器人", "price": "¥3,999-9,999",
          "pros": "高性能关节模组、机器人核心零部件",
          "cons": "零部件",
          "use_case": "人形机器人关节、四足机器人关节",
@@ -3530,7 +3936,7 @@ ROBOT_PURCHASE_GUIDE = {
          "cons": "价格较高",
          "use_case": "工业巡检、电力巡检、消防救援、安防巡逻",
          "source": "宇树科技 (Unitree, 杭州宇树科技有限公司, 工业级四足巡检)"},
-        {"name": "云深处Jueying Lite3", "brand": "云深处科技", "price": "¥50,000-80,000",
+        {"name": "云深处 Jueying Lite3", "brand": "云深处科技", "price": "¥50,000-80,000",
          "payload": "15kg", "speed": "4m/s", "dofs": 12,
          "pros": "工业级四足、IP66防护、电力巡检主力、浙大系",
          "cons": "品牌认知度略低",
@@ -3547,19 +3953,19 @@ ROBOT_PURCHASE_GUIDE = {
     # 四、AMR/AGV移动机器人专区
     # ====================================================================
     "amr": [
-        {"name": "极智嘉P800", "brand": "极智嘉Geek+", "price": "¥150,000-250,000",
+        {"name": "极智嘉 P800", "brand": "极智嘉Geek+", "price": "¥150,000-250,000",
          "payload": "800kg", "speed": "2m/s", "dofs": "移动+举升",
          "pros": "AMR全球第一、仓储物流标杆、智能分拣、已部署数万台",
          "cons": "仓储场景为主",
          "use_case": "电商仓储、智能分拣、物流搬运、工厂内部物流",
          "source": "极智嘉 (Geek+, 北京极智嘉科技有限公司, 全球AMR领导者)"},
-        {"name": "海康机器人潜伏AMR", "brand": "海康机器人", "price": "¥120,000-200,000",
+        {"name": "海康机器人潜伏 AMR", "brand": "海康机器人", "price": "¥120,000-200,000",
          "payload": "600-1000kg", "speed": "2m/s", "dofs": "移动+举升",
          "pros": "国内市占率领先、视觉导航、海康威视生态、3C电子主力",
          "cons": "特定场景优化",
          "use_case": "3C电子、汽车零部件、仓储物流、智能工厂",
          "source": "海康机器人 (Hikrobot, 杭州海康机器人股份有限公司, 深市:002415)"},
-        {"name": "快仓Quicktron M系列", "brand": "快仓机器人", "price": "¥100,000-180,000",
+        {"name": "快仓 Quicktron M 系列", "brand": "快仓机器人", "price": "¥100,000-180,000",
          "payload": "300-1500kg", "speed": "1.8m/s", "dofs": "移动+举升",
          "pros": "仓储AMR主力品牌、柔性物流、智能搬运",
          "cons": "仓储为主",
@@ -3627,6 +4033,207 @@ ROBOT_PURCHASE_GUIDE = {
         "JAKA Ai12（12kg）", "KUKA LBR iiwa 14kg版",
         "开普勒K2大黄蜂（双臂30kg）"
     ],
+    # ====================================================================
+    # 四、AI眼镜/AI穿戴专区（WAIC 2026首发）
+    # ====================================================================
+    "ai_glasses": [
+        {"name": "Moonix 莫奈 AI 眼镜", "brand": "Moonix莫奈（心眸科技）", "price": "¥2,299起",
+         "weight": "14.9g（β钛款）",
+         "pros": "14.9g极致轻薄（行业最轻）、主动式AI记录、无感记录+AI生成、16小时续航、39款镜框可换、隐私防护体系",
+         "cons": "砍掉翻译/提词器等低频功能",
+         "use_case": "会议记录、个人数字记忆、商务会面、学习记录",
+         "source": "Moonix莫奈 (心眸科技, WAIC 2026首发, 千万级天使轮, 博士眼镜合作, 14.9g全球最轻AI眼镜)"},
+        {"name": "科大讯飞 AI 眼镜", "brand": "科大讯飞", "price": "¥2,999-4,999",
+         "weight": "40g",
+         "pros": "40g轻量化、首创唇动识别多模态降噪、复杂环境精准锁定发言人、多场景翻译集成",
+         "cons": "重量比Moonix重",
+         "use_case": "同声翻译、会议记录、商务沟通、学习辅助",
+         "source": "科大讯飞 (iFLYTEK, WAIC 2026, 广东省人工智能产业协会)"},
+        {"name": "李未可 X-AI 记忆眼镜", "brand": "李未可", "price": "¥2,499-3,999",
+         "pros": "以长期记忆为核心卖点、智能场景感应（会议/面谈自动启停）、会议纪要/待办自动生成、腾讯云WorkBuddy接入",
+         "cons": "新品首发",
+         "use_case": "会议记录、商务会谈记录、工作待办管理",
+         "source": "李未可 (WAIC 2026首发, 新一代X-AI记忆眼镜)"},
+        {"name": "Rokid Glasses", "brand": "Rokid乐奇", "price": "¥2,999-4,999",
+         "pros": "乐奇AI助手2.0、主动智能（行程自动记录/定时提醒）、多形态眼镜产品矩阵",
+         "cons": "功能偏基础",
+         "use_case": "日常助理、行程管理、提醒服务",
+         "source": "Rokid (WAIC 2026, 乐奇AI助手2.0, 主动智能)"},
+        {"name": "阿里千问 AI 眼镜 S1", "brand": "阿里巴巴千问", "price": "¥3,999-5,999",
+         "pros": "首创热插拔可换电技术（解决续航焦虑）、智能体眼镜、眼动追踪+全双工语音、第三方Skill/Agent调用",
+         "cons": "价格偏高",
+         "use_case": "智能助理、生活服务、打车/购物/行程规划",
+         "source": "阿里巴巴千问 (WAIC 2026, 千问AI眼镜S1, 智能体眼镜)"},
+        {"name": "腾讯 AI 记忆眼镜", "brand": "腾讯", "price": "未公布",
+         "pros": "首款接入WorkBuddy的AI记忆眼镜、腾讯生态深度集成",
+         "cons": "价格未公布",
+         "use_case": "办公协同、会议记录、工作记忆",
+         "source": "腾讯 (WAIC 2026, 首款接入WorkBuddy的AI记忆眼镜)"},
+    ],
+    # ====================================================================
+    # 五、AI手机/AI终端专区（WAIC 2026首发）
+    # ====================================================================
+    "ai_phone": [
+        {"name": "阶跃星辰 STEPX Neo", "brand": "阶跃星辰", "price": "未公布",
+         "pros": "全球首款大模型原生智能体手机、自研Step AOS智能体原生操作系统、WAIC 2026镇馆之宝、展台排队最长",
+         "cons": "价格未公布",
+         "use_case": "智能体跨App操作、长程复杂任务自动化",
+         "source": "阶跃星辰 (StepX, WAIC 2026首发, 全球首款大模型原生智能体手机, 镇馆之宝)"},
+        {"name": "荣耀 Robot Phone", "brand": "荣耀", "price": "预约中（8月发布）",
+         "pros": "全球首款机器人手机、4自由度云台系统（随音乐节奏转动）、伙伴型多模态智能体Agentic OS、订蛋糕/打车/KTV预约全流程",
+         "cons": "8月才发布",
+         "use_case": "智能体助理、生活服务自动化、创意影像拍摄",
+         "source": "荣耀 (HONOR, WAIC 2026首发, 全球首款机器人手机, 7月18日全渠道预约)"},
+        {"name": "中兴努比亚 NaviX Ultra", "brand": "中兴努比亚", "price": "¥4,999-6,999",
+         "pros": "第二代豆包AI智能体手机（联合字节跳动）、GUI Agent路线（让AI看懂屏幕模拟点击）、减少对应用厂商API依赖",
+         "cons": "GUI路线受应用界面变化影响",
+         "use_case": "跨App智能体操作、生活服务、信息检索",
+         "source": "中兴努比亚 (ZTE, WAIC 2026, 第二代豆包AI智能体手机, 联合字节跳动)"},
+        {"name": "联想 L3 级 AI 终端（18 款）", "brand": "联想", "price": "¥5,999-19,999",
+         "pros": "13款AI PC+2款AI平板+3款AI手机、《人工智能终端智能化分级》国标最高等级L3、覆盖个人与组织全场景AI办公",
+         "cons": "全系产品价格跨度大",
+         "use_case": "AI办公、AI创作、企业生产力提升",
+         "source": "联想 (Lenovo, WAIC 2026, 18款L3级AI终端, 国标最高等级)"},
+    ],
+    # ====================================================================
+    # 六、AI芯片/AI算力专区（WAIC 2026首发）
+    # ====================================================================
+    "ai_chip": [
+        {"name": "华为昇腾 950 Atlas 950 SuperPoD", "brand": "华为", "price": "定制化报价",
+         "pros": "业界最大规模超节点、256TB内存统一编址、单柜64卡为基本单元、支持1024张NPU卡高速互联、像一台计算机一样工作、满足十万亿级参数大模型训练推理、WAIC首次真机亮相",
+         "cons": "超大规模、价格极高",
+         "use_case": "十万亿级参数大模型训练、超大规模AI推理、AI算力中心",
+         "source": "华为 (HUAWEI, WAIC 2026首次真机亮相, Atlas 950 SuperPoD, 1024卡互联)"},
+        {"name": "中兴 OEX 超节点", "brand": "中兴通讯", "price": "定制化报价",
+         "pros": "全栈AI算力超节点、中兴全栈AI布局核心产品",
+         "cons": "定制化",
+         "use_case": "AI算力集群、大模型训练、企业智算中心",
+         "source": "中兴通讯 (ZTE, WAIC 2026, OEX超节点, 全栈AI布局)"},
+        {"name": "沐曦 GPU", "brand": "沐曦", "price": "¥5,999-29,999",
+         "pros": "国产GPU、松应ORCA OS原生适配、国产GPU生态",
+         "cons": "软件生态待完善",
+         "use_case": "AI训练推理、图形渲染、国产算力",
+         "source": "沐曦 (MOX, WAIC 2026, 国产GPU, ORCA OS原生适配)"},
+        {"name": "飞腾 S2500", "brand": "飞腾", "price": "¥3,999-12,999",
+         "pros": "国产服务器CPU、AI算力支撑、国产算力生态",
+         "cons": "CPU非AI专用芯片",
+         "use_case": "服务器、AI推理、国产算力替代",
+         "source": "飞腾 (Phytium, WAIC 2026, 国产服务器CPU)"},
+    ],
+    # ====================================================================
+    # 七、AI自动驾驶/无人车专区（WAIC 2026首发）
+    # ====================================================================
+    "autonomous_driving": [
+        {"name": "文远知行 Robotaxi GXR", "brand": "文远知行WeRide", "price": "定制化",
+         "level": "L4", "cities": ["广州", "北京", "阿布扎比", "迪拜"],
+         "pros": "新一代L4级量产Robotaxi、物理AI高性能计算平台、四地纯无人商业化运营、全场景复杂城市路况",
+         "cons": "定制化价格",
+         "use_case": "Robotaxi出行、无人出租、城市客运",
+         "source": "文远知行 (WeRide, WAIC 2026, Robotaxi GXR, 四地纯无人运营)"},
+        {"name": "九识智能 Z5 2026 款", "brand": "九识智能", "price": "¥198,000-298,000",
+         "cargo_volume": "6.5m³", "payload": "1000kg",
+         "pros": "全球首个L4无图方案规模化量产、1天部署（原1个月）、6.5m³货厢+1000kg载重、覆盖31省200+城、L4运营里程超2000万公里",
+         "cons": "无图方案依赖传感器性能",
+         "use_case": "无人物流配送、园区运营、城配物流",
+         "source": "九识智能 (WAIC 2026, 全球首个L4无图方案量产, 3000台交付, 万台目标)"},
+        {"name": "上汽 Robotaxi 量产定制车", "brand": "上汽集团+Momenta+享道出行", "price": "2027年公布",
+         "level": "L4", "launch": "2027年",
+         "pros": "上海首款高级别自动驾驶前装量产定制车、L4主驾无人标准正向开发、安全冗余全面升级、享道35万单+400万公里运营数据反哺",
+         "cons": "2027年才亮相",
+         "use_case": "Robotaxi出行、无人接驳、园区通勤、短途货运",
+         "source": "上汽集团+Momenta+享道出行 (WAIC 2026官宣, 上海首款L4前装量产Robotaxi, 2027亮相)"},
+        {"name": "哈啰 Robotaxi HR1", "brand": "哈啰+东风日产启辰", "price": "未公布",
+         "level": "L4", "launch": "2026-2027覆盖10城",
+         "pros": "哈啰首款自研Robotaxi量产、东风日产启辰VX6深度定制、L4全栈自研、多重安全冗余、广深率先投放",
+         "cons": "价格未公布",
+         "use_case": "Robotaxi出行、城市无人出租",
+         "source": "哈啰+东风日产启辰 (WAIC 2026, HR1量产交付, 广深投放, 10城覆盖目标)"},
+    ],
+    # ====================================================================
+    # 八、车规级AI芯片专区（WAIC 2026首发）
+    # ====================================================================
+    "auto_chip": [
+        {"name": "比亚迪璇玑 A3", "brand": "比亚迪", "price": "定制化（前装）",
+         "process": "4nm", "tops": "2100TOPS（3颗协同）",
+         "pros": "国内首款量产4nm车规级芯片、3颗协同总算力2100TOPS、适配L3/L4自动驾驶、天神之眼5.0支撑",
+         "cons": "前装定制、价格不公开",
+         "use_case": "L3/L4自动驾驶、智能驾驶、舱驾融合",
+         "source": "比亚迪 (WAIC 2026, 国内首款量产4nm车规级芯片, 2100TOPS, 腾势/方程豹搭载)"},
+        {"name": "蔚来神玑 NX9031 系列", "brand": "蔚来（安徽神玑）", "price": "定制化（前装）",
+         "process": "5nm", "shipments": "超30万颗",
+         "pros": "全栈自研5nm车规芯片矩阵、NX9031X（智驾主算力）+NX9031U（具身智能）+NX9031C（Agent推理）、蔚来/乐道全系部署、30万颗出货",
+         "cons": "前装定制",
+         "use_case": "智能驾驶、具身智能、AI Agent推理",
+         "source": "蔚来·安徽神玑 (WAIC 2026首次独立参展, NX9031系列, 30万颗出货, 睿动具身平台)"},
+        {"name": "理想马赫 M100", "brand": "理想汽车", "price": "定制化（前装）",
+         "process": "5nm",
+         "pros": "自研车规级5nm芯片、具身智能全栈技术支撑、L9/L8 Livis搭载、与VLA大模型+3D ViT感知协同",
+         "cons": "前装定制",
+         "use_case": "智能驾驶、舱驾融合、具身智能",
+         "source": "理想汽车 (WAIC 2026, 马赫M100自研5nm车规芯片, 品牌升级具身智能企业)"},
+    ],
+    # ====================================================================
+    # 九、AI大模型/世界模型专区（WAIC 2026首发）
+    # ====================================================================
+    "world_model": [
+        {"name": "文远知行 WeRide WITT", "brand": "文远知行WeRide", "price": "授权/API",
+         "pros": "物理AI认知基础大模型、全球商业化运营海量道路数据、真实场景+仿真世界模型双向赋能闭环、大幅缩短模型迭代周期",
+         "cons": "企业级产品",
+         "use_case": "自动驾驶模型训练、复杂城市场景适配、仿真训练",
+         "source": "文远知行 (WeRide, WAIC 2026, WITT物理AI认知大模型, 真实数据+仿真双闭环)"},
+        {"name": "吉利 WAM 世界行为模型", "brand": "吉利汽车+阶跃星辰", "price": "前装授权",
+         "pros": "汽车世界行为模型、支撑超级Eva智能体、舱驾融合跨越式进化、高情商情感交互+长链路推理+舱驾融合执行",
+         "cons": "前装定制",
+         "use_case": "智能座舱、舱驾融合、智能体交互",
+         "source": "吉利+阶跃星辰+千里科技 (WAIC 2026, WAM世界行为模型, 超级Eva智能体, 极氪8X搭载)"},
+        {"name": "比亚迪天神之眼 5.0", "brand": "比亚迪", "price": "前装标配",
+         "latency": "8ms",
+         "pros": "全域智驾大模型、模拟物理世界的逻辑推演模型、信号延迟仅8ms、与璇玑A3芯片协同、迪迪虾智能体舱驾联动",
+         "cons": "前装配置",
+         "use_case": "高阶智驾、全域自动驾驶、舱驾联动",
+         "source": "比亚迪 (WAIC 2026, 天神之眼5.0全域智驾大模型, 8ms延迟, 腾势Z9 GT搭载)"},
+    ],
+    # ====================================================================
+    # 十、XR/VR/AR专区（WAIC 2026首发）
+    # ====================================================================
+    "xr_vr_ar": [
+        {"name": "Rokid AR 产品矩阵", "brand": "Rokid", "price": "¥1,999-9,999",
+         "products": ["Rokid Glasses", "Rokid AR", "Rokid Helmet"],
+         "pros": "消费级+工业级AR全产品矩阵、乐奇AI助手2.0主动智能、多形态眼镜产品、B端+C端全覆盖",
+         "cons": "高端型号价格偏高",
+         "use_case": "工业维修、教育培训、展览展示、消费级AR",
+         "source": "Rokid (WAIC 2026, AR产品矩阵, 乐奇AI助手2.0)"},
+        {"name": "INMO 影目 AI 眼镜", "brand": "INMO影目", "price": "¥2,499-4,999",
+         "pros": "消费级AR眼镜、轻量化设计、日常佩戴友好",
+         "cons": "功能偏基础",
+         "use_case": "日常助理、信息提示、轻量级AR体验",
+         "source": "INMO影目 (WAIC 2026, 消费级AR眼镜)"},
+        {"name": "VITURE AI 眼镜", "brand": "VITURE", "price": "¥2,299-5,999",
+         "pros": "消费级XR眼镜、影音娱乐优先、高清显示",
+         "cons": "AI功能待加强",
+         "use_case": "影音娱乐、移动大屏、轻办公",
+         "source": "VITURE (WAIC 2026, 消费级XR眼镜)"},
+    ],
+    # ====================================================================
+    # 十一、AI智能体专区（WAIC 2026首发）
+    # ====================================================================
+    "ai_agent": [
+        {"name": "吉利超级 Eva 智能体", "brand": "吉利+阶跃星辰", "price": "前装标配",
+         "pros": "WAM世界模型支撑、舱驾融合跨越式进化、高情商情感交互、长链路复杂推理、舱驾融合整车执行（跟车/变道/泊车）",
+         "cons": "前装配置",
+         "use_case": "智能座舱助理、舱驾融合、情感交互、长程任务",
+         "source": "吉利+阶跃星辰 (WAIC 2026, 超级Eva智能体, WAM世界模型, 极氪8X搭载)"},
+        {"name": "比亚迪迪迪虾全域 AI 智能体", "brand": "比亚迪", "price": "前装标配",
+         "pros": "腾势Z9 GT全系搭载、90秒免唤醒对话、六分区人声识别、舱驾联动天神之眼智驾、多任务语音指令",
+         "cons": "前装配置",
+         "use_case": "智能座舱、多模态交互、舱驾联动、车载AI助理",
+         "source": "比亚迪 (WAIC 2026, 迪迪虾全域AI智能体, 腾势Z9 GT全系搭载)"},
+        {"name": "钛动 Navos 2.0", "brand": "钛动科技", "price": "SaaS订阅",
+         "pros": "全球首批AI营销智能体、多智能体协同作战、营销全链路（洞察→策略→投放→优化）、2026世界人工智能大会最高奖项·卓越奖",
+         "cons": "垂直领域（营销）",
+         "use_case": "AI营销、广告投放、营销策略优化、多智能体协同",
+         "source": "钛动科技 (WAIC 2026, Navos 2.0 AI营销智能体, SAIL奖·卓越奖, 九大应用场景)"},
+    ],
 }
 
 
@@ -3649,7 +4256,10 @@ def recommend_robot(budget: str = "budget_10w", scenario: str = "research",
                   "force_control"（力控）| "humanoid"（人形）| "quadruped"（四足）|
                   "amr"（AMR移动）| "vision"（视觉一体化）| "heavy_load"（重载）
         category: 产品类别（可选，直接返回专区列表）：
-                  "humanoid" | "cobot"（协作臂）| "quadruped" | "amr"
+                  "humanoid" | "cobot"（协作臂）| "quadruped" | "amr" |
+                  "ai_glasses"（AI眼镜）| "ai_phone"（AI手机）| "ai_chip"（AI芯片）|
+                  "autonomous_driving"（自动驾驶）| "auto_chip"（车规芯片）| "world_model"（世界模型）|
+                  "xr_vr_ar"（XR/VR/AR）| "ai_agent"（AI智能体）
     """
     # 直接按产品类别返回专区
     if category:
