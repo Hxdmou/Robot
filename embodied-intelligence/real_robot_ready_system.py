@@ -150,6 +150,23 @@ class RobotBrand(Enum):
     BEIJING_TIANGONG = "北京人形创新中心·具身天工系列 (工业人形, 化工/电力/油气, WAIC 2026)"
     ZHONGJI_T800 = "众擎T800 (全尺寸格斗人形, 高强度抗扰测试, WAIC 2026)"
     PUDU_D7 = "普渡PUDU D7 (类人形智能作业伙伴, 14kg负载/2m作业高度, WAIC 2026)"
+    # ── WAIC 2026第二批首发新品 ──
+    RUNKE_CENTAUR = "润科具能半人马 (轮足复合机器人, 100-120kg负载, 极限210kg, WAIC 2026首发)"
+    HAOHAI_JULIET = "浩海星空朱丽叶 (商用轮式人形, 柔性双臂±0.1mm精度, WAIC 2026首发)"
+    JAKA_KARGO = "节卡JAKA Kargo (轮式人形复合机器人, 微米级定位, WAIC 2026首发)"
+    JAKA_K1_25 = "节卡K1-25 (大负载双臂协作人形, 50kg双臂负载, WAIC 2026首发)"
+    UNITREE_AS2 = "宇树As2 (消费级四足机器狗, 仿生具身大模型, 5m/s速度, WAIC 2026首发)"
+    ZHISHEN_NE01 = "智身银毅NE01 (人形机器人, WAIC 2026首发)"
+    ZHISHEN_L2 = "智身钢镚L2 (四足机器人, WAIC 2026首发)"
+    ZHONGJIAN_ZERO = "中坚桦之坚ZERO (人形机器人, WAIC 2026首发)"
+    ZHONGJIAN_P1 = "中坚灵睿P1 (四足机器人, WAIC 2026首发)"
+    TASHI_AWE35 = "它石智航AWE 3.5 (灵巧手+具身基座大模型, WAIC 2026首发)"
+    TIANLIAN_Z1 = "天链天真Z1 (人形机器人, WAIC 2026首发)"
+    KEPLER_KIRIN = "开普勒麒麟系列 (混动架构骑乘机器人, WAIC 2026首发)"
+    SONGYING_ORCA = "松应科技ORCA OS (物理AI操作系统, 多形态机器人协同训练, WAIC 2026首发)"
+    BLUETOUCH_FORCE = "蓝点触控六维力传感器 (核心零部件, WAIC 2026首发)"
+    ZHISHEN_CHAMP = "智身CHAMP冠军关节模组 (核心零部件, WAIC 2026首发)"
+    ZHONGJIAN_JOINT = "中坚轮毂电机/行星关节模组 (核心零部件, WAIC 2026首发)"
     # ── 四足机器人（2025-2026量产）──
     ANYBOTICS = "ANYbotics ANYmal (四足机器人, 瑞士)"
     DEEPROBOTICS = "DeepRobotics Jueying (四足机器人, 中国·云深处)"
@@ -466,6 +483,52 @@ class RobotHAL:
             "pudu_d7": RobotBrand.PUDU_D7,
             "普渡d7": RobotBrand.PUDU_D7,
             "普渡": RobotBrand.PUDU_D7,
+            # ── WAIC 2026第二批首发新品识别键 ──
+            "runke_centaur": RobotBrand.RUNKE_CENTAUR,
+            "润科半人马": RobotBrand.RUNKE_CENTAUR,
+            "半人马": RobotBrand.RUNKE_CENTAUR,
+            "haohai_juliet": RobotBrand.HAOHAI_JULIET,
+            "浩海朱丽叶": RobotBrand.HAOHAI_JULIET,
+            "朱丽叶": RobotBrand.HAOHAI_JULIET,
+            "jaka_kargo": RobotBrand.JAKA_KARGO,
+            "节卡kargo": RobotBrand.JAKA_KARGO,
+            "jaka_k1_25": RobotBrand.JAKA_K1_25,
+            "节卡k1": RobotBrand.JAKA_K1_25,
+            "节卡k1-25": RobotBrand.JAKA_K1_25,
+            "unitree_as2": RobotBrand.UNITREE_AS2,
+            "宇树as2": RobotBrand.UNITREE_AS2,
+            "zhishen_ne01": RobotBrand.ZHISHEN_NE01,
+            "智身银毅": RobotBrand.ZHISHEN_NE01,
+            "银毅ne01": RobotBrand.ZHISHEN_NE01,
+            "zhishen_l2": RobotBrand.ZHISHEN_L2,
+            "智身钢镚": RobotBrand.ZHISHEN_L2,
+            "钢镚l2": RobotBrand.ZHISHEN_L2,
+            "zhongjian_zero": RobotBrand.ZHONGJIAN_ZERO,
+            "中坚桦之坚": RobotBrand.ZHONGJIAN_ZERO,
+            "桦之坚zero": RobotBrand.ZHONGJIAN_ZERO,
+            "zhongjian_p1": RobotBrand.ZHONGJIAN_P1,
+            "中坚灵睿": RobotBrand.ZHONGJIAN_P1,
+            "灵睿p1": RobotBrand.ZHONGJIAN_P1,
+            "tashi_awe35": RobotBrand.TASHI_AWE35,
+            "它石awe": RobotBrand.TASHI_AWE35,
+            "awe3.5": RobotBrand.TASHI_AWE35,
+            "tianlian_z1": RobotBrand.TIANLIAN_Z1,
+            "天链天真": RobotBrand.TIANLIAN_Z1,
+            "天真z1": RobotBrand.TIANLIAN_Z1,
+            "kepler_kirin": RobotBrand.KEPLER_KIRIN,
+            "开普勒麒麟": RobotBrand.KEPLER_KIRIN,
+            "麒麟系列": RobotBrand.KEPLER_KIRIN,
+            "songying_orca": RobotBrand.SONGYING_ORCA,
+            "松应orca": RobotBrand.SONGYING_ORCA,
+            "orca_os": RobotBrand.SONGYING_ORCA,
+            "bluetouch": RobotBrand.BLUETOUCH_FORCE,
+            "蓝点触控": RobotBrand.BLUETOUCH_FORCE,
+            "六维力": RobotBrand.BLUETOUCH_FORCE,
+            "zhishen_champ": RobotBrand.ZHISHEN_CHAMP,
+            "智身champ": RobotBrand.ZHISHEN_CHAMP,
+            "冠军关节": RobotBrand.ZHISHEN_CHAMP,
+            "zhongjian_joint": RobotBrand.ZHONGJIAN_JOINT,
+            "中坚关节": RobotBrand.ZHONGJIAN_JOINT,
             # ── 2026新品: 四足/AMR ──
             "unitree_go2": RobotBrand.UNITREE_GO2,
             "go2": RobotBrand.UNITREE_GO2,
@@ -665,6 +728,23 @@ class RobotHAL:
             "BEIJING_TIANGONG": self._connect_beijing_tiangong,
             "ZHONGJI_T800": self._connect_zhongji,
             "PUDU_D7": self._connect_pudu,
+            # WAIC 2026第二批首发新品
+            "RUNKE_CENTAUR": self._connect_runke,
+            "HAOHAI_JULIET": self._connect_haohai,
+            "JAKA_KARGO": self._connect_jaka_k1,
+            "JAKA_K1_25": self._connect_jaka_k1,
+            "UNITREE_AS2": self._connect_unitree,
+            "ZHISHEN_NE01": self._connect_zhishen,
+            "ZHISHEN_L2": self._connect_zhishen,
+            "ZHONGJIAN_ZERO": self._connect_zhongjian,
+            "ZHONGJIAN_P1": self._connect_zhongjian,
+            "TASHI_AWE35": self._connect_tashi,
+            "TIANLIAN_Z1": self._connect_tianlian,
+            "KEPLER_KIRIN": self._connect_kepler,
+            "SONGYING_ORCA": self._connect_songying,
+            "BLUETOUCH_FORCE": self._connect_bluetouch,
+            "ZHISHEN_CHAMP": self._connect_zhishen,
+            "ZHONGJIAN_JOINT": self._connect_zhongjian,
             # 四足机器人
             "UNITREE_GO2": self._connect_unitree,
             "UNITREE_B2": self._connect_unitree,
@@ -1255,6 +1335,107 @@ class RobotHAL:
                 "payload": 14.0, "working_height": 2.0, "weight": 55,
                 "scenarios": ["工厂", "仓储", "零售"],
             },
+            # ── WAIC 2026第二批首发新品仿真配置 ──
+            "RUNKE_CENTAUR": {  # 润科具能半人马 轮足复合机器人
+                "joint_lower": np.ones(16) * -3.14,
+                "joint_upper": np.ones(16) * 3.14,
+                "max_velocity": np.ones(16) * 4.0,
+                "max_torque": np.ones(16) * 200,
+                "payload": 120.0, "max_payload": 210.0, "weight": 150,
+                "locomotion": "轮足复合", "scenarios": ["炼钢", "矿山", "应急救援"],
+            },
+            "HAOHAI_JULIET": {  # 浩海星空朱丽叶 商用轮式人形
+                "joint_lower": np.ones(24) * -3.14,
+                "joint_upper": np.ones(24) * 3.14,
+                "max_velocity": np.ones(24) * 2.0,
+                "max_torque": np.ones(24) * 40,
+                "payload": 5.0, "grasp_accuracy": 0.1, "weight": 50,
+                "locomotion": "轮式", "scenario": "货架取货/无人零售",
+            },
+            "JAKA_KARGO": {  # 节卡JAKA Kargo 轮式人形复合
+                "joint_lower": np.ones(22) * -3.14,
+                "joint_upper": np.ones(22) * 3.14,
+                "max_velocity": np.ones(22) * 2.5,
+                "max_torque": np.ones(22) * 100,
+                "payload": 25.0, "weight": 70,
+                "positioning": "微米级", "scenario": "汽车零部件装配",
+            },
+            "JAKA_K1_25": {  # 节卡K1-25 大负载双臂协作人形
+                "joint_lower": np.ones(30) * -3.14,
+                "joint_upper": np.ones(30) * 3.14,
+                "max_velocity": np.ones(30) * 2.0,
+                "max_torque": np.ones(30) * 200,
+                "payload_dual_arm": 50.0, "weight": 90,
+                "scenario": "重型物料搬运/大件组装",
+            },
+            "UNITREE_AS2": {  # 宇树As2 消费级四足机器狗
+                "joint_lower": np.ones(12) * -3.14,
+                "joint_upper": np.ones(12) * 3.14,
+                "max_velocity": np.ones(12) * 5.0,
+                "max_torque": np.ones(12) * 50,
+                "payload": 8.0, "weight": 12,
+                "max_speed": "5m/s", "features": "仿生具身大模型",
+            },
+            "ZHISHEN_NE01": {  # 智身银毅NE01 人形机器人
+                "joint_lower": np.ones(30) * -3.14,
+                "joint_upper": np.ones(30) * 3.14,
+                "max_velocity": np.ones(30) * 2.5,
+                "max_torque": np.ones(30) * 80,
+                "payload": 15.0, "weight": 60,
+            },
+            "ZHISHEN_L2": {  # 智身钢镚L2 四足机器人
+                "joint_lower": np.ones(12) * -3.14,
+                "joint_upper": np.ones(12) * 3.14,
+                "max_velocity": np.ones(12) * 4.0,
+                "max_torque": np.ones(12) * 60,
+                "payload": 10.0, "weight": 18,
+            },
+            "ZHONGJIAN_ZERO": {  # 中坚桦之坚ZERO 人形机器人
+                "joint_lower": np.ones(28) * -3.14,
+                "joint_upper": np.ones(28) * 3.14,
+                "max_velocity": np.ones(28) * 2.0,
+                "max_torque": np.ones(28) * 90,
+                "payload": 20.0, "weight": 65,
+            },
+            "ZHONGJIAN_P1": {  # 中坚灵睿P1 四足机器人
+                "joint_lower": np.ones(12) * -3.14,
+                "joint_upper": np.ones(12) * 3.14,
+                "max_velocity": np.ones(12) * 4.5,
+                "max_torque": np.ones(12) * 70,
+                "payload": 12.0, "weight": 20,
+            },
+            "TASHI_AWE35": {  # 它石智航AWE 3.5 灵巧手
+                "joint_lower": np.ones(16) * -3.14,
+                "joint_upper": np.ones(16) * 3.14,
+                "max_velocity": np.ones(16) * 3.0,
+                "max_torque": np.ones(16) * 30,
+                "payload": 3.0, "fingers": 5,
+                "features": "具身基座大模型",
+            },
+            "TIANLIAN_Z1": {  # 天链天真Z1 人形机器人
+                "joint_lower": np.ones(26) * -3.14,
+                "joint_upper": np.ones(26) * 3.14,
+                "max_velocity": np.ones(26) * 2.0,
+                "max_torque": np.ones(26) * 70,
+                "payload": 10.0, "weight": 50,
+            },
+            "KEPLER_KIRIN": {  # 开普勒麒麟系列 混动架构骑乘机器人
+                "payload": 150.0, "weight": 200,
+                "architecture": "混动", "scenario": "骑乘/重载运输",
+            },
+            "SONGYING_ORCA": {  # 松应科技ORCA OS 物理AI操作系统
+                "features": ["多形态机器人协同训练", "高保真物理仿真", "虚实双环验证"],
+                "editions": ["ORCA Studio企业版", "ORCA Lab开发者版", "物理AI仿真一体机"],
+            },
+            "BLUETOUCH_FORCE": {  # 蓝点触控六维力传感器
+                "type": "六维力传感器", "axis": 6,
+            },
+            "ZHISHEN_CHAMP": {  # 智身CHAMP冠军关节模组
+                "type": "关节模组",
+            },
+            "ZHONGJIAN_JOINT": {  # 中坚轮毂电机/行星关节模组
+                "type": "关节模组", "motors": ["轮毂电机", "行星关节"],
+            },
         }
         self._brand_config = brand_configs.get(self.brand.name, {})
 
@@ -1667,6 +1848,70 @@ class RobotHAL:
         self._pudu = PuduRobot(host, port or 8080)
         self._pudu.connect()
         self._comm = "pudu"
+
+    # ===== WAIC 2026第二批新品连接存根 =====
+    def _connect_runke(self, host, port):
+        """润科具能半人马 (轮足复合机器人)"""
+        from runke_sdk import RunkeCentaur
+        self._runke = RunkeCentaur(host, port or 8080)
+        self._runke.connect()
+        self._comm = "runke"
+
+    def _connect_haohai(self, host, port):
+        """浩海星空 (朱丽叶轮式人形)"""
+        from haohai_sdk import HaohaiRobot
+        self._haohai = HaohaiRobot(host, port or 8080)
+        self._haohai.connect()
+        self._comm = "haohai"
+
+    def _connect_zhishen(self, host, port):
+        """智身机器人 (银毅NE01/钢镚L2/CHAMP关节)"""
+        from zhishen_sdk import ZhishenRobot
+        self._zhishen = ZhishenRobot(host, port or 8080)
+        self._zhishen.connect()
+        self._comm = "zhishen"
+
+    def _connect_zhongjian(self, host, port):
+        """中坚机器人 (桦之坚ZERO/灵睿P1/关节模组)"""
+        from zhongjian_sdk import ZhongjianRobot
+        self._zj = ZhongjianRobot(host, port or 8080)
+        self._zj.connect()
+        self._comm = "zhongjian"
+
+    def _connect_tashi(self, host, port):
+        """它石智航 (AWE 3.5灵巧手)"""
+        from tashi_sdk import TashiRobot
+        self._tashi = TashiRobot(host, port or 8080)
+        self._tashi.connect()
+        self._comm = "tashi"
+
+    def _connect_tianlian(self, host, port):
+        """天链机器人 (天真Z1)"""
+        from tianlian_sdk import TianlianRobot
+        self._tianlian = TianlianRobot(host, port or 8080)
+        self._tianlian.connect()
+        self._comm = "tianlian"
+
+    def _connect_kepler(self, host, port):
+        """开普勒 (麒麟系列混动骑乘机器人)"""
+        from kepler_sdk import KeplerRobot
+        self._kepler = KeplerRobot(host, port or 8080)
+        self._kepler.connect()
+        self._comm = "kepler"
+
+    def _connect_songying(self, host, port):
+        """松应科技 (ORCA OS物理AI操作系统)"""
+        from orca_os import OrcaSystem
+        self._orca = OrcaSystem(host, port or 8080)
+        self._orca.connect()
+        self._comm = "orca"
+
+    def _connect_bluetouch(self, host, port):
+        """蓝点触控 (六维力传感器)"""
+        from bluetouch_sdk import BlueTouchSensor
+        self._bt = BlueTouchSensor(host, port or 8080)
+        self._bt.connect()
+        self._comm = "bluetouch"
 
     def disconnect(self):
         """断开连接"""
@@ -3075,6 +3320,98 @@ ROBOT_PURCHASE_GUIDE = {
          "cons": "新品首发",
          "use_case": "工厂搬运、仓储取放、零售理货、高位作业",
          "source": "普渡科技 (PUDU, WAIC 2026首发, 一脑多形Physical Agent技术理念)"},
+        # ── WAIC 2026第二批首发新品 ──
+        {"name": "润科具能半人马", "brand": "润科具能", "price": "¥199万-399万",
+         "weight": "150kg", "dofs": "全身16+",
+         "pros": "轮足复合架构、平均负载100-120kg、极限静态负载210kg、全地形高效移动、可嫁接双臂/灵巧手",
+         "cons": "价格高, 特种场景为主",
+         "use_case": "炼钢、矿山、野外、应急救援、太空探索",
+         "source": "润科具能 (WAIC 2026首发, 轮足复合机器人, 极新探展)"},
+        {"name": "浩海星空朱丽叶", "brand": "浩海星空", "price": "¥199,000-359,000",
+         "weight": "50kg", "dofs": "全身24+",
+         "pros": "全栈自研商用轮式人形、类人柔性双臂、抓取精度±0.1mm、货架取货/递货全流程无人",
+         "cons": "轮式底盘限制",
+         "use_case": "无人零售、货架取货、智能仓储、商场导购",
+         "source": "浩海星空 (WAIC 2026首发, 机器人零售星空舱, 极新探展)"},
+        {"name": "节卡JAKA Kargo", "brand": "节卡机器人", "price": "¥359,000-599,000",
+         "weight": "70kg", "dofs": "全身22+",
+         "pros": "轮式人形复合、微米级自主定位底盘、汽车零部件装配、料箱自主堆叠",
+         "cons": "高精度场景专用",
+         "use_case": "汽车3C高精度柔性产线、零部件装配、料箱搬运",
+         "source": "节卡机器人 (JAKA, WAIC 2026首发, 极新探展)"},
+        {"name": "节卡K1-25", "brand": "节卡机器人", "price": "¥499,000-799,000",
+         "weight": "90kg", "dofs": "全身30+",
+         "pros": "大负载双臂协作人形、50KG双臂负载、重型物料搬运、大件零部件组装",
+         "cons": "大负载专用",
+         "use_case": "重型物料搬运、大件组装、产线上下料",
+         "source": "节卡机器人 (JAKA, WAIC 2026首发, 极新探展)"},
+        {"name": "宇树As2", "brand": "宇树科技", "price": "¥19,999-39,999",
+         "weight": "12kg", "dofs": "全身12",
+         "pros": "消费级四足机器狗、自研仿生具身大模型、空载最快5m/s、攀爬50cm高台/40°斜坡",
+         "cons": "四足形态",
+         "use_case": "家庭陪伴、户外探索、教育科研、安防巡检",
+         "source": "宇树科技 (Unitree, WAIC 2026首发, 极新探展)"},
+        {"name": "智身银毅NE01", "brand": "智身机器人", "price": "¥299,000-599,000",
+         "weight": "60kg", "dofs": "全身30+",
+         "pros": "WAIC 2026首发人形机器人、智身品牌全尺寸人形",
+         "cons": "新品首发",
+         "use_case": "工业作业、商业服务、科研平台",
+         "source": "智身机器人 (WAIC 2026首发)"},
+        {"name": "智身钢镚L2", "brand": "智身机器人", "price": "¥99,000-199,000",
+         "weight": "18kg", "dofs": "全身12",
+         "pros": "WAIC 2026首发四足机器人、智身品牌轻量化四足",
+         "cons": "新品首发",
+         "use_case": "巡检、教育、科研展示",
+         "source": "智身机器人 (WAIC 2026首发)"},
+        {"name": "中坚桦之坚ZERO", "brand": "中坚机器人", "price": "¥359,000-699,000",
+         "weight": "65kg", "dofs": "全身28+",
+         "pros": "WAIC 2026首发全尺寸人形、中坚品牌首款人形",
+         "cons": "新品首发",
+         "use_case": "工业作业、商业服务",
+         "source": "中坚机器人 (WAIC 2026首发)"},
+        {"name": "中坚灵睿P1", "brand": "中坚机器人", "price": "¥149,000-299,000",
+         "weight": "20kg", "dofs": "全身12",
+         "pros": "WAIC 2026首发四足机器人、中坚品牌四足",
+         "cons": "新品首发",
+         "use_case": "巡检、安防、科研",
+         "source": "中坚机器人 (WAIC 2026首发)"},
+        {"name": "它石智航AWE 3.5", "brand": "它石智航", "price": "¥59,000-99,000",
+         "pros": "5指灵巧手+具身基座大模型、16自由度、精密操作",
+         "cons": "灵巧手单独产品",
+         "use_case": "精密操作、科研实验、工业装配",
+         "source": "它石智航 (WAIC 2026首发, AWE 3.5灵巧手+具身基座大模型)"},
+        {"name": "天链天真Z1", "brand": "天链机器人", "price": "¥259,000-499,000",
+         "weight": "50kg", "dofs": "全身26+",
+         "pros": "WAIC 2026首发人形机器人、天链品牌首款人形",
+         "cons": "新品首发",
+         "use_case": "商业服务、科研、展示",
+         "source": "天链机器人 (WAIC 2026首发, 天真Z1)"},
+        {"name": "开普勒麒麟系列", "brand": "开普勒机器人", "price": "¥399,000-799,000",
+         "weight": "200kg",
+         "pros": "混动架构骑乘机器人、大负载重载运输",
+         "cons": "大型设备",
+         "use_case": "骑乘代步、重载运输、特种作业",
+         "source": "开普勒机器人 (WAIC 2026首发, 麒麟系列混动架构骑乘机器人)"},
+        {"name": "松应ORCA OS物理AI操作系统", "brand": "松应科技", "price": "企业版私有化部署/开发者版免费",
+         "pros": "全球首款支持多形态机器人协同训练的物理AI操作系统、高保真物理仿真、虚实双环验证、研发周期压缩90%",
+         "cons": "软件系统, 非硬件",
+         "use_case": "人形/四足/轮式/无人机多智能体协同仿真训练、机器人企业私有化部署、高校科研",
+         "source": "松应科技 (WAIC 2026重磅发布, ORCA Studio企业版+ORCA Lab开发者版+物理AI仿真一体机, 极新探展)"},
+        {"name": "蓝点触控六维力传感器", "brand": "蓝点触控", "price": "¥9,999-29,999",
+         "pros": "核心零部件、六维力感知、机器人力控必备",
+         "cons": "零部件",
+         "use_case": "机器人力控、精密装配、触觉感知",
+         "source": "蓝点触控 (WAIC 2026首发, 六维力传感器核心零部件)"},
+        {"name": "智身CHAMP冠军关节模组", "brand": "智身机器人", "price": "¥3,999-9,999",
+         "pros": "高性能关节模组、机器人核心零部件",
+         "cons": "零部件",
+         "use_case": "人形机器人关节、四足机器人关节",
+         "source": "智身机器人 (WAIC 2026首发, CHAMP冠军关节模组)"},
+        {"name": "中坚轮毂电机/行星关节模组", "brand": "中坚机器人", "price": "¥2,999-8,999",
+         "pros": "轮毂电机+行星关节双路线、机器人核心零部件",
+         "cons": "零部件",
+         "use_case": "人形机器人关节、轮式机器人驱动",
+         "source": "中坚机器人 (WAIC 2026首发, 轮毂电机/行星关节模组)"},
     ],
     # ====================================================================
     # 三、协作机械臂专区（2025-2026国产主力）
