@@ -126,6 +126,17 @@ class RobotBrand(Enum):
     BEIJING_TIANGONG_3 = "北京人形天工3.0 (560TOPS算力, RDK S600, 2026首发)"
     TASHI_A3 = "它石智航A3 (轮式双臂机器人, RDK S600, 2026新品)"
     ZHIPINGFANG_ALPHA = "智平方Alpha (类脑VLA, 惠科1000台订单, 2026首发)"
+    # ── 2026成都人形机器人创新中心系列 ──
+    GONGGA_1 = "贡嘎一号 (超轻量级人形, 25kg, 家庭康养, 成都创新中心)"
+    RUIBA = "锐钯 (文商旅双足机器人, 1米/30kg, 19英寸屏, 6自由度头, 成都创新中心)"
+    HONGHU_ROBOT = "鸿鹄 (人形机器人, 成都创新中心)"
+    XIAOZHA_ROBOT = "小吒 (人形机器人, 成都创新中心)"
+    BIONIC_DINOSAUR = "仿生恐龙机器人 (全球首款双足行走智能仿生恐龙, 成都创新中心)"
+    BELT_INSPECTION = "胶带机巡检机器人 (双轮足, 5000台国内最大订单, 成都创新中心)"
+    BIPED_WHEEL_PLATFORM = "双轮足开源平台 (全球首个全尺寸重载双轮足, 成都创新中心)"
+    AI_ELECTRONIC_SKIN = "AI神经网络电子皮肤 (0.005N微力识别, 成都创新中心)"
+    # ── 2026浙江人形机器人创新中心系列 ──
+    ZHEJIANG_HUMANOID = "浙江人形双臂作业机器人 (服装/汽车装配, 杰克科技2000台订单)"
     # ── 四足机器人（2025-2026量产）──
     ANYBOTICS = "ANYbotics ANYmal (四足机器人, 瑞士)"
     DEEPROBOTICS = "DeepRobotics Jueying (四足机器人, 中国·云深处)"
@@ -382,6 +393,28 @@ class RobotHAL:
             "rokae": RobotBrand.ROKAE,
             "aubo": RobotBrand.AUBO,
             "elite": RobotBrand.ELITE,
+            # ── 2026新品: 成都人形创新中心 ──
+            "gongga_1": RobotBrand.GONGGA_1,
+            "gongga": RobotBrand.GONGGA_1,
+            "贡嘎一号": RobotBrand.GONGGA_1,
+            "ruiba": RobotBrand.RUIBA,
+            "锐钯": RobotBrand.RUIBA,
+            "honghu": RobotBrand.HONGHU_ROBOT,
+            "鸿鹄": RobotBrand.HONGHU_ROBOT,
+            "xiaozha": RobotBrand.XIAOZHA_ROBOT,
+            "小吒": RobotBrand.XIAOZHA_ROBOT,
+            "bionic_dinosaur": RobotBrand.BIONIC_DINOSAUR,
+            "dinosaur": RobotBrand.BIONIC_DINOSAUR,
+            "仿生恐龙": RobotBrand.BIONIC_DINOSAUR,
+            "belt_inspection": RobotBrand.BELT_INSPECTION,
+            "胶带机巡检": RobotBrand.BELT_INSPECTION,
+            "biped_wheel": RobotBrand.BIPED_WHEEL_PLATFORM,
+            "双轮足": RobotBrand.BIPED_WHEEL_PLATFORM,
+            "ai_electronic_skin": RobotBrand.AI_ELECTRONIC_SKIN,
+            "电子皮肤": RobotBrand.AI_ELECTRONIC_SKIN,
+            # ── 2026新品: 浙江人形创新中心 ──
+            "zhejiang_humanoid": RobotBrand.ZHEJIANG_HUMANOID,
+            "浙江人形": RobotBrand.ZHEJIANG_HUMANOID,
             # ── 2026新品: 四足/AMR ──
             "unitree_go2": RobotBrand.UNITREE_GO2,
             "go2": RobotBrand.UNITREE_GO2,
@@ -557,6 +590,17 @@ class RobotHAL:
             "BEIJING_TIANGONG_3": self._connect_beijing_robot,
             "TASHI_A3": self._connect_tashi,
             "ZHIPINGFANG_ALPHA": self._connect_zhipingfang,
+            # 成都人形创新中心系列
+            "GONGGA_1": self._connect_gongga,
+            "RUIBA": self._connect_ruiba,
+            "HONGHU_ROBOT": self._connect_honghu,
+            "XIAOZHA_ROBOT": self._connect_xiaozha,
+            "BIONIC_DINOSAUR": self._connect_bionic_dinosaur,
+            "BELT_INSPECTION": self._connect_belt_inspection,
+            "BIPED_WHEEL_PLATFORM": self._connect_biped_wheel,
+            "AI_ELECTRONIC_SKIN": self._connect_ai_skin,
+            # 浙江人形创新中心系列
+            "ZHEJIANG_HUMANOID": self._connect_zhejiang_humanoid,
             # 四足机器人
             "UNITREE_GO2": self._connect_unitree,
             "UNITREE_B2": self._connect_unitree,
@@ -993,6 +1037,66 @@ class RobotHAL:
             "QUICKTON_AMR": {  # 快仓AMR
                 "max_velocity": 2.0, "payload": 300.0, "battery_hours": 8,
             },
+            # ── 2026成都人形创新中心系列 ──
+            "GONGGA_1": {  # 贡嘎一号
+                "joint_lower": np.ones(20) * -3.14,
+                "joint_upper": np.ones(20) * 3.14,
+                "max_velocity": np.ones(20) * 2.0,
+                "max_torque": np.ones(20) * 30,
+                "payload": 2.0, "height": 1.2, "weight": 25,
+            },
+            "RUIBA": {  # 锐钯
+                "joint_lower": np.ones(12) * -3.14,
+                "joint_upper": np.ones(12) * 3.14,
+                "max_velocity": np.ones(12) * 2.5,
+                "max_torque": np.ones(12) * 40,
+                "payload": 5.0, "height": 1.0, "weight": 30,
+                "screen_size": 19, "head_dofs": 6,
+            },
+            "HONGHU_ROBOT": {  # 鸿鹄
+                "joint_lower": np.ones(25) * -3.14,
+                "joint_upper": np.ones(25) * 3.14,
+                "max_velocity": np.ones(25) * 2.5,
+                "max_torque": np.ones(25) * 50,
+                "payload": 10.0, "height": 1.5, "weight": 40,
+            },
+            "XIAOZHA_ROBOT": {  # 小吒
+                "joint_lower": np.ones(20) * -3.14,
+                "joint_upper": np.ones(20) * 3.14,
+                "max_velocity": np.ones(20) * 2.0,
+                "max_torque": np.ones(20) * 30,
+                "payload": 3.0, "height": 1.0, "weight": 25,
+            },
+            "BIONIC_DINOSAUR": {  # 仿生恐龙
+                "joint_lower": np.ones(16) * -3.14,
+                "joint_upper": np.ones(16) * 3.14,
+                "max_velocity": np.ones(16) * 2.5,
+                "max_torque": np.ones(16) * 60,
+                "payload": 10.0, "weight": 50,
+            },
+            "BELT_INSPECTION": {  # 胶带机巡检机器人
+                "max_velocity": 1.5, "payload": 50.0, "battery_hours": 24,
+                "order_size": 5000, "accuracy": "99%+",
+            },
+            "BIPED_WHEEL_PLATFORM": {  # 双轮足开源平台
+                "joint_lower": np.ones(8) * -3.14,
+                "joint_upper": np.ones(8) * 3.14,
+                "max_velocity": np.ones(8) * 3.0,
+                "max_torque": np.ones(8) * 100,
+                "payload": 100.0, "weight": 80,
+            },
+            "AI_ELECTRONIC_SKIN": {  # AI电子皮肤
+                "force_resolution": 0.005, "sensing_type": "neural_network",
+            },
+            # ── 2026浙江人形创新中心系列 ──
+            "ZHEJIANG_HUMANOID": {  # 浙江双臂人形作业机器人
+                "joint_lower": np.ones(40) * -3.14,
+                "joint_upper": np.ones(40) * 3.14,
+                "max_velocity": np.ones(40) * 2.5,
+                "max_torque": np.ones(40) * 80,
+                "payload": 20.0, "height": 1.75, "weight": 60,
+                "order_size": 2000, "application": "服装/汽车装配",
+            },
         }
         self._brand_config = brand_configs.get(self.brand.name, {})
 
@@ -1290,6 +1394,71 @@ class RobotHAL:
         self._quicktron = QuicktronRobot(host, port or 8080)
         self._quicktron.connect()
         self._comm = "quicktron"
+
+    # ── 成都人形创新中心系列连接存根 ──
+    def _connect_gongga(self, host, port):
+        """贡嘎一号 超轻量级人形"""
+        from gongga_sdk import GonggaRobot
+        self._gongga = GonggaRobot(host, port or 8080)
+        self._gongga.connect()
+        self._comm = "gongga"
+
+    def _connect_ruiba(self, host, port):
+        """锐钯 文商旅双足"""
+        from ruiba_sdk import RuibaRobot
+        self._ruiba = RuibaRobot(host, port or 8080)
+        self._ruiba.connect()
+        self._comm = "ruiba"
+
+    def _connect_honghu(self, host, port):
+        """鸿鹄 人形机器人"""
+        from honghu_sdk import HonghuRobot
+        self._honghu = HonghuRobot(host, port or 8080)
+        self._honghu.connect()
+        self._comm = "honghu"
+
+    def _connect_xiaozha(self, host, port):
+        """小吒 人形机器人"""
+        from xiaozha_sdk import XiaozhaRobot
+        self._xiaozha = XiaozhaRobot(host, port or 8080)
+        self._xiaozha.connect()
+        self._comm = "xiaozha"
+
+    def _connect_bionic_dinosaur(self, host, port):
+        """仿生恐龙机器人"""
+        from dinosaur_sdk import DinosaurRobot
+        self._dino = DinosaurRobot(host, port or 8080)
+        self._dino.connect()
+        self._comm = "bionic_dinosaur"
+
+    def _connect_belt_inspection(self, host, port):
+        """胶带机巡检机器人"""
+        from belt_sdk import BeltInspectionRobot
+        self._belt = BeltInspectionRobot(host, port or 8080)
+        self._belt.connect()
+        self._comm = "belt_inspection"
+
+    def _connect_biped_wheel(self, host, port):
+        """双轮足开源平台"""
+        from biped_wheel_sdk import BipedWheelRobot
+        self._biped = BipedWheelRobot(host, port or 8080)
+        self._biped.connect()
+        self._comm = "biped_wheel"
+
+    def _connect_ai_skin(self, host, port):
+        """AI神经网络电子皮肤"""
+        from ai_skin_sdk import AiElectronicSkin
+        self._skin = AiElectronicSkin(host, port or 8080)
+        self._skin.connect()
+        self._comm = "ai_skin"
+
+    # ── 浙江人形创新中心系列连接存根 ──
+    def _connect_zhejiang_humanoid(self, host, port):
+        """浙江双臂人形作业机器人"""
+        from zhejiang_humanoid_sdk import ZhejiangHumanoid
+        self._zjrobot = ZhejiangHumanoid(host, port or 8080)
+        self._zjrobot.connect()
+        self._comm = "zhejiang_humanoid"
 
     def disconnect(self):
         """断开连接"""
@@ -2536,6 +2705,50 @@ ROBOT_PURCHASE_GUIDE = {
          "pros": "2026WAIC首发、超拟人灵巧手+柔性腰、全自由度腰部",
          "cons": "价格高、量产初期",
          "use_case": "顶级科研、复杂工业作业、精密操作、大模型机器人"},
+        # ── 成都人形机器人创新中心系列 ──
+        {"name": "贡嘎一号", "brand": "成都人形创新中心", "price": "¥99,000-199,000",
+         "height": "120cm", "weight": "25kg", "dofs": "全身20+",
+         "pros": "国内首台超轻量级人形、仅25kg、拿拖鞋/取饮料/冲咖啡、家庭康养首选",
+         "cons": "负载能力有限",
+         "use_case": "家庭康养、智能陪伴、家政服务、教育科研"},
+        {"name": "锐钯", "brand": "成都人形创新中心", "price": "¥59,000-129,000",
+         "height": "100cm", "weight": "30kg", "dofs": "全身12+头部6",
+         "pros": "文商旅双足、19英寸交互大屏、6自由度头部、拟人化动作+表情、世运会啦啦队",
+         "cons": "工业能力有限",
+         "use_case": "文商旅、科技馆、博物馆、商业展演、景区导览"},
+        {"name": "鸿鹄", "brand": "成都人形创新中心", "price": "¥199,000-399,000",
+         "height": "150cm", "weight": "40kg", "dofs": "全身25+",
+         "pros": "中西部首个双足行走样机、四川省一号创新工程、30余项顶尖研发成果",
+         "cons": "品牌较新",
+         "use_case": "科研平台、双足行走研究、具身智能开发"},
+        {"name": "小吒", "brand": "成都人形创新中心", "price": "¥79,000-149,000",
+         "height": "100cm", "weight": "25kg", "dofs": "全身20+",
+         "pros": "小型化人形机器人、灵活机动、教育科研首选",
+         "cons": "负载能力有限",
+         "use_case": "教育科研、青少年科普、算法验证"},
+        {"name": "仿生恐龙机器人", "brand": "成都人形创新中心", "price": "¥299,000-599,000",
+         "dofs": "全身16+",
+         "pros": "全球首款双足行走智能仿生恐龙、逼真形态+智能交互",
+         "cons": "应用场景较窄",
+         "use_case": "主题公园、科技馆、文旅展演、影视娱乐"},
+        {"name": "胶带机巡检机器人", "brand": "成都人形创新中心", "price": "¥399,000-799,000",
+         "pros": "5000台国内最大订单、VPDM-01声纹识别模型、99%+异常识别率、自主充电续航24h",
+         "cons": "垂直领域专用",
+         "use_case": "工业巡检、水电站胶带机、长距离输送线、极端环境作业"},
+        {"name": "双轮足开源平台", "brand": "成都人形创新中心", "price": "¥199,000-399,000",
+         "pros": "全球首个全尺寸重载双轮足开源、本体+软件全开源、从图纸到成品完整手册",
+         "cons": "需二次开发",
+         "use_case": "科研平台、开发者生态、双轮足研究、高校实验室"},
+        {"name": "AI神经网络电子皮肤", "brand": "成都人形创新中心", "price": "¥19,900-49,900",
+         "pros": "0.005N微力识别、全球首个AI神经网络电子皮肤、羽毛级触觉感知",
+         "cons": "附件产品",
+         "use_case": "精密操作、机器人触觉、人机交互、医疗康复"},
+        # ── 浙江人形机器人创新中心系列 ──
+        {"name": "浙江双臂作业人形", "brand": "浙江人形创新中心", "price": "¥399,000-699,000",
+         "height": "175cm", "weight": "60kg", "dofs": "全身40+",
+         "pros": "杰克科技2000台服装场景订单、双臂协同缝纫、2mm精度对位、汽车装配+石化实验",
+         "cons": "垂直场景优化",
+         "use_case": "服装制造、汽车装配、电子3C、石化实验室、多品种小批量生产"},
     ],
     # ====================================================================
     # 三、协作机械臂专区（2025-2026国产主力）
