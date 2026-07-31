@@ -1617,6 +1617,10 @@ class RobotHAL:
             "ROKID_GLASSES": {  # Rokid Glasses
                 "features": ["乐奇AI助手2.0", "主动智能", "行程自动记录"],
             },
+            "ROKID_AR": {  # Rokid AR眼镜/头盔
+                "products": ["Rokid Glasses", "Rokid AR", "Rokid Helmet"],
+                "features": ["消费级+工业级AR全矩阵", "乐奇AI助手2.0"],
+            },
             "QIANWEN_S1": {  # 阿里千问AI眼镜S1
                 "features": ["热插拔可换电", "智能体眼镜", "第三方Skill调用"],
             },
