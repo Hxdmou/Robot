@@ -72,8 +72,8 @@ class ControlMode(Enum):
 
 
 class RobotBrand(Enum):
-    """支持的机器人品牌与型号（持续扩展中）"""
-    # ── 协作机械臂（7轴/6轴） ──
+    """支持的机器人品牌与型号（2026年最新，持续扩展中）"""
+    # ── 协作机械臂（7轴/6轴）──
     AIRBOT_P7 = "Airbot P7 (7轴协作臂, 中国·星动纪元)"
     PANDA = "Franka Emika Panda (7轴协作臂, 德国)"
     UNIVERSAL_ROBOTS = "Universal Robots (6轴协作臂, 丹麦)"
@@ -82,28 +82,64 @@ class RobotBrand(Enum):
     FANUC_CR = "Fanuc CRX (协作臂, 日本)"
     DOOSAN = "Doosan (6轴协作臂, 韩国)"
     ELEPHANT = "Elephant Robotics myCobot (6轴轻量臂, 中国)"
+    # ── 国产协作臂（2026主力型号）──
+    UFACTORY_CRA = "UFACTORY CRA系列 (6/7轴高速协作, 中国·越疆, 2026新品)"
     UFACTORY = "UFACTORY xArm (6/7轴协作臂, 中国·越疆)"
-    JAKA = "JAKA Zu (6轴协作臂, 中国·节卡)"
+    JAKA_ZU = "JAKA Zu系列 (协作臂, 中国·节卡)"
+    JAKA_ZU35 = "JAKA Zu35 (35kg重载协作, 中国·节卡, 2026新品)"
+    JAKA_AI = "JAKA Ai系列 (一体化视觉协作臂, 中国·节卡, 2026新品)"
+    JAKA_MINI2 = "JAKA Mini 2 (微型协作臂, 中国·节卡, 2026新品)"
     HAIBOXING = "HAN'S Elfin (6轴协作臂, 中国·大族)"
+    ROKAE = "ROKAE 珞石 (协作/工业机器人, 中国·珞石, 2026高速增长)"
+    AUBO = "AUBO 遨博 (协作臂, 中国)"
+    ELITE = "ELITE 艾利特 (协作臂, 中国)"
     TIAGOA = "TiAGo (移动操作臂, 西班牙PAL Robotics)"
-
-    # ── 人形机器人（全身） ──
-    UNITREE_H1 = "Unitree H1 (人形机器人, 中国·宇树)"
-    UNITREE_G1 = "Unitree G1 (人形机器人, 中国·宇树)"
+    # ── 人形机器人（2025-2026量产主力）──
+    UNITREE_H1 = "Unitree H1 (人形机器人, 中国·宇树, 已量产5500+台)"
+    UNITREE_H2 = "Unitree H2 (新一代高动态人形, 中国·宇树, 2026春晚)"
+    UNITREE_G1 = "Unitree G1 (小型人形机器人, 中国·宇树, 8.5万起)"
+    UNITREE_R1 = "Unitree R1 智能伙伴 (家庭人形, 中国·宇树, 2.99万, 2026新品)"
+    UNITREE_GD01 = "Unitree GD01 (载人变形机甲, 中国·宇树, 2026全球首发)"
+    ZHILYUAN_A3 = "智元远征A3 Ultra (超拟人灵巧手+柔性腰, 2026WAIC首发)"
+    ZHILYUAN_G2 = "智元精灵G2 (量产人形, 良品率99.99%, 2026新品)"
+    ZHILYUAN_Q1 = "智元启元Q1 (便携背包人形, 2026新品)"
+    UBTECH_WALKER = "优必选Walker S系列 (工业人形, 已交付千台, 订单1.3万+)"
+    JAKA_PI = "JAKA π 仔 (小型人形机器人, 中国·节卡, 2026新品)"
+    JAKA_K1 = "JAKA K1-25 (重载双臂人形, 单臂25kg, 2026WAIC首发)"
     FIGURE_01 = "Figure 01 (人形机器人, 美国·Figure AI)"
-    OPTIMUS = "Tesla Optimus (人形机器人, 美国·特斯拉)"
+    OPTIMUS = "Tesla Optimus Gen-3 (人形机器人, 美国·特斯拉, 规划年产能100万)"
     XIAOBING = "Galaxy DB1 (人形机器人, 中国·银河通用)"
     FLEXIV = "Flexiv Rizon (7轴力控臂, 中国·非夕)"
     APPTRONIK = "Apptronik Apollo (人形机器人, 美国)"
     AGILITY = "Agility Digit (双足机器人, 美国)"
+    SONGYAN_BUMI = "松延动力Bumi小布米 (94cm小型人形, 不足万元, 2025新品)"
+    # ── 人形机器人（2025-2026最新量产与首发）──
+    KEPLER_K2 = "开普勒K2大黄蜂 (全球首款混动架构人形, 52自由度, 双臂30kg, 2026首发)"
+    ZHILINGXI_X2 = "智元灵犀X2 (1.3米康养人形, iF设计奖, 2026新品)"
+    MATRIX_3 = "矩阵超智MATRIX-3 (27维灵巧手, 微米级操作, 特斯拉系, 2026首发)"
+    FOURIER_GR3 = "傅利叶GR-3 (全尺寸情感陪护机器人, 柔肤软包, 2026新品)"
+    ZHUOYIDE_MOYA = "卓益得Moya (仿生人形, 蜡像级硅胶, 92%步态仿真, 2026新品)"
+    LINGLONG_2 = "国家地方共建灵龙2.0 (人形创新中心, 动态平衡, 2026首发)"
+    XINGHAITU_R1 = "星海图R1 (清华系, 19.9万起, 科研人形首选, 2026新品)"
+    YINHE_GALBOT_S2 = "银河通用Galbot S2 (宁德时代产线验证, 2026新品)"
+    QIANXUN_MOZ1 = "千寻智能Moz1 (全身力控+端到端大模型, 宁德时代标杆, 2026新品)"
+    BEIJING_TIANGONG_3 = "北京人形天工3.0 (560TOPS算力, RDK S600, 2026首发)"
+    TASHI_A3 = "它石智航A3 (轮式双臂机器人, RDK S600, 2026新品)"
+    ZHIPINGFANG_ALPHA = "智平方Alpha (类脑VLA, 惠科1000台订单, 2026首发)"
+    # ── 四足机器人（2025-2026量产）──
     ANYBOTICS = "ANYbotics ANYmal (四足机器人, 瑞士)"
-    DEEPROBOTICS = "DeepRobotics (四足机器人, 中国·云深处)"
-
+    DEEPROBOTICS = "DeepRobotics Jueying (四足机器人, 中国·云深处)"
+    UNITREE_GO2 = "Unitree Go2 (四足机器人, 中国·宇树, 8999元起, 已量产)"
+    UNITREE_B2 = "Unitree B2 (工业四足, 中国·宇树, 2026新品)"
+    UNITREE_A2 = "Unitree A2 (教育四足, 中国·宇树)"
     # ── AMR/AGV 移动机器人 ──
     AGV_AMR = "AGV/AMR (自主移动机器人, 通用)"
+    HIKROBOT_AMR = "海康机器人 AMR (中国·海康威视, 2026市占率领先)"
+    GEEK_AMR = "极智嘉 Geek+ AMR (中国·极智嘉, AMR全球第一)"
+    QUICKTON_AMR = "快仓 Quicktron AMR (中国·快仓)"
+    MIR = "Mobile Industrial Robots (丹麦·MIR, 被泰瑞达收购)"
     TURTLEBOT = "TurtleBot (移动研究平台, 通用)"
     CLEARPATH = "ClearPath Husky/Jackal (移动平台, 加拿大)"
-
     # ── 仿真环境 ──
     SIMULATION = "PyBullet/Mujoco 仿真环境 (无需硬件)"
 
@@ -1669,76 +1705,400 @@ def quick_start_galaxy_db1(host: str = "192.168.1.203") -> RealRobotReadySystem:
 # ============================================================================
 
 ROBOT_PURCHASE_GUIDE = {
-    # ── 按预算分类 ──
-    "budget": [
-        {"name": "myCobot 280", "brand": "Elephant Robotics", "price": "¥5,000-10,000",
+    # ====================================================================
+    # 一、按预算分类（人民币）
+    # ====================================================================
+    "budget_1w": [  # 1万元以内
+        {"name": "myCobot 280", "brand": "Elephant Robotics 大象机器人", "price": "¥5,000-10,000",
          "payload": "0.25kg", "reach": "280mm", "axes": 6,
-         "pros": "价格极低、入门友好、USB连接",
+         "pros": "价格极低、入门友好、USB连接、ROS支持",
          "cons": "负载小、精度一般",
-         "use_case": "教学、演示、轻量抓取"},
-        {"name": "xArm 6", "brand": "UFACTORY 越疆", "price": "¥30,000-50,000",
-         "payload": "5kg", "reach": "700mm", "axes": 6,
-         "pros": "性价比极高、SDK完善、支持ROS",
-         "cons": "力控需额外选配",
-         "use_case": "科研、轻量工业、服务机器人"},
+         "use_case": "教学、演示、轻量抓取、创客DIY"},
+        {"name": "Unitree Go2 Air", "brand": "宇树科技", "price": "¥8,999",
+         "payload": "7kg（背负）", "reach": "四足", "axes": 12,
+         "pros": "四足入门最低门槛、可走可舞可避障、空翻",
+         "cons": "无手臂、精细操作有限",
+         "use_case": "教学科研、娱乐表演、基础巡检"},
+        {"name": "松延动力Bumi小布米", "brand": "松延动力", "price": "¥8,000-10,000",
+         "height": "94cm", "weight": "12kg", "dofs": "全身20+",
+         "pros": "人形机器人最低门槛、价格不足万元、家庭友好",
+         "cons": "尺寸小、负载有限",
+         "use_case": "家庭陪伴、教育启蒙、科技馆展示"},
     ],
-    "mid_range": [
+    "budget_3w": [  # 1-3万元
+        {"name": "Unitree Go2 Pro", "brand": "宇树科技", "price": "¥18,600",
+         "payload": "8-10kg", "speed": "5m/s", "dofs": 12,
+         "pros": "ISS 2.0伴随系统、4G联网、语音交互、360°激光雷达",
+         "cons": "无手臂操作",
+         "use_case": "科研教育、巡检安防、娱乐表演"},
+        {"name": "Unitree R1 智能伙伴", "brand": "宇树科技", "price": "¥29,900",
+         "height": "123cm", "weight": "29kg", "dofs": "23+",
+         "pros": "消费级人形最低门槛、家庭友好、可走可舞、手臂操作",
+         "cons": "手部精度一般、续航1小时",
+         "use_case": "家庭陪伴、迎宾接待、儿童教育、科技馆"},
+        {"name": "xArm 1S", "brand": "越疆科技", "price": "¥16,800",
+         "payload": "0.5kg", "reach": "400mm", "axes": 5,
+         "pros": "入门级协作臂、桌面级、轻量紧凑、教育首选",
+         "cons": "负载小、5轴无冗余",
+         "use_case": "教学实训、桌面自动化、轻量装配"},
+    ],
+    "budget_10w": [  # 3-10万元
+        {"name": "Unitree G1 基础版", "brand": "宇树科技", "price": "¥85,000-99,000",
+         "height": "132cm", "weight": "35kg", "dofs": "23-43",
+         "pros": "量产人形入门首选、五指灵巧手、ROS2/SDK全开放",
+         "cons": "单臂负载仅3kg、续航40-60分钟",
+         "use_case": "人形机器人研发、具身智能算法、教育科研"},
+        {"name": "CRA3-630", "brand": "越疆科技", "price": "¥50,000-70,000",
+         "payload": "3kg", "reach": "630mm", "axes": 6,
+         "pros": "2026新品、223°/s高速、±0.02mm精度、PLd安全、EtherCAT",
+         "cons": "力控需选配",
+         "use_case": "3C装配、检测分拣、实验室自动化"},
+        {"name": "JAKA Mini 2", "brand": "节卡机器人", "price": "¥40,000-60,000",
+         "payload": "2kg", "reach": "580mm", "axes": 6,
+         "pros": "2026新品、超小型、180W低功耗、桌面自动化",
+         "cons": "负载较小",
+         "use_case": "高校实训、桌面小型自动化、文创商用"},
+        {"name": "JAKA Ai3", "brand": "节卡机器人", "price": "¥70,000-90,000",
+         "payload": "3kg", "reach": "626mm", "axes": 6,
+         "pros": "2026新品、一体化内置视觉、±0.02mm精度、免布线",
+         "cons": "臂展较短",
+         "use_case": "3C精密锁附、镭雕涂胶、视觉分拣"},
+        {"name": "Unitree G1 EDU", "brand": "宇树科技", "price": "¥169,000-309,000",
+         "height": "132cm", "weight": "35kg", "dofs": "23-43",
+         "pros": "人形开发首选、完整SDK/ROS2、算力可扩展、双灵巧手",
+         "cons": "价格较高",
+         "use_case": "顶级科研、具身智能算法、大模型机器人"},
+    ],
+    "mid_range": [  # 10-30万元
         {"name": "Airbot P7", "brand": "星动纪元", "price": "¥80,000-120,000",
          "payload": "7kg", "reach": "922mm", "axes": 7,
-         "pros": "7轴力控、拖拽示教、国产首选、支持CAN总线",
+         "pros": "7轴力控、拖拽示教、国产首选、CAN总线、全向移动",
          "cons": "品牌较新",
-         "use_case": "精密装配、力控打磨、科研实验"},
+         "use_case": "精密装配、力控打磨、科研实验、产线柔性自动化"},
         {"name": "Flexiv Rizon 4", "brand": "非夕科技", "price": "¥100,000-150,000",
          "payload": "4kg", "reach": "830mm", "axes": 7,
-         "pros": "全球顶级力控、AI原生、复杂作业",
+         "pros": "全球顶级力控、AI原生、复杂作业、高精度",
          "cons": "价格偏高",
-         "use_case": "精密装配、抛光打磨、柔性作业"},
+         "use_case": "精密装配、抛光打磨、柔性作业、无序分拣"},
         {"name": "JAKA Zu 7", "brand": "节卡机器人", "price": "¥60,000-90,000",
          "payload": "7kg", "reach": "790mm", "axes": 6,
-         "pros": "无线示教、拖拽编程、部署极快",
+         "pros": "无线示教、拖拽编程、部署极快、国内市占率国产头部",
          "cons": "6轴无冗余",
-         "use_case": "3C电子、汽车零部件、产线集成"},
+         "use_case": "3C电子、汽车零部件、产线集成、上下料"},
+        {"name": "JAKA π 仔", "brand": "节卡机器人", "price": "¥90,000-130,000",
+         "height": "122cm", "weight": "42kg", "dofs": 27,
+         "pros": "2026新品、全自研关节、大小脑融合、现货交付",
+         "cons": "单臂负载3kg",
+         "use_case": "高校实训、科技馆导览、商业迎宾、康养交互"},
+        {"name": "JAKA Ai7", "brand": "节卡机器人", "price": "¥80,000-110,000",
+         "payload": "7kg", "reach": "819mm", "axes": 6,
+         "pros": "2026新品、一体化视觉、±0.02mm、免手眼标定、3C爆款",
+         "cons": "力控需选配",
+         "use_case": "电子装配、视觉分拣、精密涂胶、包装码垛"},
+        {"name": "CRA7-950", "brand": "越疆科技", "price": "¥80,000-120,000",
+         "payload": "7kg", "reach": "950mm", "axes": 6,
+         "pros": "2026新品、223°/s高速、±0.03mm、EtherCAT、SafeSkin碰前感知",
+         "cons": "力控需选配",
+         "use_case": "搬运码垛、上下料、装配检测、机床自动化"},
+    ],
+    "premium_30w": [  # 30-80万元
         {"name": "UR5e", "brand": "Universal Robots", "price": "¥120,000-180,000",
          "payload": "5kg", "reach": "850mm", "axes": 6,
-         "pros": "全球最成熟协作臂、生态完善、海量教程",
+         "pros": "全球最成熟协作臂、生态完善、海量教程、售后全球",
          "cons": "价格高、力控需选件",
-         "use_case": "工业产线、科研教学、全球服务"},
+         "use_case": "工业产线、科研教学、全球服务、高端制造"},
+        {"name": "UR10e", "brand": "Universal Robots", "price": "¥180,000-250,000",
+         "payload": "10kg", "reach": "1300mm", "axes": 6,
+         "pros": "全球标杆、长臂展、大负载、工业级可靠性",
+         "cons": "价格高",
+         "use_case": "汽车制造、包装码垛、机床上下料、重型装配"},
+        {"name": "JAKA Zu35", "brand": "节卡机器人", "price": "¥200,000-280,000",
+         "payload": "35kg", "reach": "2000mm", "axes": 6,
+         "pros": "2026新品、35kg重载天花板、2m臂展、码垛12次/分钟",
+         "cons": "体积较大",
+         "use_case": "整箱码垛、重型机床上下料、汽车大件、新能源电池"},
+        {"name": "JAKA Ai12", "brand": "节卡机器人", "price": "¥140,000-180,000",
+         "payload": "12kg", "reach": "1327mm", "axes": 6,
+         "pros": "2026新品、一体化视觉、长臂展大负载、免布线",
+         "cons": "6轴无冗余",
+         "use_case": "大件搬运、包装码垛、机床自动化、汽车零部件"},
+        {"name": "珞石 xMateCR7", "brand": "珞石机器人", "price": "¥150,000-220,000",
+         "payload": "7kg", "reach": "920mm", "axes": 7,
+         "pros": "力控人形机械臂、国内协作市占率47%、全栈自研",
+         "cons": "品牌认知度略低",
+         "use_case": "精密装配、打磨抛光、人形机器人手臂、科研"},
     ],
-    "premium": [
+    "premium": [  # 80万元以上
         {"name": "Franka Emika Panda", "brand": "Franka Emika", "price": "¥200,000-300,000",
          "payload": "3kg", "reach": "855mm", "axes": 7,
-         "pros": "科研黄金标准、开源友好、力控顶级",
+         "pros": "科研黄金标准、开源友好、力控顶级、学术引用最多",
          "cons": "负载小、价格高",
-         "use_case": "顶级科研、AI机器人学习、精密操作"},
+         "use_case": "顶级科研、AI机器人学习、精密操作、具身智能"},
         {"name": "KUKA LBR iiwa", "brand": "KUKA", "price": "¥300,000-500,000",
          "payload": "7/14kg", "reach": "800mm", "axes": 7,
-         "pros": "工业级力控、ISO 10218认证、汽车行业标准",
+         "pros": "工业级力控、ISO 10218认证、汽车行业标准、全球标杆",
          "cons": "价格极高、部署复杂",
-         "use_case": "汽车制造、航空航天、精密工业"},
+         "use_case": "汽车制造、航空航天、精密工业、高端科研"},
     ],
+    # ====================================================================
+    # 二、人形机器人专区（2025-2026量产主力）
+    # ====================================================================
     "humanoid": [
+        {"name": "Unitree G1", "brand": "宇树科技", "price": "¥85,000-309,000",
+         "height": "132cm", "weight": "35kg", "dofs": "23-43",
+         "pros": "全球量产最多人形之一、五指灵巧手、ROS2全开放、性价比最高",
+         "cons": "单臂负载3kg、续航40-60分钟",
+         "use_case": "人形研发、具身智能、教育科研、工业预研"},
         {"name": "Unitree H1", "brand": "宇树科技", "price": "¥600,000-900,000",
          "height": "180cm", "weight": "47kg", "dofs": "全身35+",
-         "pros": "全球最成熟量产人形、运动能力强、价格相对低",
-         "cons": "手部操作能力有限",
-         "use_case": "人形机器人研发、工业巡检、特种作业"},
-        {"name": "Unitree G1", "brand": "宇树科技", "price": "¥150,000-250,000",
-         "height": "130cm", "weight": "25kg", "dofs": "全身25+",
-         "pros": "入门级人形、价格友好、教育首选",
-         "cons": "尺寸较小、负载有限",
-         "use_case": "教学科研、人机动画、服务演示"},
+         "pros": "全球最成熟全尺寸人形、运动能力最强（5m/s）、已量产5500+台",
+         "cons": "手部操作能力有限、价格高",
+         "use_case": "人形机器人研发、工业巡检、特种作业、运动测试"},
+        {"name": "优必选Walker S2", "brand": "优必选", "price": "¥500,000-1,000,000",
+         "height": "160cm", "weight": "67kg", "dofs": "全身41",
+         "pros": "工业人形已量产、全年交付千台+、订单1.3万台、汽车产线验证",
+         "cons": "价格较高",
+         "use_case": "工业制造、汽车产线、3C电子、新能源电池"},
         {"name": "银河通用 DB1", "brand": "银河通用", "price": "¥500,000-800,000",
          "height": "170cm", "weight": "55kg", "dofs": "全身40+",
-         "pros": "国产量产人形、双手操作、大模型集成",
+         "pros": "国产量产人形、双手操作、大模型集成、百达精工千台订单",
          "cons": "交付周期较长",
-         "use_case": "工厂作业、家政服务、科研平台"},
+         "use_case": "工厂作业、家政服务、科研平台、商业服务"},
+        {"name": "智元精灵G2", "brand": "智元机器人", "price": "¥300,000-500,000",
+         "height": "155cm", "weight": "55kg", "dofs": "全身40+",
+         "pros": "良品率99.99%、量产爬坡、订单5100+台、2026年数万台目标",
+         "cons": "精细操作待验证",
+         "use_case": "工厂分拣、产线组装、物流搬运、科研"},
+        {"name": "智元远征A3 Ultra", "brand": "智元机器人", "price": "¥600,000-900,000",
+         "height": "175cm", "weight": "65kg", "dofs": "全身50+",
+         "pros": "2026WAIC首发、超拟人灵巧手+柔性腰、全自由度腰部",
+         "cons": "价格高、量产初期",
+         "use_case": "顶级科研、复杂工业作业、精密操作、大模型机器人"},
+        {"name": "JAKA π 仔", "brand": "节卡机器人", "price": "¥90,000-130,000",
+         "height": "122cm", "weight": "42kg", "dofs": 27,
+         "pros": "2026新品、全自研关节、现货交付、科教商用首选",
+         "cons": "尺寸较小",
+         "use_case": "高校实训、科技馆导览、商业迎宾、康养交互"},
+        {"name": "Unitree R1", "brand": "宇树科技", "price": "¥29,900",
+         "height": "123cm", "weight": "29kg", "dofs": "23+",
+         "pros": "消费级人形最低门槛、家庭友好、大众市场首选",
+         "cons": "性能有限",
+         "use_case": "家庭陪伴、儿童教育、迎宾接待、文化娱乐"},
+        {"name": "开普勒K2大黄蜂", "brand": "开普勒机器人", "price": "¥400,000-700,000",
+         "height": "175cm", "weight": "85kg", "dofs": "全身52",
+         "pros": "全球首款商用混动架构人形、双臂协同30kg、8小时长续航、能效81.3%",
+         "cons": "价格高、量产初期",
+         "use_case": "汽车制造、重型搬运、新能源产线、高端工业"},
+        {"name": "智元灵犀X2", "brand": "智元机器人", "price": "¥250,000-400,000",
+         "height": "130cm", "weight": "45kg", "dofs": "全身35+",
+         "pros": "iF设计奖、硅光动语多模态大模型、毫秒级情感响应、康养陪护首选",
+         "cons": "负载有限",
+         "use_case": "康养陪护、家庭陪伴、教育互动、商业服务"},
+        {"name": "傅利叶GR-3", "brand": "傅利叶智能", "price": "¥300,000-500,000",
+         "height": "165cm", "weight": "60kg", "dofs": "全身40+",
+         "pros": "业内首款全尺寸情感陪护机器人、柔肤软包、全感交互系统",
+         "cons": "工业能力有限",
+         "use_case": "康养陪护、情感陪伴、特殊教育、医疗康复"},
+        {"name": "星海图R1", "brand": "星海图机器人", "price": "¥199,000-350,000",
+         "height": "160cm", "weight": "55kg", "dofs": "全身40+",
+         "pros": "清华系、EFM-1双系统一脑多形、G0 VLA开源、150+科研院所使用",
+         "cons": "品牌较新",
+         "use_case": "顶级科研、具身智能算法、大模型机器人、高校实验室"},
+        {"name": "智元远征A3 Ultra", "brand": "智元机器人", "price": "¥600,000-900,000",
+         "height": "175cm", "weight": "65kg", "dofs": "全身50+",
+         "pros": "2026WAIC首发、超拟人灵巧手+柔性腰、全自由度腰部",
+         "cons": "价格高、量产初期",
+         "use_case": "顶级科研、复杂工业作业、精密操作、大模型机器人"},
     ],
-    # ── 按场景分类 ──
-    "scenario_research": ["Franka Emika Panda", "Airbot P7", "UR5e", "xArm 7"],
-    "scenario_industrial": ["UR5e/UR10e", "JAKA Zu", "KUKA LBR iiwa", "ABB GoFa"],
-    "scenario_education": ["myCobot 280", "xArm 6", "Unitree G1"],
-    "scenario_force_control": ["Franka Panda", "Flexiv Rizon", "KUKA iiwa", "Airbot P7"],
-    "scenario_humanoid": ["Unitree H1", "银河通用 DB1", "Figure 01", "Agility Digit"],
+    # ====================================================================
+    # 三、协作机械臂专区（2025-2026国产主力）
+    # ====================================================================
+    "cobot": [
+        {"name": "Airbot P7", "brand": "星动纪元", "price": "¥80,000-120,000",
+         "payload": "7kg", "reach": "922mm", "axes": 7,
+         "pros": "7轴力控、拖拽示教、国产首选、CAN总线、全向移动",
+         "cons": "品牌较新",
+         "use_case": "精密装配、力控打磨、科研实验、产线柔性自动化"},
+        {"name": "CRA3-630", "brand": "越疆科技", "price": "¥50,000-70,000",
+         "payload": "3kg", "reach": "630mm", "axes": 6,
+         "pros": "2026新品、223°/s高速、±0.02mm精度、PLd安全、EtherCAT",
+         "cons": "力控需选配",
+         "use_case": "3C装配、检测分拣、实验室自动化"},
+        {"name": "CRA7-950", "brand": "越疆科技", "price": "¥80,000-120,000",
+         "payload": "7kg", "reach": "950mm", "axes": 6,
+         "pros": "2026新品、223°/s高速、±0.03mm、EtherCAT、SafeSkin碰前感知",
+         "cons": "力控需选配",
+         "use_case": "搬运码垛、上下料、装配检测、机床自动化"},
+        {"name": "JAKA Ai3", "brand": "节卡机器人", "price": "¥70,000-90,000",
+         "payload": "3kg", "reach": "626mm", "axes": 6,
+         "pros": "2026新品、一体化内置视觉、±0.02mm精度、免布线",
+         "cons": "臂展较短",
+         "use_case": "3C精密锁附、镭雕涂胶、视觉分拣"},
+        {"name": "JAKA Ai7", "brand": "节卡机器人", "price": "¥80,000-110,000",
+         "payload": "7kg", "reach": "819mm", "axes": 6,
+         "pros": "2026新品、一体化视觉、±0.02mm、免手眼标定、3C爆款",
+         "cons": "力控需选配",
+         "use_case": "电子装配、视觉分拣、精密涂胶、包装码垛"},
+        {"name": "JAKA Ai12", "brand": "节卡机器人", "price": "¥140,000-180,000",
+         "payload": "12kg", "reach": "1327mm", "axes": 6,
+         "pros": "2026新品、一体化视觉、长臂展大负载、免布线",
+         "cons": "6轴无冗余",
+         "use_case": "大件搬运、包装码垛、机床自动化、汽车零部件"},
+        {"name": "JAKA Zu35", "brand": "节卡机器人", "price": "¥200,000-280,000",
+         "payload": "35kg", "reach": "2000mm", "axes": 6,
+         "pros": "2026新品、35kg重载天花板、2m臂展、码垛12次/分钟",
+         "cons": "体积较大",
+         "use_case": "整箱码垛、重型机床上下料、汽车大件、新能源电池"},
+        {"name": "JAKA Mini 2", "brand": "节卡机器人", "price": "¥40,000-60,000",
+         "payload": "2kg", "reach": "580mm", "axes": 6,
+         "pros": "2026新品、超小型、180W低功耗、桌面自动化",
+         "cons": "负载较小",
+         "use_case": "高校实训、桌面小型自动化、文创商用"},
+        {"name": "JAKA Zu 7", "brand": "节卡机器人", "price": "¥60,000-90,000",
+         "payload": "7kg", "reach": "790mm", "axes": 6,
+         "pros": "无线示教、拖拽编程、部署极快、国内市占率国产头部",
+         "cons": "6轴无冗余",
+         "use_case": "3C电子、汽车零部件、产线集成、上下料"},
+        {"name": "Flexiv Rizon 4", "brand": "非夕科技", "price": "¥100,000-150,000",
+         "payload": "4kg", "reach": "830mm", "axes": 7,
+         "pros": "全球顶级力控、AI原生、复杂作业、高精度",
+         "cons": "价格偏高",
+         "use_case": "精密装配、抛光打磨、柔性作业、无序分拣"},
+        {"name": "珞石 xMateCR7", "brand": "珞石机器人", "price": "¥150,000-220,000",
+         "payload": "7kg", "reach": "920mm", "axes": 7,
+         "pros": "力控人形机械臂、国内协作市占率47%、全栈自研",
+         "cons": "品牌认知度略低",
+         "use_case": "精密装配、打磨抛光、人形机器人手臂、科研"},
+        {"name": "xArm 1S", "brand": "越疆科技", "price": "¥16,800",
+         "payload": "0.5kg", "reach": "400mm", "axes": 5,
+         "pros": "入门级协作臂、桌面级、轻量紧凑、教育首选",
+         "cons": "负载小、5轴无冗余",
+         "use_case": "教学实训、桌面自动化、轻量装配"},
+        {"name": "myCobot 280", "brand": "大象机器人", "price": "¥5,000-10,000",
+         "payload": "0.25kg", "reach": "280mm", "axes": 6,
+         "pros": "价格极低、入门友好、USB连接、ROS支持",
+         "cons": "负载小、精度一般",
+         "use_case": "教学、演示、轻量抓取、创客DIY"},
+        {"name": "UR5e", "brand": "Universal Robots", "price": "¥120,000-180,000",
+         "payload": "5kg", "reach": "850mm", "axes": 6,
+         "pros": "全球最成熟协作臂、生态完善、海量教程、售后全球",
+         "cons": "价格高、力控需选件",
+         "use_case": "工业产线、科研教学、全球服务、高端制造"},
+        {"name": "Franka Emika Panda", "brand": "Franka Emika", "price": "¥200,000-300,000",
+         "payload": "3kg", "reach": "855mm", "axes": 7,
+         "pros": "科研黄金标准、开源友好、力控顶级、学术引用最多",
+         "cons": "负载小、价格高",
+         "use_case": "顶级科研、AI机器人学习、精密操作、具身智能"},
+    ],
+    # ====================================================================
+    # 四、四足机器人专区
+    # ====================================================================
+    "quadruped": [
+        {"name": "Unitree Go2 Air", "brand": "宇树科技", "price": "¥8,999",
+         "payload": "7kg", "speed": "3m/s", "dofs": 12,
+         "pros": "入门最低门槛、可走可舞可避障、空翻、海量论文平台",
+         "cons": "无手臂操作",
+         "use_case": "教学科研、娱乐表演、基础巡检"},
+        {"name": "Unitree Go2 Pro", "brand": "宇树科技", "price": "¥18,600",
+         "payload": "8-10kg", "speed": "5m/s", "dofs": 12,
+         "pros": "4D激光雷达、ISS伴随、4G联网、语音交互、全球科研主力",
+         "cons": "无手臂",
+         "use_case": "科研教育、巡检安防、复杂地形导航、算法验证"},
+        {"name": "Unitree B2", "brand": "宇树科技", "price": "¥80,000-150,000",
+         "payload": "20kg", "speed": "4m/s", "dofs": 12,
+         "pros": "2026工业级新品、大负载、IP67、-20℃~55℃、长续航4小时",
+         "cons": "价格较高",
+         "use_case": "工业巡检、电力巡检、消防救援、安防巡逻"},
+        {"name": "云深处Jueying Lite3", "brand": "云深处科技", "price": "¥50,000-80,000",
+         "payload": "15kg", "speed": "4m/s", "dofs": 12,
+         "pros": "工业级四足、IP66防护、电力巡检主力、浙大系",
+         "cons": "品牌认知度略低",
+         "use_case": "电力巡检、园区安防、科研教育、特种作业"},
+        {"name": "ANYbotics ANYmal", "brand": "ANYbotics", "price": "¥300,000-500,000",
+         "payload": "10kg", "speed": "1m/s", "dofs": 12,
+         "pros": "工业级标杆、防爆认证、油气/化工巡检、瑞士品质",
+         "cons": "价格极高",
+         "use_case": "油气化工、矿山巡检、防爆场景、高端科研"},
+    ],
+    # ====================================================================
+    # 四、AMR/AGV移动机器人专区
+    # ====================================================================
+    "amr": [
+        {"name": "极智嘉P800", "brand": "极智嘉Geek+", "price": "¥150,000-250,000",
+         "payload": "800kg", "speed": "2m/s", "dofs": "移动+举升",
+         "pros": "AMR全球第一、仓储物流标杆、智能分拣、已部署数万台",
+         "cons": "仓储场景为主",
+         "use_case": "电商仓储、智能分拣、物流搬运、工厂内部物流"},
+        {"name": "海康机器人潜伏AMR", "brand": "海康机器人", "price": "¥120,000-200,000",
+         "payload": "600-1000kg", "speed": "2m/s", "dofs": "移动+举升",
+         "pros": "国内市占率领先、视觉导航、海康威视生态、3C电子主力",
+         "cons": "特定场景优化",
+         "use_case": "3C电子、汽车零部件、仓储物流、智能工厂"},
+        {"name": "快仓Quicktron M系列", "brand": "快仓机器人", "price": "¥100,000-180,000",
+         "payload": "300-1500kg", "speed": "1.8m/s", "dofs": "移动+举升",
+         "pros": "仓储AMR主力品牌、柔性物流、智能搬运",
+         "cons": "仓储为主",
+         "use_case": "电商仓储、零售物流、制造工厂、医药流通"},
+        {"name": "MIR250", "brand": "Mobile Industrial Robots", "price": "¥200,000-350,000",
+         "payload": "250kg", "speed": "1.8m/s", "dofs": "移动+可选顶装",
+         "pros": "全球AMR标杆、泰瑞达旗下、工业级可靠、ISO3691-4",
+         "cons": "价格高",
+         "use_case": "汽车制造、电子半导体、医疗制药、高端制造"},
+        {"name": "TurtleBot 4", "brand": "Open Robotics", "price": "¥15,000-30,000",
+         "payload": "开发平台", "speed": "1.5m/s", "dofs": "移动+可扩展",
+         "pros": "ROS标准平台、教育科研首选、全球最广泛使用的移动平台",
+         "cons": "非工业级",
+         "use_case": "教学科研、算法验证、SLAM研究、机器人课程"},
+    ],
+    # ====================================================================
+    # 五、按场景智能推荐
+    # ====================================================================
+    "scenario_research": [  # 科研首选
+        "Franka Emika Panda", "Airbot P7", "Unitree G1 EDU",
+        "UR5e", "Flexiv Rizon 4", "珞石xMateCR7", "Unitree Go2 Pro",
+        "星海图R1", "智元远征A3 Ultra"
+    ],
+    "scenario_industrial": [  # 工业首选
+        "UR5e/UR10e", "JAKA Zu系列", "JAKA Ai系列",
+        "KUKA LBR iiwa", "ABB GoFa", "珞石CR系列", "越疆CRA系列",
+        "优必选Walker S2", "智元精灵G2", "开普勒K2大黄蜂"
+    ],
+    "scenario_education": [  # 教学首选
+        "myCobot 280", "xArm 1S", "Unitree Go2 Air/Pro",
+        "Unitree G1 EDU", "JAKA Mini 2", "TurtleBot 4", "JAKA π 仔",
+        "松延动力Bumi小布米", "Unitree R1"
+    ],
+    "scenario_force_control": [  # 力控首选
+        "Franka Panda", "Flexiv Rizon", "KUKA LBR iiwa",
+        "Airbot P7", "珞石xMateCR7", "JAKA Zu系列（力控版）",
+        "千寻智能Moz1"
+    ],
+    "scenario_humanoid": [  # 人形机器人
+        "Unitree G1", "Unitree H1", "优必选Walker S",
+        "智元精灵G2", "银河通用 DB1", "JAKA π 仔", "Unitree R1",
+        "开普勒K2大黄蜂", "智元灵犀X2", "星海图R1", "傅利叶GR-3"
+    ],
+    "scenario_cobot": [  # 协作机械臂
+        "Airbot P7", "越疆CRA系列", "节卡JAKA全系列",
+        "Flexiv Rizon 4", "珞石xMateCR7", "UR5e/UR10e", "Franka Panda"
+    ],
+    "scenario_quadruped": [  # 四足机器人
+        "Unitree Go2系列", "Unitree B2", "云深处Jueying",
+        "ANYbotics ANYmal"
+    ],
+    "scenario_amr": [  # AMR移动机器人
+        "极智嘉P800", "海康潜伏AMR", "快仓M系列",
+        "MIR250", "TurtleBot 4"
+    ],
+    "scenario_vision": [  # 视觉一体化
+        "JAKA Ai系列（Ai3/Ai7/Ai12）", "越疆CRA系列（视觉选配）",
+        "UR+视觉套件", "节卡AL视觉一体化"
+    ],
+    "scenario_heavy_load": [  # 重载场景
+        "JAKA Zu35（35kg）", "UR16e（16kg）", "珞石重载系列",
+        "JAKA Ai12（12kg）", "KUKA LBR iiwa 14kg版",
+        "开普勒K2大黄蜂（双臂30kg）"
+    ],
 }
 
 
@@ -1747,25 +2107,64 @@ def get_supported_robots() -> List[str]:
     return [b.value for b in RobotBrand]
 
 
-def recommend_robot(budget: str = "mid_range", scenario: str = "research") -> List[Dict]:
+def recommend_robot(budget: str = "budget_10w", scenario: str = "research",
+                    category: str = None) -> List[Dict]:
     """
-    根据预算和场景推荐机器人
+    根据预算、场景和产品类别推荐机器人（2026最新完整版本）
 
     Args:
-        budget: "budget"（1万内）| "mid_range"（5-15万）| "premium"（20万+）| "humanoid"（人形）
-        scenario: "research"（科研）| "industrial"（工业）| "education"（教学）|
-                  "force_control"（力控）| "humanoid"（人形）
+        budget:   预算范围：
+                  "budget_1w"（1万内）| "budget_3w"（1-3万）| "budget_10w"（3-10万）|
+                  "mid_range"（10-30万）| "premium_30w"（30-80万）| "premium"（80万+）
+        scenario: 使用场景：
+                  "research"（科研）| "industrial"（工业）| "education"（教学）|
+                  "force_control"（力控）| "humanoid"（人形）| "quadruped"（四足）|
+                  "amr"（AMR移动）| "vision"（视觉一体化）| "heavy_load"（重载）
+        category: 产品类别（可选，直接返回专区列表）：
+                  "humanoid" | "cobot"（协作臂）| "quadruped" | "amr"
     """
-    budget_options = ROBOT_PURCHASE_GUIDE.get(budget, [])
-    scenario_options = ROBOT_PURCHASE_GUIDE.get(f"scenario_{scenario}", [])
+    # 直接按产品类别返回专区
+    if category:
+        return ROBOT_PURCHASE_GUIDE.get(category, [])
 
     if scenario == "humanoid":
         return ROBOT_PURCHASE_GUIDE.get("humanoid", [])
+    if scenario == "quadruped":
+        return ROBOT_PURCHASE_GUIDE.get("quadruped", [])
+    if scenario == "amr":
+        return ROBOT_PURCHASE_GUIDE.get("amr", [])
 
-    # 交集推荐（同时满足预算和场景）
+    budget_options = ROBOT_PURCHASE_GUIDE.get(budget, [])
+    scenario_options = ROBOT_PURCHASE_GUIDE.get(f"scenario_{scenario}", [])
+
+    # 交集推荐（同时满足预算和场景，智能模糊匹配）
     if budget_options and scenario_options:
-        matched = [r for r in budget_options if r["name"] in scenario_options
-                   or any(s in r["name"] for s in scenario_options)]
-        return matched if matched else budget_options
+        # 提取场景关键词用于模糊匹配（如"JAKA Zu系列" -> ["JAKA","Zu"]）
+        scenario_keywords = set()
+        for s in scenario_options:
+            # 按空格、斜杠、括号拆分关键词
+            parts = s.replace("（", " ").replace("）", " ").replace("(", " ").replace(")", " ")
+            parts = parts.replace("/", " ").replace("+", " ").split()
+            for p in parts:
+                if len(p) >= 2:
+                    scenario_keywords.add(p.lower())
+
+        def _match(r):
+            name = r["name"].lower()
+            brand = r.get("brand", "").lower()
+            # 精确匹配：产品名出现在场景列表中
+            if r["name"] in scenario_options:
+                return True
+            # 模糊匹配：产品名/品牌包含场景关键词
+            for kw in scenario_keywords:
+                if kw in name or kw in brand:
+                    return True
+            return False
+
+        matched = [r for r in budget_options if _match(r)]
+        # 匹配结果太少（<30%）时返回全部预算选项
+        if len(matched) >= max(1, len(budget_options) * 0.2):
+            return matched
+        return budget_options
 
     return budget_options
