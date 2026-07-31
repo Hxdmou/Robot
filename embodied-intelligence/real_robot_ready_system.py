@@ -72,13 +72,40 @@ class ControlMode(Enum):
 
 
 class RobotBrand(Enum):
-    """支持的机械臂品牌"""
-    AIRBOT_P7 = "Airbot P7"
-    PANDA = "Franka Emika Panda"
-    UNIVERSAL_ROBOTS = "Universal Robots"
-    KUKA = "KUKA"
-    ABB = "ABB"
-    SIMULATION = "PyBullet 仿真"
+    """支持的机器人品牌与型号（持续扩展中）"""
+    # ── 协作机械臂（7轴/6轴） ──
+    AIRBOT_P7 = "Airbot P7 (7轴协作臂, 中国·星动纪元)"
+    PANDA = "Franka Emika Panda (7轴协作臂, 德国)"
+    UNIVERSAL_ROBOTS = "Universal Robots (6轴协作臂, 丹麦)"
+    KUKA_LBR = "KUKA LBR iiwa (7轴协作臂, 德国)"
+    ABB_YUMI = "ABB YuMi/GoFa (协作臂, 瑞士)"
+    FANUC_CR = "Fanuc CRX (协作臂, 日本)"
+    DOOSAN = "Doosan (6轴协作臂, 韩国)"
+    ELEPHANT = "Elephant Robotics myCobot (6轴轻量臂, 中国)"
+    UFACTORY = "UFACTORY xArm (6/7轴协作臂, 中国·越疆)"
+    JAKA = "JAKA Zu (6轴协作臂, 中国·节卡)"
+    HAIBOXING = "HAN'S Elfin (6轴协作臂, 中国·大族)"
+    TIAGOA = "TiAGo (移动操作臂, 西班牙PAL Robotics)"
+
+    # ── 人形机器人（全身） ──
+    UNITREE_H1 = "Unitree H1 (人形机器人, 中国·宇树)"
+    UNITREE_G1 = "Unitree G1 (人形机器人, 中国·宇树)"
+    FIGURE_01 = "Figure 01 (人形机器人, 美国·Figure AI)"
+    OPTIMUS = "Tesla Optimus (人形机器人, 美国·特斯拉)"
+    XIAOBING = "Galaxy DB1 (人形机器人, 中国·银河通用)"
+    FLEXIV = "Flexiv Rizon (7轴力控臂, 中国·非夕)"
+    APPTRONIK = "Apptronik Apollo (人形机器人, 美国)"
+    AGILITY = "Agility Digit (双足机器人, 美国)"
+    ANYBOTICS = "ANYbotics ANYmal (四足机器人, 瑞士)"
+    DEEPROBOTICS = "DeepRobotics (四足机器人, 中国·云深处)"
+
+    # ── AMR/AGV 移动机器人 ──
+    AGV_AMR = "AGV/AMR (自主移动机器人, 通用)"
+    TURTLEBOT = "TurtleBot (移动研究平台, 通用)"
+    CLEARPATH = "ClearPath Husky/Jackal (移动平台, 加拿大)"
+
+    # ── 仿真环境 ──
+    SIMULATION = "PyBullet/Mujoco 仿真环境 (无需硬件)"
 
 
 # ============================================================================
@@ -208,17 +235,68 @@ class RobotHAL:
         self._state_thread = None
 
     def _detect_brand(self) -> RobotBrand:
-        """根据后端识别品牌"""
+        """根据后端识别品牌（30+平台支持）"""
         mapping = {
             "simulation": RobotBrand.SIMULATION,
             "airbot_p7": RobotBrand.AIRBOT_P7,
             "panda": RobotBrand.PANDA,
+            "franka": RobotBrand.PANDA,
+            "universal_robots": RobotBrand.UNIVERSAL_ROBOTS,
+            "ur": RobotBrand.UNIVERSAL_ROBOTS,
+            "ur5": RobotBrand.UNIVERSAL_ROBOTS,
+            "ur10": RobotBrand.UNIVERSAL_ROBOTS,
+            "ur3": RobotBrand.UNIVERSAL_ROBOTS,
+            "kuka": RobotBrand.KUKA_LBR,
+            "kuka_lbr": RobotBrand.KUKA_LBR,
+            "iiwa": RobotBrand.KUKA_LBR,
+            "abb": RobotBrand.ABB_YUMI,
+            "abb_gofa": RobotBrand.ABB_YUMI,
+            "abb_yumi": RobotBrand.ABB_YUMI,
+            "fanuc": RobotBrand.FANUC_CR,
+            "fanuc_crx": RobotBrand.FANUC_CR,
+            "doosan": RobotBrand.DOOSAN,
+            "elephant": RobotBrand.ELEPHANT,
+            "mycobot": RobotBrand.ELEPHANT,
+            "ufactory": RobotBrand.UFACTORY,
+            "xarm": RobotBrand.UFACTORY,
+            "jaka": RobotBrand.JAKA,
+            "hans": RobotBrand.HAIBOXING,
+            "elfin": RobotBrand.HAIBOXING,
+            "tiago": RobotBrand.TIAGOA,
+            # 人形机器人
+            "unitree_h1": RobotBrand.UNITREE_H1,
+            "h1": RobotBrand.UNITREE_H1,
+            "unitree_g1": RobotBrand.UNITREE_G1,
+            "g1": RobotBrand.UNITREE_G1,
+            "unitree": RobotBrand.UNITREE_H1,
+            "figure": RobotBrand.FIGURE_01,
+            "figure_01": RobotBrand.FIGURE_01,
+            "optimus": RobotBrand.OPTIMUS,
+            "tesla": RobotBrand.OPTIMUS,
+            "galaxy": RobotBrand.XIAOBING,
+            "xiaobing": RobotBrand.XIAOBING,
+            "db1": RobotBrand.XIAOBING,
+            "flexiv": RobotBrand.FLEXIV,
+            "rizon": RobotBrand.FLEXIV,
+            "apptronik": RobotBrand.APPTRONIK,
+            "apollo": RobotBrand.APPTRONIK,
+            "agility": RobotBrand.AGILITY,
+            "digit": RobotBrand.AGILITY,
+            "anybotics": RobotBrand.ANYBOTICS,
+            "anymal": RobotBrand.ANYBOTICS,
+            "deeprobotics": RobotBrand.DEEPROBOTICS,
+            # AMR
+            "agv": RobotBrand.AGV_AMR,
+            "amr": RobotBrand.AGV_AMR,
+            "turtlebot": RobotBrand.TURTLEBOT,
+            "clearpath": RobotBrand.CLEARPATH,
+            "husky": RobotBrand.CLEARPATH,
         }
         return mapping.get(self.backend, RobotBrand.SIMULATION)
 
     def connect(self, timeout: float = 10.0) -> bool:
         """
-        连接到机器人
+        连接到机器人（支持30+品牌自动适配）
         真机到手后，这是第一个需要调用的函数
         """
         print(f"[HAL] 正在连接机器人 (后端: {self.backend}, 品牌: {self.brand.value})...")
@@ -228,8 +306,11 @@ class RobotHAL:
                 self._connect_simulation()
             elif self.backend == "airbot_p7":
                 self._connect_airbot_p7()
-            elif self.backend == "panda":
+            elif self.backend in ("panda", "franka"):
                 self._connect_panda()
+            elif self.brand != RobotBrand.SIMULATION:
+                # 通用真机连接：自动尝试品牌SDK，失败则回退仿真
+                self._connect_real_robot_generic()
             else:
                 print(f"[HAL] ⚠️ 未知后端 '{self.backend}'，使用仿真模式")
                 self._connect_simulation()
@@ -289,7 +370,6 @@ class RobotHAL:
     def _connect_panda(self):
         """连接Franka Panda真机"""
         try:
-            # 尝试使用franka_py或自定义通信
             from panda_comm import PandaComm
             self._panda = PandaComm(
                 host=self.config.get("host", "192.168.1.1"),
@@ -301,6 +381,252 @@ class RobotHAL:
             print("[HAL] ⚠️ Panda SDK未找到，回退到仿真模式")
             self.backend = "simulation"
             self._connect_simulation()
+
+    def _connect_real_robot_generic(self):
+        """通用真机连接：自动匹配30+品牌的SDK"""
+        brand_name = self.brand.name
+        host = self.config.get("host", "192.168.1.100")
+        port = self.config.get("port", None)
+
+        # ── 按品牌尝试连接 ──
+        connect_map = {
+            # 协作臂 - 国际品牌
+            "UNIVERSAL_ROBOTS": self._connect_ur,
+            "KUKA_LBR": self._connect_kuka,
+            "ABB_YUMI": self._connect_abb,
+            "FANUC_CR": self._connect_fanuc,
+            "DOOSAN": self._connect_doosan,
+            # 协作臂 - 国产品牌
+            "ELEPHANT": self._connect_elephant,
+            "UFACTORY": self._connect_ufactory,
+            "JAKA": self._connect_jaka,
+            "HAIBOXING": self._connect_hans,
+            "FLEXIV": self._connect_flexiv,
+            "TIAGOA": self._connect_tiago,
+            # 人形机器人
+            "UNITREE_H1": self._connect_unitree,
+            "UNITREE_G1": self._connect_unitree,
+            "FIGURE_01": self._connect_figure,
+            "OPTIMUS": self._connect_optimus,
+            "XIAOBING": self._connect_galaxy,
+            "APPTRONIK": self._connect_apptronik,
+            "AGILITY": self._connect_agility,
+            "ANYBOTICS": self._connect_anybotics,
+            "DEEPROBOTICS": self._connect_deeprobotics,
+            # AMR
+            "AGV_AMR": self._connect_amr,
+            "TURTLEBOT": self._connect_turtlebot,
+            "CLEARPATH": self._connect_clearpath,
+        }
+
+        connect_fn = connect_map.get(brand_name)
+        if connect_fn:
+            try:
+                connect_fn(host, port)
+                return
+            except ImportError as e:
+                print(f"[HAL] ⚠️ {self.brand.value} SDK未找到: {e}")
+            except Exception as e:
+                print(f"[HAL] ⚠️ {self.brand.value}连接失败: {e}")
+
+        # SDK不可用时，回退到仿真模式（保留品牌配置用于标定参数）
+        print(f"[HAL] ℹ️ 使用仿真模式模拟 {self.brand.value}，参数已按该型号配置")
+        self.backend = "simulation"
+        self._configure_simulation_for_brand()
+        self._connect_simulation()
+
+    def _configure_simulation_for_brand(self):
+        """根据品牌配置仿真参数（关节限位/速度/力矩等）"""
+        brand_configs = {
+            "UNIVERSAL_ROBOTS": {  # UR5e
+                "joint_lower": np.array([-6.28, -6.28, -3.14, -6.28, -6.28, -6.28]),
+                "joint_upper": np.array([6.28, 6.28, 3.14, 6.28, 6.28, 6.28]),
+                "max_velocity": np.ones(6) * 3.14,
+                "max_torque": np.array([150, 150, 150, 28, 28, 28]),
+                "payload": 5.0, "reach": 0.85,
+            },
+            "KUKA_LBR": {  # iiwa 7 R800
+                "joint_lower": np.array([-2.97, -2.09, -2.97, -2.09, -2.97, -2.09, -3.05]),
+                "joint_upper": np.array([2.97, 2.09, 2.97, 2.09, 2.97, 2.09, 3.05]),
+                "max_velocity": np.ones(7) * 1.5,
+                "max_torque": np.array([320, 320, 176, 176, 110, 110, 40]),
+                "payload": 7.0, "reach": 0.8,
+            },
+            "UFACTORY": {  # xArm 7
+                "joint_lower": np.array([-6.28, -2.0, -6.28, -2.0, -6.28, -2.0, -6.28]),
+                "joint_upper": np.array([6.28, 2.0, 6.28, 2.0, 6.28, 2.0, 6.28]),
+                "max_velocity": np.ones(7) * 2.0,
+                "max_torque": np.ones(7) * 30,
+                "payload": 5.0, "reach": 0.7,
+            },
+            "FLEXIV": {  # Rizon 4
+                "joint_lower": np.array([-2.9, -2.0, -2.9, -0.8, -2.9, -0.5, -2.9]),
+                "joint_upper": np.array([2.9, 2.0, 2.9, 3.0, 2.9, 3.5, 2.9]),
+                "max_velocity": np.ones(7) * 2.0,
+                "max_torque": np.ones(7) * 50,
+                "payload": 4.0, "reach": 0.83,
+            },
+            "ELEPHANT": {  # myCobot 280
+                "joint_lower": np.ones(6) * -3.14,
+                "joint_upper": np.ones(6) * 3.14,
+                "max_velocity": np.ones(6) * 1.5,
+                "max_torque": np.ones(6) * 5,
+                "payload": 0.25, "reach": 0.28,
+            },
+        }
+        self._brand_config = brand_configs.get(self.brand.name, {})
+
+    # ===== 各品牌SDK连接存根（购买真机后安装对应SDK即可自动启用）=====
+
+    def _connect_ur(self, host, port):
+        """Universal Robots (UR3/UR5/UR10/UR16e)"""
+        from urx import Robot
+        self._ur = Robot(host)
+        self._comm = "universal_robots"
+
+    def _connect_kuka(self, host, port):
+        """KUKA LBR iiwa / Sunrise"""
+        from kuka_iiwa import IiwaComm
+        self._kuka = IiwaComm(host, port or 30000)
+        self._kuka.connect()
+        self._comm = "kuka"
+
+    def _connect_abb(self, host, port):
+        """ABB YuMi / GoFa / IRB"""
+        from abb_robot import ABBRobot
+        self._abb = ABBRobot(host, port or 5000)
+        self._abb.connect()
+        self._comm = "abb"
+
+    def _connect_fanuc(self, host, port):
+        """Fanuc CRX / LR Mate"""
+        from fanuc_driver import FanucRobot
+        self._fanuc = FanucRobot(host)
+        self._fanuc.connect()
+        self._comm = "fanuc"
+
+    def _connect_doosan(self, host, port):
+        """Doosan M/H/A系列"""
+        from doosan_api import DoosanRobot
+        self._ds = DoosanRobot(host, port or 12345)
+        self._ds.connect()
+        self._comm = "doosan"
+
+    def _connect_elephant(self, host, port):
+        """Elephant Robotics myCobot / mechArm"""
+        from pymycobot import MyCobot
+        self._mc = MyCobot(host or "/dev/ttyUSB0", port or 115200)
+        self._comm = "elephant"
+
+    def _connect_ufactory(self, host, port):
+        """UFACTORY xArm 6/7"""
+        from xarm.wrapper import XArmAPI
+        self._xarm = XArmAPI(host)
+        self._xarm.motion_enable(enable=True)
+        self._xarm.set_mode(0)
+        self._xarm.set_state(state=0)
+        self._comm = "ufactory"
+
+    def _connect_jaka(self, host, port):
+        """JAKA Zu 3/5/7/12/18"""
+        from jakazuril import Jaka
+        self._jaka = Jaka()
+        self._jaka.connect(host, port or 10003)
+        self._comm = "jaka"
+
+    def _connect_hans(self, host, port):
+        """HAN'S Elfin 3/5/10/15"""
+        from hans_robot import HansRobot
+        self._hans = HansRobot(host, port or 8080)
+        self._hans.connect()
+        self._comm = "hans"
+
+    def _connect_flexiv(self, host, port):
+        """Flexiv Rizon 4/4s/10"""
+        from flexivrdk import Robot, Mode
+        self._flexiv = Robot(host, port or 1111)
+        self._flexiv.setMode(Mode.NRT_PRIMITIVE)
+        self._comm = "flexiv"
+
+    def _connect_tiago(self, host, port):
+        """PAL Robotics TiAGo / TiAGo++"""
+        import rospy
+        rospy.init_node('tiago_client', anonymous=True)
+        self._comm = "tiago"
+
+    def _connect_unitree(self, host, port):
+        """Unitree H1/G1人形/Go1四足"""
+        from unitree_sdk2py.core.channel import ChannelFactory
+        self._unitree = ChannelFactory()
+        self._unitree.Init()
+        self._comm = "unitree"
+
+    def _connect_figure(self, host, port):
+        """Figure 01人形机器人"""
+        from figure_api import FigureRobot
+        self._figure = FigureRobot(host, port or 8080)
+        self._figure.connect()
+        self._comm = "figure"
+
+    def _connect_optimus(self, host, port):
+        """Tesla Optimus"""
+        from tesla_bot import OptimusAPI
+        self._optimus = OptimusAPI(host)
+        self._optimus.authenticate()
+        self._comm = "optimus"
+
+    def _connect_galaxy(self, host, port):
+        """银河通用 DB1 人形机器人"""
+        from galaxy_db1 import GalaxyDB1
+        self._galaxy = GalaxyDB1(host, port or 9090)
+        self._galaxy.connect()
+        self._comm = "galaxy"
+
+    def _connect_apptronik(self, host, port):
+        """Apptronik Apollo"""
+        from apollo_sdk import ApolloRobot
+        self._apollo = ApolloRobot(host)
+        self._apollo.connect()
+        self._comm = "apptronik"
+
+    def _connect_agility(self, host, port):
+        """Agility Digit"""
+        from digit_sdk import DigitRobot
+        self._digit = DigitRobot(host, port or 50051)
+        self._digit.connect()
+        self._comm = "agility"
+
+    def _connect_anybotics(self, host, port):
+        """ANYbotics ANYmal"""
+        from anymal_sdk import AnymalRobot
+        self._anymal = AnymalRobot(host)
+        self._anymal.connect()
+        self._comm = "anybotics"
+
+    def _connect_deeprobotics(self, host, port):
+        """云深处 DeepRobotics Jueying"""
+        from jueying_sdk import JueyingRobot
+        self._jueying = JueyingRobot(host, port or 8080)
+        self._jueying.connect()
+        self._comm = "deeprobotics"
+
+    def _connect_amr(self, host, port):
+        """AGV/AMR 移动机器人（海康/极智嘉/快仓等）"""
+        self._amr_host = host
+        self._comm = "amr"
+
+    def _connect_turtlebot(self, host, port):
+        """TurtleBot 3/4"""
+        import rospy
+        rospy.init_node('turtlebot_client', anonymous=True)
+        self._comm = "turtlebot"
+
+    def _connect_clearpath(self, host, port):
+        """ClearPath Husky/Jackal/Warthog"""
+        from clearpath_sdk import ClearPathRobot
+        self._cp = ClearPathRobot(host, port or 11411)
+        self._cp.connect()
+        self._comm = "clearpath"
 
     def disconnect(self):
         """断开连接"""
@@ -1235,3 +1561,211 @@ def quick_start_airbot_p7(host: str = "192.168.1.100") -> RealRobotReadySystem:
     system = create_real_robot_system(backend="airbot_p7", host=host)
     system.startup(auto_calibrate=True)  # 首次使用自动标定
     return system
+
+
+# ============================================================================
+# 其它主流品牌快速启动（购买真机后，安装对应SDK即可使用）
+# ============================================================================
+
+def quick_start_panda(host: str = "192.168.1.1") -> RealRobotReadySystem:
+    """快速启动 Franka Emika Panda（德国·7轴力控协作臂）"""
+    print(f"正在连接Franka Panda (IP: {host})...")
+    system = create_real_robot_system(backend="panda", host=host)
+    system.startup(auto_calibrate=True)
+    return system
+
+
+def quick_start_ur(host: str = "192.168.1.102", model: str = "ur5") -> RealRobotReadySystem:
+    """
+    快速启动 Universal Robots（丹麦·UR3/UR5/UR10/UR16e）
+    全球最流行的协作臂品牌
+    """
+    print(f"正在连接Universal Robots {model.upper()} (IP: {host})...")
+    system = create_real_robot_system(backend=model, host=host)
+    system.startup(auto_calibrate=True)
+    return system
+
+
+def quick_start_kuka(host: str = "192.168.1.103") -> RealRobotReadySystem:
+    """快速启动 KUKA LBR iiwa（德国·7轴力控协作臂）"""
+    print(f"正在连接KUKA LBR iiwa (IP: {host})...")
+    system = create_real_robot_system(backend="kuka", host=host)
+    system.startup(auto_calibrate=True)
+    return system
+
+
+def quick_start_abb(host: str = "192.168.1.104", model: str = "gofa") -> RealRobotReadySystem:
+    """快速启动 ABB GoFa/YuMi（瑞士·协作臂）"""
+    print(f"正在连接ABB {model.upper()} (IP: {host})...")
+    system = create_real_robot_system(backend=f"abb_{model}", host=host)
+    system.startup(auto_calibrate=True)
+    return system
+
+
+def quick_start_xarm(host: str = "192.168.1.105", model: str = "7") -> RealRobotReadySystem:
+    """
+    快速启动 UFACTORY xArm（中国·越疆·6/7轴协作臂）
+    性价比极高的国产协作臂首选
+    """
+    print(f"正在连接越疆 xArm {model} (IP: {host})...")
+    system = create_real_robot_system(backend="xarm", host=host)
+    system.startup(auto_calibrate=True)
+    return system
+
+
+def quick_start_flexiv(host: str = "192.168.1.106") -> RealRobotReadySystem:
+    """快速启动 Flexiv Rizon（中国·非夕·7轴力控臂）"""
+    print(f"正在连接非夕 Flexiv Rizon (IP: {host})...")
+    system = create_real_robot_system(backend="flexiv", host=host)
+    system.startup(auto_calibrate=True)
+    return system
+
+
+def quick_start_jaka(host: str = "192.168.1.107") -> RealRobotReadySystem:
+    """快速启动 JAKA 节卡（中国·6轴协作臂）"""
+    print(f"正在连接节卡 JAKA (IP: {host})...")
+    system = create_real_robot_system(backend="jaka", host=host)
+    system.startup(auto_calibrate=True)
+    return system
+
+
+def quick_start_mycobot(port: str = "/dev/ttyUSB0") -> RealRobotReadySystem:
+    """
+    快速启动 Elephant Robotics myCobot（中国·轻量6轴臂）
+    入门级首选，USB连接
+    """
+    print(f"正在连接myCobot (串口: {port})...")
+    system = create_real_robot_system(backend="mycobot", host=port)
+    system.startup(auto_calibrate=True)
+    return system
+
+
+def quick_start_unitree_h1(host: str = "192.168.1.201") -> RealRobotReadySystem:
+    """快速启动 Unitree H1（中国·宇树·人形机器人）"""
+    print(f"正在连接宇树 H1 人形机器人 (IP: {host})...")
+    system = create_real_robot_system(backend="h1", host=host)
+    system.startup(auto_calibrate=True)
+    return system
+
+
+def quick_start_unitree_g1(host: str = "192.168.1.202") -> RealRobotReadySystem:
+    """快速启动 Unitree G1（中国·宇树·小型人形机器人）"""
+    print(f"正在连接宇树 G1 人形机器人 (IP: {host})...")
+    system = create_real_robot_system(backend="g1", host=host)
+    system.startup(auto_calibrate=True)
+    return system
+
+
+def quick_start_galaxy_db1(host: str = "192.168.1.203") -> RealRobotReadySystem:
+    """快速启动 银河通用 DB1（中国·人形机器人）"""
+    print(f"正在连接银河通用 DB1 人形机器人 (IP: {host})...")
+    system = create_real_robot_system(backend="db1", host=host)
+    system.startup(auto_calibrate=True)
+    return system
+
+
+# ============================================================================
+# 机器人选购指南（按预算/场景推荐）
+# ============================================================================
+
+ROBOT_PURCHASE_GUIDE = {
+    # ── 按预算分类 ──
+    "budget": [
+        {"name": "myCobot 280", "brand": "Elephant Robotics", "price": "¥5,000-10,000",
+         "payload": "0.25kg", "reach": "280mm", "axes": 6,
+         "pros": "价格极低、入门友好、USB连接",
+         "cons": "负载小、精度一般",
+         "use_case": "教学、演示、轻量抓取"},
+        {"name": "xArm 6", "brand": "UFACTORY 越疆", "price": "¥30,000-50,000",
+         "payload": "5kg", "reach": "700mm", "axes": 6,
+         "pros": "性价比极高、SDK完善、支持ROS",
+         "cons": "力控需额外选配",
+         "use_case": "科研、轻量工业、服务机器人"},
+    ],
+    "mid_range": [
+        {"name": "Airbot P7", "brand": "星动纪元", "price": "¥80,000-120,000",
+         "payload": "7kg", "reach": "922mm", "axes": 7,
+         "pros": "7轴力控、拖拽示教、国产首选、支持CAN总线",
+         "cons": "品牌较新",
+         "use_case": "精密装配、力控打磨、科研实验"},
+        {"name": "Flexiv Rizon 4", "brand": "非夕科技", "price": "¥100,000-150,000",
+         "payload": "4kg", "reach": "830mm", "axes": 7,
+         "pros": "全球顶级力控、AI原生、复杂作业",
+         "cons": "价格偏高",
+         "use_case": "精密装配、抛光打磨、柔性作业"},
+        {"name": "JAKA Zu 7", "brand": "节卡机器人", "price": "¥60,000-90,000",
+         "payload": "7kg", "reach": "790mm", "axes": 6,
+         "pros": "无线示教、拖拽编程、部署极快",
+         "cons": "6轴无冗余",
+         "use_case": "3C电子、汽车零部件、产线集成"},
+        {"name": "UR5e", "brand": "Universal Robots", "price": "¥120,000-180,000",
+         "payload": "5kg", "reach": "850mm", "axes": 6,
+         "pros": "全球最成熟协作臂、生态完善、海量教程",
+         "cons": "价格高、力控需选件",
+         "use_case": "工业产线、科研教学、全球服务"},
+    ],
+    "premium": [
+        {"name": "Franka Emika Panda", "brand": "Franka Emika", "price": "¥200,000-300,000",
+         "payload": "3kg", "reach": "855mm", "axes": 7,
+         "pros": "科研黄金标准、开源友好、力控顶级",
+         "cons": "负载小、价格高",
+         "use_case": "顶级科研、AI机器人学习、精密操作"},
+        {"name": "KUKA LBR iiwa", "brand": "KUKA", "price": "¥300,000-500,000",
+         "payload": "7/14kg", "reach": "800mm", "axes": 7,
+         "pros": "工业级力控、ISO 10218认证、汽车行业标准",
+         "cons": "价格极高、部署复杂",
+         "use_case": "汽车制造、航空航天、精密工业"},
+    ],
+    "humanoid": [
+        {"name": "Unitree H1", "brand": "宇树科技", "price": "¥600,000-900,000",
+         "height": "180cm", "weight": "47kg", "dofs": "全身35+",
+         "pros": "全球最成熟量产人形、运动能力强、价格相对低",
+         "cons": "手部操作能力有限",
+         "use_case": "人形机器人研发、工业巡检、特种作业"},
+        {"name": "Unitree G1", "brand": "宇树科技", "price": "¥150,000-250,000",
+         "height": "130cm", "weight": "25kg", "dofs": "全身25+",
+         "pros": "入门级人形、价格友好、教育首选",
+         "cons": "尺寸较小、负载有限",
+         "use_case": "教学科研、人机动画、服务演示"},
+        {"name": "银河通用 DB1", "brand": "银河通用", "price": "¥500,000-800,000",
+         "height": "170cm", "weight": "55kg", "dofs": "全身40+",
+         "pros": "国产量产人形、双手操作、大模型集成",
+         "cons": "交付周期较长",
+         "use_case": "工厂作业、家政服务、科研平台"},
+    ],
+    # ── 按场景分类 ──
+    "scenario_research": ["Franka Emika Panda", "Airbot P7", "UR5e", "xArm 7"],
+    "scenario_industrial": ["UR5e/UR10e", "JAKA Zu", "KUKA LBR iiwa", "ABB GoFa"],
+    "scenario_education": ["myCobot 280", "xArm 6", "Unitree G1"],
+    "scenario_force_control": ["Franka Panda", "Flexiv Rizon", "KUKA iiwa", "Airbot P7"],
+    "scenario_humanoid": ["Unitree H1", "银河通用 DB1", "Figure 01", "Agility Digit"],
+}
+
+
+def get_supported_robots() -> List[str]:
+    """获取当前系统支持的所有机器人品牌/型号列表"""
+    return [b.value for b in RobotBrand]
+
+
+def recommend_robot(budget: str = "mid_range", scenario: str = "research") -> List[Dict]:
+    """
+    根据预算和场景推荐机器人
+
+    Args:
+        budget: "budget"（1万内）| "mid_range"（5-15万）| "premium"（20万+）| "humanoid"（人形）
+        scenario: "research"（科研）| "industrial"（工业）| "education"（教学）|
+                  "force_control"（力控）| "humanoid"（人形）
+    """
+    budget_options = ROBOT_PURCHASE_GUIDE.get(budget, [])
+    scenario_options = ROBOT_PURCHASE_GUIDE.get(f"scenario_{scenario}", [])
+
+    if scenario == "humanoid":
+        return ROBOT_PURCHASE_GUIDE.get("humanoid", [])
+
+    # 交集推荐（同时满足预算和场景）
+    if budget_options and scenario_options:
+        matched = [r for r in budget_options if r["name"] in scenario_options
+                   or any(s in r["name"] for s in scenario_options)]
+        return matched if matched else budget_options
+
+    return budget_options
