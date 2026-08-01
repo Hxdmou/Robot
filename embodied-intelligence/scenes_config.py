@@ -521,6 +521,13 @@ SCENES = {
                 "difficulty": 3,
                 "reward_scale": 0.6,
             },
+            "wafer_scale": {
+                "name": "晶圆级计算",
+                "description": "整片晶圆AI芯片、存算一体、多芯粒集成、大模型训练超算",
+                "robots": ["晶圆级芯片", "存算一体", "多芯粒系统", "大模型训练"],
+                "difficulty": 5,
+                "reward_scale": 1.5,
+            },
         },
     },
 

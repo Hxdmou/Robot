@@ -249,6 +249,16 @@ class RobotBrand(Enum):
     ZJUTRI_E_SKIN = "浙江清华柔电院电子皮肤 (柔性触觉感知末端, 感知压力/温度/纹理, 无本体数据采集, 月产1000只夹爪, 研发20年, 2026)"
     # ── AI内容合规 ──
     AI_CONTENT_AUDIT = "AI内容合规审核系统 (AI生成内容标识, 算法推荐管理, 内容安全审核, 智能终端合规, 2026)"
+    # ── 晶圆级AI芯片 ──
+    CEREBRAS_WSE3 = "Cerebras WSE-3 晶圆级AI芯片 (5nm工艺, 46225mm², 4万亿晶体管, 90万核心, 125 PFLOPS, 2026)"
+    TESLA_DOJO = "特斯拉Dojo 晶圆级计算系统 (D1芯片354核心, 单机柜108 PFLOPS, 台积电InFO_SOW封装, 2026)"
+    TSMC_SOW_X = "台积电SoW-X 晶圆级平台 (2027量产, 集成逻辑芯粒+HBM+I/O, 面向HPC和ASIC, 2026)"
+    TSINGHUA_WAFER = "清华清微智能晶圆级AI芯片 (12寸验证样机, One Wafer One Chip, 吞吐较Dojo提升2.39倍, 2025)"
+    CAS_YINGTIANHU = "中科院映天湖 晶圆级计算系统 (解耦架构, 兼容CPU/AI/DSP, 单晶圆千万亿次计算, 2026)"
+    CAS_OUROBOROS = "中科院Ouroboros 晶圆级存算一体 (54GB SRAM, 吞吐4.1倍, 13B模型15万tokens/s, 2026)"
+    ZIGUANG_ZIXUAN = "新紫光紫弦 三维近存计算架构 (30TB/s带宽, 优于HBM4, Token吞吐高1.5-2倍, 2026)"
+    QINGWEI_TX = "清微智能TX系列 可重构计算芯片 (TX81→TX82→晶圆级4.0, 支持数据流和网格计算, 2026)"
+    JINGXIN_INTERCONNECT = "井芯微电子互连芯片 (SDI3210/PRB0400量产, 2026年RDMA IP, 面向晶上系统, 2026)"
     # ── 仿真环境 ──
     SIMULATION = "PyBullet/Mujoco 仿真环境 (无需硬件)"
 
@@ -801,6 +811,40 @@ class RobotHAL:
             "内容审核": RobotBrand.AI_CONTENT_AUDIT,
             "算法推荐": RobotBrand.AI_CONTENT_AUDIT,
             "AI生成标识": RobotBrand.AI_CONTENT_AUDIT,
+            # ── 晶圆级AI芯片 ──
+            "cerebras_wse3": RobotBrand.CEREBRAS_WSE3,
+            "Cerebras": RobotBrand.CEREBRAS_WSE3,
+            "WSE-3": RobotBrand.CEREBRAS_WSE3,
+            "WSE3": RobotBrand.CEREBRAS_WSE3,
+            "晶圆级芯片": RobotBrand.CEREBRAS_WSE3,
+            "tesla_dojo": RobotBrand.TESLA_DOJO,
+            "特斯拉Dojo": RobotBrand.TESLA_DOJO,
+            "Dojo": RobotBrand.TESLA_DOJO,
+            "tsmc_sow_x": RobotBrand.TSMC_SOW_X,
+            "台积电SoW": RobotBrand.TSMC_SOW_X,
+            "SoW-X": RobotBrand.TSMC_SOW_X,
+            "tsinghua_wafer": RobotBrand.TSINGHUA_WAFER,
+            "清华晶圆级": RobotBrand.TSINGHUA_WAFER,
+            "清微智能晶圆": RobotBrand.TSINGHUA_WAFER,
+            "One Wafer One Chip": RobotBrand.TSINGHUA_WAFER,
+            "cas_yingtianhu": RobotBrand.CAS_YINGTIANHU,
+            "中科院映天湖": RobotBrand.CAS_YINGTIANHU,
+            "映天湖": RobotBrand.CAS_YINGTIANHU,
+            "cas_ouroboros": RobotBrand.CAS_OUROBOROS,
+            "中科院Ouroboros": RobotBrand.CAS_OUROBOROS,
+            "Ouroboros": RobotBrand.CAS_OUROBOROS,
+            "晶圆级SRAM": RobotBrand.CAS_OUROBOROS,
+            "ziguang_zixuan": RobotBrand.ZIGUANG_ZIXUAN,
+            "新紫光紫弦": RobotBrand.ZIGUANG_ZIXUAN,
+            "紫弦": RobotBrand.ZIGUANG_ZIXUAN,
+            "qingwei_tx": RobotBrand.QINGWEI_TX,
+            "清微智能TX": RobotBrand.QINGWEI_TX,
+            "TX81": RobotBrand.QINGWEI_TX,
+            "TX82": RobotBrand.QINGWEI_TX,
+            "jingxin_interconnect": RobotBrand.JINGXIN_INTERCONNECT,
+            "井芯微电子": RobotBrand.JINGXIN_INTERCONNECT,
+            "SDI3210": RobotBrand.JINGXIN_INTERCONNECT,
+            "PRB0400": RobotBrand.JINGXIN_INTERCONNECT,
         }
         return mapping.get(self.backend, RobotBrand.SIMULATION)
 
@@ -2004,6 +2048,111 @@ class RobotHAL:
                 "compliance_standards": ["内容审核", "算法透明", "用户权益保护", "数据安全"],
                 "application_scenes": ["内容平台", "智能终端", "可穿戴设备", "车载设备"],
                 "compliance_rate": 1.0,
+            },
+            # ── 晶圆级AI芯片 ──
+            "CEREBRAS_WSE3": {  # Cerebras WSE-3
+                "type": "晶圆级AI芯片",
+                "process": "5nm",
+                "area_mm2": 46225,
+                "transistors": "4万亿",
+                "ai_cores": 900000,
+                "peak_performance_pflops": 125,
+                "on_chip_memory_gb": 44,
+                "memory_bandwidth_pbvs": 21,
+                "power_kw": 27,
+                "cooling": "液冷",
+                "order_value": "200亿美元(OpenAI)",
+                "features": ["整片晶圆单芯片", "低延迟训练", "大模型训练首选"],
+                "success_rate": 1.0,
+            },
+            "TESLA_DOJO": {  # 特斯拉Dojo
+                "type": "晶圆级计算系统",
+                "d1_chip_cores": 354,
+                "on_chip_memory_mb": 440,
+                "compute_per_chip_tflops": 362,
+                "per_cabinet_pflops": 108,
+                "per_cabinet_memory_gb": 132,
+                "per_cabinet_power_kw": 180,
+                "packaging": "台积电InFO_SOW晶圆级扇出封装",
+                "features": ["重构式多芯粒", "良率优化", "混合芯粒集成"],
+                "success_rate": 1.0,
+            },
+            "TSMC_SOW_X": {  # 台积电SoW-X
+                "type": "晶圆级代工平台",
+                "production_year": 2027,
+                "integration": ["逻辑芯粒", "HBM", "I/O"],
+                "target_markets": ["HPC", "ASIC"],
+                "features": ["通用晶圆级平台", "多客户支持", "先进封装"],
+                "success_rate": 1.0,
+            },
+            "TSINGHUA_WAFER": {  # 清华清微智能晶圆级AI芯片
+                "type": "晶圆级AI芯片",
+                "institution": "清华大学+清微智能",
+                "wafer_size": "12寸",
+                "architecture": "One Wafer One Chip",
+                "throughput_improvement": "较Dojo提升2.39倍",
+                "compute_improvement": "2.90倍算力",
+                "bandwidth_improvement": "2.11倍通信带宽+11.23倍内存带宽",
+                "features": ["全晶圆计算拓扑", "集成架构", "大模型推理映射"],
+                "success_rate": 1.0,
+            },
+            "CAS_YINGTIANHU": {  # 中科院映天湖
+                "type": "晶圆级计算系统",
+                "institution": "中科院计算所+电子58所+无锡芯光",
+                "architecture": "计算模组-互连基板解耦架构",
+                "compatible_chiplets": ["CPU", "AI", "DSP", "交换", "存储"],
+                "compute_modules": 16,
+                "process": "TSMC 28nm",
+                "compute_capacity": "单晶圆千万亿次",
+                "linear_algebra_improvement": "1.45倍",
+                "deep_learning_improvement": "1.78倍",
+                "features": ["解耦架构", "多芯粒兼容", "通用性强"],
+                "success_rate": 1.0,
+            },
+            "CAS_OUROBOROS": {  # 中科院Ouroboros
+                "type": "晶圆级存算一体架构",
+                "institution": "中科院计算所",
+                "wafer_size": "12寸",
+                "sram_capacity_gb": 54,
+                "supported_models": ["7B", "13B", "更大规模"],
+                "throughput_improvement": "4.1倍(平均)",
+                "energy_efficiency_improvement": "4.2倍(平均)",
+                "peak_throughput_13b": "9.1倍",
+                "peak_energy_13b": "17倍",
+                "tokens_per_second_13b": "15万",
+                "features": ["晶圆级SRAM", "存算一体", "大模型全参数驻留"],
+                "success_rate": 1.0,
+            },
+            "ZIGUANG_ZIXUAN": {  # 新紫光紫弦
+                "type": "三维近存计算架构",
+                "company": "新紫光集团",
+                "architecture": "3D DRAM + 3.5D异质异构集成",
+                "memory_bandwidth_tbs": 30,
+                "bandwidth_comparison": "优于HBM4标准",
+                "pn_access_latency_reduction": "最大降低18倍",
+                "token_throughput_improvement": "高出1.5-2倍",
+                "chiplet_integration": "10-20颗不同裸片",
+                "features": ["三维堆叠", "近存计算", "高带宽"],
+                "success_rate": 1.0,
+            },
+            "QINGWEI_TX": {  # 清微智能TX系列
+                "type": "可重构计算芯片",
+                "company": "清微智能",
+                "evolution": ["TX81", "TX82", "晶圆级4.0(规划中)"],
+                "reconfigurable_evolution": ["1.0", "2.0", "3.0", "4.0(面向晶圆级)"],
+                "features": ["数据流计算", "网格计算", "三维计算", "可重构"],
+                "success_rate": 1.0,
+            },
+            "JINGXIN_INTERCONNECT": {  # 井芯微电子互连芯片
+                "type": "互连芯片与桥接产品",
+                "company": "井芯微电子",
+                "products": {
+                    "SDI3210": "最多支持32个端口或32路高速通道",
+                    "PRB0400": "PCIe Gen2/RapidIO Gen2桥接芯片, 已量产",
+                },
+                "2026_roadmap": "面向晶上系统的RDMA对等通信IP和专用中间件",
+                "features": ["软件定义互连", "桥接产品", "晶上系统IP"],
+                "success_rate": 1.0,
             },
         }
         self._brand_config = brand_configs.get(self.brand.name, {})
