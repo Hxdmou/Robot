@@ -40,11 +40,21 @@ def print_usage():
     print("    deploy          启动部署模式（含真实机械臂对接）")
     print("    benchmark       性能基准测试（FPS等）")
     print("    smoke           回归测试套件（12项核心功能验证）")
+    print("    api             启动REST API服务器（工业化接口）")
+    print("    health          运行健康检查")
+    print("    calibrate       启动参数校准")
+    print("    monitor         启动实时监控")
+    print("    gui             启动桌面GUI控制")
+    print("    validate        验证部署就绪状态")
+    print("    models          列出所有可用模型")
     print("")
     print("  示例:")
     print("    python main.py train")
     print("    python main.py test")
     print("    python main.py evaluate")
+    print("    python main.py api          # 启动API服务器: http://localhost:8000")
+    print("    python main.py health       # 健康检查")
+    print("    python main.py calibrate    # 参数校准")
     print("")
 
 
@@ -125,6 +135,66 @@ def main():
         import subprocess
         result = subprocess.run([sys.executable, "test_smoke.py"], capture_output=False)
         sys.exit(result.returncode)
+
+    elif command == "api":
+        print("[INFO] 启动REST API服务器...", flush=True)
+        print("[INFO] API文档: http://localhost:8000/docs", flush=True)
+        os.chdir(script_dir)
+        import subprocess
+        result = subprocess.run([sys.executable, "api_server.py"], capture_output=False)
+        sys.exit(result.returncode)
+
+    elif command == "health":
+        print("[INFO] 运行健康检查...", flush=True)
+        os.chdir(script_dir)
+        import subprocess
+        result = subprocess.run([sys.executable, "health_check.py"], capture_output=False)
+        sys.exit(result.returncode)
+
+    elif command == "calibrate":
+        print("[INFO] 启动参数校准...", flush=True)
+        os.chdir(script_dir)
+        import subprocess
+        result = subprocess.run([sys.executable, "param_calibration.py"], capture_output=False)
+        sys.exit(result.returncode)
+
+    elif command == "monitor":
+        print("[INFO] 启动实时监控...", flush=True)
+        os.chdir(script_dir)
+        import subprocess
+        result = subprocess.run([sys.executable, "realtime_monitor.py"], capture_output=False)
+        sys.exit(result.returncode)
+
+    elif command == "gui":
+        print("[INFO] 启动桌面GUI控制...", flush=True)
+        os.chdir(script_dir)
+        import subprocess
+        result = subprocess.run([sys.executable, "robot_control_gui.py"], capture_output=False)
+        sys.exit(result.returncode)
+
+    elif command == "validate":
+        print("[INFO] 验证部署就绪状态...", flush=True)
+        os.chdir(script_dir)
+        import subprocess
+        result = subprocess.run([sys.executable, "validate_model_for_deploy.py"], capture_output=False)
+        sys.exit(result.returncode)
+
+    elif command == "models":
+        print("[INFO] 列出所有可用模型...", flush=True)
+        os.chdir(script_dir)
+        models = []
+        for f in sorted(os.listdir(script_dir)):
+            if f.startswith("ppo_") and f.endswith(".zip"):
+                path = os.path.join(script_dir, f)
+                size_kb = round(os.path.getsize(path) / 1024, 1)
+                models.append((f.replace(".zip", ""), size_kb))
+        print("")
+        print("=" * 50, flush=True)
+        print(f"  可用模型: {len(models)} 个", flush=True)
+        print("=" * 50, flush=True)
+        for name, size in models:
+            print(f"    ✅ {name}  ({size} KB)", flush=True)
+        print("=" * 50, flush=True)
 
     elif command in ["help", "-h", "--help"]:
         print_usage()
