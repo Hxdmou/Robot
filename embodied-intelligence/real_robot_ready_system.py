@@ -219,6 +219,16 @@ class RobotBrand(Enum):
     GEELY_EVA = "吉利超级Eva智能体 (WAM世界模型支撑, 舱驾融合, 极氪8X搭载, WAIC 2026)"
     BYD_DIDIXIA = "比亚迪迪迪虾全域AI智能体 (腾势Z9 GT全系搭载, 90秒免唤醒, 六分区人声, WAIC 2026)"
     TITAN_NAVOS_2 = "钛动Navos 2.0 (全球首批AI营销智能体, 多智能体协同, 营销全链路, WAIC 2026)"
+    # ── 世界模型/AI大模型 (WAIC 2026首发) ──
+    WORLDDREAMER_V4 = "WorldDreamer V4 (超脑未来, 群体智能体世界动作基础模型, Multi-Agent Scaling Law, 2026)"
+    MACARON_V1 = "心洲科技Macaron-V1 (全球首款MoE-LoRA全尺寸个人智能体模型, A2UI协议, WAIC 2026首发)"
+    INTACT = "INTACT (浙大+清华AIR, 意图到动作映射世界模型, 95.33%成功率, 搜索9000→1, 2026)"
+    # ── 量子计算/AI算力 (WAIC 2026首发) ──
+    QINGHE_1 = "清河一号量子计算机 (中器无量, 算力中心级, 国际一流量子比特数/保真度, WAIC 2026)"
+    # ── AI操作系统/具身平台 (WAIC 2026首发) ──
+    LUMOS_NEXCORE = "鹿明Lumos NexCore产业具身操作系统 (数据管线+模型评测+场景工具链, Prime R0 MolmoSpaces全球第一, 2026)"
+    LENOVO_WANQUAN_V5 = "联想万全异构智算平台V5.0 (单节点40张GPU, 超节点解决方案, 问天WR5219 G5蓝芯LX500, WAIC 2026)"
+    DEEPWORKS = "滴普DeepWorks企业智能体平台 (Harness架构, Agent Team协同, Token生产力云服务, WAIC 2026)"
     # ── 仿真环境 ──
     SIMULATION = "PyBullet/Mujoco 仿真环境 (无需硬件)"
 
@@ -679,6 +689,33 @@ class RobotHAL:
             "titan_navos_2": RobotBrand.TITAN_NAVOS_2,
             "钛动navos": RobotBrand.TITAN_NAVOS_2,
             "navos 2.0": RobotBrand.TITAN_NAVOS_2,
+            # ── 世界模型/AI大模型 ──
+            "worlddreamer_v4": RobotBrand.WORLDDREAMER_V4,
+            "worlddreamer": RobotBrand.WORLDDREAMER_V4,
+            "超脑未来": RobotBrand.WORLDDREAMER_V4,
+            "macaron_v1": RobotBrand.MACARON_V1,
+            "macaron": RobotBrand.MACARON_V1,
+            "心洲科技": RobotBrand.MACARON_V1,
+            "mindverse": RobotBrand.MACARON_V1,
+            "intact": RobotBrand.INTACT,
+            "浙大intact": RobotBrand.INTACT,
+            "清华intact": RobotBrand.INTACT,
+            # ── 量子计算 ──
+            "qinghe_1": RobotBrand.QINGHE_1,
+            "清河一号": RobotBrand.QINGHE_1,
+            "中器无量": RobotBrand.QINGHE_1,
+            # ── AI操作系统/具身平台 ──
+            "lumos_nexcore": RobotBrand.LUMOS_NEXCORE,
+            "lumos": RobotBrand.LUMOS_NEXCORE,
+            "鹿明": RobotBrand.LUMOS_NEXCORE,
+            "prime_r0": RobotBrand.LUMOS_NEXCORE,
+            "lenovo_wanquan_v5": RobotBrand.LENOVO_WANQUAN_V5,
+            "万全v5": RobotBrand.LENOVO_WANQUAN_V5,
+            "联想万全": RobotBrand.LENOVO_WANQUAN_V5,
+            "wr5219": RobotBrand.LENOVO_WANQUAN_V5,
+            "deepworks": RobotBrand.DEEPWORKS,
+            "滴普": RobotBrand.DEEPWORKS,
+            "deepexi": RobotBrand.DEEPWORKS,
         }
         return mapping.get(self.backend, RobotBrand.SIMULATION)
 
@@ -924,6 +961,16 @@ class RobotHAL:
             "GEELY_EVA": self._connect_geely_eva,
             "BYD_DIDIXIA": self._connect_byd_didixia,
             "TITAN_NAVOS_2": self._connect_titan_navos,
+            # 世界模型/AI大模型
+            "WORLDDREAMER_V4": self._connect_worlddreamer,
+            "MACARON_V1": self._connect_macaron,
+            "INTACT": self._connect_intact,
+            # 量子计算
+            "QINGHE_1": self._connect_qinghe,
+            # AI操作系统/具身平台
+            "LUMOS_NEXCORE": self._connect_lumos,
+            "LENOVO_WANQUAN_V5": self._connect_lenovo_wanquan,
+            "DEEPWORKS": self._connect_deepworks,
         }
 
         connect_fn = connect_map.get(brand_name)
@@ -1722,6 +1769,45 @@ class RobotHAL:
                 "type": "AI营销智能体",
                 "features": ["多智能体协同", "营销全链路"],
             },
+            # ── 世界模型/AI大模型 ──
+            "WORLDDREAMER_V4": {  # 超脑未来 WorldDreamer V4
+                "type": "群体智能体世界动作基础模型",
+                "features": ["多智能体共享世界模型", "Multi-Agent Scaling Law", "梅尔卡夫机器人定律"],
+            },
+            "MACARON_V1": {  # 心洲科技 Macaron-V1
+                "type": "个人智能体模型",
+                "architecture": "MoE-LoRA",
+                "features": ["全球首款MoE-LoRA全尺寸个人智能体", "A2UI通用图形协议", "Pi内核兼容"],
+            },
+            "INTACT": {  # 浙大+清华 INTACT
+                "type": "意图到动作映射世界模型",
+                "success_rate": "95.33%",
+                "features": ["同构算子学习", "无搜索控制", "搜索9000→1"],
+            },
+            # ── 量子计算 ──
+            "QINGHE_1": {  # 清河一号量子计算机
+                "type": "算力中心级量子计算机",
+                "manufacturer": "中器无量",
+                "features": ["国际一流量子比特数", "高读取/门保真度", "量子经典混合计算"],
+            },
+            # ── AI操作系统/具身平台 ──
+            "LUMOS_NEXCORE": {  # 鹿明 Lumos NexCore
+                "type": "产业具身操作系统",
+                "prime_r0": "MolmoSpaces全球第一",
+                "features": ["数据管线", "模型评测", "场景工具链", "产业规模化落地"],
+            },
+            "LENOVO_WANQUAN_V5": {  # 联想万全异构智算平台V5.0
+                "type": "AI算力超节点",
+                "max_gpus": 40,
+                "server": "问天WR5219 G5",
+                "processor": "蓝芯LX500",
+                "features": ["单节点40张GPU", "全球首款蓝芯LX500 2U机架式"],
+            },
+            "DEEPWORKS": {  # 滴普 DeepWorks
+                "type": "企业智能体平台",
+                "architecture": "Harness架构",
+                "features": ["Agent Team协同", "复杂任务Loop机制", "Token生产力云服务"],
+            },
         }
         self._brand_config = brand_configs.get(self.brand.name, {})
 
@@ -2322,6 +2408,37 @@ class RobotHAL:
     def _connect_titan_navos(self, host, port):
         """钛动Navos 2.0"""
         self._comm = "titan_navos"
+
+    # ===== 世界模型/AI大模型连接存根 =====
+    def _connect_worlddreamer(self, host, port):
+        """超脑未来 WorldDreamer V4"""
+        self._comm = "worlddreamer"
+
+    def _connect_macaron(self, host, port):
+        """心洲科技 Macaron-V1"""
+        self._comm = "macaron"
+
+    def _connect_intact(self, host, port):
+        """浙大+清华 INTACT"""
+        self._comm = "intact"
+
+    # ===== 量子计算连接存根 =====
+    def _connect_qinghe(self, host, port):
+        """清河一号量子计算机"""
+        self._comm = "qinghe"
+
+    # ===== AI操作系统/具身平台连接存根 =====
+    def _connect_lumos(self, host, port):
+        """鹿明 Lumos NexCore"""
+        self._comm = "lumos"
+
+    def _connect_lenovo_wanquan(self, host, port):
+        """联想万全异构智算平台V5.0"""
+        self._comm = "lenovo_wanquan"
+
+    def _connect_deepworks(self, host, port):
+        """滴普 DeepWorks"""
+        self._comm = "deepworks"
 
     def disconnect(self):
         """断开连接"""
@@ -4196,6 +4313,22 @@ ROBOT_PURCHASE_GUIDE = {
          "cons": "前装配置",
          "use_case": "高阶智驾、全域自动驾驶、舱驾联动",
          "source": "比亚迪 (WAIC 2026, 天神之眼5.0全域智驾大模型, 8ms延迟, 腾势Z9 GT搭载)"},
+        {"name": "WorldDreamer V4", "brand": "超脑未来", "price": "授权/API",
+         "pros": "群体智能体世界动作基础模型、Multi-Agent Scaling Law梅尔卡夫机器人定律、多智能体共享同一个世界模型、支持机械臂/AGV/四足/人形/无人机等全形态迁移、真实物理世界数据飞轮",
+         "cons": "企业级产品",
+         "use_case": "多机器人协同、群体智能、跨形态知识迁移、具身智能基础设施",
+         "source": "超脑未来 (2026, WorldDreamer V4, 群体智能体世界动作基础模型, 梅尔卡夫机器人定律)"},
+        {"name": "心洲科技 Macaron-V1", "brand": "心洲科技Mindverse", "price": "开源/商业授权",
+         "pros": "全球首款MoE-LoRA架构全尺寸个人智能体模型、A2UI通用图形协议、深度兼容Pi内核、融合可成长人格+高效工具调用、MinT强化学习平台算力开销降至传统10%",
+         "cons": "首发新品",
+         "use_case": "个人智能体、具身智能终端、AI PC/手机/机器人、自主LoRA训练",
+         "source": "心洲科技Mindverse (WAIC 2026首发, Macaron-V1, 全球首款MoE-LoRA全尺寸个人智能体, A2UI协议)"},
+        {"name": "INTACT 世界模型", "brand": "浙江大学+清华AIR", "price": "开源研究",
+         "success_rate": "95.33%",
+         "pros": "同构算子学习意图到动作映射新范式、LeWM任务95.33%成功率（小样本验证96.86%）、相比模型耗时降至1/300、搜索从9000次候选到无需搜索、仅训练1个epoch",
+         "cons": "学术研究阶段",
+         "use_case": "机器人运动控制、世界模型研究、具身智能算法、无搜索规划",
+         "source": "浙江大学+清华AIR+InSpatio+RoboParty Lab (2026, INTACT, 意图到动作映射, 搜索9000→1, 95.33%成功率)"},
     ],
     # ====================================================================
     # 十、XR/VR/AR专区（WAIC 2026首发）
@@ -4237,6 +4370,37 @@ ROBOT_PURCHASE_GUIDE = {
          "cons": "垂直领域（营销）",
          "use_case": "AI营销、广告投放、营销策略优化、多智能体协同",
          "source": "钛动科技 (WAIC 2026, Navos 2.0 AI营销智能体, SAIL奖·卓越奖, 九大应用场景)"},
+    ],
+    # ====================================================================
+    # 十二、量子计算/AI算力专区（WAIC 2026首发）
+    # ====================================================================
+    "quantum_computing": [
+        {"name": "清河一号量子计算机", "brand": "中器无量", "price": "定制化（算力中心级）",
+         "pros": "算力中心级量子计算机、国际一流量子比特数/读取保真度/门保真度、量子经典混合计算操作系统、实时原子图像处理、高速AI纠错解码、面向材料组合优化+AI的可持续量子算力服务",
+         "cons": "定制化、价格极高、大规模容错量子计算尚在推进中",
+         "use_case": "材料组合优化、人工智能、科学计算、量子算力服务、原子级图像处理",
+         "source": "中器无量 (WAIC 2026, 清河一号, 全球领先的算力中心级量子计算机, 量子比特数国际一流)"},
+    ],
+    # ====================================================================
+    # 十三、AI操作系统/具身平台专区（WAIC 2026首发）
+    # ====================================================================
+    "ai_os_platform": [
+        {"name": "鹿明 Lumos NexCore 产业具身操作系统", "brand": "鹿明", "price": "企业授权",
+         "pros": "产业具身完整基础设施、覆盖数据管线+模型评测+场景工具链、原生Prime R0具身大脑登顶MolmoSpaces全球第一、单臂精细操作+双臂协同操作全任务综合成功率全球第一、已完成花艺/织物/收纳/密闭空间等多项真实验证",
+         "cons": "企业级产品",
+         "use_case": "产业具身规模化落地、具身智能模型训练评测、工业精细操作、双臂协同作业",
+         "source": "鹿明 (2026, Lumos NexCore产业具身操作系统, Prime R0 MolmoSpaces全球第一)"},
+        {"name": "联想万全异构智算平台 V5.0", "brand": "联想", "price": "定制化",
+         "max_gpus": "单节点40张GPU",
+         "pros": "万全异构智算平台V5.0、超节点解决方案、单节点可搭载40张GPU、全球首款搭载蓝芯LX500处理器的2U机架式服务器问天WR5219 G5、联想首次公开展示基于开源架构的服务器产品",
+         "cons": "企业级定制化",
+         "use_case": "AI算力集群、大模型训练、超节点计算、异构智算中心",
+         "source": "联想 (WAIC 2026, 万全异构智算平台V5.0, 单节点40张GPU, 问天WR5219 G5蓝芯LX500)"},
+        {"name": "滴普 DeepWorks 企业智能体平台", "brand": "滴普科技DEEPEXI", "price": "SaaS订阅+私有化部署",
+         "pros": "全新升级企业智能体平台、引入Harness架构、完善Agent Team多智能体协同能力、补充复杂任务Loop机制、对接企业级组织模块、提供Token生产力云服务能力、全栈AI基础设施",
+         "cons": "企业级产品",
+         "use_case": "企业智能体建设、多智能体协同、复杂任务自动化、企业AI数字化",
+         "source": "滴普科技DEEPEXI (WAIC 2026, DeepWorks企业智能体平台, Harness架构, Agent Team协同)"},
     ],
 }
 
