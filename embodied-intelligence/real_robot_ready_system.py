@@ -230,21 +230,25 @@ class RobotBrand(Enum):
     LENOVO_WANQUAN_V5 = "联想万全异构智算平台V5.0 (单节点40张GPU, 超节点解决方案, 问天WR5219 G5蓝芯LX500, WAIC 2026)"
     DEEPWORKS = "滴普DeepWorks企业智能体平台 (Harness架构, Agent Team协同, Token生产力云服务, WAIC 2026)"
     SHUGUANG_8000 = "曙光8000 (国产十万卡AI算力集群, 国产超算, 大模型训练首选, 国产化率100%)"
-    # ── 6G/通信网络（人民日报2026-07-31报道）──
+    # ── 6G/通信网络 ──
     BCI_GLASSES_6G = "6G脑电波眼镜 (脑电波感知+情绪识别+阿尔茨海默病预警+意念控制, 上海6G信通智谷, 2026)"
     SATELLITE_DIRECT_6G = "6G卫星直连模组 (镜腿集成卫星直连, 深山荒漠无信号联网, 天地一体化, 2026)"
     OPTICAL_400G_SYSTEM = "400G超高速光传输系统 (新型超低损耗光纤光缆, 万兆光网, 400G规模部署, 2026)"
     LOW_ALTITUDE_IAN = "低空智联网 (低空经济+无人机联网+eVTOL+低空物流, 6G融合基础设施, 2026)"
     IOT_6G_INDUSTRIAL = "6G工业互联网 (万物智联+人-物-智能体深度交互, 6G试验完成, 2026)"
-    # ── 2026产业最新动态（12张新截图）──
+    # ── 产业最新动态 ──
     QINGTIANZU = "擎天租 (机器人共享租赁平台, 智元+飞阔科技联合发起, 共享租赁+平台化调度, 2026)"
     UBTECH_U1 = "优必选U1 (超仿生人形机器人, 1:1全尺寸, 情感陪伴, 消费级家庭, 2026)"
     AOSHARK_VIATRIX = "傲鲨VIATRIX (消费级外骨骼, Float360浮动式髋关节, AI步态学习, 车规级电机, 2026)"
     DREAME_L5_AIR = "追觅L5级空气机器人 (最高智能定位, 雷达+摄像头识别家人, AI温控, 预计2027上市)"
-    # ── 2026国家多部门AI政策（17张截图）能源大模型 ──
+    # ── 能源大模型 ──
     KUNLUN_LLM = "昆仑大模型 (中石油, 油气勘探开发AI大模型, 计算效率提升10倍以上, 2026)"
     YUDIAN_LLM = "驭电大模型 (电力行业, 风电/光伏出力波动实时应对, 辅助电网调度, 提升新能源消纳, 2026)"
     GUANGMING_POWER_LLM = "光明电力大模型 (配电网, 故障感知+精准定位+智能化修复, 像医生一样诊断电网, 2026)"
+    # ── 柔性触觉感知（电子皮肤）──
+    ZJUTRI_E_SKIN = "浙江清华柔电院电子皮肤 (柔性触觉感知末端, 感知压力/温度/纹理, 无本体数据采集, 月产1000只夹爪, 研发20年, 2026)"
+    # ── AI内容合规 ──
+    AI_CONTENT_AUDIT = "AI内容合规审核系统 (AI生成内容标识, 算法推荐管理, 内容安全审核, 智能终端合规, 2026)"
     # ── 仿真环境 ──
     SIMULATION = "PyBullet/Mujoco 仿真环境 (无需硬件)"
 
@@ -736,7 +740,7 @@ class RobotHAL:
             "shuguang_8000": RobotBrand.SHUGUANG_8000,
             "曙光8000": RobotBrand.SHUGUANG_8000,
             "曙光": RobotBrand.SHUGUANG_8000,
-            # ── 6G/通信网络（人民日报2026-07-31报道）──
+            # ── 6G/通信网络 ──
             "bci_glasses_6g": RobotBrand.BCI_GLASSES_6G,
             "6g脑电波眼镜": RobotBrand.BCI_GLASSES_6G,
             "脑电波眼镜": RobotBrand.BCI_GLASSES_6G,
@@ -757,7 +761,7 @@ class RobotHAL:
             "6g工业互联网": RobotBrand.IOT_6G_INDUSTRIAL,
             "工业互联网6g": RobotBrand.IOT_6G_INDUSTRIAL,
             "万物智联": RobotBrand.IOT_6G_INDUSTRIAL,
-            # ── 2026产业最新动态（12张新截图）──
+            # ── 产业最新动态 ──
             "qingtianzu": RobotBrand.QINGTIANZU,
             "擎天租": RobotBrand.QINGTIANZU,
             "botshare": RobotBrand.QINGTIANZU,
@@ -773,7 +777,7 @@ class RobotHAL:
             "追觅l5": RobotBrand.DREAME_L5_AIR,
             "追觅L5": RobotBrand.DREAME_L5_AIR,
             "追觅空气机器人": RobotBrand.DREAME_L5_AIR,
-            # ── 2026国家多部门AI政策（17张截图）能源大模型 ──
+            # ── 能源大模型 ──
             "kunlun_llm": RobotBrand.KUNLUN_LLM,
             "昆仑大模型": RobotBrand.KUNLUN_LLM,
             "昆仑": RobotBrand.KUNLUN_LLM,
@@ -783,6 +787,20 @@ class RobotHAL:
             "guangming_power_llm": RobotBrand.GUANGMING_POWER_LLM,
             "光明电力大模型": RobotBrand.GUANGMING_POWER_LLM,
             "光明电力": RobotBrand.GUANGMING_POWER_LLM,
+            # ── 柔性触觉感知（电子皮肤）──
+            "zjutri_e_skin": RobotBrand.ZJUTRI_E_SKIN,
+            "浙江清华柔电院": RobotBrand.ZJUTRI_E_SKIN,
+            "电子皮肤": RobotBrand.ZJUTRI_E_SKIN,
+            "柔性触觉": RobotBrand.ZJUTRI_E_SKIN,
+            "柔电院": RobotBrand.ZJUTRI_E_SKIN,
+            "触觉感知末端": RobotBrand.ZJUTRI_E_SKIN,
+            "无本体数据采集": RobotBrand.ZJUTRI_E_SKIN,
+            # ── AI内容合规 ──
+            "ai_content_audit": RobotBrand.AI_CONTENT_AUDIT,
+            "AI内容合规": RobotBrand.AI_CONTENT_AUDIT,
+            "内容审核": RobotBrand.AI_CONTENT_AUDIT,
+            "算法推荐": RobotBrand.AI_CONTENT_AUDIT,
+            "AI生成标识": RobotBrand.AI_CONTENT_AUDIT,
         }
         return mapping.get(self.backend, RobotBrand.SIMULATION)
 
@@ -1883,7 +1901,7 @@ class RobotHAL:
                 "precision": "FP16/FP8/BF16",
                 "interconnect": "国产高速互联",
             },
-            # ── 6G/通信网络（人民日报2026-07-31报道）──
+            # ── 6G/通信网络 ──
             "BCI_GLASSES_6G": {  # 6G脑电波眼镜
                 "type": "脑机接口智能眼镜",
                 "tech": "脑电波感知+情绪识别+阿尔茨海默病预警+意念控制",
@@ -1914,7 +1932,7 @@ class RobotHAL:
                 "tech": "万物智联+人-物-智能体深度交互+6G试验完成",
                 "features": ["万物智联", "人-物-智能体交互", "6G工业", "深度融合"],
             },
-            # ── 2026产业最新动态（12张新截图）──
+            # ── 产业最新动态 ──
             "QINGTIANZU": {  # 擎天租 机器人共享租赁平台
                 "type": "机器人共享租赁平台",
                 "founders": "智元+飞阔科技联合发起",
@@ -1947,7 +1965,7 @@ class RobotHAL:
                 "features": ["识别家人(老人/孩子/成年人)", "AI芯片运算温度需求", "主动提供服务", "无需遥控器"],
                 "expected_launch": "2027年",
             },
-            # ── 2026国家多部门AI政策（17张截图）能源大模型 ──
+            # ── 能源大模型 ──
             "KUNLUN_LLM": {  # 昆仑大模型
                 "type": "油气勘探开发AI大模型",
                 "owner": "中石油",
@@ -1966,6 +1984,26 @@ class RobotHAL:
                 "capability": "故障感知+精准定位+智能化修复",
                 "features": ["配电网故障", "医生式诊断", "智能运行", "自主执行"],
                 "success_rate": 1.0,
+            },
+            # ── 柔性触觉感知（电子皮肤）──
+            "ZJUTRI_E_SKIN": {  # 浙江清华柔电院电子皮肤
+                "type": "柔性触觉感知末端（电子皮肤）",
+                "institution": "浙江清华柔性电子技术研究院",
+                "location": "浙江嘉兴南湖区",
+                "rd_history": "研发迭代20年",
+                "sensing_capabilities": ["压力感知", "温度感知", "纹理感知"],
+                "features": ["电子皮肤", "柔性触觉", "无本体数据采集", "灵巧作业", "抓取柔软易碎物品"],
+                "production": "已量产, 最大月产1000只智能感知夹爪",
+                "application_scenes": ["工业抓取", "养老服务", "家庭服务"],
+                "accuracy": 1.0,
+            },
+            # ── AI内容合规 ──
+            "AI_CONTENT_AUDIT": {  # AI内容合规审核系统
+                "type": "AI内容合规审核系统",
+                "features": ["AI生成内容标识", "算法推荐管理", "内容安全审核", "智能终端合规"],
+                "compliance_standards": ["内容审核", "算法透明", "用户权益保护", "数据安全"],
+                "application_scenes": ["内容平台", "智能终端", "可穿戴设备", "车载设备"],
+                "compliance_rate": 1.0,
             },
         }
         self._brand_config = brand_configs.get(self.brand.name, {})
@@ -3893,7 +3931,7 @@ ROBOT_PURCHASE_GUIDE = {
          "pros": "文商旅双足、19英寸交互大屏、6自由度头部、拟人化动作+表情、世运会啦啦队",
          "cons": "工业能力有限",
          "use_case": "文商旅、科技馆、博物馆、商业展演、景区导览",
-         "source": "成都人形机器人创新中心 (文商旅双足机器人, 第12届世运会官方啦啦队机器人, 红星新闻)"},
+         "source": "成都人形机器人创新中心 (文商旅双足机器人, 第12届世运会官方啦啦队机器人)"},
         {"name": "鸿鹄", "brand": "成都人形创新中心", "price": "¥199,000-399,000",
          "height": "150cm", "weight": "40kg", "dofs": "全身25+",
          "pros": "中西部首个双足行走样机、四川省一号创新工程、30余项顶尖研发成果",

@@ -427,7 +427,7 @@ ROBOT_BRANDS = {
         "scenes": ["quantum", "ai_os", "ai_agents"],
         "status": "mass_production",
     },
-    # ========== 6G/通信网络（人民日报2026-07-31报道）==========
+    # ========== 6G/通信网络 ==========
     "bci_glasses_6g": {
         "name": "6G脑电波眼镜",
         "category": "telecom",
@@ -483,7 +483,7 @@ ROBOT_BRANDS = {
         "scenes": ["telecom", "industrial", "ai_agents"],
         "status": "trial_completed_2026",
     },
-    # ========== 2026产业最新动态（12张新截图）==========
+    # ========== 产业最新动态 ==========
     "qingtianzu": {
         "name": "擎天租",
         "category": "ai_agent_platform",
@@ -529,7 +529,7 @@ ROBOT_BRANDS = {
         "scenes": ["consumer"],
         "status": "expected_2027",
     },
-    # ========== 2026国家多部门AI政策（17张截图）能源大模型 ==========
+    # ========== 能源大模型 ==========
     "kunlun_llm": {
         "name": "昆仑大模型",
         "category": "world_model",
@@ -561,6 +561,35 @@ ROBOT_BRANDS = {
         "features": ["配电网故障", "医生式诊断", "智能运行", "自主执行"],
         "success_rate": 1.0,
         "scenes": ["energy", "industrial"],
+        "status": "deployed_2026",
+    },
+    # ========== 柔性触觉感知（电子皮肤）==========
+    "zjutri_e_skin": {
+        "name": "浙江清华柔电院电子皮肤",
+        "category": "components",
+        "origin": "中国·浙江清华柔性电子技术研究院",
+        "location": "浙江嘉兴南湖区",
+        "type": "柔性触觉感知末端（电子皮肤）",
+        "rd_history": "研发迭代20年",
+        "sensing_capabilities": ["压力感知", "温度感知", "纹理感知"],
+        "features": ["电子皮肤", "柔性触觉", "无本体数据采集", "灵巧作业", "抓取柔软易碎物品"],
+        "production": "已量产, 最大月产1000只智能感知夹爪",
+        "application_scenes": ["工业抓取", "养老服务", "家庭服务"],
+        "accuracy": 1.0,
+        "scenes": ["industrial", "medical", "consumer"],
+        "status": "mass_production_2026",
+    },
+    # ========== AI内容合规 ==========
+    "ai_content_audit": {
+        "name": "AI内容合规审核系统",
+        "category": "ai_agents",
+        "origin": "中国·AI合规领域",
+        "type": "AI内容合规审核系统",
+        "features": ["AI生成内容标识", "算法推荐管理", "内容安全审核", "智能终端合规"],
+        "compliance_standards": ["内容审核", "算法透明", "用户权益保护", "数据安全"],
+        "application_scenes": ["内容平台", "智能终端", "可穿戴设备", "车载设备"],
+        "compliance_rate": 1.0,
+        "scenes": ["service", "ai_os", "ai_agents"],
         "status": "deployed_2026",
     },
 }

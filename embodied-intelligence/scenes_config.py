@@ -220,6 +220,13 @@ SCENES = {
                 "difficulty": 2,
                 "reward_scale": 0.5,
             },
+            "ai_content_compliance": {
+                "name": "AI内容合规",
+                "description": "AI生成内容标识、算法推荐管理、内容审核、智能终端合规",
+                "robots": ["AI审核系统", "内容生成AI", "智能终端", "可穿戴设备"],
+                "difficulty": 4,
+                "reward_scale": 0.8,
+            },
         },
     },
 
