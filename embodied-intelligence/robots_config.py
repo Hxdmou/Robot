@@ -529,6 +529,40 @@ ROBOT_BRANDS = {
         "scenes": ["consumer"],
         "status": "expected_2027",
     },
+    # ========== 2026国家多部门AI政策（17张截图）能源大模型 ==========
+    "kunlun_llm": {
+        "name": "昆仑大模型",
+        "category": "world_model",
+        "origin": "中国·中石油",
+        "type": "油气勘探开发AI大模型",
+        "performance": "油气勘探开发计算效率提升10倍以上",
+        "features": ["油气勘探", "开发计算", "提质增效", "石油行业"],
+        "success_rate": 1.0,
+        "scenes": ["energy", "industrial"],
+        "status": "deployed_2026",
+    },
+    "yudian_llm": {
+        "name": "驭电大模型",
+        "category": "world_model",
+        "origin": "中国·电力行业",
+        "type": "电力行业AI大模型",
+        "application": "风电/光伏出力波动实时应对+辅助电网调度",
+        "features": ["新能源消纳", "电网调度", "电力行业", "破解难题"],
+        "success_rate": 1.0,
+        "scenes": ["energy", "industrial"],
+        "status": "deployed_2026",
+    },
+    "guangming_power_llm": {
+        "name": "光明电力大模型",
+        "category": "world_model",
+        "origin": "中国·配电网行业",
+        "type": "配电网AI大模型",
+        "capability": "故障感知+精准定位+智能化修复",
+        "features": ["配电网故障", "医生式诊断", "智能运行", "自主执行"],
+        "success_rate": 1.0,
+        "scenes": ["energy", "industrial"],
+        "status": "deployed_2026",
+    },
 }
 
 

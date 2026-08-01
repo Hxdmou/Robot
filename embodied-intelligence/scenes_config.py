@@ -91,6 +91,27 @@ SCENES = {
                 "difficulty": 4,
                 "reward_scale": 1.0,
             },
+            "postal_express": {
+                "name": "邮政快递",
+                "description": "无人机运邮、山区/海岛/高原特殊场景、智慧邮政建设",
+                "robots": ["无人机", "配送机器人", "AGV/AMR", "智能终端"],
+                "difficulty": 4,
+                "reward_scale": 1.2,
+            },
+            "port_intelligence": {
+                "name": "口岸智能化",
+                "description": "海关口岸外贸智慧化、智能查验、智能通关",
+                "robots": ["巡检机器人", "四足机器人", "无人机", "AI视觉系统"],
+                "difficulty": 4,
+                "reward_scale": 1.1,
+            },
+            "smart_parking": {
+                "name": "智慧停车",
+                "description": "枢纽场站智慧停车引导、智慧寻车、智能泊车系统",
+                "robots": ["智能泊车机器人", "AGV", "AI视觉系统", "传感器"],
+                "difficulty": 3,
+                "reward_scale": 0.9,
+            },
         },
     },
 

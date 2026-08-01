@@ -241,6 +241,10 @@ class RobotBrand(Enum):
     UBTECH_U1 = "优必选U1 (超仿生人形机器人, 1:1全尺寸, 情感陪伴, 消费级家庭, 2026)"
     AOSHARK_VIATRIX = "傲鲨VIATRIX (消费级外骨骼, Float360浮动式髋关节, AI步态学习, 车规级电机, 2026)"
     DREAME_L5_AIR = "追觅L5级空气机器人 (最高智能定位, 雷达+摄像头识别家人, AI温控, 预计2027上市)"
+    # ── 2026国家多部门AI政策（17张截图）能源大模型 ──
+    KUNLUN_LLM = "昆仑大模型 (中石油, 油气勘探开发AI大模型, 计算效率提升10倍以上, 2026)"
+    YUDIAN_LLM = "驭电大模型 (电力行业, 风电/光伏出力波动实时应对, 辅助电网调度, 提升新能源消纳, 2026)"
+    GUANGMING_POWER_LLM = "光明电力大模型 (配电网, 故障感知+精准定位+智能化修复, 像医生一样诊断电网, 2026)"
     # ── 仿真环境 ──
     SIMULATION = "PyBullet/Mujoco 仿真环境 (无需硬件)"
 
@@ -769,6 +773,16 @@ class RobotHAL:
             "追觅l5": RobotBrand.DREAME_L5_AIR,
             "追觅L5": RobotBrand.DREAME_L5_AIR,
             "追觅空气机器人": RobotBrand.DREAME_L5_AIR,
+            # ── 2026国家多部门AI政策（17张截图）能源大模型 ──
+            "kunlun_llm": RobotBrand.KUNLUN_LLM,
+            "昆仑大模型": RobotBrand.KUNLUN_LLM,
+            "昆仑": RobotBrand.KUNLUN_LLM,
+            "yudian_llm": RobotBrand.YUDIAN_LLM,
+            "驭电大模型": RobotBrand.YUDIAN_LLM,
+            "驭电": RobotBrand.YUDIAN_LLM,
+            "guangming_power_llm": RobotBrand.GUANGMING_POWER_LLM,
+            "光明电力大模型": RobotBrand.GUANGMING_POWER_LLM,
+            "光明电力": RobotBrand.GUANGMING_POWER_LLM,
         }
         return mapping.get(self.backend, RobotBrand.SIMULATION)
 
@@ -1932,6 +1946,26 @@ class RobotHAL:
                 "sensors": ["雷达", "摄像头"],
                 "features": ["识别家人(老人/孩子/成年人)", "AI芯片运算温度需求", "主动提供服务", "无需遥控器"],
                 "expected_launch": "2027年",
+            },
+            # ── 2026国家多部门AI政策（17张截图）能源大模型 ──
+            "KUNLUN_LLM": {  # 昆仑大模型
+                "type": "油气勘探开发AI大模型",
+                "owner": "中石油",
+                "performance": "油气勘探开发计算效率提升10倍以上",
+                "features": ["油气勘探", "开发计算", "提质增效", "石油行业"],
+                "success_rate": 1.0,
+            },
+            "YUDIAN_LLM": {  # 驭电大模型
+                "type": "电力行业AI大模型",
+                "application": "风电/光伏出力波动实时应对+辅助电网调度",
+                "features": ["新能源消纳", "电网调度", "电力行业", "破解难题"],
+                "success_rate": 1.0,
+            },
+            "GUANGMING_POWER_LLM": {  # 光明电力大模型
+                "type": "配电网AI大模型",
+                "capability": "故障感知+精准定位+智能化修复",
+                "features": ["配电网故障", "医生式诊断", "智能运行", "自主执行"],
+                "success_rate": 1.0,
             },
         }
         self._brand_config = brand_configs.get(self.brand.name, {})
