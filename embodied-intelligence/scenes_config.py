@@ -1,6 +1,6 @@
 """
 AI场景全覆盖配置中心
-覆盖8大应用场景、24个子场景
+覆盖15大应用场景、63个子场景
 """
 
 # ============================================================================
@@ -338,8 +338,8 @@ SCENES = {
             },
             "satellite": {
                 "name": "卫星通信",
-                "description": "低轨卫星、天地一体化、星链",
-                "robots": ["卫星", "地面站", "天线"],
+                "description": "低轨卫星、天地一体化、星链、卫星直连",
+                "robots": ["卫星", "地面站", "天线", "卫星直连模组"],
                 "difficulty": 5,
                 "reward_scale": 1.5,
             },
@@ -349,6 +349,41 @@ SCENES = {
                 "robots": ["AI芯片", "服务器"],
                 "difficulty": 3,
                 "reward_scale": 0.8,
+            },
+            "bci_glasses": {
+                "name": "脑电波眼镜",
+                "description": "脑电波感知、情绪识别、阿尔茨海默病早期预警、意念控制",
+                "robots": ["脑电波眼镜", "AI眼镜", "传感器"],
+                "difficulty": 5,
+                "reward_scale": 1.5,
+            },
+            "wan_optical": {
+                "name": "万兆光网",
+                "description": "万兆光网试点、FTTR、全光网",
+                "robots": ["光模块", "光传输设备", "服务器"],
+                "difficulty": 4,
+                "reward_scale": 1.0,
+            },
+            "optical_400g": {
+                "name": "400G超高速光传输",
+                "description": "400G光传输系统、新型超低损耗光纤光缆",
+                "robots": ["400G光模块", "光传输设备", "光纤光缆"],
+                "difficulty": 5,
+                "reward_scale": 1.3,
+            },
+            "low_altitude": {
+                "name": "低空智联网",
+                "description": "低空经济、无人机联网、eVTOL、低空物流",
+                "robots": ["无人机", "eVTOL", "低空基站", "AI芯片"],
+                "difficulty": 5,
+                "reward_scale": 1.5,
+            },
+            "industrial_iot_6g": {
+                "name": "工业互联网(6G)",
+                "description": "6G工业互联网、万物智联、人-物-智能体深度交互",
+                "robots": ["工业网关", "6G模组", "协作臂", "人形机器人"],
+                "difficulty": 5,
+                "reward_scale": 1.4,
             },
         },
     },

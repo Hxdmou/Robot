@@ -230,6 +230,12 @@ class RobotBrand(Enum):
     LENOVO_WANQUAN_V5 = "联想万全异构智算平台V5.0 (单节点40张GPU, 超节点解决方案, 问天WR5219 G5蓝芯LX500, WAIC 2026)"
     DEEPWORKS = "滴普DeepWorks企业智能体平台 (Harness架构, Agent Team协同, Token生产力云服务, WAIC 2026)"
     SHUGUANG_8000 = "曙光8000 (国产十万卡AI算力集群, 国产超算, 大模型训练首选, 国产化率100%)"
+    # ── 6G/通信网络（人民日报2026-07-31报道）──
+    BCI_GLASSES_6G = "6G脑电波眼镜 (脑电波感知+情绪识别+阿尔茨海默病预警+意念控制, 上海6G信通智谷, 2026)"
+    SATELLITE_DIRECT_6G = "6G卫星直连模组 (镜腿集成卫星直连, 深山荒漠无信号联网, 天地一体化, 2026)"
+    OPTICAL_400G_SYSTEM = "400G超高速光传输系统 (新型超低损耗光纤光缆, 万兆光网, 400G规模部署, 2026)"
+    LOW_ALTITUDE_IAN = "低空智联网 (低空经济+无人机联网+eVTOL+低空物流, 6G融合基础设施, 2026)"
+    IOT_6G_INDUSTRIAL = "6G工业互联网 (万物智联+人-物-智能体深度交互, 6G试验完成, 2026)"
     # ── 仿真环境 ──
     SIMULATION = "PyBullet/Mujoco 仿真环境 (无需硬件)"
 
@@ -717,6 +723,31 @@ class RobotHAL:
             "deepworks": RobotBrand.DEEPWORKS,
             "滴普": RobotBrand.DEEPWORKS,
             "deepexi": RobotBrand.DEEPWORKS,
+            # ── 曙光8000国产十万卡集群 ──
+            "shuguang_8000": RobotBrand.SHUGUANG_8000,
+            "曙光8000": RobotBrand.SHUGUANG_8000,
+            "曙光": RobotBrand.SHUGUANG_8000,
+            # ── 6G/通信网络（人民日报2026-07-31报道）──
+            "bci_glasses_6g": RobotBrand.BCI_GLASSES_6G,
+            "6g脑电波眼镜": RobotBrand.BCI_GLASSES_6G,
+            "脑电波眼镜": RobotBrand.BCI_GLASSES_6G,
+            "bci_glasses": RobotBrand.BCI_GLASSES_6G,
+            "satellite_direct_6g": RobotBrand.SATELLITE_DIRECT_6G,
+            "6g卫星直连": RobotBrand.SATELLITE_DIRECT_6G,
+            "卫星直连模组": RobotBrand.SATELLITE_DIRECT_6G,
+            "卫星直连": RobotBrand.SATELLITE_DIRECT_6G,
+            "optical_400g_system": RobotBrand.OPTICAL_400G_SYSTEM,
+            "400g光传输": RobotBrand.OPTICAL_400G_SYSTEM,
+            "400g超高速光传输": RobotBrand.OPTICAL_400G_SYSTEM,
+            "超低损耗光纤": RobotBrand.OPTICAL_400G_SYSTEM,
+            "low_altitude_ian": RobotBrand.LOW_ALTITUDE_IAN,
+            "低空智联网": RobotBrand.LOW_ALTITUDE_IAN,
+            "低空经济": RobotBrand.LOW_ALTITUDE_IAN,
+            "evtol": RobotBrand.LOW_ALTITUDE_IAN,
+            "iot_6g_industrial": RobotBrand.IOT_6G_INDUSTRIAL,
+            "6g工业互联网": RobotBrand.IOT_6G_INDUSTRIAL,
+            "工业互联网6g": RobotBrand.IOT_6G_INDUSTRIAL,
+            "万物智联": RobotBrand.IOT_6G_INDUSTRIAL,
         }
         return mapping.get(self.backend, RobotBrand.SIMULATION)
 
@@ -1808,6 +1839,45 @@ class RobotHAL:
                 "type": "企业智能体平台",
                 "architecture": "Harness架构",
                 "features": ["Agent Team协同", "复杂任务Loop机制", "Token生产力云服务"],
+            },
+            "SHUGUANG_8000": {  # 曙光8000 国产十万卡AI算力集群
+                "type": "国产十万卡AI算力集群",
+                "gpu_cards": 100000,
+                "compute_type": "国产超算",
+                "features": ["大模型训练首选", "国产化率100%", "高性价比"],
+                "precision": "FP16/FP8/BF16",
+                "interconnect": "国产高速互联",
+            },
+            # ── 6G/通信网络（人民日报2026-07-31报道）──
+            "BCI_GLASSES_6G": {  # 6G脑电波眼镜
+                "type": "脑机接口智能眼镜",
+                "tech": "脑电波感知+情绪识别+阿尔茨海默病预警+意念控制",
+                "features": ["6G通信", "健康监测", "意念控制"],
+                "battery_hours": 8,
+                "weight_g": 35,
+            },
+            "SATELLITE_DIRECT_6G": {  # 6G卫星直连模组
+                "type": "卫星直连通信模组",
+                "tech": "镜腿集成卫星直连+天地一体化",
+                "features": ["卫星直连", "无信号联网", "天地一体化", "6G融合"],
+                "coverage": "全球深山荒漠",
+            },
+            "OPTICAL_400G_SYSTEM": {  # 400G超高速光传输系统
+                "type": "超高速光传输系统",
+                "tech": "新型超低损耗光纤光缆+万兆光网+400G规模部署",
+                "features": ["400G光传输", "超低损耗光纤", "万兆光网", "高速互联"],
+                "capacity": "400Gbps",
+            },
+            "LOW_ALTITUDE_IAN": {  # 低空智联网
+                "type": "低空智联网基础设施",
+                "tech": "低空经济+无人机联网+eVTOL+低空物流+6G融合基础设施",
+                "features": ["无人机联网", "eVTOL", "低空物流", "6G融合"],
+                "altitude_km": 1,
+            },
+            "IOT_6G_INDUSTRIAL": {  # 6G工业互联网
+                "type": "6G工业互联网平台",
+                "tech": "万物智联+人-物-智能体深度交互+6G试验完成",
+                "features": ["万物智联", "人-物-智能体交互", "6G工业", "深度融合"],
             },
         }
         self._brand_config = brand_configs.get(self.brand.name, {})
