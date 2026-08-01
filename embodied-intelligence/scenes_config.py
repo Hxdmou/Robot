@@ -316,6 +316,258 @@ SCENES = {
             },
         },
     },
+
+    # ========== 9. 6G/通信网络 ==========
+    "telecom": {
+        "name": "6G/通信网络",
+        "description": "下一代通信网络与元宇宙基础设施",
+        "sub_scenes": {
+            "6g_ran": {
+                "name": "6G无线接入",
+                "description": "太赫兹通信、智能超表面、通感一体",
+                "robots": ["6G基站", "无人机", "AI芯片"],
+                "difficulty": 5,
+                "reward_scale": 1.5,
+            },
+            "5g_advanced": {
+                "name": "5G-A演进",
+                "description": "5.5G、万兆下行、无源物联",
+                "robots": ["5G-A基站", "工业网关"],
+                "difficulty": 4,
+                "reward_scale": 1.0,
+            },
+            "satellite": {
+                "name": "卫星通信",
+                "description": "低轨卫星、天地一体化、星链",
+                "robots": ["卫星", "地面站", "天线"],
+                "difficulty": 5,
+                "reward_scale": 1.5,
+            },
+            "network_automation": {
+                "name": "网络自动化",
+                "description": "自智网络、零接触运维、AI运维",
+                "robots": ["AI芯片", "服务器"],
+                "difficulty": 3,
+                "reward_scale": 0.8,
+            },
+        },
+    },
+
+    # ========== 10. AI智能体平台 ==========
+    "ai_agents": {
+        "name": "AI智能体",
+        "description": "多智能体协作、AI Agent平台",
+        "sub_scenes": {
+            "multi_agent": {
+                "name": "多智能体协作",
+                "description": "Multi-Agent协同、群体智能",
+                "robots": ["人形机器人", "协作臂", "AI芯片"],
+                "difficulty": 5,
+                "reward_scale": 1.5,
+            },
+            "ai_workers": {
+                "name": "AI数字员工",
+                "description": "企业智能体、自动化办公",
+                "robots": ["AI芯片", "AI服务器"],
+                "difficulty": 3,
+                "reward_scale": 0.7,
+            },
+            "agent_orchestration": {
+                "name": "智能体编排",
+                "description": "Agent编排、任务调度、工具调用",
+                "robots": ["AI芯片", "服务器"],
+                "difficulty": 4,
+                "reward_scale": 1.0,
+            },
+            "autonomous_decision": {
+                "name": "自主决策系统",
+                "description": "复杂场景自主决策、强化学习决策",
+                "robots": ["人形机器人", "四足机器人", "AI芯片"],
+                "difficulty": 5,
+                "reward_scale": 1.3,
+            },
+        },
+    },
+
+    # ========== 11. XR/VR/AR/MR ==========
+    "xr": {
+        "name": "XR/VR/AR/MR",
+        "description": "扩展现实、元宇宙、空间计算",
+        "sub_scenes": {
+            "vr_training": {
+                "name": "VR培训",
+                "description": "虚拟培训、技能培训、安全教育",
+                "robots": ["VR头显", "数据手套", "动作捕捉"],
+                "difficulty": 3,
+                "reward_scale": 0.7,
+            },
+            "ar_assisted": {
+                "name": "AR辅助操作",
+                "description": "AR装配指导、远程协作、维修辅助",
+                "robots": ["AR眼镜", "协作臂"],
+                "difficulty": 4,
+                "reward_scale": 1.0,
+            },
+            "mr_design": {
+                "name": "MR设计评审",
+                "description": "混合现实设计、产品评审、虚拟样机",
+                "robots": ["MR头显", "协作臂"],
+                "difficulty": 3,
+                "reward_scale": 0.7,
+            },
+            "metaverse": {
+                "name": "元宇宙应用",
+                "description": "数字孪生、虚拟工厂、元宇宙办公",
+                "robots": ["VR/AR设备", "AI芯片", "服务器"],
+                "difficulty": 4,
+                "reward_scale": 1.0,
+            },
+        },
+    },
+
+    # ========== 12. 量子计算/AI算力 ==========
+    "quantum": {
+        "name": "量子计算/AI算力",
+        "description": "量子计算机、算力中心、AI超算",
+        "sub_scenes": {
+            "quantum_computing": {
+                "name": "量子计算",
+                "description": "超导量子、光量子、量子AI",
+                "robots": ["量子计算机", "AI芯片"],
+                "difficulty": 5,
+                "reward_scale": 1.5,
+            },
+            "ai_supercomputing": {
+                "name": "AI超算中心",
+                "description": "万卡集群、大模型训练、算力网络",
+                "robots": ["GPU集群", "AI芯片", "服务器"],
+                "difficulty": 5,
+                "reward_scale": 1.3,
+            },
+            "edge_computing": {
+                "name": "边缘计算",
+                "description": "边缘AI、端侧推理、算力下沉",
+                "robots": ["边缘计算盒", "AI芯片"],
+                "difficulty": 3,
+                "reward_scale": 0.7,
+            },
+            "cloud_gaming": {
+                "name": "云渲染/云游戏",
+                "description": "GPU云、实时渲染、云串流",
+                "robots": ["GPU服务器", "AI芯片"],
+                "difficulty": 3,
+                "reward_scale": 0.6,
+            },
+        },
+    },
+
+    # ========== 13. AI操作系统/具身平台 ==========
+    "ai_os": {
+        "name": "AI操作系统/具身平台",
+        "description": "产业具身操作系统、机器人OS、AI中台",
+        "sub_scenes": {
+            "embodied_os": {
+                "name": "具身操作系统",
+                "description": "机器人OS、具身智能中台、数据管线",
+                "robots": ["人形机器人", "协作臂", "AI芯片"],
+                "difficulty": 5,
+                "reward_scale": 1.5,
+            },
+            "robotics_platform": {
+                "name": "机器人开发平台",
+                "description": "ROS、仿真平台、开发工具链",
+                "robots": ["协作臂", "人形机器人"],
+                "difficulty": 4,
+                "reward_scale": 1.0,
+            },
+            "ai_middleware": {
+                "name": "AI中台",
+                "description": "大模型中台、数据中台、算法中台",
+                "robots": ["AI芯片", "服务器"],
+                "difficulty": 3,
+                "reward_scale": 0.8,
+            },
+            "data_platform": {
+                "name": "数据标注平台",
+                "description": "具身数据采集、自动化标注、数据治理",
+                "robots": ["人形机器人", "协作臂", "AI芯片"],
+                "difficulty": 3,
+                "reward_scale": 0.7,
+            },
+        },
+    },
+
+    # ========== 14. 能源/电力 ==========
+    "energy": {
+        "name": "能源/电力",
+        "description": "电力巡检、新能源、智能电网",
+        "sub_scenes": {
+            "power_inspection": {
+                "name": "电力巡检",
+                "description": "输电线路巡检、变电站巡检、光伏清扫",
+                "robots": ["四足机器人", "无人机", "巡检机器人"],
+                "difficulty": 4,
+                "reward_scale": 1.2,
+            },
+            "smart_grid": {
+                "name": "智能电网",
+                "description": "电网自动化、故障自愈、负荷预测",
+                "robots": ["AI芯片", "服务器"],
+                "difficulty": 4,
+                "reward_scale": 1.0,
+            },
+            "new_energy": {
+                "name": "新能源运维",
+                "description": "风机维护、光伏清洗、储能管理",
+                "robots": ["四足机器人", "攀爬机器人", "无人机"],
+                "difficulty": 4,
+                "reward_scale": 1.1,
+            },
+            "charging": {
+                "name": "充电机器人",
+                "description": "自动充电、换电机器人、储能机器人",
+                "robots": ["充电机器人", "AMR"],
+                "difficulty": 3,
+                "reward_scale": 0.7,
+            },
+        },
+    },
+
+    # ========== 15. 建筑/基建 ==========
+    "construction": {
+        "name": "建筑/基建",
+        "description": "建筑机器人、3D打印、装配式建筑",
+        "sub_scenes": {
+            "3d_printing": {
+                "name": "3D打印建筑",
+                "description": "混凝土3D打印、建筑工业化",
+                "robots": ["建筑3D打印机", "机械臂"],
+                "difficulty": 5,
+                "reward_scale": 1.4,
+            },
+            "bricklaying": {
+                "name": "砌砖机器人",
+                "description": "自动砌砖、墙面处理、抹灰",
+                "robots": ["砌砖机器人", "机械臂"],
+                "difficulty": 4,
+                "reward_scale": 1.0,
+            },
+            "demolition": {
+                "name": "拆除机器人",
+                "description": "建筑拆除、破拆机器人、隧道掘进",
+                "robots": ["拆除机器人", "机械臂"],
+                "difficulty": 4,
+                "reward_scale": 1.0,
+            },
+            "infrastructure": {
+                "name": "基建维护",
+                "description": "桥梁检测、隧道巡检、道路维护",
+                "robots": ["四足机器人", "无人机", "巡检机器人"],
+                "difficulty": 4,
+                "reward_scale": 1.1,
+            },
+        },
+    },
 }
 
 

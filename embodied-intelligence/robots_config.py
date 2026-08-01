@@ -75,6 +75,48 @@ ROBOT_CATEGORIES = {
         "default_dofs": 7,
         "default_safety_level": "PL=d",
     },
+    "telecom": {
+        "name": "6G/通信设备",
+        "description": "6G基站、5G-A、卫星通信、网络自动化",
+        "default_tech": "6G/5G-A",
+        "default_frequency": "Sub-6GHz/毫米波",
+    },
+    "ai_agent_platform": {
+        "name": "AI智能体平台",
+        "description": "多智能体协作、AI数字员工、Agent编排",
+        "default_agent_type": "Multi-Agent",
+        "default_framework": "Harness/Agent Team",
+    },
+    "xr_device": {
+        "name": "XR/VR/AR设备",
+        "description": "VR头显、AR眼镜、MR设备、空间计算",
+        "default_display": "Micro-OLED",
+        "default_fov": "100°",
+    },
+    "quantum_computing": {
+        "name": "量子计算/AI算力",
+        "description": "量子计算机、AI超算、边缘计算",
+        "default_qubits": 1000,
+        "default_precision": "FP16/FP8",
+    },
+    "ai_os_platform": {
+        "name": "AI操作系统/具身平台",
+        "description": "产业具身OS、机器人OS、AI中台",
+        "default_os": "Lumos NexCore",
+        "default_arch": "数据管线+模型评测+场景工具链",
+    },
+    "energy_robot": {
+        "name": "能源/电力机器人",
+        "description": "电力巡检、新能源运维、充电机器人",
+        "default_endurance_hours": 8,
+        "default_voltage": "380V",
+    },
+    "construction_robot": {
+        "name": "建筑/基建机器人",
+        "description": "3D打印建筑、砌砖、拆除、基建维护",
+        "default_payload_kg": 500,
+        "default_operation_radius_m": 10,
+    },
 }
 
 
