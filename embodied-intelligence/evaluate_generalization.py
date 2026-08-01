@@ -281,12 +281,12 @@ def main():
 
     print("=" * 70)
     print("  Generalization Baseline Evaluation")
-    print("  Model: ppo_robot_reach_stable_final.zip")
+    print("  Model: ppo_robot_reach_final_5m_enhanced.zip")
     print("=" * 70)
 
     # Load model
     print("\n[1/5] Loading model...")
-    model = PPO.load("ppo_robot_reach_stable_final.zip", device="cpu")
+    model = PPO.load("ppo_robot_reach_final_5m_enhanced", device="cpu")
     print("  OK")
 
     env = GeneralizationEvalEnv(render_mode=None, max_steps=500)

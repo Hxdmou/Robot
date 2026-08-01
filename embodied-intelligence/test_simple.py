@@ -18,34 +18,36 @@
 import sys
 import os
 
-print("Python:", sys.version)
-print("CWD:", os.getcwd())
 
-try:
-    import pybullet as p
-    print("PyBullet: OK")
-except Exception as e:
-    print("PyBullet FAIL:", e)
+if __name__ == '__main__':
+    print("Python:", sys.version)
+    print("CWD:", os.getcwd())
 
-try:
-    import gymnasium as gym
-    print("Gymnasium: OK")
-except Exception as e:
-    print("Gymnasium FAIL:", e)
+    try:
+        import pybullet as p
+        print("PyBullet: OK")
+    except Exception as e:
+        print("PyBullet FAIL:", e)
 
-try:
-    from stable_baselines3 import PPO
-    print("SB3: OK")
-except Exception as e:
-    print("SB3 FAIL:", e)
+    try:
+        import gymnasium as gym
+        print("Gymnasium: OK")
+    except Exception as e:
+        print("Gymnasium FAIL:", e)
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "embodied-intelligence"))
-try:
-    from robot_reach_env_optimized import RobotReachEnvOptimized
-    print("Env import: OK")
-except Exception as e:
-    print("Env import FAIL:", e)
-    import traceback
-    traceback.print_exc()
+    try:
+        from stable_baselines3 import PPO
+        print("SB3: OK")
+    except Exception as e:
+        print("SB3 FAIL:", e)
 
-print("DONE")
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "embodied-intelligence"))
+    try:
+        from robot_reach_env_optimized import RobotReachEnvOptimized
+        print("Env import: OK")
+    except Exception as e:
+        print("Env import FAIL:", e)
+        import traceback
+        traceback.print_exc()
+
+    print("DONE")

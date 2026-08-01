@@ -366,8 +366,8 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("\n\n[INTERRUPT] User interrupted training")
         gc.collect()
-        model.save("ppo_robot_reach_enhanced_interrupted")
-        print("   Model Saved: ppo_robot_reach_enhanced_interrupted")
+        model.save("ppo_robot_reach_final_5m_enhanced")
+        print("   Model Saved: ppo_robot_reach_final_5m_enhanced")
 
     except Exception as e:
         print(f"\n\n[ERROR] Training failed: {e}")
@@ -375,8 +375,8 @@ if __name__ == "__main__":
         traceback.print_exc()
         try:
             gc.collect()
-            model.save("ppo_robot_reach_enhanced_error")
-            print("   Model Saved: ppo_robot_reach_enhanced_error")
+            model.save("ppo_robot_reach_final_5m_enhanced")
+            print("   Model Saved: ppo_robot_reach_final_5m_enhanced")
         except Exception as save_err:
             print(f"   Save failed: {save_err}")
 

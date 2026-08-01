@@ -96,8 +96,8 @@ def check_model_file():
     model_names = [
         "ppo_robot_reach_curriculum",
         "ppo_robot_reach_curriculum.zip",
-        "ppo_robot_reach_stable_final",
-        "ppo_robot_reach_stable_final.zip",
+        "ppo_robot_reach_final_5m_enhanced",
+        "ppo_robot_reach_final_5m_enhanced.zip",
         "ppo_robot_reach_final_5m_enhanced",
         "ppo_robot_reach_final_5m_enhanced.zip",
     ]

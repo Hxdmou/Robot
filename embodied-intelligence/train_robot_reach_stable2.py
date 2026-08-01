@@ -381,14 +381,14 @@ if __name__ == "__main__":
         print(f"   Average Speed: {total_timesteps/elapsed:.1f} steps/second")
 
         gc.collect()
-        model.save("ppo_robot_reach_stable_final.zip")
-        print("   Model Saved: ppo_robot_reach_stable_final.zip")
+        model.save("ppo_robot_reach_final_5m_enhanced.zip")
+        print("   Model Saved: ppo_robot_reach_final_5m_enhanced.zip")
 
     except KeyboardInterrupt:
         print("\n\n[INTERRUPT] User interrupted training")
         gc.collect()
-        model.save("ppo_robot_reach_stable_interrupted")
-        print("   Model Saved: ppo_robot_reach_stable_interrupted.zip")
+        model.save("ppo_robot_reach_final_5m_enhanced")
+        print("   Model Saved: ppo_robot_reach_final_5m_enhanced.zip")
 
     except Exception as e:
         print(f"\n\n[ERROR] Training failed with exception:")
@@ -398,8 +398,8 @@ if __name__ == "__main__":
         traceback.print_exc()
         try:
             gc.collect()
-            model.save("ppo_robot_reach_stable_error")
-            print("   Model Saved: ppo_robot_reach_stable_error.zip")
+            model.save("ppo_robot_reach_final_5m_enhanced")
+            print("   Model Saved: ppo_robot_reach_final_5m_enhanced.zip")
         except Exception as save_err:
             print(f"   Save failed: {save_err}")
 
@@ -431,7 +431,7 @@ if __name__ == "__main__":
 
     try:
         test_env = RobotReachEnvOptimized(render_mode=None, max_steps=500)
-        test_model = PPO.load("ppo_robot_reach_stable_final", env=test_env, device="cpu")
+        test_model = PPO.load("ppo_robot_reach_final_5m_enhanced", env=test_env, device="cpu")
 
         success_count = 0
         total_episodes = 50

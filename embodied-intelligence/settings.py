@@ -68,7 +68,7 @@ CONNECTION_CONFIG: Dict[str, Any] = {
 # ============================================================================
 MODEL_CONFIG: Dict[str, Any] = {
     "checkpoint_dir": os.getenv("MODEL_CHECKPOINT_DIR", "./checkpoints"),
-    "default_reach_model": os.getenv("MODEL_DEFAULT_REACH", "ppo_robot_reach_ultimate2_final"),
+    "default_reach_model": os.getenv("MODEL_DEFAULT_REACH", "ppo_robot_reach_final_5m_enhanced"),
     "default_grasp_model": os.getenv("MODEL_DEFAULT_GRASP", "kuka_grasp_ppo"),
     "vec_normalize_path": os.getenv("MODEL_VEC_NORM", "vec_normalize_optimized.pkl"),
 }

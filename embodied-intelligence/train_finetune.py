@@ -80,8 +80,8 @@ if __name__ == "__main__":
     print(f"   Time: {elapsed/60:.2f} minutes")
     print(f"   FPS: {fps:.1f}")
 
-    model.save("ppo_robot_reach_final")
-    print("   Model Saved: ppo_robot_reach_final")
+    model.save("ppo_robot_reach_final_5m_enhanced")
+    print("   Model Saved: ppo_robot_reach_final_5m_enhanced")
 
     # 纯Gym API测试
     print("\n=== Running 50 Test Episodes ===")

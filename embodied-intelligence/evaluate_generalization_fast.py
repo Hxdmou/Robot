@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Fast Generalization Evaluation for ppo_robot_reach_stable_final.zip
+Fast Generalization Evaluation for ppo_robot_reach_final_5m_enhanced.zip
 """
 
 # ============================================================================

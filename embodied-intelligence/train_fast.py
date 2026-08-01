@@ -97,8 +97,8 @@ if __name__ == "__main__":
     print(f"   Average Speed: {total_timesteps/elapsed:.1f} steps/second")
 
     # 保存模型
-    model.save("ppo_robot_reach_fast")
-    print("   Model Saved: ppo_robot_reach_fast")
+    model.save("ppo_robot_reach_final_5m_enhanced")
+    print("   Model Saved: ppo_robot_reach_final_5m_enhanced")
 
     # 测试
     print("\n=== Running 50 Test Episodes ===")
