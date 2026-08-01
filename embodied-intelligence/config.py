@@ -1,6 +1,8 @@
 """
 配置文件：机械臂类型、仿真步数、目标姿态等
 可根据需要修改
+
+支持：135个机器人品牌全覆盖，44个应用场景全覆盖
 """
 # ============================================================================
 # 免责声明与AI使用规范
@@ -18,12 +20,62 @@
 #   使用者须自行评估风险，因使用本文件导致的任何损失由使用者承担。
 # ============================================================================
 
+import os
+import sys
+
+# ============================================================================
+# 全覆盖配置中心导入
+# ============================================================================
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+try:
+    from scenes_config import SCENES, get_scene_config, list_scenes
+    SCENES_AVAILABLE = True
+except Exception:
+    SCENES_AVAILABLE = False
+    SCENES = {}
+
+try:
+    from robots_config import ROBOT_CATEGORIES, ROBOT_BRANDS, get_robot_config, get_robots_by_category
+    ROBOTS_AVAILABLE = True
+except Exception:
+    ROBOTS_AVAILABLE = False
+    ROBOT_CATEGORIES = {}
+    ROBOT_BRANDS = {}
+
+# ============================================================================
+# 当前选中的机器人（从135个品牌中选择）
+# ============================================================================
+# 环境变量切换: CURRENT_ROBOT=airbot_p7 python main.py train
+# 可用: panda, kuka_lbr, airbot_p7, ufactory_cra, jaka_zu35,
+#       unitree_h1, unitree_gd01, zhiyuan_a3, kepler_k2, ubtech_walker,
+#       unitree_go2, unitree_b2, geek_amr, hikrobot_amr,
+#       moonix_glasses, iflytek_glasses, stepx_neo, honor_robot, ...
+# 完整列表: python robots_config.py
+CURRENT_ROBOT = os.getenv("CURRENT_ROBOT", "panda")
+
+# ============================================================================
+# 当前选中的场景（从44个子场景中选择）
+# ============================================================================
+# 环境变量切换: CURRENT_SCENE=welding python main.py train
+# 可用: assembly, welding, painting, handling, inspection, cnc,
+#       picking, storage, loading, delivery,
+#       surgery, rehab, nursing, diagnosis,
+#       picking_agri, planting, food_processing, livestock,
+#       retail, catering, hotel, cleaning,
+#       research, teaching, training, competition,
+#       home_cleaning, companion, ai_glasses, ai_phone,
+#       security, military, space, underwater, mining, ...
+# 完整列表: python scenes_config.py
+CURRENT_SCENE = os.getenv("CURRENT_SCENE", "assembly")
+CURRENT_SCENE_CAT = os.getenv("CURRENT_SCENE_CAT", "industrial")
 
 
-# ================== 机械臂类型选择 ==================
+# ================== 机械臂类型选择（兼容旧配置）==================
 # True  = KUKA iiwa
 # False = Franka Panda（默认）
-USE_KUKA = False
+# 推荐使用 CURRENT_ROBOT 环境变量选择更多品牌
+USE_KUKA = (os.getenv("ROBOT_TYPE", CURRENT_ROBOT).lower() in ["kuka", "iiwa", "kuka_lbr"])
+
 
 # ================== 仿真参数 ==================
 SIMULATION_STEPS = 10000   # 总仿真步数
@@ -124,8 +176,26 @@ DEPLOY_CONFIG = {
 
 def get_config_summary():
     """获取配置摘要"""
+    robot_info = f"Franka Panda"
+    if ROBOTS_AVAILABLE and CURRENT_ROBOT in ROBOT_BRANDS:
+        robot_info = ROBOT_BRANDS[CURRENT_ROBOT]["name"]
+    elif USE_KUKA:
+        robot_info = "KUKA iiwa"
+
+    scene_info = f"{CURRENT_SCENE_CAT}/{CURRENT_SCENE}"
+    if SCENES_AVAILABLE and CURRENT_SCENE_CAT in SCENES:
+        cat = SCENES[CURRENT_SCENE_CAT]
+        if CURRENT_SCENE in cat["sub_scenes"]:
+            scene_info = f"{cat['name']}/{cat['sub_scenes'][CURRENT_SCENE]['name']}"
+
     return {
-        "robot_type": "KUKA iiwa" if USE_KUKA else "Franka Panda",
+        "robot_type": robot_info,
+        "robot_key": CURRENT_ROBOT,
+        "robot_category": ROBOT_BRANDS[CURRENT_ROBOT]["category"] if (ROBOTS_AVAILABLE and CURRENT_ROBOT in ROBOT_BRANDS) else "N/A",
+        "scene": scene_info,
+        "scene_key": f"{CURRENT_SCENE_CAT}/{CURRENT_SCENE}",
+        "total_robots": len(ROBOT_BRANDS) if ROBOTS_AVAILABLE else 0,
+        "total_scenes": sum(len(c["sub_scenes"]) for c in SCENES.values()) if SCENES_AVAILABLE else 0,
         "simulation_steps": SIMULATION_STEPS,
         "deploy_mode": DEPLOY_CONFIG["mode"],
         "safety_enabled": SAFETY_CONFIG["enable_collision_detection"],
