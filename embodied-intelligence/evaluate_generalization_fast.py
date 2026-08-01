@@ -36,6 +36,11 @@ from matplotlib.patches import Rectangle
 from matplotlib.colors import LinearSegmentedColormap
 from robot_reach_env_optimized import RobotReachEnvOptimized
 
+# ============================================================================
+# 路径配置
+# ============================================================================
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
 sys.stdout.reconfigure(line_buffering=True)
 
 TRAIN_X = (0.40, 0.50)

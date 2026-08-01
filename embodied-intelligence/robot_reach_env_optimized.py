@@ -174,7 +174,7 @@ class RobotReachEnvOptimized(gym.Env):
         self.multi_target_base_enabled = False
         self.multi_target_base_switch_prob = 0.0
         self.multi_target_max_enabled = True
-        self.multi_target_max_switch_prob = 1.0
+        self.multi_target_max_switch_prob = 0.05
         self.multi_target_enabled = False
         self.multi_target_switch_prob = 0.0
         self.multi_target_list = []
@@ -926,8 +926,13 @@ class RobotReachEnvOptimized(gym.Env):
                 self.vss_smc_base_gain, self.vss_smc_max_gain)
 
     def _interpolate(self, p, start_p, end_p, start_val, end_val):
-        """直接返回最大值（所有模块从进度0%即100%达到最大值）"""
-        return end_val
+        """根据进度线性插值：p<=start_p返回start_val，p>=end_p返回end_val，中间线性过渡"""
+        if p <= start_p:
+            return start_val
+        if p >= end_p:
+            return end_val
+        ratio = (p - start_p) / (end_p - start_p)
+        return start_val + ratio * (end_val - start_val)
 
     def _interpolate_range(self, p, start_p, end_p, start_range, end_range):
         """对范围进行线性插值"""
