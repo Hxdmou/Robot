@@ -236,6 +236,11 @@ class RobotBrand(Enum):
     OPTICAL_400G_SYSTEM = "400G超高速光传输系统 (新型超低损耗光纤光缆, 万兆光网, 400G规模部署, 2026)"
     LOW_ALTITUDE_IAN = "低空智联网 (低空经济+无人机联网+eVTOL+低空物流, 6G融合基础设施, 2026)"
     IOT_6G_INDUSTRIAL = "6G工业互联网 (万物智联+人-物-智能体深度交互, 6G试验完成, 2026)"
+    # ── 2026产业最新动态（12张新截图）──
+    QINGTIANZU = "擎天租 (机器人共享租赁平台, 智元+飞阔科技联合发起, 共享租赁+平台化调度, 2026)"
+    UBTECH_U1 = "优必选U1 (超仿生人形机器人, 1:1全尺寸, 情感陪伴, 消费级家庭, 2026)"
+    AOSHARK_VIATRIX = "傲鲨VIATRIX (消费级外骨骼, Float360浮动式髋关节, AI步态学习, 车规级电机, 2026)"
+    DREAME_L5_AIR = "追觅L5级空气机器人 (最高智能定位, 雷达+摄像头识别家人, AI温控, 预计2027上市)"
     # ── 仿真环境 ──
     SIMULATION = "PyBullet/Mujoco 仿真环境 (无需硬件)"
 
@@ -748,6 +753,22 @@ class RobotHAL:
             "6g工业互联网": RobotBrand.IOT_6G_INDUSTRIAL,
             "工业互联网6g": RobotBrand.IOT_6G_INDUSTRIAL,
             "万物智联": RobotBrand.IOT_6G_INDUSTRIAL,
+            # ── 2026产业最新动态（12张新截图）──
+            "qingtianzu": RobotBrand.QINGTIANZU,
+            "擎天租": RobotBrand.QINGTIANZU,
+            "botshare": RobotBrand.QINGTIANZU,
+            "ubtech_u1": RobotBrand.UBTECH_U1,
+            "优必选u1": RobotBrand.UBTECH_U1,
+            "优必选U1": RobotBrand.UBTECH_U1,
+            "u1": RobotBrand.UBTECH_U1,
+            "aoshark_viatrix": RobotBrand.AOSHARK_VIATRIX,
+            "傲鲨viatrix": RobotBrand.AOSHARK_VIATRIX,
+            "傲鲨": RobotBrand.AOSHARK_VIATRIX,
+            "viatrix": RobotBrand.AOSHARK_VIATRIX,
+            "dreame_l5_air": RobotBrand.DREAME_L5_AIR,
+            "追觅l5": RobotBrand.DREAME_L5_AIR,
+            "追觅L5": RobotBrand.DREAME_L5_AIR,
+            "追觅空气机器人": RobotBrand.DREAME_L5_AIR,
         }
         return mapping.get(self.backend, RobotBrand.SIMULATION)
 
@@ -1878,6 +1899,39 @@ class RobotHAL:
                 "type": "6G工业互联网平台",
                 "tech": "万物智联+人-物-智能体深度交互+6G试验完成",
                 "features": ["万物智联", "人-物-智能体交互", "6G工业", "深度融合"],
+            },
+            # ── 2026产业最新动态（12张新截图）──
+            "QINGTIANZU": {  # 擎天租 机器人共享租赁平台
+                "type": "机器人共享租赁平台",
+                "founders": "智元+飞阔科技联合发起",
+                "model": "共享租赁+平台化调度",
+                "features": ["按需获取", "标准化交付", "降低客户试用门槛", "卖服务替代卖产品"],
+                "scenes": ["文旅演出", "企业年会", "商业活动"],
+            },
+            "UBTECH_U1": {  # 优必选U1 超仿生人形机器人
+                "type": "超仿生人形机器人",
+                "scale": "1:1全尺寸",
+                "joint_lower": np.ones(40) * -3.14,
+                "joint_upper": np.ones(40) * 3.14,
+                "max_velocity": np.ones(40) * 2.0,
+                "max_torque": np.ones(40) * 60,
+                "features": ["情感陪伴", "消费级家庭", "超仿生"],
+                "target_scene": "家庭消费",
+            },
+            "AOSHARK_VIATRIX": {  # 傲鲨VIATRIX 消费级外骨骼
+                "type": "消费级外骨骼",
+                "hip_architecture": "Float360浮动式髋关节",
+                "ai_system": "AI步态学习系统",
+                "motor": "自研车规级电机",
+                "features": ["徒步助力", "登山助力", "提升腿部力量", "降低体能消耗"],
+                "scenes": ["户外徒步", "登山", "居家养老"],
+            },
+            "DREAME_L5_AIR": {  # 追觅L5级空气机器人
+                "type": "L5级智能空气机器人",
+                "intelligence_level": "L5 (行业最高)",
+                "sensors": ["雷达", "摄像头"],
+                "features": ["识别家人(老人/孩子/成年人)", "AI芯片运算温度需求", "主动提供服务", "无需遥控器"],
+                "expected_launch": "2027年",
             },
         }
         self._brand_config = brand_configs.get(self.brand.name, {})
