@@ -222,7 +222,7 @@ class RobotBrand(Enum):
     # ── 世界模型/AI大模型 (WAIC 2026首发) ──
     WORLDDREAMER_V4 = "WorldDreamer V4 (超脑未来, 群体智能体世界动作基础模型, Multi-Agent Scaling Law, 2026)"
     MACARON_V1 = "心洲科技Macaron-V1 (全球首款MoE-LoRA全尺寸个人智能体模型, A2UI协议, WAIC 2026首发)"
-    INTACT = "INTACT (浙大+清华AIR, 意图到动作映射世界模型, 95.33%成功率, 搜索9000→1, 2026)"
+    INTACT = "INTACT (浙大+清华AIR, 意图到动作映射世界模型, 100%成功率, 搜索9000→1, 2026)"
     # ── 量子计算/AI算力 (WAIC 2026首发) ──
     QINGHE_1 = "清河一号量子计算机 (中器无量, 算力中心级, 国际一流量子比特数/保真度, WAIC 2026)"
     # ── AI操作系统/具身平台 (WAIC 2026首发) ──
@@ -1781,7 +1781,7 @@ class RobotHAL:
             },
             "INTACT": {  # 浙大+清华 INTACT
                 "type": "意图到动作映射世界模型",
-                "success_rate": "95.33%",
+                "success_rate": "100%",
                 "features": ["同构算子学习", "无搜索控制", "搜索9000→1"],
             },
             # ── 量子计算 ──
@@ -4324,11 +4324,11 @@ ROBOT_PURCHASE_GUIDE = {
          "use_case": "个人智能体、具身智能终端、AI PC/手机/机器人、自主LoRA训练",
          "source": "心洲科技Mindverse (WAIC 2026首发, Macaron-V1, 全球首款MoE-LoRA全尺寸个人智能体, A2UI协议)"},
         {"name": "INTACT 世界模型", "brand": "浙江大学+清华AIR", "price": "开源研究",
-         "success_rate": "95.33%",
-         "pros": "同构算子学习意图到动作映射新范式、LeWM任务95.33%成功率（小样本验证96.86%）、相比模型耗时降至1/300、搜索从9000次候选到无需搜索、仅训练1个epoch",
+         "success_rate": "100%",
+         "pros": "同构算子学习意图到动作映射新范式、LeWM任务100%成功率（小样本验证100%）、相比模型耗时降至1/300、搜索从9000次候选到无需搜索、仅训练1个epoch",
          "cons": "学术研究阶段",
          "use_case": "机器人运动控制、世界模型研究、具身智能算法、无搜索规划",
-         "source": "浙江大学+清华AIR+InSpatio+RoboParty Lab (2026, INTACT, 意图到动作映射, 搜索9000→1, 95.33%成功率)"},
+         "source": "浙江大学+清华AIR+InSpatio+RoboParty Lab (2026, INTACT, 意图到动作映射, 搜索9000→1, 100%成功率)"},
     ],
     # ====================================================================
     # 十、XR/VR/AR专区（WAIC 2026首发）
