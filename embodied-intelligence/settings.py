@@ -25,7 +25,7 @@ HEALTH_CHECK_ENDPOINT = os.getenv("HEALTH_CHECK_ENDPOINT", "/health")
 # 仿真配置
 # ============================================================================
 SIMULATION_CONFIG: Dict[str, Any] = {
-    "time_step": float(os.getenv("SIM_TIME_STEP", "1/240")),
+    "time_step": float(eval(os.getenv("SIM_TIME_STEP", "1/240"))),
     "gravity": float(os.getenv("SIM_GRAVITY", "-9.81")),
     "max_solver_iterations": int(os.getenv("SIM_MAX_ITER", "200")),
     "render_mode": os.getenv("SIM_RENDER", "direct"),  # direct, gui
