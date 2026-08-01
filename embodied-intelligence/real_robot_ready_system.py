@@ -229,6 +229,7 @@ class RobotBrand(Enum):
     LUMOS_NEXCORE = "鹿明Lumos NexCore产业具身操作系统 (数据管线+模型评测+场景工具链, Prime R0 MolmoSpaces全球第一, 2026)"
     LENOVO_WANQUAN_V5 = "联想万全异构智算平台V5.0 (单节点40张GPU, 超节点解决方案, 问天WR5219 G5蓝芯LX500, WAIC 2026)"
     DEEPWORKS = "滴普DeepWorks企业智能体平台 (Harness架构, Agent Team协同, Token生产力云服务, WAIC 2026)"
+    SHUGUANG_8000 = "曙光8000 (国产十万卡AI算力集群, 国产超算, 大模型训练首选, 国产化率100%)"
     # ── 仿真环境 ──
     SIMULATION = "PyBullet/Mujoco 仿真环境 (无需硬件)"
 

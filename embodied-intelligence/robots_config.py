@@ -414,6 +414,19 @@ ROBOT_BRANDS = {
         "scenes": ["consumer", "content_creation"],
         "status": "waic_2026_launch",
     },
+    "shuguang_8000": {
+        "name": "曙光8000",
+        "category": "quantum_computing",
+        "origin": "中国·曙光",
+        "gpu_cards": 100000,
+        "compute_type": "国产十万卡AI算力集群",
+        "features": ["国产超算", "大模型训练首选", "国产化率100%", "高性价比"],
+        "precision": "FP16/FP8/BF16",
+        "interconnect": "国产高速互联",
+        "price_range": "定制化(亿级)",
+        "scenes": ["quantum", "ai_os", "ai_agents"],
+        "status": "mass_production",
+    },
 }
 
 
