@@ -259,6 +259,22 @@ class RobotBrand(Enum):
     ZIGUANG_ZIXUAN = "新紫光紫弦 三维近存计算架构 (30TB/s带宽, 优于HBM4, Token吞吐高1.5-2倍, 2026)"
     QINGWEI_TX = "清微智能TX系列 可重构计算芯片 (TX81→TX82→晶圆级4.0, 支持数据流和网格计算, 2026)"
     JINGXIN_INTERCONNECT = "井芯微电子互连芯片 (SDI3210/PRB0400量产, 2026年RDMA IP, 面向晶上系统, 2026)"
+    # ── 开源DIY机械臂 ──
+    REBOT_B601_DM = "矽递 reBot B601-DM (开源6轴DIY机械臂套件, 高精度达秒舵机, ROS兼容, Seeed Studio, 2026)"
+    # ── 全域时空多模态人体世界模型 ──
+    AIFORIA_WORLD_MODEL = "爱霏粒Aiforia全域时空多模态人体世界模型 (物理AI空间智能, 杭州爱霏粒机器人, 2026)"
+    # ── 卫星物联网 ──
+    ZIGUANG_V8821 = "紫光展锐V8821卫星物联网芯片 (单芯片集成基带+射频+电源+存储, 3GPP NTN标准, 2026)"
+    TIANQI_CONSTELLATION = "天启星座卫星物联网 (国电高科, 首张商用试验牌照2026.05, LEO低轨, 2026)"
+    # ── 蚌埠中国传感谷传感器企业 ──
+    HUAXIN_MEMS = "华鑫微纳8英寸MEMS晶圆产线 (国内首条全自动, 月产3万片, 黑灯工厂, 蚌埠, 2026)"
+    ZHONGKE_SENSOR = "中科微感环保卫士微型监测仪 (甲醛/TVOC检测, 蚌埠, 2026)"
+    MANGO_SENSOR = "芒果传感水质检测仪 (饮水安全检测, 蚌埠, 2026)"
+    ZHIBOYAN = "至博研光纤监测仪 (地下供水管网漏失检测, 蚌埠, 2026)"
+    HUAXIN_GAS = "华鑫智感AI燃气安全阀 (燃气泄漏即报警, 蚌埠, 2026)"
+    XINDONG_INERTIAL = "芯动联科惯性传感器 (高端MEMS惯性传感器, 蚌埠, 2026)"
+    XICI_MAGNETIC = "希磁科技磁性传感器 (蚌埠, 2026)"
+    HAICHE_SENSOR = "海车神驭车载传感 (蚌埠, 2026)"
     # ── 仿真环境 ──
     SIMULATION = "PyBullet/Mujoco 仿真环境 (无需硬件)"
 
