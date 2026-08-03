@@ -342,7 +342,7 @@ def create_full_pptx(add_watermark_flag=True, output_filename="output.pptx"):
 7. 2031-2034年属于技术平稳积累期，无重大突破，故合并展示。
 
 【数据来源说明】
-- AI模型信息参考自OpenAI、Google、Anthropic、DeepSeek、百度等厂商公开信息；
+- AI模型信息参考自OpenAI、Google、Anthropic、DeepSeek等国内外主流厂商公开信息；
 - 技术趋势参考Gartner技术趋势报告、IDC全球AI支出指南、工信部人工智能发展规划；
 - 量子计算信息参考IBM、Google、中科院量子信息与量子科技创新研究院公开进展；
 - 行业标准参考ISO/IEC、W3C、IEEE等国际标准化组织公开文档；

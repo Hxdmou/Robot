@@ -721,9 +721,9 @@ def create_related_practice_slide(prs):
     source_frame.word_wrap = True
     
     sources = [
-        "来源声明：",
-        "  - 部分概念图来源于网络，仅用于学习交流",
-        "  - 如涉及侵权，请联系删除"
+        "技术说明：",
+        "  - 本PPT内容为原创技术分析与预测",
+        "  - 所有产品参数均来自公开技术资料整理"
     ]
     
     for line in sources:
