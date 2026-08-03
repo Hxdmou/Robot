@@ -100,6 +100,151 @@ class JointAngleNoise:
         self.drift.reset()
 
 
+# ============================================================================
+# V13新增：IMU噪声模型（加速度计+陀螺仪+磁力计）
+# ============================================================================
+
+class IMUNoise:
+    """
+    V13新增：IMU传感器噪声模型
+    包含：高斯白噪声+偏置不稳定性+温度漂移+振动噪声
+    """
+    def __init__(self, gyro_noise=0.005, gyro_bias=0.001, accel_noise=0.02, accel_bias=0.01):
+        self.gyro_noise = GaussianNoise(std=gyro_noise)
+        self.gyro_bias = DriftNoise(rate=0.0001)
+        self.accel_noise = GaussianNoise(std=accel_noise)
+        self.accel_bias = DriftNoise(rate=0.00005)
+        self.vibration_noise = JitterNoise(max_jitter=0.01)
+
+    def add_gyro(self, angular_vel):
+        """添加陀螺仪噪声（rad/s）"""
+        angular_vel = self.gyro_noise.add(angular_vel)
+        angular_vel = self.gyro_bias.add(angular_vel)
+        angular_vel = self.vibration_noise.add(angular_vel)
+        return angular_vel
+
+    def add_accel(self, linear_accel):
+        """添加加速度计噪声（m/s^2）"""
+        linear_accel = self.accel_noise.add(linear_accel)
+        linear_accel = self.accel_bias.add(linear_accel)
+        linear_accel = self.vibration_noise.add(linear_accel)
+        return linear_accel
+
+    def add_to_gyro_vector(self, gyro_vec):
+        return [self.add_gyro(g) for g in gyro_vec]
+
+    def add_to_accel_vector(self, accel_vec):
+        return [self.add_accel(a) for a in accel_vec]
+
+
+# ============================================================================
+# V13新增：力/力矩传感器噪声模型
+# ============================================================================
+
+class ForceTorqueNoise:
+    """
+    V13新增：六维力/力矩传感器噪声模型
+    包含：串扰+非线性+温度漂移+过载恢复
+    """
+    def __init__(self, force_noise=0.1, torque_noise=0.01, crosstalk=0.02):
+        self.force_noise = GaussianNoise(std=force_noise)
+        self.torque_noise = GaussianNoise(std=torque_noise)
+        self.crosstalk_coeff = crosstalk
+        self.nonlinearity = GaussianNoise(std=0.005)
+        self.thermal_drift = DriftNoise(rate=0.0001)
+
+    def add_force(self, force_n):
+        """添加力传感器噪声（N）"""
+        force_n = self.force_noise.add(force_n)
+        force_n += self.nonlinearity.add(0) * abs(force_n)
+        force_n = self.thermal_drift.add(force_n)
+        return force_n
+
+    def add_torque(self, torque_nm):
+        """添加力矩传感器噪声（Nm）"""
+        torque_nm = self.torque_noise.add(torque_nm)
+        torque_nm += self.nonlinearity.add(0) * abs(torque_nm)
+        torque_nm = self.thermal_drift.add(torque_nm)
+        return torque_nm
+
+    def add_to_ft_vector(self, ft_vec):
+        """添加六维力/力矩噪声 [Fx, Fy, Fz, Tx, Ty, Tz]"""
+        result = []
+        for i in range(3):
+            result.append(self.add_force(ft_vec[i]))
+        for i in range(3, 6):
+            result.append(self.add_torque(ft_vec[i]))
+        # 串扰效应
+        for i in range(6):
+            for j in range(6):
+                if i != j:
+                    result[i] += self.crosstalk_coeff * result[j] * 0.01
+        return result
+
+
+# ============================================================================
+# V13新增：视觉传感器噪声模型（深度相机+RGB相机）
+# ============================================================================
+
+class VisionSensorNoise:
+    """
+    V13新增：视觉传感器噪声模型
+    包含：深度噪声+遮挡+光照变化+运动模糊
+    """
+    def __init__(self, depth_noise=0.005, occlusion_prob=0.05, lighting_noise=0.1):
+        self.depth_noise = GaussianNoise(std=depth_noise)
+        self.occlusion_prob = occlusion_prob
+        self.lighting_noise = GaussianNoise(std=lighting_noise)
+        self.motion_blur = JitterNoise(max_jitter=0.02)
+
+    def add_depth(self, depth_m):
+        """添加深度相机噪声（m）"""
+        if random.random() < self.occlusion_prob:
+            return float('inf')  # 模拟遮挡
+        depth_m = self.depth_noise.add(depth_m)
+        depth_m += self.lighting_noise.add(0) * depth_m * 0.1
+        return max(0.0, depth_m)
+
+    def add_to_depth_map(self, depth_map):
+        """添加深度图噪声"""
+        return [[self.add_depth(d) for d in row] for row in depth_map]
+
+    def add_rgb_noise(self, rgb_value):
+        """添加RGB图像噪声（0-255）"""
+        rgb_value = self.lighting_noise.add(rgb_value)
+        rgb_value = self.motion_blur.add(rgb_value)
+        return max(0, min(255, rgb_value))
+
+
+# ============================================================================
+# V13新增：编码器噪声模型（增量式+绝对式）
+# ============================================================================
+
+class EncoderNoise:
+    """
+    V13新增：编码器噪声模型
+    包含：量化误差+抖动+丢步+零位偏移
+    """
+    def __init__(self, resolution=0.0001, jitter=0.00005, missed_step_prob=0.001):
+        self.quantization = QuantizationNoise(resolution=resolution)
+        self.jitter = JitterNoise(max_jitter=jitter)
+        self.missed_step_prob = missed_step_prob
+        self.zero_offset = GaussianNoise(std=0.0005)
+
+    def add(self, position):
+        """添加编码器噪声（rad）"""
+        position = self.quantization.add(position)
+        position = self.jitter.add(position)
+        position = self.zero_offset.add(position)
+        # 模拟丢步
+        if random.random() < self.missed_step_prob:
+            position += random.choice([-1, 1]) * self.quantization.resolution
+        return position
+
+    def add_to_vector(self, positions):
+        return [self.add(p) for p in positions]
+
+
 class EEPositionNoise:
     def __init__(self, gaussian_std=0.0001, quantization_res=0.0001, drift_rate=0.000001):
         self.gaussian = GaussianNoise(std=gaussian_std)

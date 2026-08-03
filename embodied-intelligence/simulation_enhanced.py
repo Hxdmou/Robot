@@ -72,8 +72,8 @@ class MotorParams:
 
 class HighPrecisionActuator:
     """
-    高精度执行器模型
-    包含：电气动力学 + 机械动力学 + 摩擦 + 齿槽转矩 + 热模型 + 齿轮传动
+    高精度执行器模型 V13增强版
+    包含：电气动力学 + 机械动力学 + Stribeck摩擦 + 齿槽转矩 + 热模型 + 齿轮传动 + 接触动力学
     """
 
     def __init__(self, params: MotorParams = None):
@@ -97,6 +97,74 @@ class HighPrecisionActuator:
         # 故障注入
         self.fault_mode = None      # None, "stiction", "backlash", "overheat", "sensor_bias"
         self.fault_severity = 0.0
+
+        # V13新增：Stribeck摩擦参数
+        self.stribeck_velocity = 0.1  # Stribeck特征速度 (rad/s)
+        self.stribeck_coeff = 0.8     # Stribeck摩擦系数
+        self.viscous_coeff = 0.002    # 粘性摩擦系数
+
+        # V13新增：接触动力学参数
+        self.contact_stiffness = 1e5   # 接触刚度 (N/m)
+        self.contact_damping = 1e3     # 接触阻尼 (Ns/m)
+        self.friction_coeff = 0.5      # 摩擦系数
+
+        # V13新增：热耦合参数
+        self.thermal_time_constant = 100.0  # 热时间常数 (s)
+        self.power_loss = 0.0               # 功率损耗 (W)
+
+    def _stribeck_friction(self, velocity: float) -> float:
+        """
+        V13新增：Stribeck摩擦模型
+        更精确地模拟低速下的摩擦特性（静摩擦→边界润滑→流体润滑过渡）
+        """
+        v_abs = abs(velocity)
+        if v_abs < 1e-6:
+            return 0.0
+
+        # Stribeck曲线：F = F_c + (F_s - F_c) * exp(-(v/v_s)^alpha) + F_v * v
+        coulomb_friction = self.params.coulomb_friction
+        static_friction = self.params.static_friction
+        viscous_friction = self.viscous_coeff * velocity
+
+        # Stribeck效应
+        stribeck_term = (static_friction - coulomb_friction) * \
+                        math.exp(-math.pow(v_abs / self.stribeck_velocity, self.stribeck_coeff))
+
+        friction = (coulomb_friction + stribeck_term) * math.copysign(1.0, velocity) + viscous_friction
+        return friction
+
+    def _contact_force(self, penetration_depth: float, relative_velocity: float) -> float:
+        """
+        V13新增：接触力计算（Hertz接触模型）
+        用于模拟机器人与环境的接触交互
+        """
+        if penetration_depth <= 0:
+            return 0.0
+
+        # Hertz接触模型：F = k * delta^n - c * v
+        n = 1.5  # Hertz指数（球-平面接触）
+        elastic_force = self.contact_stiffness * math.pow(penetration_depth, n)
+        damping_force = self.contact_damping * relative_velocity
+
+        return max(0.0, elastic_force - damping_force)
+
+    def _thermal_dynamics(self, current: float, voltage: float, dt: float):
+        """
+        V13新增：热动力学模型
+        模拟电机绕组温度变化，影响性能和寿命
+        """
+        # 功率损耗：P_loss = I^2 * R + 机械损耗
+        copper_loss = current * current * self.params.resistance
+        mechanical_loss = abs(self.output_torque * self.output_velocity) * (1 - self.params.gear_efficiency)
+        self.power_loss = copper_loss + mechanical_loss
+
+        # 一阶热模型：dT/dt = (P_loss - (T - T_amb) / R_th) / C_th
+        temp_diff = self.temperature - self.params.ambient_temp
+        heat_flow = temp_diff / self.params.thermal_resistance
+        self.temperature += (self.power_loss - heat_flow) / self.params.thermal_capacitance * dt
+
+        # 温度限制
+        self.temperature = min(self.temperature, self.params.max_temp)
 
     def step(self, voltage_cmd: float, load_torque: float, dt: float) -> Dict[str, float]:
         """

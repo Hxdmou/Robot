@@ -1,6 +1,6 @@
 """
 AI场景全覆盖配置中心
-覆盖15大应用场景、63个子场景
+覆盖20大应用场景、100个子场景
 """
 
 # ============================================================================
@@ -635,6 +635,221 @@ SCENES = {
                 "robots": ["四足机器人", "无人机", "巡检机器人"],
                 "difficulty": 4,
                 "reward_scale": 1.1,
+            },
+        },
+    },
+
+    # ========== 16. 海洋工程 ==========
+    "marine": {
+        "name": "海洋工程",
+        "description": "海洋探测、深海作业、海上作业",
+        "sub_scenes": {
+            "ocean_exploration": {
+                "name": "海洋探测",
+                "description": "深海探测、海底地形测绘、海洋资源勘探",
+                "robots": ["水下机器人", "无人船", "水下无人机"],
+                "difficulty": 5,
+                "reward_scale": 1.5,
+            },
+            "offshore_operation": {
+                "name": "海上作业",
+                "description": "海上平台维护、海底管道铺设、海上风电安装",
+                "robots": ["水下机器人", "机械臂", "无人船"],
+                "difficulty": 5,
+                "reward_scale": 1.4,
+            },
+            "aquaculture": {
+                "name": "深海养殖",
+                "description": "深海网箱养殖、自动化投喂、水质监测",
+                "robots": ["水下机器人", "无人船", "机械臂"],
+                "difficulty": 4,
+                "reward_scale": 1.0,
+            },
+            "salvage": {
+                "name": "水下打捞",
+                "description": "沉船打捞、水下救援、水下焊接切割",
+                "robots": ["水下机器人", "机械臂", "水下无人机"],
+                "difficulty": 5,
+                "reward_scale": 1.5,
+            },
+            "marine_biology": {
+                "name": "海洋生物研究",
+                "description": "海洋生物观测、珊瑚礁监测、鲸鱼追踪",
+                "robots": ["水下机器人", "水下无人机", "传感器"],
+                "difficulty": 4,
+                "reward_scale": 1.1,
+            },
+        },
+    },
+
+    # ========== 17. 航空航天 ==========
+    "aerospace": {
+        "name": "航空航天",
+        "description": "航天器维护、卫星服务、航空制造",
+        "sub_scenes": {
+            "spacecraft_maintenance": {
+                "name": "航天器维护",
+                "description": "空间站维护、卫星修理、太空垃圾清理",
+                "robots": ["航天机器人", "机械臂", "人形机器人"],
+                "difficulty": 5,
+                "reward_scale": 1.5,
+            },
+            "satellite_service": {
+                "name": "卫星服务",
+                "description": "卫星在轨服务、燃料补给、轨道调整",
+                "robots": ["航天机器人", "机械臂"],
+                "difficulty": 5,
+                "reward_scale": 1.5,
+            },
+            "aircraft_manufacturing": {
+                "name": "航空制造",
+                "description": "飞机装配、发动机制造、复合材料加工",
+                "robots": ["协作臂", "六轴机械臂", "AGV/AMR"],
+                "difficulty": 5,
+                "reward_scale": 1.4,
+            },
+            "airport_operations": {
+                "name": "机场运营",
+                "description": "飞机牵引、行李搬运、跑道巡检",
+                "robots": ["AGV/AMR", "四足机器人", "无人机"],
+                "difficulty": 4,
+                "reward_scale": 1.0,
+            },
+            "uav_delivery": {
+                "name": "无人机物流",
+                "description": "城市配送、偏远地区运输、紧急物资投送",
+                "robots": ["无人机", "eVTOL", "AGV/AMR"],
+                "difficulty": 4,
+                "reward_scale": 1.2,
+            },
+        },
+    },
+
+    # ========== 18. 应急救援 ==========
+    "emergency": {
+        "name": "应急救援",
+        "description": "灾害救援、消防灭火、事故处理",
+        "sub_scenes": {
+            "earthquake_rescue": {
+                "name": "地震救援",
+                "description": "废墟搜救、生命探测、伤员转移",
+                "robots": ["四足机器人", "无人机", "蛇形机器人"],
+                "difficulty": 5,
+                "reward_scale": 1.5,
+            },
+            "fire_fighting": {
+                "name": "消防灭火",
+                "description": "高层建筑灭火、森林火灾扑救、化工厂灭火",
+                "robots": ["消防机器人", "无人机", "四足机器人"],
+                "difficulty": 5,
+                "reward_scale": 1.5,
+            },
+            "flood_rescue": {
+                "name": "洪涝救援",
+                "description": "洪水搜救、堤坝巡检、水上救援",
+                "robots": ["无人船", "无人机", "水下机器人"],
+                "difficulty": 5,
+                "reward_scale": 1.5,
+            },
+            "chemical_accident": {
+                "name": "危化品事故",
+                "description": "化学品泄漏处理、核事故应急、有毒环境作业",
+                "robots": ["防爆机器人", "四足机器人", "无人机"],
+                "difficulty": 5,
+                "reward_scale": 1.5,
+            },
+            "mountain_rescue": {
+                "name": "山地救援",
+                "description": "登山者救援、雪崩搜救、悬崖救援",
+                "robots": ["无人机", "四足机器人", "人形机器人"],
+                "difficulty": 5,
+                "reward_scale": 1.5,
+            },
+        },
+    },
+
+    # ========== 19. 环保监测 ==========
+    "environmental": {
+        "name": "环保监测",
+        "description": "环境监测、污染治理、生态保护",
+        "sub_scenes": {
+            "air_quality": {
+                "name": "空气质量监测",
+                "description": "大气污染监测、工业排放监测、室内空气质量",
+                "robots": ["无人机", "传感器", "四足机器人"],
+                "difficulty": 3,
+                "reward_scale": 0.8,
+            },
+            "water_monitoring": {
+                "name": "水质监测",
+                "description": "河流湖泊监测、饮用水监测、污水排放监测",
+                "robots": ["无人船", "水下机器人", "传感器"],
+                "difficulty": 3,
+                "reward_scale": 0.8,
+            },
+            "waste_sorting": {
+                "name": "垃圾分类",
+                "description": "智能垃圾分类、可回收物分拣、有害垃圾处理",
+                "robots": ["协作臂", "Delta机器人", "AI视觉系统"],
+                "difficulty": 3,
+                "reward_scale": 0.7,
+            },
+            "ecological_protection": {
+                "name": "生态保护",
+                "description": "野生动物监测、森林巡护、湿地保护",
+                "robots": ["无人机", "四足机器人", "传感器"],
+                "difficulty": 4,
+                "reward_scale": 1.0,
+            },
+            "pollution_cleanup": {
+                "name": "污染治理",
+                "description": "土壤修复、水体净化、油污清理",
+                "robots": ["四足机器人", "无人机", "机械臂"],
+                "difficulty": 4,
+                "reward_scale": 1.1,
+            },
+        },
+    },
+
+    # ========== 20. 数字孪生 ==========
+    "digital_twin": {
+        "name": "数字孪生",
+        "description": "虚拟仿真、虚实映射、预测优化",
+        "sub_scenes": {
+            "factory_simulation": {
+                "name": "工厂仿真",
+                "description": "虚拟工厂建模、产线仿真、工艺优化",
+                "robots": ["协作臂", "AGV/AMR", "AI芯片"],
+                "difficulty": 4,
+                "reward_scale": 1.0,
+            },
+            "city_modeling": {
+                "name": "城市建模",
+                "description": "智慧城市数字孪生、交通仿真、城市规划",
+                "robots": ["无人机", "AI芯片", "服务器"],
+                "difficulty": 5,
+                "reward_scale": 1.3,
+            },
+            "product_testing": {
+                "name": "产品测试",
+                "description": "虚拟产品测试、性能仿真、可靠性验证",
+                "robots": ["协作臂", "AI芯片", "传感器"],
+                "difficulty": 4,
+                "reward_scale": 1.0,
+            },
+            "predictive_maintenance": {
+                "name": "预测性维护",
+                "description": "设备健康监测、故障预测、维护优化",
+                "robots": ["传感器", "AI芯片", "四足机器人"],
+                "difficulty": 4,
+                "reward_scale": 1.1,
+            },
+            "virtual_commissioning": {
+                "name": "虚拟调试",
+                "description": "设备虚拟调试、控制算法验证、系统集成测试",
+                "robots": ["协作臂", "人形机器人", "AI芯片"],
+                "difficulty": 4,
+                "reward_scale": 1.0,
             },
         },
     },

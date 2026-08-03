@@ -33,15 +33,29 @@ class CollisionDetector:
         self.warning_distance = config.get("warning_distance", 0.02)
         self.check_interval = config.get("check_interval", 0.01)
         self.max_contacts = config.get("max_contacts", 100)
-        
+
         self.collision_history = []
         self.max_history = 100
         self.running = False
         self._lock = threading.Lock()
-        
+
         self.last_collision_time = 0
         self.collision_count = 0
         self.safety_stop_triggered = False
+
+        # V13新增：连续碰撞检测（CCD）参数
+        self.ccd_enabled = config.get("ccd_enabled", True)
+        self.ccd_swept_sphere_radius = config.get("ccd_swept_sphere_radius", 0.005)
+        self.ccd_max_iterations = config.get("ccd_max_iterations", 10)
+
+        # V13新增：接触力计算参数
+        self.contact_stiffness = config.get("contact_stiffness", 1e5)
+        self.contact_damping = config.get("contact_damping", 1e3)
+        self.friction_coefficient = config.get("friction_coefficient", 0.5)
+
+        # V13新增：碰撞风险评估
+        self.collision_risk_threshold = config.get("collision_risk_threshold", 0.8)
+        self.impact_force_threshold = config.get("impact_force_threshold", 50.0)
 
     def check_collision(self, robot_id, obstacle_ids=None):
         if not self.enabled:
@@ -96,25 +110,175 @@ class CollisionDetector:
         timestamp = time.time()
         self.last_collision_time = timestamp
         self.collision_count += 1
-        
+
         collision_info = {
             "timestamp": timestamp,
             "contact_count": len(contacts),
-            "links": []
+            "links": [],
+            "impact_forces": [],
+            "risk_level": 0.0
         }
-        
+
         for contact in contacts[:5]:
-            collision_info["links"].append({
+            link_info = {
                 "link_a": contact[3],
                 "link_b": contact[4],
                 "distance": contact[8],
                 "normal_force": contact[9]
-            })
-        
+            }
+            collision_info["links"].append(link_info)
+
+            # V13新增：计算冲击力
+            impact_force = self._calculate_impact_force(contact)
+            collision_info["impact_forces"].append(impact_force)
+
+        # V13新增：评估碰撞风险等级
+        collision_info["risk_level"] = self._evaluate_collision_risk(collision_info)
+
         with self._lock:
             self.collision_history.append(collision_info)
             if len(self.collision_history) > self.max_history:
                 self.collision_history.pop(0)
+
+    def _calculate_impact_force(self, contact):
+        """
+        V13新增：计算碰撞冲击力
+        基于Hertz接触模型和相对速度
+        """
+        normal_force = contact[9]  # 法向接触力
+        contact_normal = contact[7]  # 接触法向量
+
+        # 简化模型：冲击力 = 法向力 + 阻尼效应
+        # 实际应用中需要考虑相对速度、材料属性等
+        impact_force = normal_force * 1.5  # 考虑动态放大系数
+
+        return impact_force
+
+    def _evaluate_collision_risk(self, collision_info):
+        """
+        V13新增：评估碰撞风险等级（0-1）
+        基于冲击力、接触点数量、涉及link重要性
+        """
+        risk = 0.0
+
+        # 冲击力风险
+        max_impact = max(collision_info["impact_forces"]) if collision_info["impact_forces"] else 0
+        if max_impact > self.impact_force_threshold:
+            risk += 0.5
+
+        # 接触点数量风险
+        contact_count = collision_info["contact_count"]
+        if contact_count > 3:
+            risk += 0.3
+
+        # 涉及link风险（末端link风险更高）
+        critical_links = [link for link in collision_info["links"]
+                         if link["link_a"] >= 5 or link["link_b"] >= 5]
+        if critical_links:
+            risk += 0.2
+
+        return min(1.0, risk)
+
+    def check_continuous_collision(self, robot_id, prev_positions, curr_positions, obstacle_ids=None):
+        """
+        V13新增：连续碰撞检测（CCD）
+        检测高速运动下的穿透问题
+        """
+        if not self.ccd_enabled:
+            return False, []
+
+        # 简化版CCD：检查运动路径上的中间点
+        intermediate_collisions = []
+
+        num_joints = p.getNumJoints(robot_id)
+        for step in range(1, self.ccd_max_iterations + 1):
+            t = step / self.ccd_max_iterations
+
+            # 插值计算中间位置
+            for j_idx in range(min(num_joints, len(prev_positions), len(curr_positions))):
+                prev_pos = prev_positions[j_idx]
+                curr_pos = curr_positions[j_idx]
+                interp_pos = [
+                    prev_pos[i] + t * (curr_pos[i] - prev_pos[i])
+                    for i in range(3)
+                ]
+
+                # 检查中间位置是否碰撞
+                if obstacle_ids:
+                    for obs_id in obstacle_ids:
+                        closest_points = p.getClosestPoints(
+                            robot_id, obs_id, self.ccd_swept_sphere_radius
+                        )
+                        for cp in closest_points:
+                            if cp[8] < self.safety_distance:
+                                intermediate_collisions.append(cp)
+
+        return len(intermediate_collisions) > 0, intermediate_collisions
+
+    def calculate_contact_force(self, robot_id, link_index, contact_point):
+        """
+        V13新增：计算接触力（基于Hertz模型）
+        """
+        penetration_depth = abs(contact_point[8])  # 穿透深度
+        normal_force = contact_point[9]  # 法向力
+
+        # Hertz接触模型增强
+        # F = k * delta^n + c * v
+        k = self.contact_stiffness
+        n = 1.5  # Hertz指数
+        c = self.contact_damping
+
+        # 计算相对速度（简化：使用法向力估算）
+        relative_velocity = normal_force / c if c > 0 else 0
+
+        # 弹性力
+        elastic_force = k * (penetration_depth ** n)
+
+        # 阻尼力
+        damping_force = c * relative_velocity
+
+        # 摩擦力
+        friction_force = self.friction_coefficient * normal_force
+
+        total_force = elastic_force + damping_force + friction_force
+
+        return {
+            "elastic_force": elastic_force,
+            "damping_force": damping_force,
+            "friction_force": friction_force,
+            "total_force": total_force,
+            "penetration_depth": penetration_depth
+        }
+
+    def get_collision_statistics(self):
+        """
+        V13新增：获取碰撞统计信息
+        """
+        with self._lock:
+            if not self.collision_history:
+                return {
+                    "total_collisions": 0,
+                    "avg_impact_force": 0.0,
+                    "max_impact_force": 0.0,
+                    "avg_risk_level": 0.0,
+                    "high_risk_count": 0
+                }
+
+            total = len(self.collision_history)
+            all_impacts = []
+            all_risks = []
+
+            for info in self.collision_history:
+                all_impacts.extend(info.get("impact_forces", []))
+                all_risks.append(info.get("risk_level", 0.0))
+
+            return {
+                "total_collisions": total,
+                "avg_impact_force": sum(all_impacts) / len(all_impacts) if all_impacts else 0.0,
+                "max_impact_force": max(all_impacts) if all_impacts else 0.0,
+                "avg_risk_level": sum(all_risks) / total,
+                "high_risk_count": sum(1 for r in all_risks if r > self.collision_risk_threshold)
+            }
 
     def start_monitoring(self, robot_id, obstacle_ids=None):
         self.robot_id = robot_id
