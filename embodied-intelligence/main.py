@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-机械臂仿真系统 - 统一入口
-支持：训练 / 评估 / 部署 / 调试
+机械臂仿真系统 V15 - 统一入口
+支持：训练 / 评估 / 部署 / 调试 / 多机器人协同 / AI大模型集成 / GPU加速
 """
 
 # ============================================================================
@@ -51,6 +51,13 @@ def print_usage():
     print("    remote          启动远程监控与运维")
     print("    agent           启动AI智能体自主决策")
     print("    edge            启动边缘计算部署")
+    print("    collaborate     启动多机器人协同仿真")
+    print("    ai-model        启动AI大模型集成")
+    print("    rl-compare      强化学习算法对比")
+    print("    obstacle        动态障碍物与多目标追踪")
+    print("    trajectory      3D轨迹回放与热力图分析")
+    print("    gpu             GPU加速与并行训练")
+    print("    deploy-ext      扩展部署系统（多品牌）")
     print("")
     print("  示例:")
     print("    python main.py train")
@@ -226,6 +233,55 @@ def main():
         os.chdir(script_dir)
         import subprocess
         result = subprocess.run([sys.executable, "edge_deployment_system.py"], capture_output=False)
+        sys.exit(result.returncode)
+
+    elif command == "collaborate":
+        print("[INFO] 启动多机器人协同仿真...", flush=True)
+        os.chdir(script_dir)
+        import subprocess
+        result = subprocess.run([sys.executable, "multi_robot_collaboration.py"], capture_output=False)
+        sys.exit(result.returncode)
+
+    elif command == "ai-model":
+        print("[INFO] 启动AI大模型集成...", flush=True)
+        os.chdir(script_dir)
+        import subprocess
+        result = subprocess.run([sys.executable, "ai_model_integration.py"], capture_output=False)
+        sys.exit(result.returncode)
+
+    elif command == "rl-compare":
+        print("[INFO] 启动强化学习算法对比...", flush=True)
+        os.chdir(script_dir)
+        import subprocess
+        result = subprocess.run([sys.executable, "rl_algorithm_comparison.py"], capture_output=False)
+        sys.exit(result.returncode)
+
+    elif command == "obstacle":
+        print("[INFO] 启动动态障碍物与多目标追踪...", flush=True)
+        os.chdir(script_dir)
+        import subprocess
+        result = subprocess.run([sys.executable, "dynamic_obstacle_tracking.py"], capture_output=False)
+        sys.exit(result.returncode)
+
+    elif command == "trajectory":
+        print("[INFO] 启动3D轨迹回放与热力图分析...", flush=True)
+        os.chdir(script_dir)
+        import subprocess
+        result = subprocess.run([sys.executable, "trajectory_analysis.py"], capture_output=False)
+        sys.exit(result.returncode)
+
+    elif command == "gpu":
+        print("[INFO] 启动GPU加速与并行训练...", flush=True)
+        os.chdir(script_dir)
+        import subprocess
+        result = subprocess.run([sys.executable, "gpu_accelerator_v15.py"], capture_output=False)
+        sys.exit(result.returncode)
+
+    elif command == "deploy-ext":
+        print("[INFO] 启动扩展部署系统（多品牌）...", flush=True)
+        os.chdir(script_dir)
+        import subprocess
+        result = subprocess.run([sys.executable, "extended_deployment_system.py"], capture_output=False)
         sys.exit(result.returncode)
 
     elif command in ["help", "-h", "--help"]:
