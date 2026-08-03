@@ -1339,6 +1339,34 @@ ROBOT_BRANDS = {
         "status": "production_2026",
         "success_rate": 1.0,
     },
+    # ========== 具身智能中试基地（新增） ==========
+    "hangzhou_embodied_base": {
+        "name": "杭州具身智能中试基地",
+        "category": "ai_agent_platform",
+        "origin": "中国·杭州",
+        "features": ["全国唯一面向具身智能领域的国家级应用基地", "40+应用场景(1:1复刻生产线/矿道/商店/厨房)", "真机遥操作数据采集", "无本体数据采集(人类穿戴动捕服)", "数据采集众包模式", "宇树/魔芯/青瞳等企业入驻", "浙大联合实验室(近20名硕博士常驻)", "与华为共建具身智能联合创新中心", "与阿里达摩院共建产业创新加速器", "混合所有制运营"],
+        "scenes": ["industrial", "logistics", "mining", "power_inspection", "public_safety"],
+        "status": "production_2026",
+        "success_rate": 1.0,
+    },
+    "qingtong_robot": {
+        "name": "青瞳机器人科技",
+        "category": "ai_agent_platform",
+        "origin": "中国·杭州",
+        "features": ["数据采集众包模式", "保洁保安等工作人员真实作业采集", "不影响工作情况下采集数据", "降低企业训练数据成本"],
+        "scenes": ["industrial", "logistics", "service"],
+        "status": "production_2026",
+        "success_rate": 1.0,
+    },
+    "chuanhua_zhilian": {
+        "name": "传化智联",
+        "category": "ai_agent_platform",
+        "origin": "中国·杭州",
+        "features": ["产业场景引入", "物流+制造场景验证", "具身智能解决方案规模化应用"],
+        "scenes": ["logistics", "industrial"],
+        "status": "production_2026",
+        "success_rate": 1.0,
+    },
     # ========== 建筑/基建机器人 ==========
     "bim_bot_3d_print": {
         "name": "BIMbot 3D打印建筑机器人",
