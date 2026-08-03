@@ -1,6 +1,6 @@
 """
 AI场景全覆盖配置中心
-覆盖20大应用场景、98个子场景
+覆盖21大应用场景、100个子场景
 """
 
 # ============================================================================
@@ -850,6 +850,28 @@ SCENES = {
                 "robots": ["协作臂", "人形机器人", "AI芯片"],
                 "difficulty": 4,
                 "reward_scale": 1.0,
+            },
+            "data_pipeline": {
+                "name": "数据管线",
+                "description": "多源数据采集、清洗、标注、训练数据生成、数据飞轮闭环",
+                "robots": ["AI芯片", "传感器", "服务器", "云端平台"],
+                "difficulty": 5,
+                "reward_scale": 1.2,
+            },
+        },
+    },
+
+    # ========== 21. AI基础设施 ==========
+    "ai_infrastructure": {
+        "name": "AI基础设施",
+        "description": "AI算力中心、推理引擎、模型服务",
+        "sub_scenes": {
+            "inference_engine": {
+                "name": "推理引擎部署",
+                "description": "SGLang/vLLM/RadixArk等推理引擎部署与优化、KV Cache管理、连续批处理",
+                "robots": ["AI芯片", "GPU服务器", "推理加速卡"],
+                "difficulty": 5,
+                "reward_scale": 1.3,
             },
         },
     },

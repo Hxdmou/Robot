@@ -1,8 +1,8 @@
 """
-多机器人配置中心 - 全覆盖19大类别
+多机器人配置中心 - 全覆盖20大类别
 分类：协作臂、人形、四足、AMR、AI眼镜、AI手机、AI芯片、自动驾驶、世界模型、
       工业臂、医疗、6G通信、AI智能体平台、XR设备、量子计算、AI操作系统、
-      能源电力、建筑基建、传感器/MEMS
+      能源电力、建筑基建、传感器/MEMS、消费级机器人
 """
 
 # ============================================================================
@@ -123,6 +123,13 @@ ROBOT_CATEGORIES = {
         "name": "传感器/MEMS",
         "description": "智能传感器、MEMS芯片、环境监测、车载传感",
         "default_type": "MEMS/光纤/磁性/惯性",
+    },
+    "consumer_robot": {
+        "name": "消费级机器人",
+        "description": "家庭服务、个人助理、娱乐陪伴机器人",
+        "default_dofs": 6,
+        "default_payload_kg": 2,
+        "default_reach_m": 0.5,
     },
 }
 
@@ -527,7 +534,7 @@ ROBOT_BRANDS = {
     },
     "dreame_l5_air": {
         "name": "追觅L5级空气机器人",
-        "category": "consumer",
+        "category": "consumer_robot",
         "origin": "中国·追觅",
         "intelligence_level": "L5 (行业最高智能定位)",
         "sensors": ["雷达", "摄像头"],
@@ -1256,6 +1263,102 @@ ROBOT_BRANDS = {
         "origin": "中国·360",
         "features": ["全球首个多智能体协作平台", "昇腾推理方案", "深度理解性能2.2X业界", "通用理解性能2.3X业界", "智能体执行性能2.0X业界", "360-DeepSeek-V3.2/360-Qwen3-235B/360-GLM-4.7"],
         "scenes": ["agent", "enterprise"],
+        "status": "production_2026",
+        "success_rate": 1.0,
+    },
+    # ========== 工业机械臂 ==========
+    "kuka_kr_quantum": {
+        "name": "KUKA KR QUANTEC",
+        "category": "industrial_arm",
+        "origin": "德国·库卡",
+        "dofs": 6,
+        "payload_kg": 300,
+        "reach_m": 3.1,
+        "repeatability_mm": 0.05,
+        "features": ["重载工业臂", "汽车制造专用", "高精度重复定位"],
+        "scenes": ["industrial", "automotive"],
+        "status": "mass_production",
+        "success_rate": 1.0,
+    },
+    "fanuc_m2000": {
+        "name": "FANUC M-2000iA/1200",
+        "category": "industrial_arm",
+        "origin": "日本·发那科",
+        "dofs": 6,
+        "payload_kg": 1200,
+        "reach_m": 3.1,
+        "repeatability_mm": 0.05,
+        "features": ["全球最大负载工业机器人", "汽车/航空制造", "1200kg超强负载"],
+        "scenes": ["industrial", "automotive", "aerospace"],
+        "status": "mass_production",
+        "success_rate": 1.0,
+    },
+    # ========== XR/VR/AR设备 ==========
+    "apple_vision_pro": {
+        "name": "Apple Vision Pro",
+        "category": "xr_device",
+        "origin": "美国·苹果",
+        "display": "Micro-OLED 23M像素",
+        "fov": "100°",
+        "features": ["空间计算", "眼动追踪+手势交互", "M2+R1双芯片", "visionOS"],
+        "scenes": ["enterprise", "consumer", "design"],
+        "status": "mass_production",
+        "success_rate": 1.0,
+    },
+    "meta_quest_4": {
+        "name": "Meta Quest 4",
+        "category": "xr_device",
+        "origin": "美国·Meta",
+        "display": "4K+ Micro-OLED",
+        "fov": "110°",
+        "features": ["VR/MR混合现实", "骁龙XR2+ Gen2", "全身追踪", "无线串流"],
+        "scenes": ["gaming", "training", "social"],
+        "status": "production_2026",
+        "success_rate": 1.0,
+    },
+    # ========== 能源/电力机器人 ==========
+    "state_grid_inspection": {
+        "name": "国网智能巡检机器人",
+        "category": "energy_robot",
+        "origin": "中国·国家电网",
+        "endurance_hours": 12,
+        "voltage": "1000kV",
+        "features": ["变电站全自动巡检", "红外/可见光/局放检测", "AI缺陷识别", "自主充电"],
+        "scenes": ["energy", "power_grid"],
+        "status": "mass_production",
+        "success_rate": 1.0,
+    },
+    "energenie_charging": {
+        "name": "能链智充充电机器人",
+        "category": "energy_robot",
+        "origin": "中国·能链智电",
+        "endurance_hours": 24,
+        "voltage": "380V",
+        "features": ["自动充电", "无人驾驶底盘", "机械臂自动插拔", "智能调度"],
+        "scenes": ["energy", "ev_charging"],
+        "status": "production_2026",
+        "success_rate": 1.0,
+    },
+    # ========== 建筑/基建机器人 ==========
+    "bim_bot_3d_print": {
+        "name": "BIMbot 3D打印建筑机器人",
+        "category": "construction_robot",
+        "origin": "中国·中建科技",
+        "payload_kg": 500,
+        "operation_radius_m": 15,
+        "features": ["3D打印建筑", "混凝土/复合材料", "全自动施工", "BIM模型驱动"],
+        "scenes": ["construction", "housing"],
+        "status": "production_2026",
+        "success_rate": 1.0,
+    },
+    "brick_laying_robot": {
+        "name": "砌砖机器人",
+        "category": "construction_robot",
+        "origin": "中国·建筑机器人",
+        "payload_kg": 200,
+        "operation_radius_m": 8,
+        "features": ["自动砌砖", "每小时3000块", "激光定位", "自动砂浆涂抹"],
+        "scenes": ["construction", "infrastructure"],
         "status": "production_2026",
         "success_rate": 1.0,
     },
