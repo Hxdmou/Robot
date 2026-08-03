@@ -589,14 +589,14 @@ ROBOT_BRANDS = {
     # ========== AI内容合规 ==========
     "ai_content_audit": {
         "name": "AI内容合规审核系统",
-        "category": "ai_agents",
+        "category": "ai_agent_platform",
         "origin": "中国·AI合规领域",
         "type": "AI内容合规审核系统",
         "features": ["AI生成内容标识", "算法推荐管理", "内容安全审核", "智能终端合规"],
         "compliance_standards": ["内容审核", "算法透明", "用户权益保护", "数据安全"],
         "application_scenes": ["内容平台", "智能终端", "可穿戴设备", "车载设备"],
         "compliance_rate": 1.0,
-        "scenes": ["service", "ai_os", "ai_agents"],
+        "scenes": ["service", "ai_os", "ai_agent_platform"],
         "status": "deployed_2026",
     },
     # ========== 晶圆级AI芯片 ==========

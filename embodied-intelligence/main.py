@@ -47,6 +47,10 @@ def print_usage():
     print("    gui             启动桌面GUI控制")
     print("    validate        验证部署就绪状态")
     print("    models          列出所有可用模型")
+    print("    digital-twin    启动数字孪生系统")
+    print("    remote          启动远程监控与运维")
+    print("    agent           启动AI智能体自主决策")
+    print("    edge            启动边缘计算部署")
     print("")
     print("  示例:")
     print("    python main.py train")
@@ -195,6 +199,34 @@ def main():
         for name, size in models:
             print(f"    ✅ {name}  ({size} KB)", flush=True)
         print("=" * 50, flush=True)
+
+    elif command == "digital-twin":
+        print("[INFO] 启动数字孪生系统...", flush=True)
+        os.chdir(script_dir)
+        import subprocess
+        result = subprocess.run([sys.executable, "digital_twin_system.py"], capture_output=False)
+        sys.exit(result.returncode)
+
+    elif command == "remote":
+        print("[INFO] 启动远程监控与运维...", flush=True)
+        os.chdir(script_dir)
+        import subprocess
+        result = subprocess.run([sys.executable, "remote_monitoring_system.py"], capture_output=False)
+        sys.exit(result.returncode)
+
+    elif command == "agent":
+        print("[INFO] 启动AI智能体自主决策...", flush=True)
+        os.chdir(script_dir)
+        import subprocess
+        result = subprocess.run([sys.executable, "autonomous_decision_system.py"], capture_output=False)
+        sys.exit(result.returncode)
+
+    elif command == "edge":
+        print("[INFO] 启动边缘计算部署...", flush=True)
+        os.chdir(script_dir)
+        import subprocess
+        result = subprocess.run([sys.executable, "edge_deployment_system.py"], capture_output=False)
+        sys.exit(result.returncode)
 
     elif command in ["help", "-h", "--help"]:
         print_usage()
