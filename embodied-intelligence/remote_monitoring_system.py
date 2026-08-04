@@ -1,5 +1,5 @@
-"""
-远程监控与运维系统 V14增强版
+﻿"""
+远程监控与运维系统 V15增强版
 ================================================================
 功能：
   1. 云端设备管理（多机器人集群监控/状态聚合/告警推送）
@@ -93,7 +93,7 @@ class OTAUpdate:
 
 class RemoteMonitoringSystem:
     """
-    远程监控与运维系统 V14增强版
+    远程监控与运维系统 V15增强版
     实现云端设备管理、远程诊断、OTA升级、运维报表
     """
 
@@ -624,7 +624,7 @@ class RemoteMonitoringSystem:
 
 if __name__ == "__main__":
     print("=" * 60)
-    print("  远程监控与运维系统 V14增强版")
+    print("  远程监控与运维系统 V15增强版")
     print("=" * 60)
 
     monitor = RemoteMonitoringSystem({

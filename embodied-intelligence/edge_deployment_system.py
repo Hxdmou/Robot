@@ -1,5 +1,5 @@
-"""
-边缘计算部署系统 V14增强版
+﻿"""
+边缘计算部署系统 V15增强版
 ================================================================
 功能：
   1. 本地推理（模型本地化部署/低延迟推理/离线运行）
@@ -82,7 +82,7 @@ class ResourceStatus:
 
 class EdgeDeploymentSystem:
     """
-    边缘计算部署系统 V14增强版
+    边缘计算部署系统 V15增强版
     实现本地推理、模型优化、资源管理、边缘-云协同
     """
 
@@ -404,7 +404,7 @@ class EdgeDeploymentSystem:
 
 if __name__ == "__main__":
     print("=" * 60)
-    print("  边缘计算部署系统 V14增强版")
+    print("  边缘计算部署系统 V15增强版")
     print("=" * 60)
 
     edge_system = EdgeDeploymentSystem({

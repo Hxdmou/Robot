@@ -1,5 +1,5 @@
-"""
-AI智能体自主决策系统 V14增强版
+﻿"""
+AI智能体自主决策系统 V15增强版
 ================================================================
 功能：
   1. 任务规划（目标分解/路径规划/资源调度）
@@ -101,7 +101,7 @@ class Decision:
 
 class AutonomousDecisionSystem:
     """
-    AI智能体自主决策系统 V14增强版
+    AI智能体自主决策系统 V15增强版
     实现任务规划、异常处理、自学习、多智能体协作
     """
 
@@ -565,7 +565,7 @@ class AutonomousDecisionSystem:
 
 if __name__ == "__main__":
     print("=" * 60)
-    print("  AI智能体自主决策系统 V14增强版")
+    print("  AI智能体自主决策系统 V15增强版")
     print("=" * 60)
 
     decision_system = AutonomousDecisionSystem({
