@@ -60,6 +60,8 @@ def print_usage():
     print("    deploy-ext      扩展部署系统（多品牌）")
     print("    real-adapter    真机适配器（多品牌兼容测试）")
     print("    sim-backend     仿真后端切换与兼容测试")
+    print("    realistic-train PyBullet真实部署级训练（5大Sim2Real模块叠加）")
+    print("    realistic-test  PyBullet真实部署级测试（9维度450轮·真机就绪判定）")
     print("")
     print("  示例:")
     print("    python main.py train")
@@ -300,6 +302,22 @@ def main():
         os.chdir(script_dir)
         import subprocess
         result = subprocess.run([sys.executable, "sim_backends.py"], capture_output=False)
+        sys.exit(result.returncode)
+
+    elif command == "realistic-train":
+        print("[INFO] PyBullet真实部署级训练（5大Sim2Real增强模块叠加）...", flush=True)
+        print("[INFO] 课程学习：强度0%→25%→50%→75%→100%，总步数1,000,000", flush=True)
+        os.chdir(script_dir)
+        import subprocess
+        result = subprocess.run([sys.executable, "pybullet_realistic_train.py"] + sys.argv[2:], capture_output=False)
+        sys.exit(result.returncode)
+
+    elif command == "realistic-test":
+        print("[INFO] PyBullet真实部署级综合测试（9维度450轮·真机就绪判定）...", flush=True)
+        print("[INFO] 9维度：基线/域随机化/延迟/执行器/扰动/噪声/50%/100%/120%极端", flush=True)
+        os.chdir(script_dir)
+        import subprocess
+        result = subprocess.run([sys.executable, "pybullet_realistic_test.py"] + sys.argv[2:], capture_output=False)
         sys.exit(result.returncode)
 
     elif command in ["help", "-h", "--help"]:
