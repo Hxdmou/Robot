@@ -1227,6 +1227,114 @@ SCENES = {
             },
         },
     },
+
+    # ========== 31. 脑机接口/神经科技 ==========
+    "bci_neurotech": {
+        "name": "脑机接口与神经科技",
+        "description": "非侵入式脑机接口、肌电感知、神经意图读取、人机交互新范式",
+        "sub_scenes": {
+            "noninvasive_bci_control": {
+                "name": "非侵入式脑机接口控制",
+                "description": "128通道脑电帽、21名受试者运动想象实时控制机器手单根手指、两指任务80.56%准确率、三指任务60.61%准确率",
+                "robots": ["脑电帽", "机器手", "信号处理系统"],
+                "difficulty": 5,
+                "reward_scale": 1.5,
+            },
+            "emg_intention_reading": {
+                "name": "肌电意图读取系统",
+                "description": "表面肌电位于大脑运动指令传向肌肉的链路中间、包含动作即将发生时的神经肌肉活动、发力和微控制信息、脑电更接近运动想象注意惊讶和错误感知等高层状态",
+                "robots": ["肌电传感器", "脑电设备", "意图解码算法"],
+                "difficulty": 5,
+                "reward_scale": 1.5,
+            },
+            "neuro_tactile_closed_loop": {
+                "name": "神经意图与触觉闭环",
+                "description": "脑电或肌电提供人的意图与状态、机器人视觉理解场景、触觉感知接触结果、具身模型完成规划与控制、反馈再返回给人或者被用于继续修正动作",
+                "robots": ["脑机接口", "触觉传感器", "视觉系统", "具身模型"],
+                "difficulty": 5,
+                "reward_scale": 1.6,
+            },
+            "bci_prosthetics_rehab": {
+                "name": "脑机接口假肢康复",
+                "description": "神经接口提供自然控制、触觉反馈帮助判断抓握是否稳定、康复假肢工业协作智能眼镜和服务机器人中都具有直接价值",
+                "robots": ["神经接口假肢", "触觉反馈系统", "康复训练平台"],
+                "difficulty": 4,
+                "reward_scale": 1.4,
+            },
+        },
+    },
+
+    # ========== 32. 具身数据/多模态采集 ==========
+    "embodied_data_collection": {
+        "name": "具身数据与多模态采集",
+        "description": "多模态具身数据集、肌电视觉融合、因果密度数据、EgoEMG数据集",
+        "sub_scenes": {
+            "egoemg_dataset": {
+                "name": "EgoEMG多模态具身数据集",
+                "description": "清华大学自动化系冯建江团队发布、同步采集41名受试者的双侧肌电IMU第一视角RGB外部RGB-D和光学动捕数据、覆盖60类手势超过10小时并重建22自由度手部关节角",
+                "robots": ["EMG腕带", "头戴式自我中心视角RGB相机", "外部ZED 2i RGB-D相机", "光学动作捕捉系统"],
+                "difficulty": 5,
+                "reward_scale": 1.5,
+            },
+            "emg_vision_fusion": {
+                "name": "肌电与视觉融合",
+                "description": "EMGFormer在跨用户泛化任务上较上一代基线提升22%、肌电与视觉融合在遮挡运动模糊和深度歧义场景中优于单一视觉方案",
+                "robots": ["EMG传感器", "视觉相机", "融合算法模型"],
+                "difficulty": 5,
+                "reward_scale": 1.5,
+            },
+            "causal_density_data": {
+                "name": "因果密度数据竞争",
+                "description": "具身智能的数据竞争正在从数量走向因果密度、同样一段动作视频如果同时包含神经意图发力变化和错误反馈它对模型的价值不只是多一个模态而是多了一条解释动作为何发生的因果链",
+                "robots": ["多模态采集系统", "神经意图传感器", "力觉传感器", "因果推理模型"],
+                "difficulty": 5,
+                "reward_scale": 1.6,
+            },
+            "data_unit_evolution": {
+                "name": "机器人数据基本单位演进",
+                "description": "从视频-动作变为场景-意图-肌肉激活-动作轨迹-接触反馈-结果、机器人学习的也不再只是模仿表面动作而是逼近人类完整的感知决策与执行链条",
+                "robots": ["多模态传感器", "意图解码器", "动作规划模型", "触觉反馈系统"],
+                "difficulty": 5,
+                "reward_scale": 1.5,
+            },
+        },
+    },
+
+    # ========== 33. 具身机器人供应链/产业生态 ==========
+    "embodied_supply_chain": {
+        "name": "具身机器人供应链与产业生态",
+        "description": "人形机器人核心零部件、扁电磁线、关节模组、智能关节解决方案、产业生态",
+        "sub_scenes": {
+            "humanoid_core_components": {
+                "name": "人形机器人核心零部件",
+                "description": "无框力矩电机、关节模组、全向舵轮等核心部件、从样品到批量订单转化、分布式AI控制理念、软硬件一体化智能关节解决方案",
+                "robots": ["无框力矩电机", "关节模组", "全向舵轮", "智能关节系统"],
+                "difficulty": 4,
+                "reward_scale": 1.3,
+            },
+            "flat_wire_power_grid": {
+                "name": "扁电磁线与智能电网",
+                "description": "扁电磁线和电线电缆双主业协同、欧洲捷克基地年产能2万吨、清洁能源智能电网智能装备三大新兴应用领域、变压器用扁电磁线产品",
+                "robots": ["扁电磁线生产设备", "智能电网设备", "变压器"],
+                "difficulty": 3,
+                "reward_scale": 1.2,
+            },
+            "industrial_robot_supply_chain": {
+                "name": "工业机械臂供应链突破",
+                "description": "成功进入全球工业机械臂和协作机器人龙头企业供应链、实现从0到1突破、正迈向规模化放量",
+                "robots": ["工业机械臂", "协作机器人", "核心零部件"],
+                "difficulty": 4,
+                "reward_scale": 1.3,
+            },
+            "overseas_expansion": {
+                "name": "机器人产品全球化",
+                "description": "海外合作重点市场为欧洲北美及亚太、持续推动产品全球化、推进产品海外主要市场准入工作、优化产品设计满足国际化需求",
+                "robots": ["人形机器人", "工业移动机器人", "协作机器人"],
+                "difficulty": 4,
+                "reward_scale": 1.3,
+            },
+        },
+    },
 }
 
 
