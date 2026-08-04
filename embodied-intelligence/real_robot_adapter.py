@@ -227,6 +227,18 @@ BRAND_COMM_MAP = {
     # ==================== 科研设备/数据集 ====================
     "cmu_noninvasive_bci": "cmu_bci_serial",
     "tsinghua_egoemg": "tsinghua_data_tcp",
+    # ==================== 补充: panda别名 + 蚌埠传感谷(6家) + 2家AI芯片 + 1家卫星 ====================
+    "panda": "panda_libfranka",
+    "中科微感": "sensor_tcp",
+    "华鑫智感": "sensor_tcp",
+    "希磁科技": "sensor_tcp",
+    "海车神驭": "sensor_tcp",
+    "至博研": "sensor_tcp",
+    "芒果传感": "sensor_tcp",
+    "芯动联科": "sensor_tcp",
+    "华鑫微纳": "wafer_tcp",
+    "紫光展锐V8821": "telecom_tcp",
+    "天启星座": "telecom_tcp",
 }
 
 # 协议实现映射（协议名 → 适配器类，延迟导入避免依赖缺失）
