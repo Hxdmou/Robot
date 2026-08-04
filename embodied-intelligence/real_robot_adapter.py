@@ -239,6 +239,20 @@ BRAND_COMM_MAP = {
     "华鑫微纳": "wafer_tcp",
     "紫光展锐V8821": "telecom_tcp",
     "天启星座": "telecom_tcp",
+    # ==================== 2026-08-04新增: 智慧康养8产品+AI智能体4产品+神经动力学芯片 ====================
+    "jiunuo_nursing": "shurui_tcp",
+    "daai_rehab": "shurui_tcp",
+    "senlikang_kangyang": "shurui_tcp",
+    "yunji_kangyang": "consumer_tcp",
+    "shenzhou_longxin_robot": "industrial_tcp",
+    "health_screening_robot": "shurui_tcp",
+    "bci_rehab_device": "cmu_bci_serial",
+    "lower_limb_exo_rehab": "shurui_tcp",
+    "houming_ai_super_employee": "platform_tcp",
+    "houming_pengka_nfc": "consumer_tcp",
+    "houming_digital_human": "xr_tcp",
+    "houming_mars_geo": "platform_tcp",
+    "pku_cas_neurodyn_chip": "wafer_tcp",
 }
 
 # 协议实现映射（协议名 → 适配器类，延迟导入避免依赖缺失）
