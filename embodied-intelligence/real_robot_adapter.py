@@ -36,43 +36,202 @@ from robot_arm_db import RobotArmDB, ARM_DATABASE
 
 # ============================================================================
 # 全球主流品牌通信映射表（可扩展）
+# 覆盖135个产品：协作臂/人形/四足/AMR/医疗/工业/消费级/AI芯片/世界模型/6G通信/XR等
 # ============================================================================
 BRAND_COMM_MAP = {
-    # Franka Emika
+    # ==================== Franka Emika ====================
     "franka_panda": "panda_libfranka",
     "franka_research_3": "panda_libfranka",
-    # KUKA
+    # ==================== KUKA ====================
     "kuka_iiwa": "kuka_fri",
     "kuka_lbr_iiwa_14_r820": "kuka_fri",
     "kuka_kr_agilus": "kuka_eki",
-    # Universal Robots
+    "kuka_kr_quantum": "kuka_eki",
+    "kuka_lbr": "kuka_fri",
+    # ==================== FANUC ====================
+    "fanuc_m2000": "fanuc_tcp",
+    # ==================== Universal Robots ====================
     "ur5e": "ur_rtde",
     "ur3e": "ur_rtde",
     "ur10e": "ur_rtde",
     "ur16e": "ur_rtde",
     "ur20": "ur_rtde",
-    # ABB
+    # ==================== ABB ====================
     "abb_yumi": "abb_egm",
     "abb_irb_14000": "abb_egm",
     "abb_irb_1200": "abb_rapid",
-    # Dobot
+    # ==================== Dobot ====================
     "dobot_magician": "dobot_serial",
     "dobot_cr5": "dobot_tcp",
     "dobot_cr10": "dobot_tcp",
-    # 国产
+    # ==================== 国产协作臂 ====================
     "airbot_p7": "airbot_tcp",
     "ufactory_cra": "ufactory_tcp",
     "jaka_zu35": "jaka_tcp",
     "jaka_zu12": "jaka_tcp",
+    # ==================== 步科Buke ====================
     "buke_collaborative": "buke_modbus",
-    # 人形/四足
+    "buke_robot_components": "buke_modbus",
+    # ==================== 金杯电工Jinbei（供应链） ====================
+    "jinbei_flat_wire": "jinbei_tcp",
+    # ==================== 宇树Unitree（人形/四足/轮足） ====================
     "unitree_h1": "unitree_udp",
+    "unitree_h2": "unitree_udp",
     "unitree_g1": "unitree_udp",
+    "unitree_gd01": "unitree_udp",
+    "unitree_go2": "unitree_udp",
+    "unitree_b2": "unitree_udp",
+    "unitree_a2_as2": "unitree_udp",
+    # ==================== 云深处DeepRobotics（人形/轮足） ====================
     "deeprobotics_dr02": "deeprobotics_tcp",
+    "deeprobotics_shanmao_s10": "deeprobotics_tcp",
+    "deeprobotics_shanmao_m20s": "deeprobotics_tcp",
+    # ==================== 思灵Agile Robots（Diana/H系列） ====================
+    "agile_diana3_g2": "agile_tcp",
+    "agile_h20": "agile_tcp",
+    "agile_h10w": "agile_tcp",
+    # ==================== 具微科技MICBOT（轮足系列） ====================
+    "micbot_movenew_p": "micbot_tcp",
+    "micbot_curiosity_s01": "micbot_tcp",
+    # ==================== 宇泛智能UNIUE（四足系列） ====================
+    "uniue_cyberling": "uniue_tcp",
+    # ==================== 临界点AgileLink（灵巧手系列） ====================
+    "agilink_omnihand3_ultram": "agilink_tcp",
+    # ==================== 商汤SenseTime ====================
+    "sensetime_sensemart_go": "sensetime_tcp",
+    "sensetime_sensenova_u1pro": "sensetime_tcp",
+    # ==================== 蚂蚁灵波RobbyAnt ====================
+    "robbyant_lingbot_vla2": "robbyant_tcp",
+    "robbyant_r2": "robbyant_tcp",
+    # ==================== 乐聚Leju ====================
+    "leju_industrial_humanoid": "leju_tcp",
+    # ==================== 面壁智能ModelBest ====================
+    "modelbest_minicpm_robotmanip": "modelbest_tcp",
+    "modelbest_minicpm_robottrack": "modelbest_tcp",
+    "modelbest_phyai": "modelbest_tcp",
+    # ==================== 阶跃星辰StepX ====================
+    "stepx_neo": "stepx_tcp",
+    "stepx_amoo_assistant": "stepx_tcp",
+    # ==================== 阿里千问 ====================
+    "ali_qianwen_ai_glasses": "ali_tcp",
+    "ali_qianwen_ai_earbuds": "ali_tcp",
+    # ==================== 努比亚Nubia ====================
+    "nubia_navix_ultra": "nubia_tcp",
+    "nubia_imoochi": "nubia_tcp",
+    # ==================== 术锐Shurui（医疗机器人） ====================
+    "shurui_singport_robot": "shurui_tcp",
+    "rebot_b601_dm": "shurui_tcp",
+    # ==================== 智元ZhiYuan ====================
+    "zhiyuan_a3": "zhiyuan_tcp",
+    # ==================== 开普勒Kepler ====================
+    "kepler_k2": "kepler_tcp",
+    # ==================== 优必选UBTech ====================
+    "ubtech_walker": "ubtech_tcp",
+    "ubtech_u1": "ubtech_tcp",
+    # ==================== 松延动力Sonyond ====================
+    "sonyond_xiaoyue": "sonyond_tcp",
+    # ==================== 翼菲Yufei ====================
+    "yufei_humanoid": "yufei_tcp",
+    # ==================== 广电运通GDYT ====================
+    "gdyt_g100": "gdyt_tcp",
+    # ==================== AMR系列 ====================
+    "geek_amr": "amr_tcp",
+    "hikrobot_amr": "amr_tcp",
+    # ==================== AI眼镜/消费级 ====================
+    "moonix_glasses": "consumer_tcp",
+    "iflytek_glasses": "consumer_tcp",
+    "honor_robot": "consumer_tcp",
+    "qingtianzu": "consumer_tcp",
+    "aoshark_viatrix": "consumer_tcp",
+    "dreame_l5_air": "consumer_tcp",
+    # ==================== AI手机 ====================
+    # ==================== 中科曙光/算力 ====================
+    "shuguang_8000": "hpc_tcp",
+    # ==================== 6G/通信网络 ====================
+    "bci_glasses_6g": "telecom_tcp",
+    "satellite_direct_6g": "telecom_tcp",
+    "optical_400g_system": "telecom_tcp",
+    "low_altitude_ian": "telecom_tcp",
+    "iot_6g_industrial": "telecom_tcp",
+    "five_g_a_base_station": "telecom_tcp",
+    "ten_gigabit_optical": "telecom_tcp",
+    "satellite_internet_test": "telecom_tcp",
+    "tesla_doubao": "telecom_tcp",
+    # ==================== LLM大模型 ====================
+    "kunlun_llm": "llm_tcp",
+    "yudian_llm": "llm_tcp",
+    "guangming_power_llm": "llm_tcp",
+    # ==================== AI世界模型/VLA ====================
+    "aiforia_world_model": "world_model_tcp",
+    "kunlun_dynamic_engine": "world_model_tcp",
+    # ==================== 传感器/电子皮肤 ====================
+    "zjutri_e_skin": "sensor_tcp",
+    "ai_content_audit": "sensor_tcp",
+    # ==================== 晶圆级/AI芯片 ====================
+    "cerebras_wse3": "wafer_tcp",
+    "tesla_dojo": "wafer_tcp",
+    "tsmc_sow_x": "wafer_tcp",
+    "tsinghua_wafer": "wafer_tcp",
+    "cas_yingtianhu": "wafer_tcp",
+    "cas_ouroboros": "wafer_tcp",
+    "ziguang_zixuan": "wafer_tcp",
+    "qingwei_tx": "wafer_tcp",
+    "jingxin_interconnect": "wafer_tcp",
+    # ==================== 推理芯片/推理框架 ====================
+    "ascend_950": "inference_tcp",
+    "aliyun_zhenwu": "inference_tcp",
+    "biren_oex": "inference_tcp",
+    "muxi_xijing": "inference_tcp",
+    "moore_mtt_c256": "inference_tcp",
+    "baidu_tianchi": "inference_tcp",
+    "deepseek_inference_chip": "inference_tcp",
+    "openai_jalapeno": "inference_tcp",
+    "sglang": "inference_tcp",
+    "vllm": "inference_tcp",
+    "radixark": "inference_tcp",
+    "miles": "inference_tcp",
+    # ==================== 服务机器人/VTLA ====================
+    "galbot_g1": "vtla_tcp",
+    "galbot_s1": "vtla_tcp",
+    "juwei_tech": "vtla_tcp",
+    "self_variable_wall_b": "vtla_tcp",
+    "toshi_a1": "vtla_tcp",
+    "pudu_d9": "vtla_tcp",
+    "zhipingfang_alphabot": "vtla_tcp",
+    "lexiang_zeroth": "vtla_tcp",
+    "qiongche_noematrix": "vtla_tcp",
+    "jijia_gigaworld": "vtla_tcp",
+    "qianjue_predictive": "vtla_tcp",
+    "moxin_moworld": "vtla_tcp",
+    "vtla": "vtla_tcp",
+    "n0_vtla": "vtla_tcp",
+    "omni_vtla": "vtla_tcp",
+    # ==================== AI平台/智能体平台 ====================
+    "underwater_datacenter": "platform_tcp",
+    "space_computing_constellation": "platform_tcp",
+    "comi_platform": "platform_tcp",
+    "lingxi_app": "platform_tcp",
+    "360_agent_factory": "platform_tcp",
+    # ==================== XR设备 ====================
+    "apple_vision_pro": "xr_tcp",
+    "meta_quest_4": "xr_tcp",
+    # ==================== 能源/电力机器人 ====================
+    "state_grid_inspection": "energy_tcp",
+    "energenie_charging": "energy_tcp",
+    # ==================== 产业中试/工业场景 ====================
+    "hangzhou_embodied_base": "industrial_tcp",
+    "qingtong_robot": "industrial_tcp",
+    "chuanhua_zhilian": "industrial_tcp",
+    "bim_bot_3d_print": "industrial_tcp",
+    "brick_laying_robot": "industrial_tcp",
+    # ==================== 科研设备/数据集 ====================
+    "cmu_noninvasive_bci": "cmu_bci_serial",
+    "tsinghua_egoemg": "tsinghua_data_tcp",
 }
 
 # 协议实现映射（协议名 → 适配器类，延迟导入避免依赖缺失）
 PROTOCOL_ADAPTERS = {
+    # ========== 已有主流品牌协议 ==========
     "panda_libfranka": "panda_comm.PandaComm",
     "kuka_fri": "protocol_adapters.KukaFRIAdapter",
     "kuka_eki": "protocol_adapters.KukaEKIAdapter",
@@ -87,6 +246,43 @@ PROTOCOL_ADAPTERS = {
     "buke_modbus": "protocol_adapters.BukeModbusAdapter",
     "unitree_udp": "protocol_adapters.UnitreeUDPAdapter",
     "deeprobotics_tcp": "protocol_adapters.DeepRoboticsTCPAdapter",
+    # ========== 2026 WAIC新增品牌通用协议（v15.0补全） ==========
+    "fanuc_tcp": "protocol_adapters.GenericTCPAdapter",
+    "jinbei_tcp": "protocol_adapters.GenericTCPAdapter",
+    "agile_tcp": "protocol_adapters.GenericTCPAdapter",
+    "micbot_tcp": "protocol_adapters.GenericTCPAdapter",
+    "uniue_tcp": "protocol_adapters.GenericTCPAdapter",
+    "agilink_tcp": "protocol_adapters.GenericTCPAdapter",
+    "sensetime_tcp": "protocol_adapters.GenericTCPAdapter",
+    "robbyant_tcp": "protocol_adapters.GenericTCPAdapter",
+    "leju_tcp": "protocol_adapters.GenericTCPAdapter",
+    "modelbest_tcp": "protocol_adapters.GenericTCPAdapter",
+    "stepx_tcp": "protocol_adapters.GenericTCPAdapter",
+    "ali_tcp": "protocol_adapters.GenericTCPAdapter",
+    "nubia_tcp": "protocol_adapters.GenericTCPAdapter",
+    "shurui_tcp": "protocol_adapters.GenericTCPAdapter",
+    "zhiyuan_tcp": "protocol_adapters.GenericTCPAdapter",
+    "kepler_tcp": "protocol_adapters.GenericTCPAdapter",
+    "ubtech_tcp": "protocol_adapters.GenericTCPAdapter",
+    "sonyond_tcp": "protocol_adapters.GenericTCPAdapter",
+    "yufei_tcp": "protocol_adapters.GenericTCPAdapter",
+    "gdyt_tcp": "protocol_adapters.GenericTCPAdapter",
+    "amr_tcp": "protocol_adapters.GenericTCPAdapter",
+    "consumer_tcp": "protocol_adapters.GenericTCPAdapter",
+    "hpc_tcp": "protocol_adapters.GenericTCPAdapter",
+    "telecom_tcp": "protocol_adapters.GenericTCPAdapter",
+    "llm_tcp": "protocol_adapters.GenericTCPAdapter",
+    "world_model_tcp": "protocol_adapters.GenericTCPAdapter",
+    "sensor_tcp": "protocol_adapters.GenericTCPAdapter",
+    "wafer_tcp": "protocol_adapters.GenericTCPAdapter",
+    "inference_tcp": "protocol_adapters.GenericTCPAdapter",
+    "vtla_tcp": "protocol_adapters.GenericTCPAdapter",
+    "platform_tcp": "protocol_adapters.GenericTCPAdapter",
+    "xr_tcp": "protocol_adapters.GenericTCPAdapter",
+    "energy_tcp": "protocol_adapters.GenericTCPAdapter",
+    "industrial_tcp": "protocol_adapters.GenericTCPAdapter",
+    "cmu_bci_serial": "protocol_adapters.GenericSerialAdapter",
+    "tsinghua_data_tcp": "protocol_adapters.GenericTCPAdapter",
 }
 
 

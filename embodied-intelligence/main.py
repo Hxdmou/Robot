@@ -58,6 +58,8 @@ def print_usage():
     print("    trajectory      3D轨迹回放与热力图分析")
     print("    gpu             GPU加速与并行训练")
     print("    deploy-ext      扩展部署系统（多品牌）")
+    print("    real-adapter    真机适配器（多品牌兼容测试）")
+    print("    sim-backend     仿真后端切换与兼容测试")
     print("")
     print("  示例:")
     print("    python main.py train")
@@ -282,6 +284,22 @@ def main():
         os.chdir(script_dir)
         import subprocess
         result = subprocess.run([sys.executable, "extended_deployment_system.py"], capture_output=False)
+        sys.exit(result.returncode)
+
+    elif command == "real-adapter":
+        print("[INFO] 真机适配器（多品牌兼容测试）...", flush=True)
+        print("[INFO] 支持品牌: Franka/KUKA/UR/ABB/Dobot/步科/宇树/云深处/思灵/具微/商汤/术锐等135个产品", flush=True)
+        os.chdir(script_dir)
+        import subprocess
+        result = subprocess.run([sys.executable, "real_robot_adapter.py"], capture_output=False)
+        sys.exit(result.returncode)
+
+    elif command == "sim-backend":
+        print("[INFO] 仿真后端切换与兼容测试...", flush=True)
+        print("[INFO] 支持后端: PyBullet / MuJoCo / Isaac Sim / ROS2/Gazebo", flush=True)
+        os.chdir(script_dir)
+        import subprocess
+        result = subprocess.run([sys.executable, "sim_backends.py"], capture_output=False)
         sys.exit(result.returncode)
 
     elif command in ["help", "-h", "--help"]:
