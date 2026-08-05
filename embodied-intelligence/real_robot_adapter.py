@@ -253,6 +253,23 @@ BRAND_COMM_MAP = {
     "houming_digital_human": "xr_tcp",
     "houming_mars_geo": "platform_tcp",
     "pku_cas_neurodyn_chip": "wafer_tcp",
+    # ==================== 2026-XX-XX新增: 95张截图补充16产品映射 ====================
+    "galaxea_g05": "platform_tcp",
+    "yuanli_dm05": "platform_tcp",
+    "liman_riemann_10": "world_model_tcp",
+    "pohu_wam": "world_model_tcp",
+    "zhengqi_door_mind": "world_model_tcp",
+    "qiyuan_q1": "consumer_tcp",
+    "qiyuan_t1": "consumer_tcp",
+    "unitree_h2_plus": "unitree_udp",
+    "songyan_bumi": "consumer_tcp",
+    "efort_wheel_humanoid": "efort_eki",
+    "mojia_culture": "consumer_tcp",
+    "weijing_laparoscope": "medical_ethercat_p",
+    "yuanli_ferrata": "logistics_5g_mqtt",
+    "digua_warehouse": "logistics_slam_mqtt",
+    "yuanli_apex": "modbus_tcp_ros2",
+    "zhengqi_quorra_x5": "consumer_5g_cv2x",
 }
 
 # 协议实现映射（协议名 → 适配器类，延迟导入避免依赖缺失）
@@ -309,6 +326,13 @@ PROTOCOL_ADAPTERS = {
     "industrial_tcp": "protocol_adapters.GenericTCPAdapter",
     "cmu_bci_serial": "protocol_adapters.GenericSerialAdapter",
     "tsinghua_data_tcp": "protocol_adapters.GenericTCPAdapter",
+    # ========== 2026-XX-XX新增: 95张截图补充6个协议适配器 ==========
+    "efort_eki": "protocol_adapters.GenericTCPAdapter",
+    "medical_ethercat_p": "protocol_adapters.GenericTCPAdapter",
+    "logistics_5g_mqtt": "protocol_adapters.GenericTCPAdapter",
+    "logistics_slam_mqtt": "protocol_adapters.GenericTCPAdapter",
+    "modbus_tcp_ros2": "protocol_adapters.GenericTCPAdapter",
+    "consumer_5g_cv2x": "protocol_adapters.GenericTCPAdapter",
 }
 
 
