@@ -929,7 +929,7 @@ class RobotHAL:
         try:
             from airbot_p7_manager import AirbotP7Manager
             config = {
-                "host": self.config.get("host", "192.168.1.100"),
+                "host": self.config.get("host", "127.0.0.1"),
                 "port": self.config.get("port", 8080),
                 "can_channel": self.config.get("can_channel", "can0"),
             }
@@ -946,7 +946,7 @@ class RobotHAL:
         try:
             from panda_comm import PandaComm
             self._panda = PandaComm(
-                host=self.config.get("host", "192.168.1.1"),
+                host=self.config.get("host", "127.0.0.1"),
                 port=self.config.get("port", 8080),
             )
             self._panda.connect()
@@ -959,7 +959,7 @@ class RobotHAL:
     def _connect_real_robot_generic(self):
         """通用真机连接：自动匹配30+品牌的SDK"""
         brand_name = self.brand.name
-        host = self.config.get("host", "192.168.1.100")
+        host = self.config.get("host", "127.0.0.1")
         port = self.config.get("port", None)
 
         # ── 按品牌尝试连接 ──
@@ -3540,7 +3540,7 @@ class RealRobotReadySystem:
     """
     真机就绪统一系统
     购买真机后，使用方式：
-      1. system = RealRobotReadySystem(backend="airbot_p7", host="192.168.1.100")
+      1. system = RealRobotReadySystem(backend="airbot_p7", host="127.0.0.1")
       2. system.startup()    # 连接+自检+标定
       3. system.ready_to_use  # 确认就绪
       4. system.robot.move_joints(target)  # 开始使用
@@ -3705,7 +3705,7 @@ class RealRobotReadySystem:
 # ============================================================================
 
 def create_real_robot_system(backend: str = "simulation",
-                             host: str = "192.168.1.100",
+                             host: str = "127.0.0.1",
                              port: int = 8080) -> RealRobotReadySystem:
     """
     创建真机就绪系统（便捷入口）
@@ -3730,7 +3730,7 @@ def quick_start_simulation() -> RealRobotReadySystem:
     return system
 
 
-def quick_start_airbot_p7(host: str = "192.168.1.100") -> RealRobotReadySystem:
+def quick_start_airbot_p7(host: str = "127.0.0.1") -> RealRobotReadySystem:
     """
     快速启动Airbot P7真机
     真机到手后直接调用这个函数
@@ -3745,7 +3745,7 @@ def quick_start_airbot_p7(host: str = "192.168.1.100") -> RealRobotReadySystem:
 # 其它主流品牌快速启动（购买真机后，安装对应SDK即可使用）
 # ============================================================================
 
-def quick_start_panda(host: str = "192.168.1.1") -> RealRobotReadySystem:
+def quick_start_panda(host: str = "127.0.0.1") -> RealRobotReadySystem:
     """快速启动 Franka Emika Panda（德国·7轴力控协作臂）"""
     print(f"正在连接Franka Panda (IP: {host})...")
     system = create_real_robot_system(backend="panda", host=host)
@@ -3753,7 +3753,7 @@ def quick_start_panda(host: str = "192.168.1.1") -> RealRobotReadySystem:
     return system
 
 
-def quick_start_ur(host: str = "192.168.1.102", model: str = "ur5") -> RealRobotReadySystem:
+def quick_start_ur(host: str = "127.0.0.1", model: str = "ur5") -> RealRobotReadySystem:
     """
     快速启动 Universal Robots（丹麦·UR3/UR5/UR10/UR16e）
     全球最流行的协作臂品牌
@@ -3764,7 +3764,7 @@ def quick_start_ur(host: str = "192.168.1.102", model: str = "ur5") -> RealRobot
     return system
 
 
-def quick_start_kuka(host: str = "192.168.1.103") -> RealRobotReadySystem:
+def quick_start_kuka(host: str = "127.0.0.1") -> RealRobotReadySystem:
     """快速启动 KUKA LBR iiwa（德国·7轴力控协作臂）"""
     print(f"正在连接KUKA LBR iiwa (IP: {host})...")
     system = create_real_robot_system(backend="kuka", host=host)
@@ -3772,7 +3772,7 @@ def quick_start_kuka(host: str = "192.168.1.103") -> RealRobotReadySystem:
     return system
 
 
-def quick_start_abb(host: str = "192.168.1.104", model: str = "gofa") -> RealRobotReadySystem:
+def quick_start_abb(host: str = "127.0.0.1", model: str = "gofa") -> RealRobotReadySystem:
     """快速启动 ABB GoFa/YuMi（瑞士·协作臂）"""
     print(f"正在连接ABB {model.upper()} (IP: {host})...")
     system = create_real_robot_system(backend=f"abb_{model}", host=host)
@@ -3780,7 +3780,7 @@ def quick_start_abb(host: str = "192.168.1.104", model: str = "gofa") -> RealRob
     return system
 
 
-def quick_start_xarm(host: str = "192.168.1.105", model: str = "7") -> RealRobotReadySystem:
+def quick_start_xarm(host: str = "127.0.0.1", model: str = "7") -> RealRobotReadySystem:
     """
     快速启动 UFACTORY xArm（中国·越疆·6/7轴协作臂）
     性价比极高的国产协作臂首选
@@ -3791,7 +3791,7 @@ def quick_start_xarm(host: str = "192.168.1.105", model: str = "7") -> RealRobot
     return system
 
 
-def quick_start_flexiv(host: str = "192.168.1.106") -> RealRobotReadySystem:
+def quick_start_flexiv(host: str = "127.0.0.1") -> RealRobotReadySystem:
     """快速启动 Flexiv Rizon（中国·非夕·7轴力控臂）"""
     print(f"正在连接非夕 Flexiv Rizon (IP: {host})...")
     system = create_real_robot_system(backend="flexiv", host=host)
@@ -3799,7 +3799,7 @@ def quick_start_flexiv(host: str = "192.168.1.106") -> RealRobotReadySystem:
     return system
 
 
-def quick_start_jaka(host: str = "192.168.1.107") -> RealRobotReadySystem:
+def quick_start_jaka(host: str = "127.0.0.1") -> RealRobotReadySystem:
     """快速启动 JAKA 节卡（中国·6轴协作臂）"""
     print(f"正在连接节卡 JAKA (IP: {host})...")
     system = create_real_robot_system(backend="jaka", host=host)
@@ -3818,7 +3818,7 @@ def quick_start_mycobot(port: str = "/dev/ttyUSB0") -> RealRobotReadySystem:
     return system
 
 
-def quick_start_unitree_h1(host: str = "192.168.1.201") -> RealRobotReadySystem:
+def quick_start_unitree_h1(host: str = "127.0.0.1") -> RealRobotReadySystem:
     """快速启动 Unitree H1（中国·宇树·人形机器人）"""
     print(f"正在连接宇树 H1 人形机器人 (IP: {host})...")
     system = create_real_robot_system(backend="h1", host=host)
@@ -3826,7 +3826,7 @@ def quick_start_unitree_h1(host: str = "192.168.1.201") -> RealRobotReadySystem:
     return system
 
 
-def quick_start_unitree_g1(host: str = "192.168.1.202") -> RealRobotReadySystem:
+def quick_start_unitree_g1(host: str = "127.0.0.1") -> RealRobotReadySystem:
     """快速启动 Unitree G1（中国·宇树·小型人形机器人）"""
     print(f"正在连接宇树 G1 人形机器人 (IP: {host})...")
     system = create_real_robot_system(backend="g1", host=host)
@@ -3834,7 +3834,7 @@ def quick_start_unitree_g1(host: str = "192.168.1.202") -> RealRobotReadySystem:
     return system
 
 
-def quick_start_galaxy_db1(host: str = "192.168.1.203") -> RealRobotReadySystem:
+def quick_start_galaxy_db1(host: str = "127.0.0.1") -> RealRobotReadySystem:
     """快速启动 银河通用 DB1（中国·人形机器人）"""
     print(f"正在连接银河通用 DB1 人形机器人 (IP: {host})...")
     system = create_real_robot_system(backend="db1", host=host)

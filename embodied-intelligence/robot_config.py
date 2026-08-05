@@ -37,7 +37,7 @@ DEPLOYMENT_LEVEL = "test"
 # ============================================================
 
 REAL_ROBOT_CONFIG = {
-    "host": "192.168.3.100",
+    "host": "127.0.0.1",
     "port": 8080,
     "timeout": 5.0,
     # 通信协议: "franka" (Franka Emika) | "universal" (UR) | "custom" (自定义)

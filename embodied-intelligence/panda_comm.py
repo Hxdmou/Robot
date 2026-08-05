@@ -30,7 +30,7 @@ from robot_comm import BaseRobotComm, RobotCommError, RobotTimeoutError
 
 
 class PandaComm(BaseRobotComm):
-    def __init__(self, host="192.168.1.1", port=8080, timeout=5.0):
+    def __init__(self, host="127.0.0.1", port=8080, timeout=5.0):
         super().__init__(timeout=timeout)
         self.host = host
         self.port = port

@@ -75,7 +75,7 @@ ARM_DATABASE = {
         # 通信配置
         "communication": {
             "protocol": "libfranka",  # Franka官方C++库
-            "default_host": "192.168.3.100",
+            "default_host": "127.0.0.1",
             "default_port": 8080,
             "alternative_ports": [5000, 80, 443],
             "required_packages": ["libfranka", "franka_ros"],
@@ -196,7 +196,7 @@ ARM_DATABASE = {
 
         "communication": {
             "protocol": "FRI (Fast Robot Interface)",
-            "default_host": "192.168.1.10",
+            "default_host": "127.0.0.1",
             "default_port": 30200,
             "alternative_ports": [30201, 30202],
             "required_packages": ["kuka_fri", "iiwa_stack"],
@@ -296,7 +296,7 @@ ARM_DATABASE = {
 
         "communication": {
             "protocol": "RTDE (Real-Time Data Exchange)",
-            "default_host": "192.168.56.101",
+            "default_host": "127.0.0.1",
             "default_port": 30004,
             "alternative_ports": [29999, 30001, 30002, 30003, 30005, 30006],
             "required_packages": ["ur_rtde", "ur_robot_driver"],
@@ -389,7 +389,7 @@ ARM_DATABASE = {
 
         "communication": {
             "protocol": "EGM (Externally Guided Motion)",
-            "default_host": "192.168.125.1",
+            "default_host": "127.0.0.1",
             "default_port": 6510,
             "alternative_ports": [6511],
             "required_packages": ["abb_libegm", "abb_robot_driver"],
@@ -582,7 +582,7 @@ ARM_DATABASE = {
         # 通信配置（多接口）
         "communication": {
             "protocol": "AIRBOT SDK (Python/C++/ROS2)",
-            "default_host": "192.168.1.100",
+            "default_host": "127.0.0.1",
             "default_port": 8080,
             "alternative_ports": [3000, 5000, 9090],
             "required_packages": ["airbot_sdk", "rclpy", "python-can"],

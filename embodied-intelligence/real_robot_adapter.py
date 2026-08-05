@@ -352,7 +352,7 @@ class RobotAdapter:
         
         # 真机模式
         adapter = RobotAdapter(mode="real", arm_key="ur5e", 
-                                config={"host": "192.168.1.100"})
+                                config={"host": "127.0.0.1"})
         adapter.initialize()
         
         # 统一控制接口（仿真/真机完全一致）
@@ -407,7 +407,7 @@ class RobotAdapter:
         """创建真机通信适配器（支持多品牌多协议）"""
         protocol = self._detect_protocol()
         comm_cfg = self.arm_config.get("communication", {})
-        host = self.config.get("host") or comm_cfg.get("default_host", "192.168.1.1")
+        host = self.config.get("host") or comm_cfg.get("default_host", "127.0.0.1")
         port = self.config.get("port") or comm_cfg.get("default_port", 8080)
 
         print(f"[ADAPTER] 目标机器人: {self.brand} {self.model} ({self.arm_key})")

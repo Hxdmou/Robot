@@ -183,7 +183,7 @@ class EdgeAIManager:
 
         # 检测边缘计算设备（通过网络）
         comm = self.arm_config.get("communication", {})
-        host = comm.get("default_host", "192.168.1.100")
+        host = comm.get("default_host", "127.0.0.1")
         try:
             # 尝试连接到机械臂的推理端口
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

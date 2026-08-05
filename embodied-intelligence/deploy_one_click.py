@@ -212,7 +212,7 @@ def run_checklist(mode, robot_host=None, robot_port=8080):
         }
 
     if mode == "real":
-        host = robot_host or "192.168.3.100"
+        host = robot_host or "127.0.0.1"
         check_robot_ip(host)
         if CHECKLIST["robot_ip"]["passed"]:
             check_network(host, robot_port)

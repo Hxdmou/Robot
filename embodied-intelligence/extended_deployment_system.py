@@ -109,7 +109,7 @@ class ExtendedDeploymentSystem:
             reach_mm=855,
             repeatability_mm=0.1,
             protocol=CommunicationProtocol.FRI,
-            ip_address="192.168.1.100",
+            ip_address="127.0.0.1",
             port=30200
         )
         self.register_robot("franka_01", franka_config)
@@ -123,7 +123,7 @@ class ExtendedDeploymentSystem:
             reach_mm=820,
             repeatability_mm=0.15,
             protocol=CommunicationProtocol.FRI,
-            ip_address="192.168.1.101",
+            ip_address="127.0.0.1",
             port=30200
         )
         self.register_robot("kuka_01", kuka_config)
@@ -137,7 +137,7 @@ class ExtendedDeploymentSystem:
             reach_mm=850,
             repeatability_mm=0.03,
             protocol=CommunicationProtocol.RTDE,
-            ip_address="192.168.1.102",
+            ip_address="127.0.0.1",
             port=30003
         )
         self.register_robot("ur_01", ur_config)
@@ -151,7 +151,7 @@ class ExtendedDeploymentSystem:
             reach_mm=559,
             repeatability_mm=0.02,
             protocol=CommunicationProtocol.EGM,
-            ip_address="192.168.1.103",
+            ip_address="127.0.0.1",
             port=6510
         )
         self.register_robot("abb_01", abb_config)
@@ -165,7 +165,7 @@ class ExtendedDeploymentSystem:
             reach_mm=320,
             repeatability_mm=0.2,
             protocol=CommunicationProtocol.TCP,
-            ip_address="192.168.1.104",
+            ip_address="127.0.0.1",
             port=10000
         )
         self.register_robot("dobot_01", dobot_config)
@@ -179,7 +179,7 @@ class ExtendedDeploymentSystem:
             reach_mm=800,
             repeatability_mm=0.05,
             protocol=CommunicationProtocol.TCP,
-            ip_address="192.168.1.105",
+            ip_address="127.0.0.1",
             port=30003
         )
         self.register_robot("aubo_01", aubo_config)
@@ -193,7 +193,7 @@ class ExtendedDeploymentSystem:
             reach_mm=900,
             repeatability_mm=0.05,
             protocol=CommunicationProtocol.TCP,
-            ip_address="192.168.1.106",
+            ip_address="127.0.0.1",
             port=30003
         )
         self.register_robot("elite_01", elite_config)
@@ -207,7 +207,7 @@ class ExtendedDeploymentSystem:
             reach_mm=600,
             repeatability_mm=0.05,
             protocol=CommunicationProtocol.TCP,
-            ip_address="192.168.1.107",
+            ip_address="127.0.0.1",
             port=30003
         )
         self.register_robot("jaka_01", jaka_config)
@@ -221,7 +221,7 @@ class ExtendedDeploymentSystem:
             reach_mm=860,
             repeatability_mm=0.1,
             protocol=CommunicationProtocol.FRI,
-            ip_address="192.168.1.108",
+            ip_address="127.0.0.1",
             port=30200
         )
         self.register_robot("flexiv_01", flexiv_config)
@@ -235,7 +235,7 @@ class ExtendedDeploymentSystem:
             reach_mm=800,
             repeatability_mm=0.05,
             protocol=CommunicationProtocol.TCP,
-            ip_address="192.168.1.109",
+            ip_address="127.0.0.1",
             port=30003
         )
         self.register_robot("agilex_01", agilex_config)

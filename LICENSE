@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2024 RAG Intelligent Q&A System
+Copyright (c) 2024-2026 具身智能工程化项目 (Embodied Intelligence Engineering Platform)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -12,10 +12,69 @@ furnished to do so, subject to the following conditions:
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+================================================================================
+                    AI 安全、隐私保护、伦理与责任限制附加条款
+================================================================================
+
+1. AI 合规与使用红线（严格禁止）
+   (a) 不得利用本软件及其衍生模型、算法、数据集、接口去获取、收集、
+       倒卖、出售、泄露任何个人信息、隐私数据、商业秘密或他人财物；
+   (b) 不得用于实施诈骗、盗窃、网络攻击、入侵、数据爬取、身份冒用、
+       钓鱼、勒索、赌博、色情、恐怖主义、煽动仇恨、危害公共安全
+       以及任何违反公序良俗与伦理道德的活动；
+   (c) 不得伪造、假冒他人（含自然人和法人）的身份、声音、形象、
+       签名、笔迹及任何可被用于冒充他人的生物识别特征；
+   (d) 不得通过自动化交互手段绕过他人平台的访问控制、风控系统、
+       验证码、速率限制或反作弊机制以获取不正当利益；
+   (e) 不得用于任何侵犯他人知识产权、肖像权、名誉权、隐私权、
+       商业秘密以及任何合法权益的用途。
+
+2. 自动化与物理设备安全附加义务
+   (a) 本软件涉及的机器人控制、仿真、强化学习、部署逻辑，
+       在任何真实物理设备上使用前，必须由具有资质的工程师完成
+       安全校验、急停验证、风险评估、人工监督预案与现场防护部署；
+   (b) 任何使用本软件驱动真实物理设备所产生的人身、财产损失
+       或安全事故，均由实际部署者、使用者、操作者自行承担，
+       与版权持有者、贡献者、维护者无关；
+   (c) 禁止用于任何军事、武器、致命性系统、核设施、航空电子、
+       医疗手术等高风险强监管行业，除非取得全部法定许可与
+       独立第三方安全认证；
+   (d) 所有自动化决策必须保留人工复核、一键紧急停止、
+       可解释性追溯与完整审计日志，不得实施"完全无人值守"
+       的高风险物理操作。
+
+3. 隐私保护与数据治理附加义务
+   (a) 使用本软件处理任何他人数据时，必须事先取得充分、明确、
+       可撤回的知情同意，并落实数据最小化、目的限定、
+       存储加密、访问控制与删除权等保护措施；
+   (b) 严禁将本软件用作窃取、还原、拼接、推理、重建他人
+       个人隐私、生物特征、行踪轨迹、关系网络、财产状况等
+       受法律保护的敏感信息；
+   (c) 任何上传、同步、备份、训练所使用的数据，使用者须
+       自行确保来源合法、授权完整，因数据侵权产生的任何
+       纠纷、索赔、行政处罚、刑事责任，由数据提供者与
+       实际使用者独立承担。
+
+4. 无担保与责任上限
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHORS, COPYRIGHT HOLDERS, MAINTAINERS OR CONTRIBUTORS BE LIABLE FOR ANY CLAIM,
+   DAMAGES (INCLUDING DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, PUNITIVE
+   OR CONSEQUENTIAL, LOSS OF USE, DATA, PROFITS, GOODWILL, BUSINESS INTERRUPTION
+   OR PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES) OR OTHER LIABILITY, WHETHER IN
+   AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+   WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE, EVEN IF ADVISED
+   OF THE POSSIBILITY OF SUCH DAMAGE. IN NO EVENT SHALL THE TOTAL AGGREGATE
+   LIABILITY EXCEED THE AMOUNT ACTUALLY PAID (IF ANY) FOR THE SOFTWARE ITSELF.
+
+5. 可分割性
+   本附加条款的任何一项被有管辖权的有权机关认定为无效或不可执行的，
+   不影响其余条款的效力；其余条款仍在法律允许的最大范围内
+   完全有效并可执行。
+
+================================================================================
+                    THE SOFTWARE IS PROVIDED "AS IS"
+              USE OF THIS SOFTWARE CONSTITUTES ACCEPTANCE
+                   OF ALL THE TERMS SET FORTH ABOVE.
+================================================================================
