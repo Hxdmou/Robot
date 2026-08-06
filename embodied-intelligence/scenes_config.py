@@ -1558,6 +1558,208 @@ SCENES = {
             },
         },
     },
+
+    # ========== 40. 氢能产业与绿氢制备（十五五规划 2030 200万吨目标） ==========
+    "green_hydrogen_industry_155": {
+        "name": "氢能产业绿氢制备与氢走廊运营（十五五 2030 200万吨目标）",
+        "description": "十五五可再生能源发展规划明确2030年可再生能源制氢200万吨；我国产能全球第一2.3万吨→25万吨/年跃变；六盘水钢焦一体化氢能基地投产；渝黔桂氢走廊关键节点",
+        "sub_scenes": {
+            "liupanshui_coke_to_h2": {
+                "name": "六盘水钢焦一体化氢能基地投产（2400万立99.999%高纯氢 减碳28万吨）",
+                "description": "贵州六盘水钢焦一体化清洁能源项目7.20正式投产、渝黔桂氢走廊关键氢源节点、年产2400万立方米99.999%燃料电池级高纯氢气、焦炉煤气制氢成本较传统路线降低约30%、能源综合利用率超95%、年减CO₂约28万吨",
+                "robots": ["DCS制氢提纯控制系统", "PSA变压吸附氢纯化装置", "长管拖车/液氢槽车储运车队", "加氢站物联网加注终端"],
+                "difficulty": 4,
+                "reward_scale": 1.6,
+            },
+            "155_2030_2mt_green_h2_target": {
+                "name": "国家发改委能源局十五五规划 2030年绿氢200万吨",
+                "description": "2026.7.23发改+能源局可再生能源十五五规划正式印发、明确2030年可再生能源制氢规模达200万吨目标、风光水等可再生能源装机大基地配套、完善制氢消纳机制与可再生能源消纳责任权重机制",
+                "robots": ["风光大基地制氢电解槽阵列", "GW级电解水制氢调度系统", "氢气管网掺混输配站场", "氢能计量认证与碳核算平台"],
+                "difficulty": 5,
+                "reward_scale": 1.8,
+            },
+            "yuqiangui_hydrogen_corridor": {
+                "name": "渝黔桂氢走廊关键节点贯通区域氢能生态",
+                "description": "渝黔桂三省区氢走廊规划建设、重庆-贵州-广西跨区域绿氢供需联动、钢铁化工交通多场景耦合、氢源制储运加用全链条区域闭环",
+                "robots": ["区域氢能路线图规划决策支持", "跨省市氢气管网调度中心", "燃料电池物流车队", "工业富氢气体资源化利用装置"],
+                "difficulty": 4,
+                "reward_scale": 1.5,
+            },
+        },
+    },
+
+    # ========== 41. 低空经济eVTOL多元动力演进 ==========
+    "low_altitude_evtol_diversified_power": {
+        "name": "低空经济eVTOL多元动力路线（增程式/混动/氢涡扇）适航取证加速",
+        "description": "2026国际低空博览会570架航空器展出 51台eVTOL；蓝霄LX-1增程式倾转旋翼1000km250kmh全过渡飞行；峰飞V5000天际龙5吨级1500km2027取证；沃兰特/时的/御风未来/华喜氢涡扇多元亮相",
+        "sub_scenes": {
+            "lanxiao_lx1_range_extender_tiltrotor": {
+                "name": "蓝霄LX-1 大型增程式倾转旋翼eVTOL（1000km/250kmh 工程样机全倾转过渡完成）",
+                "description": "蓝霄航空专注大型增程式倾转旋翼eVTOL、LX-1工程样机已完成全倾转过渡飞行验证、最大航程1000公里 巡航速度250公里/小时、增程动力解决纯电航程焦虑",
+                "robots": ["LX-1倾转旋翼三余度飞控", "增程器+电池混动能量管理", "倾转过渡气动补偿算法", "FAR27类固定翼+旋翼双模式适航"],
+                "difficulty": 5,
+                "reward_scale": 1.8,
+            },
+            "fengfei_v5000_5t_mtow_1500km": {
+                "name": "峰飞V5000天际龙5吨级混动eVTOL（1500km 2027H1取证）",
+                "description": "峰飞航空5吨级V5000天际龙混动版最大航程达1500公里、当前适航取证阶段稳步推进、公司目标明年上半年获型号合格证、大吨位大载重城际客运+区域物流双重适配",
+                "robots": ["V5000大载重新型复材结构", "适航符合性DO-178C软件验证", "高密度液冷PACK+BMS安全策略", "城际支线航线运营调度"],
+                "difficulty": 5,
+                "reward_scale": 1.8,
+            },
+            "huaxi_hydrogen_turbofan_evtol": {
+                "name": "华喜航空氢涡轮扇为核心方向（零排放长航程前瞻布局）",
+                "description": "华喜航空前瞻布局eVTOL氢涡轮扇核心技术路线、氢涡扇燃料直接燃烧发电动力架构、面向更长航程更大载重更高航速零排放下一代低空飞行器",
+                "robots": ["氢涡轮扇燃烧室+高速发电机", "液氢储罐结构与绝热材料", "氢泄漏检测+安全冗余系统", "低空加氢站网络规划"],
+                "difficulty": 5,
+                "reward_scale": 1.7,
+            },
+            "2026_international_low_altitude_expo_570_aircraft": {
+                "name": "2026国际低空博览会上海开展 570架航空器 51台eVTOL 23项全球首发",
+                "description": "7.22上海国展中心6万平452家机构展出570架新兴航空器、其中eVTOL含模型51台、全球首发新品23项国内首发42项、亿航众合华测沃兰特时的峰飞御风未来同台亮相",
+                "robots": ["低空博览会eVTOL静态展示+飞行演示", "eVTOL载人试乘体验舱", "低空飞行器通航指挥空域管理", "航线规划与低空飞行服务站FSS"],
+                "difficulty": 3,
+                "reward_scale": 1.5,
+            },
+        },
+    },
+
+    # ========== 42. 室温量子闪存+原子量子基座千比特级 ==========
+    "quantum_flash_atomic_stand_kiloqubit": {
+        "name": "室温量子闪存Science突破+1500比特原子量子基座三算力融合",
+        "description": "复旦周鹏刘春森27℃室温单电子非易失量子闪存Science正刊；不筹量子WAIC发布量筹一号1500比特原子量子基座；三算力融合架构+气象/VLA/化工应用生态",
+        "sub_scenes": {
+            "fudan_27c_single_e_qm_flash_science": {
+                "name": "复旦量子闪存 27℃室温单电子非易失存储登Science",
+                "description": "复旦大学周鹏刘春森团队2026.7.17《Science》发表、全球首次27℃室温下单电子非易失性存储行为观测、达到一电子一比特理论顶峰密度、首次揭示反常量子存储行为、补齐量子存储工程化关键理论短板",
+                "robots": ["单电子隧穿精确测控阵列芯片", "反常量子存储态读出电路", "室温量子退相干抑制封装", "量子主存量子内存架构原型"],
+                "difficulty": 5,
+                "reward_scale": 1.9,
+            },
+            "buerchou_liangchou_1500qubit_waic": {
+                "name": "不筹量子「量筹一号」原子量子基座（1500比特 WAIC 2026重磅发布）",
+                "description": "WAIC2026世界人工智能大会不筹量子发布量筹一号原子量子AI基座、量子比特规模突破1500个、单量子比特保真度99.9%、三算力融合异构架构（经典算力+量子算力+AI算力）、已构建气象量子智能+VLA具身智能+化工新材料研发应用生态",
+                "robots": ["1500比特原子量子阱阵列测控", "三算力融合调度编排编译器", "气象量子智能预报推理集群", "VLA具身大模型量子推理加速卡"],
+                "difficulty": 5,
+                "reward_scale": 1.8,
+            },
+            "shanghai_direct_financing_20_quantum_ipo_channel": {
+                "name": "上海直接融资20条扩容科创板第五套标准至量子计算",
+                "description": "上海市委金融办等九部门7月下旬联合发布上海直接融资20条、扩大科创板第五套上市标准适用范围覆盖人工智能低空经济量子计算、进一步打开相关未来产业融资通道、知识产权局同步强化量子知识产权保护",
+                "robots": ["量子科技企业上市辅导与合规服务", "量子核心专利导航与高价值专利培育", "量子国重实验室成果转化中试平台", "量子基金一级退出与IPO衔接机制"],
+                "difficulty": 3,
+                "reward_scale": 1.5,
+            },
+        },
+    },
+
+    # ========== 43. Kimi-K3国产大模型登顶全球代码榜 ==========
+    "kimi_k3_frontend_code_arena_no1": {
+        "name": "Kimi-K3国产大模型 全球代码Arena榜首 1679分首超Claude Fable5",
+        "description": "2026.7.16月之暗面Kimi-K3上线、登顶Frontend Code Arena、1679分力压Claude Fable5/GPT-5.6 Sol/GLM-Max、中国大模型首次拿下该榜单榜首、开源模式降低AI落地门槛",
+        "sub_scenes": {
+            "kimi_k3_1679_arena_rank1_beats_claude_fable5": {
+                "name": "Kimi-K3 1679分登顶Frontend Code Arena 首超Claude Fable 5 中国大模型第一",
+                "description": "月之暗面Kimi-K3上线即刷新前端代码评测榜单纪录、1679分登顶Frontend Code Arena全球榜一、超越Claude Fable 5(1631) GPT-5.6 Sol(1618) GLM-Max(1587) 13个榜单TOP3、中国大模型首次拿下该榜单第一、开源模式大幅降低国内科研与制造业AI落地门槛",
+                "robots": ["Kimi-K3推理集群GPU/TPU/NPU异构", "全栈开源代码生成工具链IDE插件", "具身智能算法代码生成强化学习", "自动驾驶与制造业AI代码库微调训练"],
+                "difficulty": 5,
+                "reward_scale": 1.9,
+            },
+            "open_source_lowers_ai_barrier_manufacturing_embodied": {
+                "name": "开源模式降低AI落门槛 具身与自动驾驶产业加速",
+                "description": "Kimi-K3开源模式重塑全球大模型技术竞争格局、为具身智能与自动驾驶前沿产业提供底层算力与算法支撑、产学研开源共建生态、提振我国AI产业链整体信心",
+                "robots": ["开源模型HuggingFace/ModelScope托管", "开发者生态社区建设与治理", "工业制造与机器人AI插件市场", "自动驾驶Stack开源算法镜像分发"],
+                "difficulty": 4,
+                "reward_scale": 1.6,
+            },
+            "ai_chip_rd_code_generation_support": {
+                "name": "代码能力第一模型赋能AI芯片自动化设计与EDA",
+                "description": "Kimi-K3顶级代码生成能力直接赋能AI芯片自动化设计与RTL生成、Verilog/Chisel/SpinalHDL代码加速、前仿后仿Coverage提升、缩短芯片研发周期",
+                "robots": ["AI驱动芯片EDA代码生成插件", "Verilog/UVM验证环境自动搭建", "Coverage驱动的激励生成", "形式化验证属性自动提取"],
+                "difficulty": 5,
+                "reward_scale": 1.7,
+            },
+        },
+    },
+
+    # ========== 44. 脑机接口带宽增强+千人级同步脑电 ==========
+    "bci_bandwidth_enhanced_1k_synced_eeg": {
+        "name": "脑机接口带宽PNAS突破+全球首次跨地域千人级同步脑电",
+        "description": "北大方方王茜蒨团队PNAS揭示左脑α节律频带限言语理解机制；多模态神经调控成功加速；千人级跨地域同步脑电采集装置发布 神经大模型训练关键一步",
+        "sub_scenes": {
+            "pku_pnas_alpha_rhythm_speed_speech": {
+                "name": "北大PNAS论文 左脑α节律限定言语带宽 调控加速听懂超快速语音",
+                "description": "2026.7.15北大方方教授与王茜蒨副研PNAS发表、首次揭示左脑听觉皮层α节律是限定言语理解带宽核心机制、多模态神经调控技术成功「加速」这一节律、受试者听懂原本无法分辨的超快速语音、突破人类交流生理极限、全新脑机接口带宽增强范式",
+                "robots": ["EEG+fNIRS同步采集BCI头环", "神经调控经颅电/声刺激相位锁定", "α节律实时检测与在线闭环调控", "超快速语音言语理解实验平台"],
+                "difficulty": 5,
+                "reward_scale": 1.8,
+            },
+            "cross_region_1000_people_eeg_sync_collection": {
+                "name": "全球首次跨地域千人级同步脑电信号采集装置发布",
+                "description": "我国科研团队7.22发布新型脑电信号采集装置、全球首次跨地域千人级同步脑电采集、神经大模型训练与BCI通用技术研发迈出关键一步、规模化脑电沉淀AI学习素材从文字图片视频拓展到直接神经信号",
+                "robots": ["PTP亚微秒级跨地域时钟同步节点", "云端可扩展千人级实时脑电数据流", "神经大模型脑电预训练数据集", "脑电+文本多模态对齐模型训练集群"],
+                "difficulty": 5,
+                "reward_scale": 1.8,
+            },
+            "bci_medical_rehabilitation_stroke_aphasia": {
+                "name": "脑机带宽增强直接赋能中风失语症BCI临床康复",
+                "description": "突破言语理解带宽机制的直接转化应用、中风后失语症患者听觉理解康复训练、BCI辅助沟通与神经可塑性重塑、临床康复医疗商业化落地",
+                "robots": ["医院BCI康复临床验证中心", "失语症家庭康复训练闭环APP", "神经调控+BCI一体化治疗设备", "NMPA三类医疗器械临床注册"],
+                "difficulty": 4,
+                "reward_scale": 1.7,
+            },
+        },
+    },
+
+    # ========== 45. 聚变资本化+欧盟AI超级工厂+AI-RAN+引力一号+Cosmos联盟 ==========
+    "fusion_capital_eu_giga_airan_gravity1_cosmos": {
+        "name": "聚变资本化里程碑+欧盟AI超级工厂+AI-RAN+引力一号东海+Cosmos工业联盟扩容",
+        "description": "General Fusion纳斯达克全球聚变第一股；CFS累计40亿美金30%占比；欧盟300亿欧7座AI超级工厂；英伟达Cosmos扩容富士通发那科川崎安川日立NEC小松久保田；诺基亚AI-RAN+6G升级；东方空间引力一号遥四东海首次远海发射9星入轨",
+        "sub_scenes": {
+            "general_fusion_nasdaq_world_1st_public_fusion": {
+                "name": "General Fusion SPAC合并登纳斯达克 全球首家上市聚变企业",
+                "description": "加拿大General Fusion通过与Spring Valley III SPAC合并正式纳斯达克上市、全球第一家上市的聚变能源企业、聚变技术从实验室走向资本市场里程碑、累计融资超14.2亿美元 2025.7~2026.7全球聚变投资45亿美金创纪录",
+                "robots": ["聚变装置SPAC上市合规与ESG审计", "液态金属衬里聚变技术路线中试装置", "SPARC商业化概念设计与DEMO预研", "全球聚变供应链资本市场运营团队"],
+                "difficulty": 5,
+                "reward_scale": 1.9,
+            },
+            "cfs_cumulative_4b_usd_global_30pct_fusion_funding": {
+                "name": "CFS累计融资40亿美元 全球聚变行业总融资约30%资金头部集中",
+                "description": "全球融资额最高的CFS 2026.7.30再获10亿美元股权融资、累计融资40亿美元约占全球聚变总融资30%、资金向头部聚变整机+上游配套集中、高温超导磁体+SPARC装置工程化推进",
+                "robots": ["高温超导YBTO线圈绕制产线", "SPARC托卡马克装置集成安装", "中子辐照第一壁材料测试平台", "商业化聚变电价LCOE经济性测算"],
+                "difficulty": 5,
+                "reward_scale": 1.8,
+            },
+            "eu_30b_euro_7ai_gigafactories": {
+                "name": "欧盟300亿欧元7座AI超级工厂 100亿公共撬动200亿私人资本",
+                "description": "2026.7.30欧盟委员会正式官宣最高100亿公共撬动200亿私人合计300亿欧元AI超级工厂计划、打造7座AI超级工厂、集成先进AI处理器+云栈+高速连接+高能效数据中心、缩小与中美AI差距",
+                "robots": ["EuroHPC JU超算互连与调度集群", "7国选址+数据中心绿色低碳建设", "欧盟主权AI模型训练GPU集群采购", "GAIA-X互操作合规主权云交付"],
+                "difficulty": 5,
+                "reward_scale": 1.8,
+            },
+            "nvidia_cosmos_expands_fanuc_yaskawa_hitachi_nec": {
+                "name": "英伟达Cosmos物理AI扩容 富士通发那科川崎安川日立NEC小松久保田集体站队",
+                "description": "英伟达与富士通发那科川崎重工安川电机扩大机器人合作、四家头部工业自动化日企加入Cosmos物理AI加速开发联盟、后续日立NEC小松久保田也将加入、覆盖人形机器+工厂自动化+自动驾驶+智能建筑+铁路广域生态",
+                "robots": ["NVIDIA Omniverse数字孪生工厂仿真", "Isaac Lab具身强化学习训练集群", "各工业企业SDK开放插件联盟", "工业自动化产线+人形机器人物理AI闭环"],
+                "difficulty": 5,
+                "reward_scale": 1.9,
+            },
+            "nokia_ai_ran_6g_software_upgrade": {
+                "name": "诺基亚AI-RAN商用平台 携英伟达推出 6G软件升级路径",
+                "description": "诺基亚总裁兼CEO与英伟达联合宣布AI-RAN商用平台、AI-RAN使网络智能化使AI扩展到物理世界、电信运营商充分利用现有存量基础设施、支持向6G进行软件升级未来代际平滑演进",
+                "robots": ["O-RAN RU/DU/CU拆分架构部署", "AI-RAN xApps/rApps无线智能APP市场", "3GPP Rel-19及6G标准预研项目组", "Massive MIMO波束赋形AI优化引擎"],
+                "difficulty": 4,
+                "reward_scale": 1.7,
+            },
+            "dongfang_space_gravity_one_ys4_east_china_sea_first": {
+                "name": "东方空间引力一号遥四星联体号 东海首次远海成功发射9星入轨",
+                "description": "北京经开区东方空间自研引力一号（遥四）星联体号2026.7.22东海海域点火升空、顺利将搭载9颗卫星送入预定轨道 同步开展1项载荷试验、引力一号首次执行远海发射任务 也是东海海域首次民营商业火箭海上发射、刷新民营商业航天应用发射入轨重量纪录",
+                "robots": ["引力一号固体捆绑大型运力海上发射流程", "东海海上移动发射平台指挥测控系统", "9颗卫星多星适配器+顺序分离控制", "民营商业航天入轨纪录遥测与任务评估"],
+                "difficulty": 5,
+                "reward_scale": 1.9,
+            },
+        },
+    },
 }
 
 
