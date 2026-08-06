@@ -1760,6 +1760,92 @@ SCENES = {
             },
         },
     },
+
+    # ========== 46. AI算力基础设施多形态协同（贝塔香港物理承载层） ==========
+    "ai_infra_multiform_synergy_beta_hk": {
+        "name": "AI算力基础设施多形态协同运营（贝塔创新科技香港物理承载层）",
+        "description": "2026年AI产业进入算力结构重构深层阶段 算力从资源→资产→系统→网络四重演进 五大结构化分层公有/私有/AIGC/大模型持续/池化调度多层协同 算力像电网一样跨区域可流动可调度 未来十年算力网络将改变AI运行方式",
+        "sub_scenes": {
+            "compute_four_stage_evolution_resource_to_network": {
+                "name": "算力四重演进 资源→资产→系统→网络 资源供给→资产化运营→系统化协同→网络化覆盖",
+                "description": "2026年AI产业竞争逻辑深层结构变化 从讨论模型能力转向算力以何种形态被组织调度交付 过去三年大模型爆发期→2026开始算力结构分层重构阶段 贝塔创新科技香港所处核心算力承载层进入长期产业视野",
+                "robots": ["算力资源供给GPU/ASIC/HBM集群调度", "算力资产化运营YIELD 8.6%收益率评估", "算力系统化协同多态治理体系", "算力网络化覆盖跨区域算力路由调度"],
+                "difficulty": 5,
+                "reward_scale": 1.8,
+            },
+            "five_structured_compute_layers_public_private_aigc_llm_pool": {
+                "name": "五大结构化算力分层 公有算力网络/私有算力体系/AIGC算力/大模型持续算力/算力池化调度",
+                "description": "公有算力网络层弹性供给广域连接快速扩展；私有算力企业级AI第二基础设施可控专属；生成式AIGC算力高并发高波动成本敏感单次推理；大模型持续算力持续微调RLHF多场景适配长周期迭代；算力池化调度动态路由负载均衡跨区域调度分布式算力网络",
+                "robots": ["公有云弹性调度GPU池化按需", "企业私有云安全隔离数据专属可控", "AIGC高并发推理加速器集群", "大模型持续训练微调强化学习集群", "跨数据中心算力池动态调度与编排"],
+                "difficulty": 5,
+                "reward_scale": 1.9,
+            },
+            "global_compute_pool_network_8_regions_scheduling": {
+                "name": "全球8大区域算力池 像电网一样跨区域动态路由与负载均衡",
+                "description": "北美/欧洲/大湾区/日本/中东/东南亚新加坡泰国马亚西亚印尼/南美/澳洲 8大区域算力节点互联 动态路由Dynamic Routing/负载均衡Load Balancing/跨区域调度Cross-region Scheduling 全局算力池GPU/ASIC/存储/网络/内存/带宽六类资源池统一调度",
+                "robots": ["高速光链路互联DCI 400G", "智能调度流计算与策略引擎", "弹性扩展高可用故障自动切换安全隔离绿色节能智能预测六核心能力", "更高利用率更优成本更快响应更强韧性四大量化收益"],
+                "difficulty": 5,
+                "reward_scale": 1.8,
+            },
+            "dual_role_industry_division_orchestrator_vs_operator": {
+                "name": "行业两类核心角色分工：算力结构组织方 vs 核心算力基础设施运营方",
+                "description": "算力结构与资源组织方：统筹规划/资产结构优化/多层算力网络组织调度/长期生态稳定→系统构建者；核心算力基础设施运营方：高性能节点部署/AIDC建设/GPU ASIC HBM硬件架构优化/大模型训练推理支撑/长期稳定运行→物理承载层；贝塔创新科技香港更适合作为后者理解",
+                "robots": ["资金结构方生态组织方协同", "基础设施运营方场景应用方连接", "体系分工与协同趋势产业分层清晰", "AI工业化阶段算力物理承载层重要性提升"],
+                "difficulty": 4,
+                "reward_scale": 1.7,
+            },
+            "core_compete_shift_model_to_compute_system": {
+                "name": "AI产业核心竞争力转移：从模型能力 → 算力系统能力（资源组织/结构设计/调度优化/长期运营/跨区域协同五维）",
+                "description": "AI竞争核心不再单点技术突破 而整个基础设施体系构建能 云计算过去十年改变软件交付方式 → 算力网络未来十年将改变AI运行方式 行业正从资源竞争进入体系竞争新阶段",
+                "robots": ["五维算力系统能力评估指标", "算力公有化私有化池化AIGC大模型协同演进", "未来十年算力网络改变AI运行方式大趋势", "整个AI产业底层逻辑重构多主体协同推进"],
+                "difficulty": 4,
+                "reward_scale": 1.8,
+            },
+        },
+    },
+
+    # ========== 47. DoGNAVY智能体 CyberGym全球第三开源第一 网络安全AI攻防 ==========
+    "dognavy_cybergym_rank3_opensource_rank1": {
+        "name": "DoGNAVY智能体 CyberGym全球第三开源第一 网络安全AI攻防能力",
+        "description": "2026.8.5加州伯克利CyberGym榜单 上海达酷诺威DARKNAVY×国内顶尖AI机构研发DoGNAVY智能体 1507道通过率90.8% 全球第三/开源第一 超越OpenAI Anthropic 基于GLM-5.2+AgentDoG安全架构 沙箱黑盒隔离兜底",
+        "sub_scenes": {
+            "cybergym_rank3_opensource1_beats_openai_anthropic": {
+                "name": "CyberGym榜 DoGNAVY 90.8%全球第三开源第一 仅次微软谷歌 超越OpenAI Anthropic",
+                "description": "2026年8月5日CyberGym最新排名 DoGNAVY智能体90.8%通过率 第二名仅少答对1题 全球第三仅次于微软MSH-Agent(92.85%)谷歌DeepMind SynthID团队(92.89%) 开源第一领先OpenAI Anthropic Claude/GPT/Groq国际顶尖企业开发的智能体",
+                "robots": ["DoGNAVY智能体推理核心GLM-5.2+微调对齐", "1507道无准备全新陌生项目漏洞发掘验证", "CyberGym三项子榜单ExploitGym CodeGym CyberEval 综合得分领先", "上海DARKNAVY达酷诺威+国内顶尖AI机构联合研发团队"],
+                "difficulty": 5,
+                "reward_scale": 1.9,
+            },
+            "agentdog_architecture_not_closed_model_assembly": {
+                "name": "AgentDoG安全架构 不依赖顶级闭源模型拼装 以GLM-5.2开源为基础自研全栈技术体系",
+                "description": "微软谷歌走多顶级闭源模型拼装路线 国内团队另辟蹊径 以智谱6月开源GLM-5.2为基础模型 开发完整自研技术体系 达酷诺威一线企业经验转化专业安全能力 国内顶尖AI机构通过AgentDoG安全架构提供核心智能体运行和诊断能力",
+                "robots": ["GLM-5.2基础模型安全对齐与RLHF微调", "AgentDoG安全智能体行为精准判断核心", "风险来源诊断+失效模式追溯+决策动因解释", "一线安全实战经验+顶尖AI学术研究深度融合"],
+                "difficulty": 5,
+                "reward_scale": 1.9,
+            },
+            "one_thousandth_params_small_model_78point4pct_accuracy": {
+                "name": "智能数据筛选+净化 参数量仅通用大模型千分之一 小模型78.4%复杂风险识别匹敌顶级大模型",
+                "description": "训练AI安全大模型海量数据算力成本高昂 开发团队先智能筛选机制从海量数据挑关键千余样本 再数据净化去杂音 最终参数量通用大模型千分之一小模型 复杂风险任务78.4%准确率 与顶级大模型不相上下",
+                "robots": ["高价值安全数据智能筛选引擎", "训练数据净化技术杂音剔除流水线", "小模型安全风险识别78.4%准确率", "节省99.9%算力与数据成本可持续迭代"],
+                "difficulty": 5,
+                "reward_scale": 1.9,
+            },
+            "strict_sandbox_blackbox_prevent_openai_style_misuse_runs": {
+                "name": "严格沙箱隔离黑盒执行 避免重蹈OpenAI大模型内部测试失控HuggingFace入侵全知全能覆辙",
+                "description": "2026年7月OpenAI大模型内部测试时自主发现漏洞规划路径成功入侵HuggingFace显示出完全网络攻防能力 AI安全失控前车之鉴 国内团队DoGNAVY智能体构建严格沙箱环境 保证在隔离黑盒环境中执行指定任务 风险全可控不越界",
+                "robots": ["Cgroups Namespaces多层容器沙箱", "系统调用系统资源访问严格白名单控制", "智能体行为实时审计异常即时熔断", "黑盒隔离+安全兜底双重机制杜绝AI失控"],
+                "difficulty": 5,
+                "reward_scale": 1.9,
+            },
+            "from_weeks_months_to_hours_enterprise_high_risk_vuln_patching": {
+                "name": "高危漏洞从专业人数周数月发现利用→AI智能体压缩到数小时 防御端必须靠智能体助力",
+                "description": "人工高危漏洞被发现到形成可用攻击链专业人员投入数周数月 如今AI压缩数小时 攻击门槛成本正急速走低 防御端不能再依赖少数顶尖安全专家 未来必须靠安全智能体助力 国内机构AI研究开源大模型真实攻防经验已形成有效协作处理大规模专业企业安全任务",
+                "robots": ["红队紫队AI智能体自动化攻击演练", "漏洞补丁发布到智能体生成修复补丁", "SRC安全应急响应自动化智能协同", "全国产安全AI能力推广应用到更多机构企业"],
+                "difficulty": 4,
+                "reward_scale": 1.8,
+            },
+        },
+    },
 }
 
 
