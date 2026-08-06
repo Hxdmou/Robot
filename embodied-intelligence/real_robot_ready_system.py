@@ -279,7 +279,7 @@ class RobotBrand(Enum):
     XINDONG_INERTIAL = "芯动联科惯性传感器 (高端MEMS惯性传感器, 蚌埠, 2026)"
     XICI_MAGNETIC = "希磁科技磁性传感器 (蚌埠, 2026)"
     HAICHE_SENSOR = "海车神驭车载传感 (蚌埠, 2026)"
-    # ── 53张截图补充14个新产品（严格删除媒体名/记者名/平台名，法律风险0%）──
+    # ── 补充14个新产品 ──
     DOBOT_LUMO = "越疆 DOBOT LUMO 具身全栖人形机器人 (四大全栖教学开发平台, 中国·越疆, 2026)"
     LEISAI_MOTION_CONTROL = "雷赛智能运动控制龙头 (空心杯电机/无框力矩电机/关节模组→灵巧手组合, 2025交付12万台+20倍增长, 2026)"
     HONGYUAN_CROSSED_ROLLER = "洛阳鸿元轴承交叉滚子轴承 (人形关节国内市占率>90%, 2026)"
@@ -294,7 +294,7 @@ class RobotBrand(Enum):
     LONGYOU_EMBODIED_BASE = "龙游具身智能全域实景实训场产业基地 (西湖机器人×龙游县政府, 工业/民生/特种三大场景+95%本地配套+龙游具身GPT+星河数据, 2026)"
     ZHIYUAN_CENTRAL_HENAN = "智元机器人中部具身智能产业基地郑州 (首台新郑造3月底下线, 2026预计产4000台以上)"
     ZHUOYIDE_ZHONGYU_LINE = "卓益得机器人×中豫具身智能实验室 整机装配生产线 (已投产数百台小批量, 京东商用上架, 2026)"
-    # ── 27张截图补充13个新产品（严格删除媒体名/记者名/平台名，法律风险0%）──
+    # ── 补充13个新产品 ──
     LIUPANSHUI_COKE_H2_BASE = "贵州六盘水钢焦一体化清洁能源氢能基地 (99.999%高纯氢2400万m³/年 减碳28万吨 渝黔桂氢走廊, 2026投产)"
     LANXIAO_LX1_EVTOL = "蓝霄航空LX-1大型增程式倾转旋翼eVTOL (工程样机已完成全倾转过渡飞行, 1000km/250kmh, 2026)"
     FENGFEI_V5000_EVTOL = "峰飞航空5吨级V5000天际龙混动版eVTOL (5吨级最大航程1500km 2027上半年取证, 2026)"
@@ -308,10 +308,10 @@ class RobotBrand(Enum):
     NVIDIA_COSMOS_PHYSICS_AI = "英伟达主导Cosmos物理AI联盟扩容 日企工业自动化集体加入 (富士通发那科川崎安川日立NEC小松久保田, 2026)"
     NOKIA_AI_RAN_6G = "诺基亚AI-RAN商用平台 网络智能化+6G软件升级 (联合英伟达推出, 面向电信运营商存量价值重耕, 2026)"
     CFS_FUSION_4B_USD = "Commonwealth Fusion Systems CFS 累计40亿美元融资 全球聚变约30% (全球融资额最高聚变企业, 10亿美元最新轮, 2026)"
-    # ── 19张截图补充2个新产品（严格删除媒体名/记者名/平台名，法律风险0%）──
+    # ── 补充2个新产品 ──
     BETA_CREATIVE_TECH_HK = "贝塔创新科技（香港）有限公司 AI算力基础设施多形态协同运营方 (五大结构化分层公有私有AIGC大模型池化调度, 全球8区域算力像电网流动, 2026)"
     DOGNAVY_DARKNAVY_CYBERGYM = "DoGNAVY智能体达酷诺威×国内顶尖AI机构 CyberGym全球第三开源第一 (1507道90.8%通过率 基于GLM-5.2 AgentDoG安全架构 沙箱隔离, 2026.8.5)"
-    # ── 10张6G/六张网补充1个国家级顶层平台（严格删除媒体名/记者名/平台名，法律风险0%）──
+    # ── 补充1个新产品 ──
     NATIONAL_SIX_NETS_26P9T_SHIWUWU = "国家级六张网十五五顶层规划26.9万亿协同平台 (政治局4.28+7.30双会定调 含新一代通信网5G-A规模化部署+6G提前预研+光纤升级+卫星互联网组网, 2026开局7万亿)"
     # ── 仿真环境 ──
     SIMULATION = "PyBullet/Mujoco 仿真环境 (无需硬件)"
@@ -899,7 +899,7 @@ class RobotHAL:
             "井芯微电子": RobotBrand.JINGXIN_INTERCONNECT,
             "SDI3210": RobotBrand.JINGXIN_INTERCONNECT,
             "PRB0400": RobotBrand.JINGXIN_INTERCONNECT,
-            # ── 53张截图补充14个品牌识别键 ──
+            # ── 补充14个品牌识别键 ──
             "dobot_lumo": RobotBrand.DOBOT_LUMO,
             "lumo": RobotBrand.DOBOT_LUMO,
             "越疆lumo": RobotBrand.DOBOT_LUMO,
@@ -981,7 +981,7 @@ class RobotHAL:
             "中豫具身智能实验室": RobotBrand.ZHUOYIDE_ZHONGYU_LINE,
             "卓益得整机装配线": RobotBrand.ZHUOYIDE_ZHONGYU_LINE,
             "京东商用上架": RobotBrand.ZHUOYIDE_ZHONGYU_LINE,
-            # 27张截图补充13：liupanshui氢能
+            # 补充13
             "liupanshui_coke_h2_base": RobotBrand.LIUPANSHUI_COKE_H2_BASE,
             "liupanshui_hydrogen": RobotBrand.LIUPANSHUI_COKE_H2_BASE,
             "六盘水氢能": RobotBrand.LIUPANSHUI_COKE_H2_BASE,
@@ -990,7 +990,7 @@ class RobotHAL:
             "99.999%高纯氢": RobotBrand.LIUPANSHUI_COKE_H2_BASE,
             "2400万立方米氢": RobotBrand.LIUPANSHUI_COKE_H2_BASE,
             "年减碳28万吨氢": RobotBrand.LIUPANSHUI_COKE_H2_BASE,
-            # 27张截图补充13：lanxiao LX-1 eVTOL
+            # 补充13
             "lanxiao_lx1_evtol": RobotBrand.LANXIAO_LX1_EVTOL,
             "lanxiao_air": RobotBrand.LANXIAO_LX1_EVTOL,
             "蓝霄航空": RobotBrand.LANXIAO_LX1_EVTOL,
@@ -999,7 +999,7 @@ class RobotHAL:
             "增程式eVTOL": RobotBrand.LANXIAO_LX1_EVTOL,
             "全倾转过渡飞行": RobotBrand.LANXIAO_LX1_EVTOL,
             "1000公里eVTOL": RobotBrand.LANXIAO_LX1_EVTOL,
-            # 27张截图补充13：fengfei V5000
+            # 补充13
             "fengfei_v5000_evtol": RobotBrand.FENGFEI_V5000_EVTOL,
             "fengfei_air": RobotBrand.FENGFEI_V5000_EVTOL,
             "峰飞航空": RobotBrand.FENGFEI_V5000_EVTOL,
@@ -1008,7 +1008,7 @@ class RobotHAL:
             "5吨级eVTOL": RobotBrand.FENGFEI_V5000_EVTOL,
             "1500公里eVTOL": RobotBrand.FENGFEI_V5000_EVTOL,
             "2027取证eVTOL": RobotBrand.FENGFEI_V5000_EVTOL,
-            # 27张截图补充13：buerchou quantum liangchou
+            # 补充13
             "buerchou_liangchou_no1_atomic_qm_stand": RobotBrand.BUERCHOU_LIANGCHOU_NO1,
             "buerchou_liangchou": RobotBrand.BUERCHOU_LIANGCHOU_NO1,
             "buerchou_quantum": RobotBrand.BUERCHOU_LIANGCHOU_NO1,
@@ -1018,7 +1018,7 @@ class RobotHAL:
             "1500比特量子": RobotBrand.BUERCHOU_LIANGCHOU_NO1,
             "三算力融合异构": RobotBrand.BUERCHOU_LIANGCHOU_NO1,
             "气象量子智能": RobotBrand.BUERCHOU_LIANGCHOU_NO1,
-            # 27张截图补充13：fudan quantum flash science
+            # 补充13
             "fudan_qm_flash_27c_science": RobotBrand.FUDAN_QM_FLASH_27C_SCIENCE,
             "fudan_quantum_flash": RobotBrand.FUDAN_QM_FLASH_27C_SCIENCE,
             "复旦量子闪存": RobotBrand.FUDAN_QM_FLASH_27C_SCIENCE,
@@ -1027,7 +1027,7 @@ class RobotHAL:
             "Science量子闪存": RobotBrand.FUDAN_QM_FLASH_27C_SCIENCE,
             "反常量子存储行为": RobotBrand.FUDAN_QM_FLASH_27C_SCIENCE,
             "一电子一比特": RobotBrand.FUDAN_QM_FLASH_27C_SCIENCE,
-            # 27张截图补充13：kimi-k3 arena no1
+            # 补充13
             "yuezhi_anmian_kimi_k3_code_no1": RobotBrand.KIMI_K3_CODE_ARENA_NO1,
             "kimi_k3": RobotBrand.KIMI_K3_CODE_ARENA_NO1,
             "yuezhi_anmian": RobotBrand.KIMI_K3_CODE_ARENA_NO1,
@@ -1037,7 +1037,7 @@ class RobotHAL:
             "1679分代码榜": RobotBrand.KIMI_K3_CODE_ARENA_NO1,
             "首超Claude Fable 5": RobotBrand.KIMI_K3_CODE_ARENA_NO1,
             "国产大模型代码榜第一": RobotBrand.KIMI_K3_CODE_ARENA_NO1,
-            # 27张截图补充13：pku bci alpha 1k synced
+            # 补充13
             "pku_bci_alpha_1k_synced": RobotBrand.PKU_BCI_ALPHA_1K_SYNCED,
             "pku_bci": RobotBrand.PKU_BCI_ALPHA_1K_SYNCED,
             "pku_neuroscience": RobotBrand.PKU_BCI_ALPHA_1K_SYNCED,
@@ -1048,7 +1048,7 @@ class RobotHAL:
             "千人脑电采集": RobotBrand.PKU_BCI_ALPHA_1K_SYNCED,
             "言语理解带宽拓宽": RobotBrand.PKU_BCI_ALPHA_1K_SYNCED,
             "PNAS脑机接口": RobotBrand.PKU_BCI_ALPHA_1K_SYNCED,
-            # 27张截图补充13：dongfang space gravity1 ys4
+            # 补充13
             "dongfang_gravity_one_ys4_sea": RobotBrand.DONGFANG_GRAVITY1_YS4_SEA,
             "dongfang_space_gravity1": RobotBrand.DONGFANG_GRAVITY1_YS4_SEA,
             "引力一号遥四": RobotBrand.DONGFANG_GRAVITY1_YS4_SEA,
@@ -1058,7 +1058,7 @@ class RobotHAL:
             "民营商业航天入轨记录": RobotBrand.DONGFANG_GRAVITY1_YS4_SEA,
             "9颗卫星东海发射": RobotBrand.DONGFANG_GRAVITY1_YS4_SEA,
             "固体捆绑商业火箭": RobotBrand.DONGFANG_GRAVITY1_YS4_SEA,
-            # 27张截图补充13：general fusion nasdaq listed
+            # 补充13
             "general_fusion_nasdaq": RobotBrand.GENERAL_FUSION_NASDAQ,
             "general_fusion": RobotBrand.GENERAL_FUSION_NASDAQ,
             "通用聚变": RobotBrand.GENERAL_FUSION_NASDAQ,
@@ -1067,7 +1067,7 @@ class RobotHAL:
             "核聚变纳斯达克SPAC": RobotBrand.GENERAL_FUSION_NASDAQ,
             "Spring Valley III SPAC": RobotBrand.GENERAL_FUSION_NASDAQ,
             "聚变资本化里程碑": RobotBrand.GENERAL_FUSION_NASDAQ,
-            # 27张截图补充13：EU 30b euro 7 AI Gigafactories
+            # 补充13
             "eu_7ai_giga_30b_euro": RobotBrand.EU_7AI_GIGA_30B_EURO,
             "eu_ai_gigafactory": RobotBrand.EU_7AI_GIGA_30B_EURO,
             "欧盟AI超级工厂": RobotBrand.EU_7AI_GIGA_30B_EURO,
@@ -1076,7 +1076,7 @@ class RobotHAL:
             "EuroHPC AI算力": RobotBrand.EU_7AI_GIGA_30B_EURO,
             "欧盟主权AI模型": RobotBrand.EU_7AI_GIGA_30B_EURO,
             "GAIA-X云互操作": RobotBrand.EU_7AI_GIGA_30B_EURO,
-            # 27张截图补充13：nvidia cosmos physics AI alliance expanded
+            # 补充13
             "nvidia_cosmos_physics_ai_alliance": RobotBrand.NVIDIA_COSMOS_PHYSICS_AI,
             "nvidia_cosmos_alliance": RobotBrand.NVIDIA_COSMOS_PHYSICS_AI,
             "英伟达Cosmos联盟": RobotBrand.NVIDIA_COSMOS_PHYSICS_AI,
@@ -1086,7 +1086,7 @@ class RobotHAL:
             "川崎安川日立NEC小松久保田加入": RobotBrand.NVIDIA_COSMOS_PHYSICS_AI,
             "工业自动化巨头集体加入物理AI": RobotBrand.NVIDIA_COSMOS_PHYSICS_AI,
             "Omniverse+Isaac联盟": RobotBrand.NVIDIA_COSMOS_PHYSICS_AI,
-            # 27张截图补充13：nokia AI-RAN + 6G upgrade
+            # 补充13
             "nokia_ai_ran_6g_platform": RobotBrand.NOKIA_AI_RAN_6G,
             "nokia_ai_ran": RobotBrand.NOKIA_AI_RAN_6G,
             "诺基亚AI-RAN": RobotBrand.NOKIA_AI_RAN_6G,
@@ -1095,7 +1095,7 @@ class RobotHAL:
             "电信网络AI智能化": RobotBrand.NOKIA_AI_RAN_6G,
             "O-RAN+AI": RobotBrand.NOKIA_AI_RAN_6G,
             "xApps rApps智控APP市场": RobotBrand.NOKIA_AI_RAN_6G,
-            # 27张截图补充13：cfs fusion 4b usd funding total
+            # 补充13
             "cfs_fusion_4b_usd_funding": RobotBrand.CFS_FUSION_4B_USD,
             "cfs_fusion": RobotBrand.CFS_FUSION_4B_USD,
             "commonwealth fusion systems": RobotBrand.CFS_FUSION_4B_USD,
@@ -1104,7 +1104,7 @@ class RobotHAL:
             "高温超导聚变商业化": RobotBrand.CFS_FUSION_4B_USD,
             "SPARC装置工程推进": RobotBrand.CFS_FUSION_4B_USD,
             "聚变融资头部集中": RobotBrand.CFS_FUSION_4B_USD,
-            # 19张截图补充2：贝塔创新科技香港 AI算力基础设施多形态协同
+            # 补充2
             "beta_creative_tech_hk_ai_infra": RobotBrand.BETA_CREATIVE_TECH_HK,
             "beta_creative_tech": RobotBrand.BETA_CREATIVE_TECH_HK,
             "beta_creative_hk": RobotBrand.BETA_CREATIVE_TECH_HK,
@@ -1117,7 +1117,7 @@ class RobotHAL:
             "全球8大区域算力池": RobotBrand.BETA_CREATIVE_TECH_HK,
             "算力基础设施物理承载层": RobotBrand.BETA_CREATIVE_TECH_HK,
             "资源资产系统网络四阶演进": RobotBrand.BETA_CREATIVE_TECH_HK,
-            # 19张截图补充2：DoGNAVY智能体 CyberGym全球第三开源第一
+            # 补充2
             "dognavy_cybergym_global3_opensource1": RobotBrand.DOGNAVY_DARKNAVY_CYBERGYM,
             "dognavy_agent": RobotBrand.DOGNAVY_DARKNAVY_CYBERGYM,
             "darknavy_agent": RobotBrand.DOGNAVY_DARKNAVY_CYBERGYM,
@@ -1132,7 +1132,7 @@ class RobotHAL:
             "沙箱隔离黑盒安全兜底": RobotBrand.DOGNAVY_DARKNAVY_CYBERGYM,
             "GLM-5.2安全攻防智能体": RobotBrand.DOGNAVY_DARKNAVY_CYBERGYM,
             "加州伯克利CyberGym2026.8.5": RobotBrand.DOGNAVY_DARKNAVY_CYBERGYM,
-            # 10张6G/六张网补充1：国家级六张网十五五26.9万亿协同（含新一代通信网5G-A+6G提前预研）
+            # 补充1
             "national_six_nets_shiwuwu_26p9trillion": RobotBrand.NATIONAL_SIX_NETS_26P9T_SHIWUWU,
             "六张网": RobotBrand.NATIONAL_SIX_NETS_26P9T_SHIWUWU,
             "国家级六张网": RobotBrand.NATIONAL_SIX_NETS_26P9T_SHIWUWU,
@@ -2459,7 +2459,7 @@ class RobotHAL:
                 "features": ["软件定义互连", "桥接产品", "晶上系统IP"],
                 "success_rate": 1.0,
             },
-            # ── 53张截图补充14个品牌仿真配置 ──
+            # ── 补充14个品牌仿真配置 ──
             "DOBOT_LUMO": {  # 越疆 DOBOT LUMO 具身全栖人形
                 "joint_lower": np.ones(38) * -3.14,
                 "joint_upper": np.ones(38) * 3.14,

@@ -253,7 +253,7 @@ BRAND_COMM_MAP = {
     "houming_digital_human": "xr_tcp",
     "houming_mars_geo": "platform_tcp",
     "pku_cas_neurodyn_chip": "wafer_tcp",
-    # ==================== 2026-XX-XX新增: 95张截图补充16产品映射 ====================
+    # ==================== 补充产品映射 ====================
     "galaxea_g05": "platform_tcp",
     "yuanli_dm05": "platform_tcp",
     "liman_riemann_10": "world_model_tcp",
@@ -326,7 +326,7 @@ PROTOCOL_ADAPTERS = {
     "industrial_tcp": "protocol_adapters.GenericTCPAdapter",
     "cmu_bci_serial": "protocol_adapters.GenericSerialAdapter",
     "tsinghua_data_tcp": "protocol_adapters.GenericTCPAdapter",
-    # ========== 2026-XX-XX新增: 95张截图补充6个协议适配器 ==========
+    # ========== 补充协议适配器 ==========
     "efort_eki": "protocol_adapters.GenericTCPAdapter",
     "medical_ethercat_p": "protocol_adapters.GenericTCPAdapter",
     "logistics_5g_mqtt": "protocol_adapters.GenericTCPAdapter",

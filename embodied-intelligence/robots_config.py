@@ -2665,7 +2665,7 @@ ROBOT_BRANDS = {
         "simulation": ["芯片仿真平台", "MLPerf"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 95张截图补充产品（世界模型/AI大模型） ==========
+    # ========== 补充产品 ==========
     "galaxea_g05": {
         "name": "星海图G0.5作业智能大模型",
         "category": "world_model",
@@ -2747,7 +2747,7 @@ ROBOT_BRANDS = {
         "simulation": ["PyBullet", "Isaac Sim", "Door-to-Door场景仿真平台"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 95张截图补充产品（人形/消费级机器人） ==========
+    # ========== 补充产品 ==========
     "qiyuan_q1": {
         "name": "启元Q1消费级人形机器人",
         "category": "humanoid",
@@ -2849,7 +2849,7 @@ ROBOT_BRANDS = {
         "simulation": ["PyBullet", "舞台表演动作仿真平台"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 95张截图补充产品（医疗机器人） ==========
+    # ========== 补充产品 ==========
     "weijing_laparoscope": {
         "name": "唯精医疗腔镜手术机器人",
         "category": "medical",
@@ -2868,7 +2868,7 @@ ROBOT_BRANDS = {
         "simulation": ["PyBullet", "手术仿真训练平台", "组织力学仿真"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 95张截图补充产品（物流/仓储/模块化） ==========
+    # ========== 补充产品 ==========
     "yuanli_ferrata": {
         "name": "原力灵机Ferrata物流拣选系统",
         "category": "amr",
@@ -2933,7 +2933,7 @@ ROBOT_BRANDS = {
         "simulation": ["PyBullet", "城市短途出行数字孪生平台", "Door-to-Door场景仿真"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 53张截图补充产品1: 越疆DOBOT LUMO具身全栖人形机器人 ==========
+    # ========== 补充产品 ==========
     "dobot_lumo": {
         "name": "越疆 DOBOT LUMO 具身全栖人形机器人",
         "category": "humanoid",
@@ -2951,7 +2951,7 @@ ROBOT_BRANDS = {
         "simulation": ["PyBullet", "MuJoCo", "Isaac Lab", "全栖地形仿真平台"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 53张截图补充产品2: 雷赛智能运动控制龙头 ==========
+    # ========== 补充产品 ==========
     "leisai_motion_control": {
         "name": "雷赛智能运动控制龙头全系列产品",
         "category": "ai_chip",
@@ -2969,7 +2969,7 @@ ROBOT_BRANDS = {
         "simulation": ["PyBullet", "运动控制仿真平台", "Matlab/Simulink机电联合仿真"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 53张截图补充产品3: 洛阳鸿元轴承交叉滚子轴承 ==========
+    # ========== 补充产品 ==========
     "hongyuan_crossed_roller_bearing": {
         "name": "洛阳鸿元轴承交叉滚子轴承",
         "category": "sensor",
@@ -2986,7 +2986,7 @@ ROBOT_BRANDS = {
         "simulation": ["PyBullet", "ANSYS轴承接触力学仿真", "Romax传动系统寿命仿真"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 53张截图补充产品4: 汉威科技柔性六维力传感器 ==========
+    # ========== 补充产品 ==========
     "hanwei_force_sensor": {
         "name": "汉威科技柔性与六维力传感器",
         "category": "sensor",
@@ -3003,7 +3003,7 @@ ROBOT_BRANDS = {
         "simulation": ["PyBullet", "触觉感知仿真平台", "力控数字孪生环境"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 53张截图补充产品5: 杭州轮足机器人大力士 ==========
+    # ========== 补充产品 ==========
     "hangzhou_wheel_legged_hercules": {
         "name": "杭州轮足机器人大力士行业级轮足",
         "category": "quadruped",
@@ -3022,7 +3022,7 @@ ROBOT_BRANDS = {
         "simulation": ["PyBullet", "电力巡检数字孪生平台", "废墟搜救仿真环境"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 53张截图补充产品6: 深圳协作机器人出货量全球第一 ==========
+    # ========== 补充产品 ==========
     "shenzhen_collaborative_global_no1": {
         "name": "深圳协作机器人企业出货量全球第一",
         "category": "collaborative_arm",
@@ -3041,7 +3041,7 @@ ROBOT_BRANDS = {
         "simulation": ["PyBullet", "柔性产线数字孪生平台", "人机协同作业仿真"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 53张截图补充产品7: 安徽工业机器人首次净出口 ==========
+    # ========== 补充产品 ==========
     "anhui_industrial_net_export": {
         "name": "安徽工业机器人企业首次实现净出口",
         "category": "industrial_arm",
@@ -3060,7 +3060,7 @@ ROBOT_BRANDS = {
         "simulation": ["PyBullet", "工业产线数字孪生", "工艺仿真优化平台"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 53张截图补充产品8: 东方星链05/06星高光谱AI双星 ==========
+    # ========== 补充产品 ==========
     "dongfang_starlink_05_06": {
         "name": "东方星链05/06星浙大控制星高光谱AI双星",
         "category": "telecom",
@@ -3085,7 +3085,7 @@ ROBOT_BRANDS = {
         "simulation": ["PyBullet", "STK卫星轨道仿真", "高光谱成像数字孪生", "天算算力调度仿真平台"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 53张截图补充产品9: 中科大柔性电子皮肤 ==========
+    # ========== 补充产品 ==========
     "ustc_flexible_e_skin": {
         "name": "中科大柔性电子皮肤多维触觉感知",
         "category": "sensor",
@@ -3106,7 +3106,7 @@ ROBOT_BRANDS = {
         "simulation": ["PyBullet", "触觉感知数字孪生", "接触力学与热学耦合仿真平台"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 53张截图补充产品10: 台湾NCKU文本生成视频具身训练 ==========
+    # ========== 补充产品 ==========
     "ncku_text2video_embodied_training": {
         "name": "台湾NCKU团队文本生成视频人形技能训练新范式",
         "category": "world_model",
@@ -3125,7 +3125,7 @@ ROBOT_BRANDS = {
         "simulation": ["PyBullet", "NVIDIA Isaac Lab", "文本生成视频仿真管线", "运动重定向数字孪生"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 53张截图补充产品11: 云蝶科技POLIA多模态推理 ==========
+    # ========== 补充产品 ==========
     "yundie_polia_multimodal": {
         "name": "云蝶科技POLIA ICML 2026多模态推理",
         "category": "ai_agent_platform",
@@ -3152,7 +3152,7 @@ ROBOT_BRANDS = {
         "simulation": ["PyBullet", "多模态推理评测仿真平台", "VLA具身决策数字孪生"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 53张截图补充产品12: 龙游具身智能全域实景实训场 ==========
+    # ========== 补充产品 ==========
     "longyou_embodied_training_base": {
         "name": "龙游具身智能全域实景实训场产业基地",
         "category": "ai_os_platform",
@@ -3173,7 +3173,7 @@ ROBOT_BRANDS = {
         "simulation": ["PyBullet", "全域实景数字孪生底座", "工业制造民生服务特种作业三大仿真集群"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 53张截图补充产品13: 智元机器人中部具身智能产业基地 ==========
+    # ========== 补充产品 ==========
     "zhiyuan_central_henan_base": {
         "name": "智元机器人中部具身智能产业基地郑州",
         "category": "ai_os_platform",
@@ -3191,7 +3191,7 @@ ROBOT_BRANDS = {
         "simulation": ["PyBullet", "产线数字孪生", "产能爬坡仿真平台"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 27张截图补充产品1: 贵州六盘水钢焦一体化清洁能源氢能基地 ==========
+    # ========== 补充产品 ==========
     "liupanshui_coke_hydrogen_base": {
         "name": "贵州六盘水钢焦一体化清洁能源氢能基地",
         "category": "energy_infrastructure",
@@ -3211,7 +3211,7 @@ ROBOT_BRANDS = {
         "simulation": ["Aspen Plus工艺仿真", "氢储运管网水力仿真", "氢安全泄漏扩散仿真平台"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 27张截图补充产品2: 蓝霄航空LX-1增程式倾转旋翼eVTOL ==========
+    # ========== 补充产品 ==========
     "lanxiao_lx1_evtol": {
         "name": "蓝霄航空LX-1大型增程式倾转旋翼eVTOL",
         "category": "evtol",
@@ -3229,7 +3229,7 @@ ROBOT_BRANDS = {
         "simulation": ["XPlane气动仿真", "倾转旋翼过渡仿真", "气动声学降噪仿真平台"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 27张截图补充产品3: 峰飞航空5吨级V5000天际龙混动eVTOL ==========
+    # ========== 补充产品 ==========
     "fengfei_v5000_evtol": {
         "name": "峰飞航空5吨级V5000天际龙混动版eVTOL",
         "category": "evtol",
@@ -3247,7 +3247,7 @@ ROBOT_BRANDS = {
         "simulation": ["Simulink飞控仿真", "FAR27/29适航符合性虚拟试飞", "整机强度疲劳仿真"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 27张截图补充产品4: 不筹量子量筹一号原子量子基座1500比特 ==========
+    # ========== 补充产品 ==========
     "buerchou_liangchou_no1_atomic_qm_stand": {
         "name": "不筹量子「量筹一号」原子量子人工智能基座",
         "category": "ai_chip",
@@ -3266,7 +3266,7 @@ ROBOT_BRANDS = {
         "simulation": ["Qiskit量子电路仿真", "TensorNetwork张量网络", "量子噪声与纠错仿真平台"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 27张截图补充产品5: 复旦室温27℃单电子量子闪存登Science ==========
+    # ========== 补充产品 ==========
     "fudan_qm_flash_27c_science": {
         "name": "复旦大学周鹏刘春森团队「量子闪存」室温27℃单电子非易失存储",
         "category": "ai_chip",
@@ -3285,7 +3285,7 @@ ROBOT_BRANDS = {
         "simulation": ["COMSOL量子隧穿仿真", "密度泛函DFT电子结构仿真", "室温量子退相干时间仿真平台"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 27张截图补充产品6: 月之暗面Kimi-K3登顶全球代码Arena榜首 ==========
+    # ========== 补充产品 ==========
     "yuezhi_anmian_kimi_k3_code_no1": {
         "name": "月之暗面Kimi-K3大模型 登顶Frontend Code Arena全球代码榜第一",
         "category": "ai_os",
@@ -3304,7 +3304,7 @@ ROBOT_BRANDS = {
         "simulation": ["代码执行沙箱隔离", "AST语法正确性形式化验证仿真", "单元测试覆盖率TDD仿真"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 27张截图补充产品7: 北大α频带拓宽+千人级跨地域脑电同步采集 ==========
+    # ========== 补充产品 ==========
     "pku_bci_alpha_1k_synced": {
         "name": "北京大学方方团队α节律频带拓宽+跨地域千人级同步脑电采集装置",
         "category": "sensor",
@@ -3324,7 +3324,7 @@ ROBOT_BRANDS = {
         "simulation": ["MNE-Python脑电源定位仿真", "神经调控电场分布仿真", "千人级同步数据回放仿真平台"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 27张截图补充产品8: 东方空间引力一号遥四星联体号首次远海发射 ==========
+    # ========== 补充产品 ==========
     "dongfang_gravity_one_ys4_sea": {
         "name": "东方空间引力一号（遥四）·星联体号运载火箭 东海首次远海发射",
         "category": "telecom",
@@ -3343,7 +3343,7 @@ ROBOT_BRANDS = {
         "simulation": ["STK轨道动力学仿真", "海上发射摇摆耦合仿真", "一子级落点与制导落点仿真平台"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 27张截图补充产品9: General Fusion加拿大聚变纳斯达克SPAC上市 ==========
+    # ========== 补充产品 ==========
     "general_fusion_nasdaq": {
         "name": "加拿大General Fusion 全球首家核聚变上市公司 SPAC合并登陆纳斯达克",
         "category": "fusion_energy",
@@ -3362,7 +3362,7 @@ ROBOT_BRANDS = {
         "simulation": ["MHD磁流体动力学仿真", "等离子体约束与壁材料辐照仿真", "能量经济平准化LCOE成本仿真平台"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 27张截图补充产品10: 欧盟300亿欧元7座AI超级工厂 ==========
+    # ========== 补充产品 ==========
     "eu_7ai_giga_30b_euro": {
         "name": "欧盟委员会AI超级工厂计划 7座AI超级工厂 300亿欧元算力基建",
         "category": "ai_os_platform",
@@ -3384,7 +3384,7 @@ ROBOT_BRANDS = {
         "simulation": ["Datacenter CFD液冷冷板级热仿真", "GPU集群利用率与吞吐仿真", "AI模型训练吞吐端到端性能仿真平台"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 27张截图补充产品11: 英伟达Cosmos物理AI联盟扩容 工业自动化集体加入 ==========
+    # ========== 补充产品 ==========
     "nvidia_cosmos_physics_ai_alliance": {
         "name": "英伟达主导Cosmos物理AI联盟扩容 日企工业自动化巨头集体加入",
         "category": "ai_agent_platform",
@@ -3403,7 +3403,7 @@ ROBOT_BRANDS = {
         "simulation": ["NVIDIA Omniverse数字孪生", "Isaac Lab强化学习", "工业机器人产线节拍与碰撞仿真平台"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 27张截图补充产品12: 诺基亚AI-RAN商用平台6G软件升级 ==========
+    # ========== 补充产品 ==========
     "nokia_ai_ran_6g_platform": {
         "name": "诺基亚携英伟达推出AI-RAN商用平台 网络智能化+6G软件升级",
         "category": "telecom",
@@ -3421,7 +3421,7 @@ ROBOT_BRANDS = {
         "simulation": ["NS-3网络级仿真", "Massive MIMO波束赋形仿真", "6G太赫兹信道建模与系统级仿真平台"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 27张截图补充产品13: CFS累计40亿美元融资聚变龙头 全球聚变累计融资30% ==========
+    # ========== 补充产品 ==========
     "cfs_fusion_4b_usd_funding": {
         "name": "Commonwealth Fusion Systems CFS累计融资40亿美元 全球聚变融资约30%",
         "category": "fusion_energy",
@@ -3439,7 +3439,7 @@ ROBOT_BRANDS = {
         "simulation": ["BOUT++等离子体边界湍流仿真", "高温超导磁体力学与电磁耦合", "SPARC装置集成数字孪生仿真平台"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 19张截图补充产品1: 贝塔创新科技(香港)AI算力基础设施多形态协同运营方 ==========
+    # ========== 补充产品 ==========
     "beta_creative_tech_hk_ai_infra": {
         "name": "贝塔创新科技（香港）有限公司 AI算力基础设施多形态协同运营方",
         "category": "ai_os_platform",
@@ -3458,7 +3458,7 @@ ROBOT_BRANDS = {
         "simulation": ["数据中心CFD液冷冷板级热仿真", "GPU集群利用率与吞吐调度仿真", "跨区域算力路由与负载均衡仿真", "大模型训练端到端性能预测仿真平台"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 19张截图补充产品2: DoGNAVY智能体CyberGym全球第三开源第一 ==========
+    # ========== 补充产品 ==========
     "dognavy_cybergym_global3_opensource1": {
         "name": "DoGNAVY智能体（DARKNAVY达酷诺威×国内顶尖AI机构）CyberGym全球第三开源第一",
         "category": "ai_agent_platform",
