@@ -1335,6 +1335,229 @@ SCENES = {
             },
         },
     },
+
+    # ========== 34. 太空计算星座/星载AI遥感 ==========
+    "space_computing_constellation": {
+        "name": "太空计算星座与星载AI遥感",
+        "description": "高光谱AI卫星组网、星载算力、天感天算、国际合作遥感星座",
+        "sub_scenes": {
+            "hyperspectral_ai_satellite": {
+                "name": "高光谱AI双星组网（东方星链05/06浙大控制星）",
+                "description": "22精密光谱通道/400TOPS星载算力/单星幅宽>300km/780km轨道/双星组网5天全球覆盖、太空之弦计算星座首发验证星规划超1000颗",
+                "robots": ["高光谱成像仪", "星载AI计算平台", "星地激光链路终端", "姿控推力器系统"],
+                "difficulty": 5,
+                "reward_scale": 1.8,
+            },
+            "spectral_chemistry_inversion": {
+                "name": "物理约束+数据驱动光谱化学指纹反演",
+                "description": "结合物理辐射传输模型约束与数据驱动深度学习、从高光谱观测中精准反演地物化学成分与生态要素",
+                "robots": ["光谱反演AI模型", "大气校正引擎", "地物分类器", "多星时序融合系统"],
+                "difficulty": 5,
+                "reward_scale": 1.7,
+            },
+            "tiangan_tiansuan_edge": {
+                "name": "天感天算分钟级在轨响应",
+                "description": "星上直接推理+在轨处理+天地协同、数据利用率80%以上/综合效率提升5倍+/响应时效分钟级、避免海量原始数据下传瓶颈",
+                "robots": ["星载容器化推理引擎", "在轨任务编排器", "天地协同调度系统", "智能路由下传策略"],
+                "difficulty": 5,
+                "reward_scale": 1.7,
+            },
+            "intl_cooperation_satellite": {
+                "name": "国际合作卫星项目（楠榜一号/撒马尔罕2028）",
+                "description": "面向一带一路国家联合研制遥感卫星、构建数据普惠+两山AI星座+人类命运共同体三重使命全球服务网络",
+                "robots": ["国际联合研制卫星平台", "跨境地面站网络", "数据共享交换平台", "区域应用示范系统"],
+                "difficulty": 5,
+                "reward_scale": 1.8,
+            },
+        },
+    },
+
+    # ========== 35. 秸秆环保电子皮肤/柔性触觉感知 ==========
+    "straw_bio_e_skin": {
+        "name": "秸秆生物基电子皮肤与多维柔性触觉",
+        "description": "农林废弃物生物基环保材料制备超薄柔性触觉感知薄膜、同时感知压力方向温度、人形/座舱/家居/养老应用",
+        "sub_scenes": {
+            "bio_base_material_skin": {
+                "name": "秸秆农林废弃物生物基环保电子皮肤",
+                "description": "以秸秆等农林废弃物制备生物基环保基材、0.1mm超薄柔性薄膜+聚氨酯封装、既环保又成本可控适合大规模量产",
+                "robots": ["秸秆生物基薄膜制备产线", "聚氨酯封装设备", "微纳压印工艺装备", "柔性传感器阵列"],
+                "difficulty": 5,
+                "reward_scale": 1.6,
+            },
+            "multi_dim_tactile_perception": {
+                "name": "压力大小方向温度多维同时感知",
+                "description": "单传感器节点同时识别压力大小/压力方向/温度变化三类维度、信息密度比肩真实人体皮肤、弥补人形视觉盲区",
+                "robots": ["多维触觉信号解码ASIC", "温度-力解耦算法", "传感器阵列扫描模块", "触觉-视觉融合推理"],
+                "difficulty": 5,
+                "reward_scale": 1.7,
+            },
+            "humanoid_blind_spot_compensation": {
+                "name": "人形机器人弥补视觉盲区触觉补偿",
+                "description": "人形机器人躯干四肢手掌表面全贴附电子皮肤、被遮挡接触/背面接触/微小碰撞均能感知、安全性交互体验大幅跃升",
+                "robots": ["人形全身电子皮肤阵列", "接触点定位与分割模型", "安全反应控制器", "人机交互柔顺策略"],
+                "difficulty": 4,
+                "reward_scale": 1.6,
+            },
+            "smart_cockpit_home_elderly": {
+                "name": "新能源智能座舱/智能家居/智慧养老应用",
+                "description": "新能源座舱中控扶手表面柔性触觉、智能家居床椅压力分布跌倒检测、智慧养老穿戴式触觉监测生命体征异常预警",
+                "robots": ["座舱柔性触觉界面", "智能家居床垫传感阵列", "可穿戴养老生命体征监测带", "异常事件AI预警器"],
+                "difficulty": 4,
+                "reward_scale": 1.5,
+            },
+        },
+    },
+
+    # ========== 36. 文本生成视频具身技能训练新范式 ==========
+    "text2video_embodied_skill": {
+        "name": "文本生成视频具身技能训练新范式",
+        "description": "零真实动捕纯文本生成视频→SMPL-X骨骼提取+物理伪影修正→运动重定向→多段拼接→4096并行强化学习→真机部署",
+        "sub_scenes": {
+            "zero_mocap_text2video": {
+                "name": "零真实动捕文本生成视频语料",
+                "description": "零成本采集真实动捕、仅靠大语言模型描述任务、文本生成视频引擎产出50日常任务×每任务10变体共500条技能视频",
+                "robots": ["任务描述LLM", "文本生成视频引擎", "多样式随机化模块", "视频去重与质检AI"],
+                "difficulty": 5,
+                "reward_scale": 1.7,
+            },
+            "smplx_artifact_correction": {
+                "name": "SMPL-X骨骼提取与物理伪影修正",
+                "description": "从生成视频提取SMPL-X人体参数、对穿模/抖动/不符合物理的伪影进行运动学与动力学联合修正、产出干净可执行轨迹",
+                "robots": ["视频2D关键点检测器", "SMPL-X逆运动学求解器", "物理一致性修正器", "接触力合理性校验"],
+                "difficulty": 5,
+                "reward_scale": 1.7,
+            },
+            "retargeting_root_align": {
+                "name": "运动重定向关节映射与多段拼接根节点对齐",
+                "description": "将修正后的人体骨骼运动映射到人形机器人关节空间、多段技能片段之间根节点位置朝向速度连续对齐、组合长程复合任务",
+                "robots": ["关节映射运动重定向器", "根节点轨迹平滑拼接器", "机器人逆动力学求解器", "碰撞预检模块"],
+                "difficulty": 5,
+                "reward_scale": 1.7,
+            },
+            "isaac_4096_parallel_rl": {
+                "name": "Isaac Lab 4096并行智能体强化学习+G1验证",
+                "description": "NVIDIA Isaac Lab启动4096并行环境高效探索、策略蒸馏后上宇树G1真机验证、关节MAE 0.04-0.07米与真实动捕差距极小",
+                "robots": ["Isaac Lab仿真集群", "大规模PPO/DRL调度器", "宇树G1实验平台", "Sim2Real域随机化工具"],
+                "difficulty": 5,
+                "reward_scale": 1.8,
+            },
+        },
+    },
+
+    # ========== 37. VLA视觉对象证据推理POLIA ==========
+    "polia_vla_visual_reasoning": {
+        "name": "POLIA视觉对象级证据VLA多模态推理",
+        "description": "ICML 2026视觉对象级内在优势策略优化、答案级+视觉对象证据级双层评价、VSR/TallyQA/GQA/MathVista全面超越GPT-4o/Gemini",
+        "sub_scenes": {
+            "object_level_ppo_vla": {
+                "name": "视觉对象级内在优势策略优化VLA模型",
+                "description": "区别于传统像素级或token级奖励、在视觉对象检测与跟踪层面计算内在优势、RL训练更稳定可解释、显著降低多模态幻觉率",
+                "robots": ["视觉对象检测器与跟踪器", "对象级状态编码器", "内在优势函数估计器", "VLA动作-语言多头解码器"],
+                "difficulty": 5,
+                "reward_scale": 1.8,
+            },
+            "dual_evaluation_audit": {
+                "name": "答案级评价+视觉对象证据级评价",
+                "description": "传统仅校验最终答案正误、POLIA额外追踪答案所引用视觉对象证据是否真实出现在图像对应区域、发现并惩罚幻觉性推理链",
+                "robots": ["最终答案裁判模型", "视觉对象证据定位器", "引用-图像一致性核查", "双级加权打分汇总器"],
+                "difficulty": 5,
+                "reward_scale": 1.7,
+            },
+            "7benchmark_leading": {
+                "name": "7基准VSR+22.3/TallyQA+8.7/GQA+11.3/MathVista+9.3超越GPT-4o/Gemini",
+                "description": "7项高视觉多模态基准全面领先、视频超分辨率VSR、计数TallyQA、图问答GQA、数学视觉MathVista均大幅优于闭源GPT-4o与Gemini 2.5 Pro",
+                "robots": ["VSR视频推理管线", "TallyQA视觉计数引擎", "GQA图结构多跳推理器", "MathVista视觉公式解算器"],
+                "difficulty": 5,
+                "reward_scale": 1.8,
+            },
+            "vla_rl_worldmodel_pipeline": {
+                "name": "VLA+强化学习+世界模型辅助决策连续技术路线",
+                "description": "从多模态感知→VLA输出抽象动作→世界模型预演后果→强化学习动态调参、与华南理工共建多智能体具身智能联合实验室",
+                "robots": ["VLA视觉语言动作模型", "世界模型前瞻预演器", "强化学习微调引擎", "多智能体协作编排框架"],
+                "difficulty": 5,
+                "reward_scale": 1.8,
+            },
+        },
+    },
+
+    # ========== 38. 机器人出口出海与全球化 ==========
+    "robot_export_globalization": {
+        "name": "机器人出口出海与全球化运营",
+        "description": "工业机器人首次净出口、CE认证、小批量多品种柔性、海外营收占比过半、法兰克福等海外本地化运营中心",
+        "sub_scenes": {
+            "industrial_first_net_export": {
+                "name": "工业机器人首次实现净出口（安徽62.9亿+18.6%）",
+                "description": "国产工业机器人竞争力跨越关键拐点、首次从净进口转为净出口、安徽出口额62.9亿元同比增长18.6%、CE认证打开欧洲市场",
+                "robots": ["6轴工业焊接机器人", "喷涂/搬运工业机器人", "3D视觉智能编程系统", "出口合规检测产线"],
+                "difficulty": 4,
+                "reward_scale": 1.5,
+            },
+            "half_day_to_minute_programming": {
+                "name": "3D视觉+智能算法换产编程半天→1-2分钟",
+                "description": "传统换产重新示教耗时长、3D视觉识别工件+智能算法自动生成轨迹+专家工艺模板库、切换产品编程从半天缩短至1-2分钟",
+                "robots": ["3D结构光相机", "工件位姿识别引擎", "工艺模板专家库", "无代码自动编程工具"],
+                "difficulty": 4,
+                "reward_scale": 1.5,
+            },
+            "ce_small_batch_flexible": {
+                "name": "CE认证+小批量多品种柔性定制",
+                "description": "完整覆盖CE机械指令/EMC/RED/RoHS合规、快速响应海外客户多品种小批量订单、单条产线可并行生产数十款差异化配置",
+                "robots": ["CE认证预测试实验室", "模块化可配置BOM系统", "快速换产工装夹具", "柔性物料配送AGV"],
+                "difficulty": 4,
+                "reward_scale": 1.5,
+            },
+            "frankfurt_local_zero_complaint": {
+                "name": "德国法兰克福运营中心本地化响应投诉基本为零",
+                "description": "在德国法兰克福设立欧洲运营中心、本地化售前售后备件库存与技术培训、客户响应时间从国内跨时区缩短至当日、客户投诉基本清零",
+                "robots": ["法兰克福备件仓WMS", "本地化工程师派单系统", "远程遥操作诊断终端", "客户满意度闭环平台"],
+                "difficulty": 4,
+                "reward_scale": 1.5,
+            },
+        },
+    },
+
+    # ========== 39. 具身智能产业基地/实训场/产线 ==========
+    "embodied_industrial_base_park": {
+        "name": "具身智能产业基地/全域实景实训场/整机装配产线",
+        "description": "龙游全域实景实训场、智元郑州中部基地、卓益得中豫整机装配产线、核心零部件本地配套率95%、小程序预约商用落地",
+        "sub_scenes": {
+            "longyou_full_domain_real_scene": {
+                "name": "龙游具身智能全域实景实训场（西湖机器人）",
+                "description": "西湖机器人×龙游县政府联合打造、工业制造/民生服务/特种作业三大实景1:1复刻、核心零部件本地配套率95%、龙游具身GPT品牌",
+                "robots": ["工业制造实训工位", "商场超市酒店民生实景区", "特种作业训练场", "龙游具身GPT调度中台"],
+                "difficulty": 4,
+                "reward_scale": 1.6,
+            },
+            "gae_embodiment_avatar": {
+                "name": "GAE身外化身+全身统一具身大模型+全栈自研",
+                "description": "西湖机器人三大核心：全身统一具身大模型端到端输出全身关节指令、GAE身外化身支持远程遥操作接管、人形机器人本体软硬件全栈自研",
+                "robots": ["全身统一具身大模型推理集群", "GAE身外化身遥操作舱", "自研关节与灵巧手产线", "整机集成总装线"],
+                "difficulty": 5,
+                "reward_scale": 1.8,
+            },
+            "wechat_appointment_doorstep": {
+                "name": "0→1→100商场超市酒店小程序预约上门（星河数据运营）",
+                "description": "落地节奏从0验证到1跑通再到100规模复制、商场导购/超市分拣理货/酒店配送上门、用户通过小程序预约、星河数据公司运营沉淀数据飞轮",
+                "robots": ["商场导购人形", "超市理货搬运", "酒店配送机器人", "微信小程序预约平台+星河数据中台"],
+                "difficulty": 4,
+                "reward_scale": 1.6,
+            },
+            "zhiyuan_central_henan_4000unit": {
+                "name": "智元郑州中部基地首台新郑造下线/2026预计4000台+",
+                "description": "智元机器人落子郑州建设中部具身智能产业基地、首台新郑造2026年3月底下线、2026年全年预计产能4000台以上、辐射中部六省市场",
+                "robots": ["中部基地SMT与整机组装线", "智元远征/精灵系列人形", "整机综合测试台", "仓储物流与交付中心"],
+                "difficulty": 4,
+                "reward_scale": 1.6,
+            },
+            "zhuoyide_zhongyu_jd_batch": {
+                "name": "卓益得×中豫具身实验室整机装配线（京东商用上架）",
+                "description": "卓益得机器人联合中豫具身智能实验室建成整机装配生产线、已具备数百台小批量产能、整机产品在京东商用频道上架直面客户",
+                "robots": ["卓益得人形整机装配工位", "中豫实验室工艺优化团队", "视觉质检与老化测试线", "京东商用上架电商运营"],
+                "difficulty": 4,
+                "reward_scale": 1.5,
+            },
+        },
+    },
 }
 
 
