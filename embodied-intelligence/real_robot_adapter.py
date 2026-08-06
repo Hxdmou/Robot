@@ -289,7 +289,7 @@ PROTOCOL_ADAPTERS = {
     "buke_modbus": "protocol_adapters.BukeModbusAdapter",
     "unitree_udp": "protocol_adapters.UnitreeUDPAdapter",
     "deeprobotics_tcp": "protocol_adapters.DeepRoboticsTCPAdapter",
-    # ========== 2026 WAIC新增品牌通用协议（v15.0补全） ==========
+    # ========== ***新增品牌通用协议（v15.0补全） ==========
     "fanuc_tcp": "protocol_adapters.GenericTCPAdapter",
     "jinbei_tcp": "protocol_adapters.GenericTCPAdapter",
     "agile_tcp": "protocol_adapters.GenericTCPAdapter",
