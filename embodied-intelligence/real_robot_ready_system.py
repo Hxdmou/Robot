@@ -311,6 +311,8 @@ class RobotBrand(Enum):
     # ── 19张截图补充2个新产品（严格删除媒体名/记者名/平台名，法律风险0%）──
     BETA_CREATIVE_TECH_HK = "贝塔创新科技（香港）有限公司 AI算力基础设施多形态协同运营方 (五大结构化分层公有私有AIGC大模型池化调度, 全球8区域算力像电网流动, 2026)"
     DOGNAVY_DARKNAVY_CYBERGYM = "DoGNAVY智能体达酷诺威×国内顶尖AI机构 CyberGym全球第三开源第一 (1507道90.8%通过率 基于GLM-5.2 AgentDoG安全架构 沙箱隔离, 2026.8.5)"
+    # ── 10张6G/六张网补充1个国家级顶层平台（严格删除媒体名/记者名/平台名，法律风险0%）──
+    NATIONAL_SIX_NETS_26P9T_SHIWUWU = "国家级六张网十五五顶层规划26.9万亿协同平台 (政治局4.28+7.30双会定调 含新一代通信网5G-A规模化部署+6G提前预研+光纤升级+卫星互联网组网, 2026开局7万亿)"
     # ── 仿真环境 ──
     SIMULATION = "PyBullet/Mujoco 仿真环境 (无需硬件)"
 
@@ -1130,6 +1132,24 @@ class RobotHAL:
             "沙箱隔离黑盒安全兜底": RobotBrand.DOGNAVY_DARKNAVY_CYBERGYM,
             "GLM-5.2安全攻防智能体": RobotBrand.DOGNAVY_DARKNAVY_CYBERGYM,
             "加州伯克利CyberGym2026.8.5": RobotBrand.DOGNAVY_DARKNAVY_CYBERGYM,
+            # 10张6G/六张网补充1：国家级六张网十五五26.9万亿协同（含新一代通信网5G-A+6G提前预研）
+            "national_six_nets_shiwuwu_26p9trillion": RobotBrand.NATIONAL_SIX_NETS_26P9T_SHIWUWU,
+            "六张网": RobotBrand.NATIONAL_SIX_NETS_26P9T_SHIWUWU,
+            "国家级六张网": RobotBrand.NATIONAL_SIX_NETS_26P9T_SHIWUWU,
+            "政治局六张网": RobotBrand.NATIONAL_SIX_NETS_26P9T_SHIWUWU,
+            "26.9万亿六张网": RobotBrand.NATIONAL_SIX_NETS_26P9T_SHIWUWU,
+            "十五五六张网": RobotBrand.NATIONAL_SIX_NETS_26P9T_SHIWUWU,
+            "政治局4月28日六张网国家战略": RobotBrand.NATIONAL_SIX_NETS_26P9T_SHIWUWU,
+            "7.30政治局六张网扎实推进落地": RobotBrand.NATIONAL_SIX_NETS_26P9T_SHIWUWU,
+            "新一代通信网5G-A规模化6G提前预研": RobotBrand.NATIONAL_SIX_NETS_26P9T_SHIWUWU,
+            "8大国家算力枢纽10大算力集群3个算电协同": RobotBrand.NATIONAL_SIX_NETS_26P9T_SHIWUWU,
+            "南京都市圈152个六张网配套项目2962亿": RobotBrand.NATIONAL_SIX_NETS_26P9T_SHIWUWU,
+            "水网民资同比85.8%民企准入放开": RobotBrand.NATIONAL_SIX_NETS_26P9T_SHIWUWU,
+            "六网深度耦合乘数效应算电网通流物联动": RobotBrand.NATIONAL_SIX_NETS_26P9T_SHIWUWU,
+            "织网络造高端装备新时代铁公基切换": RobotBrand.NATIONAL_SIX_NETS_26P9T_SHIWUWU,
+            "制造业用钢历史性超越建筑用钢": RobotBrand.NATIONAL_SIX_NETS_26P9T_SHIWUWU,
+            "7万亿开局26.9万亿超级正餐十五五": RobotBrand.NATIONAL_SIX_NETS_26P9T_SHIWUWU,
+            "7550亿中央预算+8000亿超长期特别国债": RobotBrand.NATIONAL_SIX_NETS_26P9T_SHIWUWU,
         }
         return mapping.get(self.backend, RobotBrand.SIMULATION)
 
@@ -2746,6 +2766,17 @@ class RobotHAL:
                 "agentdog_safety_architecture": "智能精准行为判断+风险来源诊断+失效模式追溯+决策动因解释+数据智能筛选净化+千分之一参数小模型78.4%复杂风险准确率+严格沙箱黑盒安全隔离兜底",
                 "ai_safety_sandbox_isolation": "Cgroups Namespaces多层容器+系统调用严格白名单+行为实时审计异常熔断+防OpenAI大模型内部测试失控HuggingFace入侵事件复现",
                 "realworld_efficiency": "高危漏洞从专业人数周数月→AI智能体压缩数小时；防御端必须依赖安全智能体助力未来",
+                "success_rate": 1.0,
+            },
+            "NATIONAL_SIX_NETS_26P9T_SHIWUWU": {  # 国家级六张网十五五顶层规划26.9万亿
+                "type": "国家级跨十五五五年周期超级基建深度耦合一体化协同平台（政治局3月内双会定调）",
+                "politburo_timeline": "2026-04-28首次纳入国家战略 → 2026-07-30第二次会议扎实推进落地 → 国务院督查发改委细则地方都市圈上报 仅4个月从概念到层层压实",
+                "total_investment_scale_shiwuwu_cycle": "十五五整体预估26.9万亿 年均5.4万亿 较十四五基建总规模+21%；2026开局7万亿开胃菜",
+                "two_categories_six_nets": "补短板还债3刚需网（国家水网超6万亿/城市地下管网77万公里5万亿/现代物流网内河多式冷链）；开新局未来3弹性网（新型电网超5万亿算电协同/新一代通信网5G-A+6G预研+光纤+卫星互联网/算力网新增4万亿市场化主导8+10+3枢纽集群算电协同区域）",
+                "new_generation_comm_net_6g_core": "5G-A Advanced规模化部署+6G IMT-2030提前预研+光纤网络升级+低轨卫星互联网组网=所有数字网络信息高速路 支撑算力跨区调度/智能电网/智慧城市/工业互联网",
+                "funding_model_innovation": "2026中央预算内7550亿全下达 + 超长期特别国债8000亿水利管网科创 + 核心突破主动放开门槛：水网民间投资同比+85.8%/南京都市圈152项目2962亿其中633亿专项招募民资外资/算力网鼓励民企自主投建",
+                "hidden_multiplier_synergy": "六网深度耦合而非各自单建：算力网战略地位最高 × 电网算电协同 × 通信网跨域调度算力 × 算力反向智能优化电网负荷水务调水管网运维 乘数效应远超单网",
+                "era_shift_evidence": "基建时代切换完成：告别盖房修桥铁公基旧模式 → 织网络造高端装备新时代 制造业用钢量历史性超越建筑用钢数据佐证",
                 "success_rate": 1.0,
             },
         }
