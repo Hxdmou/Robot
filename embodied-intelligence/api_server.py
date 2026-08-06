@@ -1,340 +1,139 @@
-"""
-工业化REST API服务器 - 机器人控制与监控
-支持：健康检查、状态监控、运动控制、参数配置、模型管理
-"""
+
+# ============================================================================
+# 免责声明与AI使用规范
+# ============================================================================
+# 本文件仅供技术研究与学习交流使用，不得用于任何非法用途。
+#
+# AI使用规范：
+#   1. 使用本文件相关内容时须遵守所在地法律法规及伦理准则
+#   2. 不得用于侵犯他人合法权益、危害网络安全、破坏公共秩序的活动
+#   3. 涉及自动化决策的场景须确保人工复核机制与可解释性
+#   4. 处理个人信息时须符合数据保护相关法规要求
+#
+# 风险提示：
+#   本文件内容按"现状"提供，不保证绝对准确无误。
+#   使用者须自行评估风险，因使用本文件导致的任何损失由使用者承担。
+# ============================================================================
+
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 import os
 import sys
-import time
-import json
-import asyncio
-from datetime import datetime
-from typing import Optional, Dict, Any, List
-from contextlib import asynccontextmanager
+from pathlib import Path
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, str(Path(__file__).parent))
 
-from fastapi import FastAPI, HTTPException, BackgroundTasks
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
+app = Flask(__name__)
+CORS(app)
 
-try:
-    from settings import get_all_config, SIMULATION_CONFIG, SAFETY_CONFIG
-    SETTINGS_AVAILABLE = True
-except:
-    SETTINGS_AVAILABLE = False
+API_MODE = os.getenv("API_MODE", "false").lower() == "true"
 
-try:
-    from health_check import run_health_check
-    HEALTH_AVAILABLE = True
-except:
-    HEALTH_AVAILABLE = False
-
-
-# ============================================================================
-# 数据模型
-# ============================================================================
-class JointCommand(BaseModel):
-    joints: List[float] = Field(description="关节角度列表(弧度)")
-    speed: Optional[float] = Field(default=1.0, description="速度比例(0.1-1.0)")
-
-
-class CartesianCommand(BaseModel):
-    x: float = Field(description="X坐标(米)")
-    y: float = Field(description="Y坐标(米)")
-    z: float = Field(description="Z坐标(米)")
-    speed: Optional[float] = Field(default=1.0, description="速度比例")
-
-
-class GripperCommand(BaseModel):
-    action: str = Field(description="open/close")
-    width: Optional[float] = Field(default=0.0, description="夹爪宽度(米)")
-    force: Optional[float] = Field(default=50.0, description="夹持力(N)")
-
-
-class SafetyConfig(BaseModel):
-    torque_limit_ratio: Optional[float] = Field(default=0.7, ge=0.1, le=1.0)
-    velocity_limit_ratio: Optional[float] = Field(default=0.7, ge=0.1, le=1.0)
-    enable_collision_detection: Optional[bool] = Field(default=True)
-
-
-# ============================================================================
-# 系统状态
-# ============================================================================
-system_state = {
-    "start_time": datetime.now().isoformat(),
-    "mode": "idle",
-    "connected": False,
-    "safety_enabled": True,
-    "estop_triggered": False,
-    "current_joints": [0.0] * 7,
-    "current_pose": {"x": 0.0, "y": 0.0, "z": 0.0},
-    "joint_temperatures": [25.0] * 7,
-    "operation_count": 0,
-    "error_count": 0,
-    "last_error": None,
-}
-
-command_history = []
-
-
-# ============================================================================
-# 生命周期管理
-# ============================================================================
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    print("=" * 60)
-    print("  机器人工业化API服务器启动中...")
-    print("=" * 60)
-    system_state["mode"] = "running"
-    print(f"  ✅ 服务器就绪: {datetime.now().isoformat()}")
-    print("=" * 60)
-    yield
-    print("  服务器关闭")
-    system_state["mode"] = "shutdown"
-
-
-app = FastAPI(
-    title="机器人工业化控制API",
-    description="具身智能系统 - 工业级机器人控制与监控平台",
-    version="2.0.0",
-    lifespan=lifespan,
-)
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-
-# ============================================================================
-# 1. 系统接口
-# ============================================================================
-@app.get("/", tags=["系统"])
-async def root():
-    return {
-        "name": "具身智能工业化控制系统",
-        "version": "2.0.0",
-        "status": system_state["mode"],
-        "uptime_seconds": (datetime.now() - datetime.fromisoformat(system_state["start_time"])).total_seconds(),
-        "docs": "/docs",
-    }
-
-
-@app.get("/health", tags=["系统"])
-async def health():
-    result = {
-        "status": "healthy",
-        "timestamp": datetime.now().isoformat(),
-        "system": system_state["mode"],
-        "safety": system_state["safety_enabled"],
-        "estop": not system_state["estop_triggered"],
-    }
-    if HEALTH_AVAILABLE:
-        try:
-            extra = run_health_check()
-            if isinstance(extra, dict):
-                result.update(extra)
-        except:
-            pass
-    return result
-
-
-@app.get("/config", tags=["系统"])
-async def get_config():
-    if SETTINGS_AVAILABLE:
-        return get_all_config()
-    return {"config": "default"}
-
-
-@app.get("/status", tags=["系统"])
-async def get_status():
-    return {
-        "timestamp": datetime.now().isoformat(),
-        "mode": system_state["mode"],
-        "connected": system_state["connected"],
-        "estop": system_state["estop_triggered"],
-        "safety_enabled": system_state["safety_enabled"],
-        "joints": system_state["current_joints"],
-        "pose": system_state["current_pose"],
-        "temperatures": system_state["joint_temperatures"],
-        "operation_count": system_state["operation_count"],
-        "error_count": system_state["error_count"],
-        "last_error": system_state["last_error"],
-    }
-
-
-# ============================================================================
-# 2. 安全接口
-# ============================================================================
-@app.post("/safety/estop", tags=["安全"])
-async def emergency_stop():
-    """触发紧急停止"""
-    system_state["estop_triggered"] = True
-    system_state["mode"] = "estop"
-    print("⚠️  紧急停止已触发!")
-    return {"status": "estop_triggered", "message": "紧急停止已激活，请排查后复位"}
-
-
-@app.post("/safety/reset", tags=["安全"])
-async def reset_estop():
-    """复位紧急停止"""
-    system_state["estop_triggered"] = False
-    system_state["mode"] = "idle"
-    print("✅ 紧急停止已复位")
-    return {"status": "reset", "message": "紧急停止已复位，系统就绪"}
-
-
-@app.get("/safety/config", tags=["安全"])
-async def get_safety_config():
-    if SETTINGS_AVAILABLE:
-        return {
-            "torque_limit_ratio": SAFETY_CONFIG.get("torque_limit_ratio", 0.7),
-            "velocity_limit_ratio": SAFETY_CONFIG.get("velocity_limit_ratio", 0.7),
-            "collision_detection": True,
-        }
-    return {"torque_limit_ratio": 0.7, "velocity_limit_ratio": 0.7}
-
-
-@app.put("/safety/config", tags=["安全"])
-async def set_safety_config(config: SafetyConfig):
-    if system_state["estop_triggered"]:
-        raise HTTPException(status_code=400, detail="紧急停止状态下无法修改配置")
-    system_state["safety_enabled"] = config.enable_collision_detection
-    return {
-        "status": "updated",
-        "config": config.dict(),
-    }
-
-
-# ============================================================================
-# 3. 运动控制接口
-# ============================================================================
-def _check_safety():
-    if system_state["estop_triggered"]:
-        raise HTTPException(status_code=400, detail="紧急停止已触发，拒绝运动")
-
-
-@app.post("/motion/joint", tags=["运动控制"])
-async def move_joint(cmd: JointCommand):
-    _check_safety()
-    if len(cmd.joints) < 6:
-        raise HTTPException(status_code=400, detail="关节数量不足")
-    system_state["current_joints"] = cmd.joints
-    system_state["operation_count"] += 1
-    command_history.append({
-        "time": datetime.now().isoformat(),
-        "type": "joint",
-        "command": cmd.dict(),
+@app.route('/health', methods=['GET'])
+def health_check():
+    return jsonify({
+        'status': 'healthy',
+        'service': 'RAG QA System API',
+        'version': '3.0.0'
     })
-    return {"status": "accepted", "joints": cmd.joints, "speed": cmd.speed}
 
+@app.route('/api/ask', methods=['POST'])
+def ask_question():
+    if not API_MODE:
+        return jsonify({'error': 'API mode is disabled'}), 403
 
-@app.post("/motion/cartesian", tags=["运动控制"])
-async def move_cartesian(cmd: CartesianCommand):
-    _check_safety()
-    system_state["current_pose"] = {"x": cmd.x, "y": cmd.y, "z": cmd.z}
-    system_state["operation_count"] += 1
-    command_history.append({
-        "time": datetime.now().isoformat(),
-        "type": "cartesian",
-        "command": cmd.dict(),
-    })
-    return {"status": "accepted", "pose": cmd.dict()}
+    data = request.get_json()
 
+    if not data or 'question' not in data:
+        return jsonify({'error': 'Missing question parameter'}), 400
 
-@app.post("/motion/home", tags=["运动控制"])
-async def go_home():
-    _check_safety()
-    home = [0.0, -1.57, 0.0, -1.57, 0.0, 0.0, 0.0]
-    system_state["current_joints"] = home
-    system_state["operation_count"] += 1
-    return {"status": "moving_home", "joints": home}
+    question = data['question']
+    system = data.get('system', 'general')
+    temperature = data.get('temperature', 0.7)
+    top_k = data.get('top_k', 5)
 
-
-@app.post("/motion/stop", tags=["运动控制"])
-async def stop_motion():
-    system_state["mode"] = "idle"
-    return {"status": "stopped"}
-
-
-# ============================================================================
-# 4. 夹爪控制接口
-# ============================================================================
-@app.post("/gripper", tags=["夹爪控制"])
-async def gripper_control(cmd: GripperCommand):
-    _check_safety()
-    if cmd.action not in ["open", "close"]:
-        raise HTTPException(status_code=400, detail="动作必须是open或close")
-    return {
-        "status": "accepted",
-        "action": cmd.action,
-        "width": cmd.width,
-        "force": cmd.force,
-    }
-
-
-# ============================================================================
-# 5. 模型接口
-# ============================================================================
-@app.get("/models", tags=["模型管理"])
-async def list_models():
-    models_dir = os.path.dirname(os.path.abspath(__file__))
-    models = []
-    for f in os.listdir(models_dir):
-        if f.startswith("ppo_") and f.endswith(".zip"):
-            path = os.path.join(models_dir, f)
-            models.append({
-                "name": f.replace(".zip", ""),
-                "size_kb": round(os.path.getsize(path) / 1024, 1),
-                "modified": datetime.fromtimestamp(os.path.getmtime(path)).isoformat(),
-            })
-    return {"models": models, "count": len(models)}
-
-
-@app.get("/models/{name}/validate", tags=["模型管理"])
-async def validate_model(name: str):
     try:
-        from stable_baselines3 import PPO
-        path = os.path.join(os.path.dirname(os.path.abspath(__file__)), name)
-        model = PPO.load(path, device="cpu")
-        return {
-            "valid": True,
-            "name": name,
-            "observation_space": str(model.observation_space),
-            "action_space": str(model.action_space),
-        }
+        if system == 'legal':
+            from legal_qa import load_default_index, llm_chain
+            vector_store, success, _ = load_default_index()
+        elif system == 'medical':
+            from medical_qa import load_default_index, llm_chain
+            vector_store, success, _ = load_default_index()
+        elif system == 'finance':
+            from finance_qa import load_default_index, llm_chain
+            vector_store, success, _ = load_default_index()
+        elif system == 'education':
+            from education_qa import load_default_index, llm_chain
+            vector_store, success, _ = load_default_index()
+        elif system == 'tech':
+            from tech_qa import load_default_index, llm_chain
+            vector_store, success, _ = load_default_index()
+        else:
+            from rag import chunk2vector, llm_chain
+            from rag import get_embeddings
+            from rag import load_multiple_documents
+
+            index_path = "faiss_index"
+            if os.path.exists(index_path):
+                from langchain_community.vectorstores import FAISS
+                from rag import get_embeddings
+                vector_store = FAISS.load_local(index_path, get_embeddings(), allow_dangerous_deserialization=True)
+            else:
+                return jsonify({'error': 'Knowledge base not initialized'}), 400
+
+        if not vector_store:
+            return jsonify({'error': 'Failed to load knowledge base'}), 400
+
+        from rag import llm_chain
+        chain = llm_chain(vector_store, temperature=temperature, top_k=top_k)
+        answer = chain.invoke(question)
+
+        return jsonify({
+            'question': question,
+            'answer': answer,
+            'system': system,
+            'status': 'success'
+        })
+
     except Exception as e:
-        return {"valid": False, "name": name, "error": str(e)}
+        return jsonify({'error': str(e)}), 500
 
+@app.route('/api/systems', methods=['GET'])
+def list_systems():
+    systems = [
+        {'id': 'general', 'name': '通用RAG系统', 'port': 7861},
+        {'id': 'legal', 'name': '法律知识问答', 'port': 7869},
+        {'id': 'medical', 'name': '医疗健康问答', 'port': 7871},
+        {'id': 'finance', 'name': '金融投资问答', 'port': 7872},
+        {'id': 'education', 'name': '教育学习问答', 'port': 7870},
+        {'id': 'tech', 'name': 'IT技术问答', 'port': 7873},
+    ]
+    return jsonify({'systems': systems})
 
-# ============================================================================
-# 6. 日志接口
-# ============================================================================
-@app.get("/logs/commands", tags=["日志"])
-async def get_command_log(limit: int = 100):
-    return {
-        "total": len(command_history),
-        "commands": command_history[-limit:],
+@app.route('/api/index/status', methods=['GET'])
+def index_status():
+    system = request.args.get('system', 'general')
+
+    index_map = {
+        'general': 'faiss_index',
+        'legal': 'legal_faiss_index',
+        'medical': 'medical_faiss_index',
+        'finance': 'finance_faiss_index',
+        'education': 'education_faiss_index',
+        'tech': 'tech_faiss_index',
     }
 
+    index_path = index_map.get(system, 'faiss_index')
+    exists = os.path.exists(index_path)
 
-@app.get("/logs/errors", tags=["日志"])
-async def get_error_log():
-    return {
-        "error_count": system_state["error_count"],
-        "last_error": system_state["last_error"],
-    }
+    return jsonify({
+        'system': system,
+        'index_path': index_path,
+        'exists': exists,
+        'status': 'ready' if exists else 'not_initialized'
+    })
 
+def run_api_server(host='0.0.0.0', port=5000):
+    app.run(host=host, port=port, debug=False)
 
-# ============================================================================
-# 启动入口
-# ============================================================================
-if __name__ == "__main__":
-    import uvicorn
-    port = int(os.getenv("ROBOT_API_PORT", "8000"))
-    print(f"🚀 启动机器人API服务器: http://localhost:{port}")
-    print(f"📖 API文档: http://localhost:{port}/docs")
-    uvicorn.run(app, host="0.0.0.0", port=port)
+if __name__ == '__main__':
+    run_api_server()

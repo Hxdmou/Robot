@@ -106,10 +106,10 @@ class DisturbanceSimulator:
             
             impulse = direction * magnitude
             
-            p.applyExternalForce(
+            p.applyExternalImpulse(
                 objectUniqueId=robot_id,
                 linkIndex=ee_index,
-                forceObj=impulse,
+                impulseObj=impulse,
                 posObj=[0, 0, 0],
                 flags=p.WORLD_FRAME
             )

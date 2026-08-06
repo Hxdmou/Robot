@@ -216,6 +216,10 @@ production_config*.json
 *.production.json
 *.production.yaml
 deploy_hosts*.conf
+deploy_snapshots/
+deploy_snapshot*.json
+snapshot_*.json
+calibration_results*.json
 site_secrets.py
 local_settings.py
 settings_local.py
@@ -247,6 +251,114 @@ backup*/
 *_backup*/
 old_versions/
 archived/
+
+# ============================================================================
+# ===== 文件加密工具生成的文件（禁止提交加密后的源代码/备份） =====
+# ============================================================================
+# file_encryptor.py 加密输出
+*.enc
+*.py.enc
+*.env.enc
+*.yaml.enc
+*.yml.enc
+*.json.enc
+*.toml.enc
+*.ini.enc
+*.cfg.enc
+*.conf.enc
+*.md.enc
+*.txt.enc
+*.bat.enc
+*.ps1.enc
+*.sh.enc
+*.db.enc
+*.sqlite.enc
+*.csv.enc
+
+# file_encryptor.py 解密前的原文件备份（加密前自动生成）
+*.bak_unenc
+
+# 安全扫描与修复生成的文件
+security_report_*.json
+security_checklist_*.json
+*.bak_before_fix
+
+# ============================================================================
+# ===== PIN 码门禁工具生成的文件（禁止提交：哈希存储、会话缓存等） =====
+# ============================================================================
+# pin_gate.py 生成的 PIN 不可逆哈希存储
+.pin_hash.json
+# PIN 门禁可能产生的会话缓存 / 审计日志
+.pin_session_*
+pin_audit_*.log
+
+# ============================================================================
+# ===== 漏洞 2 修复：Git 身份/凭据备份文件（禁止提交：before_lend.py 生成） =====
+# ============================================================================
+# before_lend.py / after_takeback.py 产生的一键备份/还原锚点
+.git_identity_backup.json
+# ~/.git-credentials 的临时重命名备份
+.git-credentials.lendbak
+.git-credentials.lendbak.*
+
+# ============================================================================
+# ===== Windows 本地凭据与隐私类（禁止提交） =====
+# ============================================================================
+# Windows 凭据管理器 / 证书
+AppData/Local/Microsoft/Credentials/
+AppData/Roaming/Microsoft/Credentials/
+AppData/Local/Microsoft/Crypto/
+*.p7b
+*.spc
+*.pfx
+*.pvk
+
+# RDP / 远程桌面连接历史
+*.rdp
+Default.rdp
+
+# Windows 搜索/活动历史
+AppData/Local/Microsoft/Windows/History/
+AppData/Local/Microsoft/Windows/Recent/
+AppData/Roaming/Microsoft/Windows/Recent/
+*.lnk
+
+# 浏览器/应用缓存（可能含 Token/Session）
+AppData/Local/Microsoft/Edge/User Data/
+AppData/Local/Google/Chrome/User Data/
+AppData/Local/BraveSoftware/User Data/
+AppData/Local/Mozilla/Firefox/Profiles/
+
+# 剪贴板/截图历史
+AppData/Local/Microsoft/Windows/Clipboard/
+AppData/Local/Packages/MicrosoftWindows.Client.CBS_*/
+AppData/Local/Packages/Microsoft.ScreenSketch_*/
+
+# 本机 PowerShell 历史（可能暴露命令与参数）
+AppData/Roaming/Microsoft/Windows/PowerShell/PSReadLine/ConsoleHost_history.txt
+*.ps1_history
+
+# Python IDE / 调试器本地变量缓存
+.pudb/
+.pydevproject
+.lspci/
+.ruff_cache/
+.mypy_cache/
+.jupyter/
+.ipython/
+.local/share/jupyter/runtime/*.json
+sitecustomize.py
+usercustomize.py
+
+# 临时安全审查脚本输出
+*_security_*.txt
+*_leak_report.*
+*_sensitive_list.*
+
+# 本地 OCR/截图中间产物（可能含个人信息）
+ocr_temp/
+*_ocr_*.txt
+*_processed.*
 
 # ============================================================================
 # ===== END OF SECURITY BLOCK - NEVER COMMIT FILES MATCHING THE ABOVE =====

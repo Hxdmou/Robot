@@ -8575,23 +8575,23 @@ DEPLOYMENT_THRESHOLDS: Dict[str, Dict[str, Any]] = {
             "structural_strength",
             # 商业化落地指标 (1)
             "commercialization_metrics",
-            # === v5.0 新增：5G/6G通信技术  === (1)
+            # === 补充产品 ===
             "communication_5g_6g",
-            # === v5.0 新增：脑机接口技术  === (1)
+            # === 补充产品 ===
             "bci_technology",
-            # === v5.0 新增：端侧AI部署  === (1)
+            # === 补充产品 ===
             "edge_ai_deployment",
-            # === v5.0 新增：人工智能法规合规  === (1)
+            # === 补充产品 ===
             "ai_regulatory_compliance",
-            # === v5.0 新增：医疗手术机器人  === (1)
+            # === 补充产品 ===
             "medical_surgical_robot",
-            # === v5.0 新增：方言/多语言语音交互  === (1)
+            # === 补充产品 ===
             "multilingual_dialect_speech",
-            # === v5.0 新增：电池能源管理 === (1)
+            # === 补充产品 ===
             "battery_energy_management",
-            # === v5.0 新增：环境适应性 (IP等级/温度/湿度) === (1)
+            # === 补充产品 ===
             "environmental_adaptability",
-            # === v5.0 新增：多机协同作业 === (1)
+            # === 补充产品 ===
             "multi_robot_coordination",
         ],
     },

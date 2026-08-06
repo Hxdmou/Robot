@@ -166,15 +166,6 @@ class MassRandomizer:
                 changes[f"link_{i}"] = {"original": original_mass, "new": new_mass}
         
         return changes
-    
-    def enable(self):
-        self.enabled = True
-    
-    def disable(self):
-        self.enabled = False
-    
-    def is_enabled(self):
-        return self.enabled
 
 
 class FrictionRandomizer:
@@ -211,15 +202,6 @@ class FrictionRandomizer:
             }
         
         return changes
-    
-    def enable(self):
-        self.enabled = True
-    
-    def disable(self):
-        self.enabled = False
-    
-    def is_enabled(self):
-        return self.enabled
 
 
 class PhysicsDistortion:
@@ -256,15 +238,6 @@ class PhysicsDistortion:
                 }
         
         return changes
-    
-    def enable(self):
-        self.enabled = True
-    
-    def disable(self):
-        self.enabled = False
-    
-    def is_enabled(self):
-        return self.enabled
 
 
 class DomainRandomizationSystem:

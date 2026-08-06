@@ -239,7 +239,7 @@ BRAND_COMM_MAP = {
     "华鑫微纳": "wafer_tcp",
     "紫光展锐V8821": "telecom_tcp",
     "天启星座": "telecom_tcp",
-    # ==================== 2026-08-04新增: 智慧康养8产品+AI智能体4产品+神经动力学芯片 ====================
+    # ==================== 补充产品 ====================
     "jiunuo_nursing": "shurui_tcp",
     "daai_rehab": "shurui_tcp",
     "senlikang_kangyang": "shurui_tcp",

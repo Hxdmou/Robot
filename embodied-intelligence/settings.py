@@ -1,101 +1,135 @@
-# ============================================================================
-# 具身智能机器人系统 - 全局配置
-# 所有硬编码参数集中管理，支持环境变量覆盖
-# ============================================================================
-
 import os
-from typing import Dict, Any
+from dotenv import load_dotenv
 
-# ============================================================================
-# 基础配置
-# ============================================================================
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-PROJECT_NAME = os.getenv("PROJECT_NAME", "Embodied Intelligence Robot System")
-VERSION = os.getenv("VERSION", "1.0.0")
-DEBUG = os.getenv("DEBUG", "false").lower() == "true"
+# 加载环境变量
+load_dotenv()
 
-# ============================================================================
-# 服务配置
-# ============================================================================
-HOST = os.getenv("HOST", "0.0.0.0")
-PORT = int(os.getenv("PORT", "7861"))
-HEALTH_CHECK_ENDPOINT = os.getenv("HEALTH_CHECK_ENDPOINT", "/health")
+class Config:
+    """企业级配置管理"""
+    
+    # 项目基础配置
+    PROJECT_NAME = os.getenv("PROJECT_NAME", "RAG智能知识问答系统")
+    VERSION = "3.0.0"
+    DEBUG = os.getenv("DEBUG", "False").lower() == "true"
+    
+    # 服务器配置
+    HOST = os.getenv("HOST", "0.0.0.0")
+    PORT = int(os.getenv("PORT", 7861))
+    
+    # 数据库配置
+    DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "data")
+    VECTOR_STORE_DIR = os.path.join(DATA_DIR, "vector_store")
+    CHAT_HISTORY_DIR = os.path.join(DATA_DIR, "chat_history")
+    LOG_DIR = os.path.join(DATA_DIR, "logs")
+    
+    # LLM配置
+    LLM_API_KEY = os.getenv("LLM_API_KEY", "")
+    LLM_BASE_URL = os.getenv("LLM_BASE_URL", "https://api.deepseek.com/v1")
+    LLM_MODEL_NAME = os.getenv("LLM_MODEL_NAME", "deepseek-chat")
+    LLM_MAX_TOKENS = int(os.getenv("LLM_MAX_TOKENS", 4096))
+    LLM_TEMPERATURE = float(os.getenv("LLM_TEMPERATURE", 0.1))
+    
+    # 向量配置
+    EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
+    CHUNK_SIZE = int(os.getenv("CHUNK_SIZE", 500))
+    CHUNK_OVERLAP = int(os.getenv("CHUNK_OVERLAP", 50))
+    TOP_K = int(os.getenv("TOP_K", 5))
+    
+    # 安全配置
+    ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "*").split(",")
+    RATE_LIMIT = int(os.getenv("RATE_LIMIT", 100))
+    MAX_FILE_SIZE = int(os.getenv("MAX_FILE_SIZE", 50 * 1024 * 1024))  # 50MB
+    
+    # 日志配置
+    LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
+    LOG_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    
+    # 系统配置
+    SUPPORTED_FILE_TYPES = ["txt", "pdf", "xlsx", "xls", "docx", "doc"]
+    MAX_UPLOAD_FILES = int(os.getenv("MAX_UPLOAD_FILES", 10))
+    
+    @staticmethod
+    def ensure_directories():
+        """确保必要目录存在"""
+        directories = [
+            Config.DATA_DIR,
+            Config.VECTOR_STORE_DIR,
+            Config.CHAT_HISTORY_DIR,
+            Config.LOG_DIR
+        ]
+        for dir_path in directories:
+            os.makedirs(dir_path, exist_ok=True)
 
-# ============================================================================
-# 仿真配置
-# ============================================================================
-SIMULATION_CONFIG: Dict[str, Any] = {
-    "time_step": float(eval(os.getenv("SIM_TIME_STEP", "1/240"))),
-    "gravity": float(os.getenv("SIM_GRAVITY", "-9.81")),
-    "max_solver_iterations": int(os.getenv("SIM_MAX_ITER", "200")),
-    "render_mode": os.getenv("SIM_RENDER", "direct"),  # direct, gui
-    "connection_mode": os.getenv("SIM_CONNECT", "direct"),  # direct, shared_memory
-}
-
-# ============================================================================
-# 机器人安全参数
-# ============================================================================
-SAFETY_CONFIG: Dict[str, Any] = {
-    "joint_torque_warning_ratio": float(os.getenv("SAFETY_TORQUE_RATIO", "0.7")),
-    "joint_velocity_limit_factor": float(os.getenv("SAFETY_VEL_FACTOR", "0.8")),
-    "emergency_stop_on_collision": os.getenv("SAFETY_ESTOP_ON_COL", "true").lower() == "true",
-    "max_payload_factor": float(os.getenv("SAFETY_PAYLOAD_FACTOR", "0.9")),
-}
-
-# ============================================================================
-# 日志配置
-# ============================================================================
-LOG_CONFIG: Dict[str, Any] = {
-    "level": os.getenv("LOG_LEVEL", "INFO"),
-    "file": os.getenv("LOG_FILE", "./logs/app.log"),
-    "max_bytes": int(os.getenv("LOG_MAX_BYTES", "10485760")),  # 10MB
-    "backup_count": int(os.getenv("LOG_BACKUP_COUNT", "5")),
-    "format": os.getenv("LOG_FORMAT", "%(asctime)s - %(name)s - %(levelname)s - %(message)s"),
-}
-
-# ============================================================================
-# 连接配置
-# ============================================================================
-CONNECTION_CONFIG: Dict[str, Any] = {
-    "default_timeout": float(os.getenv("CONN_TIMEOUT", "10.0")),
-    "retry_max_attempts": int(os.getenv("CONN_RETRY_MAX", "3")),
-    "retry_delay_seconds": float(os.getenv("CONN_RETRY_DELAY", "2.0")),
-    "heartbeat_interval": float(os.getenv("CONN_HEARTBEAT", "5.0")),
-}
-
-# ============================================================================
-# 模型路径配置
-# ============================================================================
-MODEL_CONFIG: Dict[str, Any] = {
-    "checkpoint_dir": os.getenv("MODEL_CHECKPOINT_DIR", "./checkpoints"),
-    "default_reach_model": os.getenv("MODEL_DEFAULT_REACH", "ppo_robot_reach_final_5m_enhanced"),
-    "default_grasp_model": os.getenv("MODEL_DEFAULT_GRASP", "kuka_grasp_ppo"),
-    "vec_normalize_path": os.getenv("MODEL_VEC_NORM", "vec_normalize_optimized.pkl"),
-}
-
-# ============================================================================
-# 数据存储配置
-# ============================================================================
-DATA_CONFIG: Dict[str, Any] = {
-    "log_dir": os.getenv("DATA_LOG_DIR", "./logs"),
-    "eval_dir": os.getenv("DATA_EVAL_DIR", "./eval_logs"),
-    "deploy_dir": os.getenv("DATA_DEPLOY_DIR", "./deploy_archives"),
-    "calibration_file": os.getenv("DATA_CALIBRATION", "calibration_results.json"),
-}
-
-# ============================================================================
-# 获取完整配置字典 (用于健康检查等)
-# ============================================================================
-def get_all_config() -> Dict[str, Any]:
-    return {
-        "project": PROJECT_NAME,
-        "version": VERSION,
-        "debug": DEBUG,
-        "host": HOST,
-        "port": PORT,
-        "simulation": SIMULATION_CONFIG,
-        "safety": SAFETY_CONFIG,
-        "connection": CONNECTION_CONFIG,
-        "model": MODEL_CONFIG,
-        "data": DATA_CONFIG,
+# 系统类型配置
+SYSTEM_CONFIGS = {
+    "general": {
+        "name": "通用RAG智能问答系统",
+        "icon": "📚",
+        "port": 7861,
+        "description": "基于检索增强生成技术的通用智能问答系统",
+        "features": ["多格式文档支持", "智能问答", "多轮对话", "历史记录"]
+    },
+    "legal": {
+        "name": "法律知识问答系统",
+        "icon": "⚖️", 
+        "port": 7869,
+        "description": "专业法律知识问答系统，预置法律知识库",
+        "features": ["法律知识库", "法条引用", "文书解读", "案例分析"]
+    },
+    "education": {
+        "name": "教育知识问答系统",
+        "icon": "🎓",
+        "port": 7870,
+        "description": "学生学习助手，支持教材课件问答",
+        "features": ["教材支持", "公式解析", "学习跟踪", "知识问答"]
+    },
+    "medical": {
+        "name": "医疗健康问答系统",
+        "icon": "🏥",
+        "port": 7871,
+        "description": "健康咨询助手，提供专业健康建议",
+        "features": ["医学文献", "健康指南", "用药提醒", "免责声明"]
+    },
+    "finance": {
+        "name": "金融知识问答系统",
+        "icon": "💰",
+        "port": 7872,
+        "description": "金融投资助手，提供投资知识问答",
+        "features": ["金融法规", "理财指南", "风险提示", "产品分析"]
+    },
+    "tech": {
+        "name": "IT技术问答系统",
+        "icon": "💻",
+        "port": 7873,
+        "description": "程序员技术助手，支持代码生成",
+        "features": ["API文档", "代码生成", "技术方案", "问题解答"]
+    },
+    "e_commerce": {
+        "name": "电商零售智能问答系统",
+        "icon": "🛒",
+        "port": 7874,
+        "description": "电商运营助手，提供商品咨询和运营建议",
+        "features": ["商品知识", "运营策略", "客服话术", "营销技巧"]
+    },
+    "government": {
+        "name": "政务服务智能问答系统",
+        "icon": "🏛️",
+        "port": 7875,
+        "description": "政务服务助手，提供政策解读和办事指南",
+        "features": ["政策解读", "办事指南", "表格下载", "常见问题"]
+    },
+    "hr": {
+        "name": "人力资源智能问答系统",
+        "icon": "👔",
+        "port": 7876,
+        "description": "HR工作助手，提供招聘培训和员工管理支持",
+        "features": ["招聘攻略", "培训方案", "绩效考核", "劳动合同"]
+    },
+    "academic": {
+        "name": "科研学术智能问答系统",
+        "icon": "📚",
+        "port": 7877,
+        "description": "学术研究助手，支持论文写作和文献分析",
+        "features": ["文献检索", "论文写作", "研究方法", "学术规范"]
     }
+}

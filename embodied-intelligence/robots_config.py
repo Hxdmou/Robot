@@ -1874,7 +1874,7 @@ ROBOT_BRANDS = {
         "success_rate": 1.0,
     },
 
-    # ========== 协作机械臂 - 新增 ***产品 ==========
+    # ========== 补充产品 ==========
     "agile_diana3_g2": {
         "name": "思灵Diana3+Diana7 G2力反馈遥操作系统",
         "category": "collaborative_arm",
@@ -1931,7 +1931,7 @@ ROBOT_BRANDS = {
         "success_rate": 1.0,
     },
 
-    # ========== 四足机器人 - 新增 ***产品 ==========
+    # ========== 补充产品 ==========
     "micbot_movenew_p": {
         "name": "具微科技MOVENEW P系列轮式四足机器狗",
         "category": "quadruped",
@@ -2582,7 +2582,7 @@ ROBOT_BRANDS = {
         "simulation": ["PyBullet", "外骨骼动力学仿真"],
         "success_rate": 1.0,
     },
-    # ========== 新增: AI智能体系列产品(厚明家居科技) ==========
+    # ========== 补充产品 ==========
     "houming_ai_super_employee": {
         "name": "厚明AI超级员工多部门智能体平台",
         "category": "ai_agent_platform",
@@ -3257,7 +3257,7 @@ ROBOT_BRANDS = {
         "fidelity_single": "99.9% 单量子比特保真度",
         "architecture": "三算力融合异构架构（经典算力+量子算力+AI算力）",
         "application_ecosystems": ["气象量子智能", "VLA具身智能推理", "化工新材料分子研发"],
-        "features": ["***世界人工智能大会重磅发布行业瞩目", "量子比特规模突破1500个国内原子量子第一梯队", "单量子比特保真度高达99.9%量子计算质量可靠", "三算力融合异构架构解决量子经典AI协同计算", "已构建气象量子/VLA具身智能/化工新材料三大应用生态", "原子量子技术路线具身智能大模型推理加速前景广阔"],
+        "features": ["***重磅发布行业瞩目", "量子比特规模突破1500个国内原子量子第一梯队", "单量子比特保真度高达99.9%量子计算质量可靠", "三算力融合异构架构解决量子经典AI协同计算", "已构建气象量子/VLA具身智能/化工新材料三大应用生态", "原子量子技术路线具身智能大模型推理加速前景广阔"],
         "scenes": ["ai_chip_accelerator", "quantum_simulation", "weather_forecasting", "vla_embodied_reasoning", "new_material_rd"],
         "status": "waic2026_released",
         "controller": "量子测控时序发生器+异构算力调度编排+量子纠错固件",
@@ -3481,7 +3481,7 @@ ROBOT_BRANDS = {
         "simulation": ["CyberGym/CyberBattleSim网络攻防仿真", "模糊测试Fuzzing大规模并发仿真", "沙箱逃逸检测形式化验证仿真", "真实代码库漏洞发掘强化学习仿真平台"],
         "success_rate": 1.0,
     },
-    # ========== 新增: 10张6G/六张网补充1: 国家级六张网十五五顶层规划26.9万亿协同平台（含新一代通信网5G-A/6G提前预研） ==========
+    # ========== 补充产品 ==========
     "national_six_nets_shiwuwu_26p9trillion": {
         "name": "国家级六张网十五五顶层规划 26.9万亿协同平台 (含新一代通信网5G-A规模化部署+6G提前预研+光纤升级+卫星互联网组网)",
         "category": "ai_os_platform",
