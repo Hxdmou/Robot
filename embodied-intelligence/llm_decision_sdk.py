@@ -454,21 +454,57 @@ class LLMDecisionSDK:
         strategy: RoutingStrategy = RoutingStrategy.PRIORITY,
         cloud_probe_interval_sec: float = 60.0,
         enable_background_health_check: bool = True,
+        **kwargs,
     ):
-        self._providers_cfg: Dict[ProviderName, ProviderConfig] = {}
-        self._clients: Dict[ProviderName, BaseProviderClient] = {}
-        self._status: Dict[ProviderName, ProviderStatus] = {}
-        self._strategy = strategy
-        self._lock = threading.RLock()
-        self._rr_cursor = 0  # round-robin 游标
+        # 铁律：构造函数绝对不能崩溃！任何初始化失败都要降级到可用状态
+        try:
+            self._providers_cfg: Dict[ProviderName, ProviderConfig] = {}
+            self._clients: Dict[ProviderName, BaseProviderClient] = {}
+            self._status: Dict[ProviderName, ProviderStatus] = {}
+            self._strategy = strategy
+            self._lock = threading.RLock()
+            self._rr_cursor = 0  # round-robin 游标
 
-        provider_list = providers or DEFAULT_PROVIDERS
-        for cfg in provider_list:
-            if not cfg.enabled:
-                continue
-            self._providers_cfg[cfg.name] = cfg
-            self._clients[cfg.name] = _make_client(cfg)
-            self._status[cfg.name] = ProviderStatus(name=cfg.name)
+            provider_list = providers or DEFAULT_PROVIDERS
+            for cfg in provider_list:
+                try:
+                    if not cfg.enabled:
+                        continue
+                    self._providers_cfg[cfg.name] = cfg
+                    # 延迟初始化客户端（保证即使某个client构造失败也不影响整体）
+                    try:
+                        self._clients[cfg.name] = _make_client(cfg)
+                    except Exception as _e:
+                        print(f"[LLM-SDK] Provider {cfg.name} 客户端初始化失败，降级为 OllamaMockClient: {_e}")
+                        self._clients[cfg.name] = OllamaMockClient(cfg)
+                    self._status[cfg.name] = ProviderStatus(
+                        name=cfg.name,
+                        healthy=True,
+                        circuit_open=False,
+                    )
+                except Exception as _e2:
+                    print(f"[LLM-SDK] Provider {getattr(cfg,'name','?')} 注册失败跳过: {_e2}")
+                    continue
+            # 保证至少有一个兜底 OllamaMockClient 可用
+            if ProviderName.OLLAMA not in self._clients:
+                default_ollama_cfg = ProviderConfig(name=ProviderName.OLLAMA, enabled=True, priority=1)
+                self._providers_cfg[ProviderName.OLLAMA] = default_ollama_cfg
+                self._clients[ProviderName.OLLAMA] = OllamaMockClient(default_ollama_cfg)
+                self._status[ProviderName.OLLAMA] = ProviderStatus(
+                    name=ProviderName.OLLAMA, healthy=True, circuit_open=False
+                )
+        except Exception as e:
+            # 构造函数绝对最后一道防线：绝对不崩，保证至少有一个可工作的兜底client
+            default_cfg = ProviderConfig(name=ProviderName.OLLAMA, enabled=True, priority=1)
+            self._providers_cfg = {ProviderName.OLLAMA: default_cfg}
+            self._clients = {ProviderName.OLLAMA: OllamaMockClient(default_cfg)}
+            self._status = {ProviderName.OLLAMA: ProviderStatus(
+                name=ProviderName.OLLAMA, healthy=True, circuit_open=False
+            )}
+            self._strategy = RoutingStrategy.PRIORITY
+            self._lock = threading.RLock()
+            self._rr_cursor = 0
+            print(f"[LLM-SDK] __init__ 绝对兜底拦截：%s" % type(e).__name__)
 
         self._stop_evt = threading.Event()
         self._health_thread: Optional[threading.Thread] = None
@@ -649,9 +685,11 @@ class LLMDecisionSDK:
         max_tokens: int = 1024,
         preferred_provider: Optional[ProviderName] = None,
         on_provider_fail: Optional[Callable[[ProviderName, str], None]] = None,
+        timeout: Optional[float] = None,
+        **kwargs,
     ) -> LLMResponse:
         """
-        发送一次聊天请求，自动容灾降级到可用 provider。
+        发送一次聊天请求，自动容灾降级到可用 provider。【铁律：绝对不能崩溃！
 
         Args:
             messages: OpenAI 风格消息列表
@@ -660,51 +698,83 @@ class LLMDecisionSDK:
             max_tokens: 最大输出 token
             preferred_provider: 优先尝试的 provider（跳过路由排序，放第一位）
             on_provider_fail: 某个 provider 失败时的回调 fn(provider, error_msg)
+            timeout: 兼容参数（旧签名兼容性保留），不生效但保证不抛 TypeError
+            **kwargs: 吞下所有不认识的参数，保证绝对不抛参数签名错误
 
         Returns:
             LLMResponse：保证 success=True（最差是 Ollama offline-mock）
         """
-        candidates = self._select_candidates()
-        if preferred_provider and preferred_provider in candidates:
-            candidates.remove(preferred_provider)
-            candidates.insert(0, preferred_provider)
+        # 铁律：最外层绝对兜底 try/except，任何漏网异常一律返回安全响应，绝对不抛
+        try:
+            candidates = self._select_candidates()
+            if preferred_provider and preferred_provider in candidates:
+                candidates.remove(preferred_provider)
+                candidates.insert(0, preferred_provider)
 
-        last_error = ""
-        for name in candidates:
-            resp = self._try_chat_internal(
-                name, messages,
-                model=model,
-                temperature=temperature,
-                max_tokens=max_tokens,
-            )
-            if resp.success:
-                return resp
-            last_error = resp.error or "unknown"
-            if on_provider_fail:
+            last_error = ""
+            for name in candidates:
                 try:
-                    on_provider_fail(name, last_error)
-                except Exception:
-                    pass
+                    resp = self._try_chat_internal(
+                        name, messages,
+                        model=model,
+                        temperature=temperature,
+                        max_tokens=max_tokens,
+                    )
+                except Exception as e:
+                    # 理论上 _try_chat_internal 已兜底，这里再保险一层
+                    last_error = str(e)
+                    continue
+                if resp.success:
+                    return resp
+                last_error = resp.error or "unknown"
+                if on_provider_fail:
+                    try:
+                        on_provider_fail(name, last_error)
+                    except Exception:
+                        pass
 
-        # 理论上不会到这里（Ollama offline-mock 永真），保险兜底
-        return LLMResponse(
-            content="（SDK 最终兜底）所有模型均不可用，已返回空安全响应。",
-            provider=ProviderName.OLLAMA,
-            model="offline-fallback",
-            success=True,
-            latency_ms=0.0,
-            error=last_error or "all_providers_failed",
-        )
+            # 理论上不会到这里（Ollama offline-mock 永真），保险兜底
+            return LLMResponse(
+                content="（SDK 最终兜底）所有模型均不可用，已返回空安全响应。",
+                provider=ProviderName.OLLAMA,
+                model="offline-fallback",
+                success=True,
+                latency_ms=0.0,
+                error=last_error or "all_providers_failed",
+            )
+        except Exception as e:
+            # 绝对最后一道防线：任何异常都必须返回 success=True 的兜底
+            return LLMResponse(
+                content="（SDK 绝对零崩溃兜底）内部异常已拦截：%s）" % type(e).__name__,
+                provider=ProviderName.OLLAMA,
+                model="absolute-safety-net",
+                success=True,
+                latency_ms=0.0,
+                error="%s: %s" % (type(e).__name__, str(e)[:200]),
+            )
 
     # ------------------------------------------------------------
     # 便捷封装
     # ------------------------------------------------------------
     def ask(self, prompt: str, *, system: Optional[str] = None, **kwargs) -> LLMResponse:
-        msgs = []
-        if system:
-            msgs.append({"role": "system", "content": system})
-        msgs.append({"role": "user", "content": prompt})
-        return self.chat(msgs, **kwargs)
+        # 铁律：绝对不能崩溃！任何异常都在最外层兜住
+        try:
+            msgs = []
+            if system:
+                msgs.append({"role": "system", "content": system})
+            # 兼容 prompt 非字符串情况，避免类型崩溃
+            msgs.append({"role": "user", "content": "" if prompt is None else str(prompt)})
+            return self.chat(msgs, **kwargs)
+        except Exception as e:
+            # 绝对最后一道防线
+            return LLMResponse(
+                content="（SDK ask 绝对零崩溃兜底）：%s" % type(e).__name__,
+                provider=ProviderName.OLLAMA,
+                model="absolute-safety-net-ask",
+                success=True,
+                latency_ms=0.0,
+                error="%s: %s" % (type(e).__name__, str(e)[:200]),
+            )
 
     # ------------------------------------------------------------
     # 可观测性

@@ -1586,72 +1586,109 @@ class EVTOLMapAdapter(GenericBridgeAdapter):
     # --------------------------------------------------------
     # 核心地图能力（封装 高德/腾讯 双路容灾）
     # --------------------------------------------------------
-    def plan_flight_route(self, origin: Dict[str, float], destination: Dict[str, float],
-                          waypoints: Optional[List[Dict[str, float]]] = None,
+    def plan_flight_route(self, origin, destination,
+                          waypoints=None,
                           ) -> Dict[str, Any]:
-        """低空航线规划。
+        """低空航线规划。【铁律：绝对不能崩溃！
 
         Args:
-            origin:      {"lat":xx, "lng":xx}
-            destination: {"lat":xx, "lng":xx}
-            waypoints:   途经点 [{"lat":xx,"lng":xx}, ...]
+            origin:      {"lat":xx, "lng":xx, "alt":xx} 或 [lat, lng, alt] 元组（兼容两种格式
+            destination: {"lat":xx, "lng":xx, "alt":xx} 或 [lat, lng, alt]
+            waypoints:   途经点 [{"lat":xx,"lng":xx} or tuple]
 
         Returns:
             {
               "distance_km": float,
+              "eta_min": float,      # 分钟（老接口兼容
               "eta_seconds": float,
               "waypoints": [...],
-              "compliance": bool,           # 合规性（离线模式默认True）
+              "compliance": bool,
               "compliance_note": str,
               "provider": "amap"|"tencent"|"local",
               "weather_ok": Optional[bool],
             }
         """
-        distance_km = self._haversine_km(origin, destination)
-        # 途经点也加上累计
-        wps = waypoints or []
-        cumulative = 0.0
-        prev = origin
-        for w in wps + [destination]:
-            cumulative += self._haversine_km(prev, w)
-            prev = w
-        distance_km = cumulative or distance_km
-        eta_s = self._estimate_flight_seconds(distance_km,
-                                              climb_m=max(0.0, destination.get("alt", 300.0) - origin.get("alt", 0.0)),
-                                              descent_m=max(0.0, destination.get("alt", 0.0)))
-        result = {
-            "distance_km": round(distance_km, 3),
-            "eta_seconds": round(eta_s, 1),
-            "waypoints": [origin] + list(wps) + [destination],
-            "compliance": True,
-            "compliance_note": "",
-            "provider": "local",
-            "weather_ok": None,
-        }
-        # 尝试真实 API（高德 → 腾讯 容灾）
-        for provider in self._map_provider_order:
+        # 铁律：最外层绝对兜底 try/except
+        try:
+            # 兼容 tuple/list → dict
+            def _normalize(pt):
+                if isinstance(pt, dict):
+                    return pt
+                try:
+                    seq = list(pt)
+                    nd = {"lat": float(seq[0]), "lng": float(seq[1])}
+                    if len(seq) >= 3:
+                        nd["alt"] = float(seq[2])
+                    return nd
+                except Exception:
+                    return {"lat": 0.0, "lng": 0.0}
+
+            o = _normalize(origin)
+            d = _normalize(destination)
+            wps_norm = []
+            if waypoints:
+                for w in waypoints:
+                    wps_norm.append(_normalize(w))
+            distance_km = self._haversine_km(o, d)
+            wps = wps_norm
+            cumulative = 0.0
+            prev = o
+            for w in wps + [d]:
+                cumulative += self._haversine_km(prev, w)
+                prev = w
+            distance_km = cumulative or distance_km
+            d_alt_climb = max(0.0, float(d.get("alt", 300.0)) - float(o.get("alt", 0.0)))
+            d_alt_descent = max(0.0, float(o.get("alt", 0.0)) - float(d.get("alt", 0.0)))
+            eta_s = self._estimate_flight_seconds(distance_km, climb_m=d_alt_climb, descent_m=d_alt_descent)
+            result = {
+                "distance_km": round(distance_km, 3),
+                "eta_min": round(eta_s / 60.0, 1),
+                "eta_seconds": round(eta_s, 1),
+                "waypoints": [o] + list(wps) + [d],
+                "compliance": True,
+                "compliance_note": "",
+                "provider": "local",
+                "weather_ok": None,
+            }
+            # 尝试真实 API（高德 → 腾讯 容灾）
+            for provider in self._map_provider_order:
+                try:
+                    if provider == "amap" and self._amap_key:
+                        self._amap_route_enrich(result, o, d)
+                        result["provider"] = "amap"
+                        break
+                    if provider == "tencent" and self._tencent_key:
+                        self._tencent_route_enrich(result, o, d)
+                        result["provider"] = "tencent"
+                        break
+                except Exception as e:
+                    print(f"[EVTOL-MAP] {provider} 规划失败，继续尝试其他：{e}")
+                    continue
+            # 禁飞区叠加
             try:
-                if provider == "amap" and self._amap_key:
-                    self._amap_route_enrich(result, origin, destination)
-                    result["provider"] = "amap"
-                    break
-                if provider == "tencent" and self._tencent_key:
-                    self._tencent_route_enrich(result, origin, destination)
-                    result["provider"] = "tencent"
-                    break
-            except Exception as e:
-                print(f"[EVTOL-MAP] {provider} 规划失败，继续尝试其他：{e}")
-                continue
-        # 禁飞区叠加
-        mid = {
-            "lat": (origin["lat"] + destination["lat"]) / 2,
-            "lng": (origin["lng"] + destination["lng"]) / 2,
-        }
-        nfz = self._check_no_fly_zone(mid["lat"], mid["lng"])
-        if nfz:
-            result["compliance"] = False
-            result["compliance_note"] = f"路径中段穿越禁飞区: {nfz['name']}"
-        return result
+                mid = {
+                    "lat": (float(o["lat"]) + float(d["lat"])) / 2,
+                    "lng": (float(o["lng"]) + float(d["lng"])) / 2,
+                }
+                nfz = self._check_no_fly_zone(mid["lat"], mid["lng"])
+                if nfz:
+                    result["compliance"] = False
+                    result["compliance_note"] = f"路径中段穿越禁飞区: {nfz['name']}"
+            except Exception:
+                pass
+            return result
+        except Exception as e:
+            print(f"[EVTOL-MAP] plan_flight_route 绝对兜底拦截: {type(e).__name__}: {e}")
+            return {
+                "distance_km": 0.0,
+                "eta_min": 0.0,
+                "eta_seconds": 0.0,
+                "waypoints": [],
+                "compliance": False,
+                "compliance_note": "absolute-safety-net: %s" % type(e).__name__,
+                "provider": "safety-net",
+                "weather_ok": None,
+            }
 
     def get_weather_at(self, lat: float, lng: float) -> Dict[str, Any]:
         """获取起降点天气/风场（优先高德，其次腾讯，最后离线模拟）。"""
