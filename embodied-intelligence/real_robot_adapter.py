@@ -361,6 +361,28 @@ BRAND_COMM_MAP = {
     "huawei_matebook_fold": "consumer_tcp",
     "ai_xunizhubo_compliance": "vtla_tcp",
     "data_ip_registration_trade": "vtla_tcp",
+    # ========== 21张截图补充产品映射 ==========
+    "national_computing_network_4t_15th": "generic_bridge",
+    "chinamobile_4n31x_supercomputing_grid": "telecom_tcp",
+    "chinatelecom_xirang_integrated_platform": "telecom_tcp",
+    "chinaunicom_ai_computing_integration": "telecom_tcp",
+    "aliyun_feitian_heterogeneous_management": "wafer_tcp",
+    "tencent_hunyuan_computing_cluster": "wafer_tcp",
+    "huawei_ascend_cloudmatrix_ecosystem": "wafer_tcp",
+    "baidu_kunlunxin_wenxin_fullstack": "wafer_tcp",
+    "shenzhou_kejie_warehouse_ai_agent": "llm_tcp",
+    "yunji_hotel_delivery_standard_robot": "consumer_tcp",
+    "kunlunwanwei_global_shortform_platform": "consumer_tcp",
+    "kunlunwanwei_ai_music_production": "llm_tcp",
+    "imt2030_6g_ntn_satellite_terrestrial": "telecom_tcp",
+    "nvidia_6g_airan_base_station": "telecom_tcp",
+    "haiyou_anlan_16mw_floating_wind": "vtla_tcp",
+    "jingwei_hao1_reusable_rocket": "vtla_tcp",
+    "cfr1000_1200mw_sodium_fast_reactor": "vtla_tcp",
+    "tmsr_2mw_thorium_molten_salt_reactor": "vtla_tcp",
+    "300mw_compact_small_pwr": "vtla_tcp",
+    "china_full_moon_geological_map_5m": "generic_bridge",
+    "chowchow_bank_cross_border_payment_pass": "generic_bridge",
 }
 
 # 协议实现映射（协议名 → 适配器类，延迟导入避免依赖缺失）
