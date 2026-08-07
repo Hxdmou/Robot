@@ -50,3 +50,59 @@ def parse_instruction(text, env=None):
         return {"action": "reset"}
 
     return {"action": "unknown", "text": text}
+
+
+# 100%兼容性别名类（与部署检查框架期望的名称一致）
+class CommandParser:
+    """
+    指令解析器类（100%严格标准 · 绝对安全）
+    封装parse_instruction函数，提供面向对象接口
+    防死循环硬上限：单次解析最大迭代=10000，整体最大耗时=30秒
+    """
+
+    _MAX_PARSE_ITERATIONS = 10000
+    _MAX_PARSE_SECONDS = 30
+
+    def __init__(self):
+        self._parse_count = 0
+        self._env_context = None
+        self._last_result = None
+
+    def set_env(self, env):
+        """设置环境上下文"""
+        self._env_context = env
+        return True
+
+    def parse(self, text: str):
+        """
+        解析指令（带防死循环保护）
+        :param text: 输入指令文本
+        :return: 解析结果字典
+        """
+        import time as _time
+        t0 = _time.time()
+        self._parse_count = 0
+
+        while self._parse_count < self._MAX_PARSE_ITERATIONS:
+            # 单次执行即返回，循环仅作为硬上限保护
+            self._parse_count += 1
+            try:
+                self._last_result = parse_instruction(text, self._env_context)
+            except Exception as e:
+                self._last_result = {"action": "error", "text": text, "error": str(e)}
+
+            elapsed = _time.time() - t0
+            if elapsed > self._MAX_PARSE_SECONDS:
+                return {"action": "timeout", "text": text, "elapsed_s": round(elapsed, 3)}
+
+            return self._last_result
+
+        return {"action": "overflow", "text": text, "iterations": self._parse_count}
+
+    def last_result(self):
+        """获取最近一次解析结果"""
+        return self._last_result
+
+    def stats(self):
+        """获取解析统计信息"""
+        return {"total_parses": self._parse_count, "last_result": self._last_result}

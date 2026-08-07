@@ -362,32 +362,32 @@ def _get_adaptive_fps(base_fps: float) -> float:
 
 PERCEPTION_METRICS_THRESHOLDS: Dict[str, Dict[str, Any]] = {
     "test": {
-        "visual_localization_accuracy_mm": 10.0,
+        "visual_localization_accuracy_mm": 0.1,
         "target_recognition_robustness": 1.0,
-        "depth_perception_accuracy_mm": 20.0,
-        "voice_false_trigger_rate_per_hour": 5.0,
+        "depth_perception_accuracy_mm": 0.1,
+        "voice_false_trigger_rate_per_hour": 0.0,
         "multi_turn_dialog_accuracy": 1.0,
         "emotion_recognition_accuracy": 1.0,
-        "force_control_response_latency_ms": 200.0,
-        "contact_force_accuracy_n": 5.0,
-        "compliant_control_stability": 0.70,
-        "sensor_fusion_latency_ms": 300.0,
-        "abnormal_response_time_s": 2.0,
-        "autonomous_decision_confidence": 0.60,
+        "force_control_response_latency_ms": 1.0,
+        "contact_force_accuracy_n": 0.01,
+        "compliant_control_stability": 1.0,
+        "sensor_fusion_latency_ms": 1.0,
+        "abnormal_response_time_s": 0.01,
+        "autonomous_decision_confidence": 1.0,
     },
     "pre": {
-        "visual_localization_accuracy_mm": 5.0,
+        "visual_localization_accuracy_mm": 0.1,
         "target_recognition_robustness": 1.0,
-        "depth_perception_accuracy_mm": 10.0,
-        "voice_false_trigger_rate_per_hour": 2.0,
+        "depth_perception_accuracy_mm": 0.1,
+        "voice_false_trigger_rate_per_hour": 0.0,
         "multi_turn_dialog_accuracy": 1.0,
         "emotion_recognition_accuracy": 1.0,
-        "force_control_response_latency_ms": 100.0,
-        "contact_force_accuracy_n": 3.0,
-        "compliant_control_stability": 0.85,
-        "sensor_fusion_latency_ms": 150.0,
-        "abnormal_response_time_s": 1.0,
-        "autonomous_decision_confidence": 0.80,
+        "force_control_response_latency_ms": 1.0,
+        "contact_force_accuracy_n": 0.01,
+        "compliant_control_stability": 1.0,
+        "sensor_fusion_latency_ms": 1.0,
+        "abnormal_response_time_s": 0.01,
+        "autonomous_decision_confidence": 1.0,
     },
     "prod": {
         "visual_localization_accuracy_mm": 0.1,
@@ -443,17 +443,21 @@ ISO_13849_FUNCTIONAL_SAFETY: Dict[str, Dict[str, Any]] = {
         "emergency_stop": True,
         "safe_speed_monitor": True,
         "collision_detection_response": True,
-        "fall_protection": False,
-        "pl_level_required": "PLc",
-        "mtbfd_hours": 1000,
+        "fall_protection": True,
+        "pl_level_required": "PLe",
+        "mtbfd_hours": 20000,
+        "hft_hardware_fault_tolerance": 1,
+        "dc_diagnostic_coverage": 1.0,
     },
     "pre": {
         "emergency_stop": True,
         "safe_speed_monitor": True,
         "collision_detection_response": True,
         "fall_protection": True,
-        "pl_level_required": "PLd",
-        "mtbfd_hours": 5000,
+        "pl_level_required": "PLe",
+        "mtbfd_hours": 20000,
+        "hft_hardware_fault_tolerance": 1,
+        "dc_diagnostic_coverage": 1.0,
     },
     "prod": {
         "emergency_stop": True,
@@ -476,8 +480,11 @@ IEC_62443_NETWORK_SECURITY: Dict[str, Dict[str, Any]] = {
     "test": {
         "access_control": True,
         "data_integrity": True,
-        "intrusion_protection": False,
+        "intrusion_protection": True,
         "secure_communication": True,
+        "audit_logging": True,
+        "firmware_integrity_check": True,
+        "secure_update_mechanism": True,
     },
     "pre": {
         "access_control": True,
@@ -485,6 +492,8 @@ IEC_62443_NETWORK_SECURITY: Dict[str, Dict[str, Any]] = {
         "intrusion_protection": True,
         "secure_communication": True,
         "audit_logging": True,
+        "firmware_integrity_check": True,
+        "secure_update_mechanism": True,
     },
     "prod": {
         "access_control": True,
@@ -594,16 +603,20 @@ STRUCTURAL_STRENGTH_ANALYSIS: Dict[str, Dict[str, Any]] = {
 
 COMMERCIALIZATION_METRICS: Dict[str, Dict[str, Any]] = {
     "test": {
-        "task_completion_rate": 0.50,
-        "system_stability_hours": 8,
-        "ops_cost_per_hour": 100.0,
-        "roi_payback_months": 36,
+        "task_completion_rate": 1.0,
+        "system_stability_hours": 8760,
+        "ops_cost_per_hour": 1.0,
+        "roi_payback_months": 1,
+        "industrial_scenario_coverage": 1.0,
+        "manual_replacement_rate": 1.0,
     },
     "pre": {
-        "task_completion_rate": 0.75,
-        "system_stability_hours": 72,
-        "ops_cost_per_hour": 50.0,
-        "roi_payback_months": 24,
+        "task_completion_rate": 1.0,
+        "system_stability_hours": 8760,
+        "ops_cost_per_hour": 1.0,
+        "roi_payback_months": 1,
+        "industrial_scenario_coverage": 1.0,
+        "manual_replacement_rate": 1.0,
     },
     "prod": {
         "task_completion_rate": 1.0,
@@ -1451,16 +1464,16 @@ MULTIMODAL_EMBODIED_LLM: Dict[str, Dict[str, Any]] = {
 OOD_GENERALIZATION_TEST: Dict[str, Dict[str, Any]] = {
     "test": {
         "enabled": True,
-        "extreme_conditions": ["low_light", "partial_occlusion", "background_noise"],
+        "extreme_conditions": ["low_light", "partial_occlusion", "background_noise", "unseen_objects", "lighting_change", "dynamic_obstacles", "sensor_failure", "adversarial_inputs"],
         "min_ood_success_rate": 1.0,
-        "max_performance_drop": 0.40,
+        "max_performance_drop": 0.0,
         "safety_degradation_enabled": True,
     },
     "pre": {
         "enabled": True,
-        "extreme_conditions": ["low_light", "partial_occlusion", "background_noise", "unseen_objects", "lighting_change"],
+        "extreme_conditions": ["low_light", "partial_occlusion", "background_noise", "unseen_objects", "lighting_change", "dynamic_obstacles", "sensor_failure", "adversarial_inputs"],
         "min_ood_success_rate": 1.0,
-        "max_performance_drop": 0.25,
+        "max_performance_drop": 0.0,
         "safety_degradation_enabled": True,
     },
     "prod": {
@@ -7179,6 +7192,8 @@ VLA_MODEL_STANDARD: Dict[str, Dict[str, Any]] = {
         "enabled": True,
         "vla_type": "basic_transformer",
         "action_space": "joint_position",
+        "vision_language_alignment_score": 1.0,  # 100%严格标准，零容忍
+        "action_generation_accuracy": 1.0,        # 100%严格标准，零容忍
     },
     "pre": {
         "enabled": True,
@@ -7197,10 +7212,14 @@ VLA_MODEL_STANDARD: Dict[str, Dict[str, Any]] = {
             "counterfactual_reasoning": True,
             "planning_with_imagination": True,
         },
+        "vision_language_alignment_score": 1.0,  # 100%严格标准，零容忍
+        "action_generation_accuracy": 1.0,        # 100%严格标准，零容忍
     },
     "prod": {
         "enabled": True,
         "vla_type": "unified_generalist",
+        "vision_language_alignment_score": 1.0,  # 100%严格标准，零容忍
+        "action_generation_accuracy": 1.0,        # 100%严格标准，零容忍
         "model_architectures": {
             "rt_family": {
                 "enabled": True,
@@ -8607,8 +8626,8 @@ DEPLOYMENT_THRESHOLDS: Dict[str, Dict[str, Any]] = {
 CONTROL_PARAMS = {"force": 200.0, "move_speed": 15, "convergence_steps": 50, "convergence_threshold": 0.001, "ik_max_iter": 2000, "ik_threshold": 1e-6}
 
 CONTROL_PARAMS_BY_LEVEL: Dict[str, Dict[str, float]] = {
-    "test": {"force": 200.0, "move_speed": 20, "convergence_steps": 30, "convergence_threshold": 0.002, "max_joint_speed": 3.0},
-    "pre": {"force": 200.0, "move_speed": 15, "convergence_steps": 50, "convergence_threshold": 0.001, "max_joint_speed": 2.0},
+    "test": {"force": 150.0, "move_speed": 10, "convergence_steps": 80, "convergence_threshold": 0.0005, "max_joint_speed": 1.0},
+    "pre": {"force": 150.0, "move_speed": 10, "convergence_steps": 80, "convergence_threshold": 0.0005, "max_joint_speed": 1.0},
     "prod": {"force": 150.0, "move_speed": 10, "convergence_steps": 80, "convergence_threshold": 0.0005, "max_joint_speed": 1.0},
 }
 

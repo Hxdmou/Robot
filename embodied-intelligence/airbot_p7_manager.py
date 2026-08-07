@@ -710,3 +710,7 @@ if __name__ == "__main__":
     print("\n" + "=" * 70)
     print("  ✅ AIRBOT P7 所有模块自检通过！")
     print("=" * 70)
+
+
+# 100%兼容性别名（类名大小写统一）
+AirbotP7Manager = AIRBOTP7Manager

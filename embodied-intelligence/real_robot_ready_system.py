@@ -4207,9 +4207,13 @@ class RealRobotReadySystem:
         print("\n[3/5] 运行启动自检...")
         self.diagnostics = SelfTestDiagnostics(self.robot, self.safety, self.config)
         passed, _ = self.diagnostics.run_power_on_self_test()
-        if not passed and self.backend != "simulation":
-            print("⚠️ 自检存在问题，建议检查后再继续")
-            # 仿真模式下继续
+        if not passed:
+            if self.backend != "simulation":
+                print("❌ 真机自检未达到100%严格标准，已禁止继续部署")
+                print("❌ 必须排查并修复自检报告中的所有失败项后，才能执行真机操作")
+                return False
+            else:
+                print("ℹ️  仿真模式：自检未达100%（真机模式将强制禁止）")
 
         # Step 4: 标定（首次）
         print("\n[4/5] 标定与校准...")

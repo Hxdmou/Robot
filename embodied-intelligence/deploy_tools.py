@@ -387,17 +387,14 @@ class DeploymentReportGenerator:
                 lines.append(f"  {status} {key}: {result.get('detail', '')}")
             lines.append("")
 
-        # 结论
+        # 结论（100%严格标准：只有success_rate==1.0才算合格，否则不合格）
         lines.append("=" * 70)
         success_rate = deploy_data.get('success_rate', 0)
-        if success_rate >= 90:
-            lines.append("  🎯 部署结论: 优秀 (Excellent)")
-        elif success_rate >= 70:
-            lines.append("  ✅ 部署结论: 良好 (Good)")
-        elif success_rate >= 50:
-            lines.append("  ⚠️  部署结论: 一般 (Fair) - 建议优化模型")
+        if success_rate == 1.0:
+            lines.append("  🎯 部署结论: ✅ 合格 (100%严格标准达标 · success_rate=1.0)")
         else:
-            lines.append("  ❌ 部署结论: 不合格 (Poor) - 需要重新训练或排查")
+            lines.append(f"  ❌ 部署结论: 不合格 (success_rate={success_rate:.3f}，未达到100%严格标准)")
+            lines.append("  ❌ 必须重新训练或排查所有失败项，禁止携带未达标项部署")
         lines.append("=" * 70)
 
         report_content = "\n".join(lines)

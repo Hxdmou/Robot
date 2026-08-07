@@ -22,14 +22,17 @@
 
 COLLISION_CONFIG = {
     "enabled": True,
-    
+
     "safety_distance": 0.01,
     "warning_distance": 0.02,
     "check_interval": 0.01,
     "max_contacts": 100,
-    
+
     "force_threshold": 10.0,
     "max_force": 100.0,
+
+    "collision_risk_threshold": 1.0,  # 100%严格标准，零风险容忍
+    "impact_force_threshold": 50.0,
 }
 
 COLLISION_LEVELS = {
