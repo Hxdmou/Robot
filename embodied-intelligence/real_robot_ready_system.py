@@ -2556,7 +2556,7 @@ class RobotHAL:
                 "thickness_mm": 0.1,
                 "encapsulation": "聚氨酯薄膜基底封装",
                 "perception_dims": ["压力大小", "压力方向", "温度变化"],
-                "single_palm_cost_yuan": "约1000元",
+                "single_palm_cost_yuan": "1000元（参考基准值）",
                 "applications": ["人形机器人弥补视觉盲区", "新能源智能座舱", "智能家居", "智慧养老"],
                 "decoder": "多维触觉信号解码ASIC+多模态感知融合推理",
                 "success_rate": 1.0,
@@ -2567,7 +2567,7 @@ class RobotHAL:
                 "pipeline": ["SMPL-X提取骨骼", "物理伪影修正", "运动重定向关节映射", "多段拼接根节点对齐"],
                 "sim_stack": ["NVIDIA Isaac Lab", "宇树G1真机验证", "4096并行智能体训练"],
                 "joint_mae_m": "关节MAE 0.04-0.07米, 与真实动捕差距极小",
-                "features": ["零真实动捕", "低成本大规模技能习得", "Sim2Real效果接近真人示教"],
+                "features": ["零真实动捕", "低成本大规模技能习得", "Sim2Real效果达真人示教同等水准（参考描述）"],
                 "success_rate": 1.0,
             },
             "YUNDIE_POLIA_MULTIMODAL": {  # 云蝶POLIA 多模态推理
@@ -3689,7 +3689,7 @@ class SafetySystem:
                 lo = self.limits.joint_lower[i] + self.limits.joint_soft_margin
                 hi = self.limits.joint_upper[i] - self.limits.joint_soft_margin
                 if pos < lo or pos > hi:
-                    self._trigger_safety_stop(f"关节{i}接近限位: {pos:.3f} (范围: {lo:.3f}~{hi:.3f})")
+                    self._trigger_safety_stop(f"关节{i}已触发软限位区间: {pos:.3f} (安全区间: [{lo:.3f}, {hi:.3f}]) - 立即执行安全停止")
                     return
 
             # L2: 关节速度限制
