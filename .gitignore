@@ -364,3 +364,163 @@ ocr_temp/
 # ===== END OF SECURITY BLOCK - NEVER COMMIT FILES MATCHING THE ABOVE =====
 # ============================================================================
 
+# ============================================================================
+# ===== 100%严格标准·安全加固补充块（2026-08-07新增） =====
+# 目标：防诈骗分子利用AI冒充/仿冒/语音/视频/隐私数据泄露
+# ============================================================================
+
+# ---- 子目录通配：任何路径下的文件名含敏感关键词即忽略 ----
+**/*credentials*.json
+**/*credentials*.yaml
+**/*credentials*.yml
+**/*credentials*.toml
+**/*secrets*.json
+**/*secrets*.yaml
+**/*secrets*.yml
+**/*api_key*
+**/*api_secret*
+**/*access_token*
+**/*refresh_token*
+**/*auth_token*
+**/*private_key*
+**/*password*
+**/*passwd*
+**/*pin_code*
+**/*pin_hash*
+
+# ---- 诈骗高危资产：音频/视频/录音录像（防止冒充老人亲属/公检法/社保局）----
+*.mp3
+*.wav
+*.flac
+*.aac
+*.ogg
+*.m4a
+*.opus
+*.wma
+*.amr
+# 视频类
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.wmv
+*.flv
+*.webm
+*.m4v
+*.3gp
+*.ts
+*.rmvb
+# 实时记录与聊天导出（可能被话术伪造）
+*.wechatmsg
+*_wechat_*
+*_dingtalk_*
+*_feishu_*
+*_chat_export*
+*_chat_history*
+*_messages*.*
+
+# ---- 生物特征/身份证/银行卡/手机号等公民信息批量文件 ----
+*_idcard*.*
+*_id_card*.*
+*_identity*.*
+*_passport*.*
+*_driver_license*.*
+*_bankcard*.*
+*_credit_card*.*
+*_phone_list*.*
+*_mobile_list*.*
+*_address_list*.*
+*_employee_list*.*
+*_customer_list*.*
+*_member_list*.*
+*_name_list*.*
+*_contact_list*.*
+*_family_*.*
+*_relative_*.*
+*_elder*.*          # 老年人名单：诈骗分子最高价值目标
+*_pension*.*         # 养老金/社保相关文件
+*_shebao*.*
+*_social_security*.*
+*_yibao*.*
+*_medical_insurance*.*
+*_fund*.*            # 基金/理财名单
+*_stock_account*.*
+
+# ---- 数据库文件（可能含海量用户隐私）----
+*.db
+*.sqlite
+*.sqlite3
+*.db3
+*.sdb
+*.mdb
+*.accdb
+*.sql
+*.dmp
+*.dump
+
+# ---- 运行时内存/核心转储（含进程内密钥明文/Token）----
+core
+core.*
+*.core
+memory.dmp
+*.dmp
+*.hprof
+*.heapdump
+
+# ---- 子目录通配：任何路径下的临时本地配置 ----
+**/local_settings.py
+**/settings_local.py
+**/config_local.py
+**/secrets.py
+**/site_secrets.py
+**/deploy_hosts*.conf
+**/production_config*.yaml
+**/production_config*.json
+**/.env
+**/.env.*
+**/device_passwords*.txt
+**/robot_keys*.json
+**/factory_ip*.json
+**/calibration_results*.json
+**/snapshot_*.json
+**/deploy_snapshot*.json
+**/deploy_snapshots/
+
+# ---- 任何路径下的知识库/向量索引（犯罪分子拿不到专业内容）----
+**/*_faiss_index/
+**/*faiss_index/
+**/legal_knowledge_base/
+**/medical_knowledge_base/
+**/finance_knowledge_base/
+**/education_knowledge_base/
+**/tech_knowledge_base/
+**/knowledge_base/
+**/knowledge_base_data/
+**/kb_*/
+**/vectorstore/
+**/vector_store/
+**/chroma_db/
+**/chroma/
+**/milvus_data/
+**/qdrant/
+**/pgvector/
+
+# ---- 任何路径下的聊天历史/用户交互日志文件 ----
+**/chat_histories/
+**/chat_history/
+**/chat_logs/
+**/dialog_history/
+**/conversation/
+**/sessions/
+**/user_sessions/
+**/interactions/
+**/chat.jsonl
+**/chat.log
+**/*_chat.jsonl
+**/*_dialog.jsonl
+**/*_session*.json
+
+# ============================================================================
+# ===== FINAL：以上任何模式匹配成功 = 绝对禁止被 git 追踪 =====
+# ============================================================================
+
