@@ -270,6 +270,97 @@ BRAND_COMM_MAP = {
     "digua_warehouse": "logistics_slam_mqtt",
     "yuanli_apex": "modbus_tcp_ros2",
     "zhengqi_quorra_x5": "consumer_5g_cv2x",
+    # ==================== 非运动体兜底（AI芯片/传感器/eVTOL/平台/基建设施/研究基地/通信设备等 → GenericBridgeAdapter） ====================
+    "anhui_industrial_net_export": "generic_bridge",
+    "beta_creative_tech_hk_ai_infra": "generic_bridge",
+    "buerchou_liangchou_no1_atomic_qm_stand": "generic_bridge",
+    "cfs_fusion_4b_usd_funding": "generic_bridge",
+    "dobot_lumo": "generic_bridge",
+    "dognavy_cybergym_global3_opensource1": "generic_bridge",
+    "dongfang_gravity_one_ys4_sea": "generic_bridge",
+    "dongfang_starlink_05_06": "generic_bridge",
+    "eu_7ai_giga_30b_euro": "generic_bridge",
+    "fengfei_v5000_evtol": "evtol_map",
+    "fudan_qm_flash_27c_science": "generic_bridge",
+    "general_fusion_nasdaq": "generic_bridge",
+    "hangzhou_wheel_legged_hercules": "generic_bridge",
+    "hanwei_force_sensor": "generic_bridge",
+    "hongyuan_crossed_roller_bearing": "generic_bridge",
+    "lanxiao_lx1_evtol": "evtol_map",
+    "leisai_motion_control": "generic_bridge",
+    "liupanshui_coke_hydrogen_base": "generic_bridge",
+    "longyou_embodied_training_base": "generic_bridge",
+    "national_six_nets_shiwuwu_26p9trillion": "generic_bridge",
+    "ncku_text2video_embodied_training": "generic_bridge",
+    "nokia_ai_ran_6g_platform": "generic_bridge",
+    "nvidia_cosmos_physics_ai_alliance": "generic_bridge",
+    "pku_bci_alpha_1k_synced": "generic_bridge",
+    "shenzhen_collaborative_global_no1": "generic_bridge",
+    "ustc_flexible_e_skin": "generic_bridge",
+    "yuezhi_anmian_kimi_k3_code_no1": "generic_bridge",
+    "yundie_polia_multimodal": "generic_bridge",
+    "zhiyuan_central_henan_base": "generic_bridge",
+    # ==================== 补充产品映射 ====================
+    "zeuth_humanoid": "unitree_udp",
+    "hefei_jshen_training_field": "generic_bridge",
+    "hefei_jushen_data_company": "generic_bridge",
+    "smart_robot_machining_center": "generic_bridge",
+    "jiuzhihu_dual_arm_nursing": "shurui_tcp",
+    "taibao_home_yanglao_station": "shurui_tcp",
+    "baozouzhe_commercial_humanoid": "unitree_udp",
+    "zunjie_v800_flagship_mpv": "generic_bridge",
+    "shangtang_token_factory": "wafer_tcp",
+    "huaweiyun_lingqu_cluster": "wafer_tcp",
+    "deepseek_llm_company": "llm_tcp",
+    "anthropic_custom_chip_team": "wafer_tcp",
+    "discovery_loop_company": "vtla_tcp",
+    "spacex_starmind_satellite": "telecom_tcp",
+    "yixi_xiaoxiao_ai_agent": "vtla_tcp",
+    "caict_token_evaluation": "vtla_tcp",
+    "linghang_science_education": "vtla_tcp",
+    "yiwu_shangmao_llm": "llm_tcp",
+    "honghai_ai_server_oem": "wafer_tcp",
+    "shengke_switch_chip": "wafer_tcp",
+    "ruijie_ai_switch": "telecom_tcp",
+    "ziguang_network_device": "telecom_tcp",
+    "zhongxing_ai_network": "telecom_tcp",
+    "oulutong_compute_end": "wafer_tcp",
+    "huaqin_server_manufacturing": "wafer_tcp",
+    "fenghuo_ai_compute_device": "telecom_tcp",
+    "cambricon_inference_chip": "wafer_tcp",
+    "haiguang_ai_cpu": "wafer_tcp",
+    "langchao_ai_server": "wafer_tcp",
+    "hongjing_suanli_lease": "wafer_tcp",
+    "xiechuang_suanli_data": "wafer_tcp",
+    "zhiwei_zhineng_suanli": "wafer_tcp",
+    "xingyun_keji_suanli": "wafer_tcp",
+    "runjian_suanli_stock": "wafer_tcp",
+    "yunsai_zhilian_suanli": "wafer_tcp",
+    "litong_dianzi_suanli": "wafer_tcp",
+    "chaoxun_tongxin_suanli": "telecom_tcp",
+    "zhongbei_tongxin_suanli": "telecom_tcp",
+    "hangjin_keji_suanli": "wafer_tcp",
+    "honghe_ultrathin_electronic_cloth": "sensor_tcp",
+    "fuqiao_electronic_cloth": "sensor_tcp",
+    "fenghua_gaoke_mlcc": "sensor_tcp",
+    "sanhuan_mlcc": "sensor_tcp",
+    "hudian_high_end_pcb": "sensor_tcp",
+    "shennan_high_speed_pcb": "sensor_tcp",
+    "pengding_ai_pcb": "sensor_tcp",
+    "wuxi_aisuanli_pcb": "sensor_tcp",
+    "jiantao_copper_clad": "sensor_tcp",
+    "changfei_special_fiber": "telecom_tcp",
+    "hengtong_special_fiber": "telecom_tcp",
+    "zhongtian_special_fiber": "telecom_tcp",
+    "yunnan_zheye_inp": "wafer_tcp",
+    "sanan_inp_substrate": "wafer_tcp",
+    "high_purity_tungsten_target": "sensor_tcp",
+    "ultrathin_copper_foil_pcb": "sensor_tcp",
+    "changxin_cxmt_dram": "wafer_tcp",
+    "google_pixel_tag": "consumer_tcp",
+    "huawei_matebook_fold": "consumer_tcp",
+    "ai_xunizhubo_compliance": "vtla_tcp",
+    "data_ip_registration_trade": "vtla_tcp",
 }
 
 # 协议实现映射（协议名 → 适配器类，延迟导入避免依赖缺失）
@@ -333,9 +424,15 @@ PROTOCOL_ADAPTERS = {
     "logistics_slam_mqtt": "protocol_adapters.GenericTCPAdapter",
     "modbus_tcp_ros2": "protocol_adapters.GenericTCPAdapter",
     "consumer_5g_cv2x": "protocol_adapters.GenericTCPAdapter",
+    # ========== 非运动体兜底桥接适配器（AI芯片/传感器/核心板/研究平台/通信/XR 等全类别） ==========
+    "generic_bridge": "protocol_adapters.GenericBridgeAdapter",
+    # ========== eVTOL 低空飞行器地图适配器（高德/腾讯双路容灾） ==========
+    "evtol_map": "protocol_adapters.EVTOLMapAdapter",
 }
 
 
+
+from deployment_overrides import DEPLOYMENT_OVERRIDES  # 自动生成：真实部署通信/限位默认值
 class RobotAdapter:
     """多品牌兼容机器人适配器
     
@@ -372,7 +469,9 @@ class RobotAdapter:
             simulator_backend: 仿真后端（pybullet/mujoco/isaac_sim/ros2），仅 sim 模式有效
         """
         self.mode = mode
-        self.arm_key = arm_key or config.get("arm_key") if config else None
+        # 原表达式因 Python 运算优先级导致: A or B if C else D → 等价于 (A or B) if C else D
+        # → config=None/config={} 时即使传了 arm_key 也会被置 None。修正:加括号显式绑定
+        self.arm_key = arm_key or (config.get("arm_key") if config else None)
         self.config = config or {}
         self.simulator_backend = simulator_backend
         self.comm = None
@@ -384,6 +483,16 @@ class RobotAdapter:
         # 加载机器人配置
         if self.arm_key and self.arm_key in ARM_DATABASE:
             self.arm_config = ARM_DATABASE[self.arm_key]
+            # ===== 真实部署默认值（一次性生成，可人工微调）=====
+            if self.arm_key in DEPLOYMENT_OVERRIDES:
+                _ovr = DEPLOYMENT_OVERRIDES[self.arm_key]
+                for _k, _v in _ovr.items():
+                    if isinstance(_v, dict) and isinstance(self.arm_config.get(_k), dict):
+                        self.arm_config[_k].update(_v)
+                    else:
+                        self.arm_config[_k] = _v
+                _ = None; _ovr = None  # 清理引用
+            # ===== 真实部署默认值 · END =====
             self.brand = self.arm_config.get("brand", "Unknown")
             self.model = self.arm_config.get("model", "Unknown")
             self.dofs = self.arm_config.get("degrees_of_freedom", 7)
@@ -440,31 +549,32 @@ class RobotAdapter:
         print(f"[ADAPTER] 仿真后端: {backend} | 机器人: {self.brand} {self.model}")
 
         if backend == "pybullet":
-            return SimRobotComm()
+            # 传入关节数量提示，让 SimRobotComm 自动创建匹配尺寸的骨架机器人
+            return SimRobotComm(num_joints=max(1, int(getattr(self, "dofs", 6) or 6)))
         elif backend == "mujoco":
             try:
                 from sim_backends import MuJoCoBackend
                 return MuJoCoBackend(self.arm_config, self.config)
             except ImportError:
                 print("[ADAPTER] ⚠️  MuJoCo 不可用，降级为 PyBullet")
-                return SimRobotComm()
+                return SimRobotComm(num_joints=max(1, int(getattr(self, "dofs", 6) or 6)))
         elif backend == "isaac_sim":
             try:
                 from sim_backends import IsaacSimBackend
                 return IsaacSimBackend(self.arm_config, self.config)
             except ImportError:
                 print("[ADAPTER] ⚠️  Isaac Sim 不可用，降级为 PyBullet")
-                return SimRobotComm()
+                return SimRobotComm(num_joints=max(1, int(getattr(self, "dofs", 6) or 6)))
         elif backend in ("ros2", "gazebo"):
             try:
                 from sim_backends import ROS2Backend
                 return ROS2Backend(self.arm_config, self.config)
             except ImportError:
                 print("[ADAPTER] ⚠️  ROS2 不可用，降级为 PyBullet")
-                return SimRobotComm()
+                return SimRobotComm(num_joints=max(1, int(getattr(self, "dofs", 6) or 6)))
         else:
             print(f"[ADAPTER] ⚠️  未知仿真后端: {backend}，使用 PyBullet")
-            return SimRobotComm()
+            return SimRobotComm(num_joints=max(1, int(getattr(self, "dofs", 6) or 6)))
 
     def initialize(self):
         if self.mode == "real":
