@@ -511,7 +511,7 @@ A2A协议是下一代Agent-to-Agent通信标准，实现异构AI Agent之间的�
   "actor": {
     "agent_id": "order-agent-prod-002",
     "organization": "ACME Corp",
-    "ip_address": "10.0.0.15"
+    "ip_address": "127.0.0.1"
   },
   "target": {
     "agent_id": "inventory-agent-prod-001",

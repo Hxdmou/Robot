@@ -1,0 +1,91 @@
+# Git
+.git
+.gitignore
+.github
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+*.egg-info/
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs & Training Artifacts
+*.log
+logs/
+logs_*/
+eval_logs/
+eval_logs_*/
+events.out.tfevents*
+mlruns/
+
+# Model Checkpoints & Large Files
+*.zip
+*.pkl
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+*.bin
+*.h5
+*.hdf5
+*.npz
+*.npy
+checkpoints/
+checkpoints_*/
+model_registry/
+
+# Deployment Artifacts
+deploy_archives/
+deploy_reports/
+deploy_snapshots/
+*.tar.gz
+*.tgz
+
+# Test Results
+test_results/
+*.csv
+
+# Build artifacts
+build/
+dist/
+
+# Manual screenshots
+manual_screenshots/
+manual_screenshots_transformed/
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+
+# Coverage
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore

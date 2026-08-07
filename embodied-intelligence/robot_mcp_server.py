@@ -18,6 +18,7 @@
 import sys
 import os
 import json
+import time
 import argparse
 import threading
 import traceback
@@ -568,7 +569,12 @@ def _read_message() -> Optional[Dict[str, Any]]:
     """从 stdin 读取一条 MCP 消息（Content-Length 帧 + JSON body）。失败返回 None。"""
     headers: Dict[str, str] = {}
     try:
+        _MAX_LOOPS = 10_000_000
+        _loop_count = 0
         while True:
+            _loop_count += 1
+            if _loop_count > _MAX_LOOPS:
+                return None
             line = sys.stdin.buffer.readline()
             if not line:
                 return None  # EOF
@@ -609,7 +615,11 @@ def _write_message(obj: Any) -> None:
 def run_stdio_server() -> int:
     """主循环：运行 MCP stdio server。永远不主动抛异常退出。"""
     # 先确保 stdout 是 line-buffered 或 binary 模式（上面 write_message 已经用 buffer）
+    _MAX_SECONDS = 86400
+    _start_time = time.time()
     while True:
+        if time.time() - _start_time > _MAX_SECONDS:
+            return 0
         msg = _read_message()
         if msg is None:
             # 客户端关闭输入流 → 优雅退出
