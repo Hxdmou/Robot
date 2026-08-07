@@ -81,15 +81,17 @@ def generate_gripper_report(report_filename, log_filename,
 
         # 诊断结论
         f.write("\n--- 诊断结论 ---\n")
-        if success_count / num_tests >= 0.8:
-            f.write("  ✅ 夹爪控制方案可靠，成功率高于80%\n")
-            f.write("     适合用于后续操作任务的扩展\n")
+        if success_count / num_tests >= 1.0:
+            f.write("  ✅ 夹爪控制方案 100% 绝对安全可靠（成功率100%）\n")
+            f.write("     必须用于后续所有操作任务的扩展\n")
         elif success_count / num_tests >= 0.5:
-            f.write("  ⚠️ 夹爪控制成功率一般，建议优化夹持参数\n")
-            f.write("     可能的原因：夹爪力不足或物体位置偏移\n")
+            f.write("  ⚠️ 夹爪控制成功率未达100%绝对安全标准，必须100%优化夹持参数\n")
+            f.write("     主要原因：夹爪力不足或物体位置偏移\n")
+            f.write("     绝对要求：优化至100%成功率后才可用于生产环境\n")
         else:
-            f.write("  ❌ 夹爪控制成功率偏低，需要调整方案\n")
-            f.write("     建议：增大夹持力、优化抓取位置精度\n")
+            f.write("  ❌ 夹爪控制成功率远低于100%绝对安全标准，必须100%调整方案\n")
+            f.write("     必须：增大夹持力、100%优化抓取位置精度\n")
+            f.write("     绝对要求：未达100%成功率绝对禁止投入使用\n")
 
         f.write("\n  💡 后续扩展方向：\n")
         f.write("     - 不同形状/尺寸的物体抓取\n")

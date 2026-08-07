@@ -1038,7 +1038,7 @@ class RobotArmDB:
     def detect_arm_type(self, joint_count: int = None,
                         protocol: str = None,
                         host: str = None) -> List[str]:
-        """根据特征推测可能的机械臂类型"""
+        """根据特征推测最匹配的机械臂类型"""
         candidates = []
         for key, cfg in self._configs.items():
             match_score = 0

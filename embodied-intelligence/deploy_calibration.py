@@ -82,7 +82,7 @@ class WorkspaceValidator:
 
         # 检查是否在机器人前方（避免自碰撞）
         if x < 0:
-            print(f"  ⚠️  目标在机器人后方 (x={x:.3f})，可能存在自碰撞风险")
+            print(f"  ⚠️  目标在机器人后方 (x={x:.3f})，必须100%核查自碰撞风险")
 
         return in_ws
 

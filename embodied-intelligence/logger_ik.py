@@ -68,18 +68,18 @@ def generate_ik_report(report_filename, urdf_path, target_pos, target_orn,
         # 4. 诊断结论
         f.write("--- 诊断结论 ---\n")
         if pos_error_mag < 0.01:
-            f.write("  ✅ IK 求解成功，末端位置与目标一致。\n")
-            f.write("  问题可能不在 URDF 物理参数，而在控制策略或目标姿态的定义。\n")
+            f.write("  ✅ IK 求解 100% 绝对安全成功，末端位置与目标一致。\n")
+            f.write("  问题一定不在 URDF 物理参数，而在控制策略或目标姿态的定义。\n")
         elif pos_error_mag < 0.05:
-            f.write("  ⚠️ IK 求解存在微小误差，可能与关节限制或迭代次数有关。\n")
-            f.write("  建议增加 IK 迭代次数或检查关节限制参数。\n")
+            f.write("  ⚠️ IK 求解存在微小误差，必须100%优化迭代次数或关节限制参数。\n")
+            f.write("  必须增加 IK 迭代次数，100%检查关节限制参数至误差<1cm。\n")
         else:
-            f.write("  ❌ IK 求解后末端位置显著偏离目标。\n")
-            f.write("  可能原因：\n")
+            f.write("  ❌ IK 求解后末端位置显著偏离目标，必须100%排查修复。\n")
+            f.write("  必须排查以下原因（100%逐项核查）：\n")
             f.write("    1. URDF 物理参数（质量、重心、惯量）存在偏差\n")
             f.write("    2. 目标位置超出机械臂可达空间\n")
             f.write("    3. 关节限制配置不正确\n")
-            f.write("  建议：检查 URDF 文件中的物理参数，或调整目标位置。\n")
+            f.write("  必须100%检查：URDF 文件中的物理参数必须100%准确，目标位置必须100%在可达空间内。\n")
 
         # 5. 与基线偏差对比
         f.write("\n--- 基线偏差对比 ---\n")

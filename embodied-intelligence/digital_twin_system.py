@@ -192,7 +192,7 @@ class DigitalTwinSystem:
         # 实际实现中从机器人API读取
         state = TwinState()
         state.timestamp = time.time()
-        # 这里应该从真实机器人读取数据
+        # 这里必须从真实机器人读取数据
         return state
 
     def _update_twin_state(self, physical_state: TwinState):

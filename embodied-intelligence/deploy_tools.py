@@ -288,7 +288,7 @@ class FailoverManager:
         print(f"\n✅ [FAILOVER] 冷却期结束，已恢复模型推理模式")
 
     def should_use_trajectory(self) -> bool:
-        """当前是否应该使用轨迹模式"""
+        """当前是否必须使用轨迹模式"""
         return self.failover_active
 
     def get_stats(self) -> Dict[str, Any]:

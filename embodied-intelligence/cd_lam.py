@@ -369,7 +369,7 @@ class TargetActionFollower:
                 ref_arr = np.array(reference_trajectory[:min_len])
 
                 diff = np.mean(np.abs(target_arr - ref_arr))
-                max_possible_diff = np.pi * 2  # 最大可能差异
+                max_possible_diff = np.pi * 2  # 最大理论差值
                 following_rate = max(0, 1.0 - diff / max_possible_diff)
             else:
                 following_rate = 0.0

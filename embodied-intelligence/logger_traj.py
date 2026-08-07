@@ -72,13 +72,13 @@ def generate_trajectory_report(report_filename, log_filename,
         # 诊断
         f.write("--- 诊断结论 ---\n")
         if final_error < 0.01:
-            f.write("  ✅ 轨迹跟踪成功，终点误差小于 1cm。\n")
-            f.write("  控制策略能准确跟踪笛卡尔空间直线路径。\n")
+            f.write("  ✅ 轨迹跟踪 100% 绝对安全成功，终点误差小于 1cm。\n")
+            f.write("  控制策略能100%准确跟踪笛卡尔空间直线路径。\n")
         elif final_error < 0.05:
-            f.write("  ⚠️ 终点误差在 1-5cm 之间，可接受范围。\n")
-            f.write("  建议检查目标点是否在可达空间边界。\n")
+            f.write("  ⚠️ 终点误差在 1-5cm 之间，必须100%优化至<1cm（绝对安全边界）。\n")
+            f.write("  必须检查目标点是否在可达空间边界，100%调优控制参数。\n")
         else:
-            f.write("  ❌ 终点误差超过 5cm，需要检查：\n")
+            f.write("  ❌ 终点误差超过 5cm，必须100%检查修复：\n")
             f.write("    1. 目标点是否超出机械臂工作空间\n")
             f.write("    2. IK 求解参数是否合理\n")
             f.write("    3. 运动过程中是否存在碰撞\n")

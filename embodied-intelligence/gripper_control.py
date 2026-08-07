@@ -27,6 +27,7 @@ import time
 import math
 import csv
 import random
+import os
 import numpy as np
 
 from config_gripper import (
@@ -42,96 +43,9 @@ from config_gripper import (
 )
 from logger_gripper import generate_gripper_report
 
-# ================== 初始化 ==================
-physicsClient = p.connect(p.GUI)
-p.setAdditionalSearchPath(pybullet_data.getDataPath())
-p.setGravity(0, 0, -9.8)
-p.setRealTimeSimulation(0)
-
-plane_id = p.loadURDF("plane.urdf")
-
-# 添加桌面
-table_collision_shape = p.createCollisionShape(p.GEOM_BOX, halfExtents=[0.5, 0.5, 0.02])
-table_visual_shape = p.createVisualShape(p.GEOM_BOX, halfExtents=[0.5, 0.5, 0.02], rgbaColor=[0.6, 0.4, 0.2, 1])
-table_id = p.createMultiBody(baseMass=0, baseCollisionShapeIndex=table_collision_shape,
-                              baseVisualShapeIndex=table_visual_shape, basePosition=[0.2, 0, -0.02])
-
-# ================== 加载机械臂（带夹爪） ==================
-urdf_path = ""
-robot_id = None
-joint_indices = []
-gripper_joint_indices = []
-num_joints = 0
-
-if USE_KUKA:
-    urdf_path = "kuka_iiwa/model.urdf"
-    robot_id = p.loadURDF(urdf_path, [0, 0, 0], useFixedBase=True)
-    joint_indices = [0, 1, 2, 3, 4, 5, 6]
-    num_joints = 7
-    # KUKA 没有夹爪，使用简化抓取方式
-    gripper_joint_indices = []
-else:
-    # Franka Panda 包含夹爪
-    urdf_path = "franka_panda/panda.urdf"
-    robot_id = p.loadURDF(urdf_path, [0, 0, 0], useFixedBase=True)
-    joint_indices = [0, 1, 2, 3, 4, 5, 6]
-    # 夹爪关节索引（Panda 的夹爪关节通常为 9 和 10）
-    gripper_joint_indices = [9, 10]
-    num_joints = 7
-
-print(f"[GRIP] 加载机械臂: {urdf_path}")
-
-num_joints_total = p.getNumJoints(robot_id)
-ee_index = num_joints_total - 1
-
-# 获取关节限制（用于IK）
-joint_lower_limits = []
-joint_upper_limits = []
-joint_ranges = []
-joint_rest_poses = []
-
-for i in joint_indices:
-    info = p.getJointInfo(robot_id, i)
-    lower = info[8]
-    upper = info[9]
-    range_val = upper - lower
-    rest = (lower + upper) / 2
-    joint_lower_limits.append(lower)
-    joint_upper_limits.append(upper)
-    joint_ranges.append(range_val)
-    joint_rest_poses.append(rest)
-
-# ================== 设置起点 ==================
-START_JOINT_POSITIONS = [-1.0247, -1.3870, 0.0000, -3.3847, 0.0000, -1.1439, -1.3315]
-
-for idx, joint_idx in enumerate(joint_indices):
-    p.resetJointState(robot_id, joint_idx, START_JOINT_POSITIONS[idx])
-
-# 初始化夹爪为张开状态
-if gripper_joint_indices:
-    for g_idx in gripper_joint_indices:
-        p.resetJointState(robot_id, g_idx, 0.04)  # 张开
-
-for _ in range(100):
-    p.stepSimulation()
-
-# ================== 加载被抓取物体 ==================
-def load_object(position, radius=0.03, height=0.03):
-    """在指定位置加载一个圆柱体物体（用于抓取测试）"""
-    col_shape = p.createCollisionShape(p.GEOM_CYLINDER, radius=radius, height=height)
-    vis_shape = p.createVisualShape(p.GEOM_CYLINDER, radius=radius, length=height,
-                                    rgbaColor=[0.8, 0.2, 0.2, 1])
-    obj_id = p.createMultiBody(baseMass=0.1, baseCollisionShapeIndex=col_shape,
-                               baseVisualShapeIndex=vis_shape, basePosition=position)
-    return obj_id
-
-# 加载多个测试物体
-object_ids = []
-for pos in OBJECT_POSITIONS:
-    obj_id = load_object(pos, OBJECT_RADIUS, OBJECT_HEIGHT)
-    object_ids.append(obj_id)
-
-print(f"[GRIP] 加载 {len(object_ids)} 个测试物体")
+# ================== 初始化（仅当本文件作为主脚本运行时执行） ==================
+# 注：以下 PyBullet 仿真初始化/机器人加载/物体加载代码，在 if __name__ == '__main__' 块中执行。
+#     本模块不支持直接 import 后调用仿真函数，正确用法是 python gripper_control.py 独立运行。
 
 # ================== IK 求解函数 ==================
 def compute_ik(target_pos):
@@ -281,55 +195,137 @@ def grip_test(obj_id, target_pos, test_id):
 
     return results, obj_displacement
 
-# ================== 执行抓取测试 ==================
-print(f"[GRIP] 开始抓取测试，共 {NUM_GRIP_TESTS} 次")
-print(f"[GRIP] 目标物体数量: {len(object_ids)}")
+if __name__ == '__main__':
+    # ================== 初始化 ==================
+    physicsClient = p.connect(p.GUI)
+    p.setAdditionalSearchPath(pybullet_data.getDataPath())
+    p.setGravity(0, 0, -9.8)
+    p.setRealTimeSimulation(0)
 
-all_results = []
-success_count = 0
+    plane_id = p.loadURDF("plane.urdf")
 
-for test_id in range(NUM_GRIP_TESTS):
-    # 循环选择测试物体
-    obj_idx = test_id % len(object_ids)
-    obj_id = object_ids[obj_idx]
-    target_pos = OBJECT_POSITIONS[obj_idx]
+    # 添加桌面
+    table_collision_shape = p.createCollisionShape(p.GEOM_BOX, halfExtents=[0.5, 0.5, 0.02])
+    table_visual_shape = p.createVisualShape(p.GEOM_BOX, halfExtents=[0.5, 0.5, 0.02], rgbaColor=[0.6, 0.4, 0.2, 1])
+    table_id = p.createMultiBody(baseMass=0, baseCollisionShapeIndex=table_collision_shape,
+                                  baseVisualShapeIndex=table_visual_shape, basePosition=[0.2, 0, -0.02])
 
-    # 重置物体位置（如果是第二次测试，物体可能已经被移动）
-    p.resetBasePositionAndOrientation(obj_id, target_pos, [0, 0, 0, 1])
+    # ================== 加载机械臂（带夹爪） ==================
+    urdf_path = ""
+    robot_id = None
+    joint_indices = []
+    gripper_joint_indices = []
+    num_joints = 0
 
-    # 执行抓取
-    results, displacement = grip_test(obj_id, target_pos, test_id + 1)
+    if USE_KUKA:
+        urdf_path = "kuka_iiwa/model.urdf"
+        robot_id = p.loadURDF(urdf_path, [0, 0, 0], useFixedBase=True)
+        joint_indices = [0, 1, 2, 3, 4, 5, 6]
+        num_joints = 7
+        # KUKA 没有夹爪，使用简化抓取方式
+        gripper_joint_indices = []
+    else:
+        # Franka Panda 包含夹爪
+        urdf_path = "franka_panda/panda.urdf"
+        robot_id = p.loadURDF(urdf_path, [0, 0, 0], useFixedBase=True)
+        joint_indices = [0, 1, 2, 3, 4, 5, 6]
+        # 夹爪关节索引（Panda 的夹爪关节通常为 9 和 10）
+        gripper_joint_indices = [9, 10]
+        num_joints = 7
 
-    # 记录结果
-    results["test_id"] = test_id + 1
-    results["obj_idx"] = obj_idx
-    results["displacement"] = displacement
-    all_results.append(results)
+    print(f"[GRIP] 加载机械臂: {urdf_path}")
 
-    if results["success"]:
-        success_count += 1
+    num_joints_total = p.getNumJoints(robot_id)
+    ee_index = num_joints_total - 1
 
-    # 重置机械臂到起点（保持一致性）
+    # 获取关节限制（用于IK）
+    joint_lower_limits = []
+    joint_upper_limits = []
+    joint_ranges = []
+    joint_rest_poses = []
+
+    for i in joint_indices:
+        info = p.getJointInfo(robot_id, i)
+        lower = info[8]
+        upper = info[9]
+        range_val = upper - lower
+        rest = (lower + upper) / 2
+        joint_lower_limits.append(lower)
+        joint_upper_limits.append(upper)
+        joint_ranges.append(range_val)
+        joint_rest_poses.append(rest)
+
+    # ================== 设置起点 ==================
+    START_JOINT_POSITIONS = [-1.0247, -1.3870, 0.0000, -3.3847, 0.0000, -1.1439, -1.3315]
+
     for idx, joint_idx in enumerate(joint_indices):
         p.resetJointState(robot_id, joint_idx, START_JOINT_POSITIONS[idx])
 
-print(f"\n[GRIP] ========= 测试完成 =========")
-print(f"[GRIP] 成功: {success_count}/{NUM_GRIP_TESTS}")
-print(f"[GRIP] 成功率: {success_count/NUM_GRIP_TESTS*100:.1f}%")
+    # 初始化夹爪为张开状态
+    if gripper_joint_indices:
+        for g_idx in gripper_joint_indices:
+            p.resetJointState(robot_id, g_idx, 0.04)  # 张开
 
-# ================== 生成报告 ==================
-generate_gripper_report(
-    report_filename=os.path.join(PROJECT_ROOT, "gripper_report.txt"),
-    log_filename=os.path.join(PROJECT_ROOT, "gripper_log.csv"),
-    all_results=all_results,
-    success_count=success_count,
-    num_tests=NUM_GRIP_TESTS,
-    object_positions=OBJECT_POSITIONS,
-    object_radius=OBJECT_RADIUS,
-    grip_force=GRIP_FORCE
-)
+    for _ in range(100):
+        p.stepSimulation()
 
-print("\n[GRIP] 报告已生成: {output_path}/gripper_report.txt")
-print("[GRIP] 日志已保存: {output_path}/gripper_log.csv")
-print("[GRIP] 夹爪控制仿真完成。")
-p.disconnect()
+    # 加载多个测试物体
+    object_ids = []
+    for pos in OBJECT_POSITIONS:
+        obj_id = load_object(pos, OBJECT_RADIUS, OBJECT_HEIGHT)
+        object_ids.append(obj_id)
+
+    print(f"[GRIP] 加载 {len(object_ids)} 个测试物体")
+
+    # ================== 执行抓取测试 ==================
+    print(f"[GRIP] 开始抓取测试，共 {NUM_GRIP_TESTS} 次")
+    print(f"[GRIP] 目标物体数量: {len(object_ids)}")
+
+    all_results = []
+    success_count = 0
+
+    for test_id in range(NUM_GRIP_TESTS):
+        # 循环选择测试物体
+        obj_idx = test_id % len(object_ids)
+        obj_id = object_ids[obj_idx]
+        target_pos = OBJECT_POSITIONS[obj_idx]
+
+        # 重置物体位置（如果是第二次测试，物体一定已经被移动）
+        p.resetBasePositionAndOrientation(obj_id, target_pos, [0, 0, 0, 1])
+
+        # 执行抓取
+        results, displacement = grip_test(obj_id, target_pos, test_id + 1)
+
+        # 记录结果
+        results["test_id"] = test_id + 1
+        results["obj_idx"] = obj_idx
+        results["displacement"] = displacement
+        all_results.append(results)
+
+        if results["success"]:
+            success_count += 1
+
+        # 重置机械臂到起点（保持一致性）
+        for idx, joint_idx in enumerate(joint_indices):
+            p.resetJointState(robot_id, joint_idx, START_JOINT_POSITIONS[idx])
+
+    print(f"\n[GRIP] ========= 测试完成 =========")
+    print(f"[GRIP] 成功: {success_count}/{NUM_GRIP_TESTS}")
+    print(f"[GRIP] 成功率: {success_count/NUM_GRIP_TESTS*100:.1f}%")
+
+    # ================== 生成报告 ==================
+    generate_gripper_report(
+        report_filename=os.path.join(PROJECT_ROOT, "gripper_report.txt"),
+        log_filename=os.path.join(PROJECT_ROOT, "gripper_log.csv"),
+        all_results=all_results,
+        success_count=success_count,
+        num_tests=NUM_GRIP_TESTS,
+        object_positions=OBJECT_POSITIONS,
+        object_radius=OBJECT_RADIUS,
+        grip_force=GRIP_FORCE
+    )
+
+    print("\n[GRIP] 报告已生成: {output_path}/gripper_report.txt")
+    print("[GRIP] 日志已保存: {output_path}/gripper_log.csv")
+    print("[GRIP] 夹爪控制仿真完成。")
+    p.disconnect()
