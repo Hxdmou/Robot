@@ -34,14 +34,25 @@ class DomainRandomizer:
         self.seed = config.get("seed", 42)
         self.randomize_on_reset = config.get("randomize_on_reset", True)
         
-        self.friction_range = config.get("friction_range", [0.3, 0.8])
+        self.friction_range = config.get("friction_range", [0.15, 0.95])
         self.damping_range = config.get("damping_range", [0.05, 0.2])
         self.mass_range = config.get("mass_range", [0.85, 1.15])
         self.control_gain_range = config.get("control_gain_range", [0.8, 1.2])
-        self.gravity_range = config.get("gravity_range", [-9.9, -9.7])
+        self.gravity_range = config.get("gravity_range", [-10.05, -9.55])
+        self.gear_backlash_range = config.get("gear_backlash_range", [0.0, 0.002])
+        self.joint_runout_range = config.get("joint_runout_range", [0.0, 0.005])
+        self.encoder_resolution_bits_range = config.get("encoder_resolution_bits_range", [15, 22])
+        self.torque_noise_nm_range = config.get("torque_noise_nm_range", [0.0, 0.03])
+        self.communication_latency_ms_range = config.get("communication_latency_ms_range", [0.5, 8.0])
+        self.supply_voltage_variation_range = config.get("supply_voltage_variation_range", [0.92, 1.08])
+        self.temperature_celsius_range = config.get("temperature_celsius_range", [-20.0, 55.0])
+        self.optical_cable_loss_db_per_km_range = config.get("optical_cable_loss_db_per_km_range", [0.2, 0.5])
+        self.humidity_percent_range = config.get("humidity_percent_range", [20, 98])
         
         self.last_randomize_time = 0
         self.randomize_interval = config.get("randomize_interval", 30.0)
+        self.last_param_valid_time_s = 0
+        self.param_validity_window_s = config.get("param_validity_window_s", 600.0)
         
         self.current_params = {}
         
@@ -79,8 +90,45 @@ class DomainRandomizer:
             params["gravity_z"] = gravity_z
             p.setGravity(0, 0, gravity_z)
         
+        if self.gear_backlash_range:
+            gear_backlash = np.random.uniform(*self.gear_backlash_range)
+            params["gear_backlash"] = gear_backlash
+        
+        if self.joint_runout_range:
+            joint_runout = np.random.uniform(*self.joint_runout_range)
+            params["joint_runout"] = joint_runout
+        
+        if self.encoder_resolution_bits_range:
+            encoder_resolution_bits = np.random.randint(*self.encoder_resolution_bits_range)
+            params["encoder_resolution_bits"] = encoder_resolution_bits
+        
+        if self.torque_noise_nm_range:
+            torque_noise_nm = np.random.uniform(*self.torque_noise_nm_range)
+            params["torque_noise_nm"] = torque_noise_nm
+        
+        if self.communication_latency_ms_range:
+            communication_latency_ms = np.random.uniform(*self.communication_latency_ms_range)
+            params["communication_latency_ms"] = communication_latency_ms
+        
+        if self.supply_voltage_variation_range:
+            supply_voltage_variation = np.random.uniform(*self.supply_voltage_variation_range)
+            params["supply_voltage_variation"] = supply_voltage_variation
+        
+        if self.temperature_celsius_range:
+            temperature_celsius = np.random.uniform(*self.temperature_celsius_range)
+            params["temperature_celsius"] = temperature_celsius
+        
+        if self.optical_cable_loss_db_per_km_range:
+            optical_cable_loss_db_per_km = np.random.uniform(*self.optical_cable_loss_db_per_km_range)
+            params["optical_cable_loss_db_per_km"] = optical_cable_loss_db_per_km
+        
+        if self.humidity_percent_range:
+            humidity_percent = np.random.uniform(*self.humidity_percent_range)
+            params["humidity_percent"] = humidity_percent
+        
         self.current_params = params
         self.last_randomize_time = time.time()
+        self.last_param_valid_time_s = time.time()
         
         return params
     
