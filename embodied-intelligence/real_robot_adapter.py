@@ -415,6 +415,13 @@ BRAND_COMM_MAP = {
     "zhilaite_vehicle_grade_integrated_joint": "unitree_udp",
     "zhongke_huisi_dexterous_hand": "sensor_tcp",
     "zhongke_tiansuan_chenguang1": "hpc_tcp",
+    # ========== 新增新品 ==========
+    "foot_multidim_tactile_sensor": "generic_bridge",
+    "high_compute_lightweight_joint": "generic_bridge",
+    "humanoid_high_endurance_safe_battery": "generic_bridge",
+    "agibot_xingyun_a2w_wheeled": "zhiyuan_tcp",
+    "unitree_h1_fullsize_humanoid": "unitree_udp",
+    "fourier_gr_series_humanoid": "generic_bridge",
 }
 
 # 协议实现映射（协议名 → 适配器类，延迟导入避免依赖缺失）
