@@ -23,14 +23,14 @@ SCENES = {
             "welding": {
                 "name": "焊接切割",
                 "description": "电弧焊、激光焊、等离子切割",
-                "robots": ["六轴机械臂", "协作臂"],
+                "robots": ["六轴机械臂", "协作臂", "焊接变位机", "焊缝跟踪系统", "烟尘净化设备"],
                 "difficulty": 4,
                 "reward_scale": 1.2,
             },
             "painting": {
                 "name": "喷涂涂装",
                 "description": "汽车喷涂、表面处理",
-                "robots": ["六轴机械臂"],
+                "robots": ["六轴机械臂", "防爆喷涂机器人", "静电旋杯", "供漆系统", "水帘喷房"],
                 "difficulty": 3,
                 "reward_scale": 1.2,
             },
@@ -51,7 +51,7 @@ SCENES = {
             "cnc": {
                 "name": "机床上下料",
                 "description": "CNC机床、注塑机上下料",
-                "robots": ["六轴机械臂", "桁架机器人"],
+                "robots": ["六轴机械臂", "桁架机器人", "机床通信接口", "末端快换夹具", "物料缓存台"],
                 "difficulty": 3,
                 "reward_scale": 1.2,
             },
@@ -151,28 +151,28 @@ SCENES = {
             "surgery": {
                 "name": "手术辅助",
                 "description": "骨科、神经外科、腹腔手术",
-                "robots": ["手术机器人", "协作臂"],
+                "robots": ["手术机器人", "协作臂", "主从操作控制台", "3D高清内窥镜", "手术规划系统"],
                 "difficulty": 5,
                 "reward_scale": 1.5,
             },
             "rehab": {
                 "name": "康复训练",
                 "description": "上肢/下肢康复、运动恢复",
-                "robots": ["康复机器人", "外骨骼"],
+                "robots": ["康复机器人", "外骨骼", "力反馈训练台", "肌电信号采集", "康复评估系统"],
                 "difficulty": 4,
                 "reward_scale": 1.2,
             },
             "nursing": {
                 "name": "护理陪伴",
                 "description": "老年护理、患者陪护",
-                "robots": ["人形机器人", "服务机器人"],
+                "robots": ["人形机器人", "服务机器人", "生命体征监测", "服药提醒系统", "紧急呼叫装置"],
                 "difficulty": 3,
                 "reward_scale": 1.2,
             },
             "diagnosis": {
                 "name": "诊断辅助",
                 "description": "影像诊断、病理分析",
-                "robots": ["协作臂", "AI视觉系统"],
+                "robots": ["协作臂", "AI视觉系统", "医学影像工作站", "病理切片扫描仪", "辅助诊断AI模型"],
                 "difficulty": 4,
                 "reward_scale": 1.0,
             },
@@ -223,7 +223,7 @@ SCENES = {
             "retail": {
                 "name": "零售导购",
                 "description": "商场导购、商品推荐",
-                "robots": ["服务机器人", "人形机器人"],
+                "robots": ["服务机器人", "人形机器人", "语音交互屏", "商品识别摄像头", "会员系统对接"],
                 "difficulty": 2,
                 "reward_scale": 1.1,
             },
@@ -244,7 +244,7 @@ SCENES = {
             "cleaning": {
                 "name": "清洁保洁",
                 "description": "地面清洁、玻璃清洁",
-                "robots": ["清洁机器人", "人形机器人"],
+                "robots": ["清洁机器人", "人形机器人", "擦窗机器人", "洗地机", "垃圾分拣设备"],
                 "difficulty": 2,
                 "reward_scale": 1.1,
             },
@@ -280,7 +280,7 @@ SCENES = {
             "training": {
                 "name": "技能培训",
                 "description": "工业机器人操作培训",
-                "robots": ["六轴机械臂", "协作臂"],
+                "robots": ["六轴机械臂", "协作臂", "实训工作站", "离线编程软件", "虚拟仿真教学"],
                 "difficulty": 3,
                 "reward_scale": 1.2,
             },
@@ -302,28 +302,28 @@ SCENES = {
             "home_cleaning": {
                 "name": "家庭清洁",
                 "description": "扫地、拖地、擦窗",
-                "robots": ["扫地机器人", "人形机器人"],
+                "robots": ["扫地机器人", "人形机器人", "擦窗机器人", "洗地机器人", "垃圾收集器"],
                 "difficulty": 1,
                 "reward_scale": 1.0,
             },
             "companion": {
                 "name": "家庭陪伴",
                 "description": "儿童陪伴、老人陪护",
-                "robots": ["人形机器人", "陪伴机器人"],
+                "robots": ["人形机器人", "陪伴机器人", "语音助手", "视频通话设备", "健康监测手环"],
                 "difficulty": 2,
                 "reward_scale": 1.1,
             },
             "ai_glasses": {
                 "name": "AI眼镜",
                 "description": "AR眼镜、智能眼镜",
-                "robots": ["AI眼镜"],
+                "robots": ["AI眼镜", "MicroOLED显示屏", "骨传导耳机", "摄像头模组", "端侧AI芯片"],
                 "difficulty": 2,
                 "reward_scale": 1.1,
             },
             "ai_phone": {
                 "name": "AI手机",
                 "description": "AI终端、智能终端",
-                "robots": ["AI手机"],
+                "robots": ["AI手机", "NPU神经网络处理器", "大模型端侧部署", "多模态摄像头", "隐私安全计算"],
                 "difficulty": 1,
                 "reward_scale": 1.0,
             },
@@ -359,7 +359,7 @@ SCENES = {
             "underwater": {
                 "name": "水下作业",
                 "description": "水下焊接、管道检测、打捞",
-                "robots": ["水下机器人", "机械臂"],
+                "robots": ["水下机器人", "机械臂", "水下声呐", "防水云台相机", "脐带缆管理系统"],
                 "difficulty": 5,
                 "reward_scale": 1.3,
             },
@@ -388,7 +388,7 @@ SCENES = {
             "5g_advanced": {
                 "name": "5G-A演进",
                 "description": "5.5G、万兆下行、无源物联",
-                "robots": ["5G-A基站", "工业网关"],
+                "robots": ["5G-A基站", "工业网关", "AAU有源天线", "边缘计算MEC", "RedCap轻量化终端"],
                 "difficulty": 4,
                 "reward_scale": 1.0,
             },
@@ -402,7 +402,7 @@ SCENES = {
             "network_automation": {
                 "name": "网络自动化",
                 "description": "自智网络、零接触运维、AI运维",
-                "robots": ["AI芯片", "服务器"],
+                "robots": ["AI芯片", "服务器", "网络数字孪生", "智能告警系统", "自动配置下发"],
                 "difficulty": 3,
                 "reward_scale": 1.2,
             },
@@ -459,14 +459,14 @@ SCENES = {
             "ai_workers": {
                 "name": "AI数字员工",
                 "description": "企业智能体、自动化办公",
-                "robots": ["AI芯片", "AI服务器"],
+                "robots": ["AI芯片", "AI服务器", "RPA流程机器人", "知识库向量数据库", "多模态大模型"],
                 "difficulty": 3,
                 "reward_scale": 1.2,
             },
             "agent_orchestration": {
                 "name": "智能体编排",
                 "description": "Agent编排、任务调度、工具调用",
-                "robots": ["AI芯片", "服务器"],
+                "robots": ["AI芯片", "服务器", "工作流引擎", "工具调用框架", "多智能体协调器"],
                 "difficulty": 4,
                 "reward_scale": 1.0,
             },
@@ -495,14 +495,14 @@ SCENES = {
             "ar_assisted": {
                 "name": "AR辅助操作",
                 "description": "AR装配指导、远程协作、维修辅助",
-                "robots": ["AR眼镜", "协作臂"],
+                "robots": ["AR眼镜", "协作臂", "空间锚点定位", "远程专家系统", "数字孪生叠加"],
                 "difficulty": 4,
                 "reward_scale": 1.0,
             },
             "mr_design": {
                 "name": "MR设计评审",
                 "description": "混合现实设计、产品评审、虚拟样机",
-                "robots": ["MR头显", "协作臂"],
+                "robots": ["MR头显", "协作臂", "全息投影", "手势交互", "多人协同评审"],
                 "difficulty": 3,
                 "reward_scale": 1.2,
             },
@@ -524,7 +524,7 @@ SCENES = {
             "quantum_computing": {
                 "name": "量子计算",
                 "description": "超导量子、光量子、量子AI",
-                "robots": ["量子计算机", "AI芯片"],
+                "robots": ["量子计算机", "AI芯片", "稀释制冷机", "量子测控系统", "量子算法库"],
                 "difficulty": 5,
                 "reward_scale": 1.5,
             },
@@ -538,14 +538,14 @@ SCENES = {
             "edge_computing": {
                 "name": "边缘计算",
                 "description": "边缘AI、端侧推理、算力下沉",
-                "robots": ["边缘计算盒", "AI芯片"],
+                "robots": ["边缘计算盒", "AI芯片", "5G模组", "端侧推理框架", "边云协同调度"],
                 "difficulty": 3,
                 "reward_scale": 1.2,
             },
             "cloud_gaming": {
                 "name": "云渲染/云游戏",
                 "description": "GPU云、实时渲染、云串流",
-                "robots": ["GPU服务器", "AI芯片"],
+                "robots": ["GPU服务器", "AI芯片", "低延迟编码", "边缘节点CDN", "串流协议优化"],
                 "difficulty": 3,
                 "reward_scale": 1.2,
             },
@@ -574,14 +574,14 @@ SCENES = {
             "robotics_platform": {
                 "name": "机器人开发平台",
                 "description": "ROS、仿真平台、开发工具链",
-                "robots": ["协作臂", "人形机器人"],
+                "robots": ["协作臂", "人形机器人", "ROS/ROS2框架", "Gazebo/MuJoCo仿真", "可视化调试工具"],
                 "difficulty": 4,
                 "reward_scale": 1.0,
             },
             "ai_middleware": {
                 "name": "AI中台",
                 "description": "大模型中台、数据中台、算法中台",
-                "robots": ["AI芯片", "服务器"],
+                "robots": ["AI芯片", "服务器", "模型服务平台", "特征工程平台", "MLOps流水线"],
                 "difficulty": 3,
                 "reward_scale": 1.2,
             },
@@ -610,7 +610,7 @@ SCENES = {
             "smart_grid": {
                 "name": "智能电网",
                 "description": "电网自动化、故障自愈、负荷预测",
-                "robots": ["AI芯片", "服务器"],
+                "robots": ["AI芯片", "服务器", "SCADA系统", "PMU相量测量", "配电自动化终端"],
                 "difficulty": 4,
                 "reward_scale": 1.0,
             },
@@ -624,7 +624,7 @@ SCENES = {
             "charging": {
                 "name": "充电机器人",
                 "description": "自动充电、换电机器人、储能机器人",
-                "robots": ["充电机器人", "AMR"],
+                "robots": ["充电机器人", "AMR", "自动充电桩", "电池换电站", "BMS电池管理"],
                 "difficulty": 3,
                 "reward_scale": 1.2,
             },
@@ -639,21 +639,21 @@ SCENES = {
             "3d_printing": {
                 "name": "3D打印建筑",
                 "description": "混凝土3D打印、建筑工业化",
-                "robots": ["建筑3D打印机", "机械臂"],
+                "robots": ["建筑3D打印机", "机械臂", "混凝土泵送系统", "数控喷嘴", "建筑信息模型BIM"],
                 "difficulty": 5,
                 "reward_scale": 1.4,
             },
             "bricklaying": {
                 "name": "砌砖机器人",
                 "description": "自动砌砖、墙面处理、抹灰",
-                "robots": ["砌砖机器人", "机械臂"],
+                "robots": ["砌砖机器人", "机械臂", "砂浆供给系统", "激光定位找平", "CAD图纸导入"],
                 "difficulty": 4,
                 "reward_scale": 1.0,
             },
             "demolition": {
                 "name": "拆除机器人",
                 "description": "建筑拆除、破拆机器人、隧道掘进",
-                "robots": ["拆除机器人", "机械臂"],
+                "robots": ["拆除机器人", "机械臂", "液压破碎锤", "远程遥控系统", "粉尘抑制装置"],
                 "difficulty": 4,
                 "reward_scale": 1.0,
             },
@@ -725,7 +725,7 @@ SCENES = {
             "satellite_service": {
                 "name": "卫星服务",
                 "description": "卫星在轨服务、燃料补给、轨道调整",
-                "robots": ["航天机器人", "机械臂"],
+                "robots": ["航天机器人", "机械臂", "空间对接机构", "燃料补加模块", "在轨操控系统"],
                 "difficulty": 5,
                 "reward_scale": 1.5,
             },
@@ -2187,6 +2187,247 @@ SCENES = {
                 "description": "浙江组合拳三项同时打：①电子证照公示源头杜绝假证套证；②创新无堂食外卖聚集区管理模式分散商户向合规园区集中已建110个入驻1381家；③食安哨兵骑手监督机制已有效监督反馈解决8122次商家食品安全问题",
                 "robots": ["电子营业执照卫生许可证公示核验系统", "无堂食外卖聚集区110个已建入驻1381家", "食安哨兵骑手监督小程序上报机制", "截至6月底骑手监督反馈解决8122次问题", "经验全国多地复制推广持续深化"],
                 "difficulty": 4,
+                "reward_scale": 1.9,
+            },
+        },
+    },
+
+    # ── 智慧港口全矩阵机器人（青岛港近20种） ──
+    "smart_port_full_matrix": {
+        "name": "智慧港口全矩阵机器人作业",
+        "description": "青岛港全自动化码头近20种专用机器人：高压岸电连接、防爆巡检、设备维修、集装箱自动转运、危险品监测全流程无人化",
+        "sub_scenes": {
+            "high_voltage_shore_power_auto_connection": {
+                "name": "高压岸电机器人自动连接（7500V高压自动对接零人工）",
+                "description": "船舶靠港后7500V高压岸电电缆自动对接机器人，视觉定位+力控柔顺插拔+绝缘防护全程零人工，替代传统人工接电高危作业，接电时间从45分钟缩短至8分钟",
+                "robots": ["7500V高压岸电机器人", "六自由度柔顺对接机械臂", "视觉+激光双目定位系统", "高压绝缘防护安全机构", "接电状态实时监测联锁保护"],
+                "difficulty": 5,
+                "reward_scale": 2.0,
+            },
+            "explosion_proof_crane_inspection": {
+                "name": "防爆轨道巡检机器人（岸桥场桥全天候自动巡检）",
+                "description": "岸桥场桥轨道式防爆巡检机器人，搭载红外热像+气体检测+视觉识别，7×24小时自动巡检钢丝绳磨损/电机温升/减速器异响/油气泄漏，异常自动报警派单",
+                "robots": ["防爆轨道巡检机器人ExdIIBT4", "红外热像仪+可见光双目", "CH4/H2S/O2多气体检测", "钢丝绳磨损AI视觉检测", "设备振动声学诊断系统"],
+                "difficulty": 4,
+                "reward_scale": 1.8,
+            },
+            "container_crane_maintenance_repair": {
+                "name": "港机设备维修机器人（高处/狭窄/重载维修作业替代人工）",
+                "description": "岸桥臂架/小车/大梁维修专用机器人，爬壁吸附+磁轮行走+多自由度作业臂，替代人工高处作业进行螺栓紧固/焊缝检测/润滑注油/零件更换，人员零高危暴露",
+                "robots": ["磁吸附爬壁维修机器人", "多自由度作业臂+快换工具头", "焊缝超声波探伤检测", "自动螺栓拧紧扭矩反馈", "远程遥操作+AI辅助作业"],
+                "difficulty": 5,
+                "reward_scale": 1.9,
+            },
+            "hazardous_goods_monitoring_emergency": {
+                "name": "危险品集装箱监测应急机器人",
+                "description": "危险品箱区全天候监测机器人，温湿度/泄漏气体/放射性实时监测，异常自动隔离+喷淋降温+应急处置，危化品作业人员零近距离接触",
+                "robots": ["防爆轮式巡检机器人", "放射性/毒气/温湿度多传感器", "自动喷淋降温系统联动", "危险品箱区电子围栏", "应急处置机械手"],
+                "difficulty": 5,
+                "reward_scale": 1.9,
+            },
+            "automatic_container_transfer_agv_straddle": {
+                "name": "集装箱自动转运（AGV/IGV/无人跨运车全流程无人）",
+                "description": "全自动化码头水平运输：L4级IGV自动导引车+无人跨运车+自动堆垛机，从船边到堆场全流程无人化，作业效率较传统码头提升30%，人员减少70%",
+                "robots": ["L4级IGV自动导引车", "无人跨运车远程驾驶", "自动化轨道吊ARMG", "码头TOS生产操作系统", "V2X车路协同调度"],
+                "difficulty": 4,
+                "reward_scale": 1.8,
+            },
+        },
+    },
+
+    # ── 世界模型/VLA具身大模型开发平台 ──
+    "world_model_vla_platform": {
+        "name": "世界模型与VLA具身大模型开发平台",
+        "description": "Skild AI通用世界模型、Physical Intelligence π0、NVIDIA Isaac GR00T、Google DeepMind Gemini Robotics、华为CloudRobo五大全球领先具身开发平台全栈支持",
+        "sub_scenes": {
+            "skild_ai_universal_world_model": {
+                "name": "Skild AI通用世界模型（物理直觉+通用策略+跨形态迁移）",
+                "description": "Skild AI构建通用机器人大脑世界模型，统一物理引擎与神经网络预测，跨机器人形态（单臂/双臂/人形/四足）策略零样本迁移，一套模型适配所有硬件形态",
+                "robots": ["Skild Brain通用世界模型推理", "跨形态迁移学习框架", "多机器人形态策略蒸馏", "物理规律一致性预测引擎", "实时闭环规划与控制"],
+                "difficulty": 5,
+                "reward_scale": 2.0,
+            },
+            "physical_intelligence_pi0_vla": {
+                "name": "Physical Intelligence π0 (pi0) VLA具身大模型（视觉-语言-动作端到端）",
+                "description": "π0 VLA模型直接输入视觉图像+语言指令输出机器人关节动作，无需人工编程任务级指令直接泛化，预训练数据来自真实机器人操作，真实部署开箱即用",
+                "robots": ["π0 VLA视觉语言动作模型", "视觉编码器+语言理解器+动作解码器", "任务级自然语言指令泛化", "真实机器人数据预训练权重", "零样本新任务快速适应"],
+                "difficulty": 5,
+                "reward_scale": 2.0,
+            },
+            "nvidia_isaac_gr00t_humanoid_platform": {
+                "name": "NVIDIA Isaac GR00T人形机器人基础模型平台（通用人形机器人大脑）",
+                "description": "NVIDIA Isaac GR00T（Generalist Robot 00 Technology）为人形机器人提供基础模型，Isaac Sim仿真+Jetson Thor边缘计算+GR00T模型三位一体，全球人形机器人厂商共同生态",
+                "robots": ["Isaac GR00T基础模型", "Isaac Sim高保真仿真训练", "Jetson Thor人形专用计算平台", "Cosmos世界模型生成合成数据", "GR00T Blueprint参考架构"],
+                "difficulty": 5,
+                "reward_scale": 2.0,
+            },
+            "google_deepmind_gemini_robotics": {
+                "name": "Google DeepMind Gemini Robotics（Gemini大模型机器人版）",
+                "description": "Gemini Robotics将Gemini多模态大模型能力注入机器人，空间理解+推理规划+精细操作一体化，RT-2/RT-X系列真实世界数据训练，手机到机器人全场景泛化",
+                "robots": ["Gemini Robotics多模态模型", "Gemini Robotics-ER 1.5空间推理", "RT-X跨机器人数据集训练", "手机端到端示教AutoRT", "真实场景泛化推理引擎"],
+                "difficulty": 5,
+                "reward_scale": 2.0,
+            },
+            "huawei_cloudrobo_cloud_native_platform": {
+                "name": "华为CloudRobo云原一具身智能开发平台（端边云协同训练部署）",
+                "description": "华为CloudRobo云原一具身智能平台：云端大模型训练+边缘节点推理+机器人端侧执行三层架构，云上训练大规模仿真，模型一键下发到多品牌机器人，开发者生态开放",
+                "robots": ["CloudRobo云端训练平台", "端边云协同推理架构", "多品牌机器人统一API", "云原生DevOps流水线", "模型市场与开发者生态"],
+                "difficulty": 5,
+                "reward_scale": 1.9,
+            },
+        },
+    },
+
+    # ── AI安防智能体 ──
+    "ai_security_agent": {
+        "name": "AI安防智能体系统",
+        "description": "SARA安防智能体、Athena Security智能安检、全球领先AI安防主动预警系统，从事后追溯到事前预警转型",
+        "sub_scenes": {
+            "sara_security_patrol_agent": {
+                "name": "SARA安防智能体（主动巡逻+异常识别+自动处置全自主）",
+                "description": "SARA安防智能体集成多传感器融合+大模型推理+自主决策，自主规划巡逻路线+识别异常行为+自动报警+联动处置，替代保安7×24小时不间断值守",
+                "robots": ["SARA安防智能体核心决策大脑", "多摄像头360°全景感知", "异常行为AI实时识别", "巡逻路径自主规划调度", "声光报警+门禁联动处置"],
+                "difficulty": 5,
+                "reward_scale": 1.9,
+            },
+            "athena_security_weapon_detection": {
+                "name": "Athena Security智能安检系统（AI视觉无接触武器检测毫秒级识别）",
+                "description": "Athena Security用普通监控摄像头+AI视觉实现毫秒级枪支/刀具/武器识别，无需金属探测门行人正常行走即可检测，公共场所/学校/医院零接触安检",
+                "robots": ["Athena AI武器检测算法", "现有摄像头利旧无需硬件改造", "毫秒级实时检测响应", "枪支刀具危险物识别99%+准确率", "警方联动自动报警定位"],
+                "difficulty": 5,
+                "reward_scale": 2.0,
+            },
+        },
+    },
+
+    # ── 天地一体化太空超算融合设施 ──
+    "space_ground_supercomputing_fusion": {
+        "name": "天地一体化太空超算数融合设施",
+        "description": "国家超算天津中心天河太空超智数融合、国星宇航星算计划2800颗计算卫星、中科天算辰光一号天基计算卫星，天地一体算力网络",
+        "sub_scenes": {
+            "tianhe_space_supercomputing_fusion_facility": {
+                "name": "天河太空超智数融合设施（国家超算天津中心天地一体化）",
+                "description": "国家超算天津中心牵头建设天河太空超智数融合设施，天基计算节点+地面超级算力互联互通，太空数据在轨处理+地面深度分析一体化，卫星数据利用率提升10倍",
+                "robots": ["天河超级计算集群地面节点", "星载计算节点高速处理单元", "星地激光高速通信链路", "天地一体化算力调度平台", "太空数据在轨预处理引擎"],
+                "difficulty": 5,
+                "reward_scale": 2.0,
+            },
+            "guoxing_yuhang_xingsuan_2800_satellites": {
+                "name": "国星宇航星算计划2800颗计算卫星星座（天基AI算力网络）",
+                "description": "国星宇航星算计划规划2800颗AI计算卫星组网，每颗卫星搭载AI推理芯片，遥感数据在轨实时处理，分钟级全球任意地点响应，全球首个大规模天基算力网络",
+                "robots": ["2800颗AI计算卫星星座", "星载AI推理芯片模组", "星间激光链路组网", "在轨AI目标检测识别", "分钟级全球响应调度"],
+                "difficulty": 5,
+                "reward_scale": 2.0,
+            },
+            "zhongke_tiansuan_chenguang1_satellite": {
+                "name": "中科天算辰光一号天基计算卫星（星载算力验证首发星）",
+                "description": "中科天算辰光一号天基计算卫星首发验证星成功入轨，验证星载AI算力、星地协同计算、在轨模型更新等核心技术，为后续规模化星座奠定技术基础",
+                "robots": ["辰光一号天基计算验证卫星", "星载通用AI计算平台", "星地协同计算任务调度", "在轨模型OTA更新", "算力计量与交易验证"],
+                "difficulty": 5,
+                "reward_scale": 1.9,
+            },
+        },
+    },
+
+    # ── AI算力光互联三层技术栈 ──
+    "ai_compute_optical_interconnect": {
+        "name": "AI算力光互联三层技术栈",
+        "description": "可插拔800G/1.6T/3.2T光模块+CPO共封装光学+硅光底座三层架构，AI算力集群高速互联核心技术",
+        "sub_scenes": {
+            "pluggable_800g_3_2t_optical_modules": {
+                "name": "可插拔光模块：800G规模商用→1.6T量产→3.2T研发",
+                "description": "可插拔光模块演进路线：800G已规模部署AI集群，1.6T 2026年量产，3.2T研发推进，单通道速率从100G→200G演进，热设计/功耗/信号完整性全面优化",
+                "robots": ["800G DR8/FR4/LR8光模块", "1.6T OSFP-XD光模块", "3.2T下一代光模块研发", "EML/SiPh激光器芯片", "DSP数字信号处理芯片"],
+                "difficulty": 5,
+                "reward_scale": 1.8,
+            },
+            "cpo_co_packaged_optics": {
+                "name": "CPO共封装光学（光引擎与交换芯片同封装 功耗降50%）",
+                "description": "CPO将光引擎与ASIC交换芯片共封装在同一基板，电互连距离从几十厘米缩短到几厘米，功耗降低50%带宽密度提升数倍，AI万卡集群互联下一代核心技术",
+                "robots": ["CPO光引擎共封装基板", "光电合封ASIC芯片", "外部激光光源ELS", "光纤阵列耦合封装", "CPO交换芯片散热设计"],
+                "difficulty": 5,
+                "reward_scale": 1.9,
+            },
+            "silicon_photonics_platform": {
+                "name": "硅光底座（硅光子集成平台 所有光器件单片集成）",
+                "description": "硅光子技术平台在硅片上集成调制器/探测器/波导/光栅等所有光器件，CMOS工艺兼容大规模量产成本大幅降低，光互联技术长期演进基础底座",
+                "robots": ["硅光调制器/探测器集成", "CMOS工艺兼容流片", "光栅耦合器/边缘耦合器", "硅光PDK工艺设计套件", "8寸/12寸硅光晶圆产线"],
+                "difficulty": 5,
+                "reward_scale": 1.9,
+            },
+        },
+    },
+
+    # ── 轮式双臂工厂实用机器人 ──
+    "wheeled_dual_arm_factory_robot": {
+        "name": "轮式双臂工业实用机器人",
+        "description": "西交大巡霄轮式双臂机器人：续航长稳定性好成本低工厂实用，打破人形高成本不实用困境",
+        "sub_scenes": {
+            "xjtu_xunxiao_long_endurance_low_cost": {
+                "name": "西交大巡霄轮式双臂（续航>8h/稳定可靠/成本仅人形1/5）",
+                "description": "西安交大研发巡霄轮式双臂移动操作机器人，轮式底盘长续航+成熟稳定双臂操作，工厂物料分拣/机床上下料/装配搬运直接可用，采购成本仅为人形机器人1/5，工厂实用主义路线",
+                "robots": ["轮式移动底盘（麦克纳姆轮/差速驱动）", "成熟工业级六轴双臂", "8小时以上长续航磷酸铁锂", "视觉分拣+力控装配", "工业级稳定性MTBF>5000h"],
+                "difficulty": 3,
+                "reward_scale": 1.7,
+            },
+        },
+    },
+
+    # ── 人形机器人表演互动 ──
+    "humanoid_performance_interaction": {
+        "name": "人形机器人表演与互动",
+        "description": "星际V人形机器人书法表演等文旅商演互动场景，人形进入大众视野",
+        "sub_scenes": {
+            "xingji_v_calligraphy_performance": {
+                "name": "星际V人形机器人书法表演（陕西籍人形写福字传统文化展示）",
+                "description": "星际V人形机器人现场表演毛笔书法写福字，轨迹规划精细控制毛笔锋毫，力控保证笔触轻重变化，文旅/展会/节庆活动商演互动，人形机器人传统文化展示标杆",
+                "robots": ["星际V人形机器人整机", "七自由度双臂书法轨迹规划", "毛笔力控笔触反馈", "多自由度腰部+头部协同", "现场互动视觉识别观众"],
+                "difficulty": 4,
+                "reward_scale": 1.7,
+            },
+        },
+    },
+
+    # ── 车规级一体化关节模组 ──
+    "vehicle_grade_integrated_joint": {
+        "name": "车规级一体化关节模组供应链",
+        "description": "智莱特车规级一体化关节（法士特+智元双背景），人形机器人核心零部件车规级量产",
+        "sub_scenes": {
+            "zhilaite_vehicle_grade_joint_fast_shield_agibot": {
+                "name": "智莱特车规级一体化关节模组（法士特制造+智元机器人双背景）",
+                "description": "智莱特机器人关节模组由法士特汽车传动制造背景+智元机器人应用背景双加持，按车规级标准开发验证，高功率密度/高效率/高可靠性/低成本，满足人形机器人大规模量产需求",
+                "robots": ["无框力矩电机+谐波减速机一体化", "车规级编码器+驱动器集成", "-40℃~85℃车规温度范围", "IATF 16949质量管理体系", "100万次寿命台架验证"],
+                "difficulty": 4,
+                "reward_scale": 1.8,
+            },
+        },
+    },
+
+    # ── 2GW AI算力超级单体 ──
+    "ai_supermonad_compute_base": {
+        "name": "AI算力超级单体（Greenfield绿电直连）",
+        "description": "远景乌兰察布星河基地全球最大AI算力超级单体2GW绿电直连SST固态变压器98.5%效率",
+        "sub_scenes": {
+            "yuanjing_wulanchabu_stellar_2gw_green_ai": {
+                "name": "远景乌兰察布星河基地全球最大AI算力超级单体（2GW绿电直连）",
+                "description": "远景科技集团在乌兰察布建设星河基地全球最大AI算力超级单体，2GW绿电风电光伏直连算力中心，SST固态变压器效率98.5%，PUE<1.1，零碳AI算力全球标杆",
+                "robots": ["2GW风光绿电直供系统", "SST固态变压器高效率配电", "液冷AI算力机柜集群", "PUE<1.1极致能效", "源网荷储一体化调度"],
+                "difficulty": 5,
+                "reward_scale": 2.0,
+            },
+        },
+    },
+
+    # ── 灵巧手触觉力控核心部件 ──
+    "dexterous_hand_tactile": {
+        "name": "灵巧手与触觉感知核心部件",
+        "description": "中科慧思灵巧手等国产高自由度灵巧手，人形机器人精细操作核心末端执行器",
+        "sub_scenes": {
+            "zhongke_huisi_dexterous_hand": {
+                "name": "中科慧思高自由度灵巧手（多关节协同精细操作）",
+                "description": "中科慧思研发高自由度灵巧手，多关节协同+触觉感知+力控柔顺，完成抓取/拧螺丝/折纸/使用工具等精细操作任务，人形机器人末端执行器国产替代方案",
+                "robots": ["多自由度欠驱动/全驱动灵巧手", "腱绳/连杆传动机构", "指尖触觉传感器阵列", "力位混合柔顺控制", "快速换电快换接口"],
+                "difficulty": 5,
                 "reward_scale": 1.9,
             },
         },
