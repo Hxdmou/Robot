@@ -2432,6 +2432,439 @@ SCENES = {
             },
         },
     },
+
+    # ========== 现实生活AI全领域应用 ==========
+    # ── 智慧政务/AI+政府服务 ──
+    "smart_government": {
+        "name": "智慧政务（一网通办/城市大脑）",
+        "description": "AI+政务服务一网通办、智能审批、城市大脑、一网统管、12345智能客服",
+        "sub_scenes": {
+            "one_network_government": {
+                "name": "一网通办智能审批",
+                "description": "政务服务事项AI智能审批、材料自动核验、表单自动填写、秒批秒办，政务服务效率提升80%以上",
+                "robots": ["AI大模型审批引擎", "OCR证照智能识别", "电子签章系统", "智能客服机器人", "数据共享交换平台"],
+                "difficulty": 3,
+                "reward_scale": 1.0,
+            },
+            "city_brain": {
+                "name": "城市大脑一网统管",
+                "description": "城市运行态势感知、事件智能发现、跨部门协同调度、应急指挥决策，城市治理现代化核心平台",
+                "robots": ["视频AI分析平台", "IoT物联感知网络", "时空信息云平台", "AI决策引擎", "应急指挥调度系统"],
+                "difficulty": 4,
+                "reward_scale": 1.2,
+            },
+            "12345_smart_hotline": {
+                "name": "12345政务智能客服",
+                "description": "12345热线智能接听、诉求自动分类、工单智能派发、满意度智能回访，政务热线接通率/办结率大幅提升",
+                "robots": ["语音识别ASR", "语义理解NLU", "智能工单派发系统", "智能语音外呼", "知识库问答系统"],
+                "difficulty": 3,
+                "reward_scale": 0.9,
+            },
+        },
+    },
+
+    # ── AI+金融 ──
+    "ai_finance": {
+        "name": "AI+金融（智能风控/智能投顾/反欺诈）",
+        "description": "银行/证券/保险全流程AI应用：智能风控、反欺诈、智能投顾、智能核保、智能客服",
+        "sub_scenes": {
+            "ai_risk_control": {
+                "name": "智能风控反欺诈",
+                "description": "信贷实时风控、交易反欺诈、异常行为检测、信用评分模型，金融风险识别准确率99%以上",
+                "robots": ["图计算反欺诈引擎", "实时流计算平台", "信用评分模型", "异常检测算法", "黑名单知识图谱"],
+                "difficulty": 4,
+                "reward_scale": 1.3,
+            },
+            "ai_customer_service": {
+                "name": "金融智能客服",
+                "description": "银行/保险智能客服、智能外呼、智能理赔、智能核保，7x24小时服务替代80%人工坐席",
+                "robots": ["大模型对话机器人", "语音合成TTS", "智能理赔审核系统", "智能核保引擎", "多渠道接入网关"],
+                "difficulty": 3,
+                "reward_scale": 1.0,
+            },
+            "ai_robo_advisor": {
+                "name": "智能投顾/量化交易",
+                "description": "智能资产配置、量化策略交易、市场情绪分析、智能研报生成，AI辅助投资决策",
+                "robots": ["量化交易平台", "市场情绪分析NLP", "多因子选股模型", "智能研报生成", "风险回测系统"],
+                "difficulty": 5,
+                "reward_scale": 1.5,
+            },
+        },
+    },
+
+    # ── AI+零售/电商 ──
+    "ai_retail": {
+        "name": "AI+零售/电商（智能推荐/智慧门店/无人零售）",
+        "description": "电商个性化推荐、智慧门店、无人零售、智能选品、智能供应链、虚拟试衣",
+        "sub_scenes": {
+            "personalized_recommendation": {
+                "name": "个性化推荐系统",
+                "description": "电商千人千面推荐、用户画像、协同过滤+深度学习推荐，GMV提升20-40%",
+                "robots": ["用户画像系统", "深度学习推荐模型", "实时特征工程平台", "A/B测试框架", "商品知识图谱"],
+                "difficulty": 4,
+                "reward_scale": 1.2,
+            },
+            "smart_store": {
+                "name": "智慧门店/无人零售",
+                "description": "无人便利店、智能货架、客流分析、商品识别、自助结算，门店运营效率提升50%",
+                "robots": ["商品视觉识别摄像头", "RFID智能标签", "自助结算终端", "客流热力分析", "电子价签系统"],
+                "difficulty": 3,
+                "reward_scale": 1.0,
+            },
+            "ai_supply_chain": {
+                "name": "智能供应链/需求预测",
+                "description": "销量预测、智能补货、库存优化、物流路径规划，缺货率降低30%库存周转提升",
+                "robots": ["时序预测模型", "库存优化引擎", "路径规划算法", "供应链可视化平台", "需求预测系统"],
+                "difficulty": 4,
+                "reward_scale": 1.1,
+            },
+        },
+    },
+
+    # ── AI+餐饮/生活服务 ──
+    "ai_food_life_service": {
+        "name": "AI+餐饮/生活服务（智能点餐/外卖调度/烹饪机器人）",
+        "description": "智能点餐、外卖智能调度、烹饪机器人、送餐机器人、智能后厨管理",
+        "sub_scenes": {
+            "ai_cooking_robot": {
+                "name": "烹饪/炒菜机器人",
+                "description": "全自动烹饪机器人、标准化出餐、口味稳定、24小时营业，连锁餐饮标准化核心设备",
+                "robots": ["商用烹饪机器人", "自动投料系统", "火候精准控制", "菜谱云端管理", "自动清洁系统"],
+                "difficulty": 3,
+                "reward_scale": 1.0,
+            },
+            "food_delivery_dispatch": {
+                "name": "外卖智能调度",
+                "description": "订单智能分派、骑手路径规划、ETA预计送达时间、超时预测，配送效率提升25%",
+                "robots": ["实时调度引擎", "路径规划算法", "ETA预测模型", "供需预测系统", "骑手App终端"],
+                "difficulty": 4,
+                "reward_scale": 1.1,
+            },
+            "smart_restaurant": {
+                "name": "智慧餐厅",
+                "description": "智能点餐、送餐机器人、智能后厨、刷脸支付、会员智能营销，全流程无人化/少人化",
+                "robots": ["送餐机器人", "自助点餐机", "刷脸支付终端", "后厨KDS系统", "会员营销CRM"],
+                "difficulty": 2,
+                "reward_scale": 0.9,
+            },
+        },
+    },
+
+    # ── AI+法律/司法 ──
+    "ai_legal": {
+        "name": "AI+法律/司法（智能裁判/法律咨询/合同审查）",
+        "description": "智慧法院、智能法律咨询、合同智能审查、类案检索、法律文书生成",
+        "sub_scenes": {
+            "smart_court": {
+                "name": "智慧法院/智能裁判辅助",
+                "description": "类案智能推送、裁判文书自动生成、量刑辅助、庭审语音转写，司法效率提升60%",
+                "robots": ["裁判文书大模型", "类案检索引擎", "庭审语音识别", "电子卷宗系统", "量刑辅助系统"],
+                "difficulty": 4,
+                "reward_scale": 1.2,
+            },
+            "contract_review": {
+                "name": "合同智能审查",
+                "description": "合同风险点自动识别、条款比对、合规审查、修订建议生成，合同审核效率提升80%",
+                "robots": ["NLP合同审查引擎", "法律法规知识库", "风险点识别模型", "条款比对系统", "合同模板库"],
+                "difficulty": 4,
+                "reward_scale": 1.2,
+            },
+            "legal_consulting_ai": {
+                "name": "智能法律咨询",
+                "description": "7x24小时AI法律顾问、问题自动解答、法律条文引用、诉讼流程指引，普惠法律服务",
+                "robots": ["法律大模型对话", "法律知识图谱", "案例库检索", "诉讼风险评估", "文书模板生成"],
+                "difficulty": 3,
+                "reward_scale": 1.0,
+            },
+        },
+    },
+
+    # ── AI+媒体/文创/内容生成 ──
+    "ai_media_content": {
+        "name": "AI+媒体/文创（AIGC内容生成/智能剪辑/数字人）",
+        "description": "AIGC文本/图片/视频/3D生成、智能剪辑、AI数字人主播、智能写稿、内容审核",
+        "sub_scenes": {
+            "aigc_content_generation": {
+                "name": "AIGC多模态内容生成",
+                "description": "AI文本生成、AI绘画、AI视频生成、AI音乐创作、AI 3D建模，内容生产效率提升10倍",
+                "robots": ["文生图大模型", "文生视频大模型", "大语言模型文本生成", "AI音乐生成", "3D资产生成AI"],
+                "difficulty": 4,
+                "reward_scale": 1.3,
+            },
+            "ai_digital_human": {
+                "name": "AI数字人主播/数字员工",
+                "description": "超写实数字人、24小时直播带货、新闻播报、虚拟客服、企业数字员工，降本增效显著",
+                "robots": ["超写实数字人渲染", "语音唇形同步", "实时动作驱动", "数字人直播系统", "多语种TTS"],
+                "difficulty": 4,
+                "reward_scale": 1.2,
+            },
+            "content_moderation": {
+                "name": "AI内容审核",
+                "description": "文本/图片/视频/语音多模态内容审核、违规内容识别、色情/暴力/政治敏感自动过滤，准确率99%+",
+                "robots": ["多模态大模型审核", "违规内容样本库", "实时审核引擎", "人审复核调度", "举报处理系统"],
+                "difficulty": 4,
+                "reward_scale": 1.1,
+            },
+        },
+    },
+
+    # ── AI+人力资源/招聘 ──
+    "ai_hr_recruitment": {
+        "name": "AI+人力资源（智能招聘/简历筛选/AI面试）",
+        "description": "智能简历筛选、AI视频面试、人岗匹配、员工培训、绩效评估",
+        "sub_scenes": {
+            "ai_resume_screening": {
+                "name": "智能简历筛选/人岗匹配",
+                "description": "简历自动解析、JD匹配度评分、人才画像、人岗智能推荐，招聘效率提升70%",
+                "robots": ["简历解析NLP", "人岗匹配算法", "人才知识图谱", "ATS招聘管理系统", "简历去重查重"],
+                "difficulty": 3,
+                "reward_scale": 1.0,
+            },
+            "ai_video_interview": {
+                "name": "AI视频面试评估",
+                "description": "AI视频面试、表情/语音/语义多维度评估、胜任力模型打分、面试报告自动生成",
+                "robots": ["视频面试平台", "微表情识别", "语音情感分析", "胜任力评估模型", "面试报告生成"],
+                "difficulty": 4,
+                "reward_scale": 1.1,
+            },
+        },
+    },
+
+    # ========== 蚌埠市本地化AI应用场景（用户籍贯·求职加分重点） ==========
+    # ── 蚌埠硅基新材料/玻璃工业AI ──
+    "bengbu_silicon_based_materials": {
+        "name": "蚌埠·硅基新材料/玻璃工业AI（中建材蚌埠玻璃院）",
+        "description": "蚌埠中国玻璃工业设计研究院/浮法玻璃新技术国家重点实验室，硅基新材料产业AI应用",
+        "sub_scenes": {
+            "glass_quality_ai_inspection": {
+                "name": "浮法玻璃/超薄玻璃AI质量检测",
+                "description": "浮法玻璃生产线AI视觉质检、气泡/结石/划伤缺陷自动识别、0.12mm超薄电子玻璃质量检测，替代人工目检准确率99.5%+",
+                "robots": ["工业线阵相机", "AI缺陷检测大模型", "光源照明系统", "实时剔除执行机构", "质量追溯MES系统"],
+                "difficulty": 4,
+                "reward_scale": 1.4,
+            },
+            "glass_process_ai_optimization": {
+                "name": "玻璃熔窑工艺AI优化控制",
+                "description": "玻璃熔窑温度/压力/料方AI智能优化、能耗降低10%+、良品率提升5%、熔窑寿命延长，浮法玻璃工艺核心AI优化",
+                "robots": ["熔窑多传感器监测", "工艺参数AI优化引擎", "预测性维护模型", "能耗优化算法", "DCS集散控制系统"],
+                "difficulty": 5,
+                "reward_scale": 1.5,
+            },
+        },
+    },
+
+    # ── 蚌埠淮河水利/智慧淮河 ──
+    "bengbu_huaihe_water": {
+        "name": "蚌埠·淮河水利AI（智慧淮河/防汛抗旱）",
+        "description": "淮河蚌埠段水利AI监测、洪水预报、防汛调度、水质监测、淮河生态保护",
+        "sub_scenes": {
+            "huaihe_flood_forecast": {
+                "name": "淮河洪水预报/防汛AI调度",
+                "description": "淮河蚌埠闸以上流域水文监测、AI洪水预报模型、防汛会商决策、闸坝智能调度，防洪减灾核心系统",
+                "robots": ["水位/流量传感器网络", "水文AI预报模型", "洪水演进仿真", "防汛会商大屏", "闸坝远程控制系统"],
+                "difficulty": 5,
+                "reward_scale": 1.5,
+            },
+            "huaihe_water_quality_monitor": {
+                "name": "淮河水质AI在线监测",
+                "description": "淮河蚌埠段水质实时监测、污染源溯源AI、蓝藻水华预警、生态流量调度，淮河流域水生态保护",
+                "robots": ["水质多参数传感器", "AI水质评价模型", "污染源溯源算法", "视频水面监控", "生态流量调度系统"],
+                "difficulty": 4,
+                "reward_scale": 1.2,
+            },
+        },
+    },
+
+    # ── 蚌埠港/淮河航运枢纽智慧港口 ──
+    "bengbu_port_smart": {
+        "name": "蚌埠港·淮河航运枢纽智慧港口",
+        "description": "蚌埠港千里淮河第一大港，智慧港口建设：集装箱智能调度、船舶AI识别、危险品监管、铁水联运",
+        "sub_scenes": {
+            "bengbu_port_container_smart": {
+                "name": "蚌埠港集装箱智能调度",
+                "description": "蚌埠港集装箱堆场智能管理、岸桥/场桥调度、集卡路径优化、铁水联运智能衔接，港口作业效率提升30%",
+                "robots": ["港口TOS操作系统", "集装箱OCR识别", "RTG/场桥远程操控", "集卡调度系统", "铁水联运信息平台"],
+                "difficulty": 4,
+                "reward_scale": 1.3,
+            },
+            "bengbu_port_ship_ai_recognition": {
+                "name": "船舶AI识别/危险品智能监管",
+                "description": "淮河船舶AIS+视觉AI识别、危险品船舶智能监管、船舶超载/违规停泊自动检测、航道智能监控",
+                "robots": ["AIS船舶自动识别", "视频AI船舶检测", "危险品电子围栏", "航道视频监控", "海事执法调度系统"],
+                "difficulty": 4,
+                "reward_scale": 1.2,
+            },
+        },
+    },
+
+    # ── 蚌埠智慧医疗（蚌医一附院/蚌医二附院） ──
+    "bengbu_smart_medical": {
+        "name": "蚌埠·智慧医疗（蚌医一附院/蚌医二附院）",
+        "description": "蚌埠医学院附属医院AI医疗应用：AI影像诊断、智慧病房、互联网医院、智能分诊",
+        "sub_scenes": {
+            "bengbu_ai_medical_imaging": {
+                "name": "AI医学影像辅助诊断",
+                "description": "蚌医附院CT/MRI/DR影像AI辅助诊断、肺结节/乳腺癌/眼底病变早筛、影像报告自动生成，诊断效率提升50%",
+                "robots": ["医学影像AI诊断系统", "PACS影像归档系统", "病灶检测分割模型", "结构化报告生成", "多学科会诊MDT平台"],
+                "difficulty": 5,
+                "reward_scale": 1.4,
+            },
+            "bengbu_smart_hospital_ward": {
+                "name": "智慧病房/护理机器人",
+                "description": "蚌埠智慧医院建设：生命体征AI监测、护理机器人、智能发药、输液监控、病房智能呼叫",
+                "robots": ["生命体征监护仪AI分析", "配送/护理机器人", "智能发药机", "输液监控系统", "病房物联网平台"],
+                "difficulty": 4,
+                "reward_scale": 1.2,
+            },
+        },
+    },
+
+    # ── 蚌埠花鼓灯/文旅AI ──
+    "bengbu_culture_tourism_ai": {
+        "name": "蚌埠·文旅AI（花鼓灯/双墩遗址/龙子湖）",
+        "description": "蚌埠花鼓灯非遗传承AI、双墩遗址数字考古、龙子湖智慧文旅、AI文旅导览",
+        "sub_scenes": {
+            "huagudeng_intangible_heritage_ai": {
+                "name": "花鼓灯非遗AI数字化传承",
+                "description": "蚌埠花鼓灯国家级非遗AI动作捕捉、数字人传承、AI教学、虚拟表演、非遗数字化保存",
+                "robots": ["动作捕捉系统", "数字人虚拟表演", "AI舞蹈教学", "非遗数字博物馆", "动作生成AI模型"],
+                "difficulty": 3,
+                "reward_scale": 1.1,
+            },
+            "bengbu_smart_tourism": {
+                "name": "龙子湖/张公山智慧文旅",
+                "description": "蚌埠龙子湖/张公山/大明文化园智慧景区：AI导览、客流预测、智能停车、AR实景导航、文创AIGC",
+                "robots": ["景区客流热力分析", "AR/VR导览", "智能停车系统", "AI文创生成", "智慧票务系统"],
+                "difficulty": 3,
+                "reward_scale": 1.0,
+            },
+            "shuangdun_archaeology_ai": {
+                "name": "双墩遗址数字考古AI",
+                "description": "蚌埠双墩遗址7300年刻画符号AI识别、陶片AI拼接、考古绘图自动化、数字考古复原",
+                "robots": ["文物AI三维重建", "刻画符号AI识别", "陶片智能拼接", "考古绘图自动化", "数字考古平台"],
+                "difficulty": 4,
+                "reward_scale": 1.2,
+            },
+        },
+    },
+
+    # ── 蚌埠皖北农业/智慧农业 ──
+    "bengbu_smart_agriculture": {
+        "name": "蚌埠·皖北智慧农业（怀远石榴/五河螃蟹/固镇花生）",
+        "description": "蚌埠皖北农业AI应用：怀远石榴/五河螃蟹/固镇花生特色农产品AI种植/养殖溯源",
+        "sub_scenes": {
+            "bengbu_crop_ai_monitoring": {
+                "name": "粮食/特色农作物AI种植监测",
+                "description": "皖北平原小麦/水稻/怀远石榴AI长势监测、病虫害AI识别、精准施肥灌溉、产量预测",
+                "robots": ["农业无人机多光谱", "土壤墒情传感器", "病虫害AI识别App", "精准灌溉系统", "产量预测模型"],
+                "difficulty": 3,
+                "reward_scale": 1.1,
+            },
+            "bengbu_aquaculture_ai": {
+                "name": "五河螃蟹/水产养殖AI",
+                "description": "五河螃蟹/沱湖水产AI养殖：水质在线监测、智能投喂、病害预警、溯源区块链",
+                "robots": ["水产养殖水质传感器", "AI智能投喂机", "病害预警模型", "区块链溯源系统", "增氧机智能控制"],
+                "difficulty": 3,
+                "reward_scale": 1.0,
+            },
+        },
+    },
+
+    # ── 蚌埠生物化工/丰原集团AI ──
+    "bengbu_biochemical_ai": {
+        "name": "蚌埠·生物化工AI（丰原集团/生物制造）",
+        "description": "蚌埠生物化工产业AI：生物发酵工艺优化、聚乳酸PLA生产AI控制、安全生产监控",
+        "sub_scenes": {
+            "fermentation_process_ai": {
+                "name": "生物发酵工艺AI优化",
+                "description": "丰原集团等生物化工企业发酵过程AI控制、菌种筛选AI辅助、工艺参数优化、转化率提升",
+                "robots": ["发酵过程多传感器", "工艺参数AI优化", "菌种高通量筛选AI", "DCS控制系统", "安全生产监控"],
+                "difficulty": 4,
+                "reward_scale": 1.3,
+            },
+        },
+    },
+
+    # ── 蚌埠兵器214所/电子信息AI ──
+    "bengbu_electronics_214": {
+        "name": "蚌埠·兵器214所电子信息AI",
+        "description": "中国兵器工业第214研究所（蚌埠）微电子/ MEMS传感器AI检测、军用电子元器件AI筛选",
+        "sub_scenes": {
+            "mems_sensor_ai_test": {
+                "name": "MEMS传感器/微电子AI检测筛选",
+                "description": "兵器214所MEMS传感器/军用电子元器件AI自动化测试、缺陷检测、可靠性筛选、良率提升",
+                "robots": ["自动化探针台", "AI缺陷视觉检测", "高低温环境试验箱", "可靠性测试系统", "MES生产追溯"],
+                "difficulty": 4,
+                "reward_scale": 1.3,
+            },
+        },
+    },
+
+    # ── 蚌埠智慧教育（安财/蚌医/蚌院/蚌埠学院） ──
+    "bengbu_smart_education": {
+        "name": "蚌埠·智慧教育（安徽财经大学/蚌埠医学院/蚌埠学院）",
+        "description": "蚌埠高校智慧教育：AI个性化学习、智能阅卷、虚拟仿真实验、智慧校园",
+        "sub_scenes": {
+            "ai_personalized_learning": {
+                "name": "AI个性化学习/智适应教育",
+                "description": "蚌埠高校/K12AI智适应学习、知识点掌握度分析、个性化习题推荐、学习路径规划",
+                "robots": ["知识图谱学习引擎", "个性化推荐算法", "智能错题本", "学习进度追踪", "在线学习平台"],
+                "difficulty": 3,
+                "reward_scale": 1.0,
+            },
+            "ai_grading_paper": {
+                "name": "AI智能阅卷/作业批改",
+                "description": "客观题自动批改、主观题AI评分、英语作文智能批改、试卷分析，教师工作量减少60%",
+                "robots": ["OCR试卷识别", "NLP主观题评分", "作文批改引擎", "试卷质量分析", "学情报告生成"],
+                "difficulty": 3,
+                "reward_scale": 0.9,
+            },
+        },
+    },
+
+    # ── 蚌埠智慧养老/社区服务 ──
+    "bengbu_smart_elderly_care": {
+        "name": "蚌埠·智慧养老/社区AI服务",
+        "description": "蚌埠社区智慧养老：老人健康AI监测、跌倒检测、智能陪伴、居家养老服务调度",
+        "sub_scenes": {
+            "elderly_health_ai_monitor": {
+                "name": "老人健康AI监测/跌倒检测",
+                "description": "居家老人生命体征监测、跌倒AI视觉/雷达检测、异常行为预警、紧急呼叫调度",
+                "robots": ["毫米波雷达跌倒检测", "智能手环生命体征", "AI视频行为分析", "紧急呼叫系统", "社区养老调度平台"],
+                "difficulty": 4,
+                "reward_scale": 1.2,
+            },
+            "elderly_companion_robot": {
+                "name": "智能陪伴机器人",
+                "description": "老人陪伴机器人、语音聊天、用药提醒、视频通话、精神慰藉，居家养老智能助手",
+                "robots": ["陪伴机器人", "语音交互对话", "用药提醒系统", "视频通话终端", "亲情互联App"],
+                "difficulty": 3,
+                "reward_scale": 1.0,
+            },
+        },
+    },
+
+    # ── 蚌埠智慧城市/交通/政务 ──
+    "bengbu_smart_city": {
+        "name": "蚌埠·智慧城市整体建设",
+        "description": "蚌埠城市大脑、智慧交通、智慧公交、智慧停车、智慧社区、数字蚌埠整体建设",
+        "sub_scenes": {
+            "bengbu_smart_traffic": {
+                "name": "蚌埠智慧交通/信号AI优化",
+                "description": "蚌埠市区交通信号灯AI自适应优化、交通拥堵预测、违章AI识别、公交智能调度",
+                "robots": ["交通信号AI控制系统", "视频违章识别", "交通流量预测", "公交智能调度", "智慧停车平台"],
+                "difficulty": 4,
+                "reward_scale": 1.2,
+            },
+            "bengbu_city_brain": {
+                "name": "蚌埠城市大脑/数字蚌埠",
+                "description": "蚌埠城市运行指挥中心、数据中台、AI赋能城市治理、12345热线智能升级、数字孪生城市",
+                "robots": ["城市运营指挥中心IOC", "数据共享中台", "AI视频分析平台", "数字孪生城市可视化", "事件分拨处置系统"],
+                "difficulty": 5,
+                "reward_scale": 1.4,
+            },
+        },
+    },
 }
 
 
