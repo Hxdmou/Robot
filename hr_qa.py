@@ -196,11 +196,31 @@ def interactive():
         </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("""
-        <div class="disclaimer-card">
-        <h4>✅ 100%严格标准绝对保证声明</h4>
-        <p style="font-size: 0.85rem; color: #555; margin: 0;">
-        本系统按100%严格标准编写，经过全量语法验证与逻辑校验，输出结果绝对准确可靠。
+    # 法律免责声明：法律/医疗/金融使用红框醒目标注，其他使用黄框
+    high_risk_systems = ["legal", "medical", "finance"]
+    if SYSTEM_NAME in high_risk_systems:
+        disclaimer_color = "#ffebee"
+        border_color = "#ef5350"
+        title_color = "#c62828"
+        disclaimer_title = "⚠️ 重要法律免责声明"
+        if SYSTEM_NAME == "legal":
+            disclaimer_text = "本系统提供的法律信息仅供参考学习，不构成法律意见或律师服务。遇到具体法律问题请咨询执业律师，切勿仅凭本系统回答做出决策。"
+        elif SYSTEM_NAME == "medical":
+            disclaimer_text = "本系统提供的医疗健康信息仅供健康知识普及参考，绝对不能替代执业医师的诊断和治疗。身体不适请立即前往正规医院就诊，切勿自行诊断用药。"
+        elif SYSTEM_NAME == "finance":
+            disclaimer_text = "本系统提供的金融信息仅供知识学习参考，绝对不构成任何投资建议或买卖推荐。投资有风险，入市需谨慎，投资决策请自行判断并承担风险。"
+    else:
+        disclaimer_color = "#fff9e6"
+        border_color = "#ffe082"
+        title_color = "#f57c00"
+        disclaimer_title = "⚠️ 使用免责声明"
+        disclaimer_text = "本系统提供的信息仅供参考学习，不构成任何专业建议。重要决策请咨询相关领域专业人士，开发者不对因使用本系统产生的任何后果承担责任。"
+    
+    st.markdown(f"""
+        <div style="background: {disclaimer_color}; border: 2px solid {border_color}; border-radius: 12px; padding: 1.2rem; margin-bottom: 1.5rem;">
+        <h4 style="color: {title_color}; margin-top: 0; margin-bottom: 0.5rem;">{disclaimer_title}</h4>
+        <p style="font-size: 0.9rem; color: #333; margin: 0; font-weight: 500;">
+        {disclaimer_text}
         </p>
         </div>
     """, unsafe_allow_html=True)

@@ -25,18 +25,19 @@ from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout,
                              QTextEdit, QGroupBox, QSlider, QProgressBar, QShortcut)
 from PyQt5.QtCore import Qt, QThread, pyqtSignal
 from PyQt5.QtGui import QFont, QImage, QPixmap, QKeySequence
-from ollama_client import OllamaClient
+from ollama_client import LLMClient as OllamaClient
 
 class RobotThread(QThread):
     status_update = pyqtSignal(np.ndarray, np.ndarray, float)
     log_update = pyqtSignal(str)
     image_update = pyqtSignal(QImage)
     
-    def __init__(self):
+    def __init__(self, llm_backend="检测中"):
         super().__init__()
         self.running = True
         self.target_pos = np.array([0.45, 0.0, 0.35])
         self.trail_points = []
+        self.llm_backend = llm_backend
         
         self.cam_pos = np.array([0.8, 0.6, 0.8])
         self.cam_target = np.array([0.45, 0.0, 0.35])
@@ -74,7 +75,7 @@ class RobotThread(QThread):
             return np.array(link_state[0])
         
         self.log_update.emit("✅ 机械臂仿真已启动")
-        self.log_update.emit("ℹ️ 大模型: qwen3:8b (使用时自动连接)")
+        self.log_update.emit(f"ℹ️ 大模型后端: {self.llm_backend}")
         
         frame_count = 0
         while self.running:
@@ -232,12 +233,16 @@ class ImageLabel(QLabel):
 class RobotGUI(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("🤖 机械臂Ollama智能控制")
+        self.setWindowTitle("🤖 机械臂智能控制仿真Demo")
         self.setGeometry(50, 50, 1400, 900)
         
         self.end_pos = np.array([0.0, 0.0, 0.0])
         self.goal_pos = np.array([0.45, 0.0, 0.35])
         self.distance = 0.0
+        
+        # 初始化LLM客户端
+        self.llm_client = OllamaClient()
+        self.llm_backend = self.llm_client.get_backend_name()
         
         self.init_ui()
         self.start_robot()
@@ -253,7 +258,7 @@ class RobotGUI(QMainWindow):
         
         model_group = QGroupBox("🤖 大模型状态")
         model_layout = QVBoxLayout(model_group)
-        self.model_label = QLabel("模型: qwen3:8b | 状态: 已就绪")
+        self.model_label = QLabel(f"模型: {self.llm_backend}")
         self.model_label.setFont(QFont("Arial", 11, QFont.Bold))
         self.model_label.setStyleSheet("color: #00d4ff;")
         model_layout.addWidget(self.model_label)
@@ -509,12 +514,11 @@ class RobotGUI(QMainWindow):
             self.cmd_input.clear()
     
     def process_ollama(self, cmd):
-        self.model_label.setText("模型: qwen3:8b | 状态: 思考中...")
+        self.model_label.setText(f"模型: {self.llm_backend} | 状态: 思考中...")
         self.model_label.setStyleSheet("color: #f97316;")
         
-        def run_ollama():
+        def run_llm():
             try:
-                client_ollama = OllamaClient(model="qwen3:8b")
                 prompt = f"""
 你是一个机械臂控制助手。用户说："{cmd}"
 请从以下指令中选择并输出最合适的动作：
@@ -523,8 +527,8 @@ class RobotGUI(QMainWindow):
 - "unknown"（无法理解）
 只输出动作，不要多余内容。
 """
-                response = client_ollama.generate(prompt, temperature=0.1, max_tokens=50)
-                self.log_text.append(f"<span style='color:#a855f7;'>Ollama 返回: {response}</span>")
+                response = self.llm_client.generate(prompt, temperature=0.1, max_tokens=50)
+                self.log_text.append(f"<span style='color:#a855f7;'>LLM 返回: {response}</span>")
                 
                 if response.startswith("goto"):
                     parts = response.split()
@@ -535,11 +539,11 @@ class RobotGUI(QMainWindow):
                         self.z_slider.setValue(int(z * 100))
                         self.log_text.append(f"<span style='color:#fbbf24;'>目标已更新至: ({x:.3f}, {y:.3f}, {z:.3f})</span>")
                 
-                self.model_label.setText("模型: qwen3:8b | 状态: 已就绪")
+                self.model_label.setText(f"模型: {self.llm_backend} | 状态: 已就绪")
                 self.model_label.setStyleSheet("color: #00d4ff;")
             except Exception as e:
                 self.log_text.append(f"<span style='color:#ef4444;'>大模型错误: {e}</span>")
-                self.model_label.setText("模型: qwen3:8b | 状态: 已就绪")
+                self.model_label.setText(f"模型: {self.llm_backend} | 状态: 已就绪")
                 self.model_label.setStyleSheet("color: #00d4ff;")
         
         import threading
@@ -586,7 +590,7 @@ class RobotGUI(QMainWindow):
         self.log_text.verticalScrollBar().setValue(self.log_text.verticalScrollBar().maximum())
     
     def start_robot(self):
-        self.robot_thread = RobotThread()
+        self.robot_thread = RobotThread(llm_backend=self.llm_backend)
         self.robot_thread.status_update.connect(self.update_status)
         self.robot_thread.image_update.connect(self.update_image)
         self.robot_thread.log_update.connect(self.update_log)

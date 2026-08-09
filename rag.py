@@ -17,6 +17,11 @@
 
 import streamlit as st
 import os
+# HuggingFace 强制离线模式：模型已完整缓存到本地（390MB），不联网检查更新，彻底解决WinError 10060超时
+os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
+os.environ['HF_HUB_OFFLINE'] = '1'
+os.environ['TRANSFORMERS_OFFLINE'] = '1'
+os.environ['HF_HUB_DISABLE_SYMLINKS_WARNING'] = '1'
 import time
 import json
 from typing import List, Dict, Any, Iterator, Tuple
@@ -35,11 +40,11 @@ from langchain_openai import ChatOpenAI
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.documents import Document
-import os
 from dotenv import load_dotenv
 from langchain_community.embeddings import DashScopeEmbeddings
 
-load_dotenv()
+# .env文件优先级高于系统环境变量，确保项目配置生效
+load_dotenv(override=True)
 
 _llm = None
 _embeddings = None
@@ -50,28 +55,48 @@ def get_llm(temperature=None, model_name=None):
     model = model_name if model_name is not None else os.getenv("LLM_MODEL_NAME", "qwen2.5-72b-instruct")
     
     if _llm is None or _llm.temperature != temp:
-        dashscope_api_key = os.getenv("DASHSCOPE_API_KEY", "")
-        openai_api_key = os.getenv("OPENAI_API_KEY", "")
+        dashscope_api_key = os.getenv("DASHSCOPE_API_KEY", "").strip()
+        openai_api_key = os.getenv("OPENAI_API_KEY", "").strip()
         
-        if dashscope_api_key:
+        # 过滤占位符无效key
+        invalid_keys = ["", "YOUR_DASHSCOPE_API_KEY", "YOUR_OPENAI_API_KEY", "sk-xxx", "your-api-key"]
+        
+        _llm = None
+        
+        # 尝试DashScope（阿里云灵积）
+        if dashscope_api_key and dashscope_api_key not in invalid_keys and not dashscope_api_key.startswith("YOUR_"):
             _llm = ChatOpenAI(
                 base_url='https://dashscope.aliyuncs.com/compatible-mode/v1',
                 api_key=dashscope_api_key,
                 model=model,
                 temperature=temp,
-                streaming=True
+                streaming=True,
+                timeout=60,
+                max_retries=1
             )
-        elif openai_api_key:
+        # 尝试OpenAI
+        elif openai_api_key and openai_api_key not in invalid_keys and not openai_api_key.startswith("YOUR_") and not openai_api_key.startswith("sk-xxx"):
             base_url = os.getenv("OPENAI_API_BASE", "https://api.openai.com/v1")
             _llm = ChatOpenAI(
                 base_url=base_url,
                 api_key=openai_api_key,
                 model=model,
                 temperature=temp,
-                streaming=True
+                streaming=True,
+                timeout=60,
+                max_retries=1
             )
-        else:
-            raise ValueError("请设置 DASHSCOPE_API_KEY 或 OPENAI_API_KEY 环境变量")
+        
+        if _llm is None:
+            raise ValueError(
+                "未配置有效的大模型API Key！\n"
+                "请在项目根目录创建 .env 文件，配置以下任意一项：\n"
+                "  1. 阿里云灵积（推荐，国内访问快）：DASHSCOPE_API_KEY=你的key\n"
+                "  2. OpenAI：OPENAI_API_KEY=你的key\n"
+                "\n"
+                "阿里云灵积API Key申请地址：https://dashscope.aliyun.com/ （新用户有免费额度）\n"
+                "配置完成后重启系统即可使用。"
+            )
     
     return _llm
 
@@ -353,9 +378,28 @@ def llm_chain_stream(vector, temperature=None, top_k=None, retrieval_mode=None):
     return chain
 
 def stream_answer(chain, question: str) -> Iterator[str]:
-    """流式生成答案"""
-    for chunk in chain.stream(question):
-        yield chunk
+    """流式生成答案，包含友好错误处理"""
+    try:
+        for chunk in chain.stream(question):
+            yield chunk
+    except Exception as e:
+        error_msg = str(e)
+        if "401" in error_msg or "invalid_api_key" in error_msg or "API 密钥" in error_msg:
+            yield "\n\n❌ **API密钥错误（401）**\n\n"
+            yield "检测到API密钥无效或已过期，请按以下步骤配置：\n\n"
+            yield "1. 访问 https://dashscope.aliyun.com/ 注册阿里云账号\n"
+            yield "2. 开通「灵积模型服务」（新用户有免费额度）\n"
+            yield "3. 创建API-KEY，复制到项目根目录的 `.env` 文件中：\n"
+            yield "   ```\n"
+            yield "   DASHSCOPE_API_KEY=sk-你的实际密钥\n"
+            yield "   ```\n"
+            yield "4. 保存后重启系统即可\n"
+        elif "10060" in error_msg or "连接尝试失败" in error_msg or "Connection" in error_msg:
+            yield "\n\n❌ **网络连接错误**\n\n"
+            yield "无法连接到API服务器，请检查网络连接。\n"
+            yield "嵌入模型已离线可用，但大语言模型需要联网调用。\n"
+        else:
+            yield f"\n\n❌ **生成回答失败**\n\n错误信息：{error_msg}"
 
 def llm_an(file_path, question):
     if not question:

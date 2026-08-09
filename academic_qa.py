@@ -18,8 +18,8 @@ from export_utils import export_conversation_to_markdown, export_conversation_to
 from batch_processor import create_batch_interface
 from document_visualizer import create_document_viewer, get_document_summary, create_document_export
 
-SYSTEM_NAME = "general"
-DEFAULT_INDEX_DIR = "general_faiss_index"
+SYSTEM_NAME = "academic"
+DEFAULT_INDEX_DIR = "academic_faiss_index"
 
 op_logger = get_operation_logger(SYSTEM_NAME)
 
@@ -71,7 +71,7 @@ def process_files(file_paths):
         return False, f"处理失败: {str(e)}"
 
 def interactive():
-    config = SYSTEM_CONFIGS["general"]
+    config = SYSTEM_CONFIGS["academic"]
 
     st.set_page_config(
         page_title=f"{config['name']}",

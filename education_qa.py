@@ -5,8 +5,6 @@ from rag import (
     load_multiple_documents,
     chunk2vector,
     llm_chain,
-    llm_chain_stream,
-    stream_answer,
     get_embeddings,
     get_llm
 )
@@ -16,10 +14,9 @@ from chat_history import save_chat_history, load_chat_history, delete_chat_histo
 from logger import get_operation_logger
 from export_utils import export_conversation_to_markdown, export_conversation_to_text, create_backup, restore_backup, list_backups
 from batch_processor import create_batch_interface
-from document_visualizer import create_document_viewer, get_document_summary, create_document_export
 
-SYSTEM_NAME = "general"
-DEFAULT_INDEX_DIR = "general_faiss_index"
+SYSTEM_NAME = "education"
+DEFAULT_INDEX_DIR = "education_faiss_index"
 
 op_logger = get_operation_logger(SYSTEM_NAME)
 
@@ -41,7 +38,7 @@ def load_default_index():
             return vector_store, True, f"成功加载预置索引"
         except Exception as e:
             return None, False, f"加载预置索引失败: {str(e)}"
-    return None, False, "未找到预置索引目录。您可以上传文档创建新的知识库，或运行 python build_index.py 构建预置索引"
+    return None, False, "未找到预置索引目录"
 
 def save_index_to_disk(vector_store, index_dir=DEFAULT_INDEX_DIR):
     try:
@@ -71,7 +68,7 @@ def process_files(file_paths):
         return False, f"处理失败: {str(e)}"
 
 def interactive():
-    config = SYSTEM_CONFIGS["general"]
+    config = SYSTEM_CONFIGS["education"]
 
     st.set_page_config(
         page_title=f"{config['name']}",
@@ -109,8 +106,8 @@ def interactive():
         }
 
         .feature-card {
-            background: linear-gradient(145deg, #ffffff, #f0f0f0);
-            border: 1px solid #e0e0e0;
+            background: linear-gradient(145deg, #ffffff, #e8f5e9);
+            border: 1px solid #c8e6c9;
             border-radius: 12px;
             padding: 1.2rem;
             margin-bottom: 1rem;
@@ -132,14 +129,14 @@ def interactive():
         }
 
         .disclaimer-card {
-            background: linear-gradient(145deg, #fff9e6, #fff3cc);
-            border: 1px solid #ffe082;
+            background: linear-gradient(145deg, #fff3e0, #ffe0b2);
+            border: 1px solid #ffcc80;
             border-radius: 12px;
             padding: 1.2rem;
             margin-bottom: 1.5rem;
         }
 
-        .disclaimer-card h4 { color: #f57c00; margin-bottom: 0.5rem; }
+        .disclaimer-card h4 { color: #e65100; margin-bottom: 0.5rem; }
 
         .status-badge {
             display: inline-block;
@@ -170,21 +167,6 @@ def interactive():
             margin: 0.5rem 0;
             border-radius: 0 8px 8px 0;
             font-size: 0.85rem;
-        }
-
-        .streaming-indicator {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            background: #667eea;
-            border-radius: 50%;
-            animation: pulse 1s infinite;
-            margin-right: 8px;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
         }
         </style>
     """, unsafe_allow_html=True)
@@ -233,12 +215,10 @@ def interactive():
         'show_history': False,
         'show_batch': False,
         'show_backup': False,
-        'show_docs': False,
         'retrieval_mode': "hybrid",
         'temperature': 0.7,
         'top_k': 5,
-        'index_load_status': "未加载",
-        'streaming_enabled': True
+        'index_load_status': "未加载"
     }
 
     for key, default_val in session_defaults.items():
@@ -248,10 +228,10 @@ def interactive():
     col1, col2 = st.columns([2, 1])
 
     with col1:
-        st.markdown("### 💬 智能问答")
+        st.markdown("### 💬 教育问答")
 
         for message in st.session_state.messages:
-            avatar = "👤" if message["role"] == "user" else config["icon"]
+            avatar = "👤" if message["role"] == "user" else "📚"
             with st.chat_message(message["role"], avatar=avatar):
                 st.markdown(message["content"])
                 if message.get("sources"):
@@ -267,7 +247,7 @@ def interactive():
                                 </div>
                                 """, unsafe_allow_html=True)
 
-        if prompt := st.chat_input("请输入您的问题..."):
+        if prompt := st.chat_input("请输入您的教育问题..."):
             if not st.session_state.engine_initialized:
                 st.warning("⚠️ 请先加载知识库或上传文档")
             else:
@@ -275,7 +255,7 @@ def interactive():
                 with st.chat_message("user", avatar="👤"):
                     st.markdown(prompt)
 
-                with st.chat_message("assistant", avatar=config["icon"]):
+                with st.chat_message("assistant", avatar="📚"):
                     with st.spinner("🤔 正在思考中..."):
                         try:
                             chain = llm_chain(
@@ -310,15 +290,14 @@ def interactive():
         st.subheader("📋 系统功能")
 
         features = [
-            ("📚 知识库", "一键加载预置知识库"),
-            ("📁 文档上传", "支持多种文档格式"),
-            ("⚙️ 灵活配置", "可调节模型参数"),
-            ("💾 对话历史", "保存和恢复对话"),
+            ("📚 教育知识库", "一键加载预置的教育知识库"),
+            ("📁 文档上传", "支持多种格式教育文档上传"),
+            ("⚙️ 灵活配置", "可调节温度、Top-K 等参数"),
+            ("💾 对话历史", "保存和恢复历史对话"),
             ("📋 批量处理", "批量问答导出"),
             ("🔄 备份恢复", "数据备份功能"),
             ("📊 引用评分", "显示来源相关度"),
-            ("📑 文档查看", "可视化文档内容"),
-            ("🔒 隐私保护", "数据本地处理")
+            ("🔒 隐私保护", "所有数据本地处理")
         ]
 
         for title, desc in features:
@@ -360,7 +339,7 @@ def interactive():
 
         col_btn3, col_btn4 = st.columns(2)
         with col_btn3:
-            if st.button("� 批量问答", use_container_width=True):
+            if st.button("📋 批量问答", use_container_width=True):
                 st.session_state.show_batch = not st.session_state.show_batch
 
         with col_btn4:
@@ -386,41 +365,6 @@ def interactive():
         with col_btn6:
             if st.button("💾 备份系统", use_container_width=True):
                 st.session_state.show_backup = not st.session_state.show_backup
-
-        if st.button("📑 查看文档", use_container_width=True):
-            st.session_state.show_docs = not st.session_state.show_docs
-
-    if st.session_state.show_docs:
-        st.markdown("---")
-        st.subheader("📑 文档查看器")
-
-        if st.session_state.vector_store:
-            try:
-                docs = st.session_state.vector_store.docstore._dict.values()
-                docs_list = list(docs)
-                if docs_list:
-                    create_document_viewer(docs_list)
-
-                    summary = get_document_summary(docs_list)
-                    with st.expander("📊 文档统计摘要"):
-                        st.write(f"**文档总数**: {summary['total_count']}")
-                        st.write(f"**总字符数**: {summary['total_chars']:,}")
-                        st.write(f"**平均片段长度**: {summary['avg_chunk_size']} 字符")
-
-                    col1, col2 = st.columns(2)
-                    with col1:
-                        export_path = create_document_export(docs_list)
-                        if export_path:
-                            st.success(f"✅ 文档已导出到: {export_path}")
-                    with col2:
-                        if st.button("🔄 刷新文档"):
-                            st.rerun()
-                else:
-                    st.info("当前知识库为空，请先加载文档")
-            except Exception as e:
-                st.error(f"获取文档失败: {str(e)}")
-        else:
-            st.info("请先加载知识库")
 
     if st.session_state.show_batch:
         st.markdown("---")
@@ -449,7 +393,7 @@ def interactive():
             if backups:
                 backup_options = [f"{b['name']} ({b['size']//1024}KB)" for b in backups]
                 selected = st.selectbox("选择备份", backup_options)
-                if st.button("� 恢复备份", use_container_width=True):
+                if st.button("📥 恢复备份", use_container_width=True):
                     selected_backup = next(b for b in backups if f"{b['name']} ({b['size']//1024}KB)" == selected)
                     success, msg = restore_backup(selected_backup['path'])
                     if success:
@@ -558,17 +502,11 @@ def interactive():
                 help="hybrid: 混合检索（推荐）"
             )
 
-            st.session_state.streaming_enabled = st.checkbox(
-                "🔄 启用流式输出",
-                value=st.session_state.streaming_enabled,
-                help="开启后回答会逐步显示"
-            )
-
         with st.expander("📁 文档上传", expanded=True):
             st.markdown("""<div class="sidebar-section"><h3>上传文档</h3></div>""", unsafe_allow_html=True)
 
             uploaded_files = st.file_uploader(
-                "选择文件",
+                "选择文件 (支持 txt/pdf/word/xlsx)",
                 type=Config.SUPPORTED_FILE_TYPES,
                 accept_multiple_files=True,
                 help=f"支持格式: {', '.join(Config.SUPPORTED_FILE_TYPES)}"
