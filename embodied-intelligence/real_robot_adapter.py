@@ -361,7 +361,7 @@ BRAND_COMM_MAP = {
     "huawei_matebook_fold": "consumer_tcp",
     "ai_xunizhubo_compliance": "vtla_tcp",
     "data_ip_registration_trade": "vtla_tcp",
-    # ========== 21张截图补充产品映射 ==========
+    # ========== 补充产品映射 ==========
     "national_computing_network_4t_15th": "generic_bridge",
     "chinamobile_4n31x_supercomputing_grid": "telecom_tcp",
     "chinatelecom_xirang_integrated_platform": "telecom_tcp",

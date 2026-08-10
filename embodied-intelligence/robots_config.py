@@ -4809,8 +4809,8 @@ ROBOT_BRANDS = {
     "mira_deep_principle_ai4s_scientist": {
         "name": "Mira深度原理AI科学家平台AI4S智能体落地标杆（化学能源材料药物全链路）",
         "category": "ai_agent_platform",
-        "origin": "中国·深度原理科技（WAIC 2026世界人工智能大会发布）",
-        "features": ["WAIC 2026发布 Mira AI科学家平台AI4S智能体元年标杆", "三层架构:上层多智能体小队Agent Squad+中层计算实验双执行引擎+底层科研记忆科学维基", "Research Claw化学能源材料综合17.51分所有参评第一, Mira跨领域迁移力强材料仍领先20分", "单任务0.67美元同类最低唯一进16分以上较Codex CLI降75%升20%较EvoScientist降88%高16.7%", "Science Agent Arena药物发现榜81.1%第一 数据预处理82/分析83/分子优化78/安全84/结论78.5/总81.1", "动态分级筛选策略先用低成本方法大筛再高精度只算真具备潜力方案显压缩计算成本", "长任务执行引擎智能调度安全隔离实时监控应对数天分子模拟", "企业级私有化部署数据不出内网分级权限全流程操作审计", "锂电+工业冷却液已落地,三大案例:1.KHP分解Korcek反应复现2.Pt(111)CO吸附电荷3.ABL1+伊马替尼结合模式预测"],
+        "origin": "中国·深度原理科技",
+        "features": ["Mira AI科学家平台AI4S智能体元年标杆", "三层架构:上层多智能体小队Agent Squad+中层计算实验双执行引擎+底层科研记忆科学维基", "Research Claw化学能源材料综合17.51分所有参评第一, Mira跨领域迁移力强材料仍领先20分", "单任务0.67美元同类最低唯一进16分以上较Codex CLI降75%升20%较EvoScientist降88%高16.7%", "Science Agent Arena药物发现榜81.1%第一 数据预处理82/分析83/分子优化78/安全84/结论78.5/总81.1", "动态分级筛选策略先用低成本方法大筛再高精度只算真具备潜力方案显压缩计算成本", "长任务执行引擎智能调度安全隔离实时监控应对数天分子模拟", "企业级私有化部署数据不出内网分级权限全流程操作审计", "锂电+工业冷却液已落地,三大案例:1.KHP分解Korcek反应复现2.Pt(111)CO吸附电荷3.ABL1+伊马替尼结合模式预测"],
         "scenes": ["three_layer_architecture_agent_squad_dual_engine_scientific_wiki", "research_claw_benchmark_17_51_first_overall_cross_domain_strong", "science_agent_arena_81_1_first_pharma_discovery_five_tasks_balanced", "dynamic_cascade_screening_low_cost_then_high_precision_save_compute", "long_running_engine_days_level_simulation_safe_isolation_progress_monitor", "enterprise_private_deploy_data_no_leave_intranet_full_audit_trail", "three_real_cases_khp_korcek_reaction_pt111_co_adsorb_abl1_imatinib_binding"],
         "status": "waic_2026_launched_production_customers",
         "controller": "Mira三层科研智能体全链路协同总控器",
