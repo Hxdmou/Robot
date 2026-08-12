@@ -22,12 +22,17 @@
 
 import time
 import threading
-import pybullet as p
+
+try:
+    import pybullet as p
+except ImportError:
+    p = None
 
 
 class CollisionDetector:
-    def __init__(self, config=None):
+    def __init__(self, config=None, sim_backend=None):
         config = config or {}
+        self.sim_backend = sim_backend
         self.enabled = config.get("enabled", True)
         self.safety_distance = config.get("safety_distance", 0.01)
         self.warning_distance = config.get("warning_distance", 0.02)
@@ -57,51 +62,99 @@ class CollisionDetector:
         self.collision_risk_threshold = config.get("collision_risk_threshold", 1.0)  # 100%安全阈值，零风险容忍
         self.impact_force_threshold = config.get("impact_force_threshold", 50.0)
 
+    def _get_backend(self):
+        return self.sim_backend
+
+    @staticmethod
+    def _contact_get(contact, key):
+        if isinstance(contact, dict):
+            defaults = {
+                'body_a': 0, 'body_b': 0, 'link_a': 0, 'link_b': 0,
+                'position': [0, 0, 0], 'normal': [0, 0, 0],
+                'distance': 0.0, 'force': 0.0
+            }
+            return contact.get(key, defaults.get(key))
+        mapping = {
+            'body_a': 1, 'body_b': 2, 'link_a': 3, 'link_b': 4,
+            'position': 5, 'normal': 7, 'distance': 8, 'force': 9
+        }
+        return contact[mapping[key]]
+
+    def _get_contacts(self, body_a, body_b=-1, max_points=100):
+        backend = self._get_backend()
+        if backend is not None:
+            return backend.get_contact_points(body_a, body_b, max_points)
+        if p is None:
+            return []
+        return p.getContactPoints(body_a, body_b, -1, -1, max_points)
+
+    def _get_link_position(self, body_id, link_index):
+        backend = self._get_backend()
+        if backend is not None:
+            state = backend.get_link_state(link_index)
+            return state["position"]
+        if p is None:
+            return None
+        return p.getLinkState(body_id, link_index)[0]
+
     def check_collision(self, robot_id, obstacle_ids=None):
+        if robot_id is None:
+            return False, []
         if not self.enabled:
             return False, []
 
+        backend = self._get_backend()
+        if backend is None and p is None:
+            return False, []
+
         contacts = []
-        
+
         if obstacle_ids:
             for obstacle_id in obstacle_ids:
-                result = p.getContactPoints(robot_id, obstacle_id, -1, -1, self.max_contacts)
+                result = self._get_contacts(robot_id, obstacle_id, self.max_contacts)
                 contacts.extend(result)
         else:
-            result = p.getContactPoints(robot_id, -1, -1, -1, self.max_contacts)
+            result = self._get_contacts(robot_id, -1, self.max_contacts)
             contacts.extend(result)
 
         collision_detected = len(contacts) > 0
-        
+
         if collision_detected:
             self._record_collision(contacts)
-        
+
         return collision_detected, contacts
 
     def check_distance(self, robot_id, target_pos, joint_indices=None):
+        if robot_id is None:
+            return float('inf')
         if not self.enabled:
-            return False, 0.0
+            return float('inf')
+
+        backend = self._get_backend()
+        if backend is None and p is None:
+            return float('inf')
 
         min_distance = float('inf')
-        
+
         if joint_indices:
             for j_idx in joint_indices:
-                link_state = p.getLinkState(robot_id, j_idx)
-                link_pos = link_state[0]
+                link_pos = self._get_link_position(robot_id, j_idx)
+                if link_pos is None:
+                    continue
                 dist = self._calc_distance(link_pos, target_pos)
                 min_distance = min(min_distance, dist)
         else:
+            if p is None:
+                return float(min_distance)
             num_joints = p.getNumJoints(robot_id)
             for j_idx in range(num_joints):
-                link_state = p.getLinkState(robot_id, j_idx)
-                link_pos = link_state[0]
+                link_pos = self._get_link_position(robot_id, j_idx)
+                if link_pos is None:
+                    continue
                 dist = self._calc_distance(link_pos, target_pos)
                 min_distance = min(min_distance, dist)
 
-        too_close = min_distance < self.safety_distance
-        warning = min_distance < self.warning_distance
-
-        return too_close, warning, min_distance
+        return float(min_distance)
 
     def _calc_distance(self, pos1, pos2):
         return ((pos1[0]-pos2[0])**2 + (pos1[1]-pos2[1])**2 + (pos1[2]-pos2[2])**2)**0.5
@@ -121,10 +174,10 @@ class CollisionDetector:
 
         for contact in contacts[:5]:
             link_info = {
-                "link_a": contact[3],
-                "link_b": contact[4],
-                "distance": contact[8],
-                "normal_force": contact[9]
+                "link_a": self._contact_get(contact, 'link_a'),
+                "link_b": self._contact_get(contact, 'link_b'),
+                "distance": self._contact_get(contact, 'distance'),
+                "normal_force": self._contact_get(contact, 'force')
             }
             collision_info["links"].append(link_info)
 
@@ -145,8 +198,8 @@ class CollisionDetector:
         V13新增：计算碰撞冲击力
         基于Hertz接触模型和相对速度
         """
-        normal_force = contact[9]  # 法向接触力
-        contact_normal = contact[7]  # 接触法向量
+        normal_force = self._contact_get(contact, 'force')
+        contact_normal = self._contact_get(contact, 'normal')
 
         # 简化模型：冲击力 = 法向力 + 阻尼效应
         # 实际应用中需要考虑相对速度、材料属性等
@@ -187,6 +240,9 @@ class CollisionDetector:
         if not self.ccd_enabled:
             return False, []
 
+        if p is None or robot_id is None:
+            return False, []
+
         # 简化版CCD：检查运动路径上的中间点
         intermediate_collisions = []
 
@@ -219,8 +275,8 @@ class CollisionDetector:
         """
         V13新增：计算接触力（基于Hertz模型）
         """
-        penetration_depth = abs(contact_point[8])  # 穿透深度
-        normal_force = contact_point[9]  # 法向力
+        penetration_depth = abs(self._contact_get(contact_point, 'distance'))
+        normal_force = self._contact_get(contact_point, 'force')
 
         # Hertz接触模型增强
         # F = k * delta^n + c * v
@@ -299,7 +355,7 @@ class CollisionDetector:
 
     def _handle_collision(self, collision, contacts):
         if contacts:
-            max_force = max(contact[9] for contact in contacts)
+            max_force = max(self._contact_get(contact, 'force') for contact in contacts)
             
             if max_force > 10.0:
                 print(f"[COLLISION] ⚠️ 碰撞警告 - 接触力: {max_force:.2f}N")
@@ -340,29 +396,42 @@ class CollisionDetector:
 
 
 class ForceFeedback:
-    def __init__(self, config=None):
+    def __init__(self, config=None, sim_backend=None):
         config = config or {}
+        self.sim_backend = sim_backend
         self.enabled = config.get("enabled", True)
         self.force_threshold = config.get("force_threshold", 10.0)
         self.max_force = config.get("max_force", 100.0)
-        
+
         self.applied_forces = []
         self.max_history = 50
         self._lock = threading.Lock()
+
+    def _get_backend(self):
+        return self.sim_backend
+
+    @staticmethod
+    def _contact_get(contact, key):
+        if isinstance(contact, dict):
+            defaults = {'force': 0.0}
+            return contact.get(key, defaults.get(key))
+        mapping = {'force': 9}
+        return contact[mapping[key]]
 
     def apply_force(self, robot_id, ee_index, force):
         if not self.enabled:
             return
 
         clamped_force = [max(-self.max_force, min(self.max_force, f)) for f in force]
-        
-        p.applyExternalForce(
-            objectUniqueId=robot_id,
-            linkIndex=ee_index,
-            forceObj=clamped_force,
-            posObj=[0, 0, 0],
-            flags=p.WORLD_FRAME
-        )
+
+        if p is not None:
+            p.applyExternalForce(
+                objectUniqueId=robot_id,
+                linkIndex=ee_index,
+                forceObj=clamped_force,
+                posObj=[0, 0, 0],
+                flags=p.WORLD_FRAME
+            )
 
         with self._lock:
             self.applied_forces.append({
@@ -373,13 +442,19 @@ class ForceFeedback:
                 self.applied_forces.pop(0)
 
     def get_force_at_contact(self, robot_id, obstacle_id):
-        contacts = p.getContactPoints(robot_id, obstacle_id, -1, -1, 10)
-        
+        backend = self._get_backend()
+        if backend is not None:
+            contacts = backend.get_contact_points(robot_id, obstacle_id, 10)
+        elif p is not None:
+            contacts = p.getContactPoints(robot_id, obstacle_id, -1, -1, 10)
+        else:
+            contacts = []
+
         if contacts:
-            total_force = sum(contact[9] for contact in contacts)
+            total_force = sum(self._contact_get(contact, 'force') for contact in contacts)
             avg_force = total_force / len(contacts)
             return avg_force, len(contacts)
-        
+
         return 0.0, 0
 
     def get_force_stats(self):

@@ -63,9 +63,10 @@ _CHECK_TIMEOUT_SECONDS = 30  # 单项检查最大超时30秒
 
 
 class CheckStatus(Enum):
-    """检查结果状态（只有PASS/FAIL，无中间状态）"""
-    PASS = "PASS"  # 100%合格
-    FAIL = "FAIL"  # 不合格，没有第三种状态
+    """检查结果状态（PASS/WARN/FAIL三级）"""
+    PASS = "PASS"  # 合格
+    WARN = "WARN"  # 警告（不阻止部署，但需关注）
+    FAIL = "FAIL"  # 不合格，阻止部署
 
 
 @dataclass
@@ -78,6 +79,7 @@ class CheckResult:
     detail: str = ""
     duration_seconds: float = 0.0
     timestamp: float = field(default_factory=time.time)
+    blocking: bool = False  # FAIL级别的检查项阻止部署
 
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -88,6 +90,7 @@ class CheckResult:
             "detail": self.detail,
             "duration_seconds": round(self.duration_seconds, 4),
             "timestamp": self.timestamp,
+            "blocking": self.blocking,
         }
 
 
@@ -96,30 +99,35 @@ class ReadinessReport:
     """部署就绪完整报告"""
     total_checks: int = 0
     passed_checks: int = 0
+    warned_checks: int = 0
     failed_checks: int = 0
-    success_rate: float = 0.0  # 严格标准：必须等于1.0才合格
+    success_rate: float = 0.0  # PASS占比
+    pass_rate: float = 0.0     # 非FAIL占比 (PASS+WARN)
     results: List[CheckResult] = field(default_factory=list)
     start_time: float = field(default_factory=time.time)
     end_time: float = 0.0
     hardware_info: Dict[str, Any] = field(default_factory=dict)
-    is_ready: bool = False  # 只有success_rate==1.0才为True
+    is_ready: bool = False  # 无FAIL项才为True
 
     def finalize(self):
         self.end_time = time.time()
         self.total_checks = len(self.results)
         self.passed_checks = sum(1 for r in self.results if r.status == CheckStatus.PASS)
-        self.failed_checks = self.total_checks - self.passed_checks
+        self.warned_checks = sum(1 for r in self.results if r.status == CheckStatus.WARN)
+        self.failed_checks = sum(1 for r in self.results if r.status == CheckStatus.FAIL)
         self.success_rate = self.passed_checks / self.total_checks if self.total_checks > 0 else 0.0
-        # 100%严格标准：只有success_rate == 1.0才算就绪
-        self.is_ready = (self.success_rate == 1.0)
+        self.pass_rate = (self.passed_checks + self.warned_checks) / self.total_checks if self.total_checks > 0 else 0.0
+        # FAIL级别检查项阻止部署：只有零FAIL才算就绪
+        self.is_ready = (self.failed_checks == 0)
 
     def to_dict(self) -> Dict[str, Any]:
         return {
             "total_checks": self.total_checks,
             "passed_checks": self.passed_checks,
+            "warned_checks": self.warned_checks,
             "failed_checks": self.failed_checks,
             "success_rate": self.success_rate,
-            "success_rate_required": 1.0,  # 硬锁100%
+            "pass_rate": self.pass_rate,
             "is_ready": self.is_ready,
             "duration_seconds": round(self.end_time - self.start_time, 2),
             "hardware_info": self.hardware_info,
@@ -269,9 +277,24 @@ class DeploymentReadinessChecker:
     # 通用检查结果注册
     # ------------------------------------------------------------------
     def _register(self, check_id: str, check_name: str, category: str,
-                  passed: bool, detail: str = "", duration: float = 0.0):
-        """注册检查结果，只有PASS/FAIL两种状态"""
-        status = CheckStatus.PASS if passed else CheckStatus.FAIL
+                  passed: bool, detail: str = "", duration: float = 0.0,
+                  severity: str = "auto"):
+        """注册检查结果（PASS/WARN/FAIL三级）。
+
+        Args:
+            passed: True=PASS, False=FAIL（当severity=="auto"时）
+            severity: "auto"按passed判定; "warn"强制WARN; "pass"/"fail"强制
+        """
+        if severity == "warn":
+            status = CheckStatus.WARN
+        elif severity == "pass":
+            status = CheckStatus.PASS
+        elif severity == "fail":
+            status = CheckStatus.FAIL
+        else:
+            status = CheckStatus.PASS if passed else CheckStatus.FAIL
+
+        blocking = (status == CheckStatus.FAIL)
         result = CheckResult(
             check_id=check_id,
             check_name=check_name,
@@ -279,9 +302,10 @@ class DeploymentReadinessChecker:
             status=status,
             detail=detail,
             duration_seconds=duration,
+            blocking=blocking,
         )
         self.report.results.append(result)
-        icon = "✅" if passed else "❌"
+        icon = {"PASS": "✅", "WARN": "⚠️", "FAIL": "❌"}[status.value]
         print(f"  {icon} [{category:16s}] {check_name:32s} {detail}")
 
     # ------------------------------------------------------------------
@@ -358,6 +382,23 @@ class DeploymentReadinessChecker:
             self._register("SYS-006", "磁盘空间(>=5GB)", "system_env", False,
                            f"检测失败: {e}", time.time() - t1)
 
+        # 1.7 仿真后端可用性（至少PyBullet可用）
+        t1 = time.time()
+        try:
+            from sim_backends import list_available_backends, PyBulletBackend
+            available = list_available_backends()
+            pybullet_ok = PyBulletBackend.is_available()
+            ok = pybullet_ok and ("pybullet" in available)
+            if ok:
+                detail = f"可用后端: {', '.join(available)} (PyBullet可用)"
+            else:
+                detail = f"PyBullet不可用! 可用: {available}"
+            self._register("SYS-007", "仿真后端可用性(PyBullet)", "system_env",
+                           ok, detail, time.time() - t1)
+        except Exception as e:
+            self._register("SYS-007", "仿真后端可用性(PyBullet)", "system_env",
+                           False, f"检测失败: {e}", time.time() - t1)
+
     # ------------------------------------------------------------------
     # 2. 配置完整性检查
     # ------------------------------------------------------------------
@@ -419,6 +460,47 @@ class DeploymentReadinessChecker:
         except Exception as e:
             self._register("CFG-011", "prod指标100%锁定", "config_integrity", False,
                            f"读取异常: {e}", time.time() - t0)
+
+        # CFG-012: 部署覆盖配置覆盖率（所有ARM_DATABASE产品都应有deployment_overrides条目）
+        t0 = time.time()
+        try:
+            import importlib
+            import robot_arm_db
+            importlib.reload(robot_arm_db)
+            import deployment_overrides
+            importlib.reload(deployment_overrides)
+            arm_db = getattr(robot_arm_db, "ARM_DATABASE", {})
+            overrides = getattr(deployment_overrides, "DEPLOYMENT_OVERRIDES", {})
+            missing = []
+            incomplete = []
+            for product in arm_db.keys():
+                if product not in overrides:
+                    missing.append(product)
+                else:
+                    entry = overrides[product]
+                    comm = entry.get("communication", {})
+                    jlim = entry.get("joint_limits", {})
+                    required_comm = ["default_host", "default_port", "protocol", "timeout_sec"]
+                    required_jlim = ["lower", "upper", "speed_radps", "accel_radps2"]
+                    lack_comm = [k for k in required_comm if k not in comm]
+                    lack_jlim = [k for k in required_jlim if k not in jlim]
+                    if lack_comm or lack_jlim:
+                        incomplete.append(f"{product}(缺comm:{lack_comm},jlim:{lack_jlim})")
+            ok = len(missing) == 0 and len(incomplete) == 0
+            if ok:
+                detail = f"全部{len(arm_db)}款产品均有完整覆盖条目"
+            else:
+                parts = []
+                if missing:
+                    parts.append(f"缺失条目: {', '.join(missing)}")
+                if incomplete:
+                    parts.append(f"字段不完整: {'; '.join(incomplete)}")
+                detail = "; ".join(parts)
+            self._register("CFG-012", "部署覆盖配置覆盖率", "config_integrity",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("CFG-012", "部署覆盖配置覆盖率", "config_integrity",
+                           False, f"检测失败: {e}", time.time() - t0)
 
     # ------------------------------------------------------------------
     # 3. 安全防护检查
@@ -504,6 +586,154 @@ class DeploymentReadinessChecker:
         self._register("SAF-005", "防死循环机制(while True)", "safety_protection",
                        ok, detail, time.time() - t0)
 
+        # SAF-006: EmergencyStopMonitor 初始化验证
+        t0 = time.time()
+        try:
+            from robot_safety import EmergencyStopMonitor
+
+            class _MockComm:
+                def __init__(self):
+                    self.connected = False
+                    self.stop_called = False
+                def get_joint_states(self):
+                    return []
+                def stop(self):
+                    self.stop_called = True
+
+            mock = _MockComm()
+            monitor = EmergencyStopMonitor(mock, check_interval=0.01)
+            init_ok = (monitor is not None and hasattr(monitor, "start")
+                       and hasattr(monitor, "stop")
+                       and hasattr(monitor, "trigger_emergency_stop")
+                       and hasattr(monitor, "is_emergency_stop"))
+            if init_ok:
+                monitor.start()
+                time.sleep(0.05)
+                monitor.trigger_emergency_stop()
+                triggered = monitor.is_emergency_stop()
+                monitor.reset_emergency_stop()
+                reset_ok = not monitor.is_emergency_stop()
+                monitor.stop()
+                ok = init_ok and triggered and reset_ok and mock.stop_called
+                detail = f"初始化/启停/触发/复位正常 (stop_called={mock.stop_called})"
+            else:
+                ok = False
+                detail = "EmergencyStopMonitor缺少必要方法"
+            self._register("SAF-006", "EmergencyStopMonitor初始化验证", "safety_protection",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("SAF-006", "EmergencyStopMonitor初始化验证", "safety_protection",
+                           False, f"初始化失败: {e}", time.time() - t0)
+
+        # SAF-007: 关节限位完整性检查（lower/upper/speed/accel数组长度与DOF匹配）
+        t0 = time.time()
+        try:
+            import importlib
+            import robot_config
+            importlib.reload(robot_config)
+            joint_indices = getattr(robot_config, "JOINT_INDICES", [])
+            dof = len(joint_indices)
+            joint_limits = getattr(robot_config, "JOINT_LIMITS", {})
+            lower = joint_limits.get("lower", [])
+            upper = joint_limits.get("upper", [])
+            issues = []
+            if dof == 0:
+                issues.append("JOINT_INDICES为空")
+            if len(lower) != dof:
+                issues.append(f"lower长度{len(lower)}!=DOF{dof}")
+            if len(upper) != dof:
+                issues.append(f"upper长度{len(upper)}!=DOF{dof}")
+            # 速度/加速度按部署等级
+            speed_cfg = getattr(robot_config, "JOINT_MAX_SPEED", {})
+            accel_cfg = getattr(robot_config, "JOINT_MAX_ACCELERATION", {})
+            for level in ["test", "pre", "prod"]:
+                if level not in speed_cfg:
+                    issues.append(f"JOINT_MAX_SPEED缺{level}")
+                if level not in accel_cfg:
+                    issues.append(f"JOINT_MAX_ACCELERATION缺{level}")
+            # 检查 lower < upper
+            if len(lower) == dof and len(upper) == dof:
+                for i in range(dof):
+                    if lower[i] >= upper[i]:
+                        issues.append(f"关节{i} lower>={upper[i]}")
+                        break
+            ok = len(issues) == 0
+            detail = f"DOF={dof}, lower/upper长度匹配" if ok else "; ".join(issues)
+            self._register("SAF-007", "关节限位完整性(与DOF匹配)", "safety_protection",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("SAF-007", "关节限位完整性(与DOF匹配)", "safety_protection",
+                           False, f"检测失败: {e}", time.time() - t0)
+
+        # SAF-008: 工作空间边界验证
+        t0 = time.time()
+        try:
+            import importlib
+            import config_workspace
+            importlib.reload(config_workspace)
+            x_range = getattr(config_workspace, "X_RANGE", None)
+            y_range = getattr(config_workspace, "Y_RANGE", None)
+            z_range = getattr(config_workspace, "Z_RANGE", None)
+            issues = []
+            for name, rng in [("X_RANGE", x_range), ("Y_RANGE", y_range), ("Z_RANGE", z_range)]:
+                if not isinstance(rng, (list, tuple)) or len(rng) != 2:
+                    issues.append(f"{name}格式非法")
+                elif rng[0] >= rng[1]:
+                    issues.append(f"{name}下界>=上界")
+            if not issues:
+                if z_range[0] < 0.02:
+                    issues.append(f"Z_RANGE下界{z_range[0]}过低(<0.02m)")
+                if x_range[1] - x_range[0] <= 0 or y_range[1] - y_range[0] <= 0:
+                    issues.append("工作空间范围非正")
+            ok = len(issues) == 0
+            detail = (f"X{x_range} Y{y_range} Z{z_range}"
+                      if ok else "; ".join(issues))
+            self._register("SAF-008", "工作空间边界验证", "safety_protection",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("SAF-008", "工作空间边界验证", "safety_protection",
+                           False, f"检测失败: {e}", time.time() - t0)
+
+        # SAF-009: 急停响应时间验证（触发到is_emergency_stop置位应在阈值内）
+        t0 = time.time()
+        try:
+            from robot_safety import EmergencyStopMonitor
+
+            class _TimingMock:
+                def __init__(self):
+                    self.connected = True
+                def get_joint_states(self):
+                    return [{"torque": 200.0}]
+                def stop(self):
+                    pass
+
+            mock = _TimingMock()
+            monitor = EmergencyStopMonitor(mock, check_interval=0.005)
+            monitor.start()
+            start = time.time()
+            triggered_in_time = False
+            response_time = None
+            loop_count = 0
+            while loop_count < 200:  # 硬上限200次 ≈ 1s
+                if monitor.is_emergency_stop():
+                    response_time = time.time() - start
+                    triggered_in_time = True
+                    break
+                time.sleep(0.005)
+                loop_count += 1
+            monitor.stop()
+            threshold = 0.5  # 500ms
+            ok = triggered_in_time and response_time is not None and response_time < threshold
+            if not triggered_in_time:
+                detail = "急停未在超时内触发"
+            else:
+                detail = f"响应时间{response_time*1000:.1f}ms (阈值{threshold*1000:.0f}ms)"
+            self._register("SAF-009", "急停响应时间验证", "safety_protection",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("SAF-009", "急停响应时间验证", "safety_protection",
+                           False, f"检测失败: {e}", time.time() - t0)
+
     # ------------------------------------------------------------------
     # 4. 通信协议检查
     # ------------------------------------------------------------------
@@ -558,6 +788,44 @@ class DeploymentReadinessChecker:
         ok = os.path.exists(fpath) and os.path.getsize(fpath) > 100
         self._register("COM-005", "连接测试脚本", "comm_protocol",
                        ok, os.path.basename(fpath) if ok else "缺失", time.time() - t0)
+
+        # COM-006: 通信配置完整性检查（host/port/protocol/timeout）
+        t0 = time.time()
+        try:
+            import importlib
+            import robot_config
+            importlib.reload(robot_config)
+            real_cfg = getattr(robot_config, "REAL_ROBOT_CONFIG", {})
+            required_fields = ["host", "port", "protocol", "timeout"]
+            missing = [f for f in required_fields if f not in real_cfg]
+            issues = list(missing)
+            if not missing:
+                host = real_cfg.get("host")
+                port = real_cfg.get("port")
+                protocol = real_cfg.get("protocol")
+                timeout = real_cfg.get("timeout")
+                if not isinstance(host, str) or not host:
+                    issues.append("host为空或非字符串")
+                if not isinstance(port, int) or not (1 <= port <= 65535):
+                    issues.append(f"port非法:{port}")
+                valid_protocols = {"franka", "universal", "custom", "panda_libfranka",
+                                   "ur_rtde", "kuka_fri", "kuka_eki", "abb_egm",
+                                   "airbot_tcp", "agile_tcp", "tcp", "udp", "serial"}
+                if protocol not in valid_protocols:
+                    issues.append(f"protocol未知:{protocol}")
+                if not isinstance(timeout, (int, float)) or timeout <= 0 or timeout > 60:
+                    issues.append(f"timeout非法:{timeout}")
+            ok = len(issues) == 0
+            if ok:
+                detail = (f"host={real_cfg['host']}, port={real_cfg['port']}, "
+                          f"protocol={real_cfg['protocol']}, timeout={real_cfg['timeout']}")
+            else:
+                detail = "; ".join(issues)
+            self._register("COM-006", "通信配置完整性", "comm_protocol",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("COM-006", "通信配置完整性", "comm_protocol",
+                           False, f"检测失败: {e}", time.time() - t0)
 
     # ------------------------------------------------------------------
     # 5. 模型部署检查
@@ -616,6 +884,36 @@ class DeploymentReadinessChecker:
         except Exception as e:
             self._register("MOD-004", "GPU推理加速模块", "model_deploy",
                            False, f"导入失败: {e}", time.time() - t0)
+
+        # MOD-005: 模型文件存在性检查（模型目录内policy.pth等权重文件实际存在）
+        t0 = time.time()
+        try:
+            required_model_files = ["policy.pth", "policy.optimizer.pth"]
+            valid_models = []
+            broken_models = []
+            for candidate in model_candidates:
+                model_dir = os.path.join(base_dir, candidate)
+                if os.path.isdir(model_dir):
+                    missing_files = [f for f in required_model_files
+                                     if not os.path.exists(os.path.join(model_dir, f))]
+                    if missing_files:
+                        broken_models.append(f"{candidate}(缺:{','.join(missing_files)})")
+                    else:
+                        valid_models.append(candidate)
+            ok = len(valid_models) >= 1
+            if ok:
+                detail = f"{len(valid_models)}个模型权重完整: {', '.join(valid_models[:3])}"
+                if broken_models:
+                    detail += f"; 不完整: {', '.join(broken_models[:2])}"
+            else:
+                detail = "无完整模型权重文件"
+                if broken_models:
+                    detail += f"; {', '.join(broken_models[:3])}"
+            self._register("MOD-005", "模型权重文件存在性", "model_deploy",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("MOD-005", "模型权重文件存在性", "model_deploy",
+                           False, f"检测失败: {e}", time.time() - t0)
 
     # ------------------------------------------------------------------
     # 6. 数据记录检查
@@ -812,22 +1110,33 @@ class DeploymentReadinessChecker:
         r = self.report
         print(f"  总检查项: {r.total_checks}")
         print(f"  合格项:   {r.passed_checks}  ✅")
-        print(f"  不合格项: {r.failed_checks}  ❌")
-        print(f"  通过率:   {r.success_rate * 100:.2f}% / 要求 100.00%")
+        print(f"  警告项:   {r.warned_checks}  ⚠️ (不阻止部署)")
+        print(f"  不合格项: {r.failed_checks}  ❌ (阻止部署)")
+        print(f"  通过率:   {r.success_rate * 100:.2f}%  (PASS+WARN: {r.pass_rate * 100:.2f}%)")
         print(f"  耗时:     {r.end_time - r.start_time:.2f}s")
         print("-" * 80)
 
         if r.failed_checks > 0:
-            print("  不合格项清单:")
+            print("  ❌ 不合格项清单 (阻止部署):")
             for res in r.results:
                 if res.status == CheckStatus.FAIL:
                     print(f"    ❌ [{res.check_id}] {res.check_name}: {res.detail}")
             print("-" * 80)
 
+        if r.warned_checks > 0:
+            print("  ⚠️ 警告项清单 (建议关注):")
+            for res in r.results:
+                if res.status == CheckStatus.WARN:
+                    print(f"    ⚠️ [{res.check_id}] {res.check_name}: {res.detail}")
+            print("-" * 80)
+
         if r.is_ready:
-            print("  🎯 结论: ✅ 部署就绪 (100%合格，零闪失铁律达标)")
+            if r.warned_checks > 0:
+                print("  🎯 结论: ⚠️ 部署就绪（无FAIL，但存在WARN项，请关注后部署）")
+            else:
+                print("  🎯 结论: ✅ 部署就绪 (零FAIL，零闪失铁律达标)")
         else:
-            print("  🎯 结论: ❌ 部署未就绪 (未达到100%合格标准，禁止真机部署)")
+            print("  🎯 结论: ❌ 部署未就绪 (存在FAIL项，禁止真机部署)")
             print("     请修复上述不合格项后重新执行检查。")
         print("=" * 80 + "\n")
 
@@ -848,31 +1157,123 @@ class DeploymentReadinessChecker:
 
 
 # ============================================================================
+# 结构化报告入口（程序化调用）
+# ============================================================================
+def run_all_checks(deployment_level: str = "prod",
+                   robot_mode: str = "sim",
+                   export: bool = False,
+                   output_path: Optional[str] = None,
+                   verbose: bool = True) -> Dict[str, Any]:
+    """执行全部部署就绪检查并返回结构化报告。
+
+    所有单项检查均已包含异常处理，不会因单项检查失败而中断整体检查。
+    本函数额外提供顶层兜底，确保任何未预期异常都不会中断流程。
+
+    Args:
+        deployment_level: test/pre/prod
+        robot_mode: sim/real
+        export: 是否导出JSON报告文件
+        output_path: 报告导出路径（export=True时生效）
+        verbose: 是否打印检查过程
+
+    Returns:
+        结构化报告字典，包含:
+          - is_ready: bool (无FAIL项才为True)
+          - total_checks / passed_checks / warned_checks / failed_checks
+          - success_rate / pass_rate
+          - blocking_failures: 阻止部署的FAIL项列表
+          - warnings: WARN项列表
+          - results: 全部检查项明细
+          - hardware_info: 硬件信息
+          - duration_seconds: 总耗时
+          - export_path: 报告文件路径（若导出）
+    """
+    import contextlib
+    import io
+
+    checker = DeploymentReadinessChecker(
+        deployment_level=deployment_level,
+        robot_mode=robot_mode,
+    )
+
+    try:
+        if verbose:
+            report = checker.run_full_check()
+        else:
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                report = checker.run_full_check()
+    except Exception as e:
+        tb = traceback.format_exc()
+        err_result = CheckResult(
+            check_id="FATAL-000",
+            check_name="检查框架顶层异常",
+            category="system",
+            status=CheckStatus.FAIL,
+            detail=f"未预期异常: {e}\n{tb}",
+            blocking=True,
+        )
+        checker.report.results.append(err_result)
+        checker.report.finalize()
+        report = checker.report
+
+    export_file = None
+    if export:
+        try:
+            export_file = checker.export_report(output_path)
+        except Exception as e:
+            export_file = f"导出失败: {e}"
+
+    report_dict = report.to_dict()
+    blocking_failures = [
+        {"check_id": r.check_id, "check_name": r.check_name,
+         "category": r.category, "detail": r.detail}
+        for r in report.results if r.status == CheckStatus.FAIL
+    ]
+    warnings = [
+        {"check_id": r.check_id, "check_name": r.check_name,
+         "category": r.category, "detail": r.detail}
+        for r in report.results if r.status == CheckStatus.WARN
+    ]
+    report_dict["blocking_failures"] = blocking_failures
+    report_dict["warnings"] = warnings
+    report_dict["export_path"] = export_file
+    report_dict["deployment_level"] = deployment_level
+    report_dict["robot_mode"] = robot_mode
+
+    return report_dict
+
+
+# ============================================================================
 # 命令行入口
 # ============================================================================
 def main():
     import argparse
-    parser = argparse.ArgumentParser(description="部署就绪检查框架 (100%严格标准)")
+    parser = argparse.ArgumentParser(description="部署就绪检查框架 (PASS/WARN/FAIL三级)")
     parser.add_argument("--level", choices=["test", "pre", "prod"], default="prod",
-                        help="部署等级 (默认prod，全部按100%标准)")
+                        help="部署等级 (默认prod)")
     parser.add_argument("--mode", choices=["sim", "real"], default="sim",
                         help="机器人模式: sim=仿真(默认), real=真机")
     parser.add_argument("--export", action="store_true",
                         help="导出JSON报告")
     parser.add_argument("--output", type=str, default=None,
                         help="报告输出路径 (可选)")
+    parser.add_argument("--quiet", action="store_true",
+                        help="静默模式，仅返回结构化JSON")
     args = parser.parse_args()
 
-    checker = DeploymentReadinessChecker(
+    report = run_all_checks(
         deployment_level=args.level,
         robot_mode=args.mode,
+        export=args.export,
+        output_path=args.output,
+        verbose=not args.quiet,
     )
-    report = checker.run_full_check()
 
-    if args.export or not report.is_ready:
-        checker.export_report(args.output)
+    if args.quiet:
+        print(json.dumps(report, indent=2, ensure_ascii=False))
 
-    sys.exit(0 if report.is_ready else 1)
+    sys.exit(0 if report["is_ready"] else 1)
 
 
 if __name__ == "__main__":

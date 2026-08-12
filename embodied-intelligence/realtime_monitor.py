@@ -24,6 +24,11 @@ import time
 import threading
 import psutil
 
+try:
+    import pybullet as p
+except ImportError:
+    p = None
+
 from sensor_noise import SensorNoiseSystem
 from noise_config import SENSOR_NOISE_CONFIG
 
@@ -84,10 +89,11 @@ class ResourceMonitor:
         return {"cpu_current": 0, "cpu_avg": 0, "mem_current": 0, "mem_avg": 0}
 
 class RobotMonitor:
-    def __init__(self, robot_id, ee_index, joint_indices):
+    def __init__(self, robot_id, ee_index, joint_indices, sim_backend=None):
         self.robot_id = robot_id
         self.ee_index = ee_index
         self.joint_indices = joint_indices
+        self.sim_backend = sim_backend
         self.error_history = []
         self.max_history = 100
         self.noise_system = SensorNoiseSystem(SENSOR_NOISE_CONFIG)
@@ -95,16 +101,31 @@ class RobotMonitor:
     def get_joint_states(self):
         states = []
         for j_idx in self.joint_indices:
-            state = p.getJointState(self.robot_id, j_idx)
-            states.append({"angle": state[0], "velocity": state[1], "torque": state[3]})
+            if self.sim_backend is not None:
+                js = self.sim_backend.get_joint_state(j_idx)
+                states.append({
+                    "angle": js["position"],
+                    "velocity": js["velocity"],
+                    "torque": js["reaction_torque"],
+                })
+            else:
+                state = p.getJointState(self.robot_id, j_idx)
+                states.append({"angle": state[0], "velocity": state[1], "torque": state[3]})
         return self.noise_system.apply_joint_states_noise(states)
 
     def get_ee_position(self):
-        link_state = p.getLinkState(self.robot_id, self.ee_index)
-        pose = {
-            "position": link_state[0],
-            "orientation": link_state[1]
-        }
+        if self.sim_backend is not None:
+            ls = self.sim_backend.get_link_state(self.ee_index)
+            pose = {
+                "position": ls["position"],
+                "orientation": ls["orientation"],
+            }
+        else:
+            link_state = p.getLinkState(self.robot_id, self.ee_index)
+            pose = {
+                "position": link_state[0],
+                "orientation": link_state[1]
+            }
         noisy_pose = self.noise_system.apply_ee_pose_noise(pose)
         return noisy_pose["position"]
 

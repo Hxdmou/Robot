@@ -21,7 +21,11 @@
 
 
 
-import pybullet as p
+try:
+    import pybullet as p
+except ImportError:
+    p = None
+
 import numpy as np
 
 
@@ -269,21 +273,29 @@ class MotorModel:
 
 class JointConstraint:
     """关节约束模块 - 在PyBullet中设置关节限制"""
-    
-    def __init__(self, config=None):
+
+    def __init__(self, config=None, sim_backend=None):
         config = config or {}
-        
+
+        self.sim_backend = sim_backend
         self.enabled = config.get("enabled", True)
         self.max_force = config.get("max_force", 50.0)
         self.max_velocity = config.get("max_velocity", 3.0)
-    
+
+    def _get_backend(self):
+        return self.sim_backend
+
     def set_joint_constraints(self, robot_id, joint_indices):
         """在PyBullet中设置关节约束"""
         if not self.enabled:
             return
-        
+
+        backend = self._get_backend()
         for j_idx in joint_indices:
-            p.changeDynamics(robot_id, j_idx, maxJointVelocity=self.max_velocity)
+            if backend is not None:
+                backend.change_dynamics(robot_id, j_idx, maxJointVelocity=self.max_velocity)
+            elif p is not None:
+                p.changeDynamics(robot_id, j_idx, maxJointVelocity=self.max_velocity)
     
     def get_max_force(self):
         """获取最大力"""
@@ -305,47 +317,67 @@ class JointConstraint:
 
 class ActuatorSystem:
     """执行器系统 - 整合所有执行器模块"""
-    
-    def __init__(self, config=None):
+
+    def __init__(self, config=None, sim_backend=None):
         config = config or {}
-        
+
+        self.sim_backend = sim_backend
         self.actuator_dynamics = ActuatorDynamics(config.get("actuator_dynamics", {}))
         self.motor_model = MotorModel(config.get("motor_model", {}))
-        self.joint_constraint = JointConstraint(config.get("joint_constraint", {}))
-        
+        self.joint_constraint = JointConstraint(
+            config.get("joint_constraint", {}), sim_backend=sim_backend
+        )
+
         self.enabled = config.get("enabled", True)
         self.dt = config.get("dt", 0.001)
+
+    def _get_backend(self):
+        return self.sim_backend
     
     def apply_dynamics(self, robot_id, joint_indices, commands):
         """应用执行器动力学限制"""
+        commands = np.asarray(commands, dtype=float)
+
+        if len(commands) != len(joint_indices):
+            raise ValueError(
+                f"commands 长度 ({len(commands)}) 与 joint_indices 长度 ({len(joint_indices)}) 不匹配"
+            )
+
         if not self.enabled:
-            return commands
-        
+            return commands.copy(), 0.0
+
         # 设置关节约束
         self.joint_constraint.set_joint_constraints(robot_id, joint_indices)
-        
+
         limited_commands = []
         total_friction = 0.0
-        
+
         for i, j_idx in enumerate(joint_indices):
             command = commands[i]
-            
+
             # 获取当前速度
-            joint_state = p.getJointState(robot_id, j_idx)
-            current_velocity = joint_state[1]
-            
+            backend = self._get_backend()
+            if backend is not None:
+                joint_state = backend.get_joint_state(j_idx)
+                current_velocity = joint_state["velocity"]
+            elif p is not None:
+                joint_state = p.getJointState(robot_id, j_idx)
+                current_velocity = joint_state[1]
+            else:
+                current_velocity = 0.0
+
             # 应用执行器动力学限制
             limited_command, friction = self.actuator_dynamics.apply_all_limits(
                 j_idx, command, current_velocity, self.dt
             )
-            
+
             # 应用电机模型
             limited_command = self.motor_model.get_output_torque(limited_command, current_velocity)
-            
+
             limited_commands.append(limited_command)
             total_friction += friction
-        
-        return limited_commands, total_friction
+
+        return np.asarray(limited_commands, dtype=float), float(total_friction)
     
     def apply_torque_limits(self, joint_indices, torques):
         """仅应用力矩限制"""

@@ -72,6 +72,21 @@ class SimulatorBackend(ABC):
         self.joint_indices = arm_config.get("joint_indices", list(range(self.dofs)))
         self.ee_link = arm_config.get("ee_link", "ee_link")
         self.ee_index = -1
+        self._available = self.is_available()
+
+    def _check_available(self) -> None:
+        """检查后端依赖是否可用，不可用时抛出 RuntimeError。"""
+        if not self._available:
+            raise RuntimeError(
+                f"{self.__class__.__name__} 不可用：所需依赖未安装或导入失败。"
+            )
+
+    def _check_connected(self) -> None:
+        """检查是否已连接仿真器，未连接时抛出 RuntimeError。"""
+        if not self.connected:
+            raise RuntimeError(
+                f"{self.__class__.__name__} 未连接，请先调用 connect()。"
+            )
 
     # ---- 生命周期 ----
 
@@ -130,6 +145,110 @@ class SimulatorBackend(ABC):
     def set_gravity(self, gx: float, gy: float, gz: float) -> None:
         """设置重力（如适用）。"""
         pass
+
+    # ---- 扩展物理接口（供 collision_detector / actuator_dynamics / domain_randomization 等模块使用）----
+    # 这些方法在基类提供安全默认值，子类按需覆盖。
+    # 设计原则：上层模块通过这些方法访问仿真器，绝不直接 import pybullet。
+
+    def get_num_joints(self) -> int:
+        """返回机器人关节总数。"""
+        return self.dofs
+
+    def get_joint_info(self, joint_index: int) -> Optional[Dict[str, Any]]:
+        """返回关节信息字典（name/type/lower/upper/axis等），不支持时返回 None。"""
+        return None
+
+    def get_joint_state(self, joint_index: int) -> Dict[str, float]:
+        """返回单个关节状态: {position, velocity, reaction_torque}。"""
+        self._check_connected()
+        states = self.get_joint_states()
+        idx = self.joint_indices.index(joint_index) if joint_index in self.joint_indices else 0
+        pos = states[idx] if idx < len(states) else 0.0
+        return {"position": pos, "velocity": 0.0, "reaction_torque": 0.0}
+
+    def get_link_state(self, link_index: int) -> Dict[str, Any]:
+        """返回连杆世界位姿: {position: [x,y,z], orientation: [x,y,z,w]}。"""
+        self._check_connected()
+        if link_index == self.ee_index:
+            return self.get_ee_pose()
+        return {"position": [0.0, 0.0, 0.0], "orientation": [0.0, 0.0, 0.0, 1.0]}
+
+    def get_contact_points(self, body_a: int = -1, body_b: int = -1,
+                           max_points: int = 10) -> List[Dict[str, Any]]:
+        """返回接触点列表。每个接触点: {body_a, body_b, position, normal, force}。
+        默认返回空列表（无接触），子类按需实现。"""
+        return []
+
+    def change_dynamics(self, body_id: int, link_index: int, **kwargs) -> None:
+        """修改物体/连杆动力学参数（mass/friction/damping等）。默认空操作。"""
+        pass
+
+    def set_joint_motor_control(self, joint_index: int, control_mode: int,
+                                 target_value: float = 0.0, force: float = 100.0,
+                                 target_velocity: float = 0.0) -> None:
+        """设置关节电机控制。control_mode 使用本类定义的 MODE_* 常量。默认空操作。"""
+        pass
+
+    def reset_joint_state(self, joint_index: int, target_value: float,
+                          target_velocity: float = 0.0) -> None:
+        """立即重置关节状态（不经过控制器）。默认空操作。"""
+        pass
+
+    def apply_external_torque(self, joint_index: int, torque: float) -> None:
+        """对关节施加外部力矩。默认空操作。"""
+        pass
+
+    def load_urdf(self, urdf_path: str, base_position: Optional[List[float]] = None,
+                  use_fixed_base: bool = True) -> int:
+        """加载额外URDF物体（障碍物等），返回body_id。不支持时返回 -1。"""
+        return -1
+
+    def remove_body(self, body_id: int) -> None:
+        """移除已加载的物体。默认空操作。"""
+        pass
+
+    def get_base_position(self, body_id: int) -> List[float]:
+        """返回物体基座位置。默认 [0,0,0]。"""
+        return [0.0, 0.0, 0.0]
+
+    def reset_base_position(self, body_id: int, position: List[float],
+                             orientation: Optional[List[float]] = None) -> None:
+        """重置物体基座位置。默认空操作。"""
+        pass
+
+    def calculate_inverse_kinematics(self, target_position: List[float],
+                                      target_orientation: Optional[List[float]] = None,
+                                      lower_limits: Optional[List[float]] = None,
+                                      upper_limits: Optional[List[float]] = None,
+                                      joint_ranges: Optional[List[float]] = None,
+                                      rest_poses: Optional[List[float]] = None,
+                                      max_iterations: int = 100,
+                                      residual_threshold: float = 1e-4) -> Optional[List[float]]:
+        """求解逆运动学。返回关节角度列表，不支持时返回 None。"""
+        return None
+
+    def create_box(self, half_extents: List[float], position: List[float],
+                   mass: float = 0.0, color: Optional[List[float]] = None) -> int:
+        """创建箱体障碍物，返回 body_id。不支持时返回 -1。"""
+        return -1
+
+    def create_sphere(self, radius: float, position: List[float],
+                      mass: float = 0.0, color: Optional[List[float]] = None) -> int:
+        """创建球体障碍物，返回 body_id。不支持时返回 -1。"""
+        return -1
+
+    def set_realtime_simulation(self, enable: bool) -> None:
+        """启用/禁用实时仿真。默认空操作。"""
+        pass
+
+    def configure_visualization(self, **kwargs) -> None:
+        """配置可视化选项。默认空操作。"""
+        pass
+
+    # ---- 控制模式常量（与具体仿真器无关的统一抽象） ----
+    MODE_POSITION_CONTROL = 0
+    MODE_VELOCITY_CONTROL = 1
+    MODE_TORQUE_CONTROL = 2
 
     # ---- 兼容性查询 ----
 
@@ -208,8 +327,7 @@ class PyBulletBackend(SimulatorBackend):
         self.connected = False
 
     def get_joint_states(self) -> List[float]:
-        if not self.connected:
-            return [0.0] * self.dofs
+        self._check_connected()
         states = []
         for idx in self.joint_indices:
             pos = self._p.getJointState(self.robot_id, idx)[0]
@@ -217,8 +335,7 @@ class PyBulletBackend(SimulatorBackend):
         return states
 
     def get_ee_pose(self) -> Dict[str, Any]:
-        if not self.connected:
-            return {"position": [0, 0, 0], "orientation": [0, 0, 0, 1]}
+        self._check_connected()
         state = self._p.getLinkState(self.robot_id, self.ee_index)
         return {"position": list(state[0]), "orientation": list(state[1])}
 
@@ -250,7 +367,7 @@ class PyBulletBackend(SimulatorBackend):
                     self._p.setJointMotorControl2(
                         self.robot_id, idx,
                         self._p.POSITION_CONTROL,
-                        targetPosition=joint_poses[idx]
+                        targetPosition=joint_poses[i]
                     )
         except Exception as e:
             print(f"[SIM] 笛卡尔运动失败: {e}")
@@ -272,6 +389,237 @@ class PyBulletBackend(SimulatorBackend):
     def set_gravity(self, gx: float, gy: float, gz: float) -> None:
         if self.connected:
             self._p.setGravity(gx, gy, gz)
+
+    def reset_joints(self, joint_angles: List[float]) -> None:
+        """立即重置关节角度（不经过控制器），用于复位机器人。
+
+        Args:
+            joint_angles: 目标关节角度，长度 = dofs，单位弧度。
+
+        Raises:
+            RuntimeError: 未连接或 robot_id 无效时抛出。
+        """
+        self._check_connected()
+        if self.robot_id is None or self.robot_id < 0:
+            raise RuntimeError("PyBulletBackend.reset_joints: robot_id 无效，机器人模型未加载。")
+        for i, idx in enumerate(self.joint_indices):
+            if i < len(joint_angles):
+                self._p.resetJointState(self.robot_id, idx, joint_angles[i])
+
+    # ---- 扩展物理接口实现 ----
+
+    def get_num_joints(self) -> int:
+        if self.connected and self.robot_id is not None:
+            return self._p.getNumJoints(self.robot_id)
+        return self.dofs
+
+    def get_joint_info(self, joint_index: int) -> Optional[Dict[str, Any]]:
+        self._check_connected()
+        try:
+            info = self._p.getJointInfo(self.robot_id, joint_index)
+            return {
+                "name": info[1].decode() if isinstance(info[1], bytes) else str(info[1]),
+                "type": info[2],
+                "lower": info[8],
+                "upper": info[9],
+                "max_force": info[10],
+                "max_velocity": info[11],
+                "axis": list(info[13]) if len(info) > 13 else [0, 0, 0],
+            }
+        except Exception:
+            return None
+
+    def get_joint_state(self, joint_index: int) -> Dict[str, float]:
+        self._check_connected()
+        state = self._p.getJointState(self.robot_id, joint_index)
+        return {"position": state[0], "velocity": state[1], "reaction_torque": state[3] if len(state) > 3 else 0.0}
+
+    def get_link_state(self, link_index: int) -> Dict[str, Any]:
+        self._check_connected()
+        state = self._p.getLinkState(self.robot_id, link_index)
+        return {"position": list(state[0]), "orientation": list(state[1])}
+
+    def get_contact_points(self, body_a: int = -1, body_b: int = -1,
+                           max_points: int = 10) -> List[Dict[str, Any]]:
+        if not self.connected:
+            return []
+        try:
+            a = body_a if body_a >= 0 else self.robot_id
+            contacts = self._p.getContactPoints(a, body_b if body_b >= 0 else -1)
+            result = []
+            for c in contacts[:max_points]:
+                result.append({
+                    "body_a": c[1], "body_b": c[2],
+                    "position": list(c[5]), "normal": list(c[7]),
+                    "force": c[9] if len(c) > 9 else 0.0,
+                })
+            return result
+        except Exception:
+            return []
+
+    def change_dynamics(self, body_id: int, link_index: int, **kwargs) -> None:
+        if not self.connected:
+            return
+        try:
+            self._p.changeDynamics(body_id, link_index, **kwargs)
+        except Exception:
+            pass
+
+    def set_joint_motor_control(self, joint_index: int, control_mode: int,
+                                 target_value: float = 0.0, force: float = 100.0,
+                                 target_velocity: float = 0.0) -> None:
+        if not self.connected:
+            return
+        mode_map = {
+            self.MODE_POSITION_CONTROL: self._p.POSITION_CONTROL,
+            self.MODE_VELOCITY_CONTROL: self._p.VELOCITY_CONTROL,
+            self.MODE_TORQUE_CONTROL: self._p.TORQUE_CONTROL,
+        }
+        pb_mode = mode_map.get(control_mode, self._p.POSITION_CONTROL)
+        kwargs = {"force": force}
+        if pb_mode == self._p.POSITION_CONTROL:
+            kwargs["targetPosition"] = target_value
+        elif pb_mode == self._p.VELOCITY_CONTROL:
+            kwargs["targetVelocity"] = target_velocity
+        elif pb_mode == self._p.TORQUE_CONTROL:
+            kwargs["force"] = target_value
+        self._p.setJointMotorControl2(self.robot_id, joint_index, pb_mode, **kwargs)
+
+    def reset_joint_state(self, joint_index: int, target_value: float,
+                          target_velocity: float = 0.0) -> None:
+        if not self.connected:
+            return
+        self._p.resetJointState(self.robot_id, joint_index, target_value, target_velocity)
+
+    def apply_external_torque(self, joint_index: int, torque: float) -> None:
+        if not self.connected:
+            return
+        try:
+            self._p.applyExternalTorque(self.robot_id, joint_index, [0, 0, torque], self._p.WORLD_FRAME)
+        except Exception:
+            pass
+
+    def load_urdf(self, urdf_path: str, base_position: Optional[List[float]] = None,
+                  use_fixed_base: bool = True) -> int:
+        if not self.connected:
+            return -1
+        try:
+            pos = base_position or [0, 0, 0]
+            return self._p.loadURDF(urdf_path, pos, useFixedBase=use_fixed_base)
+        except Exception:
+            return -1
+
+    def remove_body(self, body_id: int) -> None:
+        if not self.connected or body_id < 0:
+            return
+        try:
+            self._p.removeBody(body_id)
+        except Exception:
+            pass
+
+    def get_base_position(self, body_id: int) -> List[float]:
+        if not self.connected or body_id < 0:
+            return [0.0, 0.0, 0.0]
+        try:
+            pos, _ = self._p.getBasePositionAndOrientation(body_id)
+            return list(pos)
+        except Exception:
+            return [0.0, 0.0, 0.0]
+
+    def reset_base_position(self, body_id: int, position: List[float],
+                             orientation: Optional[List[float]] = None) -> None:
+        if not self.connected or body_id < 0:
+            return
+        try:
+            orn = orientation or [0, 0, 0, 1]
+            self._p.resetBasePositionAndOrientation(body_id, position, orn)
+        except Exception:
+            pass
+
+    def calculate_inverse_kinematics(self, target_position: List[float],
+                                      target_orientation: Optional[List[float]] = None,
+                                      lower_limits: Optional[List[float]] = None,
+                                      upper_limits: Optional[List[float]] = None,
+                                      joint_ranges: Optional[List[float]] = None,
+                                      rest_poses: Optional[List[float]] = None,
+                                      max_iterations: int = 100,
+                                      residual_threshold: float = 1e-4) -> Optional[List[float]]:
+        if not self.connected or self.robot_id is None:
+            return None
+        try:
+            orn = target_orientation or [0, 0, 0, 1]
+            kwargs = {
+                "bodyUniqueId": self.robot_id,
+                "endEffectorLinkIndex": self.ee_index,
+                "targetPosition": target_position,
+                "targetOrientation": orn,
+                "maxNumIterations": max_iterations,
+                "residualThreshold": residual_threshold,
+            }
+            if lower_limits is not None:
+                kwargs["lowerLimits"] = lower_limits
+            if upper_limits is not None:
+                kwargs["upperLimits"] = upper_limits
+            if joint_ranges is not None:
+                kwargs["jointRanges"] = joint_ranges
+            if rest_poses is not None:
+                kwargs["restPoses"] = rest_poses
+            ik_joints = self._p.calculateInverseKinematics(**kwargs)
+            return list(ik_joints)
+        except Exception:
+            return None
+
+    def create_box(self, half_extents: List[float], position: List[float],
+                   mass: float = 0.0, color: Optional[List[float]] = None) -> int:
+        if not self.connected:
+            return -1
+        try:
+            col = self._p.createCollisionShape(self._p.GEOM_BOX, halfExtents=half_extents)
+            vis_kwargs = {}
+            if color:
+                vis_kwargs["rgbaColor"] = color
+            vis = self._p.createVisualShape(self._p.GEOM_BOX, halfExtents=half_extents, **vis_kwargs)
+            return self._p.createMultiBody(baseMass=mass, baseCollisionShapeIndex=col,
+                                           baseVisualShapeIndex=vis, basePosition=position)
+        except Exception:
+            return -1
+
+    def create_sphere(self, radius: float, position: List[float],
+                      mass: float = 0.0, color: Optional[List[float]] = None) -> int:
+        if not self.connected:
+            return -1
+        try:
+            col = self._p.createCollisionShape(self._p.GEOM_SPHERE, radius=radius)
+            vis_kwargs = {}
+            if color:
+                vis_kwargs["rgbaColor"] = color
+            vis = self._p.createVisualShape(self._p.GEOM_SPHERE, radius=radius, **vis_kwargs)
+            return self._p.createMultiBody(baseMass=mass, baseCollisionShapeIndex=col,
+                                           baseVisualShapeIndex=vis, basePosition=position)
+        except Exception:
+            return -1
+
+    def set_realtime_simulation(self, enable: bool) -> None:
+        if self.connected:
+            try:
+                self._p.setRealTimeSimulation(1 if enable else 0)
+            except Exception:
+                pass
+
+    def configure_visualization(self, **kwargs) -> None:
+        if not self.connected:
+            return
+        try:
+            flag_map = {
+                "enable_gui": (self._p.COV_ENABLE_GUI, "value"),
+                "disable_renderer": (self._p.COV_ENABLE_TINY_RENDERER, "value"),
+                "enable_shadows": (self._p.COV_ENABLE_SHADOWS, "value"),
+            }
+            for key, (flag, val_key) in flag_map.items():
+                if key in kwargs:
+                    self._p.configureDebugVisualizer(flag, int(kwargs[key]))
+        except Exception:
+            pass
 
 
 # ============================================================================
@@ -325,21 +673,16 @@ class MuJoCoBackend(SimulatorBackend):
         self.connected = False
 
     def get_joint_states(self) -> List[float]:
-        if not self.connected or self.data is None:
-            return [0.0] * self.dofs
+        self._check_connected()
         n = min(self.dofs, len(self.data.qpos))
         return list(self.data.qpos[:n]) + [0.0] * max(0, self.dofs - n)
 
     def get_ee_pose(self) -> Dict[str, Any]:
-        if not self.connected or self.data is None:
-            return {"position": [0, 0, 0], "orientation": [0, 0, 0, 1]}
-        try:
-            body_id = self.model.body(self.ee_link) if self.ee_link else 0
-            pos = self.data.body(body_id).xpos
-            quat = self.data.body(body_id).xquat
-            return {"position": list(pos), "orientation": list(quat)}
-        except Exception:
-            return {"position": [0, 0, 0], "orientation": [0, 0, 0, 1]}
+        self._check_connected()
+        body_id = self.model.body(self.ee_link).id if self.ee_link else 0
+        pos = self.data.body(body_id).xpos
+        quat = self.data.body(body_id).xquat
+        return {"position": list(pos), "orientation": list(quat)}
 
     def move_joints(self, joint_angles: List[float], speed: float = 1.0) -> None:
         if not self.connected or self.data is None:
@@ -350,8 +693,125 @@ class MuJoCoBackend(SimulatorBackend):
     def move_cartesian(self, x: float, y: float, z: float,
                         rx: float = 0, ry: float = 0, rz: float = 0,
                         speed: float = 1.0) -> None:
-        # TODO: 使用 MuJoCo IK 求解器
-        pass
+        self._check_connected()
+        try:
+            import numpy as np
+            target_pos = np.array([x, y, z], dtype=float)
+            target_quat = np.array(self._euler_to_quat(rx, ry, rz), dtype=float)
+            joint_solution = self._solve_ik_dls(target_pos, target_quat)
+            if joint_solution is not None:
+                for i in range(min(self.dofs, len(joint_solution))):
+                    if i < len(self.data.ctrl):
+                        self.data.ctrl[i] = joint_solution[i]
+        except Exception as e:
+            print(f"[SIM] MuJoCo 笛卡尔运动失败: {e}")
+
+    def _solve_ik_dls(self, target_pos, target_quat) -> Optional[List[float]]:
+        """基于阻尼最小二乘法(DLS)的数值逆运动学求解。
+
+        使用雅可比矩阵 J，迭代公式：
+            delta_q = J^T (J J^T + lambda^2 I)^{-1} error
+
+        Args:
+            target_pos: 目标位置 [x, y, z]
+            target_quat: 目标四元数 [w, x, y, z]
+
+        Returns:
+            关节角度列表，长度 = dofs；求解失败返回 None。
+        """
+        import numpy as np
+        mj = self._mj
+        model = self.model
+        data = self.data
+
+        arm_joint_ids = []
+        for j in range(model.njnt):
+            jtype = model.jnt_type[j]
+            if jtype in (mj.mjtJoint.mjJNT_HINGE, mj.mjtJoint.mjJNT_SLIDE):
+                arm_joint_ids.append(j)
+                if len(arm_joint_ids) >= self.dofs:
+                    break
+        if not arm_joint_ids:
+            return None
+
+        dof_indices = [int(model.jnt_dofadr[j]) for j in arm_joint_ids]
+        qpos_indices = [int(model.jnt_qposadr[j]) for j in arm_joint_ids]
+
+        try:
+            ee_body = int(model.body(self.ee_link).id) if self.ee_link else model.nbody - 1
+        except Exception:
+            ee_body = model.nbody - 1
+
+        damping = 0.01
+        lambda_sq = damping * damping
+        max_iter = 50
+        threshold = 1e-4
+
+        original_qpos = data.qpos.copy()
+
+        try:
+            for _ in range(max_iter):
+                mj.mj_forward(model, data)
+
+                current_pos = np.array(data.body(ee_body).xpos, dtype=float)
+                current_quat = np.array(data.body(ee_body).xquat, dtype=float)
+
+                pos_err = np.asarray(target_pos, dtype=float) - current_pos
+
+                rot_err = np.zeros(3, dtype=float)
+                mj.mju_subQuat(rot_err, np.asarray(target_quat, dtype=float), current_quat)
+
+                error = np.concatenate([pos_err, rot_err])
+                if np.linalg.norm(error) < threshold:
+                    break
+
+                jacp = np.zeros((3, model.nv), dtype=float)
+                jacr = np.zeros((3, model.nv), dtype=float)
+                point = np.array(data.body(ee_body).xpos, dtype=float)
+                mj.mj_jac(model, data, jacp, jacr, point, ee_body)
+
+                J = np.vstack([jacp, jacr])[:, dof_indices]
+
+                JJT = J @ J.T
+                delta_q = J.T @ np.linalg.solve(
+                    JJT + lambda_sq * np.eye(JJT.shape[0]), error
+                )
+
+                for k, qidx in enumerate(qpos_indices):
+                    data.qpos[qidx] += float(delta_q[k])
+
+            mj.mj_forward(model, data)
+            solution = []
+            for k, jid in enumerate(arm_joint_ids):
+                qidx = qpos_indices[k]
+                q = float(data.qpos[qidx])
+                if model.jnt_type[jid] == mj.mjtJoint.mjJNT_HINGE:
+                    q = (q + math.pi) % (2.0 * math.pi) - math.pi
+                if model.jnt_limited[jid]:
+                    lo = float(model.jnt_range[jid][0])
+                    hi = float(model.jnt_range[jid][1])
+                    if math.isfinite(lo) and math.isfinite(hi) and hi > lo:
+                        q = max(lo, min(hi, q))
+                solution.append(q)
+            return solution
+        except Exception as e:
+            print(f"[SIM] MuJoCo DLS IK 求解失败: {e}")
+            return None
+        finally:
+            data.qpos[:] = original_qpos
+            mj.mj_forward(model, data)
+
+    @staticmethod
+    def _euler_to_quat(rx: float, ry: float, rz: float) -> List[float]:
+        """将欧拉角(XYZ顺序)转换为四元数 [w, x, y, z]。"""
+        cx, sx = math.cos(rx / 2.0), math.sin(rx / 2.0)
+        cy, sy = math.cos(ry / 2.0), math.sin(ry / 2.0)
+        cz, sz = math.cos(rz / 2.0), math.sin(rz / 2.0)
+        w = cx * cy * cz + sx * sy * sz
+        x = sx * cy * cz - cx * sy * sz
+        y = cx * sy * cz + sx * cy * sz
+        z = cx * cy * sz - sx * sy * cz
+        return [w, x, y, z]
 
     def stop(self) -> None:
         if self.connected and self.data is not None:
@@ -372,44 +832,51 @@ class IsaacSimBackend(SimulatorBackend):
     @classmethod
     def is_available(cls) -> bool:
         try:
-            import omni.isaac.core
+            import omni.isaac  # noqa: F401
             return True
         except ImportError:
             return False
 
     def connect(self) -> bool:
+        self._check_available()
         try:
-            # Isaac Sim 必须在 SimulationApp 之后导入
-            print("[SIM] Isaac Sim 后端初始化（需在 omniverse 环境中运行）")
+            print("[SIM] Isaac Sim 后端初始化（需在 omniverse/SimulationApp 环境中运行）")
             self.connected = True
             return True
         except Exception as e:
             print(f"[SIM] Isaac Sim 连接失败: {e}，将降级到 PyBullet")
+            self.connected = False
             return False
 
     def disconnect(self) -> None:
         self.connected = False
 
     def get_joint_states(self) -> List[float]:
-        if not self.connected:
-            return [0.0] * self.dofs
-        return [0.0] * self.dofs  # Placeholder
+        self._check_available()
+        self._check_connected()
+        raise RuntimeError("IsaacSimBackend.get_joint_states 尚未实现具体的仿真数据读取逻辑。")
 
     def get_ee_pose(self) -> Dict[str, Any]:
-        if not self.connected:
-            return {"position": [0, 0, 0], "orientation": [0, 0, 0, 1]}
-        return {"position": [0, 0, 0], "orientation": [0, 0, 0, 1]}
+        self._check_available()
+        self._check_connected()
+        raise RuntimeError("IsaacSimBackend.get_ee_pose 尚未实现具体的仿真数据读取逻辑。")
 
     def move_joints(self, joint_angles: List[float], speed: float = 1.0) -> None:
-        pass
+        self._check_available()
+        self._check_connected()
+        raise RuntimeError("IsaacSimBackend.move_joints 尚未实现具体的运动控制逻辑。")
 
     def move_cartesian(self, x: float, y: float, z: float,
                         rx: float = 0, ry: float = 0, rz: float = 0,
                         speed: float = 1.0) -> None:
-        pass
+        self._check_available()
+        self._check_connected()
+        raise RuntimeError("IsaacSimBackend.move_cartesian 尚未实现具体的运动控制逻辑。")
 
     def stop(self) -> None:
-        pass
+        self._check_available()
+        self._check_connected()
+        raise RuntimeError("IsaacSimBackend.stop 尚未实现具体的运动控制逻辑。")
 
 
 # ============================================================================
@@ -422,12 +889,13 @@ class ROS2Backend(SimulatorBackend):
     @classmethod
     def is_available(cls) -> bool:
         try:
-            import rclpy
+            import rclpy  # noqa: F401
             return True
         except ImportError:
             return False
 
     def connect(self) -> bool:
+        self._check_available()
         try:
             import rclpy
             rclpy.init()
@@ -437,6 +905,7 @@ class ROS2Backend(SimulatorBackend):
             return True
         except Exception as e:
             print(f"[SIM] ROS2 连接失败: {e}，将降级到 PyBullet")
+            self.connected = False
             return False
 
     def disconnect(self) -> None:
@@ -453,25 +922,31 @@ class ROS2Backend(SimulatorBackend):
         self.connected = False
 
     def get_joint_states(self) -> List[float]:
-        if not self.connected:
-            return [0.0] * self.dofs
-        return [0.0] * self.dofs  # Placeholder
+        self._check_available()
+        self._check_connected()
+        raise RuntimeError("ROS2Backend.get_joint_states 尚未配置关节状态订阅，无法返回真实数据。")
 
     def get_ee_pose(self) -> Dict[str, Any]:
-        if not self.connected:
-            return {"position": [0, 0, 0], "orientation": [0, 0, 0, 1]}
-        return {"position": [0, 0, 0], "orientation": [0, 0, 0, 1]}
+        self._check_available()
+        self._check_connected()
+        raise RuntimeError("ROS2Backend.get_ee_pose 尚未配置末端位姿订阅，无法返回真实数据。")
 
     def move_joints(self, joint_angles: List[float], speed: float = 1.0) -> None:
-        pass
+        self._check_available()
+        self._check_connected()
+        raise RuntimeError("ROS2Backend.move_joints 尚未配置轨迹指令发布者，无法执行运动。")
 
     def move_cartesian(self, x: float, y: float, z: float,
                         rx: float = 0, ry: float = 0, rz: float = 0,
                         speed: float = 1.0) -> None:
-        pass
+        self._check_available()
+        self._check_connected()
+        raise RuntimeError("ROS2Backend.move_cartesian 尚未配置笛卡尔指令发布者，无法执行运动。")
 
     def stop(self) -> None:
-        pass
+        self._check_available()
+        self._check_connected()
+        raise RuntimeError("ROS2Backend.stop 尚未配置停止指令发布者，无法执行停止。")
 
 
 # ============================================================================

@@ -20,7 +20,10 @@
 
 
 
-import pybullet as p
+try:
+    import pybullet as p
+except ImportError:
+    p = None
 import time
 import math
 
@@ -116,6 +119,10 @@ class ParameterCalibrator:
 
     def run_full_calibration(self):
         print("\n=== 开始完整参数校准 ===\n")
+
+        if p is None:
+            print("[CALIB] pybullet 未安装，跳过校准")
+            return {}
 
         try:
             self.calibrate_mass()

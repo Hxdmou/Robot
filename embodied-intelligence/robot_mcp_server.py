@@ -52,6 +52,12 @@ except Exception as _e:
 _ADAPTER_LOCK = threading.Lock()
 _ACTIVE_ADAPTER: Optional["RobotAdapter"] = None
 _ACTIVE_KEY: Optional[str] = None
+_EMERGENCY_LOCKED = False
+
+_MAX_SPEED = 1.0
+_MIN_SPEED = 0.05
+_MAX_ACCEL = 1.0
+_MIN_ACCEL = 0.05
 
 
 def _ok(data: Any = None, msg: str = "ok") -> Dict[str, Any]:
@@ -133,12 +139,13 @@ def tool_init_robot(arm_key: str, mode: str = "sim",
         host:               真机模式下的机械臂 IP
         port:               真机模式下的机械臂端口
     """
-    global _ACTIVE_ADAPTER, _ACTIVE_KEY
+    global _ACTIVE_ADAPTER, _ACTIVE_KEY, _EMERGENCY_LOCKED
     if not _BASE_OK:
         return _err(f"底层未加载: {_BASE_ERR}")
     if arm_key not in ROBOT_BRANDS and arm_key not in ARM_DATABASE:
         return _err(f"产品 arm_key={arm_key!r} 不存在。请先调用 list_products 查看可用清单",
                     code=404)
+    _EMERGENCY_LOCKED = False
     with _ADAPTER_LOCK:
         # 先销毁旧 adapter
         try:
@@ -182,15 +189,41 @@ def _require_active() -> Dict[str, Any]:
         return _err(f"底层未加载: {_BASE_ERR}")
     if _ACTIVE_ADAPTER is None or _ACTIVE_KEY is None:
         return _err("尚未初始化任何产品，请先调用 init_robot(arm_key=...)", code=412)
+    is_conn_fn = getattr(_ACTIVE_ADAPTER, "is_connected", None)
+    if callable(is_conn_fn) and not is_conn_fn():
+        return _err("机器人未连接，请重新调用 init_robot 建立连接", code=503)
+    if _EMERGENCY_LOCKED:
+        return _err("机器人处于急停锁定状态，请先解除急停后再操作", code=423)
     return {}  # 空 dict 代表 ok
 
 
-def tool_move_joints(joint_angles_deg: List[float], speed: float = 0.5) -> Dict[str, Any]:
+def _get_joint_limits(adapter) -> tuple:
+    """从适配器安全控制器读取关节限位，返回 (lower_list, upper_list)。"""
+    safety = getattr(adapter, "safety", None)
+    if safety is None:
+        return [], []
+    limits = getattr(safety, "joint_limits", {}) or {}
+    joint_indices = getattr(adapter, "joint_indices", []) or []
+    lowers, uppers = [], []
+    for j_idx in joint_indices:
+        lim = limits.get(j_idx)
+        if lim and "lower" in lim and "upper" in lim:
+            lowers.append(float(lim["lower"]))
+            uppers.append(float(lim["upper"]))
+        else:
+            lowers.append(None)
+            uppers.append(None)
+    return lowers, uppers
+
+
+def tool_move_joints(joint_angles_deg: List[float], speed: float = 0.5,
+                     acceleration: float = 0.5) -> Dict[str, Any]:
     """关节空间运动（所有关节按角度°控制）。
 
     Args:
         joint_angles_deg: 关节角度列表(单位°)，长度=dofs
-        speed:            速度系数 0.0~1.0
+        speed:            速度系数 0.05~1.0
+        acceleration:     加速度系数 0.05~1.0
     """
     pre = _require_active()
     if pre:
@@ -199,10 +232,43 @@ def tool_move_joints(joint_angles_deg: List[float], speed: float = 0.5) -> Dict[
         return _err("joint_angles_deg 必须是非空数字列表", code=400)
     try:
         arr = [float(v) for v in joint_angles_deg]
-        sp = max(0.05, min(1.0, float(speed)))
+    except (TypeError, ValueError):
+        return _err("joint_angles_deg 包含非数字值", code=400)
+
+    dofs = int(getattr(_ACTIVE_ADAPTER, "dofs", 0) or 0)
+    if dofs and len(arr) != dofs:
+        return _err(f"关节角度数量({len(arr)})与自由度({dofs})不匹配", code=400)
+
+    try:
+        sp = max(_MIN_SPEED, min(_MAX_SPEED, float(speed)))
+    except (TypeError, ValueError):
+        return _err("speed 必须是数字", code=400)
+    try:
+        acc = max(_MIN_ACCEL, min(_MAX_ACCEL, float(acceleration)))
+    except (TypeError, ValueError):
+        return _err("acceleration 必须是数字", code=400)
+
+    lowers, uppers = _get_joint_limits(_ACTIVE_ADAPTER)
+    if lowers and len(lowers) == len(arr):
+        for i, angle in enumerate(arr):
+            lo = lowers[i]
+            hi = uppers[i]
+            if lo is not None and hi is not None:
+                if angle < lo or angle > hi:
+                    return _err(
+                        f"关节 {i} 角度 {angle:.2f}° 超出限位 [{lo:.2f}°, {hi:.2f}°]",
+                        code=400)
+
+    try:
         with _ADAPTER_LOCK:
-            _ACTIVE_ADAPTER.move_joints(arr, speed=sp)
-        return _ok({"joint_angles_deg": arr, "speed": sp},
+            move_fn = getattr(_ACTIVE_ADAPTER, "move_joints", None)
+            if not callable(move_fn):
+                return _err("适配器不支持 move_joints", code=501)
+            try:
+                move_fn(arr, speed=sp, acceleration=acc)
+            except TypeError:
+                move_fn(arr, speed=sp)
+        return _ok({"joint_angles_deg": arr, "speed": sp, "acceleration": acc},
                    msg=f"关节运动已下发 (dofs={len(arr)})")
     except Exception as e:
         return _err(f"move_joints 失败: {e}")
@@ -326,18 +392,16 @@ def tool_get_joint_states() -> Dict[str, Any]:
 
 def tool_stop_emergency() -> Dict[str, Any]:
     """触发急停：立即停止当前激活机器人的所有运动 + 标记安全锁定。"""
-    pre = _require_active()
-    if pre:
-        # 即便没有激活对象，也返回 ok（安全接口幂等）
-        pass
+    global _EMERGENCY_LOCKED
+    _EMERGENCY_LOCKED = True
     try:
         with _ADAPTER_LOCK:
             if _ACTIVE_ADAPTER is not None:
-                stop_fn = getattr(_ACTIVE_ADAPTER, "emergency_stop", None)
-                if callable(stop_fn):
-                    stop_fn()
+                estop_monitor = getattr(_ACTIVE_ADAPTER, "emergency_stop", None)
+                trigger_fn = getattr(estop_monitor, "trigger_emergency_stop", None)
+                if callable(trigger_fn):
+                    trigger_fn()
                 else:
-                    # 兜底：尝试 stop / move_joints(当前)
                     try:
                         s_fn = getattr(_ACTIVE_ADAPTER, "stop", None)
                         if callable(s_fn):
@@ -348,6 +412,23 @@ def tool_stop_emergency() -> Dict[str, Any]:
                    msg="急停指令已执行，安全控制器已锁定")
     except Exception as e:
         return _err(f"急停失败（非致命，继续关注现场）: {e}", code=520)
+
+
+def tool_reset_emergency() -> Dict[str, Any]:
+    """解除急停锁定（需人工确认现场安全后调用）。"""
+    global _EMERGENCY_LOCKED
+    try:
+        with _ADAPTER_LOCK:
+            if _ACTIVE_ADAPTER is not None:
+                estop_monitor = getattr(_ACTIVE_ADAPTER, "emergency_stop", None)
+                reset_fn = getattr(estop_monitor, "reset_emergency_stop", None)
+                if callable(reset_fn):
+                    reset_fn()
+        _EMERGENCY_LOCKED = False
+        return _ok({"arm_key": _ACTIVE_KEY, "locked": False},
+                   msg="急停锁定已解除")
+    except Exception as e:
+        return _err(f"解除急停失败: {e}", code=520)
 
 
 # ============================================================
@@ -399,7 +480,7 @@ MCP_TOOLS_SCHEMA = [
     {
         "name": "move_joints",
         "description": "关节空间运动：向当前已激活机器人下发关节目标角度（单位°）。"
-                       "关节顺序与产品 URDF 定义保持一致。",
+                       "关节顺序与产品 URDF 定义保持一致。会自动校验角度是否在关节限位内。",
         "inputSchema": {
             "type": "object",
             "required": ["joint_angles_deg"],
@@ -408,7 +489,11 @@ MCP_TOOLS_SCHEMA = [
                                      "minItems": 1,
                                      "description": "关节目标角度数组，单位°。长度=dofs。"},
                 "speed":            {"type": "number", "default": 0.5,
-                                     "description": "速度系数 0.05~1.0，默认 0.5。"}
+                                     "minimum": 0.05, "maximum": 1.0,
+                                     "description": "速度系数 0.05~1.0，默认 0.5。"},
+                "acceleration":     {"type": "number", "default": 0.5,
+                                     "minimum": 0.05, "maximum": 1.0,
+                                     "description": "加速度系数 0.05~1.0，默认 0.5。"}
             }
         },
     },
@@ -449,6 +534,11 @@ MCP_TOOLS_SCHEMA = [
                        "只要感觉不对，立刻让大模型调用这个。",
         "inputSchema": {"type": "object", "properties": {}},
     },
+    {
+        "name": "reset_emergency",
+        "description": "【安全接口】解除急停锁定。必须在人工确认现场安全后调用。",
+        "inputSchema": {"type": "object", "properties": {}},
+    },
 ]
 
 _TOOL_FN = {
@@ -459,6 +549,7 @@ _TOOL_FN = {
     "get_ee_pose":        tool_get_ee_pose,
     "get_joint_states":   tool_get_joint_states,
     "stop_emergency":     tool_stop_emergency,
+    "reset_emergency":    tool_reset_emergency,
 }
 
 

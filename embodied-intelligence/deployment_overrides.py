@@ -3986,4 +3986,3427 @@ DEPLOYMENT_OVERRIDES = {
             "accel_radps2": [5.0, 3.0, 3.0, 8.0],
         },
     },
+
+    # ==================== 自动补全：全产品覆盖 ====================
+    "1x_neo": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "consumer_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094],
+            "upper": [2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "300mw_compact_small_pwr": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "360_agent_factory": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "platform_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "51world_51sim": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "platform_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "51world_aperone": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "abb_irb_1200": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "abb_rapid",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-3.142, -3.142, -3.142, -3.142, -3.142, -3.142],
+            "upper": [3.142, 3.142, 3.142, 3.142, 3.142, 3.142],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "abb_irb_14000": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 6511,
+            "protocol": "abb_egm",
+            "timeout_sec": 5.0,
+            "transport": "udp",
+        },
+        "joint_limits": {
+            "lower": [-3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142],
+            "upper": [3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "agibot_xingyun_a2w_wheeled": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "zhiyuan_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "agility_robotics_digit": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094],
+            "upper": [2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "ahbfme_bci_chip": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 0,
+            "protocol": "cmu_bci_serial",
+            "timeout_sec": 5.0,
+            "transport": "serial",
+        },
+    },
+    "ai_content_audit": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "sensor_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "ai_xunizhubo_compliance": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "aiforia_world_model": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "world_model_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "aitu_sewing_robot": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "ali_qianwen_ai_earbuds": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "ali_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "ali_qianwen_ai_glasses": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "ali_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "aliyun_feitian_heterogeneous_management": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "aliyun_zhenwu": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "inference_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "anhui_industrial_net_export": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "annuo_ai_coffee": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "consumer_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "anthropic_custom_chip_team": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "aoshark_viatrix": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "consumer_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "apple_vision_pro": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "xr_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "ascend_950": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "inference_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "athena_security_inspection": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "platform_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "axera_ax615": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "axera_ax8850": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "baidu_kunlunxin_wenxin_fullstack": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "baidu_tianchi": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "inference_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "baozouzhe_commercial_humanoid": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "unitree_udp",
+            "timeout_sec": 5.0,
+            "transport": "udp",
+        },
+    },
+    "bci_glasses_6g": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "telecom_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "bci_rehab_device": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 0,
+            "protocol": "cmu_bci_serial",
+            "timeout_sec": 5.0,
+            "transport": "serial",
+        },
+    },
+    "beijing_humanoid_tiangong": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094],
+            "upper": [2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "beta_creative_tech_hk_ai_infra": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "bim_bot_3d_print": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "industrial_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "biren_oex": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "inference_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "booster_t2": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "boston_dynamics_atlas": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094],
+            "upper": [2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "brick_laying_robot": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "industrial_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "buerchou_liangchou_no1_atomic_qm_stand": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "buke_collaborative": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 502,
+            "protocol": "buke_modbus",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-3.142, -3.142, -3.142, -3.142, -3.142, -3.142],
+            "upper": [3.142, 3.142, 3.142, 3.142, 3.142, 3.142],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "buke_robot_components": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 502,
+            "protocol": "buke_modbus",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "byd_xiaodi": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "caict_token_evaluation": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "cambricon_inference_chip": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "cas_ouroboros": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "cas_sgbt_132ghz": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "telecom_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "cas_yingtianhu": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "cerebras_wse3": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "cfr1000_1200mw_sodium_fast_reactor": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "cfs_fusion_4b_usd_funding": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "changfei_special_fiber": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "telecom_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "changxin_cxmt_dram": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "chaoxun_tongxin_suanli": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "telecom_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "cheng_tian_gogo_h_pro": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "shurui_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "chery_mojia_humanoid": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "unitree_udp",
+            "timeout_sec": 5.0,
+            "transport": "udp",
+        },
+        "joint_limits": {
+            "lower": [-2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094],
+            "upper": [2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "china_full_moon_geological_map_5m": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "chinamobile_4n31x_supercomputing_grid": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "telecom_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "chinatelecom_xirang_integrated_platform": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "telecom_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "chinaunicom_ai_computing_integration": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "telecom_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "chowchow_bank_cross_border_payment_pass": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "chuanhua_zhilian": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "industrial_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "cloudminds_xr4": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "consumer_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094],
+            "upper": [2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "cmu_noninvasive_bci": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 0,
+            "protocol": "cmu_bci_serial",
+            "timeout_sec": 5.0,
+            "transport": "serial",
+        },
+    },
+    "comi_platform": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "platform_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "data_ip_registration_trade": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "deepseek_inference_chip": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "inference_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "deepseek_llm_company": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "llm_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "digital_huaxia_ruta": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "consumer_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "digital_huaxia_xialan": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "digital_huaxia_xingxingxia": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "digua_warehouse": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 1883,
+            "protocol": "logistics_slam_mqtt",
+            "timeout_sec": 10.0,
+            "transport": "mqtt",
+        },
+    },
+    "discovery_loop_company": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "dobot_cr10": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 2000,
+            "protocol": "dobot_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-3.142, -3.142, -3.142, -3.142, -3.142, -3.142],
+            "upper": [3.142, 3.142, 3.142, 3.142, 3.142, 3.142],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "dobot_cr5": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 2000,
+            "protocol": "dobot_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-3.142, -3.142, -3.142, -3.142, -3.142, -3.142],
+            "upper": [3.142, 3.142, 3.142, 3.142, 3.142, 3.142],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "dobot_lumo": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "dognavy_cybergym_global3_opensource1": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "dongfang_gravity_one_ys4_sea": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "dongfang_starlink_05_06": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "dreame_l5_air": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "consumer_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "ecovacs_bajie": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "consumer_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "efort_wheel_humanoid": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 54600,
+            "protocol": "efort_eki",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "eir_aiq": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094],
+            "upper": [2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "energenie_charging": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "energy_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "engineai_pm01": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "consumer_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094],
+            "upper": [2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "eu_7ai_giga_30b_euro": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "fengfei_v5000_evtol": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "evtol_map",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "fenghua_gaoke_mlcc": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "sensor_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "fenghuo_ai_compute_device": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "telecom_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "five_g_a_base_station": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "telecom_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "foot_multidim_tactile_sensor": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-3.142, -3.142, -3.142, -3.142, -3.142, -3.142],
+            "upper": [3.142, 3.142, 3.142, 3.142, 3.142, 3.142],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "fourier_gr_series_humanoid": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "franka_research_3": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "panda_libfranka",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142],
+            "upper": [3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "fudan_qm_flash_27c_science": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "fuqiao_electronic_cloth": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "sensor_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "galaxea_g05": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "platform_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "gaode_tutu": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "gdyt_g100": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "gdyt_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "general_fusion_nasdaq": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "google_deepmind_gemini_robotics": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "world_model_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "google_pixel_tag": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "consumer_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "guangming_power_llm": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "llm_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "guoxing_yuhang_xingsuan": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "hpc_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "haier_w2_exo": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "shurui_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "haiguang_ai_cpu": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "haiyou_anlan_16mw_floating_wind": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "hangjin_keji_suanli": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "hangzhou_embodied_base": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "industrial_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "hangzhou_wheel_legged_hercules": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "hanwei_force_sensor": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "hbhri_motionmaster_uniact": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "world_model_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "hefei_jshen_training_field": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "hefei_jushen_data_company": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "hengtong_special_fiber": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "telecom_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "heshi_humanoid_x": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "high_compute_lightweight_joint": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "high_purity_tungsten_target": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "sensor_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "honghai_ai_server_oem": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "honghe_ultrathin_electronic_cloth": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "sensor_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "hongjing_suanli_lease": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "hongyuan_crossed_roller_bearing": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "honor_robot": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "consumer_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "houming_ai_super_employee": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "platform_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "houming_digital_human": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "xr_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "houming_mars_geo": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "platform_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "houming_pengka_nfc": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "consumer_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "huaqin_server_manufacturing": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "huawei_ascend_cloudmatrix_ecosystem": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "huawei_cloudrobo_platform": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "platform_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "huawei_matebook_fold": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "consumer_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "huaweiyun_lingqu_cluster": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "hudian_high_end_pcb": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "sensor_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "humanoid_high_endurance_safe_battery": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "iflytek_glasses": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "consumer_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "iluki_edu_companion_robot": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "consumer_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "iluvatar_tiangai_zhikai": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "imt2030_6g_ntn_satellite_terrestrial": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "telecom_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "inception_mercury2": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "world_model_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "iot_6g_industrial": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "telecom_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "jaka_zu12": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 10000,
+            "protocol": "jaka_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-3.142, -3.142, -3.142, -3.142, -3.142, -3.142],
+            "upper": [3.142, 3.142, 3.142, 3.142, 3.142, 3.142],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "jiantao_copper_clad": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "sensor_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "jijia_gigaworld": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "jinbei_flat_wire": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "jinbei_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "jingwei_hao1_reusable_rocket": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "jingxin_interconnect": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "jiuzhihu_dual_arm_nursing": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "shurui_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "juwei_tech": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "kata_friends_companion_soft": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "consumer_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "keenon_xman_r1": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "kuka_iiwa": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 30200,
+            "protocol": "kuka_fri",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142],
+            "upper": [3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "kuka_kr_agilus": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 54600,
+            "protocol": "kuka_eki",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-3.142, -3.142, -3.142, -3.142, -3.142, -3.142],
+            "upper": [3.142, 3.142, 3.142, 3.142, 3.142, 3.142],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "kuka_lbr_iiwa_14_r820": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 30200,
+            "protocol": "kuka_fri",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142],
+            "upper": [3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "kunlun_dynamic_engine": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "world_model_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "kunlun_llm": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "llm_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "kunlunwanwei_ai_music_production": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "llm_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "kunlunwanwei_global_shortform_platform": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "consumer_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "langchao_ai_server": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "lanxiao_lx1_evtol": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "evtol_map",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "leisai_motion_control": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "lexiang_zeroth": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "liman_riemann_10": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "world_model_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "limx_dynamics_p1": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094],
+            "upper": [2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "lingchu_psisynrobot": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "linghang_science_education": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "lingshu_xiaoxin": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094],
+            "upper": [2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "lingxi_app": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "platform_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "liquid_ai_lfm": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "world_model_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "litong_dianzi_suanli": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "liupanshui_coke_hydrogen_base": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "longyou_embodied_training_base": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "low_altitude_ian": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "telecom_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "lvkang_lu_d100": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 1883,
+            "protocol": "logistics_slam_mqtt",
+            "timeout_sec": 10.0,
+            "transport": "mqtt",
+        },
+    },
+    "manifest_ai_brumby": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "platform_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "meituan_catpaw": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "platform_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "meta_quest_4": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "xr_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "microsoft_maia_300": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "miles": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "inference_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "mira_deep_principle_ai4s_scientist": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "platform_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "modelbest_minicpm_robotmanip": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "modelbest_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "modelbest_minicpm_robottrack": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "modelbest_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "modelbest_phyai": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "modelbest_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "mojia_culture": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "consumer_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "moonix_glasses": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "consumer_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "moore_mtt_c256": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "inference_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "moxin_moworld": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "muxi_xijing": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "inference_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "n0_vtla": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "national_computing_network_4t_15th": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "national_six_nets_shiwuwu_26p9trillion": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "ncku_text2video_embodied_training": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "nokia_ai_ran_6g_platform": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "nscc_zhengzhou_100k": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "hpc_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "nubia_imoochi": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "nubia_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "nubia_navix_ultra": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "nubia_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "nvidia_6g_airan_base_station": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "telecom_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "nvidia_cosmos_physics_ai_alliance": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "nvidia_dsx": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "nvidia_isaac_gr00t": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "platform_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "omni_vtla": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "openai_jalapeno": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "inference_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "optical_400g_system": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "telecom_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "optical_interconnect_three_stack_cpo_silicon": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "oulutong_compute_end": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "pathway_dragon_hatchling": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "world_model_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "pengding_ai_pcb": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "sensor_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "physical_intelligence_pi0": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "world_model_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "pku_bci_alpha_1k_synced": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "pku_cas_neurodyn_chip": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "pohu_wam": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "world_model_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "pudu_d5": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "pudu_d5_w": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "pudu_d9": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "qianjue_predictive": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "qingdao_port_robots": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "energy_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "qingtian_zhilian_training_humanoid": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "unitree_udp",
+            "timeout_sec": 5.0,
+            "transport": "udp",
+        },
+        "joint_limits": {
+            "lower": [-2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094],
+            "upper": [2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "qingtianzu": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "consumer_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "qingtong_robot": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "industrial_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "qingwei_tx": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "qiniu_maas": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "platform_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "qiongche_noematrix": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "qiyuan_q1": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "consumer_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "qiyuan_t1": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "consumer_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "radixark": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "inference_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "realman_realbot_l2": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094],
+            "upper": [2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "robbyant_lingbot_vla2": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "robbyant_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "roboease_scene_brain": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "platform_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "roboscience_rex": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "robotis_ai_worker": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094],
+            "upper": [2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "robstride_edulite_a3": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 502,
+            "protocol": "modbus_tcp_ros2",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-3.142, -3.142, -3.142, -3.142, -3.142, -3.142],
+            "upper": [3.142, 3.142, 3.142, 3.142, 3.142, 3.142],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "rouling_bci": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 0,
+            "protocol": "cmu_bci_serial",
+            "timeout_sec": 5.0,
+            "transport": "serial",
+        },
+    },
+    "ruijie_ai_switch": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "telecom_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "runjian_suanli_stock": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "runke_centaur": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "sanan_inp_substrate": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "sanhuan_mlcc": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "sensor_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "sara_security_agent": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "platform_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "satellite_direct_6g": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "telecom_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "satellite_internet_test": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "telecom_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "self_variable_wall_b": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "sensetime_sensemart_go": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "sensetime_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "sensetime_sensenova_u1pro": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "sensetime_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "sglang": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "inference_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "shangtang_token_factory": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "shengke_switch_chip": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "shennan_high_speed_pcb": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "sensor_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "shenzhen_collaborative_global_no1": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "shenzhou_kejie_warehouse_ai_agent": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "llm_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "shuguang_8000": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "hpc_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "shurui_singport_robot": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "shurui_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "skild_ai_world_model": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "world_model_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "slmatec_hermes_chassis": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 1883,
+            "protocol": "logistics_slam_mqtt",
+            "timeout_sec": 10.0,
+            "transport": "mqtt",
+        },
+    },
+    "smart_robot_machining_center": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "songyan_bumi": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "consumer_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "sonyond_xiaoyue": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "sonyond_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "space_computing_constellation": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "platform_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "spacex_starmind_satellite": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "telecom_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "state_grid_inspection": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "energy_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "stepx_amoo_assistant": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "stepx_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "stepx_neo": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "stepx_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "subquadratic_subq": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "world_model_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "taibao_home_yanglao_station": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "shurui_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "ten_gigabit_optical": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "telecom_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "tencent_hunyuan_computing_cluster": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "tencent_openclaw": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "platform_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "tesla_dojo": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "tesla_doubao": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "telecom_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "tesla_optimus": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094],
+            "upper": [2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "tianhe_space_supercomputing": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "hpc_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "tj_chenxing_embodied_debug": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "unitree_udp",
+            "timeout_sec": 5.0,
+            "transport": "udp",
+        },
+    },
+    "tj_chenxing_parallel_delta": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "industrial_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-3.142, -3.142, -3.142, -3.142],
+            "upper": [3.142, 3.142, 3.142, 3.142],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "tj_hanhai_lanfan_underwater_night": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "tj_moer_flexible_amr": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "amr_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "tj_shenzhilan_underwater_rov": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "tj_wangyuan_pool_cleaner": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "consumer_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "tmsr_2mw_thorium_molten_salt_reactor": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "topstar_tdm020": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "industrial_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142],
+            "upper": [3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "topstar_tm010": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "industrial_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-3.142, -3.142, -3.142, -3.142, -3.142, -3.142],
+            "upper": [3.142, 3.142, 3.142, 3.142, 3.142, 3.142],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "topstar_twh020": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "industrial_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094],
+            "upper": [2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "topstar_xingzai": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "industrial_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094],
+            "upper": [2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "toshi_a1": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "tribar_tensegrity": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "consumer_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "tsinghua_egoemg": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "tsinghua_data_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "tsinghua_wafer": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "tsmc_sow_x": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "ubtech_walker_s2_industrial": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "unitree_udp",
+            "timeout_sec": 5.0,
+            "transport": "udp",
+        },
+        "joint_limits": {
+            "lower": [-2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094],
+            "upper": [2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "ultrathin_copper_foil_pcb": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "sensor_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "underwater_datacenter": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "platform_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "unitree_h1_fullsize_humanoid": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "unitree_udp",
+            "timeout_sec": 5.0,
+            "transport": "udp",
+        },
+    },
+    "ur10e": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 30004,
+            "protocol": "ur_rtde",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-3.142, -3.142, -3.142, -3.142, -3.142, -3.142],
+            "upper": [3.142, 3.142, 3.142, 3.142, 3.142, 3.142],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "ur16e": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 30004,
+            "protocol": "ur_rtde",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-3.142, -3.142, -3.142, -3.142, -3.142, -3.142],
+            "upper": [3.142, 3.142, 3.142, 3.142, 3.142, 3.142],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "ur20": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 30004,
+            "protocol": "ur_rtde",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-3.142, -3.142, -3.142, -3.142, -3.142, -3.142],
+            "upper": [3.142, 3.142, 3.142, 3.142, 3.142, 3.142],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "ur3e": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 30004,
+            "protocol": "ur_rtde",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-3.142, -3.142, -3.142, -3.142, -3.142, -3.142],
+            "upper": [3.142, 3.142, 3.142, 3.142, 3.142, 3.142],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "ur5e": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 30004,
+            "protocol": "ur_rtde",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-3.142, -3.142, -3.142, -3.142, -3.142, -3.142],
+            "upper": [3.142, 3.142, 3.142, 3.142, 3.142, 3.142],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "ustc_flexible_e_skin": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "vita_vbot_edu": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "vllm": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "inference_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "vtla": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "weijing_laparoscope": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 0,
+            "protocol": "medical_ethercat_p",
+            "timeout_sec": 5.0,
+            "transport": "ethercat",
+        },
+    },
+    "wuxi_aisuanli_pcb": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "sensor_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "wyndme_waimi_pro_home_butler": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "consumer_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "xiaomi_cyberone": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "consumer_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094],
+            "upper": [2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "xiechuang_suanli_data": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "xingji_v": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "unitree_udp",
+            "timeout_sec": 5.0,
+            "transport": "udp",
+        },
+        "joint_limits": {
+            "lower": [-2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094],
+            "upper": [2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "xingyun_keji_suanli": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "xjtu_xunxiao_wheeled_dual_arm": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "amr_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "yiwu_shangmao_llm": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "llm_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "yixi_xiaoxiao_ai_agent": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "yuanjing_wulanchabu_stellar_supermonad": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "hpc_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "yuanli_apex": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 502,
+            "protocol": "modbus_tcp_ros2",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "yuanli_dm05": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "platform_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "yuanli_ferrata": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 1883,
+            "protocol": "logistics_5g_mqtt",
+            "timeout_sec": 10.0,
+            "transport": "mqtt",
+        },
+    },
+    "yudian_llm": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "llm_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "yuezhi_anmian_kimi_k3_code_no1": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "yufei_humanoid": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "yufei_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "yundie_polia_multimodal": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "yunji_hotel_delivery_standard_robot": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "consumer_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "yunnan_zheye_inp": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "yunqi_ai135": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 1883,
+            "protocol": "logistics_slam_mqtt",
+            "timeout_sec": 10.0,
+            "transport": "mqtt",
+        },
+    },
+    "yunsai_zhilian_suanli": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "zeuth_humanoid": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "unitree_udp",
+            "timeout_sec": 5.0,
+            "transport": "udp",
+        },
+    },
+    "zhejiang_mingchu_ai_onsite_regulation": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "platform_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "zhengqi_door_mind": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "world_model_tcp",
+            "timeout_sec": 30.0,
+            "transport": "tcp",
+        },
+    },
+    "zhengqi_quorra_x5": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "consumer_5g_cv2x",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "zhilaite_vehicle_grade_integrated_joint": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "unitree_udp",
+            "timeout_sec": 5.0,
+            "transport": "udp",
+        },
+        "joint_limits": {
+            "lower": [-2.094, -2.094, -2.094],
+            "upper": [2.094, 2.094, 2.094],
+            "speed_radps": [2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0],
+        },
+    },
+    "zhipingfang_alphabot": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "zhipu_zcode": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "platform_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "zhishen_gangbeng_l1": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "zhiwei_zhineng_suanli": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "zhixing_hanyue": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "zhiyuan_central_henan_base": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "zhiyuan_lingxi_x2": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "zhiyuan_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094, -2.094],
+            "upper": [2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094, 2.094],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "zhongbei_tongxin_suanli": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "telecom_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "zhongke_huisi_dexterous_hand": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "sensor_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142, -3.142],
+            "upper": [3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142, 3.142],
+            "speed_radps": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
+            "accel_radps2": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0],
+        },
+    },
+    "zhongke_tiansuan_chenguang1": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "hpc_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "zhongtian_special_fiber": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "telecom_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "zhongxing_ai_network": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "telecom_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "zhongxingwei_63104": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "ziguang_network_device": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "telecom_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "ziguang_zixuan": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "zjutri_e_skin": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "sensor_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "zkjs_zhaocai": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "vtla_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "zunjie_v800_flagship_mpv": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "generic_bridge",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "中科微感": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "sensor_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "华鑫微纳": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "wafer_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "华鑫智感": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "sensor_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "天启星座": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "telecom_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "希磁科技": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "sensor_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "海车神驭": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "sensor_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "紫光展锐V8821": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "telecom_tcp",
+            "timeout_sec": 10.0,
+            "transport": "tcp",
+        },
+    },
+    "至博研": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "sensor_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "芒果传感": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "sensor_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+    "芯动联科": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "sensor_tcp",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+    },
+
 }

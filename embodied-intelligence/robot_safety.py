@@ -42,14 +42,20 @@ class ForceLimitError(SafetyError):
 
 
 class SafetyController:
-    def __init__(self):
+    def __init__(self, workspace_radius=0.8, z_min=0.05):
         self.joint_limits = {}
         self.speed_limits = {}
         self.force_limits = {}
         self.enabled = True
         self._lock = threading.Lock()
+        self.workspace_radius = workspace_radius
+        self.z_min = z_min
+        self.accel_limit = 5.0
+        self.torque_limit = 150.0
 
     def set_joint_limits(self, joint_indices, lower_limits, upper_limits):
+        if len(joint_indices) != len(lower_limits) or len(joint_indices) != len(upper_limits):
+            raise ValueError("joint_indices, lower_limits, upper_limits 数组长度必须一致")
         with self._lock:
             for idx, j_idx in enumerate(joint_indices):
                 self.joint_limits[j_idx] = {
@@ -64,6 +70,14 @@ class SafetyController:
     def set_force_limit(self, max_force):
         with self._lock:
             self.force_limits["max"] = max_force
+
+    def set_accel_limit(self, max_accel):
+        with self._lock:
+            self.accel_limit = max_accel
+
+    def set_torque_limit(self, max_torque):
+        with self._lock:
+            self.torque_limit = max_torque
 
     def check_joint_limits(self, joint_angles, joint_indices):
         if not self.enabled:
@@ -95,6 +109,23 @@ class SafetyController:
                         )
         return True
 
+    def check_acceleration(self, current_speeds, last_speeds, dt, joint_indices):
+        if not self.enabled:
+            return True
+
+        if dt <= 0:
+            raise ValueError("dt 必须大于 0")
+
+        with self._lock:
+            for idx, j_idx in enumerate(joint_indices):
+                if idx < len(current_speeds) and idx < len(last_speeds):
+                    accel = abs((current_speeds[idx] - last_speeds[idx]) / dt)
+                    if accel > self.accel_limit:
+                        raise SpeedLimitError(
+                            f"关节 {j_idx} 加速度超限: {accel:.3f} rad/s² (最大: {self.accel_limit})"
+                        )
+        return True
+
     def check_force(self, current_forces, joint_indices):
         if not self.enabled:
             return True
@@ -114,12 +145,11 @@ class SafetyController:
         if not self.enabled:
             return True
 
-        workspace_radius = 0.8
         distance = math.sqrt(x**2 + y**2 + z**2)
-        if distance > workspace_radius:
+        if distance > self.workspace_radius:
             raise SafetyError(f"笛卡尔坐标超出工作空间: ({x}, {y}, {z})")
 
-        if z < 0.05:
+        if z < self.z_min:
             raise SafetyError(f"Z轴过低: {z}")
 
         return True
@@ -138,9 +168,10 @@ class SafetyController:
 
 
 class EmergencyStopMonitor:
-    def __init__(self, robot_comm, check_interval=0.1):
+    def __init__(self, robot_comm, check_interval=0.1, torque_threshold=150.0):
         self.robot_comm = robot_comm
         self.check_interval = check_interval
+        self.torque_threshold = torque_threshold
         self._running = False
         self._thread = None
         self._emergency_stop = False
@@ -174,10 +205,10 @@ class EmergencyStopMonitor:
             if states:
                 for state in states:
                     torque = state.get("torque", 0)
-                    if abs(torque) > 150:
+                    if abs(torque) > self.torque_threshold:
                         self.trigger_emergency_stop()
                         return
-        except:
+        except Exception:
             pass
 
     def trigger_emergency_stop(self):
@@ -187,7 +218,7 @@ class EmergencyStopMonitor:
                 print("[SAFETY] ⚠️ 触发紧急停止！")
                 try:
                     self.robot_comm.stop()
-                except:
+                except Exception:
                     pass
 
     def reset_emergency_stop(self):

@@ -21,7 +21,10 @@
 
 
 
-import pybullet as p
+try:
+    import pybullet as p
+except ImportError:
+    p = None
 import numpy as np
 import random
 import time

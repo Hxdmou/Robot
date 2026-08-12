@@ -20,10 +20,16 @@ from flask_cors import CORS
 import os
 import sys
 import time
+import hmac
+import hashlib
+import logging
 from pathlib import Path
 from collections import defaultdict
 
 sys.path.insert(0, str(Path(__file__).parent))
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # ==================================================================
 # 100%严格标准·安全加固
@@ -38,7 +44,12 @@ REQUIRE_API_KEY = True  # 🔒 绝对不允许为 False（100%强制鉴权开关
 MAX_REQUESTS_PER_IP_PER_MINUTE = 30
 RATE_LIMIT_WINDOW_SEC = 60
 
-# 读取 API Key：环境变量优先；未配置时启动即随机生成一次性强密钥（仅本次进程有效）
+CORS_ORIGINS = [
+    origin.strip()
+    for origin in os.getenv("CORS_ORIGINS", "http://localhost:5000,http://127.0.0.1:5000").split(",")
+    if origin.strip()
+]
+
 DEFAULT_API_KEY = os.getenv("EMBODIED_API_KEY")
 if not DEFAULT_API_KEY:
     import uuid
@@ -50,17 +61,47 @@ if not DEFAULT_API_KEY:
 _rate_counter: dict = defaultdict(lambda: {"count": 0, "reset_at": 0.0})
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": CORS_ORIGINS}})
 
 API_MODE = os.getenv("API_MODE", "false").lower() == "true"
+
+
+def _compute_dir_hash(dir_path: str) -> str:
+    """计算目录下所有相关文件的SHA256哈希（用于FAISS索引完整性校验）"""
+    sha256 = hashlib.sha256()
+    index_dir = Path(dir_path)
+    if not index_dir.is_dir():
+        return ""
+    for filepath in sorted(index_dir.iterdir()):
+        if filepath.is_file() and filepath.suffix in (".faiss", ".pkl", ".json"):
+            sha256.update(filepath.name.encode("utf-8"))
+            with open(filepath, "rb") as f:
+                for chunk in iter(lambda: f.read(8192), b""):
+                    sha256.update(chunk)
+    return sha256.hexdigest()
+
+
+def _verify_index_integrity(index_path: str) -> bool:
+    """校验FAISS索引文件完整性，防止被篡改"""
+    hash_file = Path(index_path) / ".integrity.sha256"
+    current_hash = _compute_dir_hash(index_path)
+    if not current_hash:
+        return False
+    if hash_file.exists():
+        stored_hash = hash_file.read_text(encoding="utf-8").strip()
+        if not hmac.compare_digest(current_hash, stored_hash):
+            logger.error("FAISS索引完整性校验失败: %s", index_path)
+            return False
+    else:
+        hash_file.write_text(current_hash, encoding="utf-8")
+        logger.warning("首次加载索引，已生成完整性基准哈希: %s", hash_file)
+    return True
 
 # ---------- 🔒 全局鉴权 + 频率限制 中间件 ----------
 @app.before_request
 def _security_gate_absolute_():
-    # 1. health 接口放行（供监控探活）
     if request.path == '/health' and request.method == 'GET':
         return None
-    # 2. 频率限制硬上限
     ip = request.remote_addr or "0.0.0.0"
     now = time.time()
     slot = _rate_counter[ip]
@@ -70,10 +111,16 @@ def _security_gate_absolute_():
     slot["count"] += 1
     if slot["count"] > MAX_REQUESTS_PER_IP_PER_MINUTE:
         return jsonify({"error": "rate limit exceeded", "retry_after_sec": int(slot["reset_at"] - now)}), 429
-    # 3. 强制 API Key 鉴权（100%不允许绕过）
     if REQUIRE_API_KEY:
-        key = request.headers.get("X-API-Key") or request.args.get("api_key")
-        if not key or key != DEFAULT_API_KEY:
+        key = request.headers.get("X-API-Key")
+        query_key = request.args.get("api_key")
+        if query_key and not key:
+            logger.warning(
+                "API Key 通过 URL query 参数传输已废弃，请使用 X-API-Key Header "
+                "(IP: %s, Path: %s)", ip, request.path
+            )
+            key = query_key
+        if not key or not hmac.compare_digest(key, DEFAULT_API_KEY):
             return jsonify({"error": "authentication required - valid X-API-Key header missing"}), 401
     return None
 # ---------- 🔒 全局中间件结束 ----------
@@ -126,9 +173,13 @@ def ask_question():
             if os.path.exists(index_path):
                 from langchain_community.vectorstores import FAISS
                 from rag import get_embeddings
-                # 🔒 安全说明：反序列化仅加载本地受信任路径下的 FAISS 索引
-                # 向量索引目录已在 .gitignore 中排除，不会随代码上传泄露
-                vector_store = FAISS.load_local(index_path, get_embeddings(), allow_dangerous_deserialization=True)
+                if not _verify_index_integrity(index_path):
+                    logger.error("FAISS索引完整性校验未通过，拒绝加载")
+                    return jsonify({'error': 'Knowledge base integrity check failed'}), 500
+                vector_store = FAISS.load_local(
+                    index_path, get_embeddings(),
+                    allow_dangerous_deserialization=False
+                )
             else:
                 return jsonify({'error': 'Knowledge base not initialized'}), 400
 
@@ -147,7 +198,8 @@ def ask_question():
         })
 
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        logger.exception("API请求处理异常")
+        return jsonify({'error': 'Internal server error'}), 500
 
 @app.route('/api/systems', methods=['GET'])
 def list_systems():
@@ -192,7 +244,7 @@ def run_api_server(host='127.0.0.1', port=5000):
     print(f"[SECURITY]   · 绑定地址: {host}:{port}" + ("  🔒 仅本机" if host in ('127.0.0.1', 'localhost') else "  ⚠️ 对外暴露"))
     print(f"[SECURITY]   · 强制鉴权: {'ON' if REQUIRE_API_KEY else '❌ OFF（危险!）'}")
     print(f"[SECURITY]   · 频率上限: {MAX_REQUESTS_PER_IP_PER_MINUTE} 次/分钟·IP")
-    print("[SECURITY]   · 请求方式: Header 'X-API-Key: <密钥>' 或 URL ?api_key=<密钥>")
+    print("[SECURITY]   · 请求方式: Header 'X-API-Key: <密钥>' (URL ?api_key= 已废弃)")
     print("=" * 62)
     app.run(host=host, port=port, debug=False)
 

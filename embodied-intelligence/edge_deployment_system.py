@@ -25,11 +25,19 @@
 
 import time
 import threading
+import os
 import numpy as np
 from typing import Dict, List, Optional, Any, Tuple
 from dataclasses import dataclass, field
 from collections import deque
 import json
+
+try:
+    import psutil  # type: ignore
+    _HAS_PSUTIL = True
+except ImportError:
+    psutil = None  # type: ignore
+    _HAS_PSUTIL = False
 
 
 # ============================================================================
@@ -90,6 +98,13 @@ class EdgeDeploymentSystem:
 
     def __init__(self, config: Dict[str, Any] = None):
         config = config or {}
+
+        # 模拟模式标志：True=使用模拟数据（离线/demo），False=必须获取真实数据否则返回错误
+        self._simulation_mode = config.get("simulation_mode", True)
+        # 真实推理执行器：非模拟模式下由外部注册，签名 fn(model, input_data) -> result
+        self._real_inference_fn = None
+        # 真实资源状态是否已成功获取过
+        self._real_resource_available = _HAS_PSUTIL
 
         # 推理配置
         self.inference_enabled = config.get("inference_enabled", True)
@@ -165,6 +180,10 @@ class EdgeDeploymentSystem:
 
         print("[EDGE_DEPLOYMENT] 边缘计算部署系统已停止")
 
+    def set_inference_fn(self, fn):
+        """注册真实推理执行器（非模拟模式必需）。签名: fn(model: ModelConfig, input_data) -> result"""
+        self._real_inference_fn = fn
+
     def load_model(self, model_id: str, name: str, version: str,
                   model_path: str, input_shape: List[int],
                   output_shape: List[int]) -> bool:
@@ -172,19 +191,38 @@ class EdgeDeploymentSystem:
         try:
             start_time = time.time()
 
-            # 模拟模型加载
-            time.sleep(0.1)
-
-            model = ModelConfig(
-                model_id=model_id,
-                name=name,
-                version=version,
-                model_path=model_path,
-                input_shape=input_shape,
-                output_shape=output_shape,
-                model_size_mb=100.0,
-                load_time_ms=(time.time() - start_time) * 1000,
-            )
+            if not self._simulation_mode:
+                # 非模拟模式：必须校验模型文件真实存在
+                if not model_path or not os.path.exists(model_path):
+                    print(f"[EDGE_DEPLOYMENT] 模型加载失败: 文件不存在 {model_path}")
+                    return False
+                try:
+                    file_size_mb = os.path.getsize(model_path) / (1024.0 * 1024.0)
+                except OSError:
+                    file_size_mb = 0.0
+                model = ModelConfig(
+                    model_id=model_id,
+                    name=name,
+                    version=version,
+                    model_path=model_path,
+                    input_shape=input_shape,
+                    output_shape=output_shape,
+                    model_size_mb=file_size_mb,
+                    load_time_ms=(time.time() - start_time) * 1000,
+                )
+            else:
+                # [SIMULATION DATA] 模拟模型加载耗时与大小
+                time.sleep(0.1)
+                model = ModelConfig(
+                    model_id=model_id,
+                    name=name,
+                    version=version,
+                    model_path=model_path,
+                    input_shape=input_shape,
+                    output_shape=output_shape,
+                    model_size_mb=100.0,
+                    load_time_ms=(time.time() - start_time) * 1000,
+                )
 
             # 模型优化
             if self.optimization_enabled:
@@ -272,11 +310,17 @@ class EdgeDeploymentSystem:
                 if not model:
                     raise ValueError(f"模型不存在: {request.model_id}")
 
-            # 模拟推理过程
-            time.sleep(0.005)  # 5ms推理时间
+            if not self._simulation_mode:
+                # 非模拟模式：必须使用真实推理执行器
+                if self._real_inference_fn is None:
+                    raise RuntimeError(
+                        "非模拟模式下未注册真实推理执行器，请先调用 set_inference_fn()")
+                request.result = self._real_inference_fn(model, request.input_data)
+            else:
+                # [SIMULATION DATA] 模拟推理过程与随机结果
+                time.sleep(0.005)  # 5ms推理时间
+                request.result = np.random.rand(*model.output_shape).tolist()
 
-            # 生成模拟结果
-            request.result = np.random.rand(*model.output_shape).tolist()
             request.success = True
             request.latency_ms = (time.time() - start_time) * 1000
 
@@ -298,6 +342,7 @@ class EdgeDeploymentSystem:
 
         except Exception as e:
             request.success = False
+            request.result = None
             request.latency_ms = (time.time() - start_time) * 1000
             self.failed_requests += 1
             print(f"[EDGE_DEPLOYMENT] 推理失败: {e}")
@@ -333,14 +378,39 @@ class EdgeDeploymentSystem:
 
     def _update_resource_status(self):
         """更新资源状态"""
-        # 模拟资源监控
-        self.resource_status.cpu_usage = np.random.uniform(0.3, 0.7)
-        self.resource_status.gpu_usage = np.random.uniform(0.4, 0.8)
-        self.resource_status.memory_usage = np.random.uniform(0.5, 0.7)
+        if not self._simulation_mode and _HAS_PSUTIL:
+            # 真实资源监控（通过 psutil）
+            try:
+                self.resource_status.cpu_usage = psutil.cpu_percent(interval=None) / 100.0
+                mem = psutil.virtual_memory()
+                self.resource_status.memory_usage = mem.percent / 100.0
+                self.resource_status.memory_available_mb = mem.available / (1024.0 * 1024.0)
+                try:
+                    self.resource_status.disk_usage = psutil.disk_usage('/').percent / 100.0
+                except Exception:
+                    self.resource_status.disk_usage = 0.0
+                # GPU/温度/功耗 psutil 无法直接获取，保持 0 表示未知（非模拟模式不造假）
+                self.resource_status.gpu_usage = 0.0
+                self.resource_status.temperature = 0.0
+                self.resource_status.power_consumption_w = 0.0
+                self._real_resource_available = True
+                return
+            except Exception as e:
+                print(f"[EDGE_DEPLOYMENT] 获取真实资源状态失败: {e}")
+                self._real_resource_available = False
+        elif not self._simulation_mode and not _HAS_PSUTIL:
+            # 非模拟模式且 psutil 不可用：不返回假数据，保持零值并标记不可用
+            self._real_resource_available = False
+            return
+
+        # [SIMULATION DATA] 以下均为随机生成的模拟资源数据
+        self.resource_status.cpu_usage = float(np.random.uniform(0.3, 0.7))
+        self.resource_status.gpu_usage = float(np.random.uniform(0.4, 0.8))
+        self.resource_status.memory_usage = float(np.random.uniform(0.5, 0.7))
         self.resource_status.memory_available_mb = 8000.0
-        self.resource_status.disk_usage = np.random.uniform(0.3, 0.6)
-        self.resource_status.temperature = np.random.uniform(40, 60)
-        self.resource_status.power_consumption_w = np.random.uniform(50, 150)
+        self.resource_status.disk_usage = float(np.random.uniform(0.3, 0.6))
+        self.resource_status.temperature = float(np.random.uniform(40, 60))
+        self.resource_status.power_consumption_w = float(np.random.uniform(50, 150))
 
     def _optimize_cpu_usage(self):
         """优化CPU使用"""
@@ -379,8 +449,63 @@ class EdgeDeploymentSystem:
             }
 
     def get_resource_status(self) -> Dict[str, Any]:
-        """获取资源状态"""
-        return self.resource_status.__dict__
+        """获取资源状态。非模拟模式下若真实数据不可用，返回带 error 的字典而非假数据。"""
+        data = self.resource_status.__dict__.copy()
+        data["simulation_mode"] = self._simulation_mode
+        if not self._simulation_mode and not self._real_resource_available:
+            data["error"] = "无法获取真实资源数据（psutil 不可用或采集失败）"
+            data["data_available"] = False
+        else:
+            data["data_available"] = True
+        return data
+
+    def generate_deployment_script(self, model_id: str,
+                                   output_path: str = "deploy_run.sh") -> Dict[str, Any]:
+        """生成边缘部署脚本（包含安全停止命令）。"""
+        with self.model_lock:
+            model = self.models.get(model_id)
+        if not model:
+            return {"success": False, "error": f"模型不存在: {model_id}"}
+
+        script_lines = [
+            "#!/usr/bin/env bash",
+            "# 自动生成的边缘部署脚本",
+            "set -euo pipefail",
+            "",
+            f"MODEL_ID=\"{model_id}\"",
+            f"MODEL_PATH=\"{model.model_path}\"",
+            "EDGE_PID=\"\"",
+            "",
+            "cleanup() {",
+            "  echo '[DEPLOY] 收到退出信号，执行安全停止...'",
+            "  if [ -n \"$EDGE_PID\" ]; then",
+            "    kill -TERM \"$EDGE_PID\" 2>/dev/null || true",
+            "    wait \"$EDGE_PID\" 2>/dev/null || true",
+            "  fi",
+            "  echo '[DEPLOY] 安全停止完成，已释放推理资源'",
+            "}",
+            "trap cleanup EXIT INT TERM",
+            "",
+            "echo '[DEPLOY] 启动边缘推理服务...'",
+            f"python -m edge_inference_runner --model-id \"$MODEL_ID\" --model-path \"$MODEL_PATH\" &",
+            "EDGE_PID=$!",
+            "echo \"[DEPLOY] 推理服务 PID=$EDGE_PID\"",
+            "wait \"$EDGE_PID\"",
+        ]
+        script_content = "\n".join(script_lines) + "\n"
+
+        try:
+            with open(output_path, "w", encoding="utf-8") as f:
+                f.write(script_content)
+            try:
+                os.chmod(output_path, 0o755)
+            except OSError:
+                pass
+            return {"success": True, "path": output_path,
+                    "model_id": model_id,
+                    "safety_stop": "trap cleanup EXIT INT TERM 已内置安全停止"}
+        except Exception as e:
+            return {"success": False, "error": f"写入脚本失败: {e}"}
 
     def get_system_statistics(self) -> Dict[str, Any]:
         """获取系统统计"""

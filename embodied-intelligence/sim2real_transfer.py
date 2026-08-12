@@ -86,6 +86,7 @@ class SystemParams:
 
     def from_array(self, arr: np.ndarray):
         """从参数向量恢复"""
+        arr = np.asarray(arr, dtype=float)
         self.motor_resistance = arr[0]
         self.motor_inductance = arr[1]
         self.torque_constant = arr[2]
@@ -96,6 +97,16 @@ class SystemParams:
         self.static_friction = arr[7]
         self.gear_ratio = arr[8]
         self.gear_efficiency = arr[9]
+
+        n_links = len(self.link_masses)
+        offset = 10
+        self.link_masses = arr[offset:offset + n_links].copy()
+        offset += n_links
+        self.link_inertias = arr[offset:offset + n_links].copy()
+        offset += n_links
+        self.joint_backlashes = arr[offset:offset + n_links].copy()
+        offset += n_links
+        self.joint_flexibilities = arr[offset:offset + n_links].copy()
 
 
 class SystemIdentifier:
@@ -224,6 +235,17 @@ class SystemIdentifier:
             "convergence": self.convergence_history[-10:] if len(self.convergence_history) > 10 else self.convergence_history
         }
 
+    def identify(self, n_iterations: int = 100, min_samples: int = 10) -> Optional[Dict]:
+        """
+        系统识别入口：数据不足时返回 None，调用方需处理 None 情况。
+        """
+        if len(self.data_buffer) < min_samples:
+            return None
+        try:
+            return self.optimize(n_iterations=n_iterations)
+        except Exception:
+            return None
+
     def get_params(self) -> SystemParams:
         return self.params
 
@@ -306,16 +328,27 @@ class DomainAdapter:
 
     def get_gap_estimate(self) -> Optional[float]:
         """
-        估计Sim-to-Real Gap（无真机时返回None）
-        使用MMD（最大均值差异）度量两个分布距离
+        估计Sim-to-Real Gap（无真机时返回None）。
+        注意：此处名为MMD，实际仅使用均值/标准差的L2范数之和作为分布距离
+        （简化实现），并非完整的最大均值差异（核MMD）。
         """
         if self.source_mean is None or self.target_mean is None:
             return None
+        return self._compute_distance(
+            self.source_mean, self.source_std,
+            self.target_mean, self.target_std,
+        )
 
-        # 简化的MMD估计
-        mean_diff = np.linalg.norm(self.source_mean - self.target_mean)
-        std_diff = np.linalg.norm(self.source_std - self.target_std)
-        return mean_diff + std_diff
+    @staticmethod
+    def _compute_distance(src_mean, src_std, tgt_mean, tgt_std) -> float:
+        """
+        分布距离度量（简化版）：
+            distance = ||src_mean - tgt_mean||_2 + ||src_std - tgt_std||_2
+        仅为L2范数之和，非完整MMD，保留接口以便后续替换为核MMD。
+        """
+        mean_diff = np.linalg.norm(src_mean - tgt_mean)
+        std_diff = np.linalg.norm(src_std - tgt_std)
+        return float(mean_diff + std_diff)
 
     def reset(self):
         self.source_features.clear()
@@ -528,13 +561,23 @@ class MPCController:
 
     def compute_torque(self, state: np.ndarray, target_state: np.ndarray) -> np.ndarray:
         """
-        简化的MPC：只优化当前步（无约束二次规划）
-        真机到手后可扩展为完整的QP求解
+        计算MPC控制转矩（对外接口）。
+        注意：当前 _compute_mpc 为简化实现，本质是PD反馈控制，
+        并未执行真正的时域滚动优化；真机到手后应替换为完整QP求解。
         """
         if not self.enabled:
             return np.zeros(self.dof)
+        return self._compute_mpc(state, target_state)
 
-        # 简化：使用比例反馈作为近似MPC
+    def _compute_mpc(self, state: np.ndarray, target_state: np.ndarray) -> np.ndarray:
+        """
+        简化MPC求解器 —— 当前实现仅为PD控制（占位实现）。
+
+        完整MPC应在 self.horizon 预测时域内求解带约束的二次规划：
+            min sum_{k=0}^{N} (x_k - x_ref)^T Q (x_k - x_ref) + u_k^T R u_k
+            s.t. x_{k+1} = A x_k + B u_k,  u_min <= u_k <= u_max
+        此处退化为无约束PD反馈，接口与完整MPC一致，便于后续替换。
+        """
         q, q_dot = state[:self.dof], state[self.dof:]
         q_des, q_dot_des = target_state[:self.dof], target_state[self.dof:]
 

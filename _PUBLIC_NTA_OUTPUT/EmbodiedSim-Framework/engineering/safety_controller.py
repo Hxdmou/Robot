@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import math
 import time
+import threading
 from dataclasses import dataclass, field
 from typing import Callable, Dict, List, Optional, Tuple, Any
 
@@ -28,6 +29,8 @@ class SafetyEventType:
     JOINT_LIMIT = "joint_limit"
     WORKSPACE_LIMIT = "workspace_limit"
     VELOCITY_LIMIT = "velocity_limit"
+    ACCELERATION_LIMIT = "acceleration_limit"
+    TORQUE_LIMIT = "torque_limit"
     COLLISION_DETECTED = "collision_detected"
     EMERGENCY_STOP = "emergency_stop"
     FUSE_TRIGGERED = "fuse_triggered"
@@ -159,6 +162,8 @@ class SafetyController:
         joint_lower: Optional[List[float]] = None,
         joint_upper: Optional[List[float]] = None,
         velocity_limit_rad_s: float = 2.0,
+        acceleration_limit_rad_s2: float = 5.0,
+        torque_limit_nm: Optional[List[float]] = None,
         cartesian_workspace: Optional[Dict[str, Tuple[float, float]]] = None,
         collision_detector: Optional[CollisionDetector] = None,
     ):
@@ -167,24 +172,36 @@ class SafetyController:
         self.joint_lower = joint_lower or [-math.pi] * num_joints
         self.joint_upper = joint_upper or [ math.pi] * num_joints
         self.velocity_limit = velocity_limit_rad_s
-        # 默认笛卡尔工作空间（单位：米，以基座为原点）
+        self.acceleration_limit = acceleration_limit_rad_s2
+        self.torque_limit = torque_limit or [50.0] * num_joints
         self.workspace = cartesian_workspace or {
             "x": (-0.5,  1.2),
             "y": (-0.8,  0.8),
             "z": (-0.1,  1.5),
         }
         self.collision = collision_detector or MockCollisionDetector()
-        # 状态
         self._last_joint_pos: List[float] = [0.0] * num_joints
+        self._last_joint_vel: List[float] = [0.0] * num_joints
         self._last_ts: float = time.time()
         self._estop_engaged: bool = False
         self._fuse_blown: bool = False
         self._events: List[SafetyEvent] = []
         self._callbacks: List[Callable[[SafetyEvent], None]] = []
-        # 输入限流（防止命令风暴）
         self._max_command_rate_hz: int = 2000
         self._cmd_timestamps: List[float] = []
-        # 启动时发布一次就绪事件
+        self._lock = threading.RLock()
+
+        if len(self.joint_lower) != num_joints or len(self.joint_upper) != num_joints:
+            raise ValueError(
+                f"关节限位数组长度不匹配: num_joints={num_joints}, "
+                f"lower={len(self.joint_lower)}, upper={len(self.joint_upper)}"
+            )
+        if len(self.torque_limit) != num_joints:
+            raise ValueError(
+                f"力矩限制数组长度不匹配: num_joints={num_joints}, "
+                f"torque_limit={len(self.torque_limit)}"
+            )
+
         self._emit(SafetyEvent(event_type="SYSTEM_READY", severity="INFO",
                                source="SafetyController",
                                message=f"安全控制器就绪 | robot={robot_type} joints={num_joints}"))
@@ -218,8 +235,11 @@ class SafetyController:
         return None
 
     def _chk_joint_limit(self, joints: List[float]) -> Optional[SafetyEvent]:
-        for i, (v, lo, hi) in enumerate(zip(joints, self.joint_lower, self.joint_upper)):
-            # 允许 ±2deg 裕度，超出再告警/熔断
+        n = min(len(joints), len(self.joint_lower), len(self.joint_upper))
+        for i in range(n):
+            v = joints[i]
+            lo = self.joint_lower[i]
+            hi = self.joint_upper[i]
             margin = math.radians(2.0)
             if v < lo - margin or v > hi + margin:
                 return SafetyEvent(SafetyEventType.JOINT_LIMIT, "CRITICAL",
@@ -231,15 +251,38 @@ class SafetyController:
                                    f"关节#{i} 进入软限位裕度: {v:.3f}rad")
         return None
 
-    def _chk_velocity(self, joints: List[float]) -> Optional[SafetyEvent]:
-        now = time.time()
-        dt = max(1e-6, now - self._last_ts)
-        for i, (prev, cur) in enumerate(zip(self._last_joint_pos, joints)):
+    def _chk_velocity(self, joints: List[float], dt: float) -> Optional[SafetyEvent]:
+        for i in range(min(len(self._last_joint_pos), len(joints))):
+            prev = self._last_joint_pos[i]
+            cur = joints[i]
             vel = abs((cur - prev) / dt)
             if vel > self.velocity_limit:
                 return SafetyEvent(SafetyEventType.VELOCITY_LIMIT, "CRITICAL",
                                    "VelocityGuard",
                                    f"关节#{i} 速度超限: {vel:.2f}rad/s (限制 {self.velocity_limit})")
+        return None
+
+    def _chk_acceleration(self, joints: List[float], dt: float) -> Optional[SafetyEvent]:
+        for i in range(min(len(self._last_joint_pos), len(joints), len(self._last_joint_vel))):
+            prev = self._last_joint_pos[i]
+            cur = joints[i]
+            cur_vel = (cur - prev) / dt
+            accel = abs((cur_vel - self._last_joint_vel[i]) / dt)
+            if accel > self.acceleration_limit:
+                return SafetyEvent(SafetyEventType.ACCELERATION_LIMIT, "CRITICAL",
+                                   "AccelerationGuard",
+                                   f"关节#{i} 加速度超限: {accel:.2f}rad/s² (限制 {self.acceleration_limit})")
+        return None
+
+    def _chk_torque(self, torques: Optional[List[float]]) -> Optional[SafetyEvent]:
+        if torques is None:
+            return None
+        n = min(len(torques), len(self.torque_limit))
+        for i in range(n):
+            if abs(torques[i]) > self.torque_limit[i]:
+                return SafetyEvent(SafetyEventType.TORQUE_LIMIT, "CRITICAL",
+                                   "TorqueGuard",
+                                   f"关节#{i} 力矩超限: {torques[i]:.2f}Nm (限制 {self.torque_limit[i]})")
         return None
 
     def _chk_workspace(self, ee_pos: Optional[Tuple[float, float, float]]) -> Optional[SafetyEvent]:
@@ -285,110 +328,143 @@ class SafetyController:
         self,
         target_joints: Any,
         ee_pos_hint: Optional[Tuple[float, float, float]] = None,
+        torque_cmd: Optional[List[float]] = None,
     ) -> ValidationResult:
         """
         统一校验入口：一次动作指令进来，跑完整5层防护
         :param target_joints: 目标关节角列表
         :param ee_pos_hint:   可选：末端笛卡尔位置提示（用于工作空间校验）
+        :param torque_cmd:    可选：关节力矩指令（用于力矩限制校验）
         :return: ValidationResult
         """
-        events_out: List[SafetyEvent] = []
+        with self._lock:
+            events_out: List[SafetyEvent] = []
 
-        # 前提：急停或熔断器未复位 → 直接拒绝
-        if self._estop_engaged:
-            events_out.append(SafetyEvent(SafetyEventType.EMERGENCY_STOP, "CRITICAL",
-                                          "EmergencyStop",
-                                          "紧急停止已触发，任何命令被拒绝，调用 reset_fuses() 复位"))
-            return SafetyController.ValidationResult(False, list(self._last_joint_pos), events_out)
-        if self._fuse_blown:
-            events_out.append(SafetyEvent(SafetyEventType.FUSE_TRIGGERED, "CRITICAL",
-                                          "SafetyFuse",
-                                          "安全熔断器触发，需调用 reset_fuses() 复位后再操作"))
-            return SafetyController.ValidationResult(False, list(self._last_joint_pos), events_out)
+            if self._estop_engaged:
+                events_out.append(SafetyEvent(SafetyEventType.EMERGENCY_STOP, "CRITICAL",
+                                              "EmergencyStop",
+                                              "紧急停止已触发，任何命令被拒绝，调用 reset_fuses() 复位"))
+                return SafetyController.ValidationResult(False, list(self._last_joint_pos), events_out)
+            if self._fuse_blown:
+                events_out.append(SafetyEvent(SafetyEventType.FUSE_TRIGGERED, "CRITICAL",
+                                              "SafetyFuse",
+                                              "安全熔断器触发，需调用 reset_fuses() 复位后再操作"))
+                return SafetyController.ValidationResult(False, list(self._last_joint_pos), events_out)
 
-        # ---- 第 1 层：输入合法性 ----
-        ev = self._chk_input_type(target_joints)
-        if ev is not None:
-            self._emit(ev); events_out.append(ev)
-            self._blow_fuse("输入校验异常 → 熔断器触发")
-            return SafetyController.ValidationResult(False, list(self._last_joint_pos), events_out)
-        joints = [float(v) for v in target_joints]
+            ev = self._chk_input_type(target_joints)
+            if ev is not None:
+                self._emit(ev); events_out.append(ev)
+                self._blow_fuse("输入校验异常 → 熔断器触发")
+                return SafetyController.ValidationResult(False, list(self._last_joint_pos), events_out)
+            joints = [float(v) for v in target_joints]
 
-        # ---- 第 2 层：关节限位 ----
-        ev = self._chk_joint_limit(joints)
-        if ev is not None:
-            self._emit(ev); events_out.append(ev)
-            if ev.severity == "CRITICAL":
-                # 夹到关节限位：直接裁剪到安全区间（允许降级继续，常见工程策略）
-                joints = [max(lo, min(hi, v)) for v, lo, hi in
-                          zip(joints, self.joint_lower, self.joint_upper)]
-                events_out.append(SafetyEvent("JOINT_CLAMPED", "INFO", "JointLimitGuard",
-                                              "关节指令已自动裁剪到合法限位区间"))
+            now = time.time()
+            dt = max(1e-6, now - self._last_ts)
 
-        # ---- 第 3 层：速度/加速度 ----
-        ev = self._chk_velocity(joints)
-        if ev is not None:
-            self._emit(ev); events_out.append(ev)
-            self._blow_fuse("速度超限 → 熔断器触发")
-            return SafetyController.ValidationResult(False, list(self._last_joint_pos), events_out)
+            ev = self._chk_joint_limit(joints)
+            if ev is not None:
+                self._emit(ev); events_out.append(ev)
+                if ev.severity == "CRITICAL":
+                    n = min(len(joints), len(self.joint_lower), len(self.joint_upper))
+                    clamped = list(joints)
+                    for i in range(n):
+                        clamped[i] = max(self.joint_lower[i], min(self.joint_upper[i], joints[i]))
+                    joints = clamped
+                    events_out.append(SafetyEvent("JOINT_CLAMPED", "INFO", "JointLimitGuard",
+                                                  "关节指令已自动裁剪到合法限位区间"))
 
-        # ---- 第 4 层：工作空间围栏 ----
-        ev = self._chk_workspace(ee_pos_hint)
-        if ev is not None:
-            self._emit(ev); events_out.append(ev)
-            self._blow_fuse("工作空间越界 → 熔断器触发")
-            return SafetyController.ValidationResult(False, list(self._last_joint_pos), events_out)
+            ev = self._chk_velocity(joints, dt)
+            if ev is not None:
+                self._emit(ev); events_out.append(ev)
+                self._blow_fuse("速度超限 → 熔断器触发")
+                return SafetyController.ValidationResult(False, list(self._last_joint_pos), events_out)
 
-        # ---- 第 5 层：碰撞检测 ----
-        ev = self._chk_collision()
-        if ev is not None:
-            self._emit(ev); events_out.append(ev)
-            self.trigger_emergency_stop(reason="碰撞风险 → 紧急停止")
-            return SafetyController.ValidationResult(False, list(self._last_joint_pos), events_out)
+            ev = self._chk_acceleration(joints, dt)
+            if ev is not None:
+                self._emit(ev); events_out.append(ev)
+                self._blow_fuse("加速度超限 → 熔断器触发")
+                return SafetyController.ValidationResult(False, list(self._last_joint_pos), events_out)
 
-        # ---- 额外：命令限流熔断器 ----
-        ev = self._chk_rate_limit()
-        if ev is not None:
-            self._emit(ev); events_out.append(ev)
-            self._blow_fuse("命令风暴限流 → 熔断器触发")
-            return SafetyController.ValidationResult(False, list(self._last_joint_pos), events_out)
+            ev = self._chk_torque(torque_cmd)
+            if ev is not None:
+                self._emit(ev); events_out.append(ev)
+                self._blow_fuse("力矩超限 → 熔断器触发")
+                return SafetyController.ValidationResult(False, list(self._last_joint_pos), events_out)
 
-        # ---- 所有校验通过 → 更新状态 ----
-        self._last_joint_pos = joints
-        self._last_ts = time.time()
-        return SafetyController.ValidationResult(True, joints, events_out)
+            ev = self._chk_workspace(ee_pos_hint)
+            if ev is not None:
+                self._emit(ev); events_out.append(ev)
+                self._blow_fuse("工作空间越界 → 熔断器触发")
+                return SafetyController.ValidationResult(False, list(self._last_joint_pos), events_out)
+
+            ev = self._chk_collision()
+            if ev is not None:
+                self._emit(ev); events_out.append(ev)
+                self.trigger_emergency_stop(reason="碰撞风险 → 紧急停止")
+                return SafetyController.ValidationResult(False, list(self._last_joint_pos), events_out)
+
+            ev = self._chk_rate_limit()
+            if ev is not None:
+                self._emit(ev); events_out.append(ev)
+                self._blow_fuse("命令风暴限流 → 熔断器触发")
+                return SafetyController.ValidationResult(False, list(self._last_joint_pos), events_out)
+
+            n = min(len(self._last_joint_pos), len(joints))
+            for i in range(n):
+                self._last_joint_vel[i] = (joints[i] - self._last_joint_pos[i]) / dt
+            self._last_joint_pos = joints
+            self._last_ts = now
+            return SafetyController.ValidationResult(True, joints, events_out)
 
     # ---- 急停 / 熔断器 ----
     def trigger_emergency_stop(self, reason: str = "手动触发") -> None:
-        self._estop_engaged = True
-        self._emit(SafetyEvent(SafetyEventType.EMERGENCY_STOP, "CRITICAL",
-                               "EmergencyStop", f"紧急停止已触发: {reason}"))
+        with self._lock:
+            self._estop_engaged = True
+            self._emit(SafetyEvent(SafetyEventType.EMERGENCY_STOP, "CRITICAL",
+                                   "EmergencyStop", f"紧急停止已触发: {reason}"))
 
     def _blow_fuse(self, reason: str) -> None:
-        self._fuse_blown = True
-        self._emit(SafetyEvent(SafetyEventType.FUSE_TRIGGERED, "CRITICAL",
-                               "SafetyFuse", f"熔断器触发: {reason}"))
+        with self._lock:
+            self._fuse_blown = True
+            self._emit(SafetyEvent(SafetyEventType.FUSE_TRIGGERED, "CRITICAL",
+                                   "SafetyFuse", f"熔断器触发: {reason}"))
 
     def reset_fuses(self) -> bool:
         """故障排除后复位熔断器 & 紧急停止（推荐：确认安全后再调用）"""
-        self._estop_engaged = False
-        self._fuse_blown = False
-        self._emit(SafetyEvent("FUSES_RESET", "INFO", "SafetyController",
-                               "安全熔断器/紧急停止 已复位"))
-        return True
+        with self._lock:
+            self._estop_engaged = False
+            self._fuse_blown = False
+            self._emit(SafetyEvent("FUSES_RESET", "INFO", "SafetyController",
+                                   "安全熔断器/紧急停止 已复位"))
+            return True
+
+    @property
+    def estop_engaged(self) -> bool:
+        with self._lock:
+            return self._estop_engaged
+
+    @property
+    def fuse_blown(self) -> bool:
+        with self._lock:
+            return self._fuse_blown
 
     # ---- 状态查询 ----
     @property
     def system_ok(self) -> bool:
-        return not self._estop_engaged and not self._fuse_blown
+        with self._lock:
+            return not self._estop_engaged and not self._fuse_blown
 
     def summary(self) -> Dict[str, Any]:
-        return {
-            "robot": self.robot_type,
-            "num_joints": self.num_joints,
-            "system_ok": self.system_ok,
-            "emergency_stop": self._estop_engaged,
-            "fuse_blown": self._fuse_blown,
-            "events_total": len(self._events),
-            "collision": self.collision.status,
-        }
+        with self._lock:
+            return {
+                "robot": self.robot_type,
+                "num_joints": self.num_joints,
+                "system_ok": not self._estop_engaged and not self._fuse_blown,
+                "emergency_stop": self._estop_engaged,
+                "fuse_blown": self._fuse_blown,
+                "velocity_limit": self.velocity_limit,
+                "acceleration_limit": self.acceleration_limit,
+                "torque_limit": self.torque_limit,
+                "events_total": len(self._events),
+                "collision": self.collision.status,
+            }

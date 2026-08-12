@@ -1,4 +1,4 @@
-﻿"""
+"""
 远程监控与运维系统 V15增强版
 ================================================================
 功能：
@@ -27,11 +27,35 @@ import time
 import threading
 import json
 import hashlib
+import hmac
+import logging
+import tempfile
+import os
 from typing import Dict, List, Optional, Any, Callable
 from dataclasses import dataclass, field
 from collections import deque
 from enum import Enum
+from urllib.parse import urlparse
 import requests
+
+logger = logging.getLogger(__name__)
+
+
+class SecurityError(Exception):
+    """安全校验失败"""
+    pass
+
+
+def hmac_compare_hash(a: str, b: str) -> bool:
+    """使用恒定时间比较哈希值，防止时序攻击"""
+    return hmac.compare_digest(a.encode("utf-8"), b.encode("utf-8"))
+
+
+OTA_ALLOWED_DOMAINS = [
+    "ota.example.com",
+    "updates.example.com",
+    "firmware.example.com",
+]
 
 
 # ============================================================================
@@ -269,13 +293,13 @@ class RemoteMonitoringSystem:
 
         with self.alert_lock:
             self.alerts.append(alert)
+            callbacks_snapshot = list(self.alert_callbacks)
 
-            # 触发回调
-            for callback in self.alert_callbacks:
-                try:
-                    callback(alert)
-                except Exception as e:
-                    print(f"[REMOTE_MONITOR] 告警回调错误: {e}")
+        for callback in callbacks_snapshot:
+            try:
+                callback(alert)
+            except Exception as e:
+                logger.error(f"告警回调错误: {e}")
 
         print(f"[ALERT] [{level.value.upper()}] {title}: {message}")
 
@@ -366,6 +390,15 @@ class RemoteMonitoringSystem:
     def create_ota_update(self, device_id: str, component: str, version: str,
                          package_url: str, package_hash: str) -> str:
         """创建OTA升级任务"""
+        parsed = urlparse(package_url)
+        if parsed.scheme != "https":
+            raise ValueError("OTA包URL必须使用HTTPS协议")
+        if parsed.hostname not in OTA_ALLOWED_DOMAINS:
+            raise ValueError(
+                f"OTA包域名 '{parsed.hostname}' 不在白名单中，"
+                f"允许的域名: {OTA_ALLOWED_DOMAINS}"
+            )
+
         update_id = f"{device_id}_{component}_{int(time.time() * 1000)}"
 
         update = OTAUpdate(
@@ -408,32 +441,76 @@ class RemoteMonitoringSystem:
             update = self.ota_updates.get(update_id)
             if not update:
                 return
+            package_url = update.package_url
+            package_hash = update.package_hash
+            update.status = "downloading"
 
-            try:
-                # 模拟下载过程
-                update.status = "downloading"
-                for progress in [0.2, 0.4, 0.6, 0.8, 1.0]:
-                    update.progress = progress
-                    time.sleep(0.5)
+        downloaded_file = None
+        try:
+            with tempfile.NamedTemporaryFile(delete=False, suffix=".ota") as tmp:
+                downloaded_file = tmp.name
+                response = requests.get(package_url, stream=True, timeout=30.0)
+                response.raise_for_status()
+                total_bytes = int(response.headers.get("content-length", 0))
+                downloaded_bytes = 0
+                for chunk in response.iter_content(chunk_size=8192):
+                    if chunk:
+                        tmp.write(chunk)
+                        downloaded_bytes += len(chunk)
+                        if total_bytes > 0:
+                            progress = downloaded_bytes / total_bytes
+                            with self.ota_lock:
+                                if update_id in self.ota_updates:
+                                    self.ota_updates[update_id].progress = min(progress, 0.99)
+                    time.sleep(0)
 
-                # 模拟安装过程
-                update.status = "installing"
-                time.sleep(1.0)
+            actual_hash = self._calculate_file_hash(downloaded_file)
+            if not hmac_compare_hash(actual_hash, package_hash):
+                raise SecurityError(
+                    f"OTA包哈希校验失败: expected={package_hash}, actual={actual_hash}"
+                )
 
-                # 验证哈希
-                # actual_hash = self._calculate_file_hash(downloaded_file)
-                # if actual_hash != update.package_hash:
-                #     raise ValueError("哈希校验失败")
+            with self.ota_lock:
+                if update_id in self.ota_updates:
+                    self.ota_updates[update_id].status = "installing"
 
-                # 完成
-                update.status = "completed"
-                update.progress = 1.0
-                print(f"[OTA] 升级完成: {update_id}")
+            time.sleep(1.0)
 
-            except Exception as e:
-                update.status = "failed"
-                update.error_message = str(e)
-                print(f"[OTA] 升级失败: {update_id}, 错误: {e}")
+            with self.ota_lock:
+                if update_id in self.ota_updates:
+                    self.ota_updates[update_id].status = "completed"
+                    self.ota_updates[update_id].progress = 1.0
+            print(f"[OTA] 升级完成: {update_id}")
+
+        except SecurityError as e:
+            logger.error(f"[OTA] 安全告警 - {e}")
+            with self.ota_lock:
+                if update_id in self.ota_updates:
+                    self.ota_updates[update_id].status = "failed"
+                    self.ota_updates[update_id].error_message = "哈希校验失败，安装已拒绝"
+            print(f"[OTA] 升级失败(安全): {update_id}, 错误: {e}")
+        except Exception as e:
+            logger.error(f"[OTA] 升级失败: {e}")
+            with self.ota_lock:
+                if update_id in self.ota_updates:
+                    self.ota_updates[update_id].status = "failed"
+                    self.ota_updates[update_id].error_message = str(e)
+            print(f"[OTA] 升级失败: {update_id}, 错误: {e}")
+        finally:
+            if downloaded_file and os.path.exists(downloaded_file):
+                try:
+                    os.remove(downloaded_file)
+                except OSError:
+                    pass
+
+    @staticmethod
+    def _calculate_file_hash(filepath: str) -> str:
+        """计算文件SHA256哈希"""
+        sha256 = hashlib.sha256()
+        with open(filepath, "rb") as f:
+            for chunk in iter(lambda: f.read(8192), b""):
+                sha256.update(chunk)
+        return sha256.hexdigest()
 
     def get_ota_status(self, update_id: str) -> Optional[Dict[str, Any]]:
         """获取OTA升级状态"""
@@ -465,21 +542,21 @@ class RemoteMonitoringSystem:
             device = self.devices.get(device_id)
             if not device:
                 return {"error": "设备不存在"}
+            device_snapshot = DeviceStatus(**device.__dict__)
 
-            # 收集诊断数据
-            diagnosis = {
-                "device_id": device_id,
-                "timestamp": time.time(),
-                "status": device.__dict__,
-                "recent_alerts": self.get_alerts(device_id=device_id, unresolved_only=True),
-                "performance_metrics": self._collect_performance_metrics(device_id),
-                "diagnosis_results": [],
-            }
+        recent_alerts = self.get_alerts(device_id=device_id, unresolved_only=True)
+        performance_metrics = self._collect_performance_metrics(device_id)
 
-            # 执行诊断检查
-            diagnosis["diagnosis_results"] = self._run_diagnostic_checks(device)
+        diagnosis = {
+            "device_id": device_id,
+            "timestamp": time.time(),
+            "status": device_snapshot.__dict__,
+            "recent_alerts": recent_alerts,
+            "performance_metrics": performance_metrics,
+            "diagnosis_results": self._run_diagnostic_checks(device_snapshot),
+        }
 
-            return diagnosis
+        return diagnosis
 
     def _collect_performance_metrics(self, device_id: str) -> Dict[str, Any]:
         """收集性能指标"""

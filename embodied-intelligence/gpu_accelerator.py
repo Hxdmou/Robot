@@ -20,10 +20,15 @@ GPU加速配置模块（轻量级）
 
 
 
-import pybullet as p
+try:
+    import pybullet as p
+except ImportError:
+    p = None
 
 def enable_gpu_acceleration(physics_client_id=None):
     """启用GPU加速优化"""
+    if p is None:
+        return
     client = physics_client_id if physics_client_id is not None else -1
 
     p.setPhysicsEngineParameter(
@@ -47,6 +52,8 @@ def enable_gpu_acceleration(physics_client_id=None):
 
 def optimize_rendering(physics_client_id=None):
     """优化渲染性能"""
+    if p is None:
+        return
     client = physics_client_id if physics_client_id is not None else -1
 
     p.configureDebugVisualizer(

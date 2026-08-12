@@ -23,6 +23,7 @@
 import os
 import time
 import csv
+import io
 import json
 import threading
 from datetime import datetime
@@ -50,14 +51,14 @@ class DataRecorder:
 
     def _ensure_dir(self):
         if not os.path.exists(self.data_dir):
-            os.makedirs(self.data_dir)
+            os.makedirs(self.data_dir, exist_ok=True)
 
     def _generate_filename(self):
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         return os.path.join(self.data_dir, f"robot_data_{timestamp}.csv")
 
     def _open_new_file(self):
-        self.current_file = open(self._generate_filename(), "w", newline="")
+        self.current_file = open(self._generate_filename(), "w", newline="", encoding="utf-8")
         self.current_file_size = 0
         writer = csv.writer(self.current_file)
         writer.writerow([
@@ -95,18 +96,20 @@ class DataRecorder:
                             self.current_file.close()
                         self._rotate_files()
                         self._open_new_file()
-                    
-                    writer = csv.writer(self.current_file)
-                    writer.writerow([
+
+                    row = [
                         record["timestamp"], record["cycle"],
                         record["target_x"], record["target_y"], record["target_z"],
                         record["current_x"], record["current_y"], record["current_z"],
                         record["error_mm"], record["cpu_percent"],
                         record["mem_percent"], record["collisions"],
                         record.get("latency_ms", 0), record.get("disturbances", 0)
-                    ])
-                    
-                    self.current_file_size += 1
+                    ]
+                    buf = io.StringIO()
+                    csv.writer(buf).writerow(row)
+                    line = buf.getvalue()
+                    self.current_file.write(line)
+                    self.current_file_size += len(line.encode("utf-8"))
                     self.current_file.flush()
                 except Exception as e:
                     print(f"[DATA] 写入异常: {e}")
@@ -145,7 +148,7 @@ class DataRecorder:
         
         try:
             file_exists = os.path.exists(filename)
-            with open(filename, "a", newline="") as f:
+            with open(filename, "a", newline="", encoding="utf-8") as f:
                 writer = csv.writer(f)
                 if not file_exists:
                     writer.writerow(["timestamp", "cycle", "joint_index", "angle", "velocity", "torque"])
@@ -221,7 +224,7 @@ class DataRecorder:
         for filename in csv_files:
             filepath = os.path.join(self.data_dir, filename)
             try:
-                with open(filepath, "r") as f:
+                with open(filepath, "r", encoding="utf-8") as f:
                     reader = csv.DictReader(f)
                     for row in reader:
                         if row["error_mm"]:
@@ -240,7 +243,7 @@ class DataRecorder:
             }
         
         report_path = os.path.join(self.data_dir, f"report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json")
-        with open(report_path, "w") as f:
+        with open(report_path, "w", encoding="utf-8") as f:
             json.dump(report, f, indent=2)
         
         return report_path

@@ -18,6 +18,7 @@
     14 条品牌特定协议 → 各自子类（当前继承骨架，待真实设备对接时补握手字节）
 """
 
+import math
 import os
 import socket
 import time
@@ -65,6 +66,7 @@ class GenericTCPAdapter:
             "position": [0.3, 0.0, 0.2],
             "orientation": [0.0, 0.0, 0.0, 1.0],
         }
+        self._last_seq: int = 0
 
     # ---------- 连接生命周期 ----------
 
@@ -111,9 +113,11 @@ class GenericTCPAdapter:
 
     # ---------- 核心控制接口（RobotAdapter 层直接调用）----------
 
-    def move_joints(self, joint_angles: List[float], speed: float = 1.0) -> None:
+    def move_joints(self, joint_angles: List[float], speed: float = 1.0) -> Optional[bool]:
         self._check_connection()
         payload = self._encode_move_joints(joint_angles, speed)
+        if payload is None:
+            return False
         try:
             self._sock.sendall(payload)
             # 无阻塞等待响应（高频率控制场景在子线程中处理）
@@ -121,6 +125,7 @@ class GenericTCPAdapter:
         except OSError as e:
             self.connected = False
             raise IOError(f"[{self.__class__.__name__}] 关节运动指令发送失败: {e}")
+        return True
 
     def move_cartesian(self, x: float, y: float, z: float,
                        rx: float = 0.0, ry: float = 0.0, rz: float = 0.0,
@@ -145,7 +150,9 @@ class GenericTCPAdapter:
                 self._sock.sendall(req)
                 raw = self._sock.recv(self.SOCKET_RECV_BYTES)
                 if raw:
-                    self._last_joint_states = self._decode_joint_states(raw)
+                    decoded = self._decode_joint_states(raw)
+                    if decoded is not None:
+                        self._last_joint_states = decoded
             except OSError:
                 # 反馈通道失败不抛异常（上层以缓存值继续控制）
                 pass
@@ -553,7 +560,10 @@ class KukaFRIAdapter(GenericUDPAdapter):
             f"<HHH{n}f", 0x0010, self._last_seq, n, *rad
         )
 
-    def _encode_move_cartesian(self, pose6d_deg: List[float], speed: float = 1.0) -> Optional[bytes]:
+    def _encode_move_cartesian(self, x: float, y: float, z: float,
+                               rx: float = 0.0, ry: float = 0.0, rz: float = 0.0,
+                               speed: float = 1.0) -> Optional[bytes]:
+        pose6d_deg = [x, y, z, rx, ry, rz]
         n = len(pose6d_deg)
         self._last_seq = (self._last_seq + 1) & 0xFFFF
         # pose6d: xyz(m) + rpy(rad)
@@ -612,7 +622,10 @@ class KukaEKIAdapter(GenericTCPAdapter):
         xml = f'<?xml version="1.0"?><Robot><A1 Axis="1..{len(joint_angles_deg)}">{j}</A1><Speed>{speed:.3f}</Speed></Robot>\0'
         return xml.encode("utf-8")
 
-    def _encode_move_cartesian(self, pose6d_deg: List[float], speed: float = 1.0) -> Optional[bytes]:
+    def _encode_move_cartesian(self, x: float, y: float, z: float,
+                               rx: float = 0.0, ry: float = 0.0, rz: float = 0.0,
+                               speed: float = 1.0) -> Optional[bytes]:
+        pose6d_deg = [x, y, z, rx, ry, rz]
         s = ",".join(f"{v:.4f}" for v in pose6d_deg)
         xml = f'<?xml version="1.0"?><Robot><Pose>{s}</Pose><Speed>{speed:.3f}</Speed></Robot>\0'
         return xml.encode("utf-8")
@@ -668,7 +681,10 @@ class URRTDEAdapter(GenericTCPAdapter):
         payload = _struct.pack(f"<ff{n}f", float(speed) * 0.5, float(speed) * 1.0, *rad)
         return self._MAGIC + _struct.pack("<BH", 0x10, len(payload)) + payload
 
-    def _encode_move_cartesian(self, pose6d_deg: List[float], speed: float = 1.0) -> Optional[bytes]:
+    def _encode_move_cartesian(self, x: float, y: float, z: float,
+                               rx: float = 0.0, ry: float = 0.0, rz: float = 0.0,
+                               speed: float = 1.0) -> Optional[bytes]:
+        pose6d_deg = [x, y, z, rx, ry, rz]
         n = len(pose6d_deg)
         payload = _struct.pack(f"<ff{n}f", float(speed) * 0.1, float(speed) * 0.5, *[float(v) for v in pose6d_deg])
         return self._MAGIC + _struct.pack("<BH", 0x11, len(payload)) + payload
@@ -735,7 +751,10 @@ class ABBEGMAdapter(GenericUDPAdapter):
         rad = [math.radians(float(a)) for a in joint_angles_deg]
         return _struct.pack(f"<IIHH{n}f", self._last_seq, 0, 0x0010, n, *rad)
 
-    def _encode_move_cartesian(self, pose6d_deg: List[float], speed: float = 1.0) -> Optional[bytes]:
+    def _encode_move_cartesian(self, x: float, y: float, z: float,
+                               rx: float = 0.0, ry: float = 0.0, rz: float = 0.0,
+                               speed: float = 1.0) -> Optional[bytes]:
+        pose6d_deg = [x, y, z, rx, ry, rz]
         self._last_seq += 1
         n = len(pose6d_deg)
         return _struct.pack(f"<IIHH{n}f", self._last_seq, 0, 0x0011, n, *[float(v) for v in pose6d_deg])
@@ -787,7 +806,10 @@ class ABBRapidAdapter(GenericTCPAdapter):
         j = " ".join(f"{a:.4f}" for a in joint_angles_deg)
         return f"MOVEJ {j} SPEED={speed:.3f}\n".encode("ascii")
 
-    def _encode_move_cartesian(self, pose6d_deg: List[float], speed: float = 1.0) -> Optional[bytes]:
+    def _encode_move_cartesian(self, x: float, y: float, z: float,
+                               rx: float = 0.0, ry: float = 0.0, rz: float = 0.0,
+                               speed: float = 1.0) -> Optional[bytes]:
+        pose6d_deg = [x, y, z, rx, ry, rz]
         p = " ".join(f"{v:.4f}" for v in pose6d_deg)
         return f"MOVEL {p} SPEED={speed:.3f}\n".encode("ascii")
 
@@ -853,7 +875,10 @@ class DobotSerialAdapter(GenericSerialAdapter):
         payload = _struct.pack(">HHB", 0x0100, n, 2 * n) + reg_bytes
         return self._mb(1, 0x10, payload)
 
-    def _encode_move_cartesian(self, pose6d_deg: List[float], speed: float = 1.0) -> Optional[bytes]:
+    def _encode_move_cartesian(self, x: float, y: float, z: float,
+                               rx: float = 0.0, ry: float = 0.0, rz: float = 0.0,
+                               speed: float = 1.0) -> Optional[bytes]:
+        pose6d_deg = [x, y, z, rx, ry, rz]
         vals = [int(v * 1000.0) for v in pose6d_deg]
         n = len(vals)
         reg_bytes = b"".join(_struct.pack(">h", v & 0xFFFF) for v in vals)
@@ -909,7 +934,10 @@ class DobotTCPAdapter(GenericTCPAdapter):
         payload = _struct.pack(">HHB", 0x0100, n, 2 * n) + reg_bytes
         return self._mb_tcp(1, 0x10, payload)
 
-    def _encode_move_cartesian(self, pose6d_deg: List[float], speed: float = 1.0) -> Optional[bytes]:
+    def _encode_move_cartesian(self, x: float, y: float, z: float,
+                               rx: float = 0.0, ry: float = 0.0, rz: float = 0.0,
+                               speed: float = 1.0) -> Optional[bytes]:
+        pose6d_deg = [x, y, z, rx, ry, rz]
         vals = [int(v * 1000.0) for v in pose6d_deg]
         n = len(vals)
         reg_bytes = b"".join(_struct.pack(">h", v & 0xFFFF) for v in vals)
@@ -959,7 +987,10 @@ class AirbotTCPAdapter(GenericTCPAdapter):
         payload = _struct.pack(f"<fI{n}f", float(speed), n, *rad)
         return self._SYNC + _struct.pack("<HHI", 0x0010, self._last_seq, len(payload)) + payload
 
-    def _encode_move_cartesian(self, pose6d_deg: List[float], speed: float = 1.0) -> Optional[bytes]:
+    def _encode_move_cartesian(self, x: float, y: float, z: float,
+                               rx: float = 0.0, ry: float = 0.0, rz: float = 0.0,
+                               speed: float = 1.0) -> Optional[bytes]:
+        pose6d_deg = [x, y, z, rx, ry, rz]
         n = len(pose6d_deg)
         self._last_seq = (self._last_seq + 1) & 0xFFFF
         payload = _struct.pack(f"<fI{n}f", float(speed), n, *[float(v) for v in pose6d_deg])
@@ -1026,15 +1057,18 @@ class UFactoryTCPAdapter(GenericTCPAdapter):
                "mvt": 1, "is_ready": 1}
         return (_json.dumps(msg, ensure_ascii=False) + "\n").encode("utf-8")
 
-    def _encode_move_cartesian(self, pose6d_deg: List[float], speed: float = 1.0) -> Optional[bytes]:
+    def _encode_move_cartesian(self, x: float, y: float, z: float,
+                               rx: float = 0.0, ry: float = 0.0, rz: float = 0.0,
+                               speed: float = 1.0) -> Optional[bytes]:
         import json as _json
+        pose6d_deg = [x, y, z, rx, ry, rz]
         msg = {"cmd": "move_line", "pose": [float(v) for v in pose6d_deg],
                "speed": float(speed) * 100.0, "mvacc": 500.0,
                "mvt": 1, "is_ready": 1}
         return (_json.dumps(msg, ensure_ascii=False) + "\n").encode("utf-8")
 
     def _encode_stop(self) -> Optional[bytes]:
-        return b'{"cmd":"emergency_release","enable":1}\n'
+        return b'{"cmd":"emergency_stop","enable":1}\n'
 
     def _decode_joint_states(self, raw: bytes) -> Optional[List[float]]:
         import json as _json
@@ -1097,8 +1131,11 @@ class JakaTCPAdapter(GenericTCPAdapter):
         }, ensure_ascii=False).encode("utf-8")
         return self._frame(0x0010, body)
 
-    def _encode_move_cartesian(self, pose6d_deg: List[float], speed: float = 1.0) -> Optional[bytes]:
+    def _encode_move_cartesian(self, x: float, y: float, z: float,
+                               rx: float = 0.0, ry: float = 0.0, rz: float = 0.0,
+                               speed: float = 1.0) -> Optional[bytes]:
         import json as _json
+        pose6d_deg = [x, y, z, rx, ry, rz]
         body = _json.dumps({
             "jsonrpc": "2.0", "method": "move_line",
             "params": {"pose": [float(v) for v in pose6d_deg],
@@ -1184,7 +1221,10 @@ class BukeModbusAdapter(GenericSerialAdapter):
         payload = _struct.pack(">HHB", 0x0100, n, 2 * n) + reg_bytes
         return self._mb(1, 0x10, payload)
 
-    def _encode_move_cartesian(self, pose6d_deg: List[float], speed: float = 1.0) -> Optional[bytes]:
+    def _encode_move_cartesian(self, x: float, y: float, z: float,
+                               rx: float = 0.0, ry: float = 0.0, rz: float = 0.0,
+                               speed: float = 1.0) -> Optional[bytes]:
+        pose6d_deg = [x, y, z, rx, ry, rz]
         vals = [int(v * 100.0) for v in pose6d_deg]
         n = len(vals)
         reg_bytes = b"".join(_struct.pack(">h", v & 0xFFFF) for v in vals)
@@ -1248,7 +1288,10 @@ class UnitreeUDPAdapter(GenericUDPAdapter):
         )
         return self._HEAD + _struct.pack("<H", len(body)) + body
 
-    def _encode_move_cartesian(self, pose6d_deg: List[float], speed: float = 1.0) -> Optional[bytes]:
+    def _encode_move_cartesian(self, x: float, y: float, z: float,
+                               rx: float = 0.0, ry: float = 0.0, rz: float = 0.0,
+                               speed: float = 1.0) -> Optional[bytes]:
+        pose6d_deg = [x, y, z, rx, ry, rz]
         self._last_seq += 1
         n = len(pose6d_deg)
         body = _struct.pack(
@@ -1324,7 +1367,10 @@ class DeepRoboticsTCPAdapter(GenericTCPAdapter):
         payload = _struct.pack(f"<IH{n}f", self._last_seq, n, *rad)
         return self._MAGIC + _struct.pack("<HI", 0x0010, len(payload)) + payload
 
-    def _encode_move_cartesian(self, pose6d_deg: List[float], speed: float = 1.0) -> Optional[bytes]:
+    def _encode_move_cartesian(self, x: float, y: float, z: float,
+                               rx: float = 0.0, ry: float = 0.0, rz: float = 0.0,
+                               speed: float = 1.0) -> Optional[bytes]:
+        pose6d_deg = [x, y, z, rx, ry, rz]
         n = len(pose6d_deg)
         self._last_seq = (self._last_seq + 1) & 0xFFFF
         payload = _struct.pack(f"<IH{n}f", self._last_seq, n, *[float(v) for v in pose6d_deg])
@@ -1395,7 +1441,7 @@ class GenericBridgeAdapter(GenericTCPAdapter):
 
     def connect(self, timeout: float = 5.0) -> bool:
         # 非运动体 connect 永远成功（回环模式）
-        self._connected = True
+        self.connected = True
         try:
             cfg = self.config or {}
             _name = cfg.get("name") or cfg.get("model") or "GenericBridgeProduct"
@@ -1406,7 +1452,7 @@ class GenericBridgeAdapter(GenericTCPAdapter):
         return True
 
     def disconnect(self) -> None:
-        self._connected = False
+        self.connected = False
         return None
 
     def _encode_handshake(self) -> Optional[bytes]:
@@ -1417,7 +1463,9 @@ class GenericBridgeAdapter(GenericTCPAdapter):
         # 非运动体永远不执行关节运动 → 空字节
         return b""
 
-    def _encode_move_cartesian(self, pose6d_deg, speed=1.0):
+    def _encode_move_cartesian(self, x: float, y: float, z: float,
+                               rx: float = 0.0, ry: float = 0.0, rz: float = 0.0,
+                               speed: float = 1.0) -> Optional[bytes]:
         # 非运动体永远不执行笛卡尔运动 → 空字节
         return b""
 

@@ -24,8 +24,6 @@
 
 
 
-import pybullet as p
-import pybullet_data
 import time
 import math
 import threading
@@ -72,8 +70,12 @@ from deploy_tools import (
     DeploymentReportGenerator,
     DeploymentArchiver
 )
+from sim_backends import create_simulator_backend
+
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 physicsClient = None
+sim_backend = None
 resource_monitor = None
 robot_monitor = None
 perf_monitor = None
@@ -113,6 +115,10 @@ def signal_handler(sig, frame):
 
 
 signal.signal(signal.SIGINT, signal_handler)
+try:
+    signal.signal(signal.SIGTERM, signal_handler)
+except (AttributeError, ValueError):
+    pass
 
 
 def load_model(model_path=None):
@@ -151,7 +157,7 @@ def init_environment(execution_mode=None):
     Args:
         execution_mode: "model"（模型推理）或 "trajectory"（硬编码轨迹）
     """
-    global physicsClient, resource_monitor, robot_monitor, perf_monitor, logger, robot_adapter, noise_system, collision_detector, force_feedback, obstacle_ids, data_recorder, domain_randomizer, latency_system, actuator_system, disturbance_system, sim_to_real, safety_guard, EXECUTION_MODE, deploy_snapshot, failover_manager, deploy_reporter, deploy_archiver, deploy_start_time
+    global physicsClient, resource_monitor, robot_monitor, perf_monitor, logger, robot_adapter, noise_system, collision_detector, force_feedback, obstacle_ids, data_recorder, domain_randomizer, latency_system, actuator_system, disturbance_system, sim_to_real, safety_guard, EXECUTION_MODE, deploy_snapshot, failover_manager, deploy_reporter, deploy_archiver, deploy_start_time, sim_backend
 
     if execution_mode:
         EXECUTION_MODE = execution_mode
@@ -175,9 +181,10 @@ def init_environment(execution_mode=None):
     if safety_ok:
         logger.info("安全参数完整性验证: ✅ 通过")
     else:
-        logger.warn(f"安全参数完整性验证发现 {len(safety_issues)} 个问题")
+        logger.error(f"安全参数完整性验证发现 {len(safety_issues)} 个问题，部署终止")
         for issue in safety_issues:
-            logger.warn(f"  - {issue}")
+            logger.error(f"  - {issue}")
+        sys.exit(1)
 
     # 3. 初始化降级管理器
     failover_manager = FailoverManager(max_consecutive_failures=5, cooldown_cycles=50)
@@ -271,34 +278,37 @@ def init_environment(execution_mode=None):
         return None
 
     if ROBOT_MODE == "sim":
-        physicsClient = p.connect(p.GUI)
-        p.setAdditionalSearchPath(pybullet_data.getDataPath())
-        p.setGravity(*SIMULATION_PARAMS["gravity"])
-        p.setRealTimeSimulation(0)
+        arm_config = {
+            "degrees_of_freedom": len(JOINT_INDICES),
+            "joint_indices": JOINT_INDICES,
+            "ee_link": ROBOT_CONFIG["ee_link"],
+            "simulation": {
+                "urdf_path": ROBOT_CONFIG["urdf_path"]
+            }
+        }
+        user_config = {"gui_mode": "gui"}
+        sim_backend = create_simulator_backend("pybullet", arm_config, user_config)
 
-        enable_gpu_acceleration(physicsClient)
-        optimize_rendering(physicsClient)
+        sim_backend.set_gravity(*SIMULATION_PARAMS["gravity"])
+        sim_backend.set_realtime_simulation(False)
 
-        plane_id = p.loadURDF("plane.urdf")
+        try:
+            client_id = getattr(sim_backend, "client_id", None)
+            if client_id is not None:
+                enable_gpu_acceleration(client_id)
+                optimize_rendering(client_id)
+        except Exception as e:
+            logger.warn(f"GPU加速/渲染优化跳过: {e}")
 
-        table_col = p.createCollisionShape(p.GEOM_BOX, halfExtents=[0.5, 0.5, 0.02])
-        table_vis = p.createVisualShape(p.GEOM_BOX, halfExtents=[0.5, 0.5, 0.02],
-                                         rgbaColor=[0.6, 0.4, 0.2, 1])
-        table_id = p.createMultiBody(baseMass=0, baseCollisionShapeIndex=table_col,
-                                     baseVisualShapeIndex=table_vis, basePosition=[0.2, 0, -0.02])
+        table_id = sim_backend.create_box(
+            half_extents=[0.5, 0.5, 0.02],
+            position=[0.2, 0, -0.02],
+            mass=0.0,
+            color=[0.6, 0.4, 0.2, 1]
+        )
 
-        urdf_path = ROBOT_CONFIG["urdf_path"]
-        robot_id = p.loadURDF(urdf_path, [0, 0, 0], useFixedBase=True)
-
-        link_name_to_index = {}
-        for i in range(p.getNumJoints(robot_id)):
-            info = p.getJointInfo(robot_id, i)
-            link_name = info[12].decode('utf-8')
-            link_name_to_index[link_name] = i
-
-        ee_index = link_name_to_index.get(ROBOT_CONFIG["ee_link"], -1)
-        if ee_index == -1:
-            ee_index = p.getNumJoints(robot_id) - 2
+        robot_id = sim_backend.robot_id
+        ee_index = sim_backend.ee_index
 
         robot_adapter.update_sim_params(robot_id, JOINT_INDICES, ee_index)
 
@@ -308,11 +318,22 @@ def init_environment(execution_mode=None):
         joint_rest_poses = []
 
         for i in JOINT_INDICES:
-            info = p.getJointInfo(robot_id, i)
-            joint_lower_limits.append(info[8])
-            joint_upper_limits.append(info[9])
-            joint_ranges.append(info[9] - info[8])
-            joint_rest_poses.append((info[8] + info[9]) / 2)
+            info = sim_backend.get_joint_info(i)
+            if info:
+                joint_lower_limits.append(info["lower"])
+                joint_upper_limits.append(info["upper"])
+                joint_ranges.append(info["upper"] - info["lower"])
+                joint_rest_poses.append((info["lower"] + info["upper"]) / 2.0)
+            else:
+                joint_lower_limits.append(-3.14)
+                joint_upper_limits.append(3.14)
+                joint_ranges.append(6.28)
+                joint_rest_poses.append(0.0)
+
+        collision_detector.sim_backend = sim_backend
+        force_feedback.sim_backend = sim_backend
+        domain_randomizer.sim_backend = sim_backend
+        actuator_system.sim_backend = sim_backend
 
         resource_monitor = ResourceMonitor(interval=MONITOR_PARAMS["update_interval"])
         resource_monitor.start()
@@ -320,7 +341,7 @@ def init_environment(execution_mode=None):
         perf_monitor = PerformanceMonitor(log_interval=MONITOR_PARAMS["log_interval"])
         perf_monitor.start()
 
-        robot_monitor = RobotMonitor(robot_id, ee_index, JOINT_INDICES)
+        robot_monitor = RobotMonitor(robot_id, ee_index, JOINT_INDICES, sim_backend=sim_backend)
 
         obstacle_ids.append(table_id)
 
@@ -328,17 +349,21 @@ def init_environment(execution_mode=None):
             if obs_name == "table":
                 continue
             if obs_config["type"] == "box":
-                col = p.createCollisionShape(p.GEOM_BOX, halfExtents=obs_config["dimensions"])
-                vis = p.createVisualShape(p.GEOM_BOX, halfExtents=obs_config["dimensions"],
-                                         rgbaColor=obs_config["color"])
-                obs_id = p.createMultiBody(baseMass=obs_config["mass"], baseCollisionShapeIndex=col,
-                                          baseVisualShapeIndex=vis, basePosition=obs_config["position"])
+                obs_id = sim_backend.create_box(
+                    half_extents=obs_config["dimensions"],
+                    position=obs_config["position"],
+                    mass=obs_config["mass"],
+                    color=obs_config["color"]
+                )
             elif obs_config["type"] == "sphere":
-                col = p.createCollisionShape(p.GEOM_SPHERE, radius=obs_config["radius"])
-                vis = p.createVisualShape(p.GEOM_SPHERE, radius=obs_config["radius"],
-                                         rgbaColor=obs_config["color"])
-                obs_id = p.createMultiBody(baseMass=obs_config["mass"], baseCollisionShapeIndex=col,
-                                          baseVisualShapeIndex=vis, basePosition=obs_config["position"])
+                obs_id = sim_backend.create_sphere(
+                    radius=obs_config["radius"],
+                    position=obs_config["position"],
+                    mass=obs_config["mass"],
+                    color=obs_config["color"]
+                )
+            else:
+                continue
             obstacle_ids.append(obs_id)
             logger.info(f"障碍物已创建: {obs_name}", position=obs_config["position"])
 
@@ -358,6 +383,7 @@ def init_environment(execution_mode=None):
             "joint_upper_limits": joint_upper_limits,
             "joint_ranges": joint_ranges,
             "joint_rest_poses": joint_rest_poses,
+            "sim_backend": sim_backend,
         }
     else:
         resource_monitor = ResourceMonitor(interval=MONITOR_PARAMS["update_interval"])
@@ -367,7 +393,8 @@ def init_environment(execution_mode=None):
         perf_monitor.start()
 
         logger.info("真实机械臂环境初始化完成")
-        return {"robot_id": None, "ee_index": 7, "joint_indices": JOINT_INDICES}
+        ee_index = REAL_ROBOT_CONFIG.get("ee_index", len(JOINT_INDICES))
+        return {"robot_id": None, "ee_index": ee_index, "joint_indices": JOINT_INDICES}
 
 
 def get_current_state(config):
@@ -382,10 +409,10 @@ def get_current_state(config):
         ee_pose = robot_adapter.get_ee_pose()
         ee_pos = ee_pose["position"]
     else:
-        states = p.getJointStates(config["robot_id"], config["joint_indices"])
-        joint_pos = [s[0] for s in states]
-        link_state = p.getLinkState(config["robot_id"], config["ee_index"])
-        ee_pos = list(link_state[0])
+        backend = config.get("sim_backend")
+        joint_pos = list(backend.get_joint_states())
+        ee_pose = backend.get_ee_pose()
+        ee_pos = list(ee_pose["position"])
 
     return joint_pos, ee_pos
 
@@ -397,32 +424,37 @@ def apply_joint_targets(config, target_joints):
     if ROBOT_MODE == "real":
         robot_adapter.move_joints(target_joints.tolist(), speed=1.0)
     else:
+        backend = config.get("sim_backend")
         for idx, joint_idx in enumerate(config["joint_indices"]):
-            p.setJointMotorControl2(
-                config["robot_id"], joint_idx, p.POSITION_CONTROL,
-                targetPosition=target_joints[idx], force=CONTROL_PARAMS["force"]
+            backend.set_joint_motor_control(
+                joint_idx, backend.MODE_POSITION_CONTROL,
+                target_value=target_joints[idx], force=CONTROL_PARAMS["force"]
             )
         for _ in range(2):
-            p.stepSimulation()
+            backend.step_simulation()
 
 
 def compute_ik(config, target_pos):
     if ROBOT_MODE != "sim" or config["robot_id"] is None:
         return None
 
-    ik_joints = p.calculateInverseKinematics(
-        config["robot_id"],
-        config["ee_index"],
-        target_pos,
-        targetOrientation=[0, 0, 0, 1],
-        lowerLimits=config["joint_lower_limits"],
-        upperLimits=config["joint_upper_limits"],
-        jointRanges=config["joint_ranges"],
-        restPoses=config["joint_rest_poses"],
-        maxNumIterations=CONTROL_PARAMS["ik_max_iter"],
-        residualThreshold=CONTROL_PARAMS["ik_threshold"]
+    backend = config.get("sim_backend")
+    if backend is None:
+        return None
+
+    ik_joints = backend.calculate_inverse_kinematics(
+        target_position=target_pos,
+        target_orientation=[0, 0, 0, 1],
+        lower_limits=config["joint_lower_limits"],
+        upper_limits=config["joint_upper_limits"],
+        joint_ranges=config["joint_ranges"],
+        rest_poses=config["joint_rest_poses"],
+        max_iterations=CONTROL_PARAMS["ik_max_iter"],
+        residual_threshold=CONTROL_PARAMS["ik_threshold"]
     )
-    return [ik_joints[idx] if idx < len(ik_joints) else 0.0 for idx in config["joint_indices"]]
+    if ik_joints is None:
+        return None
+    return [ik_joints[idx] if idx < len(ik_joints) else 0.0 for idx in range(len(config["joint_indices"]))]
 
 
 def move_to_position(config, target_pos, steps=None):
@@ -437,15 +469,18 @@ def move_to_position(config, target_pos, steps=None):
     if target_joints is None:
         return [0, 0, 0]
 
+    backend = config.get("sim_backend")
     for idx, joint_idx in enumerate(config["joint_indices"]):
-        p.setJointMotorControl2(config["robot_id"], joint_idx, p.POSITION_CONTROL,
-                               targetPosition=target_joints[idx], force=CONTROL_PARAMS["force"])
+        backend.set_joint_motor_control(
+            joint_idx, backend.MODE_POSITION_CONTROL,
+            target_value=target_joints[idx], force=CONTROL_PARAMS["force"]
+        )
     for _ in range(steps):
-        p.stepSimulation()
+        backend.step_simulation()
         time.sleep(0.001)
 
-    link_state = p.getLinkState(config["robot_id"], config["ee_index"])
-    actual_pos = link_state[0]
+    ee_pose = backend.get_ee_pose()
+    actual_pos = ee_pose["position"]
 
     if noise_system:
         actual_pos = noise_system.apply_ee_noise(actual_pos)
@@ -462,9 +497,10 @@ def converge_to_target(config, target_pos):
         )
         return error
 
+    backend = config.get("sim_backend")
     for _ in range(10):
-        link_state = p.getLinkState(config["robot_id"], config["ee_index"])
-        current_pos = link_state[0]
+        ee_pose = backend.get_ee_pose()
+        current_pos = ee_pose["position"]
 
         if noise_system:
             current_pos = noise_system.apply_ee_noise(current_pos)
@@ -480,10 +516,12 @@ def converge_to_target(config, target_pos):
         if target_joints is None:
             break
         for idx, joint_idx in enumerate(config["joint_indices"]):
-            p.setJointMotorControl2(config["robot_id"], joint_idx, p.POSITION_CONTROL,
-                                   targetPosition=target_joints[idx], force=CONTROL_PARAMS["force"])
+            backend.set_joint_motor_control(
+                joint_idx, backend.MODE_POSITION_CONTROL,
+                target_value=target_joints[idx], force=CONTROL_PARAMS["force"]
+            )
         for _ in range(CONTROL_PARAMS["convergence_steps"]):
-            p.stepSimulation()
+            backend.step_simulation()
             time.sleep(0.001)
 
     return error
@@ -495,10 +533,11 @@ def reset_robot(config):
         time.sleep(1.0)
         return
 
+    backend = config.get("sim_backend")
     for idx, joint_idx in enumerate(config["joint_indices"]):
-        p.resetJointState(config["robot_id"], joint_idx, START_JOINT_POSITIONS[idx])
+        backend.reset_joint_state(joint_idx, START_JOINT_POSITIONS[idx])
     for _ in range(50):
-        p.stepSimulation()
+        backend.step_simulation()
 
 
 def execute_task_model(config, target_pos):
@@ -569,7 +608,13 @@ def execute_task_trajectory(config, target_pos):
     """使用硬编码轨迹执行任务（原模式）"""
     reset_robot(config)
 
-    start_pos = [0.0, 0.0, 0.6]
+    start_pos = REAL_ROBOT_CONFIG.get("home_position", ROBOT_CONFIG.get("home_position", [0.0, 0.0, 0.6]))
+    ws_radius = 0.8
+    min_z = 0.05
+    ws_dist = math.sqrt(start_pos[0] ** 2 + start_pos[1] ** 2)
+    if ws_dist > ws_radius or start_pos[2] < min_z:
+        logger.warn(f"起始位置 {start_pos} 超出工作空间(r={ws_radius},min_z={min_z})，使用安全默认值")
+        start_pos = [0.0, 0.0, 0.6]
     num_steps = 30
     trajectory = []
     for i in range(num_steps + 1):
@@ -588,8 +633,9 @@ def execute_task_trajectory(config, target_pos):
         current_pose = robot_adapter.get_ee_pose()
         final_pos = current_pose["position"]
     else:
-        link_state = p.getLinkState(config["robot_id"], config["ee_index"])
-        final_pos = link_state[0]
+        backend = config.get("sim_backend")
+        ee_pose = backend.get_ee_pose()
+        final_pos = ee_pose["position"]
 
         if noise_system:
             final_pos = noise_system.apply_ee_noise(final_pos)
@@ -851,8 +897,9 @@ def deploy_loop(config):
                     current_pose = robot_adapter.get_ee_pose()
                     current_pos = current_pose["position"]
                 else:
-                    link_state = p.getLinkState(config["robot_id"], config["ee_index"])
-                    current_pos = link_state[0]
+                    backend = config.get("sim_backend")
+                    ee_pose = backend.get_ee_pose()
+                    current_pos = ee_pose["position"]
 
                 data_recorder.record(
                     cycle=cycle_count,
@@ -960,7 +1007,7 @@ def deploy_loop(config):
 
 
 def cleanup():
-    global physicsClient, resource_monitor, perf_monitor, logger, robot_adapter, collision_detector, data_recorder, domain_randomizer, latency_system, actuator_system, disturbance_system, ppo_model, sim_to_real, safety_guard
+    global physicsClient, resource_monitor, perf_monitor, logger, robot_adapter, collision_detector, data_recorder, domain_randomizer, latency_system, actuator_system, disturbance_system, ppo_model, sim_to_real, safety_guard, sim_backend
 
     print("\n[DEPLOY] 清理资源...")
 
@@ -1009,11 +1056,12 @@ def cleanup():
     sim_to_real = None
     safety_guard = None
 
-    if physicsClient is not None:
+    if sim_backend is not None:
         try:
-            p.disconnect(physicsClient)
+            sim_backend.disconnect()
         except:
             pass
+        sim_backend = None
 
     print("[DEPLOY] 资源清理完成")
 

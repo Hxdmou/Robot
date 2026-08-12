@@ -23,11 +23,14 @@ PyBullet 仿真物理因素深化模块
 
 import pybullet as p
 import pybullet_data
+import os
 import time
 import math
 import csv
 import random
 import numpy as np
+
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 from config_physical import (
     USE_KUKA,
@@ -410,7 +413,7 @@ generate_physical_report(
     vel_noise_std=VELOCITY_NOISE_STD
 )
 
-print("\n[PHYS] 报告已生成: {output_path}/physical_report.txt")
-print("[PHYS] 日志已保存: {output_path}/physical_log.csv")
+print(f"\n[PHYS] 报告已生成: {PROJECT_ROOT}/physical_report.txt")
+print(f"[PHYS] 日志已保存: {PROJECT_ROOT}/physical_log.csv")
 print("[PHYS] 物理因素深化仿真完成。")
 p.disconnect()

@@ -641,6 +641,18 @@ class RobotAdapter:
             self.joint_indices = self.config.get("joint_indices", list(range(self.dofs)))
             self.ee_link = self.config.get("ee_link", "ee_link")
 
+        self.home_position = self._resolve_home_position()
+
+    def _resolve_home_position(self) -> List[float]:
+        home = self.config.get("home_position") or self.arm_config.get("home_position")
+        if home is None:
+            print(f"[ADAPTER] ⚠️  {self.brand} {self.model} 缺少 home_position，使用安全默认值（全零）")
+            return [0.0] * self.dofs
+        if len(home) != self.dofs:
+            print(f"[ADAPTER] ⚠️  home_position 长度 ({len(home)}) 与 DOF ({self.dofs}) 不匹配，使用安全默认值（全零）")
+            return [0.0] * self.dofs
+        return [float(x) for x in home]
+
     def _detect_protocol(self) -> str:
         """根据 arm_key 自动检测通信协议"""
         if self.arm_key and self.arm_key in BRAND_COMM_MAP:
@@ -846,6 +858,7 @@ class RobotAdapter:
         if not self._initialized:
             raise RuntimeError("适配器未初始化")
 
+        error = float('inf')
         for _ in range(max_iter):
             current_pose = self.get_ee_pose()
             current_pos = current_pose["position"]
@@ -862,6 +875,28 @@ class RobotAdapter:
             time.sleep(0.1)
 
         return error
+
+    def smooth_trajectory(self, trajectory, window_size=3):
+        if trajectory is None or len(trajectory) < 2:
+            return trajectory
+
+        if window_size < 2:
+            return trajectory
+
+        n = len(trajectory)
+        half_w = window_size // 2
+        smoothed = []
+        for i in range(n):
+            start = max(0, i - half_w)
+            end = min(n, i + half_w + 1)
+            window = trajectory[start:end]
+            if isinstance(window[0], (list, tuple)):
+                dim = len(window[0])
+                avg = [sum(p[d] for p in window) / len(window) for d in range(dim)]
+            else:
+                avg = sum(window) / len(window)
+            smoothed.append(avg)
+        return smoothed
 
     def is_connected(self):
         return self.comm and getattr(self.comm, "connected", False)

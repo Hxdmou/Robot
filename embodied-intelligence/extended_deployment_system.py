@@ -17,6 +17,8 @@
 
 import numpy as np
 import time
+import socket
+import threading
 from typing import List, Dict, Tuple, Optional
 from dataclasses import dataclass
 from enum import Enum
@@ -82,12 +84,17 @@ class ExtendedDeploymentSystem:
         # 已注册机器人
         self.registered_robots = {}
         self.connected_robots = {}
-        
+        # 真机连接的 socket 对象
+        self._sockets: Dict[str, socket.socket] = {}
+        self._sockets_lock = threading.Lock()
+
         # 部署参数
         self.auto_calibration = True
         self.safety_check_level = "strict"  # minimal/standard/strict
         self.deployment_timeout_seconds = 30
-        
+        self.connection_timeout_seconds = 5
+        self.max_connection_retries = 3
+
         # 性能指标
         self.total_deployments = 0
         self.successful_deployments = 0
@@ -95,7 +102,7 @@ class ExtendedDeploymentSystem:
         self.connection_success_rate = 100.0  # 连接成功率 (100%)
         self.calibration_accuracy = 100.0  # 校准精度 (100%)
         self.protocol_compatibility = 100.0  # 协议兼容性 (100%)
-        
+
         # 初始化默认配置
         self._init_default_robots()
     
@@ -255,22 +262,36 @@ class ExtendedDeploymentSystem:
         print(f"[注册机器人] {robot_id}: {config.brand.value} {config.model}")
         return True
     
+    def _attempt_socket_connect(self, ip: str, port: int, timeout: float) -> Optional[socket.socket]:
+        """尝试建立单个 TCP 连接，成功返回 socket，失败返回 None。"""
+        sock = None
+        try:
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.settimeout(timeout)
+            sock.connect((ip, port))
+            return sock
+        except (socket.timeout, OSError) as e:
+            print(f"  - 连接失败: {e}")
+            if sock is not None:
+                try:
+                    sock.close()
+                except Exception:
+                    pass
+            return None
+
     def connect_robot(self, robot_id: str) -> bool:
-        """连接机器人"""
+        """连接机器人（真实 TCP 连接 + 超时重试，不再静默返回成功）"""
         if robot_id not in self.registered_robots:
             print(f"[错误] 机器人 {robot_id} 未注册")
             return False
-        
+
         config = self.registered_robots[robot_id]
-        
+
         print(f"\n[连接机器人] {robot_id}")
         print(f"  - 品牌: {config.brand.value}")
         print(f"  - 协议: {config.protocol.value}")
         print(f"  - 地址: {config.ip_address}:{config.port}")
-        
-        # 模拟连接过程
-        time.sleep(0.5)
-        
+
         # 安全检查
         if self.safety_check_level == "strict":
             print("  - 安全检查: 8项 (严格模式)")
@@ -278,15 +299,85 @@ class ExtendedDeploymentSystem:
             print("  - 安全检查: 6项 (标准模式)")
         else:
             print("  - 安全检查: 3项 (最小模式)")
-        
-        # 模拟连接成功
+
+        # 真实 TCP 连接，带超时与重试
+        sock = None
+        for attempt in range(1, self.max_connection_retries + 1):
+            print(f"  - 连接尝试 {attempt}/{self.max_connection_retries} "
+                  f"(超时 {self.connection_timeout_seconds}s)...")
+            sock = self._attempt_socket_connect(
+                config.ip_address, config.port, self.connection_timeout_seconds)
+            if sock is not None:
+                break
+            if attempt < self.max_connection_retries:
+                backoff = min(2.0, 0.5 * attempt)
+                time.sleep(backoff)
+
+        if sock is None:
+            config.status = "error"
+            print(f"  - 连接状态: 失败（{self.max_connection_retries} 次重试均超时/被拒）")
+            return False
+
+        with self._sockets_lock:
+            old = self._sockets.get(robot_id)
+            if old is not None:
+                try:
+                    old.close()
+                except Exception:
+                    pass
+            self._sockets[robot_id] = sock
+
         config.status = "connected"
         self.connected_robots[robot_id] = config
-        
+
+        try:
+            sock.settimeout(None)
+        except Exception:
+            pass
+
         print(f"  - 连接状态: 成功")
-        print(f"  - 延迟: 2.5ms")
-        
         return True
+
+    def discover_devices(self, subnet: str = "127.0.0.",
+                         ports: Optional[List[int]] = None,
+                         timeout: float = 0.3) -> List[Dict]:
+        """在指定子网内探测真实在线设备（不返回硬编码列表）。
+
+        Args:
+            subnet:  子网前缀，如 "192.168.1."
+            ports:   要探测的端口列表；默认扫描已注册机器人配置的端口
+            timeout: 每个地址的连接超时（秒）
+        Returns:
+            实际响应连接的设备列表 [{"ip", "port", "robot_id"}, ...]
+        """
+        if ports is None:
+            ports = sorted({cfg.port for cfg in self.registered_robots.values()})
+            if not ports:
+                ports = [30003, 30200, 6510, 10000]
+
+        discovered: List[Dict] = []
+        # 构建 robot_id 反查表
+        port_to_ids: Dict[int, List[str]] = {}
+        for rid, cfg in self.registered_robots.items():
+            port_to_ids.setdefault(cfg.port, []).append(rid)
+
+        for i in range(1, 255):
+            ip = f"{subnet}{i}"
+            for port in ports:
+                try:
+                    probe = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    probe.settimeout(timeout)
+                    probe.connect((ip, port))
+                    probe.close()
+                    match_ids = port_to_ids.get(port, [])
+                    discovered.append({
+                        "ip": ip,
+                        "port": port,
+                        "robot_id": match_ids[0] if match_ids else None,
+                    })
+                except (socket.timeout, OSError):
+                    continue
+        return discovered
     
     def calibrate_robot(self, robot_id: str) -> float:
         """校准机器人"""
@@ -366,7 +457,18 @@ class ExtendedDeploymentSystem:
         return result
     
     def disconnect_robot(self, robot_id: str):
-        """断开机器人"""
+        """断开机器人并关闭真实 socket"""
+        with self._sockets_lock:
+            sock = self._sockets.pop(robot_id, None)
+        if sock is not None:
+            try:
+                sock.shutdown(socket.SHUT_RDWR)
+            except OSError:
+                pass
+            try:
+                sock.close()
+            except Exception:
+                pass
         if robot_id in self.connected_robots:
             config = self.connected_robots[robot_id]
             config.status = "disconnected"

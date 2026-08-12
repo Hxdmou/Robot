@@ -30,6 +30,8 @@ from robot_comm import BaseRobotComm, RobotCommError, RobotTimeoutError
 
 
 class PandaComm(BaseRobotComm):
+    _MAX_RECONNECT_ATTEMPTS = 3
+
     def __init__(self, host="127.0.0.1", port=8080, timeout=5.0):
         super().__init__(timeout=timeout)
         self.host = host
@@ -39,6 +41,11 @@ class PandaComm(BaseRobotComm):
         self._last_state = None
         self._state_thread = None
         self._state_running = False
+        self._msg_counter = 0
+        self._awaiting_id = None
+        self._response_data = None
+        self._response_event = threading.Event()
+        self._io_lock = threading.Lock()
 
     def connect(self):
         try:
@@ -47,6 +54,10 @@ class PandaComm(BaseRobotComm):
             self.socket.settimeout(self.timeout)
             self.socket.connect((self.host, self.port))
             self.connected = True
+            self._recv_buffer = ""
+            self._awaiting_id = None
+            self._response_data = None
+            self._response_event.clear()
             print(f"[PANDA] 已连接到 {self.host}:{self.port}")
 
             self._start_state_listener()
@@ -54,10 +65,13 @@ class PandaComm(BaseRobotComm):
         except socket.timeout:
             raise RobotTimeoutError(f"连接超时 ({self.host}:{self.port})")
         except Exception as e:
+            self.connected = False
             raise RobotCommError(f"连接失败: {e}")
 
     def disconnect(self):
         self._state_running = False
+        self._awaiting_id = None
+        self._response_event.set()
         if self._state_thread:
             self._state_thread.join(timeout=2)
 
@@ -79,40 +93,109 @@ class PandaComm(BaseRobotComm):
     def _state_listener_loop(self):
         while self._state_running and self.connected:
             try:
-                data = self.socket.recv(4096).decode('utf-8')
+                raw = self.socket.recv(4096)
+                if not raw:
+                    print("[PANDA] 对端关闭连接")
+                    self.connected = False
+                    self._response_event.set()
+                    break
+                data = raw.decode('utf-8', errors='replace')
                 if data:
                     self._recv_buffer += data
                     while '\n' in self._recv_buffer:
                         line, self._recv_buffer = self._recv_buffer.split('\n', 1)
+                        line = line.strip()
+                        if not line:
+                            continue
                         try:
-                            self._last_state = json.loads(line)
-                        except:
-                            pass
+                            obj = json.loads(line)
+                        except Exception:
+                            continue
+                        resp_id = obj.get("id")
+                        if resp_id is not None and resp_id == self._awaiting_id:
+                            self._response_data = obj
+                            self._response_event.set()
+                        else:
+                            self._last_state = obj
             except socket.timeout:
                 continue
+            except OSError as e:
+                if self._state_running:
+                    print(f"[PANDA] 连接已断开: {e}")
+                self.connected = False
+                self._response_event.set()
+                break
             except Exception as e:
                 if self._state_running:
                     print(f"[PANDA] 状态监听异常: {e}")
                 break
 
-    def send_command(self, cmd, *args, **kwargs):
-        if not self.connected:
-            raise RobotCommError("未连接")
+    def _reconnect(self):
+        for attempt in range(1, self._MAX_RECONNECT_ATTEMPTS + 1):
+            try:
+                print(f"[PANDA] 尝试重连 ({attempt}/{self._MAX_RECONNECT_ATTEMPTS})...")
+                self.disconnect()
+                time.sleep(min(1.0, 0.5 * attempt))
+                self.connect()
+                return True
+            except Exception as e:
+                print(f"[PANDA] 重连失败: {e}")
+        return False
 
-        try:
-            command = {"command": cmd, "args": args, "kwargs": kwargs}
-            self.socket.sendall((json.dumps(command) + "\n").encode('utf-8'))
-            return True
-        except Exception as e:
-            raise RobotCommError(f"发送命令失败: {e}")
+    def send_command(self, cmd, *args, **kwargs):
+        with self._io_lock:
+            if not self.connected:
+                if not self._reconnect():
+                    raise RobotCommError("未连接且重连失败")
+
+            self._msg_counter += 1
+            cmd_id = self._msg_counter
+            command = {"id": cmd_id, "command": cmd, "args": args, "kwargs": kwargs}
+            self._awaiting_id = cmd_id
+            self._response_data = None
+            self._response_event.clear()
+            try:
+                self.socket.sendall((json.dumps(command) + "\n").encode('utf-8'))
+                return True
+            except (OSError, socket.timeout) as e:
+                self.connected = False
+                if self._reconnect():
+                    self._msg_counter += 1
+                    cmd_id = self._msg_counter
+                    command["id"] = cmd_id
+                    self._awaiting_id = cmd_id
+                    self._response_data = None
+                    self._response_event.clear()
+                    try:
+                        self.socket.sendall((json.dumps(command) + "\n").encode('utf-8'))
+                        return True
+                    except Exception as e2:
+                        raise RobotCommError(f"重连后发送命令仍失败: {e2}")
+                raise RobotCommError(f"发送命令失败且重连失败: {e}")
+            except Exception as e:
+                raise RobotCommError(f"发送命令失败: {e}")
 
     def read_response(self):
-        timeout = time.time() + self.timeout
-        while time.time() < timeout:
-            if self._last_state:
-                return self._last_state
-            time.sleep(0.01)
-        raise RobotTimeoutError("读取响应超时")
+        if not self.connected:
+            raise RobotCommError("未连接")
+        if not self._response_event.wait(timeout=self.timeout):
+            raise RobotTimeoutError("读取响应超时")
+        if not self.connected:
+            raise RobotCommError("连接已断开")
+        data = self._response_data
+        if data is None:
+            raise RobotCommError("收到空响应")
+        if not data.get("success", True) and "error" in data:
+            raise RobotCommError(f"机器人返回错误: {data['error']}")
+        return data
+
+    @staticmethod
+    def is_available() -> bool:
+        try:
+            import franka_interface  # noqa: F401
+            return True
+        except ImportError:
+            return False
 
     def get_joint_states(self):
         if self._last_state and "joint_states" in self._last_state:

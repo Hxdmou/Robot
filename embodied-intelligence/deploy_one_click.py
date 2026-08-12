@@ -48,6 +48,8 @@ import importlib
 import socket
 import time
 
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
 
 CHECKLIST = {
     "python_version": {"name": "Python 版本 (>=3.8)", "passed": False, "detail": ""},
@@ -96,8 +98,6 @@ def check_model_file():
     model_names = [
         "ppo_robot_reach_curriculum",
         "ppo_robot_reach_curriculum.zip",
-        "ppo_robot_reach_final_5m_enhanced",
-        "ppo_robot_reach_final_5m_enhanced.zip",
         "ppo_robot_reach_final_5m_enhanced",
         "ppo_robot_reach_final_5m_enhanced.zip",
     ]
@@ -325,23 +325,36 @@ def main():
         db.print_all_summaries()
         sys.exit(0)
 
-    # 选择机械臂型号
-    arm_key = args.arm or "franka_panda"
-    if not args.arm and args.mode == "real":
+    # 选择机械臂型号：优先级 --arm > 环境变量 DEPLOY_ARM > robot_config.DEFAULT_ARM_KEY > 交互式选择
+    arm_key = args.arm or os.environ.get("DEPLOY_ARM")
+    if not arm_key:
+        try:
+            import robot_config
+            arm_key = getattr(robot_config, "DEFAULT_ARM_KEY", None)
+        except Exception:
+            arm_key = None
+
+    if not arm_key and args.mode == "real":
         # 真实模式下提示选择
         from robot_arm_db import RobotArmDB
         db = RobotArmDB()
-        print("\n请选择机械臂型号（默认 franka_panda）：")
+        print("\n请选择机械臂型号：")
         arms = db.list_available_arms()
         for i, key in enumerate(arms, 1):
             s = db.get_summary(key)
             print(f"  {i}. {key} ({s['brand']} {s['model']}, {s['dof']}轴)")
         try:
-            choice = input("\n请输入编号 (默认1): ").strip()
+            choice = input("\n请输入编号: ").strip()
             if choice and int(choice) >= 1 and int(choice) <= len(arms):
                 arm_key = arms[int(choice) - 1]
         except:
             pass
+
+    if not arm_key:
+        print("\n❌ 未指定机械臂型号，请使用 --arm 参数指定，或设置 DEPLOY_ARM 环境变量")
+        print("   可用型号可通过 --list-arms 查看")
+        sys.exit(1)
+
     print(f"\n[DEPLOY] 目标机械臂: {arm_key}")
 
     # ========== 1. 运行部署前检查（使用新的动态检查器） ==========

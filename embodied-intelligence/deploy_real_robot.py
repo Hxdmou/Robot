@@ -197,8 +197,12 @@ class RealRobotDeployer:
         # 2. 加载真机适配器
         try:
             from real_robot_adapter import RobotAdapter
+            joint_indices = getattr(robot_config, "JOINT_INDICES", None)
+            if joint_indices is None:
+                dof = robot_config.REAL_ROBOT_CONFIG.get("dof", 7)
+                joint_indices = list(range(dof))
             robot_config_dict = {
-                "joint_indices": list(range(7)),
+                "joint_indices": joint_indices,
                 **robot_config.REAL_ROBOT_CONFIG,
                 "arm_key": self.arm_key,
             }
@@ -249,7 +253,8 @@ class RealRobotDeployer:
             self.emergency_monitor.start()
             print("[CONNECT] ✅ 安全控制器+急停监视器已启动")
         except Exception as e:
-            print(f"[CONNECT] ⚠️  安全控制器加载异常(继续): {e}")
+            print(f"[CONNECT] ❌ 安全控制器加载失败，部署终止: {e}")
+            raise RuntimeError(f"安全控制器加载失败: {e}") from e
 
         return True
 
@@ -312,7 +317,7 @@ class RealRobotDeployer:
         print("\n" + "=" * 70)
         print("  [阶段3/5] 系统标定 (Calibration)")
         print("=" * 70)
-        self.state.phase = DeployPhase.CALIBRATING
+        self.state.phase = DeployPhase.CALIBRATION
 
         if self._stop_event.is_set() or self.state.emergency_stop_triggered:
             return False
@@ -329,18 +334,19 @@ class RealRobotDeployer:
                 print("[CALIB] ✅ 标定完成")
                 return True
             else:
-                print("[CALIB] ⚠️  标定未完全通过，继续使用默认参数")
-                # 标定失败不阻断执行（使用出厂默认参数），但标记为警告
+                print("[CALIB] ⚠️  标定未完全通过，使用默认参数（未标记为已标定）")
+                with self._state_lock:
+                    self.state.robot_calibrated = False
                 return True
         except ImportError:
-            print("[CALIB] ℹ️  未找到 deploy_calibration 模块，跳过高阶标定（已使用默认参数）")
+            print("[CALIB] ℹ️  未找到 deploy_calibration 模块，跳过高阶标定（使用默认参数，未标记为已标定）")
             with self._state_lock:
-                self.state.robot_calibrated = True  # 默认参数视作"已标定"
+                self.state.robot_calibrated = False
             return True
         except Exception as e:
-            print(f"[CALIB] ⚠️  标定异常(跳过): {e}")
+            print(f"[CALIB] ⚠️  标定异常(跳过，未标记为已标定): {e}")
             with self._state_lock:
-                self.state.robot_calibrated = True
+                self.state.robot_calibrated = False
             return True
 
     # ------------------------------------------------------------------
@@ -366,6 +372,8 @@ class RealRobotDeployer:
         loop_idx = 0
         max_duration = _MAX_EXECUTION_HOURS * 3600
         start_ts = time.time()
+        consecutive_errors = 0
+        _MAX_CONSECUTIVE_ERRORS = 3
 
         # 主循环：硬上限保护
         while loop_idx < _MAX_LOOPS and loop_idx < self.max_cycles:
@@ -398,6 +406,8 @@ class RealRobotDeployer:
                 else:
                     print(f"[TASK] 循环{loop_idx:5d} ❌ 误差 {error_mm:.2f}mm (超20mm)")
 
+                consecutive_errors = 0
+
                 # 每10个循环打印摘要
                 if loop_idx % 10 == 0:
                     self._print_progress_summary(loop_idx)
@@ -406,10 +416,14 @@ class RealRobotDeployer:
                 time.sleep(0.3)
 
             except Exception as e:
-                print(f"[TASK] 循环{loop_idx} 异常: {e}")
+                consecutive_errors += 1
+                print(f"[TASK] 循环{loop_idx} 异常 ({consecutive_errors}/{_MAX_CONSECUTIVE_ERRORS}): {e}")
                 traceback.print_exc()
+                if consecutive_errors >= _MAX_CONSECUTIVE_ERRORS:
+                    print(f"[TASK] ❌ 连续异常达到 {_MAX_CONSECUTIVE_ERRORS} 次，停止任务执行")
+                    self._trigger_soft_estop(f"连续{consecutive_errors}次任务异常")
+                    break
                 time.sleep(1.0)
-                # 连续异常不阻断整体循环，继续尝试
 
         # 循环结束，打印最终统计
         self._print_progress_summary(loop_idx, final=True)
