@@ -478,6 +478,21 @@ BRAND_COMM_MAP = {
     "topstar_xingzai": "industrial_tcp",          # 拓斯达星仔四足
     "xiaomi_cyberone": "consumer_tcp",            # 小米 CyberOne 铁蛋
     "zhiyuan_lingxi_x2": "zhiyuan_tcp",           # 智元灵犀 X2
+    # ========== 新增14项产品映射 ==========
+    "zkjs_zhaocai": "vtla_tcp",                   # 中科巨身×京东招财巨型人形
+    "hbhri_motionmaster_uniact": "world_model_tcp",  # 湖北人形创新中心动作大模型
+    "nscc_zhengzhou_100k": "hpc_tcp",             # 郑州10万卡AI超集群
+    "iluvatar_tiangai_zhikai": "wafer_tcp",       # 天数智芯天垓/智铠GPGPU
+    "tencent_openclaw": "platform_tcp",           # 腾讯OpenClaw智能体平台
+    "zhipu_zcode": "platform_tcp",                # 智谱ZCode AI编程
+    "rouling_bci": "cmu_bci_serial",              # 柔灵科技脑机接口
+    "subquadratic_subq": "world_model_tcp",       # SubQ稀疏注意力模型
+    "manifest_ai_brumby": "platform_tcp",         # Manifest AI Brumby
+    "liquid_ai_lfm": "world_model_tcp",           # Liquid AI LFM液态模型
+    "inception_mercury2": "world_model_tcp",      # Inception Mercury 2扩散LLM
+    "pathway_dragon_hatchling": "world_model_tcp",  # Pathway Dragon Hatchling SSM
+    "qiniu_maas": "platform_tcp",                 # 七牛智能MaaS平台
+    "ahbfme_bci_chip": "cmu_bci_serial",          # 北方微脑电采集芯片
     # ==================== ARM_DATABASE 兼容别名 ====================
     "kuka_iiwa14": "kuka_fri",                     # KUKA iiwa 14 R820 (robot_arm_db兼容)
     "ur_ur5e": "ur_rtde",                          # UR5e (robot_arm_db兼容)
