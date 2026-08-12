@@ -533,6 +533,69 @@ memory.dmp
 /_private_repo_work/
 
 # ============================================================================
+# ===== 根目录私人RAG/安全/营销文件（禁止推送到公共仓库Robot.git） =====
+# ============================================================================
+# RAG十套系统核心文件
+/rag.py
+/academic_qa.py
+/medical_qa.py
+/finance_qa.py
+/government_qa.py
+/hr_qa.py
+/tech_qa.py
+/e_commerce_qa.py
+/education_qa.py
+/legal_qa.py
+/chat_history.py
+/batch_processor.py
+/build_all_indexes.py
+/document_visualizer.py
+/export_utils.py
+/inference.py
+/logger.py
+/run.py
+/train.py
+/backup_j.py
+/api_example.md
+
+# 安全工具
+/file_encryptor.py
+/pin_gate.py
+/security_scan.py
+/security_checklist.py
+/pre_commit_gate.py
+/commit_msg_gate.py
+/install_security_hooks.py
+
+# Git身份备份工具
+/before_lend.py
+/after_takeback.py
+
+# 私人配置与数据
+/config/
+/nlp_news_classification/
+/hosts/
+/.env.example
+/.vscode/launch.json
+
+# PPT/营销文档
+/A2A_ENTERPRISE_PPT.md
+/A2A_PPT优化方案.md
+/A2A_PPT完整升级内容.md
+/PPT优化最终检查报告.md
+/PPT优化检查报告.md
+/产品目录.md
+/完整表格数据汇总.md
+/完整表格数据汇总_最终版.md
+/知识推送文档.md
+/知识推送文档更新内容.md
+/程序图标科技服务.md
+
+# 私人脚本
+/I监视工具_请手动运行.py
+/RAG十套系统一键启动.bat
+
+# ============================================================================
 # ===== FINAL：以上任何模式匹配成功 = 绝对禁止被 git 追踪 =====
 # ============================================================================
 

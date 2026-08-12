@@ -3910,4 +3910,80 @@ DEPLOYMENT_OVERRIDES = {
             ],
         },
     },
+    # ==================== ARM_DATABASE 内置6款机械臂补全 ====================
+    "franka_panda": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 8080,
+            "protocol": "panda_libfranka",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-2.967, -1.832, -2.967, -3.141, -2.967, -0.087, -2.967],
+            "upper": [2.967, 1.832, 2.967, -0.069, 2.967, 3.822, 2.967],
+            "speed_radps": [2.175, 2.175, 2.175, 2.175, 2.610, 2.610, 2.610],
+            "accel_radps2": [3.75, 3.75, 3.75, 3.75, 4.5, 4.5, 4.5],
+        },
+    },
+    "kuka_iiwa14": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 30200,
+            "protocol": "kuka_fri",
+            "timeout_sec": 5.0,
+            "transport": "udp",
+        },
+        "joint_limits": {
+            "lower": [-2.967, -2.094, -2.967, -2.094, -2.967, -2.094, -3.054],
+            "upper": [2.967, 2.094, 2.967, 2.094, 2.967, 2.094, 3.054],
+            "speed_radps": [1.710, 1.710, 1.745, 2.234, 2.443, 3.142, 3.142],
+            "accel_radps2": [3.0, 3.0, 3.0, 3.5, 4.0, 5.0, 5.0],
+        },
+    },
+    "ur_ur5e": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 30004,
+            "protocol": "ur_rtde",
+            "timeout_sec": 5.0,
+            "transport": "tcp",
+        },
+        "joint_limits": {
+            "lower": [-3.142, -3.142, -3.142, -3.142, -3.142, -3.142],
+            "upper": [3.142, 3.142, 3.142, 3.142, 3.142, 3.142],
+            "speed_radps": [3.142, 3.142, 3.142, 6.283, 6.283, 6.283],
+            "accel_radps2": [5.0, 5.0, 5.0, 8.0, 8.0, 8.0],
+        },
+    },
+    "abb_yumi": {
+        "communication": {
+            "default_host": "127.0.0.1",
+            "default_port": 6510,
+            "protocol": "abb_egm",
+            "timeout_sec": 5.0,
+            "transport": "udp",
+        },
+        "joint_limits": {
+            "lower": [-2.94, -2.50, -2.94, -2.15, -2.94, -1.92, -2.94] * 2,
+            "upper": [2.94, 0.75, 2.94, 1.39, 2.94, 2.27, 2.94] * 2,
+            "speed_radps": [2.51] * 14,
+            "accel_radps2": [4.0] * 14,
+        },
+    },
+    "dobot_magician": {
+        "communication": {
+            "default_host": "COM3",
+            "default_port": 115200,
+            "protocol": "dobot_serial",
+            "timeout_sec": 5.0,
+            "transport": "serial",
+        },
+        "joint_limits": {
+            "lower": [-3.142, -2.618, -2.618, -3.142],
+            "upper": [3.142, 2.618, 2.618, 3.142],
+            "speed_radps": [3.142, 2.094, 2.094, 6.283],
+            "accel_radps2": [5.0, 3.0, 3.0, 8.0],
+        },
+    },
 }

@@ -270,6 +270,44 @@ BRAND_COMM_MAP = {
     "digua_warehouse": "logistics_slam_mqtt",
     "yuanli_apex": "modbus_tcp_ros2",
     "zhengqi_quorra_x5": "consumer_5g_cv2x",
+    # ==================== 截图251-506补充产品映射 ====================
+    "realman_realbot_l2": "vtla_tcp",
+    "runke_centaur": "vtla_tcp",
+    "roboscience_rex": "vtla_tcp",
+    "lingchu_psisynrobot": "vtla_tcp",
+    "lingshu_xiaoxin": "vtla_tcp",
+    "eir_aiq": "vtla_tcp",
+    "zhixing_hanyue": "vtla_tcp",
+    "keenon_xman_r1": "vtla_tcp",
+    "booster_t2": "vtla_tcp",
+    "robotis_ai_worker": "vtla_tcp",
+    "heshi_humanoid_x": "vtla_tcp",
+    "byd_xiaodi": "vtla_tcp",
+    "digital_huaxia_xialan": "vtla_tcp",
+    "digital_huaxia_xingxingxia": "vtla_tcp",
+    "51world_aperone": "vtla_tcp",
+    "aitu_sewing_robot": "vtla_tcp",
+    "vita_vbot_edu": "vtla_tcp",
+    "zhishen_gangbeng_l1": "vtla_tcp",
+    "pudu_d5": "vtla_tcp",
+    "pudu_d5_w": "vtla_tcp",
+    "gaode_tutu": "vtla_tcp",
+    "tribar_tensegrity": "consumer_tcp",
+    "robstride_edulite_a3": "modbus_tcp_ros2",
+    "slmatec_hermes_chassis": "logistics_slam_mqtt",
+    "lvkang_lu_d100": "logistics_slam_mqtt",
+    "yunqi_ai135": "logistics_slam_mqtt",
+    "cheng_tian_gogo_h_pro": "shurui_tcp",
+    "haier_w2_exo": "shurui_tcp",
+    "ecovacs_bajie": "consumer_tcp",
+    "annuo_ai_coffee": "consumer_tcp",
+    "digital_huaxia_ruta": "consumer_tcp",
+    "51world_51sim": "platform_tcp",
+    "roboease_scene_brain": "platform_tcp",
+    "axera_ax615": "wafer_tcp",
+    "axera_ax8850": "wafer_tcp",
+    "zhongxingwei_63104": "wafer_tcp",
+    "cas_sgbt_132ghz": "telecom_tcp",
     # ==================== 非运动体兜底（AI芯片/传感器/eVTOL/平台/基建设施/研究基地/通信设备等 → GenericBridgeAdapter） ====================
     "anhui_industrial_net_export": "generic_bridge",
     "beta_creative_tech_hk_ai_infra": "generic_bridge",
@@ -422,6 +460,27 @@ BRAND_COMM_MAP = {
     "agibot_xingyun_a2w_wheeled": "zhiyuan_tcp",
     "unitree_h1_fullsize_humanoid": "unitree_udp",
     "fourier_gr_series_humanoid": "generic_bridge",
+    # ========== 补全：全球先进真机品牌通信映射（17项） ==========
+    "1x_neo": "consumer_tcp",                    # 1X Technologies NEO 人形
+    "agility_robotics_digit": "vtla_tcp",         # Agility Robotics Digit 双足
+    "beijing_humanoid_tiangong": "vtla_tcp",      # 北京天工人形
+    "boston_dynamics_atlas": "vtla_tcp",          # 波士顿动力 Atlas 全电版
+    "cloudminds_xr4": "consumer_tcp",             # 达闼 XR-4 云端人形
+    "engineai_pm01": "consumer_tcp",              # 众擎 PM01 服务人形
+    "limx_dynamics_p1": "vtla_tcp",               # 逐际动力 P1 双足
+    "meituan_catpaw": "platform_tcp",             # 美团 CatPaw 智能体平台
+    "microsoft_maia_300": "wafer_tcp",            # 微软 Maia 300 AI芯片
+    "nvidia_dsx": "wafer_tcp",                    # NVIDIA DSX AI工厂
+    "tesla_optimus": "vtla_tcp",                  # 特斯拉 Optimus
+    "topstar_tdm020": "industrial_tcp",           # 拓斯达 TDM020 双臂协作
+    "topstar_tm010": "industrial_tcp",            # 拓斯达 TM010 工业臂
+    "topstar_twh020": "industrial_tcp",           # 拓斯达 TWH020 人形
+    "topstar_xingzai": "industrial_tcp",          # 拓斯达星仔四足
+    "xiaomi_cyberone": "consumer_tcp",            # 小米 CyberOne 铁蛋
+    "zhiyuan_lingxi_x2": "zhiyuan_tcp",           # 智元灵犀 X2
+    # ==================== ARM_DATABASE 兼容别名 ====================
+    "kuka_iiwa14": "kuka_fri",                     # KUKA iiwa 14 R820 (robot_arm_db兼容)
+    "ur_ur5e": "ur_rtde",                          # UR5e (robot_arm_db兼容)
 }
 
 # 协议实现映射（协议名 → 适配器类，延迟导入避免依赖缺失）
