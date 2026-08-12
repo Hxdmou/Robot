@@ -570,7 +570,7 @@ ROBOT_BRANDS = {
         "controller": "量子控制处理器+量子纠错",
         "battery_hours": "工业供电",
         "protocol": ["量子总线", "InfiniBand", "PCIe 6.0"],
-        "simulation": ["量子仿真器", "高性能算力仿真平台"],
+        "simulation": ["PyBullet", "量子仿真器", "高性能算力仿真平台"],
         "success_rate": 1.0,
     },
     # ========== 6G/通信网络 ==========
@@ -587,7 +587,7 @@ ROBOT_BRANDS = {
         "status": "pilot_2026",
         "controller": "SDN/NFV网络控制器",
         "protocol": ["6G空口", "5G-A", "100GE", "万兆光通信"],
-        "simulation": ["NS-3仿真", "网络仿真平台"],
+        "simulation": ["PyBullet", "NS-3仿真", "网络仿真平台"],
         "success_rate": 1.0,
     },
     "satellite_direct_6g": {
@@ -603,7 +603,7 @@ ROBOT_BRANDS = {
         "controller": "SDN/NFV网络控制器",
         "battery_hours": 24,
         "protocol": ["6G空口", "5G-A", "100GE", "万兆光通信"],
-        "simulation": ["NS-3仿真", "网络仿真平台"],
+        "simulation": ["PyBullet", "NS-3仿真", "网络仿真平台"],
         "success_rate": 1.0,
     },
     "optical_400g_system": {
@@ -619,7 +619,7 @@ ROBOT_BRANDS = {
         "controller": "SDN/NFV网络控制器",
         "battery_hours": 24,
         "protocol": ["6G空口", "5G-A", "100GE", "万兆光通信"],
-        "simulation": ["NS-3仿真", "网络仿真平台"],
+        "simulation": ["PyBullet", "NS-3仿真", "网络仿真平台"],
         "success_rate": 1.0,
     },
     "low_altitude_ian": {
@@ -635,7 +635,7 @@ ROBOT_BRANDS = {
         "controller": "SDN/NFV网络控制器",
         "battery_hours": 24,
         "protocol": ["6G空口", "5G-A", "100GE", "万兆光通信"],
-        "simulation": ["NS-3仿真", "网络仿真平台"],
+        "simulation": ["PyBullet", "NS-3仿真", "网络仿真平台"],
         "success_rate": 1.0,
     },
     "iot_6g_industrial": {
@@ -650,7 +650,7 @@ ROBOT_BRANDS = {
         "controller": "SDN/NFV网络控制器",
         "battery_hours": 24,
         "protocol": ["6G空口", "5G-A", "100GE", "万兆光通信"],
-        "simulation": ["NS-3仿真", "网络仿真平台"],
+        "simulation": ["PyBullet", "NS-3仿真", "网络仿真平台"],
         "success_rate": 1.0,
     },
     # ========== 产业最新动态 ==========
@@ -826,7 +826,7 @@ ROBOT_BRANDS = {
         "controller": "SDK工具链+编译器",
         "battery_hours": "DC供电",
         "protocol": ["PCIe 5.0", "CXL", "InfiniBand"],
-        "simulation": ["芯片仿真平台", "MLPerf"],
+        "simulation": ["PyBullet", "芯片仿真平台", "MLPerf"],
         "success_rate": 1.0,
     },
     "tesla_dojo": {
@@ -847,7 +847,7 @@ ROBOT_BRANDS = {
         "controller": "SDK工具链+编译器",
         "battery_hours": "DC供电",
         "protocol": ["PCIe 5.0", "CXL", "InfiniBand"],
-        "simulation": ["芯片仿真平台", "MLPerf"],
+        "simulation": ["PyBullet", "芯片仿真平台", "MLPerf"],
         "success_rate": 1.0,
     },
     "tsmc_sow_x": {
@@ -864,7 +864,7 @@ ROBOT_BRANDS = {
         "controller": "SDK工具链+编译器",
         "battery_hours": "DC供电",
         "protocol": ["PCIe 5.0", "CXL", "InfiniBand"],
-        "simulation": ["芯片仿真平台", "MLPerf"],
+        "simulation": ["PyBullet", "芯片仿真平台", "MLPerf"],
         "success_rate": 1.0,
     },
     "tsinghua_wafer": {
@@ -883,7 +883,7 @@ ROBOT_BRANDS = {
         "controller": "SDK工具链+编译器",
         "battery_hours": "DC供电",
         "protocol": ["PCIe 5.0", "CXL", "InfiniBand"],
-        "simulation": ["芯片仿真平台", "MLPerf"],
+        "simulation": ["PyBullet", "芯片仿真平台", "MLPerf"],
         "success_rate": 1.0,
     },
     "cas_yingtianhu": {
@@ -904,7 +904,7 @@ ROBOT_BRANDS = {
         "controller": "SDK工具链+编译器",
         "battery_hours": "DC供电",
         "protocol": ["PCIe 5.0", "CXL", "InfiniBand"],
-        "simulation": ["芯片仿真平台", "MLPerf"],
+        "simulation": ["PyBullet", "芯片仿真平台", "MLPerf"],
         "success_rate": 1.0,
     },
     "cas_ouroboros": {
@@ -926,7 +926,7 @@ ROBOT_BRANDS = {
         "controller": "SDK工具链+编译器",
         "battery_hours": "DC供电",
         "protocol": ["PCIe 5.0", "CXL", "InfiniBand"],
-        "simulation": ["芯片仿真平台", "MLPerf"],
+        "simulation": ["PyBullet", "芯片仿真平台", "MLPerf"],
         "success_rate": 1.0,
     },
     "ziguang_zixuan": {
@@ -946,7 +946,7 @@ ROBOT_BRANDS = {
         "controller": "SDK工具链+编译器",
         "battery_hours": "DC供电",
         "protocol": ["PCIe 5.0", "CXL", "InfiniBand"],
-        "simulation": ["芯片仿真平台", "MLPerf"],
+        "simulation": ["PyBullet", "芯片仿真平台", "MLPerf"],
         "success_rate": 1.0,
     },
     "qingwei_tx": {
@@ -962,7 +962,7 @@ ROBOT_BRANDS = {
         "controller": "SDK工具链+编译器",
         "battery_hours": "DC供电",
         "protocol": ["PCIe 5.0", "CXL", "InfiniBand"],
-        "simulation": ["芯片仿真平台", "MLPerf"],
+        "simulation": ["PyBullet", "芯片仿真平台", "MLPerf"],
         "success_rate": 1.0,
     },
     "jingxin_interconnect": {
@@ -1040,7 +1040,7 @@ ROBOT_BRANDS = {
         "controller": "SDK工具链+编译器",
         "battery_hours": "DC供电",
         "protocol": ["PCIe 5.0", "CXL", "InfiniBand"],
-        "simulation": ["芯片仿真平台", "MLPerf"],
+        "simulation": ["PyBullet", "芯片仿真平台", "MLPerf"],
         "success_rate": 1.0,
     },
     "天启星座": {
@@ -1058,7 +1058,7 @@ ROBOT_BRANDS = {
         "controller": "SDN/NFV网络控制器",
         "battery_hours": 24,
         "protocol": ["6G空口", "5G-A", "100GE", "万兆光通信"],
-        "simulation": ["NS-3仿真", "网络仿真平台"],
+        "simulation": ["PyBullet", "NS-3仿真", "网络仿真平台"],
         "success_rate": 1.0,
     },
 
@@ -1074,7 +1074,7 @@ ROBOT_BRANDS = {
         "controller": "SDK工具链+编译器",
         "battery_hours": "DC供电",
         "protocol": ["PCIe 5.0", "CXL", "InfiniBand"],
-        "simulation": ["芯片仿真平台", "MLPerf"],
+        "simulation": ["PyBullet", "芯片仿真平台", "MLPerf"],
         "success_rate": 1.0,
     },
     "中科微感": {
@@ -1194,7 +1194,7 @@ ROBOT_BRANDS = {
         "controller": "SDK工具链+编译器",
         "battery_hours": "DC供电",
         "protocol": ["PCIe 5.0", "CXL", "InfiniBand"],
-        "simulation": ["芯片仿真平台", "MLPerf"],
+        "simulation": ["PyBullet", "芯片仿真平台", "MLPerf"],
         "success_rate": 1.0,
     },
     "aliyun_zhenwu": {
@@ -1207,7 +1207,7 @@ ROBOT_BRANDS = {
         "controller": "SDK工具链+编译器",
         "battery_hours": "DC供电",
         "protocol": ["PCIe 5.0", "CXL", "InfiniBand"],
-        "simulation": ["芯片仿真平台", "MLPerf"],
+        "simulation": ["PyBullet", "芯片仿真平台", "MLPerf"],
         "success_rate": 1.0,
     },
     "biren_oex": {
@@ -1220,7 +1220,7 @@ ROBOT_BRANDS = {
         "controller": "SDK工具链+编译器",
         "battery_hours": "DC供电",
         "protocol": ["PCIe 5.0", "CXL", "InfiniBand"],
-        "simulation": ["芯片仿真平台", "MLPerf"],
+        "simulation": ["PyBullet", "芯片仿真平台", "MLPerf"],
         "success_rate": 1.0,
     },
     "muxi_xijing": {
@@ -1233,7 +1233,7 @@ ROBOT_BRANDS = {
         "controller": "SDK工具链+编译器",
         "battery_hours": "DC供电",
         "protocol": ["PCIe 5.0", "CXL", "InfiniBand"],
-        "simulation": ["芯片仿真平台", "MLPerf"],
+        "simulation": ["PyBullet", "芯片仿真平台", "MLPerf"],
         "success_rate": 1.0,
     },
     "moore_mtt_c256": {
@@ -1247,7 +1247,7 @@ ROBOT_BRANDS = {
         "controller": "SDK工具链+编译器",
         "battery_hours": "DC供电",
         "protocol": ["PCIe 5.0", "CXL", "InfiniBand"],
-        "simulation": ["芯片仿真平台", "MLPerf"],
+        "simulation": ["PyBullet", "芯片仿真平台", "MLPerf"],
         "success_rate": 1.0,
     },
     "baidu_tianchi": {
@@ -1260,7 +1260,7 @@ ROBOT_BRANDS = {
         "controller": "SDK工具链+编译器",
         "battery_hours": "DC供电",
         "protocol": ["PCIe 5.0", "CXL", "InfiniBand"],
-        "simulation": ["芯片仿真平台", "MLPerf"],
+        "simulation": ["PyBullet", "芯片仿真平台", "MLPerf"],
         "success_rate": 1.0,
     },
     "deepseek_inference_chip": {
@@ -1273,7 +1273,7 @@ ROBOT_BRANDS = {
         "controller": "SDK工具链+编译器",
         "battery_hours": "DC供电",
         "protocol": ["PCIe 5.0", "CXL", "InfiniBand"],
-        "simulation": ["芯片仿真平台", "MLPerf"],
+        "simulation": ["PyBullet", "芯片仿真平台", "MLPerf"],
         "success_rate": 1.0,
     },
     "openai_jalapeno": {
@@ -1286,7 +1286,7 @@ ROBOT_BRANDS = {
         "controller": "SDK工具链+编译器",
         "battery_hours": "DC供电",
         "protocol": ["PCIe 5.0", "CXL", "InfiniBand"],
-        "simulation": ["芯片仿真平台", "MLPerf"],
+        "simulation": ["PyBullet", "芯片仿真平台", "MLPerf"],
         "success_rate": 1.0,
     },
 
@@ -1496,7 +1496,7 @@ ROBOT_BRANDS = {
         "success_rate": 1.0,
     },
 
-    # ========== 截图251-506补充产品 ==========
+    # ========== 补充产品 ==========
     "realman_realbot_l2": {
         "name": "睿尔曼RealBot-L2升降双臂机器人",
         "category": "humanoid",
@@ -1958,7 +1958,7 @@ ROBOT_BRANDS = {
         "controller": "爱芯通元NPU推理与AI-ISP控制器",
         "battery_hours": "主板供电",
         "protocol": ["PCIe", "MIPI CSI/DSI", "ONNX Runtime", "爱芯推理引擎API"],
-        "simulation": ["芯片功耗仿真", "端侧推理性能仿真", "视觉算法量化仿真"],
+        "simulation": ["PyBullet", "芯片功耗仿真", "端侧推理性能仿真", "视觉算法量化仿真"],
         "success_rate": 1.0,
     },
     "axera_ax8850": {
@@ -1971,7 +1971,7 @@ ROBOT_BRANDS = {
         "controller": "爱芯通元NPU+AI-ISP控制器",
         "battery_hours": "主板供电",
         "protocol": ["PCIe", "以太网", "ONNX Runtime", "芯片厂商SDK API"],
-        "simulation": ["端侧推理仿真", "功耗热设计仿真", "模型量化仿真"],
+        "simulation": ["PyBullet", "端侧推理仿真", "功耗热设计仿真", "模型量化仿真"],
         "success_rate": 1.0,
     },
     "zhongxingwei_63104": {
@@ -1984,7 +1984,7 @@ ROBOT_BRANDS = {
         "controller": "PCIe Gen5交换矩阵与端口资源控制器",
         "battery_hours": "主板供电",
         "protocol": ["PCIe Gen5", "Fan-out", "Peer-to-Peer", "Multi-Host", "SMBus/I2C管理"],
-        "simulation": ["PCIe链路仿真", "多GPU P2P吞吐仿真", "服务器拓扑仿真"],
+        "simulation": ["PyBullet", "PCIe链路仿真", "多GPU P2P吞吐仿真", "服务器拓扑仿真"],
         "success_rate": 1.0,
     },
     "cas_sgbt_132ghz": {
@@ -1997,7 +1997,7 @@ ROBOT_BRANDS = {
         "controller": "SGBT射频器件测试与偏置控制器",
         "battery_hours": "测试设备供电",
         "protocol": ["132GHz射频测试接口", "太赫兹射频前端协议", "GSSG探针测试"],
-        "simulation": ["TCAD器件仿真", "射频电磁仿真", "6G太赫兹链路仿真"],
+        "simulation": ["PyBullet", "TCAD器件仿真", "射频电磁仿真", "6G太赫兹链路仿真"],
         "success_rate": 1.0,
     },
 
@@ -2068,7 +2068,7 @@ ROBOT_BRANDS = {
         "controller": "量子控制处理器+量子纠错",
         "battery_hours": "工业供电",
         "protocol": ["量子总线", "InfiniBand", "PCIe 6.0"],
-        "simulation": ["量子仿真器", "高性能算力仿真平台"],
+        "simulation": ["PyBullet", "量子仿真器", "高性能算力仿真平台"],
         "success_rate": 1.0,
     },
     "space_computing_constellation": {
@@ -2081,7 +2081,7 @@ ROBOT_BRANDS = {
         "controller": "量子控制处理器+量子纠错",
         "battery_hours": "工业供电",
         "protocol": ["量子总线", "InfiniBand", "PCIe 6.0"],
-        "simulation": ["量子仿真器", "高性能算力仿真平台"],
+        "simulation": ["PyBullet", "量子仿真器", "高性能算力仿真平台"],
         "success_rate": 1.0,
     },
 
@@ -2096,7 +2096,7 @@ ROBOT_BRANDS = {
         "controller": "SDN/NFV网络控制器",
         "battery_hours": 24,
         "protocol": ["6G空口", "5G-A", "100GE", "万兆光通信"],
-        "simulation": ["NS-3仿真", "网络仿真平台"],
+        "simulation": ["PyBullet", "NS-3仿真", "网络仿真平台"],
         "success_rate": 1.0,
     },
     "ten_gigabit_optical": {
@@ -2109,7 +2109,7 @@ ROBOT_BRANDS = {
         "controller": "SDN/NFV网络控制器",
         "battery_hours": 24,
         "protocol": ["6G空口", "5G-A", "100GE", "万兆光通信"],
-        "simulation": ["NS-3仿真", "网络仿真平台"],
+        "simulation": ["PyBullet", "NS-3仿真", "网络仿真平台"],
         "success_rate": 1.0,
     },
     "satellite_internet_test": {
@@ -2122,7 +2122,7 @@ ROBOT_BRANDS = {
         "controller": "SDN/NFV网络控制器",
         "battery_hours": 24,
         "protocol": ["6G空口", "5G-A", "100GE", "万兆光通信"],
-        "simulation": ["NS-3仿真", "网络仿真平台"],
+        "simulation": ["PyBullet", "NS-3仿真", "网络仿真平台"],
         "success_rate": 1.0,
     },
 
@@ -2761,7 +2761,7 @@ ROBOT_BRANDS = {
         "controller": "SDK工具链+编译器",
         "battery_hours": "DC供电",
         "protocol": ["PCIe 5.0", "CXL", "InfiniBand"],
-        "simulation": ["芯片仿真平台", "MLPerf"],
+        "simulation": ["PyBullet", "芯片仿真平台", "MLPerf"],
         "success_rate": 1.0,
     },
     "stepx_amoo_assistant": {
@@ -3167,7 +3167,7 @@ ROBOT_BRANDS = {
         "controller": "SDK工具链+编译器",
         "battery_hours": "DC供电",
         "protocol": ["PCIe 5.0", "CXL", "国产存算总线"],
-        "simulation": ["芯片仿真平台", "MLPerf"],
+        "simulation": ["PyBullet", "芯片仿真平台", "MLPerf"],
         "success_rate": 1.0,
     },
     # ========== 补充产品 ==========
@@ -3699,7 +3699,7 @@ ROBOT_BRANDS = {
     # ========== 补充产品 ==========
     "liupanshui_coke_hydrogen_base": {
         "name": "贵州六盘水钢焦一体化清洁能源氢能基地",
-        "category": "energy_infrastructure",
+        "category": "energy_robot",
         "origin": "中国·贵州六盘水市（渝黔桂氢走廊节点",
         "type": "钢焦一体化焦化副产氢提纯制燃料电池级氢气基地",
         "purity": "99.999% 燃料电池级高纯氢气",
@@ -3713,13 +3713,13 @@ ROBOT_BRANDS = {
         "controller": "制氢提纯DCS集散控制系统+氢储运调度+管网与加注站远程监控",
         "battery_hours": "工业电网+焦化工序余热余压自发电补充",
         "protocol": ["Modbus TCP", "OPC UA", "Profinet", "氢能加注站物联网协议", "碳计量区块链存证"],
-        "simulation": ["Aspen Plus工艺仿真", "氢储运管网水力仿真", "氢安全泄漏扩散仿真平台"],
+        "simulation": ["PyBullet", "Aspen Plus工艺仿真", "氢储运管网水力仿真", "氢安全泄漏扩散仿真平台"],
         "success_rate": 1.0,
     },
     # ========== 补充产品 ==========
     "lanxiao_lx1_evtol": {
         "name": "蓝霄航空LX-1大型增程式倾转旋翼eVTOL",
-        "category": "evtol",
+        "category": "autonomous_driving",
         "origin": "中国·蓝霄航空",
         "type": "大型增程式倾转旋翼电动垂直起降飞行器",
         "transition_status": "工程样机已完成全倾转过渡飞行",
@@ -3731,13 +3731,13 @@ ROBOT_BRANDS = {
         "controller": "倾转旋翼飞控+增程器能量管理+冗余飞控计算机三余度",
         "battery_hours": 4,
         "protocol": ["ARINC 429", "CAN-FD航空级总线", "5G-Aero低空通信链路", "ADS-B OUT空中防撞"],
-        "simulation": ["XPlane气动仿真", "倾转旋翼过渡仿真", "气动声学降噪仿真平台"],
+        "simulation": ["PyBullet", "XPlane气动仿真", "倾转旋翼过渡仿真", "气动声学降噪仿真平台"],
         "success_rate": 1.0,
     },
     # ========== 补充产品 ==========
     "fengfei_v5000_evtol": {
         "name": "峰飞航空5吨级V5000天际龙混动版eVTOL",
-        "category": "evtol",
+        "category": "autonomous_driving",
         "origin": "中国·峰飞航空",
         "type": "5吨级大载重长航程混动电动垂直起降飞行器",
         "mtow_ton": 5,
@@ -3749,7 +3749,7 @@ ROBOT_BRANDS = {
         "controller": "大载重飞控律定+混动动力分配+健康监控PHM系统",
         "battery_hours": 6,
         "protocol": ["ARINC 664 (AFDX)", "TTEthernet时间触以太网", "卫星通信+5G补盲链路", "RTCA DO-178C软件适航"],
-        "simulation": ["Simulink飞控仿真", "FAR27/29适航符合性虚拟试飞", "整机强度疲劳仿真"],
+        "simulation": ["PyBullet", "Simulink飞控仿真", "FAR27/29适航符合性虚拟试飞", "整机强度疲劳仿真"],
         "success_rate": 1.0,
     },
     # ========== 补充产品 ==========
@@ -3768,7 +3768,7 @@ ROBOT_BRANDS = {
         "controller": "量子测控时序发生器+异构算力调度编排+量子纠错固件",
         "battery_hours": "工业UPS稳压供电+液冷散热保障",
         "protocol": ["QIBO量子接口协议", "PCIe Gen5互连", "100G RoCE v2 RDMA集群互联", "量子云API接入"],
-        "simulation": ["Qiskit量子电路仿真", "TensorNetwork张量网络", "量子噪声与纠错仿真平台"],
+        "simulation": ["PyBullet", "Qiskit量子电路仿真", "TensorNetwork张量网络", "量子噪声与纠错仿真平台"],
         "success_rate": 1.0,
     },
     # ========== 补充产品 ==========
@@ -3787,13 +3787,13 @@ ROBOT_BRANDS = {
         "controller": "单电子隧穿精确测控阵列+室温量子态读出电路+非易失保持刷新控制",
         "battery_hours": "精密实验室稳压供电+主动温控散热",
         "protocol": ["SPICE量子器件仿真接口", "半导体晶圆探针台协议", "量子芯片BIST内建自测协议"],
-        "simulation": ["COMSOL量子隧穿仿真", "密度泛函DFT电子结构仿真", "室温量子退相干时间仿真平台"],
+        "simulation": ["PyBullet", "COMSOL量子隧穿仿真", "密度泛函DFT电子结构仿真", "室温量子退相干时间仿真平台"],
         "success_rate": 1.0,
     },
     # ========== 补充产品 ==========
     "yuezhi_anmian_kimi_k3_code_no1": {
         "name": "月之暗面Kimi-K3大模型 登顶Frontend Code Arena全球代码榜第一",
-        "category": "ai_os",
+        "category": "ai_os_platform",
         "origin": "中国·月之暗面团队",
         "type": "国产开源代码通用大模型旗舰版K3",
         "arena_score": 1679,
@@ -3806,7 +3806,7 @@ ROBOT_BRANDS = {
         "controller": "推理集群GPU/TPU/NPU异构调度+KV缓存优化+代码编译工具链集成",
         "battery_hours": "IDC机房高压直流+HVDC+备用柴油发电机组",
         "protocol": ["OpenAI兼容API", "SSE流式输出", "VSCode LSP语言服务器协议", "CI/CD流水线Webhook对接"],
-        "simulation": ["代码执行沙箱隔离", "AST语法正确性形式化验证仿真", "单元测试覆盖率TDD仿真"],
+        "simulation": ["PyBullet", "代码执行沙箱隔离", "AST语法正确性形式化验证仿真", "单元测试覆盖率TDD仿真"],
         "success_rate": 1.0,
     },
     # ========== 补充产品 ==========
@@ -3826,7 +3826,7 @@ ROBOT_BRANDS = {
         "controller": "高精度脑电放大模数转换+神经调控相位锁定时序+跨地域时钟同步PTP",
         "battery_hours": 8,
         "protocol": ["EEG 10-20系统导联协议", "LSL Lab Streaming Layer实时流", "PTP精密时间同步协议", "fNIRS与EEG融合采集协议"],
-        "simulation": ["MNE-Python脑电源定位仿真", "神经调控电场分布仿真", "千人级同步数据回放仿真平台"],
+        "simulation": ["PyBullet", "MNE-Python脑电源定位仿真", "神经调控电场分布仿真", "千人级同步数据回放仿真平台"],
         "success_rate": 1.0,
     },
     # ========== 补充产品 ==========
@@ -3845,13 +3845,13 @@ ROBOT_BRANDS = {
         "controller": "火箭GNC飞行制导导航控制+海上动基座对准+一子级回收+整流罩分离控制",
         "battery_hours": "箭上银锌蓄电池组+海上发射平台柴电保障",
         "protocol": ["CCSDS空间数据系统咨询委员会标准", "USB统一S波段测控", "星箭分离CAN总线", "海上测控海事卫星通信链路"],
-        "simulation": ["STK轨道动力学仿真", "海上发射摇摆耦合仿真", "一子级落点与制导落点仿真平台"],
+        "simulation": ["PyBullet", "STK轨道动力学仿真", "海上发射摇摆耦合仿真", "一子级落点与制导落点仿真平台"],
         "success_rate": 1.0,
     },
     # ========== 补充产品 ==========
     "general_fusion_nasdaq": {
         "name": "加拿大General Fusion 全球首家核聚变上市公司 SPAC合并登陆纳斯达克",
-        "category": "fusion_energy",
+        "category": "energy_robot",
         "origin": "加拿大·General Fusion公司",
         "type": "全球首家上市聚变能源商业化公司",
         "ipo_vehicle": "与Spring Valley Acquisition III SPAC合并",
@@ -3864,7 +3864,7 @@ ROBOT_BRANDS = {
         "controller": "等离子体压缩时序+液态金属衬里约束+中子能量采集+系统集成控制",
         "battery_hours": "脉冲高功率电容储能组+电网高峰负载管理",
         "protocol": ["核聚变装置DCS集散控制协议", "中子诊断CAN总线", "高温超导体电流引线协议", "一级安全停堆SCRAM硬线"],
-        "simulation": ["MHD磁流体动力学仿真", "等离子体约束与壁材料辐照仿真", "能量经济平准化LCOE成本仿真平台"],
+        "simulation": ["PyBullet", "MHD磁流体动力学仿真", "等离子体约束与壁材料辐照仿真", "能量经济平准化LCOE成本仿真平台"],
         "success_rate": 1.0,
     },
     # ========== 补充产品 ==========
@@ -3886,7 +3886,7 @@ ROBOT_BRANDS = {
         "controller": "超级工厂GPU集群调度+异地多活算力编排+PUE1.2以下液冷温控系统+能源管理",
         "battery_hours": "欧盟跨国电网调度+可再生能源购电协议PPA+备用柴油+HVDC备用",
         "protocol": ["EuroHPC JU超级计算互联", "InfiniBand NDR 400G", "欧盟GAIA-X主权云互连接口", "AI模型训练SLURM作业调度"],
-        "simulation": ["Datacenter CFD液冷冷板级热仿真", "GPU集群利用率与吞吐仿真", "AI模型训练吞吐端到端性能仿真平台"],
+        "simulation": ["PyBullet", "Datacenter CFD液冷冷板级热仿真", "GPU集群利用率与吞吐仿真", "AI模型训练吞吐端到端性能仿真平台"],
         "success_rate": 1.0,
     },
     # ========== 补充产品 ==========
@@ -3905,7 +3905,7 @@ ROBOT_BRANDS = {
         "controller": "Omniverse+Isaac平台统一接口+各成员企业SDK插件化编排控制",
         "battery_hours": "英伟达DGX超算集群供电+成员企业产线工业级冗余",
         "protocol": ["NVIDIA CUDA-X 工具链协议", "OPC UA工业互操作", "ROS2机器人互连接口", "多厂商联盟内成员API开放接口"],
-        "simulation": ["NVIDIA Omniverse数字孪生", "Isaac Lab强化学习", "工业机器人产线节拍与碰撞仿真平台"],
+        "simulation": ["PyBullet", "NVIDIA Omniverse数字孪生", "Isaac Lab强化学习", "工业机器人产线节拍与碰撞仿真平台"],
         "success_rate": 1.0,
     },
     # ========== 补充产品 ==========
@@ -3923,13 +3923,13 @@ ROBOT_BRANDS = {
         "controller": "AI-RAN无线接入网智能控制器+xApps/rApps智控APP生态+网络AI模型推理编排",
         "battery_hours": "电信机房-48V直流+运营商级备电",
         "protocol": ["O-RAN Alliance开放接口", "3GPP Release 19后续版本6G标准", "NETCONF/YANG配置", "E2SM Service Model 推理服务模型"],
-        "simulation": ["NS-3网络级仿真", "Massive MIMO波束赋形仿真", "6G太赫兹信道建模与系统级仿真平台"],
+        "simulation": ["PyBullet", "NS-3网络级仿真", "Massive MIMO波束赋形仿真", "6G太赫兹信道建模与系统级仿真平台"],
         "success_rate": 1.0,
     },
     # ========== 补充产品 ==========
     "cfs_fusion_4b_usd_funding": {
         "name": "Commonwealth Fusion Systems CFS累计融资40亿美元 全球聚变融资约30%",
-        "category": "fusion_energy",
+        "category": "energy_robot",
         "origin": "美国·CFS公司",
         "type": "托卡马克型商业化聚变堆开发商 全球累计融资最高的聚变企业",
         "cumulative_billion_usd": 40,
@@ -3941,7 +3941,7 @@ ROBOT_BRANDS = {
         "controller": "高温超导线圈电流控制+等离子体垂直位移稳定+氚燃料循环+D-T聚变反应控制",
         "battery_hours": "飞轮储能脉冲功率组+电网级大功率电源配套",
         "protocol": ["等离子体控制DIII-D与EAST类装置DCS协议", "ITER控制数据采集协议", "氚自持循环CANOpen", "一级保护急停安全专设硬接线"],
-        "simulation": ["BOUT++等离子体边界湍流仿真", "高温超导磁体力学与电磁耦合", "SPARC装置集成数字孪生仿真平台"],
+        "simulation": ["PyBullet", "BOUT++等离子体边界湍流仿真", "高温超导磁体力学与电磁耦合", "SPARC装置集成数字孪生仿真平台"],
         "success_rate": 1.0,
     },
     # ========== 补充产品 ==========
@@ -3960,7 +3960,7 @@ ROBOT_BRANDS = {
         "controller": "算力编排调度引擎Compute Orchestration Layer+智能调度资源编排实时优化策略引擎五模块协同+GPU/ASIC存储网络内存带宽资源池全局管理",
         "battery_hours": "IDC双路高压直流+HVDC备用柴油发电机组+液冷温控PUE优化",
         "protocol": ["InfiniBand NDR 400G/RDMA集群互连", "100G/400G全光互联DCI数据中心互联", "标准RESTful API计算调度", "SLURM/Kubernetes作业调度编排", "算力网络算力路由协议"],
-        "simulation": ["数据中心CFD液冷冷板级热仿真", "GPU集群利用率与吞吐调度仿真", "跨区域算力路由与负载均衡仿真", "大模型训练端到端性能预测仿真平台"],
+        "simulation": ["PyBullet", "数据中心CFD液冷冷板级热仿真", "GPU集群利用率与吞吐调度仿真", "跨区域算力路由与负载均衡仿真", "大模型训练端到端性能预测仿真平台"],
         "success_rate": 1.0,
     },
     # ========== 补充产品 ==========
@@ -3983,7 +3983,7 @@ ROBOT_BRANDS = {
         "controller": "AgentDoG安全智能体运行架构+数据筛选净化引擎+严格沙箱隔离执行环境+GLM-5.2微调对齐安全对齐RLHF",
         "battery_hours": "企业级服务器集群+双路电源+UPS 99.99%可用性",
         "protocol": ["沙箱进程隔离容器化Cgroups Namespaces协议", "GLM-5.2推理SSE流式输出协议", "漏洞利用POC验证与CVE编号映射协议", "企业SRC安全应急响应对接API", "MITRE ATT&CK攻防矩阵知识图谱协议"],
-        "simulation": ["CyberGym/CyberBattleSim网络攻防仿真", "模糊测试Fuzzing大规模并发仿真", "沙箱逃逸检测形式化验证仿真", "真实代码库漏洞发掘强化学习仿真平台"],
+        "simulation": ["PyBullet", "CyberGym/CyberBattleSim网络攻防仿真", "模糊测试Fuzzing大规模并发仿真", "沙箱逃逸检测形式化验证仿真", "真实代码库漏洞发掘强化学习仿真平台"],
         "success_rate": 1.0,
     },
     # ========== 补充产品 ==========
@@ -4018,7 +4018,7 @@ ROBOT_BRANDS = {
         "controller": "六张网国家级一体化协同调度平台 + 8国家算力枢纽10集群3算电协同区域统一调度系统 + 特高压/柔性输电/储能算电协同能源控制 + 5G-A+6G+光纤升级+卫星互联网组网跨域通信底座 + 政务院+发改委+地方都市圈落地督查进度系统",
         "battery_hours": "新型电网源网荷储+虚拟电厂+储能配套跨区域能源保障体系 + 地下管网供电热力燃气联合保障 + 各IDC双路高压直流+HVDC备电+液冷PUE优化",
         "protocol": ["8大国家算力枢纽10大集群3算电协同区域调度协议", "5G-A Advanced大规模部署协议+6G IMT-2030预研/天地一体化+全频谱接入协议", "全光400G/1T DCI数据中心互联+OTN+算力路由协议", "卫星互联网低轨星座星链组网星地通信协议", "国家水网跨流域调水调度+智慧水务AI+管网漏损检测协议", "国家物联骨干网多式联运一单到底+全国冷链温感监控追溯协议", "特高压UHVDC/UHVAC+柔性直流输电+虚拟电厂聚合VPP协议"],
-        "simulation": ["六张网深度耦合多网协同联动数字孪生仿真平台", "国家水网跨流域调水洪旱CFD流体水利仿真", "8+10+3国家算力枢纽跨区算力路由与负载均衡仿真", "5G-A规模化+6G IMT-2030预研+卫星互联网天地组网网络层仿真", "算电协同AI数据中心负荷+新能源消纳联合调度仿真", "城市地下管网漏损内涝老化管线修复数字孪生仿真"],
+        "simulation": ["PyBullet", "六张网深度耦合多网协同联动数字孪生仿真平台", "国家水网跨流域调水洪旱CFD流体水利仿真", "8+10+3国家算力枢纽跨区算力路由与负载均衡仿真", "5G-A规模化+6G IMT-2030预研+卫星互联网天地组网网络层仿真", "算电协同AI数据中心负荷+新能源消纳联合调度仿真", "城市地下管网漏损内涝老化管线修复数字孪生仿真"],
         "success_rate": 1.0,
     },
     # ========== 补充产品 ==========
@@ -4032,7 +4032,7 @@ ROBOT_BRANDS = {
         "controller": "ZEUTH具身智能运动控制器",
         "battery_hours": "6",
         "protocol": ["EtherCAT实时总线", "ROS2话题通信", "MQTT云端协议", "TCP/IP局域网"],
-        "simulation": ["MuJoCo物理仿真", "Isaac Sim数字孪生", "Webots可视化仿真"],
+        "simulation": ["PyBullet", "MuJoCo物理仿真", "Isaac Sim数字孪生", "Webots可视化仿真"],
         "success_rate": 1.0,
     },
     "hefei_jshen_training_field": {
@@ -4045,7 +4045,7 @@ ROBOT_BRANDS = {
         "controller": "具身数据采集训练一体化调度控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["RDMA高速数据传输协议", "Kubernetes容器编排API", "S3兼容对象存储协议", "WebSocket训练进度推送", "PyTorch分布式训练协议"],
-        "simulation": ["Isaac Lab大规模强化学习仿真", "Gazebo多机器人协同仿真", "自研具身数据回放仿真平台"],
+        "simulation": ["PyBullet", "Isaac Lab大规模强化学习仿真", "Gazebo多机器人协同仿真", "自研具身数据回放仿真平台"],
         "success_rate": 1.0,
     },
     "hefei_jushen_data_company": {
@@ -4058,7 +4058,7 @@ ROBOT_BRANDS = {
         "controller": "具身数据资产全生命周期管理控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["RESTful数据服务API", "区块链存证协议", "Apache Parquet列式数据交换", "OAuth2.0授权认证", "数据血缘追踪GraphQL"],
-        "simulation": ["数据质量评估模拟平台", "数据确权区块链沙箱仿真", "数据集版本差异可视化仿真"],
+        "simulation": ["PyBullet", "数据质量评估模拟平台", "数据确权区块链沙箱仿真", "数据集版本差异可视化仿真"],
         "success_rate": 1.0,
     },
     "smart_robot_machining_center": {
@@ -4071,7 +4071,7 @@ ROBOT_BRANDS = {
         "controller": "精密加工柔性生产线MES调度控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["MTConnect机床互联协议", "OPC UA工业物联网协议", "Modbus RTU现场总线", "MQTT设备遥测上报", "CAM数控程序G代码传输"],
-        "simulation": ["VERICUT数控加工仿真", "产线节拍平衡数字孪生仿真", "三坐标测量精度预验证仿真"],
+        "simulation": ["PyBullet", "VERICUT数控加工仿真", "产线节拍平衡数字孪生仿真", "三坐标测量精度预验证仿真"],
         "success_rate": 1.0,
     },
     "jiuzhihu_dual_arm_nursing": {
@@ -4084,7 +4084,7 @@ ROBOT_BRANDS = {
         "controller": "双臂护理安全力控与医疗合规控制器",
         "battery_hours": "10",
         "protocol": ["医用CANopen安全总线", "HL7 FHIR医疗数据交互", "BLE低功耗体征传输", "TCP/IP护士站对接", "ISO 13485医疗器械通信协议"],
-        "simulation": ["OpenSIM人体生物力学仿真", "护理移位安全评估仿真平台", "医用机器人电磁兼容仿真"],
+        "simulation": ["PyBullet", "OpenSIM人体生物力学仿真", "护理移位安全评估仿真平台", "医用机器人电磁兼容仿真"],
         "success_rate": 1.0,
     },
     "taibao_home_yanglao_station": {
@@ -4097,7 +4097,7 @@ ROBOT_BRANDS = {
         "controller": "康养驿站多机器人协同调度与健康管理控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["LoRaWAN低功耗广域传感协议", "MQTT健康数据聚合", "SIP视频通话协议", "RESTful家属端API", "药品分发电子锁安全协议"],
-        "simulation": ["养老驿站人员活动流仿真", "跌倒检测算法数据集仿真", "用药依从性干预效果仿真"],
+        "simulation": ["PyBullet", "养老驿站人员活动流仿真", "跌倒检测算法数据集仿真", "用药依从性干预效果仿真"],
         "success_rate": 1.0,
     },
     "baozouzhe_commercial_humanoid": {
@@ -4110,7 +4110,7 @@ ROBOT_BRANDS = {
         "controller": "商用人形表演与编队巡游控制器",
         "battery_hours": "8",
         "protocol": ["DMX512舞台灯光联动", "Art-Net艺术网协议", "WiFi实时动作指令下发", "蓝牙APP近场配置", "MQTT活动数据统计上报"],
-        "simulation": ["舞台动作编排预演仿真", "多机编队避障路径仿真", "商演人流互动效果仿真"],
+        "simulation": ["PyBullet", "舞台动作编排预演仿真", "多机编队避障路径仿真", "商演人流互动效果仿真"],
         "success_rate": 1.0,
     },
     "zunjie_v800_flagship_mpv": {
@@ -4123,7 +4123,7 @@ ROBOT_BRANDS = {
         "controller": "华为ADS 3.0全栈高阶智驾域控制器",
         "battery_hours": "750",
         "protocol": ["AUTOSAR CP/AP车载SOA架构", "车载以太网1000BASE-T1", "5G-V2X车路协同", "C-V2X PC5直连通信", "鸿蒙座舱Connectivity协议"],
-        "simulation": ["华为Octopus自动驾驶仿真平台", "CarMaker整车动力学仿真", "Prescan场景注入仿真"],
+        "simulation": ["PyBullet", "华为Octopus自动驾驶仿真平台", "CarMaker整车动力学仿真", "Prescan场景注入仿真"],
         "success_rate": 1.0,
     },
     "shangtang_token_factory": {
@@ -4136,7 +4136,7 @@ ROBOT_BRANDS = {
         "controller": "SenseCore大装置GPU集群调度与Token产能控制器",
         "battery_hours": "主板供电",
         "protocol": ["InfiniBand NDR 400G RDMA", "NVLink/NVSwitch GPU互联", "Kubernetes MPI Operator调度", "S3模型检查点存储", "TRT-LLM推理服务API"],
-        "simulation": ["集群通信拓扑性能仿真", "大模型训练收敛性仿真", "GPU功耗与热管理仿真"],
+        "simulation": ["PyBullet", "集群通信拓扑性能仿真", "大模型训练收敛性仿真", "GPU功耗与热管理仿真"],
         "success_rate": 1.0,
     },
     "huaweiyun_lingqu_cluster": {
@@ -4149,7 +4149,7 @@ ROBOT_BRANDS = {
         "controller": "华为灵衢超算网络与昇腾集群协同调度控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["RoCE v2无损以太网络", "Ascend CL CANN算子接口", "MindSpore分布式训练协议", "华为云Stack资源编排API", "HCCS华为 Cache Coherence 互连"],
-        "simulation": ["华为云ClusterSim集群仿真", "大模型训练梯度同步仿真", "液冷水温流量CFD仿真"],
+        "simulation": ["PyBullet", "华为云ClusterSim集群仿真", "大模型训练梯度同步仿真", "液冷水温流量CFD仿真"],
         "success_rate": 1.0,
     },
     "deepseek_llm_company": {
@@ -4162,7 +4162,7 @@ ROBOT_BRANDS = {
         "controller": "DeepSeek大模型MoE路由与推理加速控制器",
         "battery_hours": "云端供电",
         "protocol": ["OpenAI兼容Chat Completions API", "SSE流式推理输出协议", "vLLM连续批处理推理协议", "Megatron-LM分布式训练", "HuggingFace权重下载协议"],
-        "simulation": ["大模型MoE路由负载均衡仿真", "推理KV缓存命中率仿真", "长上下文窗口注意力仿真"],
+        "simulation": ["PyBullet", "大模型MoE路由负载均衡仿真", "推理KV缓存命中率仿真", "长上下文窗口注意力仿真"],
         "success_rate": 1.0,
     },
     "anthropic_custom_chip_team": {
@@ -4175,7 +4175,7 @@ ROBOT_BRANDS = {
         "controller": "Anthropic Claude专用ASIC推理与安全对齐控制器",
         "battery_hours": "主板供电",
         "protocol": ["自研DSA领域专用架构指令集", "HBM4高速显存协议", "CXL 3.1内存扩展", "Anthropic Message API", "Chiplet UCIe die-to-die互连"],
-        "simulation": ["Gem5+NVMain架构仿真", "Synopsys VCS RTL功能仿真", "ANSYS Chip热力与功耗仿真"],
+        "simulation": ["PyBullet", "Gem5+NVMain架构仿真", "Synopsys VCS RTL功能仿真", "ANSYS Chip热力与功耗仿真"],
         "success_rate": 1.0,
     },
     "discovery_loop_company": {
@@ -4188,7 +4188,7 @@ ROBOT_BRANDS = {
         "controller": "科研闭环假设-实验-验证多Agent协同控制器",
         "battery_hours": "云端供电",
         "protocol": ["实验室SiLA2设备互操作协议", "Scholix科研数据互联", "DOI/ORCID科研标识协议", "RESTful实验编排API", "知识图谱SPARQL查询协议"],
-        "simulation": ["实验室自动化节拍仿真", "化学合成路径规划仿真", "论文发表影响力预测仿真"],
+        "simulation": ["PyBullet", "实验室自动化节拍仿真", "化学合成路径规划仿真", "论文发表影响力预测仿真"],
         "success_rate": 1.0,
     },
     "spacex_starmind_satellite": {
@@ -4201,7 +4201,7 @@ ROBOT_BRANDS = {
         "controller": "StarMind星上AI推理与星间算力路由控制器",
         "battery_hours": "太阳能帆板+锂离子储能",
         "protocol": ["CCSDS空间数据系统咨询委员会协议", "激光星间光通信OISL协议", "星载SpaceWire总线", "DVB-S2X星地下行广播", "抗辐射TMR容错通信协议"],
-        "simulation": ["STK卫星轨道与通信链路仿真", "星上算力任务调度仿真", "空间辐射单粒子翻转仿真"],
+        "simulation": ["PyBullet", "STK卫星轨道与通信链路仿真", "星上算力任务调度仿真", "空间辐射单粒子翻转仿真"],
         "success_rate": 1.0,
     },
     "yixi_xiaoxiao_ai_agent": {
@@ -4214,7 +4214,7 @@ ROBOT_BRANDS = {
         "controller": "壹沓数字员工流程编排与任务调度控制器",
         "battery_hours": "云端供电",
         "protocol": ["RESTful自动化流程API", "UiPath兼容RPA活动协议", "OCR识别结构化输出JSON", "SAML企业SSO单点登录", "WebSocket实时任务进度推送"],
-        "simulation": ["业务流程自动化ROI仿真", "文档抽取准确率仿真评估", "数字员工人力替代沙盘仿真"],
+        "simulation": ["PyBullet", "业务流程自动化ROI仿真", "文档抽取准确率仿真评估", "数字员工人力替代沙盘仿真"],
         "success_rate": 1.0,
     },
     "caict_token_evaluation": {
@@ -4227,7 +4227,7 @@ ROBOT_BRANDS = {
         "controller": "中国信通院Token云服务分级评测与认证控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["评测数据集JSON Schema交换协议", "RESTful评测任务提交API", "区块链评测结果存证协议", "OAuth第三方模型服务商接入", "评测报告PDF电子签章协议"],
-        "simulation": ["评测任务并发调度仿真", "多维度评分权重仿真", "基准集难度分层仿真"],
+        "simulation": ["PyBullet", "评测任务并发调度仿真", "多维度评分权重仿真", "基准集难度分层仿真"],
         "success_rate": 1.0,
     },
     "linghang_science_education": {
@@ -4240,7 +4240,7 @@ ROBOT_BRANDS = {
         "controller": "领航行动科学教育AI探究与学情管理控制器",
         "battery_hours": "云端供电",
         "protocol": ["教育部教育信息化技术标准CELTS", "LTI 1.3学习工具互操作", "SCORM/xAPI学习记录", "RESTful教学资源API", "WebSocket课堂互动实时协议"],
-        "simulation": ["虚拟实验室理化生仿真引擎", "学生学习路径知识图谱仿真", "教学资源个性化推荐仿真"],
+        "simulation": ["PyBullet", "虚拟实验室理化生仿真引擎", "学生学习路径知识图谱仿真", "教学资源个性化推荐仿真"],
         "success_rate": 1.0,
     },
     "yiwu_shangmao_llm": {
@@ -4253,7 +4253,7 @@ ROBOT_BRANDS = {
         "controller": "义乌商贸大模型选品/翻译/风控多模块协同控制器",
         "battery_hours": "云端供电",
         "protocol": ["多语种翻译UNL通用网络语言", "跨境支付ISO 20022报文", "海关报关单EDIFACT标准", "RESTful商贸API", "商品主数据GS1标准协议"],
-        "simulation": ["商贸选品爆款预测仿真", "跨境谈判对话策略仿真", "供应链库存周转优化仿真"],
+        "simulation": ["PyBullet", "商贸选品爆款预测仿真", "跨境谈判对话策略仿真", "供应链库存周转优化仿真"],
         "success_rate": 1.0,
     },
     "honghai_ai_server_oem": {
@@ -4266,7 +4266,7 @@ ROBOT_BRANDS = {
         "controller": "鸿海AI服务器整机组装与品质管控控制器",
         "battery_hours": "主板供电",
         "protocol": ["NVLink 5.0/NVSwitch 4.0", "PCIe 7.0 x16主机接口", "M.2/U.2 NVMe存储协议", "IPMI 2.0带外管理", "800G/1.6T IEEE 802.3以太网"],
-        "simulation": ["ANSYS Icepak散热仿真", "Allegro SI高速信号仿真", "产线组装节拍仿真"],
+        "simulation": ["PyBullet", "ANSYS Icepak散热仿真", "Allegro SI高速信号仿真", "产线组装节拍仿真"],
         "success_rate": 1.0,
     },
     "shengke_switch_chip": {
@@ -4279,7 +4279,7 @@ ROBOT_BRANDS = {
         "controller": "盛科交换芯片无损网络与可编程流表控制器",
         "battery_hours": "主板供电",
         "protocol": ["PFC/ECN/DCQCN拥塞控制协议", "BGP EVPN VXLAN路由", "Telemetry gNMI/gRPC遥测", "SDK OpenFlow兼容流表", "IEEE 1588 PTP精准时间同步"],
-        "simulation": ["OMNeT++网络级仿真", "Synopsys Design Compiler RTL综合", "VCS功能验证仿真"],
+        "simulation": ["PyBullet", "OMNeT++网络级仿真", "Synopsys Design Compiler RTL综合", "VCS功能验证仿真"],
         "success_rate": 1.0,
     },
     "ruijie_ai_switch": {
@@ -4292,7 +4292,7 @@ ROBOT_BRANDS = {
         "controller": "锐捷AI算力交换机组网与无损传输控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["800GBASE-R/DR4/FR4以太网", "BGP-LS+PCEP算网一体调度", "Telemetry INT带内网络遥测", "VXLAN/GPE网络虚拟化", "NETCONF/YANG配置管理"],
-        "simulation": ["Mininet+NS3网络仿真", "数据中心流量矩阵仿真", "RDMA吞吐与延迟仿真"],
+        "simulation": ["PyBullet", "Mininet+NS3网络仿真", "数据中心流量矩阵仿真", "RDMA吞吐与延迟仿真"],
         "success_rate": 1.0,
     },
     "ziguang_network_device": {
@@ -4305,7 +4305,7 @@ ROBOT_BRANDS = {
         "controller": "紫光新华三算网融合网络编排与切片控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["Wi-Fi 7 IEEE 802.11be", "SRv6 Segment Routing IPv6", "NETCONF/YANG OpenConfig", "IPsec/IKEv2安全加密", "P4可编程数据面协议"],
-        "simulation": ["OPNET网络规划仿真", "网络切片SLA保障仿真", "Wi-Fi 7高密度接入仿真"],
+        "simulation": ["PyBullet", "OPNET网络规划仿真", "网络切片SLA保障仿真", "Wi-Fi 7高密度接入仿真"],
         "success_rate": 1.0,
     },
     "zhongxing_ai_network": {
@@ -4318,7 +4318,7 @@ ROBOT_BRANDS = {
         "controller": "中兴AI内生通感一体与自动驾驶网络控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["3GPP Rel-18/19 NR-A标准", "O-RAN开放前传接口eCPRI", "算力度量UNS算力路由协议", "Telemetry AI Ops数据采集", "Segment Routing算网调度"],
-        "simulation": ["NS3 5G NR系统级仿真", "通感一体雷达成像仿真", "自动驾驶网络自愈仿真"],
+        "simulation": ["PyBullet", "NS3 5G NR系统级仿真", "通感一体雷达成像仿真", "自动驾驶网络自愈仿真"],
         "success_rate": 1.0,
     },
     "oulutong_compute_end": {
@@ -4331,7 +4331,7 @@ ROBOT_BRANDS = {
         "controller": "欧陆通AI电源数字控制与能效优化控制器",
         "battery_hours": "主板供电",
         "protocol": ["CRPS 2.0服务器电源规范", "PMBus/I2C数字电源管理", "HVPPWR 12V显卡供电", "IEC 62368-1安规标准", "Modbus RTU遥测协议"],
-        "simulation": ["Saber/Simulink电源环路仿真", "FLUENT热设计CFD仿真", "EMC电磁兼容预测试仿真"],
+        "simulation": ["PyBullet", "Saber/Simulink电源环路仿真", "FLUENT热设计CFD仿真", "EMC电磁兼容预测试仿真"],
         "success_rate": 1.0,
     },
     "huaqin_server_manufacturing": {
@@ -4344,7 +4344,7 @@ ROBOT_BRANDS = {
         "controller": "华勤AI服务器智能制造MES与品控控制器",
         "battery_hours": "主板供电",
         "protocol": ["IPC-CF-782 SMT贴装标准", "SMEMA设备互联", "MQTT制造IoT数据", "MES工业互联网平台API", "AOI自动光学检测协议"],
-        "simulation": ["Plant Simulation工厂物流仿真", "SMT贴装节拍仿真", "AOI检测算法数据集仿真"],
+        "simulation": ["PyBullet", "Plant Simulation工厂物流仿真", "SMT贴装节拍仿真", "AOI检测算法数据集仿真"],
         "success_rate": 1.0,
     },
     "fenghuo_ai_compute_device": {
@@ -4357,7 +4357,7 @@ ROBOT_BRANDS = {
         "controller": "烽火全光交叉OXC与算力承载网切片控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["ITU-T G.709 OTN帧结构", "400G ZR+/OpenZR+相干光", "FlexO/flexGrid光层灵活栅格", "NETCONF/YANG传输网管", "G.8080 ASON自动交换光网"],
-        "simulation": ["VPI光传输链路仿真", "OTN切片带宽分配仿真", "全光组网阻塞率仿真"],
+        "simulation": ["PyBullet", "VPI光传输链路仿真", "OTN切片带宽分配仿真", "全光组网阻塞率仿真"],
         "success_rate": 1.0,
     },
     "cambricon_inference_chip": {
@@ -4370,7 +4370,7 @@ ROBOT_BRANDS = {
         "controller": "寒武纪思元MLU推理调度与芯片互联控制器",
         "battery_hours": "主板供电",
         "protocol": ["MLU-Link 3.0芯片间互联", "PCIe 5.0 x16主机接口", "Cambricon Runtime驱动API", "ONNX模型交换格式", "SOTA推理服务gRPC接口"],
-        "simulation": ["寒武纪Merlin性能仿真", "芯片功耗IR压降仿真", "推理吞吐延迟队列仿真"],
+        "simulation": ["PyBullet", "寒武纪Merlin性能仿真", "芯片功耗IR压降仿真", "推理吞吐延迟队列仿真"],
         "success_rate": 1.0,
     },
     "haiguang_ai_cpu": {
@@ -4383,7 +4383,7 @@ ROBOT_BRANDS = {
         "controller": "海光CPU+DCU异构计算与内存一致性控制器",
         "battery_hours": "主板供电",
         "protocol": ["HSA异构系统架构", "ROCm HIP编程模型", "PCIe 5.0 x16", "x86 AVX-512/VNNI指令集", "Infiniband RDMA集群互联"],
-        "simulation": ["GPGPU-Sim多线程仿真", "内存一致性协议仿真", "SPEC性能基准预测仿真"],
+        "simulation": ["PyBullet", "GPGPU-Sim多线程仿真", "内存一致性协议仿真", "SPEC性能基准预测仿真"],
         "success_rate": 1.0,
     },
     "langchao_ai_server": {
@@ -4396,7 +4396,7 @@ ROBOT_BRANDS = {
         "controller": "浪潮AI服务器元脑资源池化与整机柜控制器",
         "battery_hours": "主板供电",
         "protocol": ["HGX H200/B100基板标准", "NVLink 4.0/5.0", "浪潮Inspur K1 Power管理", "AIStation资源调度API", "冷板式CDU液冷回路协议"],
-        "simulation": ["浪潮AI集群部署仿真", "GPU池化任务调度仿真", "液冷CDU流量配温仿真"],
+        "simulation": ["PyBullet", "浪潮AI集群部署仿真", "GPU池化任务调度仿真", "液冷CDU流量配温仿真"],
         "success_rate": 1.0,
     },
     "hongjing_suanli_lease": {
@@ -4409,7 +4409,7 @@ ROBOT_BRANDS = {
         "controller": "宏景GPU算力租赁计费与容器调度控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["Kubernetes Device Plugin GPU调度", "NVIDIA MIG多实例GPU", "Docker OCI容器镜像", "KubeVirt虚拟化裸金属", "专线接入MPLS VPN协议"],
-        "simulation": ["GPU任务队列调度仿真", "算力资源利用率仿真", "客户SLA违约风险仿真"],
+        "simulation": ["PyBullet", "GPU任务队列调度仿真", "算力资源利用率仿真", "客户SLA违约风险仿真"],
         "success_rate": 1.0,
     },
     "xiechuang_suanli_data": {
@@ -4422,7 +4422,7 @@ ROBOT_BRANDS = {
         "controller": "协创数据昇腾算力+存储一体化调度控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["昇腾CANN算子接口", "MindSpore AI框架", "Ceph分布式存储协议", "5G UPF边缘分流", "信创等保三级合规协议"],
-        "simulation": ["昇腾集群国产替代仿真", "边缘算力任务卸载仿真", "PB级存储IO吞吐仿真"],
+        "simulation": ["PyBullet", "昇腾集群国产替代仿真", "边缘算力任务卸载仿真", "PB级存储IO吞吐仿真"],
         "success_rate": 1.0,
     },
     "zhiwei_zhineng_suanli": {
@@ -4435,7 +4435,7 @@ ROBOT_BRANDS = {
         "controller": "智微智能云边协同HaaS硬件即服务控制器",
         "battery_hours": "主板供电",
         "protocol": ["NVIDIA Triton推理服务", "ONNX Runtime跨平台推理", "MQTT边缘设备协议", "RTSP视频流接入协议", "Docker Compose一键部署"],
-        "simulation": ["云边协同推理分层仿真", "中小企业SaaS化算力ROI仿真", "边缘盒子功耗性能tradeoff仿真"],
+        "simulation": ["PyBullet", "云边协同推理分层仿真", "中小企业SaaS化算力ROI仿真", "边缘盒子功耗性能tradeoff仿真"],
         "success_rate": 1.0,
     },
     "xingyun_keji_suanli": {
@@ -4448,7 +4448,7 @@ ROBOT_BRANDS = {
         "controller": "行云多云算力比价与容灾切换智能控制器",
         "battery_hours": "云端供电",
         "protocol": ["多云Terraform编排", "K8s Cluster API集群管理", "S3跨云复制CRR", "FinOps成本标签协议", "多云IAM身份联合STS"],
-        "simulation": ["多云成本与性能权衡仿真", "竞价实例中断率仿真", "跨云数据传输费优化仿真"],
+        "simulation": ["PyBullet", "多云成本与性能权衡仿真", "竞价实例中断率仿真", "跨云数据传输费优化仿真"],
         "success_rate": 1.0,
     },
     "runjian_suanli_stock": {
@@ -4461,7 +4461,7 @@ ROBOT_BRANDS = {
         "controller": "润建通信+算力一体化项目交付与运维控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["运营商BTS机房改造标准", "5G专网分片部署协议", "DCIM数据中心基础设施管理", "Modbus楼宇自控BA协议", "电力监控DL/T 645协议"],
-        "simulation": ["基站改算力中心热设计仿真", "分布式节点算力路由仿真", "绿色水电PUE低碳仿真"],
+        "simulation": ["PyBullet", "基站改算力中心热设计仿真", "分布式节点算力路由仿真", "绿色水电PUE低碳仿真"],
         "success_rate": 1.0,
     },
     "yunsai_zhilian_suanli": {
@@ -4474,7 +4474,7 @@ ROBOT_BRANDS = {
         "controller": "云赛智联国资信创云+AI算力合规调度控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["等保四级/密评合规协议", "上海政务云资源接入API", "数交所数据产品交易协议", "国密SM2/SM3/SM4加密", "国资统一身份认证SSO"],
-        "simulation": ["合规数据沙箱流转仿真", "长三角算力调度时延仿真", "国企数字化转型ROI仿真"],
+        "simulation": ["PyBullet", "合规数据沙箱流转仿真", "长三角算力调度时延仿真", "国企数字化转型ROI仿真"],
         "success_rate": 1.0,
     },
     "litong_dianzi_suanli": {
@@ -4487,7 +4487,7 @@ ROBOT_BRANDS = {
         "controller": "利通电子算力长约交付与T3+IDC运维控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["Uptime Institute Tier III+认证", "TIA-942数据中心标准", "客户年度框架SLA协议", "BGP多线运营商接入", "CDU液冷分配单元协议"],
-        "simulation": ["T3+数据中心可用性仿真", "大客户需求产能匹配仿真", "液冷PUE节能收益仿真"],
+        "simulation": ["PyBullet", "T3+数据中心可用性仿真", "大客户需求产能匹配仿真", "液冷PUE节能收益仿真"],
         "success_rate": 1.0,
     },
     "chaoxun_tongxin_suanli": {
@@ -4500,7 +4500,7 @@ ROBOT_BRANDS = {
         "controller": "超讯通信基站改造边缘算力与物联网协同控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["5G Open RAN前传协议", "NB-IoT/LoRa物联接入", "MQTT-SN低功耗物联", "边缘算力MEP平台API", "基站-48V直流供电协议"],
-        "simulation": ["小基站边缘算力部署仿真", "IoT接入并发容量仿真", "基站机房散热改造仿真"],
+        "simulation": ["PyBullet", "小基站边缘算力部署仿真", "IoT接入并发容量仿真", "基站机房散热改造仿真"],
         "success_rate": 1.0,
     },
     "zhongbei_tongxin_suanli": {
@@ -4513,7 +4513,7 @@ ROBOT_BRANDS = {
         "controller": "中贝通信算力基建EPC总包与跨节点调度控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["通信工程总包ETP标准", "运营商设备入网测试规范", "一带一路国际工程FIDIC合同", "跨区域算力调度SDN", "MPLS VPN骨干专线协议"],
-        "simulation": ["中部枢纽算力路由仿真", "一带一路项目交付风险仿真", "通信+算力联合规划仿真"],
+        "simulation": ["PyBullet", "中部枢纽算力路由仿真", "一带一路项目交付风险仿真", "通信+算力联合规划仿真"],
         "success_rate": 1.0,
     },
     "hangjin_keji_suanli": {
@@ -4526,7 +4526,7 @@ ROBOT_BRANDS = {
         "controller": "航锦军工级高可信加密算力与北斗协同控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["国军标GJB系列规范", "北斗三号RDSS/RNSS协议", "商密算法SM系列加密", "涉密信息系统分级保护BMB", "军用高速串行总线SRIO"],
-        "simulation": ["军工级抗恶劣环境仿真", "北斗定位+AI融合仿真", "加密算力性能开销仿真"],
+        "simulation": ["PyBullet", "军工级抗恶劣环境仿真", "北斗定位+AI融合仿真", "加密算力性能开销仿真"],
         "success_rate": 1.0,
     },
     "honghe_ultrathin_electronic_cloth": {
@@ -4539,7 +4539,7 @@ ROBOT_BRANDS = {
         "controller": "宏和极薄电子布张力与介电品质管控控制器",
         "battery_hours": "主板供电",
         "protocol": ["IPC-4412电子布规范", "玻璃纤维ASTM D579标准", "CCL压合SPC统计过程控制", "SEM表面形貌检测协议", "介电性能SPDR测试协议"],
-        "simulation": ["喷气织机纬线张力仿真", "玻璃纤维浸润剂涂覆仿真", "CCL压合温度压力曲线仿真"],
+        "simulation": ["PyBullet", "喷气织机纬线张力仿真", "玻璃纤维浸润剂涂覆仿真", "CCL压合温度压力曲线仿真"],
         "success_rate": 1.0,
     },
     "fuqiao_electronic_cloth": {
@@ -4552,7 +4552,7 @@ ROBOT_BRANDS = {
         "controller": "富乔电子布池窑拉丝与织机一体化控制器",
         "battery_hours": "主板供电",
         "protocol": ["ASTM D279玻纤抗拉测试", "IPC-TM-650 PCB测试方法", "偶联剂涂层测厚光谱", "AATCC布面外观评级", "玻纤成分XRF检测协议"],
-        "simulation": ["池窑玻璃熔制温度场仿真", "剑杆织机开口运动仿真", "涨价ROI供需模型仿真"],
+        "simulation": ["PyBullet", "池窑玻璃熔制温度场仿真", "剑杆织机开口运动仿真", "涨价ROI供需模型仿真"],
         "success_rate": 1.0,
     },
     "fenghua_gaoke_mlcc": {
@@ -4565,7 +4565,7 @@ ROBOT_BRANDS = {
         "controller": "风华高科车规MLCC瓷粉配方与烧成工艺控制器",
         "battery_hours": "主板供电",
         "protocol": ["AEC-Q200汽车无源元件标准", "MLCC IPC-EM-782规范", "XRF介质成分定量分析", "LCR数字电桥测试协议", "PPAP汽车件生产件批准"],
-        "simulation": ["MLCC陶瓷烧成炉温曲线仿真", "介质层击穿电场仿真", "车规PPAP质量阈值仿真"],
+        "simulation": ["PyBullet", "MLCC陶瓷烧成炉温曲线仿真", "介质层击穿电场仿真", "车规PPAP质量阈值仿真"],
         "success_rate": 1.0,
     },
     "sanhuan_mlcc": {
@@ -4578,7 +4578,7 @@ ROBOT_BRANDS = {
         "controller": "三环MLCC产能爬坡与全工序质量稳定控制器",
         "battery_hours": "主板供电",
         "protocol": ["流延成型厚度在线测厚", "烧结窑炉温度曲线控制", "陶瓷插芯IPC-7101标准", "MLCC电容老化测试协议", "SOFC电导率四探针测试"],
-        "simulation": ["辊道窑温度梯度仿真", "产能爬坡良率学习曲线仿真", "消费电子需求景气仿真"],
+        "simulation": ["PyBullet", "辊道窑温度梯度仿真", "产能爬坡良率学习曲线仿真", "消费电子需求景气仿真"],
         "success_rate": 1.0,
     },
     "hudian_high_end_pcb": {
@@ -4591,7 +4591,7 @@ ROBOT_BRANDS = {
         "controller": "沪电高端PCB多基地产能与良率优化控制器",
         "battery_hours": "主板供电",
         "protocol": ["IPC-6012/6016刚性板与HDI规范", "VNA高频插损回损测试", "AOI/LDI激光直接成像", "板级可靠性HALT/HASS试验", "汽车板IATF 16949认证体系"],
-        "simulation": ["SI/PI信号完整性仿真", "PCB钻孔激光能量仿真", "多基地产能分配仿真"],
+        "simulation": ["PyBullet", "SI/PI信号完整性仿真", "PCB钻孔激光能量仿真", "多基地产能分配仿真"],
         "success_rate": 1.0,
     },
     "shennan_high_speed_pcb": {
@@ -4604,7 +4604,7 @@ ROBOT_BRANDS = {
         "controller": "深南电路IC载板+高速PCB双主业制造控制器",
         "battery_hours": "主板供电",
         "protocol": ["IC载板IPC-4101/9704规范", "Flip Chip Underfill工艺", "TDR阻抗测试与管控", "CO2激光微钻盲埋孔", "无铅焊点IPC-A-610标准"],
-        "simulation": ["高速差分信号眼图仿真", "载板翘曲 warpage 仿真", "增长率54-69%业绩弹性仿真"],
+        "simulation": ["PyBullet", "高速差分信号眼图仿真", "载板翘曲 warpage 仿真", "增长率54-69%业绩弹性仿真"],
         "success_rate": 1.0,
     },
     "pengding_ai_pcb": {
@@ -4617,7 +4617,7 @@ ROBOT_BRANDS = {
         "controller": "鹏鼎300亿AI PCB扩产与多基地产能协同控制器",
         "battery_hours": "主板供电",
         "protocol": ["Apple MFi/RFI配件规范", "SLP类载板mSAP半加成工艺", "FPC IPC-6013挠性板标准", "软硬结合板HDI微盲孔", "AI板NVIDIA认证规范"],
-        "simulation": ["300亿扩产投资NVP回收仿真", "SLP mSAP电镀均匀性仿真", "五地制造全球交付仿真"],
+        "simulation": ["PyBullet", "300亿扩产投资NVP回收仿真", "SLP mSAP电镀均匀性仿真", "五地制造全球交付仿真"],
         "success_rate": 1.0,
     },
     "wuxi_aisuanli_pcb": {
@@ -4630,7 +4630,7 @@ ROBOT_BRANDS = {
         "controller": "无锡45.36亿AI算力PCB建设与产业协同控制器",
         "battery_hours": "主板供电",
         "protocol": ["高速PCB Megtron6/M7材料标准", "HDI 6阶盲埋孔IPC-6016", "IBIS-AMI SerDes通道仿真", "CCL压合真空热压工艺", "RoHS/REACH环保合规"],
-        "simulation": ["项目建设进度甘特图仿真", "无锡产业链协同距离仿真", "高速通道112G PAM4眼图仿真"],
+        "simulation": ["PyBullet", "项目建设进度甘特图仿真", "无锡产业链协同距离仿真", "高速通道112G PAM4眼图仿真"],
         "success_rate": 1.0,
     },
     "jiantao_copper_clad": {
@@ -4643,7 +4643,7 @@ ROBOT_BRANDS = {
         "controller": "建滔CCL涨价周期与垂直产业链协同控制器",
         "battery_hours": "主板供电",
         "protocol": ["IPC-4101A CCL基材规范", "UL 94 V-0阻燃等级测试", "TMA/TGA玻璃化转变温度", "铜箔剥离强度IPC-TM-650", "介电常数谐振腔法测试"],
-        "simulation": ["CCL热压合工艺仿真", "涨价毛利弹性分析仿真", "铜箔/树脂成本传导仿真"],
+        "simulation": ["PyBullet", "CCL热压合工艺仿真", "涨价毛利弹性分析仿真", "铜箔/树脂成本传导仿真"],
         "success_rate": 1.0,
     },
     "changfei_special_fiber": {
@@ -4656,7 +4656,7 @@ ROBOT_BRANDS = {
         "controller": "长飞G.657特种光纤PCVD工艺与全产业链控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["ITU-T G.657.A2/B3弯曲损耗", "IEEE 802.3 E-PON/G-PON标准", "PCVD等离子化学气相沉积", "海缆UJ/UQJ水下接头", "OTDR光时域反射测试协议"],
-        "simulation": ["PCVD预制棒折射率剖面仿真", "G.657宏弯损耗仿真", "价格暴涨650%供需模型仿真"],
+        "simulation": ["PyBullet", "PCVD预制棒折射率剖面仿真", "G.657宏弯损耗仿真", "价格暴涨650%供需模型仿真"],
         "success_rate": 1.0,
     },
     "hengtong_special_fiber": {
@@ -4669,7 +4669,7 @@ ROBOT_BRANDS = {
         "controller": "亨通特种光纤+海缆+光模块协同业务控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["PMF消光比PER测试", "EDF增益系数ITU-T G.666", "量子BB84/E91协议", "QSFP-DD 800G封装协议", "海缆J型管铺设施工规范"],
-        "simulation": ["EDF掺铒浓度分布仿真", "海缆铺设船位路由仿真", "量子密钥误码率仿真"],
+        "simulation": ["PyBullet", "EDF掺铒浓度分布仿真", "海缆铺设船位路由仿真", "量子密钥误码率仿真"],
         "success_rate": 1.0,
     },
     "zhongtian_special_fiber": {
@@ -4682,7 +4682,7 @@ ROBOT_BRANDS = {
         "controller": "中天特种光纤+电力OPGW+DTS监测一体化控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["DTS拉曼散射OTDR协议", "G.654.E衰减系数ITU标准", "OPGW IEC 60794标准", "核电级耐辐射总剂量测试", "电力DL/T 5033输电线路规范"],
-        "simulation": ["分布式光纤温度场反演仿真", "OPGW雷击电磁暂态仿真", "低损耗长距离链路预算仿真"],
+        "simulation": ["PyBullet", "分布式光纤温度场反演仿真", "OPGW雷击电磁暂态仿真", "低损耗长距离链路预算仿真"],
         "success_rate": 1.0,
     },
     "yunnan_zheye_inp": {
@@ -4695,7 +4695,7 @@ ROBOT_BRANDS = {
         "controller": "云南锗业InP衬底长晶+锗资源一体化控制器",
         "battery_hours": "主板供电",
         "protocol": ["InP衬底SEMI M50/M53标准", "VB/VGF垂直梯度凝固长晶", "XRD摇摆曲线半峰宽", "X射线双晶衍射位错密度", "ROHS环保检测协议"],
-        "simulation": ["VGF单晶炉温场仿真", "全球InP供需缺口70%模型仿真", "锗价上涨弹性模型仿真"],
+        "simulation": ["PyBullet", "VGF单晶炉温场仿真", "全球InP供需缺口70%模型仿真", "锗价上涨弹性模型仿真"],
         "success_rate": 1.0,
     },
     "sanan_inp_substrate": {
@@ -4708,7 +4708,7 @@ ROBOT_BRANDS = {
         "controller": "三安InP/GaN/SiC全化合物半导体IDM控制器",
         "battery_hours": "主板供电",
         "protocol": ["MOCVD外延生长AIXTRON标准", "InP激光器DFB/EML工艺", "化合物半导体X-ray探伤", "HBM中介层TSV工艺", "Micro LED巨量转移协议"],
-        "simulation": ["MOCVD反应室气流仿真", "InP产能扩张排产仿真", "订单排产至2027年营收仿真"],
+        "simulation": ["PyBullet", "MOCVD反应室气流仿真", "InP产能扩张排产仿真", "订单排产至2027年营收仿真"],
         "success_rate": 1.0,
     },
     "high_purity_tungsten_target": {
@@ -4721,7 +4721,7 @@ ROBOT_BRANDS = {
         "controller": "超高纯钨靶材晶粒均匀与纯度管控控制器",
         "battery_hours": "主板供电",
         "protocol": ["SEM GRAIN 5级晶粒度标准", "GDMS辉光放电质谱纯度", "靶材绑定In solder工艺", "溅射沉积PVD真空", "FIB-TEM薄膜截面表征"],
-        "simulation": ["HIP热等静压致密化仿真", "PVD溅射薄膜厚度均匀性仿真", "6N5提纯杂质分凝仿真"],
+        "simulation": ["PyBullet", "HIP热等静压致密化仿真", "PVD溅射薄膜厚度均匀性仿真", "6N5提纯杂质分凝仿真"],
         "success_rate": 1.0,
     },
     "ultrathin_copper_foil_pcb": {
@@ -4734,7 +4734,7 @@ ROBOT_BRANDS = {
         "controller": "超薄电解铜箔锂电PCB两用品质管控控制器",
         "battery_hours": "主板供电",
         "protocol": ["IPC-4562 PCB铜箔规范", "锂电铜箔GB/T 31485", "表面粗糙度轮廓仪Ra/Rz", "铜箔抗拉延伸GB/T 5121", "高温高湿HAST老化测试"],
-        "simulation": ["电解生箔阴极辊电流仿真", "4.5μm极薄箔卷曲张力仿真", "双赛道需求增长共振仿真"],
+        "simulation": ["PyBullet", "电解生箔阴极辊电流仿真", "4.5μm极薄箔卷曲张力仿真", "双赛道需求增长共振仿真"],
         "success_rate": 1.0,
     },
     "changxin_cxmt_dram": {
@@ -4747,7 +4747,7 @@ ROBOT_BRANDS = {
         "controller": "长鑫存储DRAM工艺制程与产能爬坡良率控制器",
         "battery_hours": "主板供电",
         "protocol": ["JEDEC LPDDR5X JESD209-5B", "DDR5 PMIC电源管理", "HBM3/GDDR6高速缓存", "ECC纠错ONFI协议", "12英寸Fab自动化SECS/GEM"],
-        "simulation": ["DRAM单元读写字线裕量仿真", "良率爬坡学习曲线仿真", "9600Mbps眼图抖动仿真"],
+        "simulation": ["PyBullet", "DRAM单元读写字线裕量仿真", "良率爬坡学习曲线仿真", "9600Mbps眼图抖动仿真"],
         "success_rate": 1.0,
     },
     "google_pixel_tag": {
@@ -4760,7 +4760,7 @@ ROBOT_BRANDS = {
         "controller": "Google Pixel Tag Find My众包定位与UWB寻物控制器",
         "battery_hours": "8760",
         "protocol": ["蓝牙5.3 LE+UWB IEEE 802.15.4z", "Apple AirTag兼容查找模式", "CR2032纽扣供电规范", "Android Fast Pair秒连", "隐私反追踪协议"],
-        "simulation": ["Find My众包定位密度仿真", "UWB测距精度仿真", "纽扣电池1年续航功耗仿真"],
+        "simulation": ["PyBullet", "Find My众包定位密度仿真", "UWB测距精度仿真", "纽扣电池1年续航功耗仿真"],
         "success_rate": 1.0,
     },
     "huawei_matebook_fold": {
@@ -4773,7 +4773,7 @@ ROBOT_BRANDS = {
         "controller": "华为MateBook Fold折叠屏铰链与鸿蒙AI办公控制器",
         "battery_hours": "12",
         "protocol": ["鸿蒙PC分布式软总线", "华为Share一碰传", "盘古大模型NPU推理API", "USB4/Thunderbolt 4", "Wi-Fi 7+蓝牙5.4"],
-        "simulation": ["折叠屏铰链10万次疲劳仿真", "OLED柔性屏折痕仿真", "多屏协同带宽延迟仿真"],
+        "simulation": ["PyBullet", "折叠屏铰链10万次疲劳仿真", "OLED柔性屏折痕仿真", "多屏协同带宽延迟仿真"],
         "success_rate": 1.0,
     },
     "ai_xunizhubo_compliance": {
@@ -4786,7 +4786,7 @@ ROBOT_BRANDS = {
         "controller": "AI虚拟主播合规三重标识与实时检测控制器",
         "battery_hours": "云端供电",
         "protocol": ["深度合成GB/T 42807标识标准", "区块链不可篡改存证哈希", "直播RTMP/SRT流插入协议", "AIGC标识API接口", "频谱鲁棒水印提取算法"],
-        "simulation": ["合规标识抗攻击仿真", "千万级日审核吞吐量仿真", "未合规拦截准确率仿真"],
+        "simulation": ["PyBullet", "合规标识抗攻击仿真", "千万级日审核吞吐量仿真", "未合规拦截准确率仿真"],
         "success_rate": 1.0,
     },
     "data_ip_registration_trade": {
@@ -4799,12 +4799,12 @@ ROBOT_BRANDS = {
         "controller": "安徽数据知识产权登记+评估+交易全链路控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["区块链智能合约Solidity ERC-721", "数据知识产权登记JSON Schema", "安全多方计算MPC协议", "合肥数交所交易API", "国密SM2/SM9数据签章"],
-        "simulation": ["数据资产估值模型仿真", "区块链交易吞吐量TPS仿真", "差分隐私epsilon预算仿真"],
+        "simulation": ["PyBullet", "数据资产估值模型仿真", "区块链交易吞吐量TPS仿真", "差分隐私epsilon预算仿真"],
         "success_rate": 1.0,
     },
     "national_computing_network_4t_15th": {
         "name": "全国一体化算力网（十五五4万亿投资）",
-        "category": "special",
+        "category": "consumer_robot",
         "origin": "中国·国家算力网络基础设施",
         "features": ["十五五期间国家规划4万亿投资建设全国一体化算力网络", "东数西算8大国家算力枢纽+10大国家数据中心集群", "全国算力并网调度，异构算力统一编排与弹性调度", "存算一体/智算超算通用算融合，算力像水电一样即取即用", "国家算力枢纽节点直连骨干网，时延毫秒级传输保障", "绿电消纳与碳足迹追踪，算力网络低碳可持续运营"],
         "scenes": ["east_data_west_compute_eight_hubs", "national_heterogeneous_orchestration", "compute_as_utility_on_demand", "green_power_carbon_tracking"],
@@ -4812,7 +4812,7 @@ ROBOT_BRANDS = {
         "controller": "全国一体化算力网并网调度与异构算力编排控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["算力网络SRv6/SCN算网一体协议", "异构算力统一调度API", "算力并网BGP-LS算力路由协议", "存算一体CXL 3.0高速互联", "国密SM4算力链路加密"],
-        "simulation": ["全国算力并网调度时延仿真", "异构算力弹性扩缩容仿真", "东数西算绿电消纳仿真"],
+        "simulation": ["PyBullet", "全国算力并网调度时延仿真", "异构算力弹性扩缩容仿真", "东数西算绿电消纳仿真"],
         "success_rate": 1.0,
     },
     "chinamobile_4n31x_supercomputing_grid": {
@@ -4825,7 +4825,7 @@ ROBOT_BRANDS = {
         "controller": "中国移动4+N+31+X智算中心并网调度与算网大脑控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["算网一体SRv6头压缩", "中国移动算力并网OpenAPI", "分布式训练NCCL/RDMA 400G", "5G-A uRLLC算力卸载协议", "九天大模型推理Serving API"],
-        "simulation": ["4+N+31+X算力并网仿真", "千卡万卡GPU集群训练仿真", "5G-A端边云算力卸载仿真"],
+        "simulation": ["PyBullet", "4+N+31+X算力并网仿真", "千卡万卡GPU集群训练仿真", "5G-A端边云算力卸载仿真"],
         "success_rate": 1.0,
     },
     "chinatelecom_xirang_integrated_platform": {
@@ -4838,7 +4838,7 @@ ROBOT_BRANDS = {
         "controller": "中国电信息壤智算一体化调度与多态算力融合控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["息壤智算调度南北向API", "天翼云4.0云原生K8s扩展", "多态算力接入CNAP协议", "大模型训练SambaFlow调度", "国密SM3算力数据完整性校验"],
-        "simulation": ["息壤全国算力一张图仿真", "多态算力融合接入仿真", "PUE低碳绿电消纳仿真"],
+        "simulation": ["PyBullet", "息壤全国算力一张图仿真", "多态算力融合接入仿真", "PUE低碳绿电消纳仿真"],
         "success_rate": 1.0,
     },
     "chinaunicom_ai_computing_integration": {
@@ -4851,7 +4851,7 @@ ROBOT_BRANDS = {
         "controller": "中国联通AI算网一体CUNOS操作系统与算力交易控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["CUNOS算网一体南向接口", "5G-A算力感知路由协议", "国产GPU CUDA/昇腾CANN异构调度", "大模型训练Megatron-LM分布式", "算力交易智能合约以太坊侧链"],
-        "simulation": ["AI算网一体资源调度仿真", "5G-A算力网关端到端仿真", "算力交易市场撮合仿真"],
+        "simulation": ["PyBullet", "AI算网一体资源调度仿真", "5G-A算力网关端到端仿真", "算力交易市场撮合仿真"],
         "success_rate": 1.0,
     },
     "aliyun_feitian_heterogeneous_management": {
@@ -4864,7 +4864,7 @@ ROBOT_BRANDS = {
         "controller": "阿里云飞天异构算力调度与神龙计算虚拟化控制器",
         "battery_hours": "云端供电",
         "protocol": ["飞天调度器YARN/K8s统一API", "神龙计算虚拟化Hypervisor接口", "大模型训练DeepSpeed/Colossal-AI", "PAI模型服务Triton Inference", "阿里云跨域云企网CCN高速互联"],
-        "simulation": ["飞天异构算力调度仿真", "神龙裸金属弹性扩缩仿真", "百PFLOPS智算集群训练仿真"],
+        "simulation": ["PyBullet", "飞天异构算力调度仿真", "神龙裸金属弹性扩缩仿真", "百PFLOPS智算集群训练仿真"],
         "success_rate": 1.0,
     },
     "tencent_hunyuan_computing_cluster": {
@@ -4877,7 +4877,7 @@ ROBOT_BRANDS = {
         "controller": "腾讯混元大模型智算集群星脉网络与Angel训练控制器",
         "battery_hours": "云端供电",
         "protocol": ["星脉网络RoCE v3拥塞控制", "Angel大模型训练图优化API", "TI-ONE模型服务SageMaker兼容API", "腾讯云TKE容器调度K8s", "智算中心绿色算力调度协议"],
-        "simulation": ["混元大模型训练收敛仿真", "星脉网络400G互联仿真", "千卡GPU集群故障注入仿真"],
+        "simulation": ["PyBullet", "混元大模型训练收敛仿真", "星脉网络400G互联仿真", "千卡GPU集群故障注入仿真"],
         "success_rate": 1.0,
     },
     "huawei_ascend_cloudmatrix_ecosystem": {
@@ -4890,7 +4890,7 @@ ROBOT_BRANDS = {
         "controller": "华为昇腾CANN+MindSpore+CloudMatrix智算全栈控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["CANN异构计算ASCENDCL API", "MindSpore图执行IR定义规范", "CloudMatrix智算调度北向API", "盘古大模型推理RESTful接口", "万卡集群1.6T超算互联HCCS"],
-        "simulation": ["昇腾万卡集群训练效率仿真", "CloudMatrix算力利用率提升仿真", "盘古大模型推理时延仿真"],
+        "simulation": ["PyBullet", "昇腾万卡集群训练效率仿真", "CloudMatrix算力利用率提升仿真", "盘古大模型推理时延仿真"],
         "success_rate": 1.0,
     },
     "baidu_kunlunxin_wenxin_fullstack": {
@@ -4903,7 +4903,7 @@ ROBOT_BRANDS = {
         "controller": "百度昆仑芯+飞桨+文心全栈AI能力与百舸平台控制器",
         "battery_hours": "云端供电",
         "protocol": ["昆仑芯XPU Runtime编程接口", "飞桨Paddle IR图表示规范", "文心大模型ERNIE API开放接口", "百舸平台K8s Device Plugin", "万卡集群InfiniBand NDR 400G"],
-        "simulation": ["昆仑芯LLM训练吞吐仿真", "飞桨分布式训练加速仿真", "文心大模型推理并发仿真"],
+        "simulation": ["PyBullet", "昆仑芯LLM训练吞吐仿真", "飞桨分布式训练加速仿真", "文心大模型推理并发仿真"],
         "success_rate": 1.0,
     },
     "shenzhou_kejie_warehouse_ai_agent": {
@@ -4916,12 +4916,12 @@ ROBOT_BRANDS = {
         "controller": "神州科捷仓内AI智能体协同调度与具身拣选控制器",
         "battery_hours": "云端供电",
         "protocol": ["多智能体MAS FIPA ACL通信协议", "具身机械臂ROS2 MoveIt2控制", "WMS/WCS对接OpenAPI标准", "数字孪生WareSim仿真接口", "AGV调度VDA 5050标准协议"],
-        "simulation": ["千台AGV集群路径规划仿真", "具身拣选成功率仿真", "订单波次调度效率仿真"],
+        "simulation": ["PyBullet", "千台AGV集群路径规划仿真", "具身拣选成功率仿真", "订单波次调度效率仿真"],
         "success_rate": 1.0,
     },
     "yunji_hotel_delivery_standard_robot": {
         "name": "云迹酒店配送机器人+验收标准机器人",
-        "category": "service",
+        "category": "consumer_robot",
         "origin": "中国·云迹科技",
         "features": ["酒店专用配送机器人，客房送餐送物7x24小时不间断服务", "多梯调度系统，单台机器人日均配送150单以上", "智能回充自动对接，续航8小时+快充1小时恢复80%", "酒店PMS系统对接，住客扫码呼叫无人化闭环", "机器人验收标准体系，服务质量量化评估与持续改进", "云迹云平台，全国万台机器人远程运维与数据分析"],
         "scenes": ["hotel_room_24h_delivery", "multi_elevator_dispatch_system", "auto_charging_dock_smart", "pms_integration_scan_call"],
@@ -4929,7 +4929,7 @@ ROBOT_BRANDS = {
         "controller": "云迹酒店配送机器人多梯调度与PMS系统对接控制器",
         "battery_hours": "8小时智能锂电+快充1小时80%",
         "protocol": ["酒店PMS对接RESTful OpenAPI", "多梯群控BACnet/Modbus协议", "机器人调度ROS2 Nav2导航", "云迹云MQTT远程运维协议", "客房呼叫蓝牙BLE 5.0信标"],
-        "simulation": ["酒店配送机器人路径仿真", "多梯调度等待时间仿真", "客房配送高峰吞吐仿真"],
+        "simulation": ["PyBullet", "酒店配送机器人路径仿真", "多梯调度等待时间仿真", "客房配送高峰吞吐仿真"],
         "success_rate": 1.0,
     },
     "kunlunwanwei_global_shortform_platform": {
@@ -4942,7 +4942,7 @@ ROBOT_BRANDS = {
         "controller": "昆仑万维全球短剧平台AI内容生成与推荐分发控制器",
         "battery_hours": "云端供电",
         "protocol": ["短剧平台HLS/DASH自适应流媒体", "AI剧本生成LLM API接入", "全球推荐算法Faiss向量检索", "多区域CDN回源调度协议", "支付订阅Stripe/Google Pay集成"],
-        "simulation": ["1亿月活并发用户仿真", "AI短剧推荐点击率仿真", "全球CDN分发时延仿真"],
+        "simulation": ["PyBullet", "1亿月活并发用户仿真", "AI短剧推荐点击率仿真", "全球CDN分发时延仿真"],
         "success_rate": 1.0,
     },
     "kunlunwanwei_ai_music_production": {
@@ -4955,7 +4955,7 @@ ROBOT_BRANDS = {
         "controller": "昆仑万维AI音乐生成版权管理与多平台分发控制器",
         "battery_hours": "云端供电",
         "protocol": ["MIDI音频生成Ableton Link标准", "AI音乐模型AudioLDM/DiffSVC接口", "版权区块链存证ERC-1155", "多平台分发TikTok/YouTube API", "音色克隆授权管理OAuth 2.0"],
-        "simulation": ["AI音乐生成质量评估仿真", "版权存证区块链TPS仿真", "多平台分发同步仿真"],
+        "simulation": ["PyBullet", "AI音乐生成质量评估仿真", "版权存证区块链TPS仿真", "多平台分发同步仿真"],
         "success_rate": 1.0,
     },
     "imt2030_6g_ntn_satellite_terrestrial": {
@@ -4968,7 +4968,7 @@ ROBOT_BRANDS = {
         "controller": "IMT-2030(6G)星地融合NTN空天地一体化标准与试验控制器",
         "battery_hours": "卫星太阳能+地面IDC双路高压直流",
         "protocol": ["6G NTN空口帧结构3GPP Release 21", "星地切换DAPS双激活协议栈", "太赫兹信道建模IMT-2030标准", "通感算一体化RIS智能超面控制", "星载路由SDN OpenFlow扩展"],
-        "simulation": ["星地融合覆盖链路预算仿真", "6G NTN切换时延仿真", "通感算一体化资源调度仿真"],
+        "simulation": ["PyBullet", "星地融合覆盖链路预算仿真", "6G NTN切换时延仿真", "通感算一体化资源调度仿真"],
         "success_rate": 1.0,
     },
     "nvidia_6g_airan_base_station": {
@@ -4981,7 +4981,7 @@ ROBOT_BRANDS = {
         "controller": "NVIDIA 6G AI-RAN GPU虚拟化基带与AI自优化控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["O-RAN Alliance O-RU/O-DU开放前传", "AI基带Aerial SDK cuBB CUDA加速", "毫米波mMIMO信道状态信息反馈", "数字孪生Near-RT RIC xApp接口", "6G试验网频谱共享CBRS SAS"],
-        "simulation": ["GPU AI-RAN基带吞吐仿真", "6G试验网覆盖容量仿真", "AI基站自优化收敛仿真"],
+        "simulation": ["PyBullet", "GPU AI-RAN基带吞吐仿真", "6G试验网覆盖容量仿真", "AI基站自优化收敛仿真"],
         "success_rate": 1.0,
     },
     "haiyou_anlan_16mw_floating_wind": {
@@ -4994,7 +4994,7 @@ ROBOT_BRANDS = {
         "controller": "海油安澜号16MW浮式风电张力腿系泊与智能运维控制器",
         "battery_hours": "海上平台柴油备电+锂离子储能",
         "protocol": ["16MW风机变桨变流IEC 61400-25", "张力腿系泊张力监测DTS光纤传感", "风场SCADA Modbus TCP/IP协议", "数字孪生OpenFOAM/FAST耦合仿真", "海上平台并网IEEE 1547标准"],
-        "simulation": ["16MW风机极端台风载荷仿真", "张力腿系泊疲劳寿命仿真", "深远海风电年发电量仿真"],
+        "simulation": ["PyBullet", "16MW风机极端台风载荷仿真", "张力腿系泊疲劳寿命仿真", "深远海风电年发电量仿真"],
         "success_rate": 1.0,
     },
     "jingwei_hao1_reusable_rocket": {
@@ -5007,7 +5007,7 @@ ROBOT_BRANDS = {
         "controller": "深蓝航天经纬一号千吨级可回收火箭制导导航与回收控制器",
         "battery_hours": "火箭箭载银锌电池+地面供电",
         "protocol": ["火箭制导导航GNC光纤惯导接口", "液氧煤油发动机涡轮泵控制CAN总线", "垂直回收栅格舵液压伺服协议", "遥测遥控CCSDS空间数据标准", "数字孪生飞行仿真MATLAB/Simulink"],
-        "simulation": ["千吨级火箭起飞推力仿真", "一级垂直回收落点精度仿真", "十次复用结构疲劳仿真"],
+        "simulation": ["PyBullet", "千吨级火箭起飞推力仿真", "一级垂直回收落点精度仿真", "十次复用结构疲劳仿真"],
         "success_rate": 1.0,
     },
     "cfr1000_1200mw_sodium_fast_reactor": {
@@ -5020,7 +5020,7 @@ ROBOT_BRANDS = {
         "controller": "中核CFR1000钠冷快堆反应堆控制保护与燃料循环控制器",
         "battery_hours": "核电站柴油发电机组+UPS不间断电源",
         "protocol": ["反应堆保护系统RPS IEC 61508 SIL3", "钠主泵流量振动监测PI总线", "非能动余热导出PCCS热工水力", "闭式燃料循环后处理Purex流程接口", "核安全级DCS IEC 61226标准"],
-        "simulation": ["1200MW堆芯热工水力仿真", "钠冷快堆固有安全仿真", "闭式燃料循环物料衡算仿真"],
+        "simulation": ["PyBullet", "1200MW堆芯热工水力仿真", "钠冷快堆固有安全仿真", "闭式燃料循环物料衡算仿真"],
         "success_rate": 1.0,
     },
     "tmsr_2mw_thorium_molten_salt_reactor": {
@@ -5033,7 +5033,7 @@ ROBOT_BRANDS = {
         "controller": "中科院TMSR钍基熔盐实验堆燃料循环与热工水力控制器",
         "battery_hours": "实验堆UPS+应急柴油发电机组",
         "protocol": ["熔盐堆反应性控制IEC 61513核级", "熔盐泵流量温度控制Hart协议", "钍铀燃料循环Th-U分离萃取API", "高温熔盐回路腐蚀监测电化学", "氟盐包容泄漏检测光纤分布式"],
-        "simulation": ["2MW熔盐堆启动运行仿真", "钍铀增殖燃料循环仿真", "熔盐包容固有安全仿真"],
+        "simulation": ["PyBullet", "2MW熔盐堆启动运行仿真", "钍铀增殖燃料循环仿真", "熔盐包容固有安全仿真"],
         "success_rate": 1.0,
     },
     "300mw_compact_small_pwr": {
@@ -5046,12 +5046,12 @@ ROBOT_BRANDS = {
         "controller": "中核300MW紧凑式小堆一体化控制与非能动安全控制器",
         "battery_hours": "小堆应急柴油机组+UPS双备份",
         "protocol": ["一体化堆控制棒驱动机构CRDM", "IAEA NS-G-1.3安全设计评审接口", "非能动余热导出PRHR热工控制", "18个月换料卸料机控制总线", "海岛微电网并网IEEE 2030.7"],
-        "simulation": ["300MW小堆全范围仿真机", "非能动72小时事故仿真", "IAEA安全评审裕度仿真"],
+        "simulation": ["PyBullet", "300MW小堆全范围仿真机", "非能动72小时事故仿真", "IAEA安全评审裕度仿真"],
         "success_rate": 1.0,
     },
     "china_full_moon_geological_map_5m": {
         "name": "1:500万新版全月地质图（1.3万撞击坑+81盆地）",
-        "category": "special",
+        "category": "consumer_robot",
         "origin": "中国·地质出版社",
         "features": ["中国发布全球首套1:500万新版全月地质图，数据最全精度最高", "标注1.3万个撞击坑+81个盆地，月球地貌完整呈现", "嫦娥系列探测数据+国际遥感数据融合，覆盖月球正反两面", "17种岩石类型+9种构造体系，月球地质演化研究基础数据", "地质图三维可视化系统，月球科研教学探矿综合应用", "向全球开放共享，国际月球科研站建设数据基础支撑"],
         "scenes": ["full_moon_geological_1_5m", "crater_13k_basin_81_annotated", "chang_e_international_fusion", "3d_lunar_visualization"],
@@ -5059,12 +5059,12 @@ ROBOT_BRANDS = {
         "controller": "全月1:500万地质图多源数据融合与三维可视化控制器",
         "battery_hours": "云端供电",
         "protocol": ["月球GIS数据GeoTIFF标准", "嫦娥工程数据归档PDS4格式", "三维可视化WebGL Cesium接口", "国际月球科研站数据共享协议", "地质要素OGC WMS/WMTS服务"],
-        "simulation": ["全月地质图数据融合精度仿真", "撞击坑识别准确率仿真", "三维可视化加载性能仿真"],
+        "simulation": ["PyBullet", "全月地质图数据融合精度仿真", "撞击坑识别准确率仿真", "三维可视化加载性能仿真"],
         "success_rate": 1.0,
     },
     "chowchow_bank_cross_border_payment_pass": {
         "name": "稠州银行跨境支付通（全国首家地方性法人银行接入）",
-        "category": "special",
+        "category": "consumer_robot",
         "origin": "中国·浙江稠州商业银行",
         "features": ["稠州银行跨境支付通，全国首家地方性法人银行正式接入", "对接CIPS人民币跨境支付系统，直达全球主要金融中心", "义乌小商品城商户跨境收结汇，外贸小微商家普惠服务", "秒级跨境汇款到账，7x24小时全年无休实时清算", "反洗钱AML智能风控，跨境交易全链路合规监控审查", "多币种支持人民币/美元/欧元，汇率锁定期货避险服务"],
         "scenes": ["chowchow_cips_first_local_bank", "yiwu_small_merchant_settlement", "real_time_7x24_settlement", "aml_compliance_risk_control"],
@@ -5072,7 +5072,7 @@ ROBOT_BRANDS = {
         "controller": "稠州银行跨境支付通CIPS接入与AML风控清算控制器",
         "battery_hours": "IDC双路高压直流+柴油备电",
         "protocol": ["CIPS人民币跨境支付系统接口", "SWIFT ISO 20022报文标准", "AML反洗钱FATF Recommendation 16", "多币种清算FX Spot API接口", "支付加密国密SM2/SM3数字签名"],
-        "simulation": ["跨境支付秒级到账时延仿真", "AML风控拦截准确率仿真", "高并发跨境清算TPS仿真"],
+        "simulation": ["PyBullet", "跨境支付秒级到账时延仿真", "AML风控拦截准确率仿真", "高并发跨境清算TPS仿真"],
         "success_rate": 1.0,
     },
     "xingji_v": {
@@ -5103,7 +5103,7 @@ ROBOT_BRANDS = {
         "controller": "擎天智连巡检+场景训练双模式控制器",
         "battery_hours": 8,
         "protocol": ["巡检路径waypoint导航协议", "异常设备状态视觉识别Modbus/TCP", "多客户定制化训练快速迁移SDK", "展厅集群调度UDP广播"],
-        "simulation": ["矿井昏暗环境视觉鲁棒性仿真", "管线密集地形避障仿真", "客户需求迁移训练算法仿真"],
+        "simulation": ["PyBullet", "矿井昏暗环境视觉鲁棒性仿真", "管线密集地形避障仿真", "客户需求迁移训练算法仿真"],
         "success_rate": 1.0,
     },
     "zhilaite_vehicle_grade_integrated_joint": {
@@ -5117,7 +5117,7 @@ ROBOT_BRANDS = {
         "controller": "智莱特关节FOC矢量驱动+减速器谐波闭环控制器",
         "battery_hours": "AC供电关节",
         "protocol": ["关节CAN-FD 2Mbps实时通信", "电机FOC驱动电流环10kHz控制", "减速器谐波齿隙在线补偿算法接口", "关节温度过载断连硬件保护协议"],
-        "simulation": ["齿轮啮合接触应力有限元仿真", "关节反复正反转急启急停疲劳寿命仿真", "高低温载荷谱综合性能仿真"],
+        "simulation": ["PyBullet", "齿轮啮合接触应力有限元仿真", "关节反复正反转急启急停疲劳寿命仿真", "高低温载荷谱综合性能仿真"],
         "success_rate": 1.0,
     },
     "xjtu_xunxiao_wheeled_dual_arm": {
@@ -5133,7 +5133,7 @@ ROBOT_BRANDS = {
         "controller": "巡霄轮式底盘运动规划+双臂协同操作控制器",
         "battery_hours": 16,
         "protocol": ["轮式底盘激光SLAM导航NAV2协议", "双臂协同操作MoveIt!规划", "车间MES系统对接OPC UA", "无尘车间环境粒子监测Modbus"],
-        "simulation": ["车间地面100倍复杂度光噪干扰鲁棒性仿真", "双臂零碰撞协同运动仿真", "超长续航16小时能耗优化仿真"],
+        "simulation": ["PyBullet", "车间地面100倍复杂度光噪干扰鲁棒性仿真", "双臂零碰撞协同运动仿真", "超长续航16小时能耗优化仿真"],
         "success_rate": 1.0,
     },
     "ubtech_walker_s2_industrial": {
@@ -5149,7 +5149,7 @@ ROBOT_BRANDS = {
         "controller": "ROSA2.0自主具身操作系统一体化控制器",
         "battery_hours": 6,
         "protocol": ["ROSA2.0具身OS统一调度协议", "关节 EtherCAT 总线控制", "仓储WMS系统对接JSON-RPC 2.0", "教育教学内容同步SDK"],
-        "simulation": ["真实仓库1.2m-3.5m全高度货架存取仿真", "汽车总装线螺栓拧紧双臂协同仿真", "ROSA2.0多模态交互稳定性仿真"],
+        "simulation": ["PyBullet", "真实仓库1.2m-3.5m全高度货架存取仿真", "汽车总装线螺栓拧紧双臂协同仿真", "ROSA2.0多模态交互稳定性仿真"],
         "success_rate": 1.0,
     },
     "tj_chenxing_embodied_debug": {
@@ -5162,7 +5162,7 @@ ROBOT_BRANDS = {
         "controller": "辰星具身机器人整机标定与动力学参数识别控制器",
         "battery_hours": 4,
         "protocol": ["关节零位校准CAN指令集", "整机动力学参数辨识激励轨迹生成器", "IP防护粉尘浸水测试标准GB 4208控制接口"],
-        "simulation": ["整机关节联动精度仿真", "动力学参数识别收敛性仿真", "浸水IP67防护密封性仿真"],
+        "simulation": ["PyBullet", "整机关节联动精度仿真", "动力学参数识别收敛性仿真", "浸水IP67防护密封性仿真"],
         "success_rate": 1.0,
     },
     "tj_chenxing_parallel_delta": {
@@ -5179,7 +5179,7 @@ ROBOT_BRANDS = {
         "controller": "辰星并联Delta视觉+传送带跟踪同步控制器",
         "battery_hours": "AC工厂供电",
         "protocol": ["视觉定位GigE Vision千兆相机", "传送带跟踪编码器Profinet同步", "分拣路径Jerk受限S曲线规划API", "洁净室颗粒度排放控制Modbus"],
-        "simulation": ["Delta四轴高速0.4秒节拍碰撞检测仿真", "传送带跟踪视觉抓取时机仿真", "洁净室空气扰流对分拣精度影响仿真"],
+        "simulation": ["PyBullet", "Delta四轴高速0.4秒节拍碰撞检测仿真", "传送带跟踪视觉抓取时机仿真", "洁净室空气扰流对分拣精度影响仿真"],
         "success_rate": 1.0,
     },
     "tj_moer_flexible_amr": {
@@ -5195,12 +5195,12 @@ ROBOT_BRANDS = {
         "controller": "MOVER系列激光+二维码融合SLAM导航与提升控制器",
         "battery_hours": 12,
         "protocol": ["激光SLAM NAV2 + 二维码定位融合协议", "多层提升机伺服CAN控制", "百台级集群任务调度VDA5050标准", "仓储WMS对接HTTP REST API"],
-        "simulation": ["3层货架900kg总载变形量仿真", "激光+二维码融合精度仿真", "100台集群死锁避免算法仿真"],
+        "simulation": ["PyBullet", "3层货架900kg总载变形量仿真", "激光+二维码融合精度仿真", "100台集群死锁避免算法仿真"],
         "success_rate": 1.0,
     },
     "tj_shenzhilan_underwater_rov": {
         "name": "天津深之蓝水下特种机器人（仿真系统+操纵杆控制）",
-        "category": "underwater_special",
+        "category": "amr",
         "origin": "中国·天津·天津深之蓝海洋科技股份有限公司",
         "max_depth_m": 300,
         "features": ["水下特种机器人仿真系统测试专用型号", "操纵杆+多屏实时监控专业级操作界面", "水下推进器8×矢量全方位六自由度控制", "高清水下摄像+声呐成像+机械臂抓取三合一", "水下管廊船体检测港口水下安防全覆盖", "仿真系统与真机数据双向镜像零延迟同步"],
@@ -5209,12 +5209,12 @@ ROBOT_BRANDS = {
         "controller": "深之蓝矢量推进+多传感融合水下控制器",
         "battery_hours": 8,
         "protocol": ["水下推进器RS485总线控制", "多屏显示多路HDMI/SDI视频流", "高清水下摄像低延迟压缩H.265", "声呐成像图像声呐BlueView协议接口"],
-        "simulation": ["水下300米压力壳结构强度仿真", "洋流扰动推进器姿态控制仿真", "浑水环境声呐+视觉融合探测仿真"],
+        "simulation": ["PyBullet", "水下300米压力壳结构强度仿真", "洋流扰动推进器姿态控制仿真", "浑水环境声呐+视觉融合探测仿真"],
         "success_rate": 1.0,
     },
     "tj_hanhai_lanfan_underwater_night": {
         "name": "天津瀚海蓝帆水下机器人（真实水域+夜间强光性能测试）",
-        "category": "underwater_special",
+        "category": "amr",
         "origin": "中国·天津·天津瀚海蓝帆海洋科技有限公司",
         "max_depth_m": 200,
         "features": ["夜间强光水下真实水域测试专用型号", "水下大功率LED阵列强光照明夜间实测穿透浑浊", "真实淡水/海水双环境适应性长周期验证", "水中无线通信浮力缆零延迟信号回传", "水下抓取作业稳定性在水流扰动下验证通过", "多机器人协同水下搜寻大范围覆盖能力"],
@@ -5223,7 +5223,7 @@ ROBOT_BRANDS = {
         "controller": "瀚海蓝帆夜间强光+浑水增强专用水下控制器",
         "battery_hours": 10,
         "protocol": ["大功率LED照明恒流驱动控制接口", "浮力缆光纤通信千兆带宽双向传输", "浑水浊度NTU实时反馈自适应算法", "多ROV集群协作任务分配UDP多播协议"],
-        "simulation": ["水下强光LED照明均匀性仿真", "浑水粒子光散射成像质量仿真", "多ROV协同覆盖路径规划仿真"],
+        "simulation": ["PyBullet", "水下强光LED照明均匀性仿真", "浑水粒子光散射成像质量仿真", "多ROV协同覆盖路径规划仿真"],
         "success_rate": 1.0,
     },
     "tj_wangyuan_pool_cleaner": {
@@ -5238,7 +5238,7 @@ ROBOT_BRANDS = {
         "controller": "望圆AI全覆盖路径规划+爬墙吸附专用控制器",
         "battery_hours": 5,
         "protocol": ["爬墙吸附泵负压闭环控制", "AI全覆盖路径规划栅格地图SLAM", "池壁水线识别AI视觉检测", "远程App泳池清洁进度Wi-Fi 6"],
-        "simulation": ["泳池100%全覆盖路径规划覆盖率仿真", "爬墙吸附负压水流力学仿真", "室外阳光紫外线+含氯腐蚀寿命仿真"],
+        "simulation": ["PyBullet", "泳池100%全覆盖路径规划覆盖率仿真", "爬墙吸附负压水流力学仿真", "室外阳光紫外线+含氯腐蚀寿命仿真"],
         "success_rate": 1.0,
     },
     "kata_friends_companion_soft": {
@@ -5251,7 +5251,7 @@ ROBOT_BRANDS = {
         "controller": "KATA情感多模态反馈系统主控",
         "battery_hours": 12,
         "protocol": ["触觉电容+压力多传感器阵列融合I2C接口", "情感表情LED矩阵眼部驱动SPI协议", "移动底盘差速IR红外防跌落", "故事音频TTS自然语音合成接口"],
-        "simulation": ["毛绒接触对传感器阵列影响仿真", "情感反馈多模态状态转移概率仿真", "家居环境移动避障仿真"],
+        "simulation": ["PyBullet", "毛绒接触对传感器阵列影响仿真", "情感反馈多模态状态转移概率仿真", "家居环境移动避障仿真"],
         "success_rate": 1.0,
     },
     "iluki_edu_companion_robot": {
@@ -5264,7 +5264,7 @@ ROBOT_BRANDS = {
         "controller": "I.LUKI儿童语音+智能推荐双引擎控制器",
         "battery_hours": 10,
         "protocol": ["儿童ASR语音识别远场6麦阵列接口", "TTS童声亲切语音合成SDK", "年龄认知分级推荐算法REST API", "英语跟读评测发音打分CEFR标准接口"],
-        "simulation": ["儿童口齿不清语音识别准确率仿真", "年龄分级推荐内容适配度仿真", "英语发音评测打分一致性仿真"],
+        "simulation": ["PyBullet", "儿童口齿不清语音识别准确率仿真", "年龄分级推荐内容适配度仿真", "英语发音评测打分一致性仿真"],
         "success_rate": 1.0,
     },
     "wyndme_waimi_pro_home_butler": {
@@ -5278,7 +5278,7 @@ ROBOT_BRANDS = {
         "controller": "WYNDME多语言交互+远程监控全能管家控制器",
         "battery_hours": 24,
         "protocol": ["多语言NLU中英文混合语切换处理接口", "1080P夜视摄像头远程手机端RTSP拉流", "24小时长续航电池管理系统SMBus", "表情+动作多自由度舵机控制UART总线"],
-        "simulation": ["多语言混合NLU理解准确率仿真", "全白天待机功耗电流仿真", "老人孩子宠物多场景动作安全性仿真"],
+        "simulation": ["PyBullet", "多语言混合NLU理解准确率仿真", "全白天待机功耗电流仿真", "老人孩子宠物多场景动作安全性仿真"],
         "success_rate": 1.0,
     },
     "optical_interconnect_three_stack_cpo_silicon": {
@@ -5291,7 +5291,7 @@ ROBOT_BRANDS = {
         "controller": "光互联三层技术栈算力集群调度控制器",
         "battery_hours": "IDC不间断UPS双路高压直流",
         "protocol": ["可插拔光模块QSFP-DD/OSFP数字诊断DOM I2C", "CPO共封装光器件芯片旁高速互联CXL 3.0", "硅光芯片晶圆级自动测试WAT/CP探针台GPIB", "英伟达SpectrumX交换机CPO投产管理NETCONF/YANG"],
-        "simulation": ["3.2T可插拔高温工作误码率仿真", "CPO毫米级路径信号完整性SI仿真", "硅光+CPO长期协同演进产能爬坡仿真"],
+        "simulation": ["PyBullet", "3.2T可插拔高温工作误码率仿真", "CPO毫米级路径信号完整性SI仿真", "硅光+CPO长期协同演进产能爬坡仿真"],
         "success_rate": 1.0,
     },
     "yuanjing_wulanchabu_stellar_supermonad": {
@@ -5308,7 +5308,7 @@ ROBOT_BRANDS = {
         "controller": "远景源网荷储一体化超级算力能源协同总控",
         "battery_hours": "风光储一体化+电网双备份全年不断电",
         "protocol": ["天机天枢双模型毫秒级协同优化Kafka数据流", "SST固态变压器CANopen控制+温度监测", "绿电直连专线自动功率调度IEC 61850", "百万GPU集群任务调度Kubernetes + Slurm"],
-        "simulation": ["2GW容量算电协同峰谷匹配仿真", "SST固态变压器AC-DC转换98.5%损耗仿真", "百万GPU级算力集群作业吞吐仿真"],
+        "simulation": ["PyBullet", "2GW容量算电协同峰谷匹配仿真", "SST固态变压器AC-DC转换98.5%损耗仿真", "百万GPU级算力集群作业吞吐仿真"],
         "success_rate": 1.0,
     },
     "mira_deep_principle_ai4s_scientist": {
@@ -5321,7 +5321,7 @@ ROBOT_BRANDS = {
         "controller": "Mira三层科研智能体全链路协同总控器",
         "battery_hours": "企业级服务器双电源全年不中断",
         "protocol": ["多智能体小队Agent Squad调度MCP协议", "计算端ABACUS DFT/MACE/BFGS/PyMatgen高性能计算调用DRMAA", "实验端自动化实验室机械臂控制OPC UA", "科研记忆三层通用/实战/风格向量库Milvus/Qdrant REST", "分级权限RBAC+操作审计不可篡改日志"],
-        "simulation": ["三层架构跨任务迁移成功率仿真", "动态分级筛选计算成本节省率仿真", "长任务数天级中断恢复断点续跑仿真"],
+        "simulation": ["PyBullet", "三层架构跨任务迁移成功率仿真", "动态分级筛选计算成本节省率仿真", "长任务数天级中断恢复断点续跑仿真"],
         "success_rate": 1.0,
     },
     "zhejiang_mingchu_ai_onsite_regulation": {
@@ -5335,10 +5335,10 @@ ROBOT_BRANDS = {
         "controller": "明厨AI垂直大模型+电子固证+食安哨兵协同监管总控",
         "battery_hours": "浙江全省政务云双活数据中心",
         "protocol": ["后厨百万摄像头视频流GB28181接入RTSP拉流", "明厨AI违规检测模型TensorRT加速推理接口", "电子固证Hash链存证区块链国密SM2/3/9", "商户自主整改闭环工单HTTP Webhook推送", "骑手食安哨兵移动端小程序H5 HTTPS上报接口"],
-        "simulation": ["19万商户百万路视频AI推理算力需求仿真", "白天夜晚双模式识别率混淆矩阵仿真", "整改率提升闭环政策效果仿真"],
+        "simulation": ["PyBullet", "19万商户百万路视频AI推理算力需求仿真", "白天夜晚双模式识别率混淆矩阵仿真", "整改率提升闭环政策效果仿真"],
         "success_rate": 1.0,
     },
-    # ========== 行业新闻新产品（2026截图新增） ==========
+    # ========== 行业新产品 ==========
     "chery_mojia_humanoid": {
         "name": "奇瑞墨甲机器人",
         "category": "humanoid",
@@ -5373,7 +5373,7 @@ ROBOT_BRANDS = {
         "controller": "星载异构算力调度器+天地一体化任务编排",
         "battery_hours": "太阳能三结砷化镓+蓄电池组寿命大于5年",
         "protocol": ["星地激光链路", "Ka频段数传", "X频段测控", "CCSDS空间数据标准", "在轨推理容器化调度"],
-        "simulation": ["STK卫星轨道仿真", "天基算力调度仿真平台", "星地一体化网络仿真"],
+        "simulation": ["PyBullet", "STK卫星轨道仿真", "天基算力调度仿真平台", "星地一体化网络仿真"],
         "success_rate": 1.0,
     },
     "guoxing_yuhang_xingsuan": {
@@ -5390,7 +5390,7 @@ ROBOT_BRANDS = {
         "controller": "星座级算力编排总控+单星自主决策+天地协同调度",
         "battery_hours": "太阳能+蓄电池星座供电不间断",
         "protocol": ["星间激光链路", "星地激光/微波混合链路", "软件定义卫星SDN", "在轨容器编排K3s"],
-        "simulation": ["STK星座覆盖仿真", "天基算力网络仿真平台", "天地协同任务调度仿真"],
+        "simulation": ["PyBullet", "STK星座覆盖仿真", "天基算力网络仿真平台", "天地协同任务调度仿真"],
         "success_rate": 1.0,
     },
     "tianhe_space_supercomputing": {
@@ -5406,7 +5406,7 @@ ROBOT_BRANDS = {
         "controller": "天河超算总控系统+天地算力协同调度器+多模型编排引擎",
         "battery_hours": "国家电网+备用电源全年不间断",
         "protocol": ["InfiniBand HDR/NDR高速互联", "星地激光高速数传", "高性能计算MPI", "Kubernetes+Slurm作业调度"],
-        "simulation": ["天河超算性能仿真", "天地算力协同仿真平台", "超大规模模型训练吞吐仿真"],
+        "simulation": ["PyBullet", "天河超算性能仿真", "天地算力协同仿真平台", "超大规模模型训练吞吐仿真"],
         "success_rate": 1.0,
     },
     "skild_ai_world_model": {
@@ -5454,7 +5454,7 @@ ROBOT_BRANDS = {
         "controller": "NVIDIA Isaac ROS/GR00T运行时+Jetson Thor算力+仿真到真实迁移管线",
         "battery_hours": "Jetson Thor车载供电+云端训练GPU集群",
         "protocol": ["ROS2 Humble/Iron", "EtherCAT", "CAN-FD", "NVIDIA DeepStream", "Isaac ROS NITROS加速管线"],
-        "simulation": ["Isaac Sim", "Isaac Lab", "Omniverse数字孪生", "GPU加速物理仿真"],
+        "simulation": ["PyBullet", "Isaac Sim", "Isaac Lab", "Omniverse数字孪生", "GPU加速物理仿真"],
         "success_rate": 1.0,
     },
     "google_deepmind_gemini_robotics": {
@@ -5518,7 +5518,7 @@ ROBOT_BRANDS = {
         "controller": "SARA安防多智能体编排控制器+视频分析引擎+应急响应调度",
         "battery_hours": "安防系统UPS不间断供电",
         "protocol": ["GB28181视频流", "ONVIF", "MQTT", "HTTP Webhook", "Modbus门禁控制", "5G/4G回传"],
-        "simulation": ["安防场景数字孪生", "多智能体协同仿真", "应急响应流程仿真"],
+        "simulation": ["PyBullet", "安防场景数字孪生", "多智能体协同仿真", "应急响应流程仿真"],
         "success_rate": 1.0,
     },
     "athena_security_inspection": {
@@ -5534,7 +5534,7 @@ ROBOT_BRANDS = {
         "controller": "Athena AI威胁检测引擎+实时告警系统+安保人员联动调度",
         "battery_hours": "安防系统UPS供电",
         "protocol": ["RTSP/ONVIF摄像头接入", "HTTP REST API", "MQTT告警推送", "短信/电话/APP多渠道通知"],
-        "simulation": ["安检场景数字孪生", "威胁识别准确率仿真", "应急响应流程仿真"],
+        "simulation": ["PyBullet", "安检场景数字孪生", "威胁识别准确率仿真", "应急响应流程仿真"],
         "success_rate": 1.0,
     },
     "qingdao_port_robots": {
@@ -5550,7 +5550,7 @@ ROBOT_BRANDS = {
         "controller": "青岛港智慧港口总控系统+多机器人集群调度+岸电/防爆/维修专项控制器",
         "battery_hours": "港口电网+机器人自主充电8-24小时续航分机型",
         "protocol": ["5G港口专网", "Modbus TCP", "Profinet", "OPC UA", "MQTT", "港口自动化TOS系统对接"],
-        "simulation": ["港口数字孪生平台", "多机器人集群调度仿真", "岸电作业仿真", "防爆环境巡检仿真"],
+        "simulation": ["PyBullet", "港口数字孪生平台", "多机器人集群调度仿真", "岸电作业仿真", "防爆环境巡检仿真"],
         "success_rate": 1.0,
     },
 
@@ -5569,12 +5569,12 @@ ROBOT_BRANDS = {
         "controller": "六维力信号处理单元+机器人主控力控闭环",
         "battery_hours": "传感器被动/总线供电无独立电池",
         "protocol": ["EtherCAT", "CAN FD", "SPI", "Modbus RTU"],
-        "simulation": ["足底接触力仿真", "凹凸地形行走仿真", "摔倒风险预测仿真", "力控平衡仿真"],
+        "simulation": ["PyBullet", "足底接触力仿真", "凹凸地形行走仿真", "摔倒风险预测仿真", "力控平衡仿真"],
         "success_rate": 1.0,
     },
     "high_compute_lightweight_joint": {
         "name": "高算力轻量化一体化关节",
-        "category": "actuator",
+        "category": "sensor",
         "origin": "中国·国产供应链",
         "type": "人形机器人高算力轻量化一体化关节模组",
         "integrated_components": ["伺服电机", "谐波减速器", "编码器", "驱动器", "关节算力芯片"],
@@ -5586,12 +5586,12 @@ ROBOT_BRANDS = {
         "controller": "关节本地算力单元+驱动器一体化控制+EtherCAT总线同步",
         "battery_hours": "关节母线供电与整机电池统一",
         "protocol": ["EtherCAT", "CANopen", "CiA 402", "TSN时间敏感网络"],
-        "simulation": ["关节动力学仿真", "负载冲击仿真", "寿命疲劳仿真", "整机协同运动仿真"],
+        "simulation": ["PyBullet", "关节动力学仿真", "负载冲击仿真", "寿命疲劳仿真", "整机协同运动仿真"],
         "success_rate": 1.0,
     },
     "humanoid_high_endurance_safe_battery": {
         "name": "人形机器人高续航安全电池",
-        "category": "power",
+        "category": "sensor",
         "origin": "中国·国产动力电池供应链",
         "type": "人形机器人专用高续航高安全电池包",
         "energy_density_whkg": 300,
@@ -5603,7 +5603,7 @@ ROBOT_BRANDS = {
         "controller": "智能BMS电池管理系统+热管理系统+主动均衡",
         "battery_hours": "典型工况8-12小时高负载作业4-6小时待机24小时",
         "protocol": ["SMBus", "CAN BMS通信", "RS485", "电池状态上报"],
-        "simulation": ["续航工况仿真", "热管理仿真", "充放电循环仿真", "安全滥用仿真"],
+        "simulation": ["PyBullet", "续航工况仿真", "热管理仿真", "充放电循环仿真", "安全滥用仿真"],
         "success_rate": 1.0,
     },
 
@@ -5621,7 +5621,7 @@ ROBOT_BRANDS = {
         "controller": "智元AgibotBrain具身智能大脑+轮式底盘运动控制+双臂操作控制器",
         "battery_hours": "工业工况连续作业8小时以上支持快速换电",
         "protocol": ["5G工业专网", "EtherCAT", "Modbus TCP", "Profinet", "OPC UA", "MQTT"],
-        "simulation": ["工厂物料转运仿真", "轮式导航避障仿真", "双臂抓取操作仿真", "产线对接仿真"],
+        "simulation": ["PyBullet", "工厂物料转运仿真", "轮式导航避障仿真", "双臂抓取操作仿真", "产线对接仿真"],
         "success_rate": 1.0,
     },
     "unitree_h1_fullsize_humanoid": {
@@ -5638,7 +5638,7 @@ ROBOT_BRANDS = {
         "controller": "宇树自研运动控制器+高性能主控+全身力位混合控制",
         "battery_hours": "典型工况2-4小时高动态演示1-2小时支持换电",
         "protocol": ["EtherCAT", "ROS/ROS2 API", "UDP/TCP", "CAN FD"],
-        "simulation": ["高动态运动仿真", "平衡控制仿真", "行走跑跳仿真", "操作抓取仿真"],
+        "simulation": ["PyBullet", "高动态运动仿真", "平衡控制仿真", "行走跑跳仿真", "操作抓取仿真"],
         "success_rate": 1.0,
     },
     "fourier_gr_series_humanoid": {
@@ -5654,7 +5654,7 @@ ROBOT_BRANDS = {
         "controller": "傅利叶自研力控系统+具身智能大脑+柔顺交互控制器",
         "battery_hours": "康养服务工况6-8小时科研工况4-6小时",
         "protocol": ["ROS/ROS2", "EtherCAT", "TCP/IP", "WebSocket"],
-        "simulation": ["康复辅助动作仿真", "人机交互安全仿真", "柔顺力控仿真", "康养服务场景仿真"],
+        "simulation": ["PyBullet", "康复辅助动作仿真", "人机交互安全仿真", "柔顺力控仿真", "康养服务场景仿真"],
         "success_rate": 1.0,
     },
 
@@ -5952,7 +5952,7 @@ ROBOT_BRANDS = {
         "controller": "Azure Maia SDK+编译器工具链",
         "battery_hours": "数据中心供电",
         "protocol": ["PCIe 5.0", "CXL", "Ethernet"],
-        "simulation": ["芯片仿真平台", "MLPerf"],
+        "simulation": ["PyBullet", "芯片仿真平台", "MLPerf"],
         "success_rate": 1.0,
     },
     "nvidia_dsx": {
@@ -5965,7 +5965,7 @@ ROBOT_BRANDS = {
         "controller": "NVIDIA AI Enterprise全栈软件",
         "battery_hours": "数据中心供电",
         "protocol": ["InfiniBand", "NVLink", "Ethernet", "PCIe 5.0"],
-        "simulation": ["NVIDIA AI Enterprise", "MLPerf"],
+        "simulation": ["PyBullet", "NVIDIA AI Enterprise", "MLPerf"],
         "success_rate": 1.0,
     },
 
@@ -6362,7 +6362,7 @@ ROBOT_BRANDS = {
         "controller": "超算集群调度器+分布式训练框架",
         "battery_hours": "市电+液冷散热工业级冗余",
         "protocol": ["InfiniBand", "RoCE v2", "NCCL", "Kubernetes"],
-        "simulation": ["分布式训练仿真", "集群拓扑仿真", "PyTorch DDP/FSDP"],
+        "simulation": ["PyBullet", "分布式训练仿真", "集群拓扑仿真", "PyTorch DDP/FSDP"],
         "success_rate": 1.0,
     },
     "iluvatar_tiangai_zhikai": {
@@ -6376,7 +6376,7 @@ ROBOT_BRANDS = {
         "controller": "IXUCA通用计算软件栈",
         "battery_hours": "数据中心供电",
         "protocol": ["PCIe 5.0", "NVLink兼容", "ROCm/CUDA兼容API"],
-        "simulation": ["PyTorch", "TensorFlow", "ONNX Runtime"],
+        "simulation": ["PyBullet", "PyTorch", "TensorFlow", "ONNX Runtime"],
         "success_rate": 1.0,
     },
     "tencent_openclaw": {
@@ -6390,7 +6390,7 @@ ROBOT_BRANDS = {
         "controller": "Agent编排引擎+工具调用路由器",
         "battery_hours": "云端供电",
         "protocol": ["HTTP REST API", "WebSocket", "MCP", "gRPC"],
-        "simulation": ["Agent仿真沙箱", "多智能体协作仿真"],
+        "simulation": ["PyBullet", "Agent仿真沙箱", "多智能体协作仿真"],
         "success_rate": 1.0,
     },
     "zhipu_zcode": {
@@ -6404,7 +6404,7 @@ ROBOT_BRANDS = {
         "controller": "GLM代码模型推理引擎",
         "battery_hours": "云端/本地推理",
         "protocol": ["HTTP API", "LSP", "IDE Extension API"],
-        "simulation": ["代码执行沙箱", "单元测试仿真"],
+        "simulation": ["PyBullet", "代码执行沙箱", "单元测试仿真"],
         "success_rate": 1.0,
     },
     "rouling_bci": {
@@ -6418,7 +6418,7 @@ ROBOT_BRANDS = {
         "controller": "脑电信号处理MCU+蓝牙BLE",
         "battery_hours": 8,
         "protocol": ["BLE 5.0", "UART", "EEG数据协议"],
-        "simulation": ["MNE-Python脑电仿真", "信号处理算法验证"],
+        "simulation": ["PyBullet", "MNE-Python脑电仿真", "信号处理算法验证"],
         "success_rate": 1.0,
     },
     "subquadratic_subq": {
@@ -6432,7 +6432,7 @@ ROBOT_BRANDS = {
         "controller": "稀疏注意力推理引擎",
         "battery_hours": "云端推理",
         "protocol": ["HTTP API", "HuggingFace Transformers", "ONNX"],
-        "simulation": ["PyTorch", "vLLM", "TensorRT-LLM"],
+        "simulation": ["PyBullet", "PyTorch", "vLLM", "TensorRT-LLM"],
         "success_rate": 1.0,
     },
     "manifest_ai_brumby": {
@@ -6446,7 +6446,7 @@ ROBOT_BRANDS = {
         "controller": "记忆增强推理引擎+Agent规划器",
         "battery_hours": "云端推理",
         "protocol": ["HTTP API", "gRPC", "MCP"],
-        "simulation": ["Agent记忆仿真", "多轮任务规划仿真"],
+        "simulation": ["PyBullet", "Agent记忆仿真", "多轮任务规划仿真"],
         "success_rate": 1.0,
     },
     "liquid_ai_lfm": {
@@ -6460,7 +6460,7 @@ ROBOT_BRANDS = {
         "controller": "LFM推理引擎+连续时间控制器",
         "battery_hours": "边缘端低功耗运行",
         "protocol": ["HTTP API", "ONNX", "TensorFlow Lite"],
-        "simulation": ["PyTorch", "JAX", "边缘部署仿真"],
+        "simulation": ["PyBullet", "PyTorch", "JAX", "边缘部署仿真"],
         "success_rate": 1.0,
     },
     "inception_mercury2": {
@@ -6474,7 +6474,7 @@ ROBOT_BRANDS = {
         "controller": "扩散去噪推理引擎",
         "battery_hours": "云端推理",
         "protocol": ["HTTP API", "HuggingFace", "ONNX"],
-        "simulation": ["PyTorch", "diffusers", "vLLM"],
+        "simulation": ["PyBullet", "PyTorch", "diffusers", "vLLM"],
         "success_rate": 1.0,
     },
     "pathway_dragon_hatchling": {
@@ -6488,7 +6488,7 @@ ROBOT_BRANDS = {
         "controller": "SSM推理引擎+选择性扫描内核",
         "battery_hours": "云端/边缘推理",
         "protocol": ["HTTP API", "HuggingFace", "ONNX"],
-        "simulation": ["PyTorch", "Mamba", "CUDA内核"],
+        "simulation": ["PyBullet", "PyTorch", "Mamba", "CUDA内核"],
         "success_rate": 1.0,
     },
     "qiniu_maas": {
@@ -6502,7 +6502,7 @@ ROBOT_BRANDS = {
         "controller": "模型路由调度器+Agent编排引擎",
         "battery_hours": "云端供电",
         "protocol": ["HTTP REST API", "gRPC", "SSE流式", "OpenAI兼容API"],
-        "simulation": ["模型路由仿真", "RAG管线仿真"],
+        "simulation": ["PyBullet", "模型路由仿真", "RAG管线仿真"],
         "success_rate": 1.0,
     },
     "ahbfme_bci_chip": {
@@ -6516,7 +6516,7 @@ ROBOT_BRANDS = {
         "controller": "脑电AFE芯片+MCU信号处理",
         "battery_hours": 6,
         "protocol": ["SPI", "I2C", "BLE 5.0", "EEG数据协议"],
-        "simulation": ["MNE-Python脑电源定位仿真", "神经信号采集仿真"],
+        "simulation": ["PyBullet", "MNE-Python脑电源定位仿真", "神经信号采集仿真"],
         "success_rate": 1.0,
     },
 }

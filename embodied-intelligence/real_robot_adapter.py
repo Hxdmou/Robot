@@ -270,7 +270,7 @@ BRAND_COMM_MAP = {
     "digua_warehouse": "logistics_slam_mqtt",
     "yuanli_apex": "modbus_tcp_ros2",
     "zhengqi_quorra_x5": "consumer_5g_cv2x",
-    # ==================== 截图251-506补充产品映射 ====================
+    # ==================== 补充产品映射 ====================
     "realman_realbot_l2": "vtla_tcp",
     "runke_centaur": "vtla_tcp",
     "roboscience_rex": "vtla_tcp",
