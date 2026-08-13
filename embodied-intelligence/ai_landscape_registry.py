@@ -146,7 +146,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
     AIProduct(
         product_id="AG-001", name="Manus恢复独立运营剑指通用Agent",
         category=AICategory.AI_AGENT,
-        organization="Manus", country="新加坡/全球",
+        organization="Manus", country="新加坡",
         description="Manus宣布即将恢复以独立公司形式运营，继续为全球数百万用户服务，"
                     "并筹备一系列新功能拓展通用AI智能体能力边界。近期已更新4项功能："
                     "对话分支Branch、网站自动发布Auto-Publish、"
@@ -213,7 +213,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
     AIProduct(
         product_id="CP-001", name="远景星河基地全球最大AI算力超级单体投产",
         category=AICategory.AI_COMPUTE,
-        organization="远景科技集团", country="中国-内蒙古乌兰察布",
+        organization="远景科技集团", country="中国",
         description="内蒙古乌兰察布"
                     "'远景星河基地'正式投产。超级单体建筑面积12万平方米（约20个标准足球场），"
                     "拥有百万卡并行能力和百万P算力规模，是全球Token产出能力最强的单体AI数据中心，"
@@ -231,7 +231,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
     AIProduct(
         product_id="CP-002", name="曙光8000登峰全国产十万卡AI超集群落成",
         category=AICategory.AI_COMPUTE,
-        organization="中科曙光/海光信息", country="中国-郑州",
+        organization="中科曙光/海光信息", country="中国",
         description="中科曙光宣布中国首个全国产"
                     "十万卡AI超集群——曙光8000（登峰）正式落成，同步接入国家超算互联网。"
                     "海光CPU与DCU已应用于十万卡集群，支持10万亿参数大模型训练，"
@@ -363,7 +363,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
     AIProduct(
         product_id="WM-001", name="World Proxy以Agent为中心的世界模型新范式",
         category=AICategory.WORLD_MODEL,
-        organization="上海AI Lab/浙江大学/新加坡国立大学", country="中国/新加坡",
+        organization="上海AI Lab/浙江大学/新加坡国立大学", country="中国",
         description="上海AI Lab、浙大、NUS团队提出'以Agent为中心'的世界模型新范式World Proxy，"
                     "位于Agent与真实环境之间，根据Agent查询/动作返回执行结果、经验技能、奖励"
                     "或验证信号。分三个层级：L1推理时引导、L2训练时优化、L3 Agent-代理共同演化。"
@@ -469,7 +469,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
     AIProduct(
         product_id="6G-003", name="5G-A大上行示范区支撑数百台机器人协同",
         category=AICategory.NETWORK_6G,
-        organization="中国电信（杭州双浦）", country="中国-杭州",
+        organization="中国电信（杭州双浦）", country="中国",
         description="杭州双浦建成5G-A×AI大上行示范区，5G-A网络实现毫秒级时延，"
                     "云端大脑决策指令瞬间下达，数百台人形机器人在同一区域协同作业网络不拥堵。"
                     "目前5G-A已覆盖全国330个城市，'十五五'将建50万个5G-A基站",
@@ -507,7 +507,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
     AIProduct(
         product_id="IR-002", name="灵猴机器人完成超亿元C轮融资",
         category=AICategory.INDUSTRIAL_ROBOT,
-        organization="苏州灵猴机器人", country="中国-苏州",
+        organization="苏州灵猴机器人", country="中国",
         description="苏州灵猴机器人官宣完成超亿元C轮融资，由宁德时代系产业投资平台晨道资本"
                     "领投，工业母机产业投资基金、豫信电科信产基金等联合跟投。折射新能源巨头"
                     "向智能制造产业链上游深度布局",
@@ -526,7 +526,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
     AIProduct(
         product_id="BB-001", name="中国传感谷全品类智能传感器产业集群",
         category=AICategory.BENGBU_LOCAL,
-        organization="中国传感谷/中国玻璃谷", country="中国-蚌埠",
+        organization="中国传感谷/中国玻璃谷", country="中国",
         description="展出MEMS芯片、柔性脑机电极、"
                     "磁电流传感器、AI嗅觉电子鼻等全品类智能传感器。2025年全市智能传感产业"
                     "产值突破100亿元、同比增长29%，跻身全国MEMS十大高质量传感器园区第6位",
@@ -543,7 +543,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
     AIProduct(
         product_id="BB-002", name="上半年蚌埠82家智能传感规上企业产值50.49亿元",
         category=AICategory.BENGBU_LOCAL,
-        organization="蚌埠市工信局", country="中国-蚌埠",
+        organization="蚌埠市工信局", country="中国",
         description="今年上半年全市82家智能传感规模以上工业企业"
                     "产值达50.49亿元、同比增长15%。已集聚200多家上下游企业，本地配套率"
                     "持续提升。北方华鑫智感全新研发固态电池用硫化氢气体专用检测传感器，"
@@ -560,7 +560,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
     AIProduct(
         product_id="BB-003", name="蚌埠脑机接口产业先导区临床落地",
         category=AICategory.BENGBU_LOCAL,
-        organization="北方微电子研究院/蚌医一附院", country="中国-蚌埠",
+        organization="北方微电子研究院/蚌医一附院", country="中国",
         description="北方微电子研究院突破柔性电极、脑电采集芯片关键技术，"
                     "非侵入式凝胶电极接触阻抗达行业先进水平已批量销售。蚌医一附院挂牌脑机接口"
                     "与神经调控专用病房，完成国内首例磁共振引导无创脑机接口急性脑梗康复治疗、"
@@ -578,7 +578,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
     AIProduct(
         product_id="BB-004", name="华鑫微纳8英寸MEMS晶圆线月产3万片",
         category=AICategory.BENGBU_LOCAL,
-        organization="安徽华鑫微纳集成电路有限公司", country="中国-蚌埠",
+        organization="安徽华鑫微纳集成电路有限公司", country="中国",
         description="国内首条8英寸MEMS晶圆全自动生产线昼夜运转，满产后月产晶圆3万片，"
                     "产能稳居国内第一梯队，产出温度、压力、惯性等多品类传感器，"
                     "精准适配低空经济、智慧交通、具身智能等新兴产业。蚌埠是全省唯一、"
@@ -595,7 +595,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
     AIProduct(
         product_id="BB-005", name="全国首个米小庭智慧社区投入运营",
         category=AICategory.BENGBU_LOCAL,
-        organization="小米生态/蚌埠传感谷企业", country="中国-蚌埠",
+        organization="小米生态/蚌埠传感谷企业", country="中国",
         description="全国首个小米生态全体系智慧社区今年投入运营，既是人才公寓也是智能传感"
                     "产品应用场。蚌埠至博光纤监测仪捕捉管网漏失，华鑫智感AI燃气安全阀泄漏报警，"
                     "中科微感环保卫士监测甲醛TVOC，芒果传感水质检测仪把关饮水安全",
@@ -611,7 +611,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
     AIProduct(
         product_id="BB-006", name="全国首部智能传感产业地方性法规施行",
         category=AICategory.BENGBU_LOCAL,
-        organization="蚌埠市人大/经开区", country="中国-蚌埠",
+        organization="蚌埠市人大/经开区", country="中国",
         description="《蚌埠市促进智能传感产业发展条例》作为全国首部智能传感领域地方性法规，"
                     "为产业发展筑牢法治根基，清晰划定市县两级政府职责、明确全产业链培育路径，"
                     "专门设立'尽职免责'条款为先行先试创新主体松绑容错。已建成9条公共中试示范线、"
@@ -2064,7 +2064,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
     ),
 
     AIProduct(
-        product_id="AG-019", name="AI田间地头全链条落地",
+        product_id="AGR-022", name="AI田间地头全链条落地",
         category=AICategory.AGRICULTURE,
         organization="", country="中国",
         description="AI从展台走向田野。四川智数倍AD300智能插秧系统实现"
@@ -2466,7 +2466,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
     AIProduct(
         product_id="HR-010", name="优必选与哈萨克斯坦战略合作",
         category=AICategory.HUMANOID_ROBOT,
-        organization="", country="中国/哈萨克斯坦",
+        organization="", country="中国",
         description="优必选与哈萨克斯坦代表团在上海举行高层会晤并正式"
                     "签署全面战略合作备忘录。合作围绕产业落地、科研创新、"
                     "教育普及三大核心维度展开，旨在打造中亚具身智能领域"
@@ -4008,6 +4008,207 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                               "工业执行层的典型范式",
         deployment_ready=False,
         tags=["物流AI", "智能体平台", "具身机器人", "路径优化", "仿真推演"],
+    ),
+
+    # --- 薄弱模块补充：水利/民生/教育 ---
+    AIProduct(
+        product_id="WA-008", name="宁波AI水库群联合调度系统",
+        category=AICategory.WATER_CONSERVANCY,
+        organization="", country="中国",
+        description="面向甬江流域的AI防洪调度模型。运行完整防洪情景计算从"
+                    "传统5-10分钟缩短至5-10秒，每5分钟根据降雨预报和水位"
+                    "变化刷新调度建议，计算泄流量、后期蓄水量和洪峰到达时"
+                    "剩余库容。数字孪生平台统一管理16座大中型防洪水库，"
+                    "实时显示各库容量状态，支持联调联泄而非单库调度。",
+        key_metrics={"scenario_calc_seconds": 10, "traditional_minutes": 10,
+                     "refresh_interval_minutes": 5, "reservoirs_managed": 16},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="多目标动态调度算法可迁移至多机器人协同"
+                              "任务分配和资源调度",
+        deployment_ready=False,
+        tags=["AI调度", "数字孪生", "水库群", "防洪", "甬江流域"],
+    ),
+    AIProduct(
+        product_id="WA-009", name="节水精灵AI节水智能体",
+        category=AICategory.WATER_CONSERVANCY,
+        organization="", country="中国",
+        description="依托国产大语言模型打造的AI节水智能体，提供轻量化"
+                    "语音交互体验。可快速调取用水数据出具专业诊断结果，"
+                    "覆盖用水监测、风险预警、趋势预测全流程。将传统事后"
+                    "补救的粗放式用水管理升级为事前主动预判的精细化管理"
+                    "模式，支持人机语音互动咨询节水优化方案。",
+        key_metrics={"coverage": ["用水监测", "风险预警", "趋势预测"],
+                     "interaction": "语音对话",
+                     "management_mode": "事前预判"},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="智能体语音交互和诊断决策框架可应用于"
+                              "机器人运维助手和故障排查场景",
+        deployment_ready=False,
+        tags=["节水智能体", "国产大模型", "语音交互", "智慧水务", "精细化管理"],
+    ),
+    AIProduct(
+        product_id="WA-010", name="智洋创新天空地水工一体化感知平台",
+        category=AICategory.WATER_CONSERVANCY,
+        organization="", country="中国",
+        description="围绕江河湖库、水文监测、防洪防汛、水资源管理和水利"
+                    "工程运行管理，运用人工智能、数字孪生和天空地水工"
+                    "一体化感知技术，为风险预警、防洪调度和工程管理提供"
+                    "支撑。产品体系包括数字孪生智慧水利、无人机智慧测流"
+                    "与巡河、水库现代化运行管理、农村供水数字孪生系统。"
+                    "卫星拒止空间具身智能无人机可应用于地下管线涵洞、"
+                    "综合管廊等复杂空间智能巡检。",
+        key_metrics={"business_areas": ["江河湖库", "水文监测", "防洪防汛",
+                                        "水资源管理", "工程运行"],
+                     "products": ["数字孪生水利", "无人机测流巡河",
+                                  "水库运行管理", "农村供水孪生"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="无人机巡检和具身智能无人机直接涉及机器人"
+                              "自主导航和空间感知技术",
+        deployment_ready=True,
+        tags=["天空地感知", "数字孪生", "无人机巡河", "具身智能无人机",
+              "农村供水"],
+    ),
+    AIProduct(
+        product_id="WA-011", name="PCG物理约束深度学习径流预测模型",
+        category=AICategory.WATER_CONSERVANCY,
+        organization="", country="中国",
+        description="融合物理约束的CNN-GAN流域尺度日径流预测模型。通过"
+                    "卷积神经网络提取空间特征，生成对抗网络对径流场进行"
+                    "约束优化，损失函数中嵌入物理约束，提升模型物理合理性"
+                    "与鲁棒性。在数据稀缺流域案例中纳什效率系数维持较高"
+                    "水平，综合表现优于基准模型和全球水文模型，为数据稀缺"
+                    "地区提供兼具高精度与物理可解释性的径流预测新方法。",
+        key_metrics={"architecture": "Physics-constrained CNN-GAN",
+                     "metric": "NSE>0.6", "advantage": "物理可解释+高精度",
+                     "target": "数据稀缺流域"},
+        maturity=MaturityLevel.RESEARCH,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="物理约束深度学习方法可迁移至机器人动力学"
+                              "建模和物理仿真预测",
+        deployment_ready=False,
+        tags=["径流预测", "CNN-GAN", "物理约束", "数据稀缺", "可解释AI"],
+    ),
+    AIProduct(
+        product_id="LW-008", name="河小西AI数字社工",
+        category=AICategory.LIVELIHOOD,
+        organization="", country="中国",
+        description="面向基层治理的AI数字社工系统，7×24小时在线响应居民"
+                    "服务，累计响应超3.4万轮次，补齐非工作时段服务短板。"
+                    "配套社工助手辅助高效处置矛盾纠纷、规范生成业务台账，"
+                    "为基层减负。城市管理领域实现132小类问题智能闭环处置，"
+                    "事件办结率提升至98.92%，环卫类问题处置时长压缩至"
+                    "最快15分钟。安全应急领域AI巡查2.8万余次，隐患整改率"
+                    "达88.62%。",
+        key_metrics={"response_rounds": 34000, "issue_categories": 132,
+                     "closure_rate_pct": 98.92,
+                     "fastest_response_minutes": 15,
+                     "patrol_count": 28000,
+                     "hazard_rectification_pct": 88.62},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="AI社工和基层治理智能体可与社区服务机器人"
+                              "协同，形成人机共治的民生服务体系",
+        deployment_ready=False,
+        tags=["数字社工", "基层治理", "7×24在线", "智能闭环", "智慧应急"],
+    ),
+    AIProduct(
+        product_id="LW-009", name="Terrassa市政AI总体规划2026-2028",
+        category=AICategory.LIVELIHOOD,
+        organization="", country="西班牙",
+        description="首个经市议会民主审批通过的市政人工智能总体规划，"
+                    "覆盖2026-2028年。规划从诊断、培训到治理全流程设计，"
+                    "包括180名管理层对齐研讨、内部工作组、AI委员会和市级"
+                    "数据办公室等监督架构、跨部门协调机制以及指标跟踪"
+                    "体系。将AI在市政管理中的应用从零散自发状态升级为"
+                    "有意识的结构化整合，重点解决数据保护、使用边界和"
+                    "碎片化部署问题。",
+        key_metrics={"duration": "2026-2028", "executives_trained": 180,
+                     "governance": ["AI委员会", "市级数据办公室",
+                                    "跨部门协调"],
+                     "approval": "市议会民主通过"},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-08-13",
+        relevance_to_robotics="市政AI治理框架为机器人在公共服务领域的"
+                              "规模化部署提供制度参考",
+        deployment_ready=False,
+        tags=["市政AI", "AI治理", "数据保护", "智慧城市", "民主审批"],
+    ),
+    AIProduct(
+        product_id="LW-010", name="华为潍坊AI CITY智慧城市方案",
+        category=AICategory.LIVELIHOOD,
+        organization="", country="中国",
+        description="面向城市治理、民生服务和产业发展的AI CITY解决方案。"
+                    "覆盖数字政府、智能制造、教育、医疗、公共安全、产业"
+                    "对接六大领域。依托云网AI技术能力发布企业云平台助力"
+                    "全域市场主体数字化转型。联合高校、企业和人形机器人"
+                    "创新中心发起全国人工智能创新应用行业产教融合共同体，"
+                    "搭建产学研用一体化培育平台。昇腾产业联盟汇聚产业链"
+                    "上下游构建开放共享AI产业生态。",
+        key_metrics={"domains": 6, "ecosystem": "昇腾产业联盟",
+                     "platform": "企业云3.0",
+                     "community": "产教融合共同体"},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="AI CITY为人形机器人和服务机器人提供"
+                              "城市级部署场景和基础设施支撑",
+        deployment_ready=False,
+        tags=["AI CITY", "智慧城市", "数字政府", "昇腾生态", "产教融合"],
+    ),
+    AIProduct(
+        product_id="ED-008", name="ChatGPT Work教育插件套件",
+        category=AICategory.EDUCATION,
+        organization="", country="美国",
+        description="面向K-12教师、大学教师和大学生的三款教育插件，"
+                    "集成于ChatGPT Work和Codex。K-12教师插件支持课程"
+                    "差异化资源生成、交互式可视化、评估草稿和家校沟通"
+                    "模板；大学教师插件辅助课程设计、教学大纲更新、多"
+                    "媒体评估和学生材料适配；大学生插件提供个性化辅导、"
+                    "测验生成、抽认卡和可视化讲解。通过ChatGPT Edu"
+                    "集中部署，符合FERPA隐私合规，默认不使用师生数据"
+                    "训练模型。",
+        key_metrics={"plugins": 3, "target_users": ["K-12教师", "大学教师",
+                                                    "大学生"],
+                     "privacy": "FERPA合规", "data_training": "默认不使用"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="教育智能体插件架构可用于机器人技能教学和"
+                              "交互式培训系统",
+        deployment_ready=True,
+        tags=["教育插件", "ChatGPT Work", "K-12", "高等教育", "FERPA"],
+    ),
+    AIProduct(
+        product_id="ED-009", name="Google Classroom Gemini全学段助手",
+        category=AICategory.EDUCATION,
+        organization="", country="美国",
+        description="Google Classroom中的Gemini功能向全年龄段K-12及"
+                    "高等教育学生开放。学生可将课程资料转化为抽认卡、"
+                    "练习测验等互动学习工具，同步至Gemini Notebook生成"
+                    "学习指南和音频概览。新增情境化引导提示功能，允许"
+                    "学生选择特定课程和作业，直接结合作业要求和教学大纲"
+                    "进行针对性辅导，AI教育从通用问答升级为课程感知的"
+                    "个性化学习伙伴。",
+        key_metrics={"coverage": "K-12+高等教育",
+                     "tools": ["抽认卡", "练习测验", "学习指南", "音频概览"],
+                     "feature": "情境化引导提示"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="课程感知的个性化辅导框架可迁移至机器人"
+                              "技能教学和自适应训练系统",
+        deployment_ready=True,
+        tags=["Google Classroom", "Gemini", "个性化学习", "K-12",
+              "情境化辅导"],
     ),
 
 ]
