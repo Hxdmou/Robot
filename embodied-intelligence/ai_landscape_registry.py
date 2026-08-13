@@ -111,7 +111,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         product_id="HR-002", name="上半年中国人形机器人出货量占全球97%",
         category=AICategory.HUMANOID_ROBOT,
         organization="智元机器人/宇树科技", country="中国",
-        description="2026年上半年全球人形机器人出货量约1.91万台，是去年同期"
+        description="上半年全球人形机器人出货量约1.91万台，是去年同期"
                     "5100台的三倍多；中国制造商出货量占全球97%以上。智元机器人出货8400台"
                     "占44%登顶，宇树科技5900台占31%，均远超特斯拉、Figure AI、Agility Robotics",
         key_metrics={"global_shipments_h1": 19100, "china_share_pct": 97,
@@ -291,7 +291,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         category=AICategory.AI_CHIP,
         organization="Apple", country="美国",
         description="苹果取消M6 Pro/Max/Ultra等高阶版本，M6仅保留基础款，"
-                    "研发资源集中投入M7处理器，有望2027年春季提前发布。M7将升级神经网络引擎NPU，"
+                    "研发资源集中投入M7处理器，有望明年春季提前发布。M7将升级神经网络引擎NPU，"
                     "顶配M7 Ultra的AI算力目标对标英伟达专业AI加速芯片",
         key_metrics={"focus": "M7", "npu_upgrade": True, "target": "NVIDIA_AI_chip"},
         maturity=MaturityLevel.RESEARCH,
@@ -531,7 +531,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         category=AICategory.BENGBU_LOCAL,
         organization="中国传感谷/中国玻璃谷", country="中国",
         description="展出MEMS芯片、柔性脑机电极、"
-                    "磁电流传感器、AI嗅觉电子鼻等全品类智能传感器。2025年全市智能传感产业"
+                    "磁电流传感器、AI嗅觉电子鼻等全品类智能传感器。全市智能传感产业"
                     "产值突破100亿元、同比增长29%，跻身全国MEMS十大高质量传感器园区第6位",
         key_metrics={"output_2025_yi": 100,
                      "growth_pct": 29, "national_rank": 6,
@@ -1268,7 +1268,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         product_id="CP-006", name="寒武纪AI芯片半年报营收翻倍",
         category=AICategory.AI_COMPUTE,
         organization="寒武纪", country="中国",
-        description="2026年上半年营收59.96亿元同比增长108%，"
+        description="上半年营收59.96亿元同比增长108%，"
                     "净利润23.11亿元同比增长122%，"
                     "国产AI芯片进入规模化盈利阶段",
         key_metrics={"revenue_billion": 5.996, "revenue_growth_pct": 108,
@@ -1447,7 +1447,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         product_id="N6-003", name="5G-A商用与6G技术攻坚",
         category=AICategory.NETWORK_6G,
         organization="中国通信产业", country="中国",
-        description="2026年处于5G-A商用、6G技术攻坚关键阶段，"
+        description="当前处于5G-A商用、6G技术攻坚关键阶段，"
                     "5G-A实现万兆级传输速率、通感一体、超低时延，"
                     "6G核心技术进入研发攻坚，瞄准太赫兹通信、空天地一体化",
         key_metrics={"5ga_speed": "10Gbps", "6g_focus": ["terahertz", "space_air_ground"],
@@ -1619,7 +1619,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         product_id="AU-004", name="新能源汽车月销占比首破60%",
         category=AICategory.AUTOMOTIVE,
         organization="中国汽车工业协会", country="中国",
-        description="2026年7月新能源汽车月度新车销量占比首次突破60%，"
+        description="新能源汽车月度新车销量占比首次突破60%，"
                     "累计占比首次突破50%，涵盖乘用车和商用车、国内销量和出口，"
                     "新能源乘用车国内占比达68.1%，出口连续两月超50%",
         key_metrics={"monthly_share_pct": 60, "cumulative_share_pct": 50,
@@ -1635,7 +1635,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         product_id="AU-005", name="城市NOA下探至10万标配",
         category=AICategory.AUTOMOTIVE,
         organization="中国智能驾驶产业", country="中国",
-        description="2026年城市NOA从30万以上车型卖点下放至10万以下车型标配，"
+        description="城市NOA从30万以上车型卖点下放至10万以下车型标配，"
                     "L2级新车渗透率达70%，NOA车型渗透率超30%，"
                     "激光雷达批量采购价从8万暴降至千元区间（最低900元）",
         key_metrics={"l2_penetration_pct": 70, "noa_penetration_pct": 30,
@@ -1672,8 +1672,8 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         category=AICategory.HEALTHCARE,
         organization="中国医疗AI产业", country="中国",
         description="分子模拟、临床试验预测AI加速新药从实验室到药房进程，"
-                    "研发周期从数年缩短至数月；2025年AI+医疗健康市场规模突破千亿元，"
-                    "预计2026年跨越1500亿元，年复合增长率30%以上",
+                    "研发周期从数年缩短至数月；AI+医疗健康市场规模突破千亿元，"
+                    "预计跨越1500亿元，年复合增长率30%以上",
         key_metrics={"market_2025_billion": 100, "market_2026_billion": 150,
                      "cagr_pct": 30, "rd_acceleration": "years_to_months"},
         maturity=MaturityLevel.COMMERCIAL,
@@ -1687,7 +1687,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         product_id="HC-005", name="端侧AI可穿戴健康监测",
         category=AICategory.HEALTHCARE,
         organization="全球可穿戴产业", country="全球",
-        description="2026年Q1全球支持端侧AI的智能手表出货量同比增长70%，"
+        description="Q1全球支持端侧AI的智能手表出货量同比增长70%，"
                     "渗透率达25%；预计2032年每10台可穿戴设备8台搭载端侧AI，"
                     "智能手表监测高血压风险，动态血糖监测纳入多地医保",
         key_metrics={"shipment_growth_pct": 70, "penetration_pct": 25,
@@ -1848,7 +1848,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         category=AICategory.AUTOMOTIVE,
         organization="国家市场监督管理总局", country="中国",
         description="《智能网联汽车 自动驾驶系统安全要求》"
-                    "（GB 44721-2026）强制性国家标准正式发布，2027年7月1日实施。"
+                    "（GB 44721-2026）强制性国家标准正式发布，次年7月1日实施。"
                     "适用于L3/L4级载客载货车辆。L2级渗透率达70.5%，"
                     "NOA功能渗透率34.2%，首批L3车型在特定区域上路。",
         key_metrics={"standard": "GB 44721-2026", "effective_date": "2027-07-01",
@@ -2046,8 +2046,8 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         category=AICategory.HUMANOID_ROBOT,
         organization="小鹏汽车", country="中国",
         description="小鹏人形机器人已在广州工厂正式启动小批量试产，"
-                    "量产线进入最终调试阶段。计划2026年实现量产，"
-                    "2027年起逐步进入全球门店和商业场景，承担导购、"
+                    "量产线进入最终调试阶段。计划今年实现量产，"
+                    "明年起逐步进入全球门店和商业场景，承担导购、"
                     "讲解等服务。机器人业务整合硬件、AI大模型、"
                     "供应链和营销能力，复用汽车业务积累。",
         key_metrics={"status": "小批量试产", "mass_production": "2026",
@@ -2162,9 +2162,9 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         product_id="AI-006", name="全球九大CSP资本开支8867亿美元",
         category=AICategory.AI_GENERAL,
         organization="", country="全球",
-        description="2026年全球九大云端服务供应商AI服务器出货量年增率"
+        description="全球九大云端服务供应商AI服务器出货量年增率"
                     "预期上修至31%，合计资本开支突破8867亿美元，"
-                    "同比增长约90%；2027年进一步增至1.32万亿美元。"
+                    "同比增长约90%；明年进一步增至1.32万亿美元。"
                     "投资重心从单纯堆GPU转向全链条升级：液冷散热、"
                     "先进封装、HBM4、1.6T光模组、高速PCB与机柜电源"
                     "进入订单放量阶段。",
@@ -2419,7 +2419,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         category=AICategory.AI_GENERAL,
         organization="", country="全球",
         description="物理AI赛道迈入产业化验证阶段。最近18个月超百亿美元"
-                    "涌入，2026年92%资金集中投向有落地订单的头部企业。"
+                    "涌入，全年92%资金集中投向有落地订单的头部企业。"
                     "宇树科技上半年营收10.52-11.28亿元，实现盈利。"
                     "Momenta搭载量产车突破100万台、定点车型超210款，"
                     "获德国L4测试许可。物理AI以47.2%年复合增速成长，"
@@ -2440,7 +2440,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         product_id="RE-007", name="上半年储能电池销量同比增长53%",
         category=AICategory.RENEWABLE_ENERGY,
         organization="", country="中国",
-        description="2026年上半年国内储能电池销量同比增长53%，"
+        description="上半年国内储能电池销量同比增长53%，"
                     "大储电池贡献主要增量。温控市场规模同比增41%，"
                     "消防系统增38%，PCS系统增45%。储能出口额同比增48%。"
                     "行业从拼价格进入拼技术、拼交付、拼安全阶段，"
@@ -2554,7 +2554,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         category=AICategory.AI_AGENT,
         organization="", country="中国",
         description="DeepSeek Harness官方微信公众号完成注册，为Harness"
-                    "业务线首次单独设立官方发布阵地。Harness团队2026年5月"
+                    "业务线首次单独设立官方发布阵地。Harness团队5月"
                     "内部立项，独立组建专项核心团队。Harness负责在模型之外"
                     "调度上下文、工具、任务状态、反馈与边界，完成从理解需求"
                     "到交付代码的完整闭环，秉承开放理念支持多模型接入。",
@@ -2572,7 +2572,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         product_id="CP-007", name="Omdia上调2026全球半导体增幅至94.1%",
         category=AICategory.AI_COMPUTE,
         organization="", country="全球",
-        description="Omdia将2026年全球半导体市场营收增长预测上调至"
+        description="Omdia将全球半导体市场营收增长预测上调至"
                     "同比增长94.1%，预计存储器芯片收入占全球半导体总营收"
                     "50%以上。AI需求持续超过全球供应能力，DRAM和NAND"
                     "市场强劲增长，HBM、先进封装产能瓶颈持续，供应紧张"
@@ -2666,7 +2666,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         category=AICategory.WORLD_MODEL,
         organization="", country="美国",
         description="图灵奖得主Yann LeCun离开Meta AI后创立专注世界模型"
-                    "的AMI Labs，2026年3月获得创纪录的10.3亿美元种子轮"
+                    "的AMI Labs，当年3月获得创纪录的10.3亿美元种子轮"
                     "融资。LeCun认为现有LLM路线彻底错误，单纯预测文本"
                     "无法触及人类级智能，需要能理解物理现实的世界模型。"
                     "李飞飞World Labs同期累计融资12.3亿美元，估值约50亿美元。",
@@ -2785,7 +2785,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                     "总投资约11.36亿元。依托全省高速公路网络，在收费站、"
                     "服务区及省界收费站布局重型卡车专用充电站，同步配套"
                     "储能系统、变配电设施及附属工程，构建支撑货运电动化的"
-                    "基础设施体系。计划2026年9月发布资格预审公告。",
+                    "基础设施体系。计划9月发布资格预审公告。",
         key_metrics={"investment": "11.36亿元"},
         maturity=MaturityLevel.FIELD_TRIAL,
         source="", source_tier=SourceTier.TIER2,
@@ -2801,7 +2801,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         description="晶科能源联合苏州大学攻克光伏'薄片化'难题，首创"
                     "高分辨拉曼+电学成像技术，实现亚微米级微裂纹与应力"
                     "分布可视化，揭示其与电学衰减的直接关联。助力飞虎3"
-                    "组件首年衰减<1%、30年质保领先。荣膺2026年WITec"
+                    "组件首年衰减<1%、30年质保领先。荣膺WITec"
                     "论文奖金奖，标志中国光伏基础科研与产业化融合突破。",
         key_metrics={"resolution": "亚微米级", "first_year_degradation": "<1%",
                      "warranty": "30年"},
@@ -2978,7 +2978,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                     "《医疗健康行业智能体协同要求》标准在上海正式发布，"
                     "为国内首个医疗多智能体协同规范。系统规定了架构要求、"
                     "接口协议、安全测评要求等核心内容，为不同技术厂商的"
-                    "智能体产品提供统一协同交互规范。宿迁市方案明确2027年"
+                    "智能体产品提供统一协同交互规范。宿迁市方案明确明年"
                     "落地50个以上AI医疗应用场景。",
         key_metrics={"target_scenarios_2027": "50+"},
         maturity=MaturityLevel.COMMERCIAL,
@@ -3077,8 +3077,8 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         organization="", country="中国",
         description="宇树科技正式开启科创板申购，发行价150.80元/股，"
                     "对应总市值约609.93亿元，成为A股人形机器人第一股。"
-                    "2025年人形整机出货5215台登顶全球纯人形机器人销量榜首，"
-                    "人形机器人占主营收入比例从2023年1.88%升至51.78%。"
+                    "人形整机出货5215台登顶全球纯人形机器人销量榜首，"
+                    "人形机器人占主营收入比例从早期1.88%升至51.78%。"
                     "募资42亿元，一半投向具身智能大模型，年产能从2万台"
                     "提升至10万台。上半年营收10.52-11.28亿元实现盈利。",
         key_metrics={"market_cap": "609.93亿元", "iprice": "150.80元",
@@ -3095,7 +3095,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         product_id="HR-013", name="消费级人形机器人量产元年价格下探万元",
         category=AICategory.HUMANOID_ROBOT,
         organization="", country="中国",
-        description="2026年是人形机器人量产与场景落地关键年份，国内全年"
+        description="今年是人形机器人量产与场景落地关键年份，国内全年"
                     "整机产量有望突破10万台。消费级人形机器人价格快速下探，"
                     "轻量化机型已降至万元以内。仅6月就有十余家企业发布新品，"
                     "覆盖咖啡馆点单、外卖配送、远程问诊等生活场景。"
@@ -3191,11 +3191,11 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         product_id="CP-010", name="全国智能算力规模达去年同期2.8倍",
         category=AICategory.AI_COMPUTE,
         organization="", country="中国",
-        description="截至2026年6月底全国智能算力规模达到去年同期的2.8倍，"
+        description="截至年中全国智能算力规模达到去年同期的2.8倍，"
                     "国产大模型全球总下载量突破100亿次。曙光8000登峰"
                     "全国产十万卡AI超集群在郑州投用，每秒峰值算力相当于"
                     "全人类持续计算200年。Anthropic与Riot Platforms达成"
-                    "91亿美元20年期算力协议。四大CSP 2026年资本开支"
+                    "91亿美元20年期算力协议。四大CSP今年资本开支"
                     "合计上调至7350-7600亿美元。",
         key_metrics={"compute_growth": "2.8倍", "downloads": "100亿次",
                      "anthropic_deal": "91亿美元/20年"},
@@ -3212,7 +3212,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         product_id="CH-007", name="T1200级碳纤维百吨级量产打破垄断",
         category=AICategory.AI_CHIP,
         organization="", country="中国",
-        description="2026年3月中国T1200级超高强度碳纤维实现全球首次"
+        description="当年3月中国T1200级超高强度碳纤维实现全球首次"
                     "百吨级量产，强度是钢铁10倍、重量仅1/5，打破日美"
                     "长达40年技术封锁。产品广泛应用于航空航天、人形机器人、"
                     "低空经济、新能源等领域。标志中国高端材料从进口依赖"
@@ -3253,8 +3253,8 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         product_id="WM-007", name="7个月新成立23家世界模型公司",
         category=AICategory.WORLD_MODEL,
         organization="", country="中国",
-        description="2026年前7个月中国新成立23家世界模型创业公司，"
-                    "超过2025年全年20家。18家在成立数月内完成首轮融资，"
+        description="前7个月中国新成立23家世界模型创业公司，"
+                    "超过去年全年20家。18家在成立数月内完成首轮融资，"
                     "2家种子轮即达独角兽估值。技术路线分为通用世界模型基座、"
                     "4D时空重建、因果推理引擎、科学发现中枢、物流动作模型等。"
                     "前阿里通义千问负责人林俊旸创立语用科技，种子轮估值"
@@ -3298,7 +3298,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                     "458.4%，智能眼镜零售额增长151.7%，AI益智玩具涨幅"
                     "283%。上海AI应用商店500余款产品中80%价格集中在"
                     "1000-1500元。华强北AI产品在电子品类占比从41%升至61%，"
-                    "日均8000名外籍客商扫货。2026年全球AI眼镜出货量有望"
+                    "日均8000名外籍客商扫货。全球AI眼镜出货量有望"
                     "突破1600万台。AI从强国科技转向民生科技。",
         key_metrics={"exoskeleton_growth": "458.4%",
                      "glasses_growth": "151.7%", "toy_growth": "283%",
@@ -3336,7 +3336,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         category=AICategory.NETWORK_6G,
         organization="", country="全球",
         description="3GPP R20（6G第一个标准版本）进入高密度工作项目攻坚期。"
-                    "2026年3月RAN全会上AI/ML空口设计物理层细节进入最终"
+                    "当年3月RAN全会上AI/ML空口设计物理层细节进入最终"
                     "表决阶段，重点解决信道估计AI模型在不同厂商设备间的"
                     "互操作性。网络计算能力和AI推理准确率首次纳入强制性"
                     "指标体系。7-24GHz厘米波段被确定为6G连续覆盖核心频段，"
@@ -3379,7 +3379,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         category=AICategory.BENGBU_LOCAL,
         organization="", country="中国",
         description="蚌埠'十五五'目标：2030年GDP突破3400亿元，工业总产值"
-                    "突破2300亿元。智能传感产业2025年产值突破100亿元增长29%，"
+                    "突破2300亿元。智能传感产业产值突破100亿元增长29%，"
                     "力争2030年突破500亿元。中国传感谷跻身全国十大高质量"
                     "传感器园区第6位。全市唯一同时具备集成电路与8吋晶圆"
                     "量产能力。将打造车规级传感器、脑机接口柔性传感器、"
@@ -3420,7 +3420,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         description="国务院国资委发布人工智能'焕新社区'2.0，水电智能调度"
                     "运行智能体已在贵州'两江一河'流域9座梯级水电站和"
                     "4个光伏项目落地应用。智能体打造水电领域'调度运行大脑'，"
-                    "将传统人工调度升级为智能化运行，2025年优化调度增发率"
+                    "将传统人工调度升级为智能化运行，优化调度增发率"
                     "达到8%，增发电量9.8亿千瓦时。央企已开放1200个应用场景，"
                     "打造超70个行业垂类模型。",
         key_metrics={"hydropower_stations": 9, "pv_projects": 4,
@@ -3506,7 +3506,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                     "材料、紫色为合成生物。企业扫描条形码即可查看技术优势并"
                     "带走卡片。平台背后依托10个研究所、4个国家重点实验室、"
                     "2个国家创新中心，累计发表论文超2万篇，申请专利1.85万件，"
-                    "2025年平均转化率超过29%。'成果超市'已促成企业委托项目"
+                    "平均转化率超过29%。'成果超市'已促成企业委托项目"
                     "签约合同金额近2.5亿元，促成项目成功率提升10%至20%。"
                     "模式已在珠海、江门、宁德、温州、武汉、济南、鄂尔多斯等"
                     "超10个城市落地，江门专区上线216项科研成果，打通'深圳研发+"
@@ -3533,7 +3533,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         product_id="WA-006", name="防汛科技立体感知体系投入实战",
         category=AICategory.WATER_CONSERVANCY,
         organization="", country="中国",
-        description="2026年防汛中科技新力量全面投入实战。浙江无人机"
+        description="防汛中科技新力量全面投入实战。浙江无人机"
                     "5分钟内识别行洪障碍自动派单；福建双光侦察无人机"
                     "全域巡湖精准锁定被困人员；湖南四水流域洪水预报调度"
                     "系统将流程从数小时压缩至10分钟；天津智能应急巡堤"
@@ -3660,7 +3660,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                     "智能设备零售额大涨超六成，服务机器人产量暴涨2.3倍。"
                     "线下智能门店AI机型成交占比突破62%。外骨骼缓解护工"
                     "体力劳损、AI眼镜解决跨境沟通壁垒、AI玩具填补儿童"
-                    "陪伴缺口、AI头盔保障骑手出行安全。上海预测2027年"
+                    "陪伴缺口、AI头盔保障骑手出行安全。上海预测明年"
                     "本地智能终端产业规模将突破3000亿元。",
         key_metrics={"wearable_growth": "60%+", "robot_growth": "2.3倍",
                      "ai_phone_share": "62%",
@@ -4286,7 +4286,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                     "电子四院等权威机构推进局域网互联互通标准，聚焦产品"
                     "发现、会话管理、权限分享、业务交互等关键技术，破解"
                     "产品生态割裂、交互不畅的行业痛点。美的集团位列2026"
-                    "《财富》世界500强第231位，2025年营收4585亿元、"
+                    "《财富》世界500强第231位，营收4585亿元、"
                     "净利润439.5亿元。智慧家庭覆盖空调、冰箱、洗衣机等"
                     "全品类，AI视觉推理平台已在智能体工厂落地，检测节奏"
                     "匹配生产节拍。",
@@ -4450,7 +4450,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                     "医疗器械。128通道全植入式脑机接口系统多中心临床"
                     "试验由北京天坛医院担任组长单位启动。高位截瘫患者"
                     "已实现意念操控轮椅与机器狗，意念控制气动手套完成"
-                    "抓握、取物、喝水等日常动作。2026年成为中国脑机"
+                    "抓握、取物、喝水等日常动作。今年成为中国脑机"
                     "接口商业化元年。",
         key_metrics={"channels": 128, "implant_type": "全植入式",
                      "approval": "NMPA批准上市",
@@ -5130,7 +5130,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         description="185Hz高刷屏+第五代骁龙8至尊版+AI独显芯片。"
                     "首发价4199元起，叠加国家补贴后实际入手价低至"
                     "3699元起。定位性能旗舰，AI独显芯片支持游戏"
-                    "超分超帧和AI画质增强。在2000-4000元价位段"
+                    "超分超帧和AI画质增强。在两千元至四千元价位段"
                     "提供旗舰级AI算力和游戏体验。",
         key_metrics={"price_start_rmb": 4199, "price_subsidy_rmb": 3699,
                      "refresh_rate_hz": 185, "platform": "骁龙8至尊版Gen5",
@@ -5271,6 +5271,300 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                               "门槛，无风扇设计适合安静实验室环境",
         deployment_ready=True,
         tags=["MacBook Neo", "Apple", "入门AI本", "无风扇", "4599元"],
+    ),
+
+    # --- 华为8月5日全场景新品发布会 ---
+    AIProduct(
+        product_id="AU-012", name="鸿蒙智行尊界V800旗舰MPV",
+        category=AICategory.AUTOMOTIVE,
+        organization="", country="中国",
+        description="国产百万级超豪华MPV，车长5495mm/轴距3430mm，"
+                    "舱内有效空间3.9m，2+2+3七座布局。搭载1.5T增程器"
+                    "+前后双电机四驱，系统综合功率390kW，65kWh 6C三元锂"
+                    "电池，CLTC纯电340km，综合续航1335km。基于途灵龙行平台，"
+                    "全系标配双腔空簧+双阀CDC+±12°后轮转向，行政版/领航版"
+                    "标配800V全主动悬架（单轮举升力12000N、行程80mm）。"
+                    "华为乾崑智驾ADS 5，6激光雷达+40传感器，L3冗余架构。"
+                    "三联屏（12.3寸仪表+双17.2寸3.4K中控/副驾），41扬声器"
+                    "HUAWEI SOUND ULTIME，灵云AI座椅20点按摩，41.6寸投影"
+                    "巨幕，卷轴星空顶1608颗灯珠。售价76.6万-101.6万元。",
+        key_metrics={"price_start_rmb": 766000, "price_top_rmb": 1016000,
+                     "length_mm": 5495, "wheelbase_mm": 3430,
+                     "power_kw": 390, "battery_kwh": 65,
+                     "ev_range_km": 340, "total_range_km": 1335,
+                     "lidar_count": 6, "sensors": 40,
+                     "ads_version": "ADS 5", "speakers": 41,
+                     "seats": 7, "rear_steer_deg": 12,
+                     "active_suspension": "800V全主动悬架"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="6激光雷达+40传感器的L3冗余架构是自动驾驶"
+                              "机器人感知系统的标杆，全主动悬架线控技术"
+                              "与机器人运动控制同源",
+        deployment_ready=True,
+        tags=["尊界V800", "华为", "MPV", "ADS 5", "6激光雷达",
+              "全主动悬架", "增程", "百万级", "途灵龙行平台"],
+    ),
+    AIProduct(
+        product_id="AU-013", name="鸿蒙智行尊界V680旗舰MPV",
+        category=AICategory.AUTOMOTIVE,
+        organization="", country="中国",
+        description="尊界品牌第二款车型，车长5320mm/轴距3290mm，"
+                    "与V800同平台共享动力总成和智驾系统。1.5T增程器"
+                    "+双电机四驱390kW，65kWh电池，CLTC纯电340km，"
+                    "综合续航1208km。全系标配双腔空簧+CDC+后轮转向，"
+                    "华为乾崑ADS 5+6激光雷达+40传感器。二排双零重力"
+                    "座椅（16点按摩）、21.4寸后排娱乐屏、41扬声器、"
+                    "电动隐私帷幔。入门即豪华，售价64.8万元。",
+        key_metrics={"price_start_rmb": 648000,
+                     "length_mm": 5320, "wheelbase_mm": 3290,
+                     "power_kw": 390, "battery_kwh": 65,
+                     "ev_range_km": 340, "total_range_km": 1208,
+                     "lidar_count": 6, "sensors": 40,
+                     "ads_version": "ADS 5", "speakers": 41,
+                     "seats": 7, "rear_steer_deg": 12},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="同V800共享L3智驾冗余架构和线控底盘，"
+                              "是高性价比自动驾驶研究参考平台",
+        deployment_ready=True,
+        tags=["尊界V680", "华为", "MPV", "ADS 5", "6激光雷达",
+              "增程", "64.8万", "途灵龙行平台"],
+    ),
+    AIProduct(
+        product_id="AU-014", name="鸿蒙智行享界G9硬派豪华SUV",
+        category=AICategory.AUTOMOTIVE,
+        organization="", country="中国",
+        description="鸿蒙智行首款硬派豪华SUV，首发华为全地形途灵平台，"
+                    "标配±12°后轮转向，横向响应更干净。提供五座/六座"
+                    "布局，增程和纯电两种动力。寰宇三联屏+鸿蒙智行专属"
+                    "HarmonyOS车机。预售24小时小订破1万台，Ultra及以上"
+                    "版本占比90%，72小时订单突破1.5万台。预售价43.98万元起。",
+        key_metrics={"price_start_rmb": 439800,
+                     "platform": "华为全地形途灵平台",
+                     "rear_steer_deg": 12,
+                     "seats_options": [5, 6],
+                     "powertrain": ["增程", "纯电"],
+                     "presale_24h_orders": 10000,
+                     "presale_72h_orders": 15000,
+                     "ultra_ratio_pct": 90},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="全地形途灵平台和后轮转向技术对越野"
+                              "机器人和无人地面车辆运动控制有参考价值",
+        deployment_ready=False,
+        tags=["享界G9", "华为", "硬派SUV", "全地形途灵平台",
+              "后轮转向", "预售", "鸿蒙智行"],
+    ),
+    AIProduct(
+        product_id="MC-011", name="华为MateBook Fold非凡大师折叠电脑",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="中国",
+        description="第二代鸿蒙折叠屏电脑，18英寸双层OLED折叠屏"
+                    "（3.3K/1600nit/92%屏占比/200万:1对比度），"
+                    "首次原生支持HUAWEI M-Pen 3手写笔。40μm超薄UTG"
+                    "玻璃抗冲击提升90%，SGS五星抗跌落认证。玄武水滴铰链"
+                    "锆基液态金属主轴，100°-120°无级悬停。麒麟X90 Plus"
+                    "处理器28W TDP，整机性能提升25%。HarmonyOS 6.1，"
+                    "小艺慧记端侧离线会议纪要，小艺深度研究多智能体协同，"
+                    "全球首款原生AI换脸伪造检测电脑。75Wh电池/14h视频/"
+                    "140W快充。双模叠层天线Wi-Fi信号领先3dB。售价"
+                    "24999-29999元。",
+        key_metrics={"price_start_rmb": 24999, "price_top_rmb": 29999,
+                     "screen_inch": 18, "resolution": "3.3K",
+                     "peak_brightness_nits": 1600,
+                     "screen_ratio_pct": 92,
+                     "contrast_ratio": "2000000:1",
+                     "processor": "麒麟X90 Plus", "tdp_w": 28,
+                     "performance_gain_pct": 25,
+                     "battery_wh": 75, "video_playback_h": 14,
+                     "fast_charge_w": 140, "reverse_charge_w": 66,
+                     "weight_kg": 1.16, "thickness_unfolded_mm": 7.3,
+                     "os": "HarmonyOS 6.1",
+                     "utg_thickness_um": 40,
+                     "impact_resistance_gain_pct": 90,
+                     "stylus": "M-Pen 3",
+                     "hinge_angle": "100-120度无级悬停",
+                     "ai_features": ["小艺慧记离线转写",
+                                     "多智能体协同研究",
+                                     "AI换脸检测", "小艺任务Agent"],
+                     "storage_options": ["24GB+512GB",
+                                         "24GB+1TB", "32GB+2TB"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="折叠屏+手写笔的大屏交互为机器人示教"
+                              "编程和远程操控提供创新界面，端侧AI"
+                              "换脸检测可用于机器人安全身份验证",
+        deployment_ready=True,
+        tags=["MateBook Fold", "非凡大师", "华为", "折叠电脑",
+              "麒麟X90 Plus", "M-Pen 3", "18英寸OLED", "鸿蒙6.1",
+              "AI换脸检测", "玄武水滴铰链"],
+    ),
+    AIProduct(
+        product_id="MC-012", name="华为MateBook Pro S超轻薄本",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="中国",
+        description="全球最轻14英寸金属笔记本，仅798g/11.9mm。"
+                    "镁锂合金无螺丝一体化机身（榫卯结构抗变形提升500%），"
+                    "首创微绒金属工艺。麒麟XE90处理器，单核性能提升23%、"
+                    "能效提升25%、NPU算力提升40%，20W性能释放。业界首款"
+                    "柔性OLED灵盾防窥屏（一区双像素架构，一键防窥不糊），"
+                    "14.2英寸3.1K/264PPI/1600nit/ΔE<1，AI智能感知身后"
+                    "有人提醒防窥。3D 6麦克风10米拾音+AI同声分离。"
+                    "四天线Wi-Fi 7+最远1km联网。18h视频续航/66W反向快充。"
+                    "售价7999-10499元。",
+        key_metrics={"price_start_rmb": 7999, "price_top_rmb": 10499,
+                     "weight_g": 798, "thickness_mm": 11.9,
+                     "screen_inch": 14.2, "resolution": "3120x2080",
+                     "ppi": 264, "peak_brightness_nits": 1600,
+                     "color_delta_e": 1, "processor": "麒麟XE90",
+                     "single_core_gain_pct": 23,
+                     "efficiency_gain_pct": 25,
+                     "npu_gain_pct": 40, "tdp_w": 20,
+                     "battery_h": 18, "fast_charge_w": 66,
+                     "material": "镁锂合金",
+                     "structure": "榫卯一体化无螺丝",
+                     "wifi": "Wi-Fi 7+", "max_range_m": 1000,
+                     "antennas": 4, "microphones": 6,
+                     "pickup_range_m": 10,
+                     "privacy_screen": "灵盾防窥屏",
+                     "colors": ["晨曦黄", "仲夏紫", "丝绒白",
+                                "烟云灰", "羽砂黑"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="798g超轻量+NPU 40%提升适合作为机器人"
+                              "调试终端和移动监控站，灵盾防窥屏保护"
+                              "机器人控制数据安全",
+        deployment_ready=True,
+        tags=["MateBook Pro S", "华为", "798g", "麒麟XE90",
+              "灵盾防窥屏", "镁锂合金", "Wi-Fi 7", "超轻薄",
+              "鸿蒙6.1", "小艺任务"],
+    ),
+    AIProduct(
+        product_id="MC-013", name="华为MatePad Pro 2026平板",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="中国",
+        description="华为续航最长平板，仅439g/4.7mm厚，10英寸以上"
+                    "全球最轻。12英寸OLED屏幕，云隼架构三段式主板布局，"
+                    "全金属一体化机身。搭载麒麟T93芯片，首次在平板"
+                    "搭载北斗卫星短报文功能，无地面网络可收发消息。"
+                    "搭配二代M-Pencil手写笔。售价5999元起（悦享款5699元）。",
+        key_metrics={"price_start_rmb": 5699,
+                     "weight_g": 439, "thickness_mm": 4.7,
+                     "screen_inch": 12, "screen_type": "OLED",
+                     "processor": "麒麟T93",
+                     "satellite_msg": True,
+                     "stylus": "二代M-Pencil",
+                     "architecture": "云隼架构"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="北斗卫星短报文功能可用于无网络环境"
+                              "下机器人远程通信和应急指令传输",
+        deployment_ready=True,
+        tags=["MatePad Pro", "华为", "439g", "麒麟T93",
+              "北斗卫星消息", "OLED", "M-Pencil"],
+    ),
+    AIProduct(
+        product_id="MC-014", name="华为nova 16 SE手机",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="中国",
+        description="中端定位新机，搭载麒麟8020芯片，下放旗舰原色"
+                    "影像系统。8500mAh超大电池+66W快充，主打长续航"
+                    "人像拍摄。支持北斗卫星消息和星闪音频（NearLink "
+                    "E2.0）。提供128GB/256GB/512GB三个版本，售价"
+                    "2499-3199元，国补到手2124元起。樱雪晴空、天际白、"
+                    "星空黑、破晓橙四色。",
+        key_metrics={"price_start_rmb": 2499, "price_top_rmb": 3199,
+                     "price_subsidy_rmb": 2124,
+                     "chip": "麒麟8020", "battery_mah": 8500,
+                     "fast_charge_w": 66,
+                     "storage_options": ["128GB", "256GB", "512GB"],
+                     "satellite_msg": True,
+                     "nearlink": "E2.0",
+                     "colors": ["樱雪晴空", "天际白", "星空黑", "破晓橙"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="超大电池和北斗卫星消息适合作为机器人"
+                              "户外遥控器和应急通信终端",
+        deployment_ready=True,
+        tags=["nova 16 SE", "华为", "麒麟8020", "8500mAh",
+              "北斗消息", "星闪", "国补", "中端AI手机"],
+    ),
+    AIProduct(
+        product_id="MD-015", name="华为WATCH GT 7智能手表",
+        category=AICategory.MEDICAL_DEVICE,
+        organization="", country="中国",
+        description="华为新一代智能手表标准版，46mm竞速版与41mm"
+                    "轻薄版双尺寸。升级健康感知系统，支持心率、血管"
+                    "健康监测、睡眠呼吸暂停筛查。新增纳米微晶陶瓷表圈。"
+                    "多配色满足商务和运动需求。售价1588元起。",
+        key_metrics={"price_start_rmb": 1588,
+                     "sizes": ["46mm竞速版", "41mm轻薄版"],
+                     "health_features": ["心率监测", "血管健康",
+                                         "睡眠呼吸暂停筛查"],
+                     "bezel_material": "纳米微晶陶瓷"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="可穿戴健康监测数据可接入机器人"
+                              "健康监护系统，实现人体状态感知",
+        deployment_ready=True,
+        tags=["WATCH GT 7", "华为", "健康监测", "纳米微晶陶瓷",
+              "血管健康", "智能手表"],
+    ),
+    AIProduct(
+        product_id="MD-016", name="华为WATCH GT 7 Pro智能手表",
+        category=AICategory.MEDICAL_DEVICE,
+        organization="", country="中国",
+        description="Pro版采用航天级钛合金表壳+纳米微晶陶瓷表圈+"
+                    "蓝宝石玻璃表镜，屏幕峰值亮度3000尼特。松霜绿、"
+                    "境野黄、碳晶黑三色。EasyCross易扣表带，户外属性"
+                    "更强。最长续航21天，支持专业运动模式和健康监测。"
+                    "售价2688元。",
+        key_metrics={"price_rmb": 2688,
+                     "case_material": "航天级钛合金",
+                     "bezel_material": "纳米微晶陶瓷",
+                     "glass": "蓝宝石玻璃",
+                     "peak_brightness_nits": 3000,
+                     "battery_life_days": 21,
+                     "colors": ["松霜绿", "境野黄", "碳晶黑"],
+                     "band": "EasyCross易扣表带"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="钛合金+蓝宝石的耐用设计可参考"
+                              "机器人传感器外壳防护方案",
+        deployment_ready=True,
+        tags=["WATCH GT 7 Pro", "华为", "钛合金", "蓝宝石玻璃",
+              "21天续航", "3000nit", "户外健康手表"],
+    ),
+    AIProduct(
+        product_id="HA-014", name="华为Vision智慧屏6 SE RGB电视",
+        category=AICategory.HOME_APPLIANCE,
+        organization="", country="中国",
+        description="华为首款RGB-MiniLED电视，55英寸售价3499元，"
+                    "75英寸售价5799元。RGB-MiniLED背光技术带来更"
+                    "高对比度和更纯色彩表现。搭载鸿蒙系统，支持"
+                    "全场景智慧互联。",
+        key_metrics={"price_55_rmb": 3499, "price_75_rmb": 5799,
+                     "backlight": "RGB-MiniLED",
+                     "sizes": ["55英寸", "75英寸"],
+                     "os": "HarmonyOS"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="MiniLED背光和鸿蒙互联可用于"
+                              "机器人可视化大屏显示终端",
+        deployment_ready=True,
+        tags=["Vision智慧屏", "华为", "RGB-MiniLED",
+              "鸿蒙电视", "55英寸", "75英寸"],
     ),
 
 ]
