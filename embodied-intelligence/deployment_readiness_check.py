@@ -13,6 +13,8 @@
   6. 数据记录检查 - 日志系统、数据采集、归档机制
   7. 性能压测检查 - CPU/内存/显存/延迟硬指标
   8. 真机特定检查 - 机械臂型号、固件版本、校准状态
+  9. AI智能栈检查 - AI全景注册表、VLA模型后端、世界模型引擎、
+                   6G/5G-A网络适配、工业机器人品牌适配、蚌埠本地产业适配
 
 执行标准：
   - success_rate: 1.0 (100%项必须全部通过)
@@ -161,6 +163,7 @@ class DeploymentReadinessChecker:
         "data_recording",    # 数据记录
         "performance",       # 性能压测
         "robot_specific",    # 真机特定
+        "ai_stack",          # AI智能栈（VLA/世界模型/AI全景/6G/蚌埠本地）
     ]
 
     def __init__(self, deployment_level: str = "prod", robot_mode: str = "sim"):
@@ -185,7 +188,7 @@ class DeploymentReadinessChecker:
         max_duration = _MAX_EXECUTION_HOURS * 3600  # 24小时硬超时
 
         print("\n" + "=" * 80)
-        print("  部署就绪检查框架 v1.0 (100%严格标准 · 零闪失铁律)")
+        print("  部署就绪检查框架 v1.1 (100%严格标准 · 零闪失铁律)")
         print("=" * 80)
         print(f"  部署等级: {self.deployment_level.upper()}")
         print(f"  机器人模式: {self.robot_mode.upper()}")
@@ -205,6 +208,7 @@ class DeploymentReadinessChecker:
             self._check_data_recording,
             self._check_performance,
             self._check_robot_specific,
+            self._check_ai_stack,
         ]
 
         for check_func in check_order:
@@ -312,7 +316,7 @@ class DeploymentReadinessChecker:
     # 1. 系统环境检查
     # ------------------------------------------------------------------
     def _check_system_env(self):
-        print("\n--- [1/8] 系统环境检查 ---")
+        print("\n--- [1/9] 系统环境检查 ---")
         t0 = time.time()
 
         # 1.1 Python版本 >= 3.8
@@ -403,7 +407,7 @@ class DeploymentReadinessChecker:
     # 2. 配置完整性检查
     # ------------------------------------------------------------------
     def _check_config_integrity(self):
-        print("\n--- [2/8] 配置完整性检查 ---")
+        print("\n--- [2/9] 配置完整性检查 ---")
         base_dir = os.path.dirname(os.path.abspath(__file__))
 
         required_configs = [
@@ -506,7 +510,7 @@ class DeploymentReadinessChecker:
     # 3. 安全防护检查
     # ------------------------------------------------------------------
     def _check_safety_protection(self):
-        print("\n--- [3/8] 安全防护检查 ---")
+        print("\n--- [3/9] 安全防护检查 ---")
         base_dir = os.path.dirname(os.path.abspath(__file__))
         sys.path.insert(0, base_dir)
 
@@ -738,7 +742,7 @@ class DeploymentReadinessChecker:
     # 4. 通信协议检查
     # ------------------------------------------------------------------
     def _check_comm_protocol(self):
-        print("\n--- [4/8] 通信协议检查 ---")
+        print("\n--- [4/9] 通信协议检查 ---")
         base_dir = os.path.dirname(os.path.abspath(__file__))
         sys.path.insert(0, base_dir)
 
@@ -831,7 +835,7 @@ class DeploymentReadinessChecker:
     # 5. 模型部署检查
     # ------------------------------------------------------------------
     def _check_model_deploy(self):
-        print("\n--- [5/8] 模型部署检查 ---")
+        print("\n--- [5/9] 模型部署检查 ---")
         base_dir = os.path.dirname(os.path.abspath(__file__))
 
         model_candidates = [
@@ -919,7 +923,7 @@ class DeploymentReadinessChecker:
     # 6. 数据记录检查
     # ------------------------------------------------------------------
     def _check_data_recording(self):
-        print("\n--- [6/8] 数据记录检查 ---")
+        print("\n--- [6/9] 数据记录检查 ---")
         base_dir = os.path.dirname(os.path.abspath(__file__))
         sys.path.insert(0, base_dir)
 
@@ -967,7 +971,7 @@ class DeploymentReadinessChecker:
     # 7. 性能压测检查
     # ------------------------------------------------------------------
     def _check_performance(self):
-        print("\n--- [7/8] 性能压测检查 ---")
+        print("\n--- [7/9] 性能压测检查 ---")
         base_dir = os.path.dirname(os.path.abspath(__file__))
         sys.path.insert(0, base_dir)
 
@@ -1034,7 +1038,7 @@ class DeploymentReadinessChecker:
     # 8. 真机特定检查 (sim模式跳过部分，标记为N/A PASS)
     # ------------------------------------------------------------------
     def _check_robot_specific(self):
-        print("\n--- [8/8] 真机特定检查 ---")
+        print("\n--- [8/9] 真机特定检查 ---")
         base_dir = os.path.dirname(os.path.abspath(__file__))
         sys.path.insert(0, base_dir)
 
@@ -1099,6 +1103,415 @@ class DeploymentReadinessChecker:
         else:
             self._register("RBT-005", "真机连通检测", "robot_specific",
                            True, "sim模式跳过", time.time() - t0)
+
+    # ------------------------------------------------------------------
+    # 9. AI智能栈检查（VLA模型/世界模型/AI全景/6G网络/蚌埠本地适配）
+    # ------------------------------------------------------------------
+    def _check_ai_stack(self):
+        print("\n--- [9/9] AI智能栈检查 ---")
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        sys.path.insert(0, base_dir)
+
+        # AIS-001: ai_landscape_registry 模块可导入
+        t0 = time.time()
+        try:
+            from ai_landscape_registry import AI_LANDSCAPE_DB, AICategory
+            self._register("AIS-001", "AI全景注册表模块", "ai_stack",
+                           True, "可导入", time.time() - t0)
+        except Exception as e:
+            self._register("AIS-001", "AI全景注册表模块", "ai_stack",
+                           False, f"导入失败: {e}", time.time() - t0)
+            return
+
+        # AIS-002: AI_LANDSCAPE_DB 非空且覆盖全部10大类别
+        t0 = time.time()
+        try:
+            total = len(AI_LANDSCAPE_DB)
+            categories_present = {p.category for p in AI_LANDSCAPE_DB}
+            expected_cats = set(AICategory)
+            missing_cats = expected_cats - categories_present
+            ok = total > 0 and len(missing_cats) == 0
+            if ok:
+                detail = f"{total}条产品，覆盖{len(categories_present)}大类别"
+            else:
+                parts = []
+                if total == 0:
+                    parts.append("数据库为空")
+                if missing_cats:
+                    parts.append(f"缺失类别: {[c.value for c in missing_cats]}")
+                detail = "; ".join(parts)
+            self._register("AIS-002", "AI全景10大类别覆盖", "ai_stack",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("AIS-002", "AI全景10大类别覆盖", "ai_stack",
+                           False, f"检测失败: {e}", time.time() - t0)
+
+        # AIS-003: VLA模型后端注册表非空且含安全降级mock
+        t0 = time.time()
+        try:
+            from vla_model_backends import VLA_MODEL_REGISTRY, VLABackendType
+            vla_total = len(VLA_MODEL_REGISTRY)
+            has_mock = "mock_safe" in VLA_MODEL_REGISTRY
+            deployable = sum(1 for m in VLA_MODEL_REGISTRY.values()
+                             if getattr(m, "deployment_ready", False))
+            ok = vla_total > 0 and has_mock
+            detail = (f"{vla_total}个模型，{deployable}个可部署，"
+                      f"安全降级mock={'有' if has_mock else '无'}")
+            self._register("AIS-003", "VLA模型注册表+安全降级", "ai_stack",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("AIS-003", "VLA模型注册表+安全降级", "ai_stack",
+                           False, f"检测失败: {e}", time.time() - t0)
+
+        # AIS-004: VLA后端工厂可创建实例（降级链可用）
+        t0 = time.time()
+        try:
+            from vla_model_backends import VLABackendFactory
+            backend = VLABackendFactory.create("mock_safe")
+            ok = backend is not None
+            self._register("AIS-004", "VLA后端工厂降级链", "ai_stack",
+                           ok, "Mock后端创建成功" if ok else "创建返回None",
+                           time.time() - t0)
+        except Exception as e:
+            self._register("AIS-004", "VLA后端工厂降级链", "ai_stack",
+                           False, f"创建失败: {e}", time.time() - t0)
+
+        # AIS-005: 世界模型注册表非空且含安全预测器
+        t0 = time.time()
+        try:
+            from world_model_engines import WORLD_MODEL_REGISTRY, WorldModelFactory, WorldModelType
+            wm_total = len(WORLD_MODEL_REGISTRY)
+            has_mock = "mock_safe" in WORLD_MODEL_REGISTRY
+            policy_ready = sum(1 for m in WORLD_MODEL_REGISTRY.values()
+                               if getattr(m, "supports_policy_training", False))
+            ok = wm_total > 0 and has_mock
+            detail = (f"{wm_total}个引擎，{policy_ready}个支持策略训练，"
+                      f"安全预测器={'有' if has_mock else '无'}")
+            self._register("AIS-005", "世界模型注册表+安全预测器", "ai_stack",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("AIS-005", "世界模型注册表+安全预测器", "ai_stack",
+                           False, f"检测失败: {e}", time.time() - t0)
+
+        # AIS-006: 6G/5G-A网络适配配置可用
+        t0 = time.time()
+        try:
+            from network_industry_adapter import NETWORK_PROFILES
+            net_total = len(NETWORK_PROFILES)
+            has_6g = any("6g" in k.lower() for k in NETWORK_PROFILES.keys())
+            has_5ga = any("5g" in k.lower() for k in NETWORK_PROFILES.keys())
+            ok = net_total > 0 and has_6g and has_5ga
+            detail = f"{net_total}种网络制式，6G={'有' if has_6g else '无'}，5G-A={'有' if has_5ga else '无'}"
+            self._register("AIS-006", "6G/5G-A网络适配", "ai_stack",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("AIS-006", "6G/5G-A网络适配", "ai_stack",
+                           False, f"检测失败: {e}", time.time() - t0)
+
+        # AIS-007: 工业机器人品牌适配注册表非空
+        t0 = time.time()
+        try:
+            from network_industry_adapter import INDUSTRIAL_ROBOT_PROFILES
+            ir_total = len(INDUSTRIAL_ROBOT_PROFILES)
+            ok = ir_total >= 3
+            detail = f"{ir_total}个品牌适配"
+            self._register("AIS-007", "工业机器人品牌适配(>=3)", "ai_stack",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("AIS-007", "工业机器人品牌适配(>=3)", "ai_stack",
+                           False, f"检测失败: {e}", time.time() - t0)
+
+        # AIS-008: 蚌埠本地产业适配企业注册表非空
+        t0 = time.time()
+        try:
+            from network_industry_adapter import BENGBU_COMPANIES
+            bb_total = len(BENGBU_COMPANIES)
+            contact_ready = sum(1 for c in BENGBU_COMPANIES
+                                if getattr(c, "contact_ready", False))
+            ok = bb_total >= 3
+            detail = f"{bb_total}家本地企业，{contact_ready}家可对接"
+            self._register("AIS-008", "蚌埠本地产业适配(>=3家)", "ai_stack",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("AIS-008", "蚌埠本地产业适配(>=3家)", "ai_stack",
+                           False, f"检测失败: {e}", time.time() - t0)
+
+        # AIS-009: AI全景中标记deployment_ready的产品统计
+        t0 = time.time()
+        try:
+            ready_count = sum(1 for p in AI_LANDSCAPE_DB
+                              if getattr(p, "deployment_ready", False))
+            total = len(AI_LANDSCAPE_DB)
+            ok = total > 0 and ready_count > 0
+            detail = f"{ready_count}/{total}个产品标记部署就绪"
+            self._register("AIS-009", "AI产品部署就绪统计", "ai_stack",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("AIS-009", "AI产品部署就绪统计", "ai_stack",
+                           False, f"检测失败: {e}", time.time() - t0)
+
+        # AIS-010: 算力与芯片类别产品存在（真机推理算力保障）
+        t0 = time.time()
+        try:
+            compute_products = [p for p in AI_LANDSCAPE_DB
+                                if p.category in (AICategory.AI_COMPUTE, AICategory.AI_CHIP)]
+            ok = len(compute_products) >= 2
+            detail = f"{len(compute_products)}个算力/芯片产品"
+            self._register("AIS-010", "算力/芯片产品覆盖(>=2)", "ai_stack",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("AIS-010", "算力/芯片产品覆盖(>=2)", "ai_stack",
+                           False, f"检测失败: {e}", time.time() - t0)
+
+        # AIS-011: DeepSeek-V4独立后端模块可导入且工厂可创建
+        t0 = time.time()
+        try:
+            from deepseek_v4_backend import create_deepseek_v4_backend
+            backend = create_deepseek_v4_backend()
+            ok = backend is not None and hasattr(backend, "infer")
+            detail = "DeepSeek-V4后端可创建" if ok else "创建失败"
+            self._register("AIS-011", "DeepSeek-V4独立后端", "ai_stack",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("AIS-011", "DeepSeek-V4独立后端", "ai_stack",
+                           False, f"导入失败: {e}", time.time() - t0)
+
+        # AIS-012: Nemotron独立后端模块可导入
+        t0 = time.time()
+        try:
+            from nemotron_nvidia_backend import create_nemotron_backend
+            backend = create_nemotron_backend()
+            ok = backend is not None and hasattr(backend, "infer")
+            detail = "Nemotron后端可创建" if ok else "创建失败"
+            self._register("AIS-012", "Nemotron独立后端", "ai_stack",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("AIS-012", "Nemotron独立后端", "ai_stack",
+                           False, f"导入失败: {e}", time.time() - t0)
+
+        # AIS-013: Cosmos3世界模型引擎可导入
+        t0 = time.time()
+        try:
+            from cosmos3_engine import create_cosmos3_engine
+            engine = create_cosmos3_engine()
+            ok = engine is not None and hasattr(engine, "predict")
+            detail = "Cosmos3引擎可创建" if ok else "创建失败"
+            self._register("AIS-013", "Cosmos3世界模型引擎", "ai_stack",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("AIS-013", "Cosmos3世界模型引擎", "ai_stack",
+                           False, f"导入失败: {e}", time.time() - t0)
+
+        # AIS-014: World Proxy交互式世界代理可导入
+        t0 = time.time()
+        try:
+            from world_proxy_agent import create_world_proxy
+            agent = create_world_proxy()
+            ok = agent is not None and hasattr(agent, "step")
+            detail = "World Proxy智能体可创建" if ok else "创建失败"
+            self._register("AIS-014", "World Proxy世界代理", "ai_stack",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("AIS-014", "World Proxy世界代理", "ai_stack",
+                           False, f"导入失败: {e}", time.time() - t0)
+
+        # AIS-015: AI算力调度器可导入且含两个集群
+        t0 = time.time()
+        try:
+            from ai_compute_scheduler import create_compute_scheduler
+            sched = create_compute_scheduler()
+            status = sched.get_status()
+            ok = status["total_clusters"] >= 2 and status["total_nodes"] >= 2
+            detail = (f"{status['total_clusters']}集群/"
+                      f"{status['total_capacity_pflops']}PFLOPS")
+            self._register("AIS-015", "AI算力调度器(>=2集群)", "ai_stack",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("AIS-015", "AI算力调度器(>=2集群)", "ai_stack",
+                           False, f"导入失败: {e}", time.time() - t0)
+
+        # AIS-016: 人形机器人工厂部署模块可导入
+        t0 = time.time()
+        try:
+            from humanoid_factory_deployment import create_factory_deployment
+            deployment = create_factory_deployment()
+            status = deployment.get_factory_status()
+            ok = status["total_robots"] >= 1
+            detail = f"{status['total_robots']}台机器人/承重{status['max_payload_kg']}kg"
+            self._register("AIS-016", "人形机器人工厂部署", "ai_stack",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("AIS-016", "人形机器人工厂部署", "ai_stack",
+                           False, f"导入失败: {e}", time.time() - t0)
+
+        # AIS-017: 6G网络适配器可导入且可连接
+        t0 = time.time()
+        try:
+            from sixg_network_adapter import create_sixg_adapter
+            adapter = create_sixg_adapter()
+            connected = adapter.connect()
+            status = adapter.get_network_status()
+            ok = connected and status["isac"]["sensing_active"]
+            detail = (f"6G连接={connected}, 通感一体="
+                      f"{status['isac']['sensing_active']}")
+            self._register("AIS-017", "6G网络适配器", "ai_stack",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("AIS-017", "6G网络适配器", "ai_stack",
+                           False, f"导入失败: {e}", time.time() - t0)
+
+        # AIS-018: 蚌埠传感器供应链可导入且含产品目录
+        t0 = time.time()
+        try:
+            from bengbu_sensor_supply_chain import create_bengbu_supply_chain
+            chain = create_bengbu_supply_chain()
+            status = chain.get_supply_chain_status()
+            ok = status["total_product_types"] >= 5 and status["total_suppliers"] >= 3
+            detail = (f"{status['total_suppliers']}家供应商/"
+                      f"{status['total_product_types']}类传感器")
+            self._register("AIS-018", "蚌埠传感器供应链", "ai_stack",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("AIS-018", "蚌埠传感器供应链", "ai_stack",
+                           False, f"导入失败: {e}", time.time() - t0)
+
+        # AIS-019: AI智能栈统一初始化入口可用
+        t0 = time.time()
+        try:
+            from ai_stack_initializer import initialize_all
+            result = initialize_all()
+            ok = result.get("success", False)
+            vla_ok = all(v for k, v in result.get("vla_backends", {}).items()
+                         if not k.endswith("_error"))
+            wm_ok = all(v for k, v in result.get("world_engines", {}).items()
+                        if not k.endswith("_error"))
+            industry_ok = all(
+                v is not None for v in result.get("industry_modules", {}).values()
+            )
+            ok = ok and vla_ok and wm_ok and industry_ok
+            detail = "全部模块初始化成功" if ok else f"错误: {result.get('errors', [])}"
+            self._register("AIS-019", "AI智能栈统一初始化", "ai_stack",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("AIS-019", "AI智能栈统一初始化", "ai_stack",
+                           False, f"初始化失败: {e}", time.time() - t0)
+
+        # AIS-020: 新能源AI模块可导入且工厂可创建
+        t0 = time.time()
+        try:
+            from renewable_energy_ai import create_energy_ai_scheduler
+            sched = create_energy_ai_scheduler()
+            ok = sched is not None and hasattr(sched, "optimize_dispatch")
+            detail = "新能源AI调度器可创建" if ok else "创建失败"
+            self._register("AIS-020", "新能源AI模块", "ai_stack",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("AIS-020", "新能源AI模块", "ai_stack",
+                           False, f"导入失败: {e}", time.time() - t0)
+
+        # AIS-021: 农业AI模块可导入且工厂可创建
+        t0 = time.time()
+        try:
+            from agriculture_ai import create_agriculture_ai
+            ag = create_agriculture_ai()
+            ok = ag is not None and hasattr(ag, "recommend_fertilizer")
+            detail = "农业AI平台可创建" if ok else "创建失败"
+            self._register("AIS-021", "农业AI模块", "ai_stack",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("AIS-021", "农业AI模块", "ai_stack",
+                           False, f"导入失败: {e}", time.time() - t0)
+
+        # AIS-022: 商业AI模块可导入且工厂可创建
+        t0 = time.time()
+        try:
+            from commerce_ai import create_commerce_ai
+            comm = create_commerce_ai()
+            ok = comm is not None and hasattr(comm, "rec_engine")
+            detail = "商业AI平台可创建" if ok else "创建失败"
+            self._register("AIS-022", "商业AI模块", "ai_stack",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("AIS-022", "商业AI模块", "ai_stack",
+                           False, f"导入失败: {e}", time.time() - t0)
+
+        # AIS-023: 水利AI模块可导入且工厂可创建
+        t0 = time.time()
+        try:
+            from water_conservancy_ai import create_water_conservancy_ai
+            wc = create_water_conservancy_ai()
+            ok = wc is not None and hasattr(wc, "flood_control")
+            detail = "水利AI平台可创建" if ok else "创建失败"
+            self._register("AIS-023", "水利AI模块", "ai_stack",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("AIS-023", "水利AI模块", "ai_stack",
+                           False, f"导入失败: {e}", time.time() - t0)
+
+        # AIS-024: 汽车AI模块可导入且工厂可创建
+        t0 = time.time()
+        try:
+            from automotive_ai import create_automotive_ai
+            auto = create_automotive_ai()
+            ok = auto is not None and hasattr(auto, "driving_ai")
+            detail = "汽车AI平台可创建" if ok else "创建失败"
+            self._register("AIS-024", "汽车AI模块", "ai_stack",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("AIS-024", "汽车AI模块", "ai_stack",
+                           False, f"导入失败: {e}", time.time() - t0)
+
+        # AIS-025: 数码产品AI模块可导入且工厂可创建
+        t0 = time.time()
+        try:
+            from digital_product_ai import create_digital_device_ai
+            dai = create_digital_device_ai()
+            ok = dai is not None and hasattr(dai, "registry")
+            detail = "数码产品AI平台可创建" if ok else "创建失败"
+            self._register("AIS-025", "数码产品AI模块", "ai_stack",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("AIS-025", "数码产品AI模块", "ai_stack",
+                           False, f"导入失败: {e}", time.time() - t0)
+
+        # AIS-026: 医疗健康AI模块可导入且工厂可创建
+        t0 = time.time()
+        try:
+            from healthcare_ai import create_healthcare_ai
+            hc = create_healthcare_ai()
+            ok = hc is not None and hasattr(hc, "imaging")
+            detail = "医疗健康AI平台可创建" if ok else "创建失败"
+            self._register("AIS-026", "医疗健康AI模块", "ai_stack",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("AIS-026", "医疗健康AI模块", "ai_stack",
+                           False, f"导入失败: {e}", time.time() - t0)
+
+        # AIS-027: 民生AI模块可导入且工厂可创建
+        t0 = time.time()
+        try:
+            from livelihood_ai import create_livelihood_ai
+            liv = create_livelihood_ai()
+            ok = liv is not None and hasattr(liv, "city_brain")
+            detail = "民生AI平台可创建" if ok else "创建失败"
+            self._register("AIS-027", "民生AI模块", "ai_stack",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("AIS-027", "民生AI模块", "ai_stack",
+                           False, f"导入失败: {e}", time.time() - t0)
+
+        # AIS-028: 教育AI模块可导入且工厂可创建
+        t0 = time.time()
+        try:
+            from education_ai import create_education_ai
+            edu = create_education_ai()
+            ok = edu is not None and hasattr(edu, "learning_engine")
+            detail = "教育AI平台可创建" if ok else "创建失败"
+            self._register("AIS-028", "教育AI模块", "ai_stack",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("AIS-028", "教育AI模块", "ai_stack",
+                           False, f"导入失败: {e}", time.time() - t0)
 
     # ------------------------------------------------------------------
     # 汇总打印
