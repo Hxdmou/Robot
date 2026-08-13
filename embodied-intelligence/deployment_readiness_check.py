@@ -1123,7 +1123,7 @@ class DeploymentReadinessChecker:
                            False, f"导入失败: {e}", time.time() - t0)
             return
 
-        # AIS-002: AI_LANDSCAPE_DB 非空且覆盖全部10大类别
+        # AIS-002: AI_LANDSCAPE_DB 非空且覆盖全部19大类别
         t0 = time.time()
         try:
             total = len(AI_LANDSCAPE_DB)
@@ -1140,10 +1140,10 @@ class DeploymentReadinessChecker:
                 if missing_cats:
                     parts.append(f"缺失类别: {[c.value for c in missing_cats]}")
                 detail = "; ".join(parts)
-            self._register("AIS-002", "AI全景10大类别覆盖", "ai_stack",
+            self._register("AIS-002", "AI全景19大类别覆盖", "ai_stack",
                            ok, detail, time.time() - t0)
         except Exception as e:
-            self._register("AIS-002", "AI全景10大类别覆盖", "ai_stack",
+            self._register("AIS-002", "AI全景19大类别覆盖", "ai_stack",
                            False, f"检测失败: {e}", time.time() - t0)
 
         # AIS-003: VLA模型后端注册表非空且含安全降级mock
