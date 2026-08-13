@@ -4995,12 +4995,17 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                     "示波法血压测量达到医疗级精度，支持房颤筛查和"
                     "睡眠呼吸暂停检测，准确率超90%。跌倒检测80ms"
                     "内自动呼救。全球出货量登顶智能手表市场。",
-        key_metrics={"certifications": ["NMPA", "CE MDR"],
+        key_metrics={"price_start_rmb": 2988,
+                     "certifications": ["NMPA", "CE MDR"],
                      "features": ["24h动态血压", "HRV", "房颤筛查",
                                   "OSA检测", "跌倒检测", "ECG"],
                      "fall_detection_ms": 80,
                      "screening_accuracy_pct": 90,
-                     "processing": "端侧AI"},
+                     "processing": "端侧AI",
+                     "screen_inch": 1.5,
+                     "battery_days": 6,
+                     "weight_g": 54,
+                     "waterproof_5atm": True},
         maturity=MaturityLevel.MASS_PRODUCTION,
         source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
@@ -5085,11 +5090,35 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                     "典藏版和标准版。带动苹果、三星等品牌跟进阔折叠"
                     "形态。即将推出新配色，与Mate 90系列同台亮相。",
         key_metrics={"price_start_rmb": 10999,
+                     "price_top_rmb": 13999,
                      "chip": "麒麟9030 Pro",
-                     "outer_screen_inch": 5.4, "inner_screen_inch": 7.7,
-                     "battery_mah": 5300, "sales_3months": 644700,
                      "form_factor": "大阔折叠",
-                     "cameras": 4},
+                     "battery_mah": 5300, "sales_3months": 644700,
+                     "cameras": 4,
+                     "ram_gb": "12GB/16GB",
+                     "rom_gb": "256GB/512GB/1TB",
+                     "storage_options": ["12GB+256GB 10999元",
+                                        "12GB+512GB 11999元",
+                                        "16GB+512GB典藏版 12999元",
+                                        "16GB+1TB典藏版 13999元"],
+                     "wired_charge_w": 66, "wireless_charge_w": 50,
+                     "rear_camera_main": "5000万像素超聚光主摄（F1.4-F4.0十档可变光圈，OIS光学防抖）",
+                     "rear_camera_ultrawide": "4000万像素超广角摄像头",
+                     "rear_camera_telephoto": "5000万像素超聚光长焦摄像头（OIS光学防抖，3.5倍光学变焦）",
+                     "rear_camera_spectrum": "红枫原色摄像头（多光谱传感器）",
+                     "rear_camera_count": 4,
+                     "front_camera_main": "1300万像素超广角摄像头（F2.0光圈，自动对焦）",
+                     "front_camera_depth": "3D深感摄像头",
+                     "front_camera_count": 2,
+                     "outer_screen_inch": 5.4,
+                     "inner_screen_inch": 7.7,
+                     "inner_screen_type": "OLED阔折叠大屏",
+                     "outer_screen_type": "OLED外屏",
+                     "hinge": "天工铰链",
+                     "weight_g": 235,
+                     "waterproof": "IPX8",
+                     "os": "HarmonyOS",
+                     "colors": ["零度白", "月影灰", "鸢尾紫", "鎏光黑"]},
         maturity=MaturityLevel.MASS_PRODUCTION,
         source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
@@ -5371,8 +5400,9 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                     "处理器28W TDP，整机性能提升25%。HarmonyOS 6.1，"
                     "小艺慧记端侧离线会议纪要，小艺深度研究多智能体协同，"
                     "全球首款原生AI换脸伪造检测电脑。75Wh电池/14h视频/"
-                    "140W快充。双模叠层天线Wi-Fi信号领先3dB。售价"
-                    "24999-29999元。",
+                    "140W快充。双模叠层天线Wi-Fi信号领先3dB。提供"
+                    "24GB+512GB、24GB+1TB、32GB+2TB三种配置，"
+                    "售价24999-29999元。",
         key_metrics={"price_start_rmb": 24999, "price_top_rmb": 29999,
                      "screen_inch": 18, "resolution": "3.3K",
                      "peak_brightness_nits": 1600,
@@ -5391,8 +5421,11 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                      "ai_features": ["小艺慧记离线转写",
                                      "多智能体协同研究",
                                      "AI换脸检测", "小艺任务Agent"],
-                     "storage_options": ["24GB+512GB",
-                                         "24GB+1TB", "32GB+2TB"]},
+                     "ram_gb": "24GB/32GB",
+                     "rom_gb": "512GB/1TB/2TB",
+                     "storage_options": ["24GB+512GB 24999元",
+                                         "24GB+1TB 26999元",
+                                         "32GB+2TB 29999元"]},
         maturity=MaturityLevel.MASS_PRODUCTION,
         source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
@@ -5416,8 +5449,8 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                     "14.2英寸3.1K/264PPI/1600nit/ΔE<1，AI智能感知身后"
                     "有人提醒防窥。3D 6麦克风10米拾音+AI同声分离。"
                     "四天线Wi-Fi 7+最远1km联网。18h视频续航/66W反向快充。"
-                    "售价7999-10499元。",
-        key_metrics={"price_start_rmb": 7999, "price_top_rmb": 10499,
+                    "提供标准版、柔光版、防窥版和典藏版，售价7999-14999元。",
+        key_metrics={"price_start_rmb": 7999, "price_top_rmb": 14999,
                      "weight_g": 798, "thickness_mm": 11.9,
                      "screen_inch": 14.2, "resolution": "3120x2080",
                      "ppi": 264, "peak_brightness_nits": 1600,
@@ -5431,6 +5464,12 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                      "wifi": "Wi-Fi 7+", "max_range_m": 1000,
                      "antennas": 4, "microphones": 6,
                      "pickup_range_m": 10,
+                     "ram_gb": "16GB/32GB",
+                     "rom_gb": "512GB/1TB/2TB",
+                     "storage_options": ["16GB+512GB 7999元",
+                                         "16GB+1TB 9999元",
+                                         "32GB+1TB 11999元",
+                                         "32GB+2TB 14999元"],
                      "privacy_screen": "灵盾防窥屏",
                      "colors": ["晨曦黄", "仲夏紫", "丝绒白",
                                 "烟云灰", "羽砂黑"]},
@@ -5455,11 +5494,23 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                     "搭载北斗卫星短报文功能，无地面网络可收发消息。"
                     "搭配二代M-Pencil手写笔。售价5999元起（悦享款5699元）。",
         key_metrics={"price_start_rmb": 5699,
+                     "price_top_rmb": 7699,
                      "weight_g": 439, "thickness_mm": 4.7,
                      "screen_inch": 12, "screen_type": "OLED",
+                     "refresh_hz": 144,
                      "processor": "麒麟T93",
+                     "ram_gb": "12GB/16GB",
+                     "rom_gb": "256GB/512GB/1TB",
+                     "storage_options": ["12GB+256GB 5699元（悦享款）",
+                                         "12GB+512GB 6199元",
+                                         "16GB+512GB 6699元",
+                                         "16GB+1TB 7699元"],
+                     "battery_mah": 12000,
+                     "charge_w": 100,
                      "satellite_msg": True,
                      "stylus": "二代M-Pencil",
+                     "speakers": 6,
+                     "os": "HarmonyOS",
                      "architecture": "云隼架构"},
         maturity=MaturityLevel.MASS_PRODUCTION,
         source="", source_tier=SourceTier.TIER1,
@@ -5484,7 +5535,10 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                      "price_subsidy_rmb": 2124,
                      "chip": "麒麟8020", "battery_mah": 8500,
                      "fast_charge_w": 66,
-                     "storage_options": ["128GB", "256GB", "512GB"],
+                     "ram_gb": "8GB",
+                     "storage_options": ["8GB+128GB 2499元",
+                                         "8GB+256GB 2699元",
+                                         "8GB+512GB 3199元"],
                      "satellite_msg": True,
                      "nearlink": "E2.0",
                      "colors": ["樱雪晴空", "天际白", "星空黑", "破晓橙"]},
@@ -5505,11 +5559,18 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                     "轻薄版双尺寸。升级健康感知系统，支持心率、血管"
                     "健康监测、睡眠呼吸暂停筛查。新增纳米微晶陶瓷表圈。"
                     "多配色满足商务和运动需求。售价1588元起。",
-        key_metrics={"price_start_rmb": 1588,
+        key_metrics={"price_start_rmb": 1488,
+                     "price_top_rmb": 2188,
                      "sizes": ["46mm竞速版", "41mm轻薄版"],
                      "health_features": ["心率监测", "血管健康",
-                                         "睡眠呼吸暂停筛查"],
-                     "bezel_material": "纳米微晶陶瓷"},
+                                         "睡眠呼吸暂停筛查",
+                                         "血氧监测", "压力监测"],
+                     "bezel_material": "纳米微晶陶瓷",
+                     "screen_inch": 1.43,
+                     "battery_days_46mm": 14,
+                     "battery_days_41mm": 7,
+                     "waterproof_5atm": True,
+                     "sports_modes": 100},
         maturity=MaturityLevel.MASS_PRODUCTION,
         source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
@@ -5528,12 +5589,18 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                     "境野黄、碳晶黑三色。EasyCross易扣表带，户外属性"
                     "更强。最长续航21天，支持专业运动模式和健康监测。"
                     "售价2688元。",
-        key_metrics={"price_rmb": 2688,
+        key_metrics={"price_start_rmb": 2688,
+                     "price_top_rmb": 3288,
                      "case_material": "航天级钛合金",
                      "bezel_material": "纳米微晶陶瓷",
                      "glass": "蓝宝石玻璃",
+                     "screen_inch": 1.5,
                      "peak_brightness_nits": 3000,
                      "battery_life_days": 21,
+                     "waterproof_5atm": True,
+                     "diving_m": 40,
+                     "gnss": "双频五星",
+                     "sports_modes": 100,
                      "colors": ["松霜绿", "境野黄", "碳晶黑"],
                      "band": "EasyCross易扣表带"},
         maturity=MaturityLevel.MASS_PRODUCTION,
@@ -5553,10 +5620,18 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                     "75英寸售价5799元。RGB-MiniLED背光技术带来更"
                     "高对比度和更纯色彩表现。搭载鸿蒙系统，支持"
                     "全场景智慧互联。",
-        key_metrics={"price_55_rmb": 3499, "price_75_rmb": 5799,
+        key_metrics={"price_start_rmb": 3499,
+                     "price_top_rmb": 5799,
                      "backlight": "RGB-MiniLED",
                      "sizes": ["55英寸", "75英寸"],
-                     "os": "HarmonyOS"},
+                     "os": "HarmonyOS",
+                     "refresh_hz": 144,
+                     "peak_brightness_nits": 3000,
+                     "dimming_zones": "千级分区",
+                     "speakers": "HUAWEI SOUND",
+                     "features": ["AI画质", "鸿蒙互联",
+                                  "灵犀指向遥控",
+                                  "超级终端"]},
         maturity=MaturityLevel.MASS_PRODUCTION,
         source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
@@ -5571,13 +5646,46 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         category=AICategory.MOBILE_COMPUTER,
         organization="", country="中国",
         description="Pura 90系列标准版，6.8英寸直屏，弦律几何设计"
-                    "语言。搭载麒麟9030芯片，第二代红枫影像系统，"
-                    "5000万像素超聚光主摄。HarmonyOS 6.1，小艺"
-                    "看世界、小艺时光机等AI功能。4699元起。",
+                    "语言。搭载麒麟9010S芯片（非9030），第二代红枫"
+                    "影像系统，5000万像素超聚光主摄。6500mAh大电池"
+                    "+100W有线快充+50W无线快充。HarmonyOS 6.1，"
+                    "小艺看世界、小艺时光机等AI功能。12GB+256GB"
+                    "4699元起，罗兰紫/丝绒黑/雪域白三色。",
         key_metrics={"price_start_rmb": 4699,
-                     "screen_inch": 6.8, "chip": "麒麟9030",
-                     "main_camera_mp": 50,
+                     "price_top_rmb": 5699,
+                     "screen_inch": 6.8,
+                     "screen_type": "OLED直屏",
+                     "refresh_hz": "1-120Hz LTPO自适应",
+                     "peak_brightness_nits": 2500,
+                     "pwm_dimming_hz": 2160,
+                     "chip": "麒麟9010S",
+                     "performance_gain_pct": 25,
+                     "ram_gb": "12GB/16GB",
+                     "rom_gb": "256GB/512GB",
+                     "storage_options": ["12GB+256GB 4699元",
+                                         "12GB+512GB 5199元",
+                                         "16GB+512GB 5699元"],
+                     "rear_camera_main": "5000万像素超聚光主摄（F1.4-F4.0十档可变光圈，OIS光学防抖）",
+                     "rear_camera_ultrawide": "4000万像素超广角摄像头（F2.2光圈）",
+                     "rear_camera_telephoto": "1200万像素潜望式长焦摄像头（F3.4光圈，OIS光学防抖，5倍光学变焦）",
+                     "rear_camera_spectrum": "第二代红枫原色摄像头",
+                     "rear_camera_count": 4,
+                     "front_camera_main": "1300万像素超广角摄像头（F2.0光圈，自动对焦）",
+                     "front_camera_count": 1,
+                     "photo_features": ["AI色彩引擎", "AI姿势推荐",
+                                        "3D动态照片", "小艺看世界",
+                                        "小艺时光机"],
+                     "battery_mah": 6500,
+                     "wired_charge_w": 100,
+                     "wireless_charge_w": 50,
+                     "weight_g": 208,
+                     "back_material": "玻璃",
+                     "frame_material": "铝合金",
+                     "waterproof": "IP68",
                      "os": "HarmonyOS 6.1",
+                     "ai_features": ["小艺看世界", "小艺时光机",
+                                    "AI扩图", "AI消除"],
+                     "colors": ["罗兰紫", "丝绒黑", "雪域白"],
                      "design": "弦律几何直屏"},
         maturity=MaturityLevel.MASS_PRODUCTION,
         source="", source_tier=SourceTier.TIER1,
@@ -5585,7 +5693,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         relevance_to_robotics="端侧AI影像能力可用于机器人视觉"
                               "识别和场景理解参考",
         deployment_ready=True,
-        tags=["Pura 90", "华为", "麒麟9030", "红枫影像",
+        tags=["Pura 90", "华为", "麒麟9010S", "红枫影像",
               "HarmonyOS 6", "标准版"],
     ),
     AIProduct(
@@ -5599,11 +5707,38 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                     "+5000万像素超聚光微距长焦。AI色彩引擎提升43%，"
                     "光感无界主题。5499元起。",
         key_metrics={"price_start_rmb": 5499,
-                     "screen_inch": 6.6, "chip": "麒麟9030S",
-                     "main_camera_mp": 50,
-                     "telephoto_mp": 50,
-                     "aperture": "十档可变",
+                     "price_top_rmb": 7499,
+                     "screen_inch": 6.6,
+                     "screen_type": "OLED单挖孔直屏",
+                     "refresh_hz": "1-120Hz LTPO自适应",
+                     "peak_brightness_nits": 3000,
+                     "chip": "麒麟9030S",
+                     "ai_image_understanding_pct": 200,
+                     "ram_gb": "12GB/16GB",
+                     "rom_gb": "256GB/512GB/1TB",
+                     "storage_options": ["12GB+256GB 5499元",
+                                         "12GB+512GB 5999元",
+                                         "16GB+512GB 6499元",
+                                         "16GB+1TB 7499元"],
+                     "rear_camera_main": "5000万像素超聚光主摄（1/1.28英寸大底，F1.4-F4.0十档物理可变光圈，OIS光学防抖）",
+                     "rear_camera_ultrawide": "4000万像素超广角摄像头（F2.2光圈）",
+                     "rear_camera_telephoto": "5000万像素超聚光微距长焦摄像头（F2.1光圈，OIS光学防抖，3.5倍光学变焦）",
+                     "rear_camera_spectrum": "第二代红枫原色摄像头",
+                     "rear_camera_count": 4,
+                     "front_camera_main": "1300万像素超广角摄像头（F2.0光圈，自动对焦）",
+                     "front_camera_count": 1,
                      "ai_image_boost_pct": 43,
+                     "photo_features": ["AI色彩引擎", "光感无界主题",
+                                        "AI姿势推荐", "3D动态照片",
+                                        "小艺看世界"],
+                     "battery_mah": 6000,
+                     "wired_charge_w": 66,
+                     "wireless_charge_w": 50,
+                     "weight_g": 220,
+                     "back_material": "玻璃",
+                     "frame_material": "铝合金",
+                     "waterproof": "IP68",
+                     "os": "HarmonyOS 6.1",
                      "colors": ["粉红芭乐", "橘子汽水",
                                 "椰青白", "桑果黑"]},
         maturity=MaturityLevel.MASS_PRODUCTION,
@@ -5626,14 +5761,38 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                     "高动态技术，RYYB滤镜。抗反光耐刮昆仑玻璃，"
                     "屏幕反光下降70%。6499元起。",
         key_metrics={"price_start_rmb": 6499,
+                     "price_top_rmb": 8499,
                      "screen_inch": 6.9,
+                     "screen_type": "OLED曲面屏",
+                     "refresh_hz": "1-120Hz LTPO自适应",
+                     "peak_brightness_nits": 4000,
                      "chip": "麒麟9030S",
-                     "telephoto_mp": 200,
-                     "telephoto_sensor": "1/1.28英寸",
-                     "optical_zoom_video": "20倍",
-                     "main_tech": ["LOFIC", "RYYB"],
+                     "ram_gb": "12GB/16GB",
+                     "rom_gb": "256GB/512GB/1TB",
+                     "storage_options": ["12GB+256GB 6499元",
+                                         "12GB+512GB 6999元",
+                                         "16GB+512GB 7499元",
+                                         "16GB+1TB 8499元"],
+                     "rear_camera_main": "5000万像素超聚光主摄（1/1.28英寸大底，LOFIC高动态技术+RYYB滤镜，F1.4-F4.0十档可变光圈，OIS光学防抖）",
+                     "rear_camera_ultrawide": "4000万像素超广角摄像头（F2.2光圈）",
+                     "rear_camera_telephoto": "2亿像素超聚光长焦摄像头（1/1.28英寸大底，F2.6光圈，OIS光学防抖，支持20倍光学品质高清视频）",
+                     "rear_camera_spectrum": "第二代红枫原色摄像头",
+                     "rear_camera_count": 4,
+                     "front_camera_main": "1300万像素超广角摄像头（F2.0光圈，自动对焦）",
+                     "front_camera_count": 1,
+                     "photo_features": ["LOFIC高动态", "RYYB高感光",
+                                        "AI色彩引擎43%", "抗反光昆仑玻璃",
+                                        "AI姿势推荐", "3D动态照片"],
                      "glass": "抗反光昆仑玻璃",
                      "glass_reflection_cut_pct": 70,
+                     "battery_mah": 6000,
+                     "wired_charge_w": 100,
+                     "wireless_charge_w": 80,
+                     "weight_g": 235,
+                     "back_material": "素皮/玻璃",
+                     "frame_material": "铝合金",
+                     "waterproof": "IP68",
+                     "os": "HarmonyOS 6.1",
                      "colors": ["橘子海", "霞光紫", "翡翠湖",
                                 "晨曦金", "曜石黑"]},
         maturity=MaturityLevel.MASS_PRODUCTION,
@@ -5650,13 +5809,52 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         category=AICategory.MOBILE_COMPUTER,
         organization="", country="中国",
         description="Mate 80系列顶级超高端版本，RS非凡大师"
-                    "定位。极致陶瓷/素皮工艺材质，专属定制配色。"
-                    "搭载麒麟9030旗舰芯片，完整版鸿蒙AI能力。"
-                    "星钻设计语言，定位商务奢华旗舰。",
-        key_metrics={"series": "Mate 80",
+                    "定位。6.9英寸双层OLED灵珑屏，第三代玄武"
+                    "钢化昆仑玻璃，高亮钛合金中框。搭载麒麟"
+                    "9030 Pro旗舰芯片，20GB超大内存。五摄"
+                    "红枫影像（含超长焦），6000mAh电池+100W"
+                    "有线+80W无线快充。槿紫/皓白/玄黑三色，"
+                    "11999元起。",
+        key_metrics={"price_start_rmb": 11999,
+                     "price_top_rmb": 12999,
+                     "series": "Mate 80",
                      "tier": "RS非凡大师",
-                     "chip": "麒麟9030",
-                     "material": "陶瓷/素皮",
+                     "chip": "麒麟9030 Pro",
+                     "performance_gain_pct": 42,
+                     "screen_inch": 6.9,
+                     "screen_type": "双层OLED灵珑屏",
+                     "refresh_hz": "1-120Hz LTPO自适应",
+                     "peak_brightness_nits": 8000,
+                     "glass": "第三代玄武钢化昆仑玻璃",
+                     "frame_material": "高亮钛合金中框",
+                     "back_material": "陶瓷/素皮",
+                     "ram_gb": "20GB",
+                     "rom_gb": "512GB/1TB",
+                     "storage_options": ["20GB+512GB 11999元",
+                                         "20GB+1TB 12999元"],
+                     "rear_camera_main": "5000万像素超聚光主摄（F1.4-F4.0十档可变光圈，OIS光学防抖，RYYB传感器）",
+                     "rear_camera_ultrawide": "4000万像素超广角摄像头（F2.2光圈）",
+                     "rear_camera_telephoto": "5000万像素超聚光微距长焦摄像头（OIS光学防抖）",
+                     "rear_camera_periscope": "4800万像素超长焦摄像头（OIS光学防抖，支持100倍数字变焦）",
+                     "rear_camera_spectrum": "第二代红枫原色摄像头",
+                     "rear_camera_count": 5,
+                     "front_camera_main": "1300万像素超广角摄像头（F2.0光圈，自动对焦）",
+                     "front_camera_depth": "3D深感摄像头",
+                     "front_camera_count": 2,
+                     "photo_features": ["第二代红枫影像", "AI扩图40%",
+                                        "AI光影引擎", "动感摇拍",
+                                        "电影效果"],
+                     "battery_mah": 6000,
+                     "wired_charge_w": 100,
+                     "wireless_charge_w": 80,
+                     "reverse_charge_w": 10,
+                     "waterproof": "IP68 6米抗水 + IP69K高温高压喷水",
+                     "satellite": "天通卫星通话+北斗卫星消息",
+                     "offline_comm": "2.4GHz无网通信（最远7公里）",
+                     "outdoor_mode": "户外探索模式（13天极限续航+摩斯码警报）",
+                     "os": "HarmonyOS 6",
+                     "ai": "鸿蒙AI（小艺+隔空传送+魔法表情）",
+                     "colors": ["槿紫", "皓白", "玄黑"],
                      "positioning": "超高端商务旗舰"},
         maturity=MaturityLevel.MASS_PRODUCTION,
         source="", source_tier=SourceTier.TIER1,
@@ -5665,44 +5863,110 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                               "机器人外壳制造提供参考",
         deployment_ready=True,
         tags=["Mate 80 RS", "华为", "非凡大师",
-              "麒麟9030", "超高端", "RS"],
+              "麒麟9030 Pro", "20GB", "超高端", "RS"],
     ),
     AIProduct(
         product_id="MC-019", name="华为Mate 80 Pro Max旗舰手机",
         category=AICategory.MOBILE_COMPUTER,
         organization="", country="中国",
-        description="Mate 80系列顶配Pro Max，搭载麒麟9030"
-                    "旗舰芯片，全面升级影像系统和AI能力。"
-                    "Mate系列一贯的商务旗舰定位，大电池+"
-                    "快充+卫星通信。鸿蒙Next完整生态。",
-        key_metrics={"series": "Mate 80",
+        description="Mate 80系列顶配Pro Max，6.9英寸超透亮"
+                    "灵珑屏（峰值8000nit），全金属玄武架构+"
+                    "第二代昆仑玻璃。搭载麒麟9030 Pro旗舰芯片，"
+                    "整机性能提升42%。第二代红枫五摄，6000mAh"
+                    "电池+100W快充。支持卫星通信、户外探索模式，"
+                    "HarmonyOS 6。7999元起，极昼金/极光青/"
+                    "极地银/极夜黑四色。",
+        key_metrics={"price_start_rmb": 7999,
+                     "price_top_rmb": 8999,
+                     "series": "Mate 80",
                      "tier": "Pro Max",
-                     "chip": "麒麟9030",
-                     "features": ["卫星通信", "大电池",
-                                  "超级快充", "鸿蒙Next"]},
+                     "chip": "麒麟9030 Pro",
+                     "performance_gain_pct": 42,
+                     "screen_inch": 6.9,
+                     "screen_type": "超透亮灵珑屏（双层OLED）",
+                     "refresh_hz": "1-120Hz LTPO自适应",
+                     "peak_brightness_nits": 8000,
+                     "glass": "第二代昆仑玻璃",
+                     "architecture": "全金属玄武架构",
+                     "ram_gb": "16GB",
+                     "rom_gb": "512GB/1TB",
+                     "storage_options": ["16GB+512GB 7999元",
+                                         "16GB+1TB 8999元"],
+                     "rear_camera_main": "5000万像素超聚光主摄（F1.4-F4.0十档可变光圈，OIS光学防抖，RYYB传感器）",
+                     "rear_camera_ultrawide": "4000万像素超广角摄像头（F2.2光圈）",
+                     "rear_camera_telephoto": "5000万像素超聚光微距长焦摄像头（OIS光学防抖）",
+                     "rear_camera_periscope": "4800万像素超长焦摄像头（OIS光学防抖）",
+                     "rear_camera_spectrum": "第二代红枫原色摄像头",
+                     "rear_camera_count": 5,
+                     "front_camera_main": "1300万像素超广角摄像头（F2.0光圈，自动对焦）",
+                     "front_camera_depth": "3D深感摄像头",
+                     "front_camera_count": 2,
+                     "photo_features": ["第二代红枫影像", "AI扩图40%",
+                                        "AI光影引擎", "动感摇拍",
+                                        "电影效果"],
+                     "battery_mah": 6000,
+                     "wired_charge_w": 100,
+                     "wireless_charge_w": 80,
+                     "reverse_charge_w": 10,
+                     "weight_g": 230,
+                     "waterproof": "IP68 6米抗水 + IP69K高温高压喷水",
+                     "satellite": "北斗卫星消息+天通卫星通话",
+                     "offline_comm": "2.4GHz无网通信（最远7公里）",
+                     "outdoor_mode": "户外探索模式（极限续航13天+摩斯码警报+33h熄屏导航）",
+                     "os": "HarmonyOS 6",
+                     "ai": "鸿蒙AI（小艺+隔空传送+魔法表情）",
+                     "colors": ["极昼金", "极光青",
+                                "极地银", "极夜黑"]},
         maturity=MaturityLevel.MASS_PRODUCTION,
         source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="卫星通信能力可作为机器人"
                               "远程控制的备选通信链路",
         deployment_ready=True,
-        tags=["Mate 80 Pro Max", "华为", "麒麟9030",
-              "卫星通信", "商务旗舰", "Pro Max"],
+        tags=["Mate 80 Pro Max", "华为", "麒麟9030 Pro",
+              "卫星通信", "8000nit", "商务旗舰", "Pro Max"],
     ),
     AIProduct(
         product_id="MC-020", name="华为畅享90 Pro Max千元长续航",
         category=AICategory.MOBILE_COMPUTER,
         organization="", country="中国",
-        description="畅享系列顶配，首次搭载麒麟8系芯片，"
-                    "运行鸿蒙OS 6。8500mAh巨鲸电池超大容量，"
-                    "主打超长续航。定位入门级市场，解决长辈"
-                    "和备用机用户流畅与续航痛点。麒麟芯片"
-                    "首次下放至千元档。",
-        key_metrics={"series": "畅享90",
+        description="畅享系列顶配，6.84英寸OLED直屏，搭载"
+                    "麒麟8000芯片，运行HarmonyOS 6.0。8500mAh"
+                    "巨鲸电池+40W Turbo快充，主打超长续航。"
+                    "5000万像素RYYB超感知主摄，星闪E1.0。"
+                    "8GB+128GB 1699元起，飞天青/晨曦金/"
+                    "雪域白/曜金黑四色。定位入门级市场。",
+        key_metrics={"price_start_rmb": 1699,
+                     "price_top_rmb": 2399,
+                     "series": "畅享90",
                      "tier": "Pro Max",
-                     "chip": "麒麟8系",
+                     "chip": "麒麟8000",
+                     "screen_inch": 6.84,
+                     "screen_type": "OLED直屏",
+                     "refresh_hz": 120,
+                     "peak_brightness_nits": 1500,
+                     "ram_gb": "8GB",
+                     "rom_gb": "128GB/256GB/512GB",
+                     "storage_options": ["8GB+128GB 1699元",
+                                         "8GB+256GB 1999元",
+                                         "8GB+512GB 2399元"],
+                     "rear_camera_main": "5000万像素RYYB超感知主摄（F1.8光圈）",
+                     "rear_camera_ultrawide": "200万像素景深摄像头",
+                     "rear_camera_macro": "200万像素微距摄像头",
+                     "rear_camera_count": 3,
+                     "front_camera_main": "800万像素前置摄像头（F2.0光圈）",
+                     "front_camera_count": 1,
                      "battery_mah": 8500,
-                     "os": "HarmonyOS 6",
+                     "wired_charge_w": 40,
+                     "reverse_charge_w": 5,
+                     "nearlink": "E1.0",
+                     "weight_g": 214,
+                     "back_material": "玻璃",
+                     "frame_material": "塑料",
+                     "waterproof": "IP53生活防泼溅",
+                     "os": "HarmonyOS 6.0",
+                     "colors": ["飞天青", "晨曦金",
+                                "雪域白", "曜金黑"],
                      "positioning": "千元长续航"},
         maturity=MaturityLevel.MASS_PRODUCTION,
         source="", source_tier=SourceTier.TIER1,
@@ -5710,20 +5974,57 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         relevance_to_robotics="8500mAh超大电池方案可参考"
                               "机器人移动终端的续航设计",
         deployment_ready=True,
-        tags=["畅享90 Pro Max", "华为", "麒麟8系",
+        tags=["畅享90 Pro Max", "华为", "麒麟8000",
               "8500mAh", "千元机", "Pro Max"],
     ),
     AIProduct(
         product_id="MC-021", name="华为nova 16 Pro人像旗舰",
         category=AICategory.MOBILE_COMPUTER,
         organization="", country="中国",
-        description="nova 16系列Pro版，定位年轻时尚人像"
-                    "旗舰。前置高清人像镜头，后置AI多摄"
-                    "系统。全新配色设计，轻薄机身。3899元"
-                    "起，主打线下渠道和年轻用户群体。",
+        description="nova 16系列Pro版，6.84英寸1.5K LTPO屏"
+                    "（峰值6000nit），7.1mm航空级铝合金中框+"
+                    "昆仑玻璃。搭载麒麟9010S芯片，2亿红枫主摄+"
+                    "5000万潜望长焦+5000万超广角，前置5000万"
+                    "红枫人像。7000mAh巨鲸电池+100W快充。"
+                    "12GB+256GB 3899元起，天际白/幻彩贝母/"
+                    "晴空蓝/星空黑四色。",
         key_metrics={"price_start_rmb": 3899,
+                     "price_top_rmb": 4999,
                      "series": "nova 16",
                      "tier": "Pro",
+                     "chip": "麒麟9010S",
+                     "screen_inch": 6.84,
+                     "screen_type": "1.5K LTPO OLED直屏",
+                     "refresh_hz": "1-120Hz LTPO自适应",
+                     "peak_brightness_nits": 6000,
+                     "pwm_dimming_hz": 2160,
+                     "thickness_mm": 7.1,
+                     "ram_gb": "12GB",
+                     "rom_gb": "256GB/512GB/1TB",
+                     "storage_options": ["12GB+256GB 3899元",
+                                         "12GB+512GB 4399元",
+                                         "12GB+1TB 4999元"],
+                     "rear_camera_main": "2亿像素红枫主摄（1/1.4英寸大底，F1.4-F4.0可变光圈，OIS光学防抖）",
+                     "rear_camera_ultrawide": "5000万像素超广角摄像头（F2.2光圈）",
+                     "rear_camera_telephoto": "5000万像素潜望式长焦摄像头（F2.4光圈，OIS光学防抖，3倍光学变焦）",
+                     "rear_camera_spectrum": "红枫原色摄像头",
+                     "rear_camera_count": 4,
+                     "front_camera_main": "5000万像素红枫人像摄像头（F2.0光圈，自动对焦，AF自动对焦）",
+                     "front_camera_count": 1,
+                     "photo_features": ["红枫人像", "AI美颜",
+                                        "夜景人像", "舞台光效",
+                                        "AI扩图"],
+                     "battery_mah": 7000,
+                     "wired_charge_w": 100,
+                     "weight_g": 205,
+                     "frame_material": "航空级铝合金中框",
+                     "glass": "昆仑玻璃",
+                     "waterproof": "IP65生活防水",
+                     "os": "HarmonyOS 6.1",
+                     "ai_features": ["AI人像", "AI美颜",
+                                    "魔法表情", "趣味主题"],
+                     "colors": ["天际白", "幻彩贝母",
+                                "晴空蓝", "星空黑"],
                      "focus": "人像拍摄",
                      "positioning": "年轻时尚旗舰"},
         maturity=MaturityLevel.MASS_PRODUCTION,
@@ -5739,15 +6040,52 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         product_id="MC-022", name="华为nova 16 Ultra顶配人像",
         category=AICategory.MOBILE_COMPUTER,
         organization="", country="中国",
-        description="nova 16系列顶配Ultra版，4699元起。"
-                    "升级旗舰级影像传感器和AI影像算法，"
-                    "前后双高清人像系统。最高端的nova"
-                    "机型，在人像摄影领域达到准旗舰水平。",
+        description="nova 16系列顶配Ultra版，6.84英寸LTPO屏"
+                    "（6000nit），7.1mm素皮+玻璃拼接机身，昆仑玻璃，"
+                    "IP68/IP69防水。搭载麒麟9010S芯片，2亿RYYB"
+                    "超大底主摄+5000万潜望长焦+5000万超广角，"
+                    "前置5000万红枫人像。7000mAh电池+100W有线+"
+                    "50W无线，天通+北斗双卫星通信。12GB+256GB"
+                    "4699元起，晴空蓝/天际白/星空黑三色。",
         key_metrics={"price_start_rmb": 4699,
+                     "price_top_rmb": 5799,
                      "series": "nova 16",
                      "tier": "Ultra",
+                     "chip": "麒麟9010S",
+                     "screen_inch": 6.84,
+                     "screen_type": "LTPO OLED曲面屏",
+                     "refresh_hz": "1-120Hz LTPO自适应",
+                     "peak_brightness_nits": 6000,
+                     "pwm_dimming_hz": 2160,
+                     "thickness_mm": 7.1,
+                     "design": "素皮+玻璃拼接机身",
+                     "ram_gb": "12GB",
+                     "rom_gb": "256GB/512GB/1TB",
+                     "storage_options": ["12GB+256GB 4699元",
+                                         "12GB+512GB 5199元",
+                                         "12GB+1TB 5799元"],
+                     "rear_camera_main": "2亿像素RYYB超大底主摄（1/1.4英寸大底，F1.4-F4.0可变光圈，OIS光学防抖）",
+                     "rear_camera_ultrawide": "5000万像素超广角摄像头（F2.2光圈）",
+                     "rear_camera_telephoto": "5000万像素潜望式长焦摄像头（F2.4光圈，OIS光学防抖，3倍光学变焦）",
+                     "rear_camera_spectrum": "红枫原色摄像头",
+                     "rear_camera_count": 4,
+                     "front_camera_main": "5000万像素红枫人像摄像头（F2.0光圈，自动对焦）",
+                     "front_camera_count": 1,
+                     "photo_features": ["前后双红枫影像", "AI人像",
+                                        "AI美颜", "舞台光效",
+                                        "AI扩图"],
+                     "battery_mah": 7000,
+                     "wired_charge_w": 100,
+                     "wireless_charge_w": 50,
+                     "reverse_charge_w": 10,
+                     "weight_g": 210,
+                     "glass": "昆仑玻璃",
+                     "waterproof": "IP68/IP69K",
+                     "satellite": "天通+北斗双卫星通信",
+                     "os": "HarmonyOS 6.1",
+                     "colors": ["晴空蓝", "天际白", "星空黑"],
                      "focus": "旗舰人像",
-                     "camera": "前后双高清人像"},
+                     "camera": "前后双红枫影像"},
         maturity=MaturityLevel.MASS_PRODUCTION,
         source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
@@ -5913,16 +6251,33 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         product_id="MC-028", name="华为MateBook 14鸿蒙版",
         category=AICategory.MOBILE_COMPUTER,
         organization="", country="中国",
-        description="华为MateBook 14鸿蒙版，搭载鸿蒙电脑"
-                    "操作系统，与手机平板生态无缝流转。"
-                    "14英寸护眼全面屏，轻薄金属机身。"
-                    "华为AI能力深度整合，支持小艺智能助手、"
-                    "AI文档处理等功能。",
-        key_metrics={"series": "MateBook 14",
+        description="华为MateBook 14鸿蒙版，搭载麒麟X90处理器"
+                    "（40TOPS NPU），鸿蒙电脑操作系统，与手机"
+                    "平板生态无缝流转。14.2英寸2.8K OLED触控屏"
+                    "（2880×1920/120Hz），70Wh电池21小时续航，"
+                    "100W快充。24GB内存起步，支持小艺智能助手、"
+                    "AI文档处理。原野绿/深空灰/樱粉金，6299元起。",
+        key_metrics={"price_start_rmb": 6299,
+                     "price_top_rmb": 8599,
+                     "series": "MateBook 14",
+                     "processor": "麒麟X90",
+                     "npu_tops": 40,
                      "os": "HarmonyOS PC",
-                     "screen_inch": 14,
+                     "screen_inch": 14.2,
+                     "resolution": "2880x1920",
+                     "refresh_hz": 120,
+                     "ram_gb": "16GB/24GB/32GB",
+                     "rom_gb": "512GB/1TB",
+                     "storage_options": ["16GB+512GB 6299元",
+                                         "24GB+512GB 6599元",
+                                         "24GB+1TB 7599元",
+                                         "32GB+1TB 8599元"],
+                     "battery_wh": 70,
+                     "battery_h": 21,
+                     "charge_w": 100,
+                     "colors": ["原野绿", "深空灰", "樱粉金"],
                      "features": ["多屏协同", "AI文档",
-                                  "小艺助手", "护眼屏"]},
+                                  "小艺助手", "OLED触控屏"]},
         maturity=MaturityLevel.MASS_PRODUCTION,
         source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
@@ -5966,6 +6321,600 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         deployment_ready=True,
         tags=["MacBook Air", "Apple", "M5",
               "18小时续航", "AI PC", "Apple Intelligence"],
+    ),
+    AIProduct(
+        product_id="MC-030", name="华为AI眼镜",
+        category=AICategory.DIGITAL_PRODUCT,
+        organization="", country="中国",
+        description="华为首款鸿蒙AI眼镜，整机仅35.5g，"
+                    "镜腿薄至6.25mm。1200万超感光摄像头"
+                    "（1/2.8英寸），业界首发HDR Vivid，"
+                    "0.7秒AI闪拍。小艺助手支持视觉识别、"
+                    "全双工对话、精准指向问答（准确率90%）、"
+                    "卡路里识别、扫码支付。12小时续航，"
+                    "磁吸快充。钛银灰/摩登黑2499元，"
+                    "流光银2899元。",
+        key_metrics={"price_start_rmb": 2499,
+                     "price_top_rmb": 2899,
+                     "weight_g": 35.5,
+                     "thickness_mm": 6.25,
+                     "camera_mp": 12,
+                     "camera_sensor": "1/2.8英寸",
+                     "hdr": "HDR Vivid",
+                     "ai_shutter_sec": 0.7,
+                     "battery_hours": 12,
+                     "charging": "磁吸快充",
+                     "features": ["HDR Vivid", "AI闪拍",
+                                  "小艺视觉识别", "扫码支付",
+                                  "全双工对话", "卡路里识别",
+                                  "精准指向问答"],
+                     "pointing_accuracy_pct": 90,
+                     "colors": ["钛银灰", "摩登黑", "流光银"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="第一视角摄像头和视觉识别"
+                              "可作为机器人远程操控和"
+                              "AR交互参考方案",
+        deployment_ready=True,
+        tags=["华为AI眼镜", "鸿蒙", "HDR Vivid",
+              "35.5g", "小艺", "智能眼镜"],
+    ),
+    AIProduct(
+        product_id="MC-031", name="华为MatePad Pro Max旗舰平板",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="中国",
+        description="13.2英寸3K柔性OLED屏，云隼架构"
+                    "全金属机身薄至4.7mm轻至499g。"
+                    "麒麟T93 Pro芯片，性能较上代提升45%。"
+                    "高低分频六扬声器，鸿蒙双桌面（平板/"
+                    "电脑模式切换），支持教育空间与学而思"
+                    "独家合作。凝光蓝/曜石灰/皓月银/深空灰"
+                    "四色，5999元起。",
+        key_metrics={"price_start_rmb": 5999,
+                     "price_top_rmb": 8999,
+                     "screen_inch": 13.2,
+                     "screen_res": "3K OLED",
+                     "refresh_hz": 144,
+                     "thickness_mm": 4.7,
+                     "weight_g": 499,
+                     "chip": "麒麟T93 Pro",
+                     "performance_gain_pct": 45,
+                     "ram_gb": "12GB/16GB",
+                     "rom_gb": "256GB/512GB/1TB",
+                     "storage_options": ["12GB+256GB 5999元",
+                                         "12GB+512GB 6999元",
+                                         "16GB+512GB 7499元",
+                                         "16GB+1TB 8999元"],
+                     "battery_mah": 12000,
+                     "charge_w": 100,
+                     "speakers": 6,
+                     "os": "HarmonyOS",
+                     "desktop_mode": "鸿蒙双桌面",
+                     "colors": ["凝光蓝", "曜石灰",
+                                "皓月银", "深空灰"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="大屏+双桌面可作为机器人"
+                              "调试监控和编程终端",
+        deployment_ready=True,
+        tags=["MatePad Pro Max", "华为", "麒麟T93 Pro",
+              "3K OLED", "4.7mm", "鸿蒙双桌面"],
+    ),
+    AIProduct(
+        product_id="MC-032", name="华为FreeClip 2典藏版耳夹耳机",
+        category=AICategory.DIGITAL_PRODUCT,
+        organization="", country="中国",
+        description="鎏光美学设计，星海蓝与珠光银两色。"
+                    "单耳机轻至5.1g，液态硅胶亲肤材质"
+                    "柔软度提升25%。AI键一键唤醒，按住"
+                    "即说松手即答。智感音量自适应算法，"
+                    "超澎湃双擎单元。耳机盒空间提升20%，"
+                    "可收纳周大福联名珠宝配饰。1499元起。",
+        key_metrics={"price_start_rmb": 1499,
+                     "price_top_rmb": 1799,
+                     "single_weight_g": 5.1,
+                     "silicone_softness_boost_pct": 25,
+                     "case_space_boost_pct": 20,
+                     "battery_hours": 36,
+                     "anc": "智感音量自适应",
+                     "features": ["AI键交互", "智感音量自适应",
+                                  "双擎单元", "全双工对话",
+                                  "IP54防水", "周大福联名收纳"],
+                     "colors": ["星海蓝", "珠光银"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="耳夹式佩戴和AI键交互"
+                              "可参考机器人语音通信终端",
+        deployment_ready=True,
+        tags=["FreeClip 2", "华为", "耳夹耳机",
+              "AI键", "5.1g", "典藏版"],
+    ),
+    AIProduct(
+        product_id="MC-033", name="Redmi Book 16 2026",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="中国",
+        description="16英寸2.5K超清镜面屏（2560×1600），"
+                    "120Hz高刷，400nit亮度。英特尔酷睿"
+                    "Ultra 5 125H，14核18线程，LPDDR5X"
+                    "7467MT/s内存，最高32GB+1TB。80Wh"
+                    "大电池24.8小时本地视频，100W GaN"
+                    "充电器。双风扇双热管60W性能释放，"
+                    "1.86kg全金属机身。AI文档处理与"
+                    "跨端智联。",
+        key_metrics={"screen_inch": 16,
+                     "screen_res": "2560x1600",
+                     "refresh_hz": 120,
+                     "chip": "酷睿Ultra 5 125H",
+                     "ram": "LPDDR5X 7467MT/s",
+                     "battery_wh": 80,
+                     "weight_kg": 1.86,
+                     "performance_w": 60,
+                     "charge_w": 100},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="大屏+长续航适合作为"
+                              "机器人工作站和数据处理终端",
+        deployment_ready=True,
+        tags=["Redmi Book 16", "小米", "酷睿Ultra",
+              "2.5K", "80Wh", "AI PC"],
+    ),
+    AIProduct(
+        product_id="MC-034", name="Redmi Book Pro 2026",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="中国",
+        description="高性能AI旗舰笔记本，14/16英寸"
+                    "双尺寸。酷睿Ultra X7358H处理器，"
+                    "集成Arc B390核显，50 TOPS NPU，"
+                    "支持XeSS 3.0。LPDDR5X 9600内存，"
+                    "92/99Wh大电池接近民航上限，90W"
+                    "反向快充。AI个人知识库与深度搜索，"
+                    "强化本地AI算力。",
+        key_metrics={"chip": "酷睿Ultra X7358H",
+                     "gpu": "Arc B390",
+                     "npu_tops": 50,
+                     "ram": "LPDDR5X 9600",
+                     "battery_wh": "92/99",
+                     "reverse_charge_w": 90,
+                     "ai_features": ["个人知识库",
+                                     "深度搜索",
+                                     "本地AI算力"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="50 TOPS NPU可运行"
+                              "机器人本地AI推理任务",
+        deployment_ready=True,
+        tags=["Redmi Book Pro", "小米", "50TOPS NPU",
+              "AI旗舰", "99Wh", "XeSS 3.0"],
+    ),
+    AIProduct(
+        product_id="MC-035", name="小米平板7",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="中国",
+        description="11.2英寸3.2K LCD屏（3200×2136），"
+                    "3:2比例，144Hz自适应刷新率，800nit"
+                    "峰值亮度，12bit色深。骁龙7+ Gen3"
+                    "4nm处理器。四扬声器支持杜比全景声，"
+                    "8850mAh电池+45W快充。Xiaomi HyperAI"
+                    "支持AI搜索、文本生成、图像生成、"
+                    "会议记录。工作站模式桌面级体验。",
+        key_metrics={"screen_inch": 11.2,
+                     "screen_res": "3.2K",
+                     "refresh_hz": 144,
+                     "peak_brightness_nits": 800,
+                     "chip": "骁龙7+ Gen3",
+                     "process_nm": 4,
+                     "battery_mah": 8850,
+                     "charge_w": 45,
+                     "ai": "Xiaomi HyperAI"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="高分辨率平板可作为"
+                              "机器人远程监控面板",
+        deployment_ready=True,
+        tags=["小米平板7", "骁龙7+ Gen3", "3.2K",
+              "144Hz", "HyperAI", "平板"],
+    ),
+    AIProduct(
+        product_id="MC-036", name="苹果iPad mini 8 OLED",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="Apple", country="美国",
+        description="新一代iPad mini重大升级，首次"
+                    "采用OLED显示屏。搭载A20 Pro芯片"
+                    "（2nm工艺），支持Apple Intelligence。"
+                    "振动式扬声器系统取消扬声器开孔，"
+                    "防水设计升级。支持Apple Pencil Pro，"
+                    "8.3英寸便携机身，定位口袋级生产力"
+                    "工具。",
+        key_metrics={"screen_inch": 8.3,
+                     "display": "OLED",
+                     "chip": "A20 Pro",
+                     "process_nm": 2,
+                     "pencil": "Apple Pencil Pro",
+                     "speaker": "振动式",
+                     "waterproof": True,
+                     "ai": "Apple Intelligence"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-08-13",
+        relevance_to_robotics="OLED+A20 Pro的便携"
+                              "方案可作为机器人手持"
+                              "遥控终端参考",
+        deployment_ready=False,
+        tags=["iPad mini 8", "Apple", "OLED",
+              "A20 Pro", "2nm", "Apple Pencil Pro"],
+    ),
+    AIProduct(
+        product_id="MC-037", name="华为Mate 80标准版",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="中国",
+        description="Mate 80系列标准款旗舰手机。6.75英寸OLED"
+                    "直屏搭载第二代昆仑玻璃，麒麟9020芯片配合"
+                    "HarmonyOS 6，整机性能提升。第二代红枫影像"
+                    "四摄系统（5000万超光变主摄+4000万超广角+"
+                    "1200万潜望长焦+红枫原色），前置1300万超广角"
+                    "+3D深感。5750mAh电池+66W超级快充，支持"
+                    "北斗卫星消息、2.4GHz无网通信（最远7公里）、"
+                    "户外探索模式、摩斯码闪光警报、IP68/IP69防水。",
+        key_metrics={"price_start_rmb": 4699,
+                     "price_top_rmb": 5699,
+                     "series": "Mate 80",
+                     "tier": "标准版",
+                     "chip": "麒麟9020",
+                     "os": "HarmonyOS 6.0",
+                     "screen_inch": 6.75,
+                     "screen_type": "OLED直屏",
+                     "refresh_hz": "1-120Hz LTPO自适应",
+                     "pwm_dimming_hz": 1440,
+                     "touch_sample_hz": 300,
+                     "glass": "第二代昆仑玻璃",
+                     "performance_gain_pct": 42,
+                     "ram_gb": "12GB/16GB",
+                     "rom_gb": "256GB/512GB",
+                     "storage_options": ["12GB+256GB 4699元",
+                                         "12GB+512GB 5199元",
+                                         "16GB+512GB 5699元"],
+                     "rear_camera_main": "5000万像素超光变（F1.4-F4.0十档可变光圈，OIS光学防抖，RYYB传感器）",
+                     "rear_camera_ultrawide": "4000万像素超广角（F2.2光圈）",
+                     "rear_camera_telephoto": "1200万像素潜望式长焦（F3.4光圈，OIS光学防抖，RYYB传感器）",
+                     "rear_camera_spectrum": "第二代红枫原色摄像头",
+                     "rear_camera_count": 4,
+                     "front_camera_main": "1300万像素超广角（F2.0光圈，自动对焦）",
+                     "front_camera_depth": "3D深感摄像头",
+                     "front_camera_count": 2,
+                     "flash": "后置LED闪光灯",
+                     "video_max": "4K（3840×2160）AIS防抖",
+                     "battery_mah": 5750,
+                     "wired_charge_w": 66,
+                     "reverse_charge_w": 5,
+                     "wireless_charge_w": 50,
+                     "weight_g": 217,
+                     "back_material": "锦纤材质",
+                     "frame_material": "铝合金",
+                     "fingerprint": "侧面指纹识别",
+                     "waterproof": "IP68 6米抗水 + IP69K高温高压喷水",
+                     "satellite": "北斗卫星消息",
+                     "offline_comm": "2.4GHz无网通信（最远7公里）",
+                     "outdoor_mode": "户外探索模式（极限续航13天，摩斯码闪光警报）",
+                     "colors": ["曜石黑", "雪域白", "云杉绿", "晨曦金"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08",
+        relevance_to_robotics="卫星通信+无网通信+"
+                              "户外传感器能力可为野外"
+                              "机器人应急通信提供参考",
+        deployment_ready=True,
+        tags=["Mate 80", "麒麟9020", "第二代红枫影像",
+              "第二代昆仑玻璃", "北斗卫星", "IP68",
+              "潜望长焦", "HarmonyOS 6"],
+    ),
+    AIProduct(
+        product_id="MC-038", name="华为Mate 80 Pro",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="中国",
+        description="Mate 80系列Pro款旗舰。6.7英寸四曲屏，"
+                    "麒麟9030芯片配合HarmonyOS 6，第二代红枫"
+                    "影像升级（超聚光主摄+超聚光微距长焦+4000万"
+                    "超广角+红枫原色），第九代ISP数据处理和视频"
+                    "降噪大幅提升。第二代昆仑玻璃+锦纤超耐摔，"
+                    "IP68 6米+IP69K防水，支持北斗卫星消息、"
+                    "无网通信7公里、户外探索模式13天极限续航、"
+                    "摩斯码闪光警报、鸿蒙AI。",
+        key_metrics={"price_start_rmb": 5999,
+                     "price_top_rmb": 7999,
+                     "series": "Mate 80",
+                     "tier": "Pro",
+                     "chip": "麒麟9030",
+                     "isp": "第九代ISP",
+                     "os": "HarmonyOS 6",
+                     "screen_inch": 6.7,
+                     "screen_type": "OLED四曲屏",
+                     "refresh_hz": "1-120Hz LTPO自适应",
+                     "peak_brightness_nits": 3000,
+                     "glass": "第二代昆仑玻璃",
+                     "back_material": "锦纤材质（抗冲击提升5倍）",
+                     "frame_material": "铝合金",
+                     "drop_resistance": "整机耐摔提升20倍",
+                     "performance_gain_pct": 42,
+                     "ram_gb": "12GB/16GB",
+                     "rom_gb": "256GB/512GB/1TB",
+                     "storage_options": ["12GB+256GB 5999元",
+                                         "12GB+512GB 6499元",
+                                         "16GB+512GB 6999元",
+                                         "16GB+1TB 7999元"],
+                     "rear_camera_main": "5000万像素超聚光主摄（F1.4-F4.0十档可变光圈，OIS光学防抖，RYYB传感器）",
+                     "rear_camera_ultrawide": "4000万像素超广角摄像头（F2.2光圈）",
+                     "rear_camera_telephoto": "5000万像素超聚光微距长焦摄像头（OIS光学防抖，超长焦）",
+                     "rear_camera_spectrum": "第二代红枫原色摄像头",
+                     "rear_camera_count": 4,
+                     "front_camera_main": "1300万像素超广角（F2.0光圈，自动对焦）",
+                     "front_camera_depth": "3D深感摄像头",
+                     "front_camera_count": 2,
+                     "photo_features": ["动感摇拍", "电影效果",
+                                        "AI扩图", "AI光影引擎"],
+                     "battery_mah": 5800,
+                     "wired_charge_w": 80,
+                     "wireless_charge_w": 50,
+                     "reverse_charge_w": 5,
+                     "extreme_battery_days": 13,
+                     "offline_tracking_h": 33,
+                     "offline_comm": "2.4GHz畅连无网通信（最远7公里）",
+                     "satellite": "北斗卫星消息+卫星天气查询",
+                     "emergency": "摩斯码闪光警报",
+                     "outdoor_routes": "10000+条户外精品路线（花瓣地图+两步路）",
+                     "waterproof": "IP68 6米抗水 + IP69K高温高压喷水",
+                     "fingerprint": "侧面指纹识别",
+                     "ai": "鸿蒙AI（小艺+魔法表情+隔空传送+趣味主题）",
+                     "colors": ["晨曦金", "云杉绿", "雪域白", "曜石黑"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08",
+        relevance_to_robotics="超聚光长焦+红枫原色"
+                              "影像系统为机器人视觉"
+                              "色彩还原与远距感知提"
+                              "供参考方案",
+        deployment_ready=True,
+        tags=["Mate 80 Pro", "麒麟9030", "第二代红枫影像",
+              "超聚光长焦", "第二代昆仑玻璃", "北斗卫星",
+              "IP68", "无网通信", "HarmonyOS 6"],
+    ),
+    AIProduct(
+        product_id="MD-017", name="华为WATCH ULTIMATE DESIGN非凡大师星钻版",
+        category=AICategory.MEDICAL_DEVICE,
+        organization="", country="中国",
+        description="超高端智能腕表，24999元起。业界"
+                    "首创复合稀土紫色陶瓷表圈（1400℃"
+                    "高温淬炼），六段18K黄金手工镶嵌+"
+                    "24K纯金字符。非晶锆合金表壳，TC4"
+                    "钛合金间金表带。北斗卫星语音消息"
+                    "（10秒语音），eSIM独立通信，星闪"
+                    "智慧控车。150米深潜+海豚声呐通信。"
+                    "X-TAP智感窗健康监测，鸿蒙AI。",
+        key_metrics={"price_start_rmb": 24999,
+                     "bezel": "复合稀土紫色陶瓷",
+                     "gold_detail": "18K/24K黄金",
+                     "case": "非晶锆合金",
+                     "band": "TC4钛合金间金",
+                     "satellite": "北斗语音消息",
+                     "diving_m": 150,
+                     "communication": ["eSIM", "星闪"],
+                     "ai": "鸿蒙AI"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="北斗卫星通信和声呐"
+                              "技术可参考机器人水下/"
+                              "野外通信方案",
+        deployment_ready=True,
+        tags=["WATCH ULTIMATE DESIGN", "华为",
+              "非凡大师", "北斗卫星", "18K金",
+              "150米深潜", "24999元"],
+    ),
+    AIProduct(
+        product_id="MD-018", name="华为WATCH GT Runner 2",
+        category=AICategory.MEDICAL_DEVICE,
+        organization="", country="中国",
+        description="与奥运马拉松冠军基普乔格共创"
+                    "赛道传奇款，首发华为精英训练管理"
+                    "平台。专业跑步训练体系，马拉松"
+                    "备赛指导。2588元起，专属外观配色，"
+                    "跑者精神设计灵感。",
+        key_metrics={"price_start_rmb": 2588,
+                     "co_brand": "基普乔格",
+                     "screen_inch": 1.5,
+                     "battery_days": 14,
+                     "weight_g": 48,
+                     "gnss": "双频五星",
+                     "waterproof_5atm": True,
+                     "sports_modes": 100,
+                     "features": ["精英训练管理平台",
+                                  "马拉松备赛",
+                                  "专业跑步监测",
+                                  "跑力指数",
+                                  "训练负荷"],
+                     "positioning": "专业跑者腕表"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="运动算法和训练管理"
+                              "可参考机器人运动控制"
+                              "和步态优化",
+        deployment_ready=True,
+        tags=["WATCH GT Runner 2", "华为",
+              "基普乔格", "马拉松", "跑步腕表"],
+    ),
+    AIProduct(
+        product_id="MD-019", name="小米手表S4 41mm",
+        category=AICategory.MEDICAL_DEVICE,
+        organization="", country="中国",
+        description="小米首款小尺寸手表，41mm表径，"
+                    "9.5mm厚，仅32g。不锈钢中框，"
+                    "米兰尼斯款镶嵌6分培育钻石表冠。"
+                    "心率准确率提升，新增游泳实时心率"
+                    "监测，超150种运动模式。双频GNSS"
+                    "五星定位，专业睡眠阶段监测。"
+                    "HyperOS人车家全生态，可控制"
+                    "手机/电视/智能家居。",
+        key_metrics={"size_mm": 41,
+                     "thickness_mm": 9.5,
+                     "weight_g": 32,
+                     "frame": "不锈钢",
+                     "sports_modes": 150,
+                     "gnss": "双频五星",
+                     "swim_hr": True,
+                     "ecosystem": "人车家全生态"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="双频GNSS定位和运动"
+                              "监测可参考机器人导航"
+                              "和人体状态感知",
+        deployment_ready=True,
+        tags=["小米手表S4", "41mm", "32g",
+              "双频GNSS", "游泳心率", "HyperOS"],
+    ),
+    AIProduct(
+        product_id="MD-020", name="小米手环10",
+        category=AICategory.MEDICAL_DEVICE,
+        organization="", country="中国",
+        description="1.72英寸AMOLED跑道屏，行业首次"
+                    "2.0mm极窄四等边，73%屏占比，"
+                    "1500nit亮度。HyperOS 2.0，150+"
+                    "运动模式，新增蓝牙心率广播。"
+                    "九轴传感器+AI泳姿识别（准确率95%），"
+                    "指南针功能。最长21天续航，AOD 9天。"
+                    "多彩中框2.0+蚕丝针织腕带。",
+        key_metrics={"screen_inch": 1.72,
+                     "screen_type": "AMOLED",
+                     "brightness_nits": 1500,
+                     "os": "HyperOS 2.0",
+                     "sports_modes": "150+",
+                     "sensors": "九轴",
+                     "swim_ai": True,
+                     "battery_days": 21,
+                     "weight_g": 15.95},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="九轴传感器和泳姿"
+                              "识别算法可参考机器人"
+                              "姿态检测和运动识别",
+        deployment_ready=True,
+        tags=["小米手环10", "AMOLED", "1500nit",
+              "九轴", "21天续航", "HyperOS 2.0"],
+    ),
+    AIProduct(
+        product_id="MD-021", name="Apple Watch Series 12",
+        category=AICategory.MEDICAL_DEVICE,
+        organization="Apple", country="美国",
+        description="Apple Watch年度更新，搭载新一代"
+                    "S11芯片。可能加入Touch ID和更多"
+                    "健康传感器。watchOS 27带来更智能"
+                    "Siri和健康洞察。与iPhone 18系列"
+                    "同步发布，Apple Intelligence"
+                    "深度整合。",
+        key_metrics={"chip": "S11",
+                     "ai": "Apple Intelligence",
+                     "biometric": "Touch ID（传闻）",
+                     "os": "watchOS 27",
+                     "health_sensors": "升级款"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-08-13",
+        relevance_to_robotics="健康传感器和Siri"
+                              "交互可参考机器人"
+                              "人机交互方案",
+        deployment_ready=False,
+        tags=["Apple Watch Series 12", "Apple",
+              "S11", "watchOS 27", "健康监测"],
+    ),
+    AIProduct(
+        product_id="MD-022", name="Apple Watch Ultra 4",
+        category=AICategory.MEDICAL_DEVICE,
+        organization="Apple", country="美国",
+        description="Apple Watch Ultra第四代，"
+                    "升级S11芯片。新增卫星功能（Apple "
+                    "Maps卫星导航、卫星收发照片）。"
+                    "更坚固钛合金表壳，户外专业功能"
+                    "强化，更长续航。与iPhone 18系列"
+                    "同期发布。",
+        key_metrics={"chip": "S11",
+                     "case": "钛合金",
+                     "satellite_features": ["卫星地图",
+                                            "卫星照片"],
+                     "positioning": "户外专业",
+                     "ai": "Apple Intelligence"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-08-13",
+        relevance_to_robotics="卫星导航和钛合金"
+                              "防护可参考机器人"
+                              "户外作业终端",
+        deployment_ready=False,
+        tags=["Apple Watch Ultra 4", "Apple",
+              "钛合金", "卫星导航", "户外"],
+    ),
+    AIProduct(
+        product_id="HA-015", name="苹果HomePod mini 2",
+        category=AICategory.HOME_APPLIANCE,
+        organization="Apple", country="美国",
+        description="第二代HomePod mini智能音箱，"
+                    "搭载更新S系列芯片（基于Apple "
+                    "Watch Series 10），全新Siri"
+                    "智能体验。新增配色选项，可能"
+                    "采用N1网络芯片。支持Matter"
+                    "智能家居协议、Thread网络、"
+                    "UWB超宽带。家庭中枢功能。",
+        key_metrics={"chip": "S系列（基于S10）",
+                     "smart_assistant": "Siri",
+                     "protocols": ["Matter", "Thread",
+                                   "UWB", "蓝牙"],
+                     "features": ["家庭中枢",
+                                  "智能家居控制",
+                                  "广播对讲"]},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-08-13",
+        relevance_to_robotics="Matter/Thread协议"
+                              "和UWB可用于机器人"
+                              "智能家居互联",
+        deployment_ready=False,
+        tags=["HomePod mini 2", "Apple", "Siri",
+              "Matter", "Thread", "家庭中枢"],
+    ),
+    AIProduct(
+        product_id="HA-016", name="苹果HomePad家庭中枢",
+        category=AICategory.HOME_APPLIANCE,
+        organization="Apple", country="美国",
+        description="全新品类家庭智能中枢设备，"
+                    "配备7英寸iPad风格全显示屏。"
+                    "两款型号：壁挂式和带扬声器"
+                    "底座式（类似HomePod mini）。"
+                    "支持智能家居控制、音乐播放、"
+                    "视频通话、天气查询、照片显示、"
+                    "日历备忘、Siri语音助手。10月起"
+                    "陆续发售。",
+        key_metrics={"screen_inch": 7,
+                     "form_factors": ["壁挂式",
+                                       "扬声器底座式"],
+                     "features": ["智能家居控制",
+                                  "视频通话", "音乐",
+                                  "照片展示", "Siri"],
+                     "positioning": "家庭智能中枢"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-08-13",
+        relevance_to_robotics="家庭中枢显示屏和"
+                              "多模态交互可参考"
+                              "机器人家用控制台",
+        deployment_ready=False,
+        tags=["HomePad", "Apple", "家庭中枢",
+              "7英寸屏", "Siri", "新品类"],
     ),
 
 ]
