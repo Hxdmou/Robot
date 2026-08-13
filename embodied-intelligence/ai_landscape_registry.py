@@ -4,12 +4,12 @@
 AI全景注册表 - V1.2
 ================================================================
 新增内容（V1.2 2026-08-13）：
-  - 新增40+项AI产品覆盖19大模块
+  - 新增40+项AI产品覆盖21大模块
   - 修复农业模块ID冲突(AG->AGR)
   - 更新版本：V1.1 -> V1.2
 
 历史内容：
-  1. AICategory（19大类别枚举）
+  1. AICategory（21大类别枚举）
   2. MaturityLevel（成熟度枚举）
   3. SourceTier（来源等级枚举）
   4. AIProduct（产品数据类）
@@ -1113,7 +1113,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         tags=["智能批改", "作文评分", "教育智能体", "课堂分析"],
     ),
     # ==================================================================
-    # 更新：19大模块最新AI产品与技术进展
+    # 更新：21大模块最新AI产品与技术进展
     # ==================================================================
 
     # --- 人形机器人 ---
@@ -4740,6 +4740,273 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                               "自主移动",
         deployment_ready=True,
         tags=["扫地机器人", "AI导航", "激光避障", "扫拖一体", "科沃斯"],
+    ),
+    AIProduct(
+        product_id="HA-009", name="卡萨帝AI大师灶",
+        category=AICategory.HOME_APPLIANCE,
+        organization="", country="中国",
+        description="搭载AI之眼2.0智感烹饪技术与原创五环直喷大师火系统，"
+                    "实现炖煮防溢锅、爆炒火力旺还防炙烤。AI视觉实时监测"
+                    "锅温和食物状态，自动调节火候。推动智慧家庭战略在"
+                    "厨房场景快速落地，提供AI家电、AI场景、AI生活"
+                    "完整解决方案。",
+        key_metrics={"ai_version": "AI之眼2.0",
+                     "burner_system": "五环直喷大师火",
+                     "features": ["防溢锅", "防炙烤", "自动调火",
+                                  "视觉监测"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="厨房场景的AI视觉与火候控制涉及传感器融合"
+                              "和闭环控制，是家庭服务机器人在厨房场景的"
+                              "技术基础",
+        deployment_ready=True,
+        tags=["AI厨电", "卡萨帝", "AI之眼", "智能烹饪", "防溢锅"],
+    ),
+    AIProduct(
+        product_id="HA-010", name="美的MevoX自进化AI智能体",
+        category=AICategory.HOME_APPLIANCE,
+        organization="", country="中国",
+        description="美的全屋智能战略核心，构建AI Agent能力、智能家居"
+                    "家电融合矩阵和人车家生态三位一体智能版图。MevoX"
+                    "自进化智能体搭配家庭智航系统MIA 1.0，实现多设备"
+                    "统一调度与主动决策。技术栈融合AI大模型、IoT与"
+                    "分布式OS，基于OpenHarmony打造家鸿OS支持断网"
+                    "本地联动。小美AI支持10余种方言识别，准确率超95%，"
+                    "设备协同响应0.3秒。全球联网智能家电超1.4亿台，"
+                    "主导80余项国家标准。",
+        key_metrics={"connected_devices": 140000000,
+                     "dialects": 10, "dialect_accuracy_pct": 95,
+                     "response_latency_s": 0.3,
+                     "standards_led": 80, "os": "家鸿OS(OpenHarmony)",
+                     "ecosystem": "人·车·家"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="家庭AI大脑和多设备调度系统为服务机器人"
+                              "提供家庭环境感知和跨设备协同的基础设施",
+        deployment_ready=True,
+        tags=["MevoX", "AI智能体", "MIA 1.0", "家鸿OS", "人车家", "美的"],
+    ),
+    AIProduct(
+        product_id="HA-011", name="海尔国家AI应用中试基地(消费领域)",
+        category=AICategory.HOME_APPLIANCE,
+        organization="", country="中国",
+        description="海尔智家承建聚焦消费领域·家居家电方向的国家人工智能"
+                    "应用中试基地。L4级主动服务通过中家院认证，毫米波"
+                    "雷达人体定位误差≤10cm，AI之眼2.0识别300种食材，"
+                    "决策准确率95%以上。全球智慧家庭注册用户超1.3亿，"
+                    "APP月活增幅46%。2319件专利连续15年行业第一。"
+                    "微信AI Agent首批适配，支持自然语言直接控制家电。",
+        key_metrics={"registered_users": 130000000,
+                     "mau_growth_pct": 46, "patents": 2319,
+                     "patent_rank_years": 15,
+                     "l4_certified": True,
+                     "radar_accuracy_cm": 10,
+                     "ingredient_types": 300},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="L4级主动服务和多模态感知为家庭服务机器人"
+                              "提供成熟的感知-决策-执行技术栈",
+        deployment_ready=True,
+        tags=["国家中试基地", "海尔", "L4认证", "AI之眼", "微信AI"],
+    ),
+    AIProduct(
+        product_id="HA-012", name="石头A30 Pro Combo 2.0五合一洗地机",
+        category=AICategory.HOME_APPLIANCE,
+        organization="", country="中国",
+        description="五合一全能清洁设备，集洗地机、吸尘器、除螨仪、"
+                    "随手吸、缝隙吸五种清洁形态于一体。AI智能识别"
+                    "地面材质和脏污程度，自动调节吸力和水量。热水"
+                    "自清洁滚筒，热风烘干防异味。支持App智能规划"
+                    "清洁路径，边角覆盖率达99.5%。",
+        key_metrics={"modes": 5, "edge_coverage_pct": 99.5,
+                     "features": ["AI脏污识别", "热水自清洁",
+                                  "热风烘干", "智能路径规划"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-08-13",
+        relevance_to_robotics="多形态切换和AI脏污识别涉及机器人末端"
+                              "工具切换和环境感知技术",
+        deployment_ready=True,
+        tags=["洗地机", "石头科技", "五合一", "AI清洁", "自清洁"],
+    ),
+    AIProduct(
+        product_id="HA-013", name="微信AI Agent家电生态",
+        category=AICategory.HOME_APPLIANCE,
+        organization="", country="中国",
+        description="微信开放AI Agent能力，美的、海尔作为首批完成适配的"
+                    "头部品牌，用户可通过自然语言在微信内直接控制设备。"
+                    "美的接入空调、热水器、洗衣机、空气净化器、烟机"
+                    "五大类别，海尔接入挂式/立式空调、燃气/电热水器。"
+                    "指令执行延迟约0.5秒，支持复杂场景编排如"
+                    "\"早晨模式\"联动多设备。标志着家电控制从App"
+                    "向对话式AI交互跃迁。",
+        key_metrics={"first_batch_brands": ["美的", "海尔"],
+                     "execution_latency_s": 0.5,
+                     "interaction": "自然语言对话",
+                     "midea_categories": 5,
+                     "ecosystem": "微信AI Agent"},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="对话式AI控制为机器人提供更自然的人机"
+                              "交互入口，降低用户使用门槛",
+        deployment_ready=False,
+        tags=["微信AI", "AI Agent", "自然语言控制", "美的", "海尔"],
+    ),
+
+    # --- 医疗设备补充 ---
+    AIProduct(
+        product_id="MD-009", name="MedBench 4.0中文医疗大模型测试平台",
+        category=AICategory.MEDICAL_DEVICE,
+        organization="", country="中国",
+        description="国家人工智能应用上海中试基地打造的全球领先中文"
+                    "医疗大模型测试平台，建立权威、统一的行业测评标准。"
+                    "覆盖影像、病理、中医药、科研等多元临床场景评测。"
+                    "中试基地同时推出6大医疗垂直基础模型，构建全栈"
+                    "自主可控多模态大模型矩阵，多款达国际领先水平。"
+                    "建成全国示范性医疗AI数据基础设施，汇聚海量优质"
+                    "三医数据。",
+        key_metrics={"version": "4.0",
+                     "vertical_models": 6,
+                     "modalities": ["影像", "病理", "中医药", "科研"],
+                     "infrastructure": "全国示范性医疗AI数据底座",
+                     "computing": "国模用国芯"},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="医疗大模型评测标准为机器人在医疗场景的"
+                              "AI能力提供量化评估基准",
+        deployment_ready=False,
+        tags=["MedBench", "医疗大模型", "评测平台", "上海中试基地", "多模态"],
+    ),
+    AIProduct(
+        product_id="MD-010", name="肝胆肿瘤与胸部影像临床智能体",
+        category=AICategory.MEDICAL_DEVICE,
+        organization="", country="中国",
+        description="国家AI应用上海中试基地推出的临床智能体矩阵。"
+                    "肝胆肿瘤智能体已推广至122家医疗机构，服务超"
+                    "百万人次。胸部影像一扫多查智能体累计处理病例"
+                    "超250万例，覆盖全国20余家医院。心血管病"
+                    "\"观心\"智能体实现心血管疾病AI辅助诊断。"
+                    "临床效率与诊疗精准度显著提升，推动医疗AI从"
+                    "单点突破迈向系统集成。",
+        key_metrics={"liver_organs": 122,
+                     "liver_patients": 1000000,
+                     "chest_cases": 2500000,
+                     "chest_hospitals": 20,
+                     "agents": ["肝胆肿瘤", "胸部影像", "心血管观心",
+                                "金牌编码员", "电子病历生成"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="临床智能体的多模态诊断能力可迁移至"
+                              "机器人辅助诊断和手术导航系统",
+        deployment_ready=True,
+        tags=["临床智能体", "肝胆肿瘤", "胸部影像", "心血管", "上海中试基地"],
+    ),
+    AIProduct(
+        product_id="MD-011", name="春风化雨8iRobotics脊柱手术机器人",
+        category=AICategory.MEDICAL_DEVICE,
+        organization="", country="中国",
+        description="三友医疗控股法国Implanet联合研发的全球首款多臂"
+                    "人形智能化脊柱手术机器人。已在欧亚北美五家医院"
+                    "完成科研临床装机，完成欧洲首台装机并推进脊柱/"
+                    "神经外科临床评估及欧盟CE认证。与法国亚眠-皮卡第"
+                    "大学医疗中心达成临床合作。多臂协同实现脊柱螺钉"
+                    "置入的高精度导航和实时力反馈，手术精度达亚毫米级。",
+        key_metrics={"type": "多臂人形脊柱手术机器人",
+                     "installed_hospitals": 5,
+                     "regions": ["欧洲", "亚洲", "北美"],
+                     "certification_target": "CE",
+                     "partner": "法国Implanet",
+                     "accuracy": "亚毫米级"},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="多臂人形手术机器人是具身智能在精密外科"
+                              "的前沿应用，多臂协同和力反馈技术直接"
+                              "推动机器人精细操作能力",
+        deployment_ready=False,
+        tags=["脊柱手术机器人", "多臂协同", "三友医疗", "CE认证", "中欧合作"],
+    ),
+    AIProduct(
+        product_id="MD-012", name="脑虎科技植入式脑机接口系统",
+        category=AICategory.MEDICAL_DEVICE,
+        organization="", country="中国",
+        description="植入式脑机接口手部运动功能代偿系统正式启动GCP"
+                    "注册临床试验。采用柔性电极微创植入技术，在"
+                    "保证信号质量的同时大幅降低脑组织损伤。与清华"
+                    "大学NEO系统共同推进全球首个植入脑机接口多中心"
+                    "注册临床。高位截瘫患者已实现意念操控轮椅与"
+                    "机器狗，意念控制气动手套完成抓握、取物、喝水"
+                    "等日常动作。湘雅医院完成全国首例侵入式BCI视觉"
+                    "重建临床试验。",
+        key_metrics={"trial_type": "GCP注册临床",
+                     "electrode": "柔性微创",
+                     "applications": ["意念轮椅", "机器狗控制",
+                                      "气动手套", "视觉重建"],
+                     "partners": ["清华大学", "湘雅医院",
+                                  "华山医院", "天坛医院"]},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="脑机接口建立大脑与机器人的直接通信链路，"
+                              "是机器人控制的终极交互方式",
+        deployment_ready=False,
+        tags=["脑机接口", "脑虎科技", "柔性电极", "GCP临床", "意念控制", "视觉重建"],
+    ),
+    AIProduct(
+        product_id="MD-013", name="Vivim外科AI术中血管导航系统",
+        category=AICategory.MEDICAL_DEVICE,
+        organization="", country="中国",
+        description="南方医科大学珠江医院联合中科院深圳先进院、香港"
+                    "科技大学（广州）自主研发的外科人工智能模型。"
+                    "首次将动态手术视频解析算法应用于腹腔镜肝切除"
+                    "手术，可在术中实时识别并勾勒关键血管边界，"
+                    "实现\"术中实时导航\"功能。AI自动识别肝静脉、"
+                    "门静脉等关键解剖结构，辅助医生避开大出血风险"
+                    "区域，提升手术安全性和肿瘤切缘精度。",
+        key_metrics={"application": "腹腔镜肝切除",
+                     "function": "术中实时血管导航",
+                     "capabilities": ["动态视频解析", "血管边界勾勒",
+                                      "解剖结构识别", "出血风险预警"],
+                     "developers": ["南方医科大学珠江医院",
+                                    "中科院深圳先进院",
+                                    "香港科技大学广州"]},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="术中实时视频解析和血管边界识别是手术"
+                              "机器人自主导航和安全操作的核心感知能力",
+        deployment_ready=False,
+        tags=["Vivim", "术中导航", "腹腔镜", "血管识别", "AI手术视频", "珠江医院"],
+    ),
+    AIProduct(
+        product_id="MD-014", name="华为WATCH D2医疗级血压手表",
+        category=AICategory.MEDICAL_DEVICE,
+        organization="", country="中国",
+        description="全球首款通过NMPA/CE MDR医疗器械认证的腕部动态"
+                    "血压监测手表。24小时动态血压监测、HRV压力评估、"
+                    "微体检报告生成，本地端侧AI处理保障数据隐私。"
+                    "示波法血压测量达到医疗级精度，支持房颤筛查和"
+                    "睡眠呼吸暂停检测，准确率超90%。跌倒检测80ms"
+                    "内自动呼救。全球出货量登顶智能手表市场。",
+        key_metrics={"certifications": ["NMPA", "CE MDR"],
+                     "features": ["24h动态血压", "HRV", "房颤筛查",
+                                  "OSA检测", "跌倒检测", "ECG"],
+                     "fall_detection_ms": 80,
+                     "screening_accuracy_pct": 90,
+                     "processing": "端侧AI"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="可穿戴医疗设备为护理机器人提供连续"
+                              "健康监测数据流，支撑主动健康干预",
+        deployment_ready=True,
+        tags=["华为", "WATCH D2", "血压监测", "NMPA认证", "房颤筛查", "端侧AI"],
     ),
 
 ]
