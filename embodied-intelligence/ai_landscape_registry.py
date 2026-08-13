@@ -1736,7 +1736,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         tags=["教育大模型", "航海教育", "智能备课", "适任考试"],
     ),
 
-    # ===== 2026-08-13 当天权威资讯新增 =====
+    # ===== 最新资讯/内容 =====
 
     AIProduct(
         product_id="LLM-007", name="DeepSeek V4-Pro-0813旗舰模型",
