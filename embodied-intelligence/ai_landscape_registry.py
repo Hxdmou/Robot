@@ -5096,7 +5096,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         relevance_to_robotics="折叠屏形态创新和大屏交互为机器人手持"
                               "终端和远程操控界面提供设计参考",
         deployment_ready=True,
-        tags=["华为", "Pura X Max", "阔折叠", "麒麟9030", "万元旗舰"],
+        tags=["华为", "Pura X Max", "阔折叠", "麒麟9030 Pro", "万元旗舰"],
     ),
     AIProduct(
         product_id="MC-004", name="三星Galaxy Z Fold8 Ultra折叠旗舰",
@@ -5565,6 +5565,407 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         deployment_ready=True,
         tags=["Vision智慧屏", "华为", "RGB-MiniLED",
               "鸿蒙电视", "55英寸", "75英寸"],
+    ),
+    AIProduct(
+        product_id="MC-015", name="华为Pura 90标准版",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="中国",
+        description="Pura 90系列标准版，6.8英寸直屏，弦律几何设计"
+                    "语言。搭载麒麟9030芯片，第二代红枫影像系统，"
+                    "5000万像素超聚光主摄。HarmonyOS 6.1，小艺"
+                    "看世界、小艺时光机等AI功能。4699元起。",
+        key_metrics={"price_start_rmb": 4699,
+                     "screen_inch": 6.8, "chip": "麒麟9030",
+                     "main_camera_mp": 50,
+                     "os": "HarmonyOS 6.1",
+                     "design": "弦律几何直屏"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="端侧AI影像能力可用于机器人视觉"
+                              "识别和场景理解参考",
+        deployment_ready=True,
+        tags=["Pura 90", "华为", "麒麟9030", "红枫影像",
+              "HarmonyOS 6", "标准版"],
+    ),
+    AIProduct(
+        product_id="MC-016", name="华为Pura 90 Pro",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="中国",
+        description="Pura 90 Pro，6.6英寸单挖孔直屏，粉红芭乐、"
+                    "橘子汽水、椰青白、桑果黑四款配色。麒麟9030S"
+                    "处理器，图像理解能力提升200%。5000万像素"
+                    "超聚光主摄（1/1.28英寸大底、十档物理可变光圈）"
+                    "+5000万像素超聚光微距长焦。AI色彩引擎提升43%，"
+                    "光感无界主题。5499元起。",
+        key_metrics={"price_start_rmb": 5499,
+                     "screen_inch": 6.6, "chip": "麒麟9030S",
+                     "main_camera_mp": 50,
+                     "telephoto_mp": 50,
+                     "aperture": "十档可变",
+                     "ai_image_boost_pct": 43,
+                     "colors": ["粉红芭乐", "橘子汽水",
+                                "椰青白", "桑果黑"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="十档可变光圈技术可迁移至机器人"
+                              "视觉感知系统的光照自适应",
+        deployment_ready=True,
+        tags=["Pura 90 Pro", "华为", "麒麟9030S",
+              "可变光圈", "AI色彩", "Pro"],
+    ),
+    AIProduct(
+        product_id="MC-017", name="华为Pura 90 Pro Max",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="中国",
+        description="Pura 90系列顶配，6.9英寸超大屏，橘子海、"
+                    "霞光紫、翡翠湖、晨曦金、曜石黑五款配色。"
+                    "搭载1/1.28英寸超大底2亿像素长焦传感器，"
+                    "支持20倍光学品质高清视频。主摄支持LOFIC"
+                    "高动态技术，RYYB滤镜。抗反光耐刮昆仑玻璃，"
+                    "屏幕反光下降70%。6499元起。",
+        key_metrics={"price_start_rmb": 6499,
+                     "screen_inch": 6.9,
+                     "chip": "麒麟9030S",
+                     "telephoto_mp": 200,
+                     "telephoto_sensor": "1/1.28英寸",
+                     "optical_zoom_video": "20倍",
+                     "main_tech": ["LOFIC", "RYYB"],
+                     "glass": "抗反光昆仑玻璃",
+                     "glass_reflection_cut_pct": 70,
+                     "colors": ["橘子海", "霞光紫", "翡翠湖",
+                                "晨曦金", "曜石黑"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="2亿像素长焦和LOFIC高动态技术"
+                              "可参考用于机器人远距离精细识别",
+        deployment_ready=True,
+        tags=["Pura 90 Pro Max", "华为", "2亿像素长焦",
+              "LOFIC", "昆仑玻璃", "Pro Max"],
+    ),
+    AIProduct(
+        product_id="MC-018", name="华为Mate 80 RS非凡大师",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="中国",
+        description="Mate 80系列顶级超高端版本，RS非凡大师"
+                    "定位。极致陶瓷/素皮工艺材质，专属定制配色。"
+                    "搭载麒麟9030旗舰芯片，完整版鸿蒙AI能力。"
+                    "星钻设计语言，定位商务奢华旗舰。",
+        key_metrics={"series": "Mate 80",
+                     "tier": "RS非凡大师",
+                     "chip": "麒麟9030",
+                     "material": "陶瓷/素皮",
+                     "positioning": "超高端商务旗舰"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="高端工艺材质和结构设计可为"
+                              "机器人外壳制造提供参考",
+        deployment_ready=True,
+        tags=["Mate 80 RS", "华为", "非凡大师",
+              "麒麟9030", "超高端", "RS"],
+    ),
+    AIProduct(
+        product_id="MC-019", name="华为Mate 80 Pro Max旗舰手机",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="中国",
+        description="Mate 80系列顶配Pro Max，搭载麒麟9030"
+                    "旗舰芯片，全面升级影像系统和AI能力。"
+                    "Mate系列一贯的商务旗舰定位，大电池+"
+                    "快充+卫星通信。鸿蒙Next完整生态。",
+        key_metrics={"series": "Mate 80",
+                     "tier": "Pro Max",
+                     "chip": "麒麟9030",
+                     "features": ["卫星通信", "大电池",
+                                  "超级快充", "鸿蒙Next"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="卫星通信能力可作为机器人"
+                              "远程控制的备选通信链路",
+        deployment_ready=True,
+        tags=["Mate 80 Pro Max", "华为", "麒麟9030",
+              "卫星通信", "商务旗舰", "Pro Max"],
+    ),
+    AIProduct(
+        product_id="MC-020", name="华为畅享90 Pro Max千元长续航",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="中国",
+        description="畅享系列顶配，首次搭载麒麟8系芯片，"
+                    "运行鸿蒙OS 6。8500mAh巨鲸电池超大容量，"
+                    "主打超长续航。定位入门级市场，解决长辈"
+                    "和备用机用户流畅与续航痛点。麒麟芯片"
+                    "首次下放至千元档。",
+        key_metrics={"series": "畅享90",
+                     "tier": "Pro Max",
+                     "chip": "麒麟8系",
+                     "battery_mah": 8500,
+                     "os": "HarmonyOS 6",
+                     "positioning": "千元长续航"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="8500mAh超大电池方案可参考"
+                              "机器人移动终端的续航设计",
+        deployment_ready=True,
+        tags=["畅享90 Pro Max", "华为", "麒麟8系",
+              "8500mAh", "千元机", "Pro Max"],
+    ),
+    AIProduct(
+        product_id="MC-021", name="华为nova 16 Pro人像旗舰",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="中国",
+        description="nova 16系列Pro版，定位年轻时尚人像"
+                    "旗舰。前置高清人像镜头，后置AI多摄"
+                    "系统。全新配色设计，轻薄机身。3899元"
+                    "起，主打线下渠道和年轻用户群体。",
+        key_metrics={"price_start_rmb": 3899,
+                     "series": "nova 16",
+                     "tier": "Pro",
+                     "focus": "人像拍摄",
+                     "positioning": "年轻时尚旗舰"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="人像AI算法可用于机器人"
+                              "人机交互中的人物识别",
+        deployment_ready=True,
+        tags=["nova 16 Pro", "华为", "人像旗舰",
+              "年轻时尚", "Pro"],
+    ),
+    AIProduct(
+        product_id="MC-022", name="华为nova 16 Ultra顶配人像",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="中国",
+        description="nova 16系列顶配Ultra版，4699元起。"
+                    "升级旗舰级影像传感器和AI影像算法，"
+                    "前后双高清人像系统。最高端的nova"
+                    "机型，在人像摄影领域达到准旗舰水平。",
+        key_metrics={"price_start_rmb": 4699,
+                     "series": "nova 16",
+                     "tier": "Ultra",
+                     "focus": "旗舰人像",
+                     "camera": "前后双高清人像"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="人像识别和美颜算法可"
+                              "迁移至机器人情感交互",
+        deployment_ready=True,
+        tags=["nova 16 Ultra", "华为", "顶配人像",
+              "AI影像", "Ultra"],
+    ),
+    AIProduct(
+        product_id="MC-023", name="小米18 Pro骁龙8E6旗舰",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="中国",
+        description="小米18系列Pro版首发骁龙8 Elite Gen6，"
+                    "台积电N2P改良版2nm GAA工艺，2+3+3"
+                    "三丛集八核CPU，Adreno 850 GPU，LPDDR6"
+                    "内存。6.3英寸2K LTPO超级像素直屏，"
+                    "三星M14材料，峰值亮度超4000nit。"
+                    "7000mAh电池+100W闪充+无线充电。"
+                    "2亿像素超大底主摄+2亿像素长焦微距。"
+                    "首发澎湃OS 4正式版，端侧全场景AI。",
+        key_metrics={"series": "小米18",
+                     "tier": "Pro",
+                     "chip": "骁龙8 Elite Gen6",
+                     "process_nm": 2,
+                     "screen_inch": 6.3,
+                     "screen_res": "2K LTPO",
+                     "peak_brightness_nits": 4000,
+                     "battery_mah": 7000,
+                     "wired_charge_w": 100,
+                     "main_camera_mp": 200,
+                     "telephoto_mp": 200,
+                     "os": "澎湃OS 4",
+                     "ram": "LPDDR6"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="2nm旗舰芯片端侧AI算力"
+                              "可运行机器人本地大模型推理",
+        deployment_ready=True,
+        tags=["小米18 Pro", "骁龙8E6", "2nm",
+              "2亿像素", "7000mAh", "澎湃OS 4", "Pro"],
+    ),
+    AIProduct(
+        product_id="MC-024", name="小米18 Pro Max双2亿徕卡影像",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="中国",
+        description="小米18系列顶配Pro Max，独享2亿像素"
+                    "LOFIC超大底主摄+2亿像素大底长焦微距+"
+                    "超广角，形成双2亿徕卡三摄。8000mAh"
+                    "级别超大电池，100W闪充+无线充电。"
+                    "搭载骁龙8 Elite Gen6 Pro，18MB专属"
+                    "图形缓存，端侧AI算力刷新历史。超级"
+                    "像素直屏，大R角极窄四等边。",
+        key_metrics={"series": "小米18",
+                     "tier": "Pro Max",
+                     "chip": "骁龙8 Elite Gen6 Pro",
+                     "main_camera_mp": 200,
+                     "main_tech": "LOFIC",
+                     "telephoto_mp": 200,
+                     "ultrawide": True,
+                     "battery_mah": 8000,
+                     "gpu_cache_mb": 18,
+                     "camera_brand": "徕卡",
+                     "screen": "超级像素直屏"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="双2亿像素+LOFIC方案可为"
+                              "机器人高精度视觉模组提供参考",
+        deployment_ready=True,
+        tags=["小米18 Pro Max", "徕卡", "双2亿",
+              "LOFIC", "8000mAh", "骁龙8E6 Pro", "Pro Max"],
+    ),
+    AIProduct(
+        product_id="MC-025", name="苹果iPhone 18 Pro",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="Apple", country="美国",
+        description="iPhone 18 Pro搭载苹果自研A20 Pro芯片，"
+                    "采用2nm工艺制程。运行内存提升至12GB，"
+                    "灵动岛面积进一步收窄。主摄像头新增"
+                    "物理可变光圈结构，类似单反相机光圈"
+                    "调节。苹果自研C2基带芯片。年度特别"
+                    "配色为深樱桃色。",
+        key_metrics={"series": "iPhone 18",
+                     "tier": "Pro",
+                     "chip": "A20 Pro",
+                     "process_nm": 2,
+                     "ram_gb": 12,
+                     "modem": "C2自研",
+                     "camera_aperture": "物理可变光圈",
+                     "special_color": "深樱桃色",
+                     "dynamic_island": "缩小版"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="A20 Pro神经网络引擎可为"
+                              "机器人端侧AI推理提供算力参考",
+        deployment_ready=True,
+        tags=["iPhone 18 Pro", "Apple", "A20 Pro",
+              "2nm", "可变光圈", "C2基带", "Pro"],
+    ),
+    AIProduct(
+        product_id="MC-026", name="苹果iPhone 18 Pro Max顶配",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="Apple", country="美国",
+        description="iPhone 18系列大屏顶配版本，搭载A20 Pro"
+                    "2nm芯片，12GB运行内存。物理可变光圈"
+                    "主摄+升级长焦系统。更大屏幕和电池容量，"
+                    "钛合金材质中框。Apple Intelligence"
+                    "AI功能完整支持。",
+        key_metrics={"series": "iPhone 18",
+                     "tier": "Pro Max",
+                     "chip": "A20 Pro",
+                     "process_nm": 2,
+                     "ram_gb": 12,
+                     "frame": "钛合金",
+                     "camera_aperture": "物理可变光圈",
+                     "ai": "Apple Intelligence"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="钛合金中框和可变光圈"
+                              "技术可参考机器人结构设计",
+        deployment_ready=True,
+        tags=["iPhone 18 Pro Max", "Apple", "A20 Pro",
+              "钛合金", "Apple Intelligence", "Pro Max"],
+    ),
+    AIProduct(
+        product_id="MC-027", name="苹果iPhone Ultra首款折叠屏",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="Apple", country="美国",
+        description="苹果首款横向内折折叠屏手机，外屏约"
+                    "5.3-5.5英寸，展开后内屏约7.6-7.8英寸，"
+                    "书本式折叠设计。展开厚度仅4.5mm，"
+                    "采用先进显示工艺和高耐用铰链，折痕"
+                    "近乎消除。A20芯片，双后置摄像头，侧边"
+                    "电源键集成Touch ID替代Face ID。钛合金"
+                    "机身，预估售价2000-2500美元（约1.76万元"
+                    "人民币），为苹果史上最贵iPhone。",
+        key_metrics={"series": "iPhone Ultra",
+                     "form_factor": "横向内折",
+                     "outer_screen_inch": 5.5,
+                     "inner_screen_inch": 7.8,
+                     "thickness_open_mm": 4.5,
+                     "chip": "A20",
+                     "biometric": "侧边Touch ID",
+                     "frame": "钛合金",
+                     "price_usd": "2000-2500",
+                     "price_rmb_approx": 17600,
+                     "rear_cameras": 2},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-08-13",
+        relevance_to_robotics="折叠屏铰链和柔性显示"
+                              "技术可用于机器人可变形"
+                              "交互界面设计",
+        deployment_ready=False,
+        tags=["iPhone Ultra", "Apple", "折叠屏",
+              "钛合金", "Touch ID", "史上最贵"],
+    ),
+    AIProduct(
+        product_id="MC-028", name="华为MateBook 14鸿蒙版",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="中国",
+        description="华为MateBook 14鸿蒙版，搭载鸿蒙电脑"
+                    "操作系统，与手机平板生态无缝流转。"
+                    "14英寸护眼全面屏，轻薄金属机身。"
+                    "华为AI能力深度整合，支持小艺智能助手、"
+                    "AI文档处理等功能。",
+        key_metrics={"series": "MateBook 14",
+                     "os": "HarmonyOS PC",
+                     "screen_inch": 14,
+                     "features": ["多屏协同", "AI文档",
+                                  "小艺助手", "护眼屏"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="鸿蒙PC端可作为机器人"
+                              "上位机控制和编程终端",
+        deployment_ready=True,
+        tags=["MateBook 14", "华为", "鸿蒙电脑",
+              "多屏协同", "AI PC"],
+    ),
+    AIProduct(
+        product_id="MC-029", name="苹果MacBook Air M5 AI本",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="Apple", country="美国",
+        description="MacBook Air搭载M5芯片，速度较M1提升"
+                    "9.5倍、较M4提升4倍。每个GPU核心内置"
+                    "神经网络加速器，AI任务处理效率极高。"
+                    "13/15英寸两款尺寸，1.23kg超轻机身，"
+                    "18小时续航。16GB统一内存+512GB起步。"
+                    "macOS Tahoe Liquid Glass设计。"
+                    "9999元起，支持Apple Intelligence。"
+                    "天蓝色、银色、星光色、午夜色四色。",
+        key_metrics={"price_start_rmb": 9999,
+                     "chip": "M5",
+                     "speed_vs_m1": "9.5倍",
+                     "speed_vs_m4": "4倍",
+                     "sizes": ["13英寸", "15英寸"],
+                     "weight_kg": 1.23,
+                     "battery_hours": 18,
+                     "ram_start_gb": 16,
+                     "storage_start_gb": 512,
+                     "os": "macOS Tahoe",
+                     "colors": ["天蓝色", "银色",
+                                "星光色", "午夜色"],
+                     "ai": "Apple Intelligence"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="M5芯片神经网络引擎可"
+                              "本地运行大模型，适合作为"
+                              "机器人开发和调试工作站",
+        deployment_ready=True,
+        tags=["MacBook Air", "Apple", "M5",
+              "18小时续航", "AI PC", "Apple Intelligence"],
     ),
 
 ]
