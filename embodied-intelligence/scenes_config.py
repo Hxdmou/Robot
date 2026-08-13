@@ -1839,7 +1839,7 @@ SCENES = {
         "sub_scenes": {
             "cybergym_rank3_opensource1_beats_openai_anthropic": {
                 "name": "CyberGym榜 DoGNAVY 90.8%全球第三开源第一 仅次微软谷歌 超越OpenAI Anthropic",
-                "description": "2026年8月5日CyberGym最新排名 DoGNAVY智能体90.8%通过率 第二名仅少答对1题 全球第三仅次于微软MSH-Agent(92.85%)谷歌DeepMind SynthID团队(92.89%) 开源第一领先OpenAI Anthropic Claude/GPT/Groq国际顶尖企业开发的智能体",
+                "description": "CyberGym最新排名 DoGNAVY智能体90.8%通过率 第二名仅少答对1题 全球第三仅次于微软MSH-Agent(92.85%)谷歌DeepMind SynthID团队(92.89%) 开源第一领先OpenAI Anthropic Claude/GPT/Groq国际顶尖企业开发的智能体",
                 "robots": ["DoGNAVY智能体推理核心GLM-5.2+微调对齐", "1507道无准备全新陌生项目漏洞发掘验证", "CyberGym三项子榜单ExploitGym CodeGym CyberEval 综合得分领先", "上海DARKNAVY达酷诺威+国内顶尖AI机构联合研发团队"],
                 "difficulty": 5,
                 "reward_scale": 1.9,
