@@ -3677,6 +3677,339 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         tags=["高质量数据集", "具身智能", "世界模型", "数据标注", "国家数据局"],
     ),
 
+    # --- 搜索新增内容 ---
+    AIProduct(
+        product_id="WM-008", name="WALL-B世界统一模型",
+        category=AICategory.WORLD_MODEL,
+        organization="", country="中国",
+        description="端到端具身大模型，将视觉、语言、触觉、动作和物理预测"
+                    "融合在同一神经网络中。采用双机械臂加夹爪方案，全程无人工"
+                    "干预完成全自主物流分拣，实现1816件/小时分拣效率，准确率超"
+                    "98%，超过海外同类企业1248件/小时约45%，系统成本仅为国外"
+                    "约30%。机器人可自主判断物体属性、选择抓取策略、整理面单，"
+                    "无需为每种包裹编写规则，以模型能力取代硬件堆叠。",
+        key_metrics={"sorting_rate_per_hour": 1816, "accuracy_pct": 98,
+                     "efficiency_uplift_pct": 45, "cost_reduction_pct": 70},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="世界统一模型直接驱动机器人完成物理操作任务，"
+                              "验证'模型能力取代硬件堆叠'技术路线",
+        deployment_ready=False,
+        tags=["世界模型", "具身大模型", "物流分拣", "双机械臂", "端到端"],
+    ),
+    AIProduct(
+        product_id="HR-014", name="Gemini Robotics 2全身控制模型",
+        category=AICategory.HUMANOID_ROBOT,
+        organization="", country="美国",
+        description="首次实现22自由度全身统一控制，将摄像头画面和自然语言"
+                    "指令直接转化为电机控制信号，驱动机器人完成行走、下蹲、"
+                    "避障和物体操作。少量样本即可跨机器人本体迁移，同一大脑可"
+                    "驱动不同品牌身体。配套ER 2推理系统支持数百步长任务规划"
+                    "和多机器人协同，拧灯泡任务成功率92%；On-Device 2端侧"
+                    "版本无需云端算力即可本地运行。",
+        key_metrics={"dof": 22, "bulb_success_rate_pct": 92,
+                     "migration": "few-shot cross-body"},
+        maturity=MaturityLevel.RESEARCH,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-08-13",
+        relevance_to_robotics="22自由度全身控制是具身智能软件层里程碑，"
+                              "跨本体迁移大幅降低训练数据门槛",
+        deployment_ready=False,
+        tags=["全身控制", "跨本体迁移", "端侧部署", "多机器人协同", "22自由度"],
+    ),
+    AIProduct(
+        product_id="HR-015", name="Walker S2自主换电池人形机器人",
+        category=AICategory.HUMANOID_ROBOT,
+        organization="", country="中国",
+        description="全球首款实现自主更换电池的人形机器人。双电池系统支持"
+                    "行走约2小时或站立约4小时，电量低时自动行至充电站，用"
+                    "双臂取出背部电池包插入充电座，再装入新电池，全程仅需"
+                    "数分钟。消除人工充电干预，实现24/7不间断运行。",
+        key_metrics={"battery_swap_minutes": 3, "walk_hours": 2,
+                     "stand_hours": 4, "autonomy": "24/7"},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-08-13",
+        relevance_to_robotics="自主换电池解决人形机器人续航瓶颈，"
+                              "是工厂和公共场所持续作业的关键能力",
+        deployment_ready=False,
+        tags=["自主换电", "24/7运行", "双电池", "人形机器人"],
+    ),
+    AIProduct(
+        product_id="HR-016", name="Asimov 1开源人形机器人",
+        category=AICategory.HUMANOID_ROBOT,
+        organization="", country="美国",
+        description="售价2万美元的开源人形机器人，需自行组装，定位为机器人"
+                    "开发者平台。采用宜家式组装理念，提供完整硬件设计文件和"
+                    "软件框架，旨在降低人形机器人开发门槛，推动社区协作创新。",
+        key_metrics={"price_usd": 20000, "open_source": True,
+                     "assembly_required": True},
+        maturity=MaturityLevel.RESEARCH,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-08-13",
+        relevance_to_robotics="开源低价人形机器人平台降低研发门槛，"
+                              "加速机器人应用生态建设",
+        deployment_ready=False,
+        tags=["开源", "开发者平台", "自组装", "低价人形"],
+    ),
+    AIProduct(
+        product_id="HR-017", name="Orbit多轴关节驱动器",
+        category=AICategory.HUMANOID_ROBOT,
+        organization="", country="美国",
+        description="新型多轴关节驱动器，旨在取代人形机器人肩膀和臀部使用"
+                    "的低效堆叠电机方案。单一驱动器即可实现多自由度运动，"
+                    "简化机械结构、降低重量和故障点，提升关节集成度。",
+        key_metrics={"type": "multi-axis joint actuator",
+                     "replaces": "stacked motors"},
+        maturity=MaturityLevel.RESEARCH,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-08-13",
+        relevance_to_robotics="关节驱动器是人形机器人核心硬件，"
+                              "多轴集成方案可显著提升运动效率和可靠性",
+        deployment_ready=False,
+        tags=["关节驱动器", "多轴", "人形机器人硬件", "肩关节"],
+    ),
+    AIProduct(
+        product_id="IR-009", name="星动L7物流分拣机器人",
+        category=AICategory.INDUSTRIAL_ROBOT,
+        organization="", country="中国",
+        description="面向快递分拣场景的工业机器人，可自主抓取包裹并通过双手"
+                    "手腕翻转将快递单面调整至朝上，再稳放到传送带。在堆成"
+                    "小山的包裹台上实现连续自主分拣，从赛场冠军技术转化为"
+                    "工厂实际生产力。",
+        key_metrics={"application": "快递分拣", "capability": "面单翻转"},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="物流分拣是工业机器人规模化落地的核心场景，"
+                              "面单调整能力体现精细操作水平",
+        deployment_ready=False,
+        tags=["物流分拣", "面单翻转", "工业机器人", "双臂协作"],
+    ),
+    AIProduct(
+        product_id="AG-021", name="WorkBuddy桌面智能体",
+        category=AICategory.AI_AGENT,
+        organization="", country="中国",
+        description="桌面端AI智能体，支持本地文件读写、Shell命令执行、"
+                    "浏览器自动化、文档表格批量处理。预制大量职场技能，"
+                    "深度对接企业协作生态，支持日志分析和运维脚本调试。"
+                    "采用沙盒安全隔离和高危操作拦截机制。",
+        key_metrics={"capabilities": ["文件操作", "命令执行", "浏览器自动化",
+                                       "文档处理"], "security": "沙盒隔离"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="智能体自动化能力可迁移至机器人任务规划和"
+                              "工具调用场景",
+        deployment_ready=True,
+        tags=["桌面智能体", "运维", "浏览器自动化", "沙盒安全"],
+    ),
+    AIProduct(
+        product_id="AG-022", name="Muse Code编程智能体",
+        category=AICategory.AI_AGENT,
+        organization="", country="美国",
+        description="首款编程智能体，支持多智能体协作完成软件开发任务。"
+                    "可自主进行代码生成、调试、重构和测试，与开发工具链"
+                    "深度集成，标志着AI编程进入多智能体协作时代。",
+        key_metrics={"type": "coding_agent", "multi_agent": True},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="多智能体协作编程范式可用于机器人控制系统的"
+                              "模块化开发和自主调试",
+        deployment_ready=False,
+        tags=["编程智能体", "多智能体协作", "代码生成", "自动调试"],
+    ),
+    AIProduct(
+        product_id="LM-012", name="Muse Spark 1.2开源模型",
+        category=AICategory.AI_LLM,
+        organization="", country="美国",
+        description="全新开源AI模型，同时上线可在笔记本设备运行的轻量化"
+                    "系列。开放模型旨在避免AI技术被少数巨头垄断，方便中小"
+                    "企业和开发者获取优质AI工具。内部已组建超级智能实验室，"
+                    "后续将持续推出开源模型。",
+        key_metrics={"open_source": True, "laptop_runnable": True},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="端侧可运行开源模型为机器人本地推理提供"
+                              "轻量化选择",
+        deployment_ready=True,
+        tags=["开源模型", "端侧部署", "笔记本运行", "多模态"],
+    ),
+    AIProduct(
+        product_id="GN-013", name="WeatherNext Cyclones气旋预报模型",
+        category=AICategory.AI_GENERAL,
+        organization="", country="美国",
+        description="气象AI模型，对热带气旋路径、强度和风圈预报平均增加"
+                    "一天以上有效提前量，集合预报可扩展至1000种情景。"
+                    "在气旋评估中显著提升预报精度和时效。",
+        key_metrics={"lead_time_uplift_hours": 24,
+                     "ensemble_scenarios": 1000},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="气象预测能力可支撑户外机器人环境感知和"
+                              "作业规划",
+        deployment_ready=False,
+        tags=["气象AI", "气旋预报", "集合预报", "灾害预警"],
+    ),
+    AIProduct(
+        product_id="GN-014", name="Claude隐形水印内容溯源系统",
+        category=AICategory.AI_GENERAL,
+        organization="", country="美国",
+        description="为所有AI输出嵌入隐形水印与C2PA元数据，实现全球AI"
+                    "内容溯源。水印可抗复制粘贴和轻度编辑，检测工具可识别"
+                    "AI生成内容。率先响应AI内容标识监管要求。",
+        key_metrics={"watermark": "invisible", "standard": "C2PA",
+                     "resistant_to": "copy-paste, light edits"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="AI内容溯源机制可应用于机器人决策日志和"
+                              "操作记录的可信追溯",
+        deployment_ready=True,
+        tags=["隐形水印", "内容溯源", "C2PA", "AI安全"],
+    ),
+    AIProduct(
+        product_id="CP-011", name="AI算力基础设施融资平台",
+        category=AICategory.AI_COMPUTE,
+        organization="", country="美国",
+        description="与六家国际头部投资机构签署合作备忘录，建立独立算力"
+                    "融资平台，计划动员超5000亿美元第三方资本投入AI基础"
+                    "设施建设。将GPU集群按基础设施资产审视，算力使用周期"
+                    "可达十年，未来将与电力、宽带一样成为社会运行基础配套。",
+        key_metrics={"capital_target_billion_usd": 500,
+                     "partners": 6, "asset_lifecycle_years": 10},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="大规模算力融资平台为机器人AI训练和推理"
+                              "提供长期基础设施保障",
+        deployment_ready=False,
+        tags=["算力融资", "AI基建", "GPU集群", "基础设施资产化"],
+    ),
+    AIProduct(
+        product_id="EN-015", name="千万千瓦级水风光AI调度模型",
+        category=AICategory.RENEWABLE_ENERGY,
+        organization="", country="中国",
+        description="部署于雅砻江千万千瓦级水风光综合能源基地的AI运行模型。"
+                    "通过实时分析降雨、风力、光照等数据，预测未来数十天"
+                    "全流域发电能力，估算雨水汇流时间和水电潜力，集成风电、"
+                    "光伏和电网负荷数据生成多种运行方案，解决绿色电力间歇"
+                    "性和不稳定性问题。",
+        key_metrics={"capacity_kw": 10000000,
+                     "forecast_days": 30,
+                     "energy_types": ["hydro", "wind", "solar"]},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="AI能源调度技术可类比机器人多源能量管理"
+                              "和任务规划",
+        deployment_ready=False,
+        tags=["水风光", "AI调度", "清洁能源", "多能互补", "雅砻江"],
+    ),
+    AIProduct(
+        product_id="AGR-020", name="国家人工智能农业中试基地",
+        category=AICategory.AGRICULTURE,
+        organization="", country="中国",
+        description="国家级人工智能应用创新载体，聚焦农作物种植方向。"
+                    "规划建设不低于185P全国产化智能算力集群，实现算力、"
+                    "网络、存储统一调度，满足农业大模型训练、推理迭代和"
+                    "场景研发需求。AI变量施肥带动亩均增产30余斤、肥料减量"
+                    "20%、人工成本下降50%；智能灌排覆盖120万亩，累计节水"
+                    "1.2亿立方米。",
+        key_metrics={"compute_pflops": 185, "irrigation_area_mu": 1200000,
+                     "water_saved_m3": 120000000,
+                     "yield_uplift_jin_per_mu": 30,
+                     "fertilizer_reduction_pct": 20,
+                     "labor_reduction_pct": 50},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="农业机器人和智能装备是中试基地重要验证"
+                              "场景，农业大模型支撑机器人自主作业",
+        deployment_ready=False,
+        tags=["农业中试基地", "全国产算力", "智慧农业", "变量施肥",
+              "智能灌排"],
+    ),
+    AIProduct(
+        product_id="AGR-021", name="丰登种业大模型",
+        category=AICategory.AGRICULTURE,
+        organization="", country="中国",
+        description="国内首个种业大模型，具备'读基因、编序列、算组合'能力，"
+                    "可大幅缩短育种周期。通过AI分析基因组数据，智能推荐"
+                    "亲本组合和育种方案，加速新品种培育进程。",
+        key_metrics={"capability": ["基因读取", "序列编辑", "组合计算"],
+                     "application": "育种"},
+        maturity=MaturityLevel.RESEARCH,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-08-13",
+        relevance_to_robotics="种业AI与农业机器人协同，从育种到种植"
+                              "全链条智能化",
+        deployment_ready=False,
+        tags=["种业大模型", "基因分析", "智能育种", "农业AI"],
+    ),
+    AIProduct(
+        product_id="HC-012", name="CARE-X胸部X光视觉语言模型",
+        category=AICategory.HEALTHCARE,
+        organization="", country="美国",
+        description="将报告生成、分类、定位与工具辅助测量集成于同一框架的"
+                    "胸部X光视觉语言模型。多项回顾性评测显示性能提升，"
+                    "模型可自动定位病灶并进行辅助测量。尚处研究阶段，"
+                    "不能直接用于临床诊断。",
+        key_metrics={"modality": "chest_xray",
+                     "capabilities": ["报告生成", "分类", "定位", "测量"]},
+        maturity=MaturityLevel.RESEARCH,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="医疗视觉语言模型技术可迁移至机器人视觉"
+                              "感知和异常检测系统",
+        deployment_ready=False,
+        tags=["医学影像", "视觉语言模型", "胸片", "病灶定位", "辅助测量"],
+    ),
+    AIProduct(
+        product_id="6G-004", name="6G R20亚赫兹频段样机",
+        category=AICategory.NETWORK_6G,
+        organization="", country="中国",
+        description="6G第一个标准版本R20进入高密度攻坚期，AI/ML空口设计"
+                    "物理层细节进入最终表决。基于亚太赫兹频段（90-150GHz）"
+                    "实现小区内400Gbps峰值速率外场传输，7-24GHz厘米波段"
+                    "作为连续覆盖核心承载，128T128R大规模MIMO商业样机"
+                    "完成。时延抖动控制在10微秒以内，支持算网融合调度和"
+                    "空天地一体化。",
+        key_metrics={"sub_thz_peak_gbps": 400, "jitter_us": 10,
+                     "mimo": "128T128R", "standard": "3GPP R20"},
+        maturity=MaturityLevel.RESEARCH,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-08-13",
+        relevance_to_robotics="6G微秒级确定性时延和通感一体化为机器人"
+                              "远程控制和群体协同提供通信基础",
+        deployment_ready=False,
+        tags=["6G", "R20标准", "亚赫兹", "太赫兹", "通感一体", "空天地一体"],
+    ),
+    AIProduct(
+        product_id="CO-008", name="中科智源物流AI智能体平台",
+        category=AICategory.COMMERCE,
+        organization="", country="中国",
+        description="物流全链条AI服务平台，已开发53款预置智能体，涵盖"
+                    "运输路径优化、智能拣货、异常预警、运力匹配等场景。"
+                    "AI智能体调度订单并直接交由具身智能机器人完成拣选，"
+                    "从辅助决策升级为自主执行。亿级包裹仿真推演压缩至"
+                    "3分钟内完成，人机协作效率提升超20%。",
+        key_metrics={"preset_agents": 53,
+                     "simulation_billion_parcels_minutes": 3,
+                     "efficiency_uplift_pct": 20},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="物流智能体与具身机器人协作是AI进入"
+                              "工业执行层的典型范式",
+        deployment_ready=False,
+        tags=["物流AI", "智能体平台", "具身机器人", "路径优化", "仿真推演"],
+    ),
+
 ]
 
 
