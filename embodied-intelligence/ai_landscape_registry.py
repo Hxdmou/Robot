@@ -6098,154 +6098,301 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
     AIProduct(
         product_id="MC-023", name="小米18 Pro骁龙8E6旗舰",
         category=AICategory.MOBILE_COMPUTER,
-        organization="", country="中国",
-        description="小米18系列Pro版首发骁龙8 Elite Gen6，"
-                    "台积电N2P改良版2nm GAA工艺，2+3+3"
-                    "三丛集八核CPU，Adreno 850 GPU，LPDDR6"
-                    "内存。6.3英寸2K LTPO超级像素直屏，"
-                    "三星M14材料，峰值亮度超4000nit。"
-                    "7000mAh电池+100W闪充+无线充电。"
-                    "2亿像素超大底主摄+2亿像素长焦微距。"
-                    "首发澎湃OS 4正式版，端侧全场景AI。",
-        key_metrics={"series": "小米18",
+        organization="小米", country="中国",
+        description="小米18系列Pro款旗舰，2026年9月发布。"
+                    "全球首发高通骁龙8 Elite Gen6（骁龙8E6），"
+                    "台积电N2P改良版2nm GAA工艺，晶体管密度"
+                    "较3nm提升30%，同等性能功耗降低36%。"
+                    "自研第三代Oryon CPU架构，2颗超大核+3颗"
+                    "性能核+3颗能效核三丛集八核，共享16MB L2"
+                    "缓存，Adreno 845 GPU，LPDDR5X内存+UFS 5.0"
+                    "存储。6.3英寸2K LTPO超级像素极窄四等边"
+                    "直屏（LIPO工艺），三星M14发光材料，"
+                    "峰值亮度超4000nit，新一代防窥技术。"
+                    "妙享背屏（背部横向副屏）保留升级，支持"
+                    "不点亮主屏查看信息概要、快捷支付、设备"
+                    "控制。全系新增实体AI按键，一键唤醒超级"
+                    "小爱，澎湃OS 4完善Agent跨应用能力。"
+                    "徕卡双2亿像素影像：2亿像素超大底主摄+"
+                    "2亿像素潜望长焦+超广角，徕卡联合调校。"
+                    "7000mAh+大电池，100W有线闪充+无线充电。"
+                    "配色方案更大胆，含光致变色特殊版。",
+        key_metrics={"price_start_rmb": 5499,
+                     "series": "小米18",
                      "tier": "Pro",
-                     "chip": "骁龙8 Elite Gen6",
+                     "chip": "骁龙8 Elite Gen6（骁龙8E6）",
                      "process_nm": 2,
+                     "process_detail": "台积电N2P改良版2nm GAA",
+                     "cpu_arch": "第三代自研Oryon 2+3+3八核",
+                     "l2_cache_mb": 16,
+                     "gpu": "Adreno 845",
+                     "ram": "LPDDR5X",
+                     "storage": "UFS 5.0",
                      "screen_inch": 6.3,
-                     "screen_res": "2K LTPO",
+                     "screen_type": "2K LTPO极窄四等边直屏",
+                     "screen_tech": "LIPO工艺+超级像素排列+新一代防窥",
+                     "screen_material": "三星M14",
                      "peak_brightness_nits": 4000,
+                     "back_screen": "妙享背屏（横向副屏）",
+                     "ai_key": "实体AI按键+超级小爱Agent",
                      "battery_mah": 7000,
                      "wired_charge_w": 100,
+                     "wireless_charge": True,
+                     "camera_brand": "徕卡",
                      "main_camera_mp": 200,
+                     "main_camera_desc": "2亿像素超大底主摄",
                      "telephoto_mp": 200,
+                     "telephoto_desc": "2亿像素潜望式长焦",
+                     "ultrawide": "超广角镜头",
+                     "camera_count": 3,
                      "os": "澎湃OS 4",
-                     "ram": "LPDDR6"},
-        maturity=MaturityLevel.MASS_PRODUCTION,
-        source="", source_tier=SourceTier.TIER1,
+                     "color_tech": "光致变色后盖（特殊版）",
+                     "release_date": "2026年9月"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="中关村在线/雷科技/36氪 2026年7-8月", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="2nm旗舰芯片端侧AI算力"
-                              "可运行机器人本地大模型推理",
-        deployment_ready=True,
-        tags=["小米18 Pro", "骁龙8E6", "2nm",
-              "2亿像素", "7000mAh", "澎湃OS 4", "Pro"],
+                              "可运行机器人本地大模型推理，"
+                              "妙享背屏可作为机器人辅助交互参考",
+        deployment_ready=False,
+        tags=["小米18 Pro", "骁龙8E6", "2nm", "双2亿徕卡",
+              "妙享背屏", "AI按键", "7000mAh", "澎湃OS 4", "Pro"],
     ),
     AIProduct(
         product_id="MC-024", name="小米18 Pro Max双2亿徕卡影像",
         category=AICategory.MOBILE_COMPUTER,
-        organization="", country="中国",
-        description="小米18系列顶配Pro Max，独享2亿像素"
-                    "LOFIC超大底主摄+2亿像素大底长焦微距+"
-                    "超广角，形成双2亿徕卡三摄。8000mAh"
-                    "级别超大电池，100W闪充+无线充电。"
-                    "搭载骁龙8 Elite Gen6 Pro，18MB专属"
-                    "图形缓存，端侧AI算力刷新历史。超级"
-                    "像素直屏，大R角极窄四等边。",
-        key_metrics={"series": "小米18",
+        organization="小米", country="中国",
+        description="小米18系列顶配Pro Max，2026年9月与Pro"
+                    "同期发布。独享高通骁龙8 Elite Gen6 Pro"
+                    "旗舰芯片（台积电2nm），GPU频率和缓存升级，"
+                    "图形性能更强，18MB专属图形缓存。徕卡双2亿"
+                    "像素三摄系统：2亿像素LOFIC超大底主摄+"
+                    "2亿像素大底潜望长焦+超广角，全焦段徕卡"
+                    "联合调校。8000mAh级别超大电池，100W有线"
+                    "闪充+无线充电。妙享背屏升级+实体AI按键，"
+                    "2K级超清直屏（大R角极窄四等边），新一代"
+                    "防窥技术。澎湃OS 4首发，超级小爱Agent能力"
+                    "强化，跨应用自动化任务。",
+        key_metrics={"price_start_rmb": 6499,
+                     "series": "小米18",
                      "tier": "Pro Max",
                      "chip": "骁龙8 Elite Gen6 Pro",
-                     "main_camera_mp": 200,
-                     "main_tech": "LOFIC",
-                     "telephoto_mp": 200,
-                     "ultrawide": True,
-                     "battery_mah": 8000,
+                     "process_nm": 2,
+                     "process_detail": "台积电2nm",
                      "gpu_cache_mb": 18,
+                     "gpu": "增强版Adreno",
+                     "ram": "LPDDR5X",
+                     "storage": "UFS 5.0",
+                     "screen": "2K LTPO极窄四等边直屏",
+                     "screen_tech": "超级像素排列+新一代防窥+大R角",
+                     "screen_material": "三星M14",
+                     "peak_brightness_nits": 4000,
+                     "back_screen": "妙享背屏（升级款）",
+                     "ai_key": "实体AI按键+超级小爱Agent",
                      "camera_brand": "徕卡",
-                     "screen": "超级像素直屏"},
-        maturity=MaturityLevel.MASS_PRODUCTION,
-        source="", source_tier=SourceTier.TIER1,
+                     "main_camera_mp": 200,
+                     "main_camera_tech": "LOFIC超大底",
+                     "telephoto_mp": 200,
+                     "telephoto_type": "大底潜望长焦",
+                     "ultrawide": "超广角镜头",
+                     "camera_count": 3,
+                     "battery_mah": 8000,
+                     "wired_charge_w": 100,
+                     "wireless_charge": True,
+                     "os": "澎湃OS 4",
+                     "release_date": "2026年9月"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="中关村在线/雷科技 2026年7-8月", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="双2亿像素+LOFIC方案可为"
-                              "机器人高精度视觉模组提供参考",
-        deployment_ready=True,
+                              "机器人高精度视觉模组提供参考，"
+                              "8000mAh电池方案为机器人续航设计提供借鉴",
+        deployment_ready=False,
         tags=["小米18 Pro Max", "徕卡", "双2亿",
-              "LOFIC", "8000mAh", "骁龙8E6 Pro", "Pro Max"],
+              "LOFIC", "8000mAh", "骁龙8E6 Pro", "Pro Max", "妙享背屏"],
     ),
     AIProduct(
         product_id="MC-025", name="苹果iPhone 18 Pro",
         category=AICategory.MOBILE_COMPUTER,
         organization="Apple", country="美国",
-        description="iPhone 18 Pro搭载苹果自研A20 Pro芯片，"
-                    "采用2nm工艺制程。运行内存提升至12GB，"
-                    "灵动岛面积进一步收窄。主摄像头新增"
-                    "物理可变光圈结构，类似单反相机光圈"
-                    "调节。苹果自研C2基带芯片。年度特别"
-                    "配色为深樱桃色。",
-        key_metrics={"series": "iPhone 18",
+        description="苹果2026年秋季旗舰（9月9日发布），搭载"
+                    "全球首发台积电2nm工艺A20 Pro芯片，采用"
+                    "全新WMCM晶圆级多芯片模块封装，CPU/GPU/NPU"
+                    "集成于同一载板。性能较A19 Pro提升15%，"
+                    "功耗降低25-30%，AI算力翻倍。全系标配12GB "
+                    "LPDDR5X运行内存。6.3英寸LTPO+高刷屏，"
+                    "灵动岛面积缩减35%，屏下Face ID正式落地，"
+                    "屏占比大幅提升。4800万像素主摄首次搭载"
+                    "机械物理可变光圈，支持f/1.4至f/4.0十档"
+                    "无级调节，暗光进光量提升40%。前置摄像头"
+                    "升级至2400万像素。通信全面换装苹果自研"
+                    "第三代C2 5G基带（彻底告别高通），弱网信号"
+                    "强度提升30-40%，电梯/高铁/地下室掉线率"
+                    "大幅下降；支持卫星5G直连功能，偏远山区"
+                    "或海上也能上网传图。N2无线芯片原生支持"
+                    "Wi-Fi 7+蓝牙6.0。电池容量超5000mAh，"
+                    "充电功率约40W。一体化磨砂后盖取代双色拼接，"
+                    "相机按键简化结构。预装iOS 27，新版Siri"
+                    "重构交互逻辑，端侧Apple Intelligence"
+                    "深度整合。配色新增深樱桃红（Dark Cherry）"
+                    "年度主打色。存储最高2TB。",
+        key_metrics={"price_start_rmb": 7999,
+                     "price_top_rmb": 12999,
+                     "series": "iPhone 18",
                      "tier": "Pro",
                      "chip": "A20 Pro",
                      "process_nm": 2,
+                     "process_detail": "台积电首代2nm（N2）",
+                     "package": "WMCM晶圆级多芯片模块封装",
+                     "performance_gain_pct": 15,
+                     "power_save_pct": 30,
+                     "ai_compute": "NPU翻倍",
                      "ram_gb": 12,
-                     "modem": "C2自研",
-                     "camera_aperture": "物理可变光圈",
-                     "special_color": "深樱桃色",
-                     "dynamic_island": "缩小版"},
-        maturity=MaturityLevel.MASS_PRODUCTION,
-        source="", source_tier=SourceTier.TIER1,
+                     "ram_type": "LPDDR5X",
+                     "storage_max_tb": 2,
+                     "screen_inch": 6.3,
+                     "screen_type": "LTPO+ OLED高刷屏",
+                     "dynamic_island": "缩小35%（屏下Face ID）",
+                     "face_id": "屏下Face ID",
+                     "modem": "苹果自研第三代C2 5G基带",
+                     "modem_signal_gain": "弱网信号提升30-40%",
+                     "satellite": "卫星5G直连（上网+传图）",
+                     "wireless": "N2芯片（Wi-Fi 7+蓝牙6.0）",
+                     "main_camera_mp": 4800,
+                     "camera_aperture": "物理可变光圈f/1.4-f/4.0十档无级",
+                     "camera_low_light_gain": "进光量提升40%",
+                     "front_camera_mp": 2400,
+                     "camera_key_simplified": True,
+                     "battery_mah": "5000+",
+                     "charge_w": 40,
+                     "back_design": "一体化磨砂后盖（取消双色拼接）",
+                     "os": "iOS 27",
+                     "ai": "Apple Intelligence（端侧完整）+新版Siri",
+                     "special_color": "深樱桃红（Dark Cherry）",
+                     "colors": ["深樱桃红", "深空灰", "浅蓝", "银色"],
+                     "release_date": "2026年9月9日"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="PhoneArena/中关村在线/环球网/太平洋科技 2026年7-8月", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="A20 Pro神经网络引擎可为"
-                              "机器人端侧AI推理提供算力参考",
-        deployment_ready=True,
-        tags=["iPhone 18 Pro", "Apple", "A20 Pro",
-              "2nm", "可变光圈", "C2基带", "Pro"],
+                              "机器人端侧AI推理提供算力参考，"
+                              "C2自研基带和卫星5G为机器人远距通信提供方案",
+        deployment_ready=False,
+        tags=["iPhone 18 Pro", "Apple", "A20 Pro", "2nm",
+              "可变光圈", "C2基带", "卫星5G", "屏下Face ID",
+              "Wi-Fi 7", "iOS 27", "Pro"],
     ),
     AIProduct(
         product_id="MC-026", name="苹果iPhone 18 Pro Max顶配",
         category=AICategory.MOBILE_COMPUTER,
         organization="Apple", country="美国",
-        description="iPhone 18系列大屏顶配版本，搭载A20 Pro"
-                    "2nm芯片，12GB运行内存。物理可变光圈"
-                    "主摄+升级长焦系统。更大屏幕和电池容量，"
-                    "钛合金材质中框。Apple Intelligence"
-                    "AI功能完整支持。",
-        key_metrics={"series": "iPhone 18",
+        description="iPhone 18系列大屏顶配（6.9英寸），与Pro"
+                    "同期9月9日发布。搭载A20 Pro 2nm芯片+12GB "
+                    "LPDDR5X内存，独享6倍光学潜望长焦镜头，"
+                    "4800万物理可变光圈主摄（f/1.4-f/4.0十档）+"
+                    "超广角+6倍潜望长焦三摄组合。前置2400万像素。"
+                    "电池容量较前代提升近10%（超5000mAh），为"
+                    "容纳更大电芯机身厚度小幅增加。自研C2基带+"
+                    "卫星5G+Wi-Fi 7+蓝牙6.0通信全家桶。灵动岛"
+                    "缩小35%，屏下Face ID，一体化磨砂钛金属后盖。"
+                    "钛合金中框，改进铝提炼工艺提升耐用性。"
+                    "iOS 27+完整Apple Intelligence端侧AI。"
+                    "存储最高2TB。40W有线充电。深樱桃红主打色。",
+        key_metrics={"price_start_rmb": 8999,
+                     "price_top_rmb": 14999,
+                     "series": "iPhone 18",
                      "tier": "Pro Max",
                      "chip": "A20 Pro",
                      "process_nm": 2,
                      "ram_gb": 12,
-                     "frame": "钛合金",
-                     "camera_aperture": "物理可变光圈",
-                     "ai": "Apple Intelligence"},
-        maturity=MaturityLevel.MASS_PRODUCTION,
-        source="", source_tier=SourceTier.TIER1,
+                     "ram_type": "LPDDR5X",
+                     "storage_max_tb": 2,
+                     "screen_inch": 6.9,
+                     "screen_type": "LTPO+ OLED高刷屏",
+                     "dynamic_island": "缩小35%（屏下Face ID）",
+                     "modem": "苹果自研C2 5G基带",
+                     "satellite": "卫星5G直连",
+                     "wireless": "Wi-Fi 7+蓝牙6.0（N2芯片）",
+                     "main_camera_mp": 4800,
+                     "camera_aperture": "物理可变光圈f/1.4-f/4.0十档",
+                     "telephoto_x": 6,
+                     "telephoto_type": "6倍光学潜望长焦（Pro Max独占）",
+                     "ultrawide": "超广角镜头",
+                     "camera_count": 3,
+                     "front_camera_mp": 2400,
+                     "battery_gain_pct": 10,
+                     "battery_mah": "5000+",
+                     "charge_w": 40,
+                     "frame": "钛合金中框（改进铝工艺）",
+                     "back_design": "一体化磨砂后盖",
+                     "os": "iOS 27",
+                     "ai": "Apple Intelligence+新版Siri",
+                     "special_color": "深樱桃红",
+                     "release_date": "2026年9月9日"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="PhoneArena/中关村在线/太平洋科技 2026年7-8月", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
-        relevance_to_robotics="钛合金中框和可变光圈"
-                              "技术可参考机器人结构设计",
-        deployment_ready=True,
-        tags=["iPhone 18 Pro Max", "Apple", "A20 Pro",
-              "钛合金", "Apple Intelligence", "Pro Max"],
+        relevance_to_robotics="钛合金工艺和6倍潜望长焦"
+                              "技术可参考机器人结构设计与远距视觉方案",
+        deployment_ready=False,
+        tags=["iPhone 18 Pro Max", "Apple", "A20 Pro", "2nm",
+              "钛合金", "6倍潜望长焦", "Apple Intelligence",
+              "卫星5G", "Pro Max"],
     ),
     AIProduct(
         product_id="MC-027", name="苹果iPhone Ultra首款折叠屏",
         category=AICategory.MOBILE_COMPUTER,
         organization="Apple", country="美国",
-        description="苹果首款横向内折折叠屏手机，外屏约"
-                    "5.3-5.5英寸，展开后内屏约7.6-7.8英寸，"
-                    "书本式折叠设计。展开厚度仅4.5mm，"
-                    "采用先进显示工艺和高耐用铰链，折痕"
-                    "近乎消除。A20芯片，双后置摄像头，侧边"
-                    "电源键集成Touch ID替代Face ID。钛合金"
-                    "机身，预估售价2000-2500美元（约1.76万元"
-                    "人民币），为苹果史上最贵iPhone。",
-        key_metrics={"series": "iPhone Ultra",
-                     "form_factor": "横向内折",
+        description="苹果首款横向书本式内折折叠屏手机（iPhone "
+                    "Fold/Ultra），或命名iPhone Ultra，与18 Pro"
+                    "系列同台亮相但上市可能延至2027年初。外屏"
+                    "约5.5英寸，展开后7.8英寸内屏（三星显示"
+                    "三年独家供应协议）。折叠状态厚度约9.5mm，"
+                    "展开最薄处仅4.5mm。钛合金机身，铰链部分"
+                    "使用液态金属，折痕深度控制在0.15mm以内"
+                    "（几乎肉眼不可见），铰链折叠角度<2.5度，"
+                    "接近无缝体验。为节省空间取消Face ID，"
+                    "改用电源键集成侧边Touch ID。后置双摄"
+                    "（较Pro系列三摄缩减）。核心配置搭载A20 "
+                    "Pro芯片+12GB内存，运行专门适配折叠屏形态"
+                    "的iOS 27系统，支持应用分屏和多窗口并行"
+                    "操作。电池容量5800mAh。国行起售价预计"
+                    "14999元左右（1999-2500美元），顶配版本"
+                    "突破2万元。",
+        key_metrics={"price_start_rmb": 14999,
+                     "price_top_rmb": 20000,
+                     "series": "iPhone Ultra",
+                     "form_factor": "横向书本式内折",
                      "outer_screen_inch": 5.5,
                      "inner_screen_inch": 7.8,
+                     "screen_supplier": "三星显示（三年独家）",
+                     "thickness_folded_mm": 9.5,
                      "thickness_open_mm": 4.5,
-                     "chip": "A20",
-                     "biometric": "侧边Touch ID",
-                     "frame": "钛合金",
-                     "price_usd": "2000-2500",
-                     "price_rmb_approx": 17600,
-                     "rear_cameras": 2},
+                     "frame": "钛合金机身",
+                     "hinge": "液态金属铰链",
+                     "fold_crease_mm": 0.15,
+                     "hinge_angle_deg": 2.5,
+                     "chip": "A20 Pro",
+                     "process_nm": 2,
+                     "ram_gb": 12,
+                     "biometric": "侧边Touch ID（电源键集成，取消Face ID）",
+                     "rear_camera_count": 2,
+                     "battery_mah": 5800,
+                     "os": "iOS 27（折叠屏专属适配）",
+                     "os_features": ["应用分屏", "多窗口并行"],
+                     "price_usd": "1999-2500",
+                     "release_date": "2026年9月发布/2027年初上市"},
         maturity=MaturityLevel.COMMERCIAL,
-        source="", source_tier=SourceTier.TIER2,
+        source="中关村在线/中华网/PhoneArena 2026年7-8月", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="折叠屏铰链和柔性显示"
                               "技术可用于机器人可变形"
-                              "交互界面设计",
+                              "交互界面设计，液态金属铰链"
+                              "为机器人关节材料提供参考",
         deployment_ready=False,
         tags=["iPhone Ultra", "Apple", "折叠屏",
-              "钛合金", "Touch ID", "史上最贵"],
+              "钛合金", "Touch ID", "液态金属铰链",
+              "A20 Pro", "史上最贵iPhone"],
     ),
     AIProduct(
         product_id="MC-028", name="华为MateBook 14鸿蒙版",
@@ -6682,6 +6829,68 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         tags=["Mate 80 Pro", "麒麟9030", "第二代红枫影像",
               "超聚光长焦", "第二代昆仑玻璃", "北斗卫星",
               "IP68", "无网通信", "HarmonyOS 6"],
+    ),
+    AIProduct(
+        product_id="MC-039", name="小米18标准版双2亿徕卡",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="小米", country="中国",
+        description="小米18系列标准版，与Pro系列分开举办发布会，"
+                    "2026年第四季度正式上市。首批搭载高通骁龙8E6"
+                    "（骁龙8 Elite Gen6标准版），台积电N2P改良版"
+                    "2nm工艺，晶体管密度较3nm提升30%，同等性能"
+                    "功耗下降36%。第三代自研Oryon CPU 2+3+3八核"
+                    "三丛集架构，共享16MB L2缓存，Adreno 845 GPU，"
+                    "LPDDR5X内存+UFS 5.0存储。6.4英寸极窄四等边"
+                    "直屏（LIPO工艺），首次吃上超级像素排列，方形"
+                    "矩阵DECO设计（左上角非对称四筒排列，取消妙享"
+                    "背屏）。标准版系列首次引入徕卡联合调校双2亿"
+                    "像素三摄：2亿像素超大底主摄+2亿像素潜望长焦+"
+                    "超广角，高像素细节还原+大幅裁切二次构图仍清晰，"
+                    "像素合并算法优化暗光拍摄，高动态夜景。实体AI"
+                    "按键全系标配，一键唤醒超级小爱。五款配色可选："
+                    "黑色、白色、粉色、蓝色、红色。受2nm芯片和内存"
+                    "成本上涨影响，起售价超5499元，较上代涨幅超1000元。",
+        key_metrics={"price_start_rmb": 5499,
+                     "series": "小米18",
+                     "tier": "标准版",
+                     "chip": "骁龙8E6（骁龙8 Elite Gen6标准版）",
+                     "process_nm": 2,
+                     "process_detail": "台积电N2P改良版2nm",
+                     "transistor_density_gain_pct": 30,
+                     "power_save_pct": 36,
+                     "cpu_arch": "第三代Oryon 2+3+3八核",
+                     "l2_cache_mb": 16,
+                     "gpu": "Adreno 845",
+                     "ram": "LPDDR5X",
+                     "storage": "UFS 5.0",
+                     "screen_inch": 6.4,
+                     "screen_type": "极窄四等边直屏（LIPO工艺）",
+                     "screen_tech": "超级像素排列",
+                     "camera_layout": "非对称四筒排列（左上角方形DECO）",
+                     "back_screen": False,
+                     "ai_key": "实体AI按键+超级小爱",
+                     "camera_brand": "徕卡",
+                     "main_camera_mp": 200,
+                     "main_camera_desc": "2亿像素超大底主摄",
+                     "telephoto_mp": 200,
+                     "telephoto_desc": "2亿像素潜望长焦",
+                     "ultrawide": "超广角镜头",
+                     "camera_count": 3,
+                     "photo_features": ["像素合并暗光优化", "高动态夜景",
+                                        "大幅裁切清晰度"],
+                     "colors": ["黑色", "白色", "粉色", "蓝色", "红色"],
+                     "color_count": 5,
+                     "price_increase": "较上代涨超1000元（内存+2nm成本）",
+                     "release_date": "2026年第四季度（Q4）"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="中关村在线/太平洋科技/雷科技 2026年7-8月", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="2nm中端旗舰芯片为机器人"
+                              "主控板提供低功耗高性能参考方案，"
+                              "双2亿像素为机器人视觉模组提供高性价比选型",
+        deployment_ready=False,
+        tags=["小米18", "骁龙8E6", "2nm", "双2亿徕卡",
+              "超级像素", "AI按键", "标准版", "5色"],
     ),
     AIProduct(
         product_id="MD-017", name="华为WATCH ULTIMATE DESIGN非凡大师星钻版",
