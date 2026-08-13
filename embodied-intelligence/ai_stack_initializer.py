@@ -25,7 +25,8 @@ AI智能栈统一初始化 - V1.1
   15. init_education() - 初始化教育AI
   16. init_home_appliance() - 初始化家用电器AI
   17. init_medical_device() - 初始化医疗设备AI
-  18. initialize_all() - 一键初始化全部AI智能栈
+  18. init_mobile_computer() - 初始化手机和电脑AI
+  19. initialize_all() - 一键初始化全部AI智能栈
 """
 
 import os
@@ -168,6 +169,12 @@ def init_medical_device():
     return create_medical_device_ai()
 
 
+def init_mobile_computer():
+    """初始化手机和电脑AI平台。"""
+    from mobile_computer_ai import create_mobile_computer_ai
+    return create_mobile_computer_ai()
+
+
 _INDUSTRY_INIT_FUNCS = {
     "renewable_energy": init_renewable_energy,
     "agriculture": init_agriculture,
@@ -180,6 +187,7 @@ _INDUSTRY_INIT_FUNCS = {
     "education": init_education,
     "home_appliance": init_home_appliance,
     "medical_device": init_medical_device,
+    "mobile_computer": init_mobile_computer,
 }
 
 

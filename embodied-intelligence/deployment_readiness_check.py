@@ -1123,7 +1123,7 @@ class DeploymentReadinessChecker:
                            False, f"导入失败: {e}", time.time() - t0)
             return
 
-        # AIS-002: AI_LANDSCAPE_DB 非空且覆盖全部21大类别
+        # AIS-002: AI_LANDSCAPE_DB 非空且覆盖全部22大类别
         t0 = time.time()
         try:
             total = len(AI_LANDSCAPE_DB)
@@ -1140,10 +1140,10 @@ class DeploymentReadinessChecker:
                 if missing_cats:
                     parts.append(f"缺失类别: {[c.value for c in missing_cats]}")
                 detail = "; ".join(parts)
-            self._register("AIS-002", "AI全景21大类别覆盖", "ai_stack",
+            self._register("AIS-002", "AI全景22大类别覆盖", "ai_stack",
                            ok, detail, time.time() - t0)
         except Exception as e:
-            self._register("AIS-002", "AI全景21大类别覆盖", "ai_stack",
+            self._register("AIS-002", "AI全景22大类别覆盖", "ai_stack",
                            False, f"检测失败: {e}", time.time() - t0)
 
         # AIS-003: VLA模型后端注册表非空且含安全降级mock
@@ -1537,6 +1537,19 @@ class DeploymentReadinessChecker:
                            ok, detail, time.time() - t0)
         except Exception as e:
             self._register("AIS-030", "医疗设备AI模块", "ai_stack",
+                           False, f"导入失败: {e}", time.time() - t0)
+
+        # AIS-031: 手机和电脑AI模块可导入且工厂可创建
+        t0 = time.time()
+        try:
+            from mobile_computer_ai import create_mobile_computer_ai
+            mc = create_mobile_computer_ai()
+            ok = mc is not None and hasattr(mc, "phone_controller")
+            detail = "手机和电脑AI平台可创建" if ok else "创建失败"
+            self._register("AIS-031", "手机和电脑AI模块", "ai_stack",
+                           ok, detail, time.time() - t0)
+        except Exception as e:
+            self._register("AIS-031", "手机和电脑AI模块", "ai_stack",
                            False, f"导入失败: {e}", time.time() - t0)
 
     # ------------------------------------------------------------------

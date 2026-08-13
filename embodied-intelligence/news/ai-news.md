@@ -512,6 +512,18 @@ Google Pixel 11发布，搭载Tensor G6芯片运行Gemini Nano，Gemini Intellig
 - **Vivim术中血管导航AI**：腹腔镜肝切除实时血管边界识别，珠江医院+中科院+港科大联合研发
 - **华为WATCH D2医疗级血压手表**：NMPA/CE MDR双认证，24h动态血压，房颤筛查90%准确率，跌倒检测80ms
 
+### 手机和电脑AI
+- **荣耀Robot Phone全球首款机器人手机**：四自由度钛合金云台，Agentic OS+YOYO Pro+千问大模型，100+步任务执行，9999元起
+- **小米澎湃OS 4+MiMo端侧大模型**：Rust重写核心流畅度提升40%，超级小爱2.0自主多步任务，9月随小米18发布
+- **华为Pura X Max阔折叠**：麒麟9030，外5.4/内7.7英寸，三月销量64万台，10999元起
+- **三星Galaxy Z Fold8 Ultra**：8英寸主屏/4.1mm超薄，2亿像素+8K视频，钛缓震层，Galaxy AI深度适配
+- **REDMI K100 Pro Max**：185Hz屏+骁龙8至尊版+AI独显芯片，国补后3699元起
+- **Apple MacBook Pro M5 Max**：128GB统一内存本地运行LLM，性能较M1提升8倍，Wi-Fi 7
+- **联想小新Pro 16 GT AI元启版**：酷睿Ultra X9 388H，OLED 2.8K/1100nit/ΔE<1，99.9Wh电池
+- **Intel Core Ultra Series 3(18A)**：美国本土18A工艺，NPU 40-50 TOPS，Copilot+ PC标准
+- **ThinkPad X14 AI 2026**：1.2kg碳纤维，180TOPS算力，MIL-STD-810H 26项军标，国补8074元起
+- **Apple MacBook Neo**：4599元起入门AI本，无风扇静音，16小时续航，Apple Intelligence
+
 ---
 
 ## 前期资讯汇编

@@ -4,12 +4,12 @@
 AI全景注册表 - V1.2
 ================================================================
 新增内容（V1.2 2026-08-13）：
-  - 新增40+项AI产品覆盖21大模块
+  - 新增40+项AI产品覆盖22大模块
   - 修复农业模块ID冲突(AG->AGR)
   - 更新版本：V1.1 -> V1.2
 
 历史内容：
-  1. AICategory（21大类别枚举）
+  1. AICategory（22大类别枚举）
   2. MaturityLevel（成熟度枚举）
   3. SourceTier（来源等级枚举）
   4. AIProduct（产品数据类）
@@ -51,6 +51,7 @@ class AICategory(Enum):
     EDUCATION = "education"
     HOME_APPLIANCE = "home_appliance"
     MEDICAL_DEVICE = "medical_device"
+    MOBILE_COMPUTER = "mobile_computer"
 
 
 class MaturityLevel(Enum):
@@ -1113,7 +1114,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         tags=["智能批改", "作文评分", "教育智能体", "课堂分析"],
     ),
     # ==================================================================
-    # 更新：21大模块最新AI产品与技术进展
+    # 更新：22大模块最新AI产品与技术进展
     # ==================================================================
 
     # --- 人形机器人 ---
@@ -5007,6 +5008,269 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                               "健康监测数据流，支撑主动健康干预",
         deployment_ready=True,
         tags=["华为", "WATCH D2", "血压监测", "NMPA认证", "房颤筛查", "端侧AI"],
+    ),
+
+    # --- 手机和电脑 ---
+    AIProduct(
+        product_id="MC-001", name="荣耀Robot Phone机器人手机",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="中国",
+        description="全球首款具身智能机器人手机，首创四自由度钛合金灵巧"
+                    "云台，加工精度±0.005mm，电机仅2.6g，扭矩密度120"
+                    "N·m/L。搭载Agentic OS内核+YOYO Pro机器人模式，"
+                    "联合阿里千问深度共创终端大模型，支持连续100+步复杂"
+                    "任务。与百年电影品牌ARRI联合调校影像，驭光H1自研"
+                    "芯片支持14档动态范围、ARRI LogC3曲线。第五代骁龙8"
+                    "至尊版，7060mAh电池，120W快充。9.59mm/248g。"
+                    "12GB+512GB版9999元，16GB+1TB版12999元。",
+        key_metrics={"price_start_rmb": 9999, "price_top_rmb": 12999,
+                     "platform": "骁龙8至尊版Gen5", "battery_mah": 7060,
+                     "fast_charge_w": 120, "wireless_charge_w": 50,
+                     "thickness_mm": 9.59, "weight_g": 248,
+                     "dof": 4, "motor_weight_g": 2.6,
+                     "precision_mm": 0.005, "torque_density": "120N·m/L",
+                     "camera_main_mp": 200, "display_inch": 6.31,
+                     "peak_brightness_nits": 6800,
+                     "ai_model": "千问终端大模型",
+                     "os": "Agentic OS", "task_steps": 100},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="四自由度机械云台是机器人关节技术微型化的"
+                              "消费级落地，Agentic OS实现感知-推理-规划-"
+                              "执行-反馈完整AI闭环，手机可作为机器人中控",
+        deployment_ready=True,
+        tags=["机器人手机", "荣耀", "钛合金云台", "Agentic OS", "YOYO Pro",
+              "ARRI", "千问", "驭光H1", "具身智能终端"],
+    ),
+    AIProduct(
+        product_id="MC-002", name="小米澎湃OS 4+MiMo端侧大模型",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="中国",
+        description="小米澎湃OS 4首批Beta版发布，底层用Rust重写核心"
+                    "模块，流畅度提升40%，后台保活率提高35%，安装包"
+                    "缩小30%。超级小爱升级至2.0接入MiMo端侧大模型，"
+                    "可自主执行多步骤任务。全新柔光玻璃智能材质感知"
+                    "环境颜色和触控操作，前置主动AI感知和AI感色融色UI，"
+                    "功耗由NPU协同处理极低。首批覆盖小米17系列，正式版"
+                    "随小米18系列9月发布。彻底摆脱Android依赖，迈向"
+                    "全场景智能操作系统。",
+        key_metrics={"smoothness_improvement_pct": 40,
+                     "background_retention_pct": 35,
+                     "package_size_reduction_pct": 30,
+                     "language": "Rust",
+                     "ai_model": "MiMo端侧大模型",
+                     "assistant_version": "超级小爱2.0",
+                     "first_batch": "小米17系列",
+                     "stable_release": "小米18系列(9月)",
+                     "features": ["柔光玻璃", "AI感色融色UI",
+                                  "主动AI感知", "NPU低功耗"]},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="Rust重写的底层OS和端侧大模型为机器人提供"
+                              "高可靠、低延迟的系统软件基础，多步骤自主"
+                              "任务执行直接对应机器人任务规划能力",
+        deployment_ready=False,
+        tags=["澎湃OS 4", "MiMo", "Rust", "超级小爱", "端侧大模型", "小米18"],
+    ),
+    AIProduct(
+        product_id="MC-003", name="华为Pura X Max阔折叠旗舰",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="中国",
+        description="首创大阔折形态，外屏5.4英寸、内屏7.7英寸。搭载"
+                    "麒麟9030 Pro芯片，后置四摄，5300mAh电池。"
+                    "首销三个月销量突破60万台，累计约64.47万台，"
+                    "在万元级高端市场表现突出。起售价10999元，提供"
+                    "典藏版和标准版。带动苹果、三星等品牌跟进阔折叠"
+                    "形态。即将推出新配色，与Mate 90系列同台亮相。",
+        key_metrics={"price_start_rmb": 10999,
+                     "chip": "麒麟9030 Pro",
+                     "outer_screen_inch": 5.4, "inner_screen_inch": 7.7,
+                     "battery_mah": 5300, "sales_3months": 644700,
+                     "form_factor": "大阔折叠",
+                     "cameras": 4},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="折叠屏形态创新和大屏交互为机器人手持"
+                              "终端和远程操控界面提供设计参考",
+        deployment_ready=True,
+        tags=["华为", "Pura X Max", "阔折叠", "麒麟9030", "万元旗舰"],
+    ),
+    AIProduct(
+        product_id="MC-004", name="三星Galaxy Z Fold8 Ultra折叠旗舰",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="韩国",
+        description="三星首款Ultra命名折叠屏手机，8英寸超大主屏，展开"
+                    "厚度仅4.1mm超纤薄机身。2亿像素主摄+5000万超广角，"
+                    "支持8K APV编解码器和电影级LUT。钛缓震层技术结合"
+                    "增强型钛金属板与钛合金薄膜，淡化折痕。第五代骁龙8"
+                    "至尊版(for Galaxy)，5000mAh电池，石墨冷却结构。"
+                    "Galaxy AI围绕折叠屏深度适配，即圈即搜升级支持"
+                    "图片主体识别和关键信息提取。",
+        key_metrics={"main_screen_inch": 8, "thickness_unfolded_mm": 4.1,
+                     "camera_main_mp": 200, "camera_ultrawide_mp": 50,
+                     "video": "8K APV", "chip": "骁龙8至尊版Gen5",
+                     "battery_mah": 5000, "cooling": "石墨冷却",
+                     "ai_features": ["即圈即搜", "主体识别",
+                                     "信息提取", "照片助手"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="大屏多任务和AI信息提取能力可迁移至"
+                              "机器人操作终端和远程监控界面",
+        deployment_ready=True,
+        tags=["三星", "Z Fold8 Ultra", "折叠屏", "2亿像素", "Galaxy AI", "钛缓震"],
+    ),
+    AIProduct(
+        product_id="MC-005", name="REDMI K100 Pro Max性能旗舰",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="中国",
+        description="185Hz高刷屏+第五代骁龙8至尊版+AI独显芯片。"
+                    "首发价4199元起，叠加国家补贴后实际入手价低至"
+                    "3699元起。定位性能旗舰，AI独显芯片支持游戏"
+                    "超分超帧和AI画质增强。在2000-4000元价位段"
+                    "提供旗舰级AI算力和游戏体验。",
+        key_metrics={"price_start_rmb": 4199, "price_subsidy_rmb": 3699,
+                     "refresh_rate_hz": 185, "platform": "骁龙8至尊版Gen5",
+                     "ai_chip": "AI独显芯片",
+                     "features": ["游戏超分", "超帧", "AI画质增强"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="高刷屏和AI独显芯片为机器人可视化调试"
+                              "和仿真渲染提供高性价比终端方案",
+        deployment_ready=True,
+        tags=["REDMI", "K100 Pro Max", "185Hz", "AI独显", "国补"],
+    ),
+    AIProduct(
+        product_id="MC-006", name="Apple MacBook Pro M5 Max AI PC",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="美国",
+        description="搭载M5 Pro和M5 Max芯片，每核均配备神经网络加速器，"
+                    "统一内存带宽大幅提升，性能较前代最高4倍、较M1最高"
+                    "8倍。支持最高128GB统一内存，可本地运行大语言模型。"
+                    "配备Apple N1芯片支持Wi-Fi 7和蓝牙6。14/16英寸"
+                    "两种尺寸，深空黑色与银色。M5 Pro起步1TB，M5 Max"
+                    "起步2TB。Apple Intelligence深度集成，AI本地推理"
+                    "能力行业领先。",
+        key_metrics={"chip": "M5 Pro/M5 Max",
+                     "performance_vs_prev": "4x",
+                     "performance_vs_m1": "8x",
+                     "max_memory_gb": 128, "npu": "每核神经网络加速器",
+                     "wifi": "Wi-Fi 7", "bluetooth": "BT 6",
+                     "sizes": ["14英寸", "16英寸"],
+                     "ai": "Apple Intelligence",
+                     "storage_start_tb": 1},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="128GB统一内存可本地运行大模型，为机器人"
+                              "AI推理和仿真训练提供强大的本地算力平台",
+        deployment_ready=True,
+        tags=["MacBook Pro", "M5 Max", "Apple Intelligence", "128GB", "Wi-Fi 7"],
+    ),
+    AIProduct(
+        product_id="MC-007", name="联想小新Pro 16 GT AI元启版",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="中国",
+        description="搭载第三代酷睿Ultra X9 388H处理器，预装天禧个人"
+                    "超级智能体3.5。16英寸OLED星耀舒适屏，2880x1800"
+                    "分辨率，峰值亮度1100尼特，ΔE<1专业色准，七档"
+                    "色域切换。99.9Wh超大电池，丝绸铝冲铸一体机身，"
+                    "1.72kg/15.9mm。6.2英寸触控板，全尺寸键盘+数字"
+                    "区。HDMI2.1+双雷电4接口。12大项可靠性认证。",
+        key_metrics={"processor": "Intel Core Ultra X9 388H",
+                     "display_inch": 16, "resolution": "2880x1800",
+                     "peak_brightness_nits": 1100, "color_delta_e": 0.78,
+                     "battery_wh": 99.9, "weight_kg": 1.72,
+                     "thickness_mm": 15.9, "ai_agent": "天禧3.5",
+                     "ports": ["HDMI 2.1", "Thunderbolt 4 x2",
+                               "USB-A x2", "SD", "3.5mm"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="大屏OLED和高色准为机器人可视化编程、"
+                              "仿真调试和数据标注提供优质显示终端",
+        deployment_ready=True,
+        tags=["联想", "小新Pro 16", "AI元启", "酷睿Ultra", "OLED", "天禧智能体"],
+    ),
+    AIProduct(
+        product_id="MC-008", name="Intel Core Ultra Series 3 (18A)",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="美国",
+        description="Intel首款基于18A工艺的移动处理器平台，美国本土"
+                    "设计和制造的最先进半导体工艺。NPU驱动的Hybrid AI"
+                    "架构，Copilot+ PC标准NPU算力40-50 TOPS。数百款"
+                    "OEM设计覆盖Acer、ASUS、Dell、HP、Lenovo、LG、"
+                    "MSI、Samsung等全球品牌。Intel Arc显卡含12个"
+                    "Xe核心，为Intel最高性能集显。推动AI PC从概念"
+                    "走向主流普及。",
+        key_metrics={"process_nm": 18, "npu_tops": "40-50",
+                     "standard": "Copilot+ PC",
+                     "gpu_cores": 12, "gpu_arch": "Intel Arc Xe2",
+                     "oem_partners": ["Acer", "ASUS", "Dell", "HP",
+                                      "Lenovo", "LG", "MSI", "Samsung"],
+                     "ai_features": "Hybrid AI"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="x86生态的AI PC平台为机器人开发和"
+                              "边缘部署提供最广泛的软硬件兼容基础",
+        deployment_ready=True,
+        tags=["Intel", "Core Ultra", "18A", "NPU", "Copilot+ PC", "AI PC"],
+    ),
+    AIProduct(
+        product_id="MC-009", name="ThinkPad X14 AI 2026商旅本",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="中国",
+        description="全场景便携AI商旅本，碳纤维机身1.2kg/15mm。至高"
+                    "酷睿Ultra X9处理器，16核16线程最高睿频5.1GHz，"
+                    "整机180TOPS AI算力，NPU峰值50TOPS。74Wh电池"
+                    "15.5小时办公续航，1小时快充80%。2.8K屏1000nits，"
+                    "ΔE<1硬件校色。MIL-STD-810H 26项军标测试。"
+                    "首发9499元起，国补8074元起。",
+        key_metrics={"weight_kg": 1.2, "thickness_mm": 15,
+                     "processor": "Core Ultra X9",
+                     "ai_tops_total": 180, "npu_tops": 50,
+                     "battery_wh": 74, "battery_life_h": 15.5,
+                     "fast_charge_pct": 80, "fast_charge_min": 60,
+                     "display": "2.8K 1000nits", "color_delta_e": 1,
+                     "military_standard": "MIL-STD-810H 26项",
+                     "price_start_rmb": 9499,
+                     "price_subsidy_rmb": 8074},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="军标耐用性和便携性适合现场机器人"
+                              "调试和部署，180TOPS算力支撑本地AI",
+        deployment_ready=True,
+        tags=["ThinkPad", "X14 AI", "商旅本", "180TOPS", "军标", "酷睿Ultra"],
+    ),
+    AIProduct(
+        product_id="MC-010", name="Apple MacBook Neo入门AI本",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="", country="美国",
+        description="Apple迄今最实惠笔记本电脑，起售价4599元。无风扇"
+                    "静音设计，13英寸Liquid视网膜显示屏，最长16小时"
+                    "电池续航。可驱动各类app的AI功能，1080p FaceTime"
+                    "摄像头和双麦克风。铝金属机身提供桃粉、靛蓝、银色、"
+                    "柑橘黄四色。Apple Intelligence入门体验，降低"
+                    "AI PC门槛。",
+        key_metrics={"price_start_rmb": 4599, "display_inch": 13,
+                     "battery_life_h": 16, "fanless": True,
+                     "camera": "1080p FaceTime",
+                     "colors": ["桃粉", "靛蓝", "银色", "柑橘黄"],
+                     "ai": "Apple Intelligence",
+                     "body": "铝金属"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="低价AI PC降低机器人开发者的入门硬件"
+                              "门槛，无风扇设计适合安静实验室环境",
+        deployment_ready=True,
+        tags=["MacBook Neo", "Apple", "入门AI本", "无风扇", "4599元"],
     ),
 
 ]
