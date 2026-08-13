@@ -103,6 +103,14 @@ screenshots/
 *.gif
 *.bmp
 
+# ===== 白名单：项目产品截图目录（允许提交到公共仓库） =====
+!embodied-intelligence/assets/
+!embodied-intelligence/assets/**/*.jpg
+!embodied-intelligence/assets/**/*.jpeg
+!embodied-intelligence/assets/**/*.png
+!embodied-intelligence/assets/**/*.webp
+!embodied-intelligence/assets/**/*.gif
+
 # ===== Data directories (privacy & large files) =====
 drag_teach_data/
 *_data/
