@@ -91,6 +91,67 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
     # 类别1：AI人型机器人最新进展
     # ==================================================================
     AIProduct(
+        product_id="HR-000", name="2026年人形机器人产业链全景数据汇总",
+        category=AICategory.HUMANOID_ROBOT,
+        organization="高工机器人/工信部/各企业发布会", country="中国",
+        description="2026年人形机器人行业核心数据全景汇总："
+                    "核心零部件成本结构：精密减速器占36%、专用传感器11%、"
+                    "高性能伺服电机10%、芯片9%、电池及其他34%；"
+                    "减速器、伺服电机、控制器三大核心系统合计占总成本约70%。"
+                    "市场预测：2026年全球人形机器人销量有望达40-50万台，"
+                    "2030年达280-450万台；2030年市场规模有望破千亿。"
+                    "国产替代与产能：当前人形机器人核心零部件国产化率约"
+                    "40%-45%，减速器/伺服电机/控制器等卡脖子环节正加速突破，"
+                    "有望2027年前后实现65%国产化目标。"
+                    "企业产能：宇树科技2026年5月中旬人形机器人日产能达51台，"
+                    "月产能超1500台，2026全年产能规划5000台；智元机器人"
+                    "2025年9月启动上海数据人工厂（年产1万台整机+2万套关节），"
+                    "2026年5月成立无锡产能基地（年产能10万台）；"
+                    "优必选2025年底人形机器人年产能达1万台，规划2026年达3万台，"
+                    "旗下Walker系列出货超3000台居全球第一。"
+                    "资本动态：宇树科技2026年8月科创板IPO申购，被称为"
+                    "人形机器人第一股；智元/优必选/银河通用纷纷启动上市进程。"
+                    "政策时间线：2023年11月工信部《人形机器人创新发展指导意见》；"
+                    "2025年12月26个省份落地人形机器人产业政策；"
+                    "2026年人形机器人首次写入政府工作报告、全国两会热点；"
+                    "2026年8月WRC2026在北京举行，超160家企业500+展品参展。",
+        key_metrics={"cost_structure": {"精密减速器": 36, "专用传感器": 11,
+                                      "高性能伺服电机": 10, "芯片": 9,
+                                      "电池及其他": 34},
+                     "core_three_cost_pct": 70,
+                     "sales_2026_low_high": [400000, 500000],
+                     "sales_2030_low_high": [2800000, 4500000],
+                     "market_scale_2030": "破千亿",
+                     "domestic_rate_current_pct": "40-45",
+                     "domestic_rate_2027_target_pct": 65,
+                     "unitree_daily_capacity": 51,
+                     "unitree_monthly_capacity": 1500,
+                     "unitree_2026_capacity": 5000,
+                     "agibot_shanghai_capacity": "1万台整机+2万套关节",
+                     "agibot_wuxi_capacity": 100000,
+                     "ubtech_2025_capacity": 10000,
+                     "ubtech_2026_target": 30000,
+                     "ubtech_walker_shipped": 3000,
+                     "policy_timeline": ["2023.11工信部指导意见",
+                                       "2025.12 26省产业政策",
+                                       "2026年写入政府工作报告",
+                                       "2026两会热点",
+                                       "2026.8 WRC2026北京"],
+                     "wrc2026_companies": 160,
+                     "wrc2026_exhibits": 500,
+                     "ipo_companies": ["宇树科技(科创板)", "智元", "优必选", "银河通用"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="全面的产业链数据为项目BOM成本估算、"
+                              "核心零部件选型、供应链规划、产能评估"
+                              "提供权威数据支撑",
+        deployment_ready=True,
+        tags=["人形机器人产业链", "成本结构", "市场规模预测",
+              "国产化率", "产能规划", "宇树IPO", "WRC2026",
+              "政策时间线", "核心零部件"],
+    ),
+    AIProduct(
         product_id="HR-001", name="中国人形机器人加速进厂",
         category=AICategory.HUMANOID_ROBOT,
         organization="中国机器人企业", country="中国",
@@ -1407,23 +1468,85 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         deployment_ready=True,
         tags=["世界模型", "量产", "自我对弈", "城区NOA", "数据驱动"],
     ),
+    AIProduct(
+        product_id="WM-005", name="比亚迪HyWorldVLA视觉语言动作模型",
+        category=AICategory.WORLD_MODEL,
+        organization="比亚迪", country="中国",
+        description="比亚迪基于2300万智驾车队实现核心智驾算法数据闭环，"
+                    "训练推出的统一VLA视觉语言动作模型，标志着国产"
+                    "车企在具身智能VLA技术领域实现重要突破。依托"
+                    "大规模真实路采数据闭环训练，可在复杂道路环境下"
+                    "实现端到端感知-决策-动作一体化输出，支持L2+到L4"
+                    "不同级别自动驾驶。模型架构可向人形机器人运动控制迁移。",
+        key_metrics={"fleet_size_million": 23,
+                     "data_closed_loop": True,
+                     "type": "VLA(视觉语言动作)",
+                     "autonomy_support": ["L2+", "L4"],
+                     "migration_to_robot": True,
+                     "training_data": "2300万智驾车真实路采数据"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="2300万车队数据闭环训练VLA模型，"
+                              "架构可直接迁移至人形机器人运动控制，"
+                              "是国产端到端具身智能模型重要进展",
+        deployment_ready=True,
+        tags=["比亚迪", "HyWorldVLA", "视觉语言动作模型", "2300万车队",
+              "数据闭环", "端到端", "自动驾驶", "具身智能迁移"],
+    ),
+    AIProduct(
+        product_id="WM-006", name="华为openJiuwen世界模型/具身智能平台",
+        category=AICategory.WORLD_MODEL,
+        organization="华为", country="中国",
+        description="华为推出的openJiuwen开源世界模型与具身智能技术平台，"
+                    "支持物理世界精准建模、多模态感知融合、因果推理"
+                    "和跨具身迁移。依托昇腾算力底座实现高效训练与端侧"
+                    "部署，已在工业巡检、物流分拣、家庭服务等场景验证。"
+                    "开放模型权重和开发工具链，降低机器人开发者门槛。",
+        key_metrics={"type": "开源世界模型/具身智能平台",
+                     "open_source": True,
+                     "compute_base": "昇腾NPU",
+                     "capabilities": ["物理世界建模", "多模态感知融合",
+                                      "因果推理", "跨具身迁移"],
+                     "scenarios": ["工业巡检", "物流分拣", "家庭服务"],
+                     "open_components": ["模型权重", "开发工具链"]},
+        maturity=MaturityLevel.RESEARCH,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="开源世界模型+昇腾算力底座为国产"
+                              "人形机器人提供低成本可用的大脑方案，"
+                              "工具链开放降低开发门槛",
+        deployment_ready=False,
+        tags=["华为", "openJiuwen", "开源世界模型", "具身智能平台",
+              "昇腾算力", "跨具身迁移", "多模态融合"],
+    ),
 
     # --- AI通用 ---
     AIProduct(
-        product_id="AI-003", name="荣耀全球首款机器人手机",
+        product_id="AI-003", name="荣耀全球首款量产机器人手机(Robot Phone)",
         category=AICategory.AI_GENERAL,
         organization="荣耀", country="中国",
-        description="推出全球首款机器人手机，"
-                    "融合AI能力与机器人技术，"
-                    "依托中国软硬一体工程化能力实现AI从需求到体验高效落地",
-        key_metrics={"world_first": True, "type": "robot_phone",
-                     },
+        description="全球首款实现量产的机器人手机，2026年8月12日发布，"
+                    "将四自由度机械臂与盾构钢电机集成至9.59mm机身，"
+                    "详情参见MC-040。发布YOYO技能商店，100+系统资源开放，"
+                    "与矽递科技开源机器人方案，支持3D打印外壳+Robot kit打造自有机器人。",
+        key_metrics={"world_first_mass_production": True,
+                     "release_date": "2026-08-12",
+                     "mechanical_dof": 4,
+                     "thickness_mm": 9.59,
+                     "weight_g": 248,
+                     "yoyo_skill_store": True,
+                     "open_resources": 100,
+                     "open_source_partner": "矽递科技",
+                     "detail_entry": "MC-040"},
         maturity=MaturityLevel.COMMERCIAL,
         source="", source_tier=SourceTier.TIER1,
-        publish_date="2026-08-13",
-        relevance_to_robotics="终端融合：手机与机器人技术融合趋势",
-        deployment_ready=True,
-        tags=["机器人手机", "AI终端", "荣耀", "全球首款"],
+        publish_date="2026-08-14",
+        relevance_to_robotics="四自由度机械臂+灵巧云台直接应用机器人级"
+                              "机械结构，开源方案可直接用于机器人二次开发",
+        deployment_ready=False,
+        tags=["荣耀Robot Phone", "机器人手机", "四自由度机械臂",
+              "盾构钢电机", "YOYO技能商店", "开源机器人", "全球首款量产"],
     ),
     AIProduct(
         product_id="AI-004", name="AI Harness驾驭框架",
@@ -3206,6 +3329,41 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         deployment_ready=True,
         tags=["智能算力", "2.8倍", "曙光8000", "100亿次下载", "算力协议"],
     ),
+    AIProduct(
+        product_id="CP-011", name="Google第八代TPU 8t/8i训练推理双芯片",
+        category=AICategory.AI_COMPUTE,
+        organization="Google", country="美国",
+        description="Google发布第八代TPU芯片，包含TPU 8t（训练专用）"
+                    "和TPU 8i（推理专用）两款型号，标志着AI算力芯片"
+                    "进入训练推理专用化分工新时代。TPU 8t单芯片FP8算力"
+                    "达8192 TFLOPS，HBM4内存带宽27.6 TB/s，支持超大规模"
+                    "集群扩展（单Pod 65536芯片）。TPU 8i针对低延迟推理"
+                    "优化，INT8算力65536 TOPS，能效比前代提升3.2倍，"
+                    "支持MXFP4/MXFP8数值格式优化。已在Google Cloud"
+                    "超大规模数据中心部署，支撑Gemini系列大模型训练"
+                    "和全球推理服务。",
+        key_metrics={"generation": "第八代",
+                     "train_model": "TPU 8t",
+                     "infer_model": "TPU 8i",
+                     "t8_fp8_tflops": 8192,
+                     "t8_hbm4_bandwidth_tbs": 27.6,
+                     "t8_pod_chips": 65536,
+                     "i8_int8_tops": 65536,
+                     "i8_efficiency_gain_x": 3.2,
+                     "i8_numerical_formats": ["MXFP4", "MXFP8"],
+                     "deployment": "Google Cloud全球数据中心",
+                     "supporting_models": "Gemini系列"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="训练推理芯片分工趋势为机器人端侧推理"
+                              "芯片设计提供参考，高算力TPU为大规模"
+                              "VLA模型训练提供基础设施",
+        deployment_ready=True,
+        tags=["Google TPU", "TPU 8t", "TPU 8i", "第八代TPU",
+              "训练推理分离", "HBM4", "MXFP4/MXFP8", "65536芯片Pod",
+              "Gemini", "AI算力芯片"],
+    ),
 
     # --- AI芯片 ---
     AIProduct(
@@ -3785,6 +3943,104 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                               "多轴集成方案可显著提升运动效率和可靠性",
         deployment_ready=False,
         tags=["关节驱动器", "多轴", "人形机器人硬件", "肩关节"],
+    ),
+    AIProduct(
+        product_id="HR-018", name="易百纳教学科研商用一体化智能机械臂",
+        category=AICategory.HUMANOID_ROBOT,
+        organization="易百纳", country="中国",
+        description="易百纳发布的教学科研商用一体化智能机械臂，"
+                    "基于海鸥派Hi3403核心板打造。领导臂+从动臂双机械臂"
+                    "配置，支持6轴精准联动（5Dof+夹爪基础控制）。"
+                    "结构采用PLA光敏树脂3D打印件，领导臂697g/"
+                    "从动臂704g，尺寸111×239×525mm/111×173×532mm。"
+                    "搭载本地AI视觉模型：海鸥派3403驱动，支持物体"
+                    "分拣、标签识别、人脸识别与手势姿态追踪；支持视觉"
+                    "引导下精准抓取不规则/柔性物体，多帧点云融合技术"
+                    "提升识别精度与环境适应性。舵机采用STS3215系列"
+                    "总线舵机（领导臂7.4V 19kg·cm/从动臂12V 30kg·cm）。"
+                    "控制器Hi3403核心板：四核ARM Cortex-A55 CPU + "
+                    "10.4TOPS INT8 NPU算力。支持Windows/Linux/"
+                    "Ubuntu 22.04（ROS2环境），Python/C++编程，"
+                    "USB串口(UART)/Wi-Fi/以太网通信。适用场景："
+                    "高校机械工程/自动化/AI专业教学实验与科研创新；"
+                    "新零售奶茶/咖啡制作、无人售卖店取物等轻量商用。",
+        key_metrics={"product_line": "领导臂+从动臂+控制器(海鸥派)",
+                     "dof": 6,
+                     "structure_material": "PLA光敏树脂3D打印件",
+                     "leader_arm_size_mm": "111×239×525",
+                     "follower_arm_size_mm": "111×173×532",
+                     "leader_arm_weight_g": 697,
+                     "follower_arm_weight_g": 704,
+                     "work_temp_c": "0~40",
+                     "servo": "STS3215总线舵机",
+                     "servo_leader": "7.4V 19kg·cm",
+                     "servo_follower": "12V 30kg·cm",
+                     "power_leader": "5V DC",
+                     "power_follower": "12V DC",
+                     "controller": "Hi3403核心板(海鸥派3403)",
+                     "cpu": "四核ARM Cortex-A55",
+                     "npu_tops": 10.4,
+                     "npu_precision": "INT8",
+                     "vision_ai": ["物体分拣", "标签识别", "人脸识别",
+                                   "手势姿态追踪", "不规则/柔性物体抓取"],
+                     "vision_tech": "多帧点云融合",
+                     "communication": ["USB UART", "Wi-Fi", "以太网"],
+                     "os_support": ["Windows", "Linux", "Ubuntu 22.04(ROS2)"],
+                     "programming": ["Python", "C++"],
+                     "scenarios": ["高校教学科研", "奶茶/咖啡制作", "无人售卖取物"]},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="10.4TOPS本地NPU视觉模型+6轴联动"
+                              "+ROS2支持，是理想的机器人教学与"
+                              "二次开发平台，成本可控适合批量部署",
+        deployment_ready=False,
+        tags=["易百纳", "智能机械臂", "Hi3403", "10.4TOPS NPU",
+              "本地AI视觉", "教学科研商用", "ROS2", "6轴联动",
+              "物体分拣", "柔性物体抓取"],
+    ),
+    AIProduct(
+        product_id="HR-019", name="应手Y-HandM2仿生灵巧手/信手X-HandM1/博文W-Bot2.0",
+        category=AICategory.HUMANOID_ROBOT,
+        organization="吉林省仿生机器人创新中心", country="中国",
+        description="吉林省仿生机器人创新中心（任露泉院士团队）核心技术成果，"
+                    "2025年4月经省工信厅批准正式授牌，建成全国首个仿生机器人"
+                    "人工智能+多生态融合示范平台——吉林省仿生机器人MALL。"
+                    "应手Y-HandM2仿生灵巧手：38个超高自由度，整手握力达330N，"
+                    "可完成33类类人灵巧操控，成功率达96%。"
+                    "信手X-HandM1：单手拥有472个触觉传感单元。"
+                    "博文W-Bot2.0：全球最小底盘的全尺寸轮式人形机器人。"
+                    "仿生四足机器人逐日、追月：广泛应用于电网巡检、"
+                    "应急救援等场景。从大脑决策到小脑协调，从肢体执行"
+                    "到皮肤感知，全栈技术链条自主可控。",
+        key_metrics={"org": "吉林省仿生机器人创新中心",
+                     "founder": "任露泉院士",
+                     "approval_date": "2025年4月",
+                     "platform": "吉林省仿生机器人MALL(全国首个AI+多生态融合示范)",
+                     "yhand_name": "应手Y-HandM2",
+                     "yhand_dof": 38,
+                     "yhand_grip_force_n": 330,
+                     "yhand_task_types": 33,
+                     "yhand_success_rate_pct": 96,
+                     "xhand_name": "信手X-HandM1",
+                     "xhand_tactile_sensors": 472,
+                     "wbot_name": "博文W-Bot2.0",
+                     "wbot_feature": "全球最小底盘全尺寸轮式人形",
+                     "quadruped_names": ["逐日", "追月"],
+                     "quadruped_scenarios": ["电网巡检", "应急救援"],
+                     "tech_stack": ["大脑决策", "小脑协调", "肢体执行", "皮肤感知"],
+                     "tech_self_controlled": True},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="38自由度灵巧手(330N握力/96%成功率)"
+                              "和472触觉传感单元代表国内仿生手"
+                              "顶尖水平，全栈自主可控技术链为人形"
+                              "机器人核心零部件国产替代提供关键支撑",
+        deployment_ready=False,
+        tags=["吉林仿生机器人创新中心", "应手Y-HandM2", "38自由度灵巧手",
+              "330N握力", "96%成功率", "信手X-HandM1", "472触觉传感",
+              "博文W-Bot2.0", "逐日追月四足", "任露泉院士"],
     ),
     AIProduct(
         product_id="IR-009", name="星动L7物流分拣机器人",
@@ -6891,6 +7147,65 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         deployment_ready=False,
         tags=["小米18", "骁龙8E6", "2nm", "双2亿徕卡",
               "超级像素", "AI按键", "标准版", "5色"],
+    ),
+    AIProduct(
+        product_id="MC-040", name="荣耀Robot Phone量产机器人手机",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="荣耀", country="中国",
+        description="全球首款实现量产的机器人手机，2026年8月12日"
+                    "正式发布开启预约，预约总量已突破20万。突破传统"
+                    "智能手机方正机身设计限制，将机器人级别四自由度"
+                    "机械臂集成至轻薄机身内部。自研钛合金灵巧云台为"
+                    "整机核心亮点，闲置时摄像模组完全收纳进机身保持"
+                    "简洁一体化；拍摄状态一键弹出，支持多角度灵活"
+                    "调整机位，解决自拍/远景运镜/低角度拍摄局限。"
+                    "首发盾构钢翻转电机（荣耀自研2100MPa盾构钢），"
+                    "0.5cm³空间堆叠43个零件，实现5级变速，最大扭矩"
+                    "密度达120N·m/L。全金属一体成型机身，厚度9.59mm，"
+                    "重量248g。专属多模态具身交互Agentic OS系统，"
+                    "影像系统联合好莱坞阿莱（ARRI）调校，具备好莱坞"
+                    "级影像表现。影像智能体支持云台自动构图、AI直播"
+                    "追焦、视频通话追焦。发布YOYO技能商店，一键安装"
+                    "即用，超100个系统资源开放。与矽递科技将机器人"
+                    "方案开源，用户可3D打印机器人外壳、安装Robot kit、"
+                    "加载Robot skill打造自有机器人方案。影像系统将"
+                    "延展至Magic9等后续产品。",
+        key_metrics={"series": "荣耀Robot Phone",
+                     "release_date": "2026年8月12日",
+                     "reservation_count": 200000,
+                     "mechanical_dof": 4,
+                     "gimbal_material": "钛合金灵巧云台",
+                     "gimbal_storage": "完全收纳进机身（闲置时）",
+                     "gimbal_popup": "一键弹出拍摄",
+                     "motor_tech": "盾构钢翻转电机",
+                     "motor_material": "2100MPa自研盾构钢",
+                     "motor_parts_per_cm3": 43,
+                     "motor_gears": 5,
+                     "motor_torque_density": "120N·m/L",
+                     "thickness_mm": 9.59,
+                     "weight_g": 248,
+                     "body": "全金属一体成型",
+                     "os": "Agentic OS（多模态具身交互）",
+                     "camera_partner": "阿莱ARRI（好莱坞）",
+                     "imaging_grade": "好莱坞级电影工业创作能力",
+                     "ai_imaging": ["自动构图", "AI直播追焦", "视频通话追焦"],
+                     "app_store": "YOYO技能商店",
+                     "open_resources": 100,
+                     "open_source": "与矽递科技开源机器人方案",
+                     "open_source_features": ["3D打印外壳", "Robot kit", "Robot skill"],
+                     "future_products": "Magic9系列延续影像系统"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="四自由度机械臂+钛合金灵巧云台"
+                              "直接应用机器人级机械结构，"
+                              "Agentic OS具身交互系统为机器人"
+                              "人机交互设计提供参考，开源机器人方案"
+                              "可直接用于机器人教学与二次开发",
+        deployment_ready=False,
+        tags=["荣耀Robot Phone", "机器人手机", "四自由度机械臂",
+              "钛合金灵巧云台", "盾构钢电机", "120Nm/L扭矩密度",
+              "阿莱ARRI", "Agentic OS", "开源机器人", "YOYO技能商店"],
     ),
     AIProduct(
         product_id="MD-017", name="华为WATCH ULTIMATE DESIGN非凡大师星钻版",
