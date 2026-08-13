@@ -1736,6 +1736,238 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         tags=["教育大模型", "航海教育", "智能备课", "适任考试"],
     ),
 
+    # ===== 2026-08-13 当天权威资讯新增 =====
+
+    AIProduct(
+        product_id="LLM-007", name="DeepSeek V4-Pro-0813旗舰模型",
+        category=AICategory.AI_LLM,
+        organization="深度求索", country="中国",
+        description="2026年8月13日发布旗舰级模型，1.6万亿总参数/490亿激活参数，"
+                    "100万上下文窗口，384K最大输出。输入0.435美元/百万token，"
+                    "输出0.87美元/百万token，在Terminal Bench 2.1/Cybergym/"
+                    "DeepSWE/AutomationBench等基准超越Opus 4.8，成本降低约57倍。",
+        key_metrics={"total_params": "1.6T", "active_params": "49B",
+                     "context_window": "1M", "max_output": "384K",
+                     "cost_reduction": "57x"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="大模型推理能力：可用于机器人任务规划与代码生成",
+        deployment_ready=True,
+        tags=["大模型", "旗舰模型", "高性价比", "百万上下文"],
+    ),
+
+    AIProduct(
+        product_id="LLM-008", name="Qwen3.8-2.4T-A95B开源大模型",
+        category=AICategory.AI_LLM,
+        organization="阿里千问", country="中国",
+        description="2026年8月13日开放权重，2.4万亿参数MoE架构，950亿激活参数。"
+                    "Qwen3.8-Max官方版本支持视觉输入、百万上下文、内置工具调用，"
+                    "性能比肩国际顶尖闭源模型。",
+        key_metrics={"total_params": "2.4T", "active_params": "95B",
+                     "context_window": "1M", "open_source": True},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="开源MoE模型：可部署于机器人端云协同推理",
+        deployment_ready=True,
+        tags=["开源大模型", "MoE", "多模态", "百万上下文"],
+    ),
+
+    AIProduct(
+        product_id="AG-009", name="腾讯混元Hy4大模型即将发布",
+        category=AICategory.AI_AGENT,
+        organization="腾讯", country="中国",
+        description="2026年8月13日消息，腾讯二季度财报显示AI投入加速，"
+                    "混元Hy4大模型近期将发布。WorkBuddy持续领跑国内办公智能体，"
+                    "小微智能助手扩大灰测范围，游戏/广告/云业务受AI带动增长。",
+        key_metrics={"product_line": "混元", "version": "Hy4",
+                     "workbuddy_lead": True},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="智能体生态：办公智能体架构可迁移至机器人任务编排",
+        deployment_ready=False,
+        tags=["大模型", "办公智能体", "混元", "多端同步"],
+    ),
+
+    AIProduct(
+        product_id="HR-007", name="国产机器人开辟出海通道",
+        category=AICategory.HUMANOID_ROBOT,
+        organization="海关总署", country="中国",
+        description="2026年8月13日报道，今年前7个月工业机器人出口同比增长13.2%。"
+                    "自1月增设独立海关税号以来，智能仿生机器人半年出口金额增长超5倍，"
+                    "上半年出口量超8000台。海关打造一企一策精准服务，"
+                    "建立机器人产品归类数据库覆盖300多款产品。",
+        key_metrics={"industrial_export_growth": "13.2%",
+                     "humanoid_export_growth": "5x",
+                     "h1_humanoid_exports": "8000+",
+                     "classified_products": 300},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="产业出海：人形机器人出口通道打通，全球化部署加速",
+        deployment_ready=True,
+        tags=["机器人出口", "海关税号", "人形机器人", "全球化"],
+    ),
+
+    AIProduct(
+        product_id="IR-005", name="智能装备赋能海洋产业",
+        category=AICategory.INDUSTRIAL_ROBOT,
+        organization="", country="中国",
+        description="2026年8月13日报道，智能装备与机器人技术加速赋能海洋产业，"
+                    "覆盖海洋勘探、水下作业、海上风电运维等场景，"
+                    "无人船、水下机器人、海洋观测装备等实现产业化应用。",
+        key_metrics={"domain": "海洋产业", "autonomy": "unmanned"},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="特种机器人：水下/海上极端环境机器人技术可迁移",
+        deployment_ready=False,
+        tags=["海洋机器人", "水下作业", "无人船", "海上风电"],
+    ),
+
+    AIProduct(
+        product_id="AU-006", name="首部自动驾驶强制性国标GB 44721发布",
+        category=AICategory.AUTOMOTIVE,
+        organization="国家市场监督管理总局", country="中国",
+        description="2026年8月13日报道，《智能网联汽车 自动驾驶系统安全要求》"
+                    "（GB 44721-2026）强制性国家标准正式发布，2027年7月1日实施。"
+                    "适用于L3/L4级载客载货车辆。L2级渗透率达70.5%，"
+                    "NOA功能渗透率34.2%，首批L3车型在特定区域上路。",
+        key_metrics={"standard": "GB 44721-2026", "effective_date": "2027-07-01",
+                     "l2_penetration": "70.5%", "noa_penetration": "34.2%",
+                     "level": "L3/L4"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="安全标准：自动驾驶安全框架可直接复用至机器人安全",
+        deployment_ready=True,
+        tags=["自动驾驶", "强制国标", "L3", "L4", "安全要求"],
+    ),
+
+    AIProduct(
+        product_id="EN-008", name="亚洲首个柔直海上风电项目发电量超100亿千瓦时",
+        category=AICategory.RENEWABLE_ENERGY,
+        organization="三峡集团", country="中国",
+        description="2026年8月13日报道，江苏如东800MW海上风电项目累计输送电量"
+                    "突破100亿千瓦时。亚洲首个柔性直流输电海上风电项目，"
+                    "±400千伏电压等级，安全运行超1600天，设备可利用率99.5%，"
+                    "满足400万户家庭一年用电，节约标准煤300万吨，减碳740万吨。",
+        key_metrics={"capacity": "800MW", "voltage": "±400kV",
+                     "cumulative_generation": "100亿kWh",
+                     "availability": "99.5%", "stable_days": "1600+"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="绿电基础：海上风电为机器人算力设施提供清洁能源",
+        deployment_ready=True,
+        tags=["海上风电", "柔性直流", "清洁能源", "减碳"],
+    ),
+
+    AIProduct(
+        product_id="DP-005", name="Google Pixel 11 Gemini系统级AI",
+        category=AICategory.DIGITAL_PRODUCT,
+        organization="Google", country="美国",
+        description="2026年8月13日发布，搭载Tensor G6芯片运行Gemini Nano，"
+                    "Gemini Intelligence可跨40多个应用处理多步任务，"
+                    "支持Rambler主动信息卡、端侧实时翻译，AI从入口变为系统能力。",
+        key_metrics={"chip": "Tensor G6", "cross_app": 40,
+                     "on_device": "Gemini Nano", "real_time_translate": True},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-08-13",
+        relevance_to_robotics="端侧AI：跨应用智能体架构可迁移至机器人多任务执行",
+        deployment_ready=True,
+        tags=["AI手机", "端侧大模型", "跨应用智能体", "实时翻译"],
+    ),
+
+    AIProduct(
+        product_id="AI-005", name="SpaceX AI价值预判与算力布局",
+        category=AICategory.AI_GENERAL,
+        organization="SpaceX", country="美国",
+        description="2026年8月13日消息，马斯克表示SpaceX未来五年99%价值将来自AI，"
+                    "火箭业务将成为副业。目标明年底算力达10吉瓦，"
+                    "AI季度收入已近26亿美元。",
+        key_metrics={"ai_value_ratio": "99%", "compute_target": "10GW",
+                     "quarterly_ai_revenue": "26亿美元"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-08-13",
+        relevance_to_robotics="算力基础设施：大规模算力为机器人智能提供支撑",
+        deployment_ready=False,
+        tags=["AI战略", "算力", "商业航天", "Grok"],
+    ),
+
+    AIProduct(
+        product_id="CH-005", name="氮化镓芯片大规模交付6G空天地一体化网络",
+        category=AICategory.AI_CHIP,
+        organization="中国电科55所", country="中国",
+        description="2026年8月13日报道，中国已开始大规模使用新型氮化镓(GaN)芯片"
+                    "用于未来6G网络建设，已交付500万片。芯片支撑空天地一体化6G网络，"
+                    "每终端集成功率放大芯片向卫星或地面站远距离发送信号。"
+                    "GaN-on-Si技术兼顾高性能与低成本。",
+        key_metrics={"material": "GaN-on-Si", "delivered": "500万片",
+                     "application": "6G NTN", "integration": "空天地一体化"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="通信芯片：6G空天地一体化为机器人全域连接提供基础",
+        deployment_ready=True,
+        tags=["氮化镓", "6G芯片", "空天地一体化", "卫星通信"],
+    ),
+
+    AIProduct(
+        product_id="NET-001", name="IMT-2030(6G)推进组星地融合NTN工作组成立",
+        category=AICategory.NETWORK_6G,
+        organization="工信部IMT-2030推进组", country="中国",
+        description="2026年8月10日成立（8月13日广泛报道），在工信部指导下，"
+                    "星地融合(NTN)工作组在北京正式成立。牵引国际技术标准研制，"
+                    "统筹6G星地融合网络总体布局，培育卫星通信核心技术，"
+                    "涵盖卫星空口接入、卫星终端、星地融合网络与运维应用。",
+        key_metrics={"working_group": "NTN", "scope": "6G星地融合",
+                     "standard": "国际标准研制"},
+        maturity=MaturityLevel.PROTOTYPE,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="星地融合：6G NTN为机器人提供无盲区通信覆盖",
+        deployment_ready=False,
+        tags=["6G", "NTN", "星地融合", "卫星通信", "标准制定"],
+    ),
+
+    AIProduct(
+        product_id="HC-007", name="国家医保局公开征集医保数字人形象",
+        category=AICategory.HEALTHCARE,
+        organization="国家医疗保障局", country="中国",
+        description="2026年8月13日消息，国家医疗保障局面向社会公开征集医保数字人形象。"
+                    "医保数字化加速推进，AI数字人将用于医保政策咨询、"
+                    "业务办理引导、智能客服等场景，提升医保服务智能化水平。",
+        key_metrics={"digital_human": True, "scope": "全国医保",
+                     "application": "政策咨询/业务引导"},
+        maturity=MaturityLevel.PROTOTYPE,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="数字人交互：医保数字人技术可复用至机器人服务交互",
+        deployment_ready=False,
+        tags=["数字人", "智慧医保", "AI客服", "政务服务"],
+    ),
+
+    AIProduct(
+        product_id="EN-009", name="陆上大兆瓦风电铸件关键技术突破",
+        category=AICategory.RENEWABLE_ENERGY,
+        organization="", country="中国",
+        description="2026年8月13日报道，我国在陆上大兆瓦风电铸件领域取得关键性"
+                    "技术突破，为大型风电机组国产化提供核心部件支撑，"
+                    "推动风电装备降本增效和规模化应用。",
+        key_metrics={"breakthrough": "大兆瓦铸件", "domain": "陆上风电"},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="绿色制造：风电装备智能制造与机器人产线协同",
+        deployment_ready=False,
+        tags=["风电铸件", "大兆瓦", "技术突破", "国产装备"],
+    ),
+
 ]
 
 
