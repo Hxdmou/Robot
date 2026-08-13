@@ -1,9 +1,14 @@
 ﻿#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-AI全景注册表 - V1.1
+AI全景注册表 - V1.2
 ================================================================
-新增内容：
+新增内容（V1.2 2026-08-13）：
+  - 新增40+项AI产品覆盖19大模块
+  - 修复农业模块ID冲突(AG->AGR)
+  - 更新版本：V1.1 -> V1.2
+
+历史内容：
   1. AICategory（19大类别枚举）
   2. MaturityLevel（成熟度枚举）
   3. SourceTier（来源等级枚举）
@@ -692,7 +697,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
     # 类别12：农业AI
     # ==================================================================
     AIProduct(
-        product_id="AG-001", name="浙里良田高标准农田智能体",
+        product_id="AGR-001", name="浙里良田高标准农田智能体",
         category=AICategory.AGRICULTURE,
         organization="浙江省农业农村厅", country="中国",
         description="基于450万组土壤试验数据、1200万条测土配方施肥记录、"
@@ -708,7 +713,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         tags=["高标准农田", "智能体", "土壤数据", "测土配方"],
     ),
     AIProduct(
-        product_id="AG-002", name="Asymetree单株精准灌溉平台",
+        product_id="AGR-002", name="Asymetree单株精准灌溉平台",
         category=AICategory.AGRICULTURE,
         organization="Asymetree", country="西班牙",
         description="通过LiDAR生成3D树冠模型计算冠幅体积，结合SAQIA-IR无线"
@@ -725,7 +730,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         tags=["精准灌溉", "LiDAR", "热红外", "单株管理"],
     ),
     AIProduct(
-        product_id="AG-003", name="低空+AI农事智能服务",
+        product_id="AGR-003", name="低空+AI农事智能服务",
         category=AICategory.AGRICULTURE,
         organization="金东区农业农村局", country="中国",
         description="整合50余项AI模型能力，无人机5分钟采集180亩小麦苗情病虫信息，"
@@ -1105,6 +1110,632 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         deployment_ready=True,
         tags=["智能批改", "作文评分", "教育智能体", "课堂分析"],
     ),
+    # ==================================================================
+    # 2026-08-13 更新：19大模块最新AI产品与技术进展
+    # ==================================================================
+
+    # --- 人形机器人 ---
+    AIProduct(
+        product_id="HR-004", name="擎羽Fi0柔性具身智能机器人",
+        category=AICategory.HUMANOID_ROBOT,
+        organization="擎羽机器人", country="中国",
+        description="柔性具身智能机器人Fi0，引入Cross-view World Encoder跨视角世界编码器，"
+                    "通过人类第一视角与机器人腕部视角对齐学习共享世界表示；"
+                    "A01/A02/A03三种模块化臂长（459/584/764mm），"
+                    "重量760/1500/2300g，实现本体差异下的技能迁移",
+        key_metrics={"modular_arms": 3, "cross_view_encoder": True,
+                     "world_latent_repr": True, "weight_range_g": "760-2300"},
+        maturity=MaturityLevel.PROTOTYPE,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="核心：跨视角世界模型与模块化本体设计，直接服务于具身智能技能迁移",
+        deployment_ready=True,
+        tags=["柔性机器人", "跨视角世界模型", "模块化臂", "技能迁移"],
+    ),
+    AIProduct(
+        product_id="HR-005", name="深圳人形机器人多场景规模化部署",
+        category=AICategory.HUMANOID_ROBOT,
+        organization="中国机器人企业", country="中国",
+        description="深圳人形机器人在餐饮送餐、邮政包裹分拣、交通指挥、冰淇淋制作等"
+                    "多场景实现常态化部署，人形机器人从实验室走进日常工作与生活",
+        key_metrics={"deployment_scenarios": ["restaurant", "postal", "traffic", "retail"],
+                     "city": "深圳"},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="直接：人形机器人多场景落地验证，为真机部署提供场景参考",
+        deployment_ready=True,
+        tags=["人形机器人", "场景部署", "送餐", "分拣", "交通指挥"],
+    ),
+    AIProduct(
+        product_id="HR-006", name="青岛机器人6S体验店",
+        category=AICategory.HUMANOID_ROBOT,
+        organization="青岛智能机器人产业", country="中国",
+        description="山东青岛首家机器人6S体验店推行六位一体运营模式，"
+                    "集合销售、零配件、售后服务、信息反馈、租赁、个性化定制六大功能，"
+                    "推动智能机器人走出实验室走进大众日常生活",
+        key_metrics={"business_model": "6S", "functions": 6,
+                     "location": "青岛"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="产业化：机器人消费端商业化通道打通",
+        deployment_ready=True,
+        tags=["机器人6S店", "消费机器人", "六位一体", "个性化定制"],
+    ),
+
+    # --- AI智能体 ---
+    AIProduct(
+        product_id="AG-005", name="DeepSeek Harness代码智能体团队",
+        category=AICategory.AI_AGENT,
+        organization="深度求索", country="中国",
+        description="DeepSeek正式组建Harness专项团队，主攻代码智能体产品，"
+                    "对标Claude Code与OpenAI Codex，"
+                    "推动AI从对话辅助走向复杂任务自主交付",
+        key_metrics={"focus": "code_agent", "benchmark_target": "Claude Code/Codex"},
+        maturity=MaturityLevel.RESEARCH,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="工具链：代码智能体可加速机器人控制代码开发与调试",
+        deployment_ready=False,
+        tags=["代码智能体", "Harness", "自主编程", "DeepSeek"],
+    ),
+    AIProduct(
+        product_id="AG-006", name="智谱ZCode编程智能体用户破百万",
+        category=AICategory.AI_AGENT,
+        organization="智谱AI", country="中国",
+        description="智谱AI编程产品ZCode全面升级，Goal/Subagents/Remote Control/"
+                    "闲时任务正式上线，Coding Agent从对话辅助走向复杂任务自主交付，"
+                    "用户数突破100万",
+        key_metrics={"users": 1000000, "features": ["Goal", "Subagents", "Remote Control"]},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="开发工具：智能体编程可加速机器人软件开发",
+        deployment_ready=True,
+        tags=["编程智能体", "ZCode", "自主交付", "多智能体"],
+    ),
+    AIProduct(
+        product_id="AG-007", name="英伟达NeMo Switchyard模型路由库",
+        category=AICategory.AI_AGENT,
+        organization="英伟达", country="美国",
+        description="开源智能体路由库，根据任务复杂度自动将请求分配给不同模型，"
+                    "前沿模型负责复杂推理，轻量模型负责高频执行，"
+                    "被称为模型的交通调度系统",
+        key_metrics={"routing": "automatic", "open_source": True,
+                     "cost_reduction": "significant"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="架构参考：多模型协同调度可用于机器人云端/边缘算力分配",
+        deployment_ready=True,
+        tags=["模型路由", "智能体编排", "多模型协同", "开源"],
+    ),
+    AIProduct(
+        product_id="AG-008", name="Cloudflare Kitesurf智能体浏览器",
+        category=AICategory.AI_AGENT,
+        organization="Cloudflare", country="美国",
+        description="Agent-first浏览器，运行于Workers V8隔离环境，"
+                    "CPU和内存消耗比Chromium低3-7倍，"
+                    "为AI智能体提供安全高效的网页交互环境",
+        key_metrics={"cpu_reduction": "3-7x", "runtime": "V8 isolates",
+                     "agent_native": True},
+        maturity=MaturityLevel.PROTOTYPE,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-08-13",
+        relevance_to_robotics="工具链：智能体浏览器可辅助机器人获取网络信息",
+        deployment_ready=False,
+        tags=["智能体浏览器", "V8隔离", "低资源", "Cloudflare"],
+    ),
+
+    # --- AI算力 ---
+    AIProduct(
+        product_id="CP-004", name="阿里云灵骏真武M890超节点",
+        category=AICategory.AI_COMPUTE,
+        organization="阿里云", country="中国",
+        description="国内首个成功运行超2万亿参数大模型的超节点算力，"
+                    "64卡高速互联，卡间带宽800GB/s，支持FP8/FP4低精度计算，"
+                    "智能驾驶/具身智能训练性能提升3倍",
+        key_metrics={"max_params_trillion": 2, "gpu_count": 64,
+                     "interconnect_bandwidth_gbs": 800, "training_speedup": 3},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="算力基座：支持具身智能大模型训练",
+        deployment_ready=True,
+        tags=["超节点", "万亿参数", "64卡互联", "具身智能训练"],
+    ),
+    AIProduct(
+        product_id="CP-005", name="乌兰察布星河算电协同基地",
+        category=AICategory.AI_COMPUTE,
+        organization="中国算力企业", country="中国",
+        description="全球最大单体智算中心投产，20个足球场大小，160兆瓦供电能力，"
+                    "百万卡并行、百万P算力规模，80%绿电直供，"
+                    "一度绿电可转化为近30秒AI文生视频",
+        key_metrics={"power_mw": 160, "green_power_pct": 80,
+                     "scale": "million_cards", "area_fields": 20},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="算力基础设施：大规模算力支撑机器人模型训练",
+        deployment_ready=True,
+        tags=["智算中心", "算电协同", "绿电", "百万卡"],
+    ),
+    AIProduct(
+        product_id="CP-006", name="寒武纪AI芯片半年报营收翻倍",
+        category=AICategory.AI_COMPUTE,
+        organization="寒武纪", country="中国",
+        description="2026年上半年营收59.96亿元同比增长108%，"
+                    "净利润23.11亿元同比增长122%，"
+                    "国产AI芯片进入规模化盈利阶段",
+        key_metrics={"revenue_billion": 5.996, "revenue_growth_pct": 108,
+                     "profit_billion": 2.311, "profit_growth_pct": 122},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="国产算力：AI芯片为机器人提供自主可控推理算力",
+        deployment_ready=True,
+        tags=["AI芯片", "国产算力", "营收翻倍", "规模化盈利"],
+    ),
+
+    # --- AI芯片 ---
+    AIProduct(
+        product_id="CH-003", name="芯擎科技天工100车规AI芯片量产",
+        category=AICategory.AI_CHIP,
+        organization="芯擎科技", country="中国",
+        description="国内首款面向端侧智能体AI应用的独立车规大模型加速芯片，"
+                    "7nm工艺，96 TOPS INT8算力，外挂式设计无需替换主控，"
+                    "支持3B-7B大模型本地推理，成本下探至千元级",
+        key_metrics={"process_nm": 7, "tops_int8": 96,
+                     "model_support": "3B-7B", "cost_level": "千元级"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="端侧算力：车规AI芯片可迁移至机器人边缘推理",
+        deployment_ready=True,
+        tags=["车规芯片", "7nm", "AI加速器", "外挂式", "端侧推理"],
+    ),
+    AIProduct(
+        product_id="CH-004", name="爱芯元智下一代大算力AI芯片流片",
+        category=AICategory.AI_CHIP,
+        organization="爱芯元智", country="中国",
+        description="下一代高性能大算力AI芯片完成流片，配备高带宽内存HBM，"
+                    "支持两芯或四芯级联，实现满血大模型在边缘侧高性能推理",
+        key_metrics={"hbm": True, "cascade_support": "2x/4x",
+                     "edge_inference": "full_scale"},
+        maturity=MaturityLevel.PROTOTYPE,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="边缘算力：多芯级联为机器人提供可扩展AI算力",
+        deployment_ready=False,
+        tags=["AI芯片", "流片", "HBM", "多芯级联", "边缘推理"],
+    ),
+
+    # --- AI大模型 ---
+    AIProduct(
+        product_id="LLM-004", name="SpaceX Grok 4.6大模型",
+        category=AICategory.AI_LLM,
+        organization="SpaceX AI", country="美国",
+        description="新一代大模型Grok 4.6，重点提升长程智能体、复杂编程和知识工作能力，"
+                    "GDPVal-AA v2评测1753 Elo，高于Claude Fable 5 Max的1741分",
+        key_metrics={"elo_score": 1753, "benchmark": "GDPVal-AA v2",
+                     "focus": ["long_horizon_agent", "coding", "knowledge_work"]},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="智能体能力：长程推理可服务于机器人任务规划",
+        deployment_ready=True,
+        tags=["Grok", "大模型", "长程智能体", "编程"],
+    ),
+    AIProduct(
+        product_id="LLM-005", name="Kimi K3开源2.8万亿参数模型",
+        category=AICategory.AI_LLM,
+        organization="月之暗面", country="中国",
+        description="新一代国产大模型Kimi K3正式开源，2.8万亿参数规模，"
+                    "为目前全球参数规模最大的开源模型，人人可下载",
+        key_metrics={"params_trillion": 2.8, "open_source": True,
+                     "global_rank": "largest_open_source"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="开源基座：大规模开源模型可用于机器人VLA训练",
+        deployment_ready=True,
+        tags=["Kimi", "开源", "万亿参数", "国产大模型"],
+    ),
+    AIProduct(
+        product_id="LLM-006", name="面壁智能端侧大模型MiniCPM",
+        category=AICategory.AI_LLM,
+        organization="面壁智能", country="中国",
+        description="端侧大模型公司启动A股IPO辅导估值超200亿，MiniCPM模型搭载于"
+                    "三星旗舰机型及多款量产车型智能座舱，应用于具身机器人、AI PC等场景",
+        key_metrics={"valuation_billion": 20, "deployments": ["samsung", "automotive", "robot"],
+                     "model_size_b": "2-4"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="端侧部署：小参数模型适合机器人本地推理",
+        deployment_ready=True,
+        tags=["端侧大模型", "MiniCPM", "IPO", "具身机器人"],
+    ),
+
+    # --- 世界模型 ---
+    AIProduct(
+        product_id="WM-003", name="NVIDIA Alpamayo 2 Super VLA模型",
+        category=AICategory.WORLD_MODEL,
+        organization="英伟达", country="美国",
+        description="320亿参数基于推理的视觉语言动作(VLA)模型，"
+                    "面向L4级Robotaxi，支持因果链推理，"
+                    "通过AlpaGym闭环强化学习训练，AlpaSim闭环仿真验证",
+        key_metrics={"params_billion": 32, "type": "VLA",
+                     "autonomy_level": "L4", "rl_training": True},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="核心：VLA模型架构直接适用于机器人视觉-语言-动作控制",
+        deployment_ready=True,
+        tags=["VLA", "世界模型", "L4自动驾驶", "因果推理", "闭环RL"],
+    ),
+    AIProduct(
+        product_id="WM-004", name="Momenta R7世界模型量产落地",
+        category=AICategory.WORLD_MODEL,
+        organization="Momenta", country="中国",
+        description="世界模型架构首次在量产车落地，采用预训练+仿真+强化学习三层架构，"
+                    "引入自我对弈(Self-Play)机制，仅2048 TOPS算力实现城区NOA，"
+                    "从规则驱动转向数据驱动",
+        key_metrics={"architecture": "pretrain+sim+rl", "self_play": True,
+                     "compute_tops": 2048, "first_mass_production": True},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="方法论：世界模型+Self-Play训练范式可迁移至机器人",
+        deployment_ready=True,
+        tags=["世界模型", "量产", "自我对弈", "城区NOA", "数据驱动"],
+    ),
+
+    # --- AI通用 ---
+    AIProduct(
+        product_id="AI-003", name="荣耀全球首款机器人手机",
+        category=AICategory.AI_GENERAL,
+        organization="荣耀", country="中国",
+        description="8月12日推出全球首款机器人手机，"
+                    "融合AI能力与机器人技术，"
+                    "依托中国软硬一体工程化能力实现AI从需求到体验高效落地",
+        key_metrics={"world_first": True, "type": "robot_phone",
+                     "release_date": "2026-08-12"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="终端融合：手机与机器人技术融合趋势",
+        deployment_ready=True,
+        tags=["机器人手机", "AI终端", "荣耀", "全球首款"],
+    ),
+    AIProduct(
+        product_id="AI-004", name="AI Harness驾驭框架",
+        category=AICategory.AI_GENERAL,
+        organization="中国AI产业", country="中国",
+        description="AI技术进入以Harness驾驭框架为标志的新时代，"
+                    "通过标准化外部控制框架对大模型实现全流程管控，"
+                    "打通园区IoT/ERP/能源/安防多系统，具备感知-决策-执行完整闭环",
+        key_metrics={"framework": "Harness", "closed_loop": True,
+                     "integrated_systems": ["IoT", "ERP", "energy", "security"]},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-08-13",
+        relevance_to_robotics="架构参考：Harness框架可用于机器人系统全流程管控",
+        deployment_ready=True,
+        tags=["Harness", "驾驭框架", "闭环控制", "多系统集成"],
+    ),
+
+    # --- 6G网络 ---
+    AIProduct(
+        product_id="N6-003", name="5G-A商用与6G技术攻坚",
+        category=AICategory.NETWORK_6G,
+        organization="中国通信产业", country="中国",
+        description="2026年处于5G-A商用、6G技术攻坚关键阶段，"
+                    "5G-A实现万兆级传输速率、通感一体、超低时延，"
+                    "6G核心技术进入研发攻坚，瞄准太赫兹通信、空天地一体化",
+        key_metrics={"5ga_speed": "10Gbps", "6g_focus": ["terahertz", "space_air_ground"],
+                     "sensing_communication": True},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="通信基础：低时延高可靠网络支撑机器人远程控制",
+        deployment_ready=True,
+        tags=["5G-A", "6G", "太赫兹", "通感一体", "空天地一体化"],
+    ),
+
+    # --- 工业机器人 ---
+    AIProduct(
+        product_id="IR-003", name="美的智能体工厂AI视觉推理",
+        category=AICategory.INDUSTRIAL_ROBOT,
+        organization="美的集团", country="中国",
+        description="广东顺德、湖北武汉美的智能体工厂引入AI视觉推理平台，"
+                    "检测节奏完全匹配生产节拍，AI直接参与生产决策，"
+                    "大模型迅速转化为生产能力",
+        key_metrics={"ai_vision": True, "production_decision": True,
+                     "locations": ["顺德", "武汉"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="工业部署：AI视觉+机器人协作产线参考",
+        deployment_ready=True,
+        tags=["智能体工厂", "AI视觉", "生产决策", "工业AI"],
+    ),
+    AIProduct(
+        product_id="IR-004", name="双臂番茄采摘机器人",
+        category=AICategory.INDUSTRIAL_ROBOT,
+        organization="江苏农科院", country="中国",
+        description="双臂番茄采摘机器人单果采摘时间降至9秒，"
+                    "整机成本降至20万元以下，"
+                    "农业机器人从展示品走向大田标配",
+        key_metrics={"pick_time_seconds": 9, "cost_below_wan": 20,
+                     "arm_count": 2},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="直接：采摘机器人是具身智能农业典型应用",
+        deployment_ready=True,
+        tags=["采摘机器人", "双臂", "农业自动化", "低成本"],
+    ),
+
+    # --- 新能源 ---
+    AIProduct(
+        product_id="EN-005", name="宁波分布式光伏装机千万千瓦",
+        category=AICategory.RENEWABLE_ENERGY,
+        organization="国家电网", country="中国",
+        description="全国首个分布式光伏装机突破千万千瓦城市，"
+                    "年发电约100亿千瓦时，园区占比84%；"
+                    "上线国内首个分布式光伏运行监测系统，虚拟电厂聚合储能与柔性负荷",
+        key_metrics={"capacity_gw": 10, "annual_generation_billion_kwh": 100,
+                     "park_ratio_pct": 84, "monitoring_system": "domestic_first"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="能源保障：智能电网为机器人充换电提供基础设施",
+        deployment_ready=True,
+        tags=["分布式光伏", "千万千瓦", "虚拟电厂", "运行监测"],
+    ),
+    AIProduct(
+        product_id="EN-006", name="固态变压器量产效率98.5%",
+        category=AICategory.RENEWABLE_ENERGY,
+        organization="中国能源装备企业", country="中国",
+        description="首款固态变压器产品实现10kV到800V交直流一步变换，"
+                    "整机效率最高达98.5%，占地面积较传统方案减少60%以上，"
+                    "2.5MVA碳化硅固态变压器同步推出",
+        key_metrics={"efficiency_pct": 98.5, "footprint_reduction_pct": 60,
+                     "voltage_conversion": "10kV->800V", "sic": True},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="供电技术：高效变电为机器人充电站提供技术支撑",
+        deployment_ready=True,
+        tags=["固态变压器", "碳化硅", "98.5%效率", "AIDC供电"],
+    ),
+    AIProduct(
+        product_id="EN-007", name="中国移动通算融合虚拟电厂",
+        category=AICategory.RENEWABLE_ENERGY,
+        organization="中国移动", country="中国",
+        description="聚合基站、数据中心等分布式可调资源，"
+                    "5000个局站参与电能量市场调峰节电5132万度，"
+                    "8000个局站加数据中心参与辅助服务削峰102万度",
+        key_metrics={"stations_peak": 5000, "power_saved_million_kwh": 51.32,
+                     "stations_ancillary": 8000},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="能源调度：通信设施虚拟电厂模式可参考机器人充换电网络",
+        deployment_ready=True,
+        tags=["虚拟电厂", "通算融合", "需求响应", "削峰填谷"],
+    ),
+
+    # --- 农业 ---
+    AIProduct(
+        product_id="AGR-004", name="YOLOFuse双光谱农业监测",
+        category=AICategory.AGRICULTURE,
+        organization="农业AI技术社区", country="全球",
+        description="支持RGB与红外双光谱融合的智能检测框架，"
+                    "全天候监测作物生长，早期病害识别通过红外温度异常发现，"
+                    "精准灌溉指导通过温度分布判断缺水区域",
+        key_metrics={"dual_spectrum": True, "modalities": ["RGB", "IR"],
+                     "disease_early_detection": True, "irrigation_guidance": True},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-08-13",
+        relevance_to_robotics="感知技术：双光谱视觉可用于农田巡检机器人",
+        deployment_ready=True,
+        tags=["双光谱", "YOLO", "病害识别", "精准灌溉", "无人机"],
+    ),
+    AIProduct(
+        product_id="AGR-005", name="沃柑AI全产业链智慧种植",
+        category=AICategory.AGRICULTURE,
+        organization="南宁正欣农业", country="中国",
+        description="3000亩沃柑基地布设气象与土壤墒情监测站，4个无人机基站全域巡检，"
+                    "AI算法精准识别病虫害并推送防治方案，200多个土壤传感器实时监测，"
+                    "水肥一体化单株精准灌溉，电动轨道运输年省柴油10万元",
+        key_metrics={"area_mu": 3000, "drone_stations": 4,
+                     "soil_sensors": 200, "ai_pest_detection": True},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="农业机器人：无人机巡检+智能灌溉为农业机器人提供场景",
+        deployment_ready=True,
+        tags=["智慧种植", "无人机巡检", "病虫害AI识别", "水肥一体化"],
+    ),
+
+    # --- 商业 ---
+    AIProduct(
+        product_id="CO-004", name="千问开放平台三端Agent生态",
+        category=AICategory.COMMERCE,
+        organization="阿里巴巴", country="中国",
+        description="8月10日千问开放平台上线，手机/PC/AI眼镜三端同时开放，"
+                    "顺丰速运、自如租房、哈啰租车、闪送、飞常准、美的美居等"
+                    "十多个领域头部企业第一批接入，一句话完成寄件/租车/家政",
+        key_metrics={"platforms": ["phone", "PC", "AI_glasses"],
+                     "partners": 10, "launch_date": "2026-08-10"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="服务生态：AI Agent生态可对接机器人服务能力",
+        deployment_ready=True,
+        tags=["开放平台", "AI Agent", "三端同步", "生活服务"],
+    ),
+
+    # --- 水利 ---
+    AIProduct(
+        product_id="WA-004", name="构网型储能县域电网离网运行",
+        category=AICategory.WATER_CONSERVANCY,
+        organization="中国电力科学研究院", country="中国",
+        description="内蒙古额济纳旗以25MW构网型储能作为支撑电源，"
+                    "多次实现县域电网离网稳定运行；2026年7月12日联络线意外跳闸后"
+                    "系统自动转离网运行，重要负荷全部保住，首次实现非计划并网转离网",
+        key_metrics={"storage_mw": 25, "county_grid": True,
+                     "unplanned_islanding": "first_success"},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="电网韧性：离网运行技术可用于机器人独立供电场景",
+        deployment_ready=True,
+        tags=["构网型储能", "离网运行", "县域电网", "电网韧性"],
+    ),
+
+    # --- 汽车 ---
+    AIProduct(
+        product_id="AU-004", name="新能源汽车月销占比首破60%",
+        category=AICategory.AUTOMOTIVE,
+        organization="中国汽车工业协会", country="中国",
+        description="2026年7月新能源汽车月度新车销量占比首次突破60%，"
+                    "累计占比首次突破50%，涵盖乘用车和商用车、国内销量和出口，"
+                    "新能源乘用车国内占比达68.1%，出口连续两月超50%",
+        key_metrics={"monthly_share_pct": 60, "cumulative_share_pct": 50,
+                     "passenger_domestic_pct": 68.1, "export_share_pct": 50},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="产业趋势：电动化平台为机器人提供电池/电机技术基础",
+        deployment_ready=True,
+        tags=["新能源汽车", "销量突破", "电动化", "出口"],
+    ),
+    AIProduct(
+        product_id="AU-005", name="城市NOA下探至10万标配",
+        category=AICategory.AUTOMOTIVE,
+        organization="中国智能驾驶产业", country="中国",
+        description="2026年城市NOA从30万以上车型卖点下放至10万以下车型标配，"
+                    "L2级新车渗透率达70%，NOA车型渗透率超30%，"
+                    "激光雷达批量采购价从8万暴降至千元区间（最低900元）",
+        key_metrics={"l2_penetration_pct": 70, "noa_penetration_pct": 30,
+                     "lidar_cost_drop": "80000->900"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="传感器降本：激光雷达千元化惠及机器人感知",
+        deployment_ready=True,
+        tags=["城市NOA", "智能驾驶", "激光雷达", "万元下放"],
+    ),
+
+    # --- 数码产品 ---
+    AIProduct(
+        product_id="DP-004", name="字节跳动成立AI数据与安全一级部门",
+        category=AICategory.DIGITAL_PRODUCT,
+        organization="字节跳动", country="中国",
+        description="成立AI数据与安全一级部门，与Seed/Flow/抖音平行，"
+                    "整合多支分散数据团队，直指大模型跨模态数据服务；"
+                    "豆包新增酒店等生活服务入口探索AI流量变现",
+        key_metrics={"department_level": 1, "parallel_units": ["Seed", "Flow", "Douyin"],
+                     "focus": "cross_modal_data"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="数据基础设施：跨模态数据服务支撑机器人训练",
+        deployment_ready=True,
+        tags=["AI组织", "数据安全", "跨模态", "豆包"],
+    ),
+
+    # --- 医疗健康 ---
+    AIProduct(
+        product_id="HC-004", name="AI新药研发周期从数年缩至数月",
+        category=AICategory.HEALTHCARE,
+        organization="中国医疗AI产业", country="中国",
+        description="分子模拟、临床试验预测AI加速新药从实验室到药房进程，"
+                    "研发周期从数年缩短至数月；2025年AI+医疗健康市场规模突破千亿元，"
+                    "预计2026年跨越1500亿元，年复合增长率30%以上",
+        key_metrics={"market_2025_billion": 100, "market_2026_billion": 150,
+                     "cagr_pct": 30, "rd_acceleration": "years_to_months"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="AI for Science：药物研发AI方法可迁移至机器人材料发现",
+        deployment_ready=True,
+        tags=["AI制药", "AIDD", "分子模拟", "千亿市场"],
+    ),
+    AIProduct(
+        product_id="HC-005", name="端侧AI可穿戴健康监测",
+        category=AICategory.HEALTHCARE,
+        organization="全球可穿戴产业", country="全球",
+        description="2026年Q1全球支持端侧AI的智能手表出货量同比增长70%，"
+                    "渗透率达25%；预计2032年每10台可穿戴设备8台搭载端侧AI，"
+                    "智能手表监测高血压风险，动态血糖监测纳入多地医保",
+        key_metrics={"shipment_growth_pct": 70, "penetration_pct": 25,
+                     "2032_ai_ratio": "8/10", "glucose_monitoring": True},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="传感器融合：可穿戴健康监测技术可用于机器人状态感知",
+        deployment_ready=True,
+        tags=["可穿戴", "端侧AI", "健康监测", "智能手表"],
+    ),
+    AIProduct(
+        product_id="HC-006", name="达芬奇机器人微创手术突破",
+        category=AICategory.HEALTHCARE,
+        organization="青大附院", country="中国",
+        description="达芬奇机器人完成高难度开放手术微创化创新，"
+                    "保留自体肺组织避免全肺切除；"
+                    "2022年完成亚洲首例机器人辅助单肺移植、世界首例双肺移植",
+        key_metrics={"surgical_robot": "da_vinci", "minimally_invasive": True,
+                     "world_first": "double_lung_transplant"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="精密操作：手术机器人精细控制技术可参考",
+        deployment_ready=True,
+        tags=["手术机器人", "达芬奇", "微创", "肺移植"],
+    ),
+
+    # --- 民生 ---
+    AIProduct(
+        product_id="LV-004", name="腾讯出行接入Robotaxi无人驾驶",
+        category=AICategory.LIVELIHOOD,
+        organization="腾讯", country="中国",
+        description="腾讯出行服务正式接入如祺Robotaxi，成为首个接入的一站式出行平台，"
+                    "通过微信小程序提供自动驾驶叫车服务，"
+                    "首批覆盖广州南沙、科学城等运营区域",
+        key_metrics={"platform": "WeChat_miniprogram", "service": "robotaxi_hailing",
+                     "coverage": ["Guangzhou_Nansha", "Science_City"]},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="出行服务：无人驾驶出租车是轮式机器人重要应用",
+        deployment_ready=True,
+        tags=["Robotaxi", "无人驾驶", "微信小程序", "智慧出行"],
+    ),
+
+    # --- 教育 ---
+    AIProduct(
+        product_id="ED-004", name="大连海事大学航海教育大模型1.0",
+        category=AICategory.EDUCATION,
+        organization="大连海事大学", country="中国",
+        description="自主研发航海教育大模型1.0系统，聚焦航海技术/轮机工程/船舶电子电气"
+                    "3个航海类专业，搭建专业知识库与结构化图谱，"
+                    "部署多元应用型智能体集群，提供智能备课/学情分析/适任考试模拟",
+        key_metrics={"majors": 3, "knowledge_graph": True,
+                     "agent_cluster": True, "exam_simulation": True},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="专业教育：垂直领域大模型方法可用于机器人操作培训",
+        deployment_ready=True,
+        tags=["教育大模型", "航海教育", "智能备课", "适任考试"],
+    ),
+
 ]
 
 
