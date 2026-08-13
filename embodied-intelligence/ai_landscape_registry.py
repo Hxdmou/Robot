@@ -1298,19 +1298,32 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         tags=["车规芯片", "7nm", "AI加速器", "外挂式", "端侧推理"],
     ),
     AIProduct(
-        product_id="CH-004", name="爱芯元智下一代大算力AI芯片流片",
+        product_id="CH-004", name="爱芯元智边缘AI芯片AX615",
         category=AICategory.AI_CHIP,
         organization="爱芯元智", country="中国",
-        description="下一代高性能大算力AI芯片完成流片，配备高带宽内存HBM，"
-                    "支持两芯或四芯级联，实现满血大模型在边缘侧高性能推理",
+        description="面向物理AI时代的边缘算力芯片，覆盖终端感知、边缘"
+                    "算力、车载芯片完整底座。下一代高性能大算力AI芯片"
+                    "完成流片，配备HBM高带宽内存，支持两芯或四芯级联，"
+                    "实现满血大模型边缘侧高性能推理。2026上半年营收4.02"
+                    "亿元同比增长181.8%，毛利率提升至29%。终端计算销量"
+                    "翻倍，黑光系列增速超200%；车载SoC出货42万颗，合作"
+                    "主机厂25家含7家国际品牌。M57平台已量产上车，M97"
+                    "高阶智驾芯片完成工程样片交付。AX615系列已向具身"
+                    "机器人、工业视觉领域渗透。现金储备约21.7亿元。",
         key_metrics={"hbm": True, "cascade_support": "2x/4x",
-                     "edge_inference": "full_scale"},
-        maturity=MaturityLevel.PROTOTYPE,
+                     "edge_inference": "full_scale",
+                     "revenue_2026h1_billion_rmb": 0.402,
+                     "revenue_growth_pct": 181.8, "gross_margin_pct": 29,
+                     "automotive_soc_shipments": 420000,
+                     "automakers": 25, "cash_billion_rmb": 2.17},
+        maturity=MaturityLevel.MASS_PRODUCTION,
         source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
-        relevance_to_robotics="边缘算力：多芯级联为机器人提供可扩展AI算力",
-        deployment_ready=False,
-        tags=["AI芯片", "流片", "HBM", "多芯级联", "边缘推理"],
+        relevance_to_robotics="边缘算力：多芯级联为机器人提供可扩展AI算力，"
+                              "AX615已进入具身机器人领域",
+        deployment_ready=True,
+        tags=["AI芯片", "爱芯元智", "AX615", "HBM", "多芯级联",
+              "边缘推理", "车载SoC", "具身机器人", "黑光系列"],
     ),
 
     # --- AI大模型 ---
@@ -4569,6 +4582,164 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                               "机器人服务能力",
         deployment_ready=False,
         tags=["护理机器人", "具身智能", "七自由度", "养老", "力控柔顺"],
+    ),
+
+    # --- AI芯片补充 ---
+    AIProduct(
+        product_id="CH-009", name="昆仑芯P800国产AI训练芯片",
+        category=AICategory.AI_CHIP,
+        organization="", country="中国",
+        description="百度系第三代自研AI芯片，采用XPU-P异构并行架构，"
+                    "FP16/BF16峰值算力345 TFLOPS，为英伟达H20的2.3倍。"
+                    "96GB HBM3显存，显存带宽2.4TB/s。单机8卡可运行"
+                    "DeepSeek-V3/R1 671B满血版模型，32台服务器支持"
+                    "全参训练。万卡集群线性加速比达96%，支持3.2万卡"
+                    "规模部署。7nm工艺，单卡功耗400W，同等算力成本"
+                    "仅为国际大厂60%。已点亮国内首个全自研三万卡集群。",
+        key_metrics={"fp16_tflops": 345, "memory_gb": 96,
+                     "memory_bandwidth_tbs": 2.4, "process_nm": 7,
+                     "power_w": 400, "max_cluster_cards": 32000,
+                     "linear_speedup_pct": 96, "cost_ratio": 0.6},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="高算力国产芯片为具身智能大模型训练和"
+                              "端侧推理提供自主可控的算力底座",
+        deployment_ready=True,
+        tags=["昆仑芯", "P800", "国产替代", "XPU架构", "万卡集群", "DeepSeek适配"],
+    ),
+    AIProduct(
+        product_id="CH-011", name="曲速科技Polaris-H SRAM推理芯片",
+        category=AICategory.AI_CHIP,
+        organization="", country="中国",
+        description="国内首款SRAM架构推理专用芯片，2021年量产累计出货"
+                    "超10万颗。片上SRAM容量超550MB为全球首款，芯片面积"
+                    "超800mm²，片内带宽超30TB/s，良率超80%。大模型"
+                    "推理权重可驻留片上，大幅减少片外DRAM访问，降低"
+                    "推理延迟和功耗。推理能效比和低延迟优势显著，适合"
+                    "推理集中、延迟敏感场景。550MB SRAM容量领先Cerebras"
+                    "（44MB晶圆级）和Groq（LPU架构）。",
+        key_metrics={"sram_mb": 550, "die_area_mm2": 800,
+                     "onchip_bandwidth_tbs": 30, "yield_pct": 80,
+                     "cumulative_shipments": 100000,
+                     "architecture": "SRAM推理专用",
+                     "mass_production_year": 2021},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-08-13",
+        relevance_to_robotics="低延迟推理芯片适合机器人实时决策和"
+                              "端侧大模型部署场景",
+        deployment_ready=True,
+        tags=["SRAM", "推理芯片", "曲速科技", "低延迟", "片上存储"],
+    ),
+
+    # --- 世界模型补充 ---
+    AIProduct(
+        product_id="WM-009", name="MoWorld-3D交互式三维世界模型",
+        category=AICategory.WORLD_MODEL,
+        organization="", country="中国",
+        description="国家人工智能应用中试基地联合华为、魔芯科技发布，"
+                    "全栈基于昇腾NPU构建的交互式三维世界模型。28B参数"
+                    "MoE混合专家架构，用户可通过图像、文本生成具备空间"
+                    "结构的三维场景，支持相机六自由度运动作为物理信号，"
+                    "可在生成的世界中行走、转身、环绕观测。建筑结构、"
+                    "道路走向、物体位置均贴合真实空间规律。推理综合成本"
+                    "仅为同等规模进口GPU方案30%。向全行业开放能力，"
+                    "支撑具身智能规模化训练。",
+        key_metrics={"parameters_b": 28, "architecture": "MoE",
+                     "compute": "昇腾NPU", "cost_ratio": 0.3,
+                     "interaction": "6DoF物理信号",
+                     "applications": ["具身智能", "自动驾驶", "数字孪生"]},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="3D世界模型为机器人提供可交互的物理仿真"
+                              "训练环境，直接降低真机训练成本",
+        deployment_ready=False,
+        tags=["MoWorld-3D", "昇腾NPU", "3D交互", "MoE", "数字孪生训练场"],
+    ),
+    AIProduct(
+        product_id="WM-011", name="心智世界模型MWM",
+        category=AICategory.WORLD_MODEL,
+        organization="", country="全球",
+        description="牛津大学和新加坡国立大学联合提出的心智世界建模框架，"
+                    "登顶Hugging Face Daily Papers日榜第一。将信念、目标、"
+                    "情绪、人际关系等心智变量纳入世界状态，构建物理-心智"
+                    "耦合的全局模拟器。解决传统世界模型只能预测物理状态"
+                    "却无法正确预测人行为的问题。目标智能体只能观察到"
+                    "全局状态经过转换的第一人称视角，模型生成针对该"
+                    "智能体的局部观测并基于此采取行动。开源代码Mentis"
+                    "已发布。",
+        key_metrics={"institution": ["牛津大学", "新加坡国立大学"],
+                     "paper_rank": "HuggingFace日榜第一",
+                     "framework": "Mental World Modeling",
+                     "open_source": "Mentis",
+                     "core_innovation": "物理-心智耦合状态",
+                     "mental_variables": ["信念", "目标", "情绪",
+                                          "人际关系", "社会责任"]},
+        maturity=MaturityLevel.RESEARCH,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="心智建模使服务机器人能理解用户意图、"
+                              "情绪和社会规范，实现真正的人机协作",
+        deployment_ready=False,
+        tags=["心智世界模型", "MWM", "心智理论", "人机协作", "开源"],
+    ),
+
+    # --- 6G网络补充 ---
+    AIProduct(
+        product_id="6G-010", name="英伟达AI-RAN 6G智能基站",
+        category=AICategory.NETWORK_6G,
+        organization="", country="美国",
+        description="英伟达推动的AI原生无线接入网，让基站同时承担通信"
+                    "连接和AI计算任务，从传输管道升级为算力节点。已投资"
+                    "10亿美元认购诺基亚约2.9%股份，联合诺基亚、爱立信、"
+                    "T-Mobile、德国电信、软银等提出开放软件定义AI原生"
+                    "6G平台。在中国寻找基站厂商合作方开发6G基站，希望"
+                    "2027-2028年进入试验网。AI-RAN测试已实现基站同时"
+                    "提供5G连接和边缘AI任务。高通判断谁拿下边缘AI谁就"
+                    "更可能赢下AI时代。",
+        key_metrics={"nokia_investment_billion_usd": 1.0,
+                     "nokia_stake_pct": 2.9,
+                     "partners": ["诺基亚", "爱立信", "T-Mobile",
+                                  "德国电信", "软银"],
+                     "target_trial_year": "2027-2028",
+                     "concept": "AI-RAN",
+                     "china_base_station_share_pct": 65},
+        maturity=MaturityLevel.PROTOTYPE,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="AI-RAN基站为机器人提供边缘计算节点，"
+                              "实现低延迟AI推理和通信一体化",
+        deployment_ready=False,
+        tags=["AI-RAN", "英伟达", "6G基站", "边缘AI", "诺基亚", "算力节点"],
+    ),
+
+    # --- 家用电器补充 ---
+    AIProduct(
+        product_id="HA-008", name="科沃斯AI扫地机器人地宝X9",
+        category=AICategory.HOME_APPLIANCE,
+        organization="", country="中国",
+        description="搭载AI视觉导航和双线激光3D避障的扫地机器人，"
+                    "支持AI物体识别分类（鞋子、电线、宠物粪便等200+"
+                    "障碍物），自动标记禁区。滚筒活洗系统实现扫拖洗"
+                    "一体，基站自动集尘、热水洗拖布、热风烘干、自动"
+                    "补水。支持语音控制和App远程管理，建图精度达厘米"
+                    "级。2026上半年服务机器人销量增长35%，线下渠道"
+                    "销售额同比增长45%。",
+        key_metrics={"obstacle_types": 200, "navigation": "AI视觉+双线激光",
+                     "features": ["自动集尘", "热水洗拖布", "热风烘干",
+                                  "自动补水", "语音控制"],
+                     "mapping_accuracy_cm": 1,
+                     "sales_growth_pct": 35},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-08-13",
+        relevance_to_robotics="扫地机器人是家庭服务机器人的成熟形态，"
+                              "SLAM导航和避障技术直接支撑室内机器人"
+                              "自主移动",
+        deployment_ready=True,
+        tags=["扫地机器人", "AI导航", "激光避障", "扫拖一体", "科沃斯"],
     ),
 
 ]
