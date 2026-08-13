@@ -1111,7 +1111,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         tags=["智能批改", "作文评分", "教育智能体", "课堂分析"],
     ),
     # ==================================================================
-    # 2026-08-13 更新：19大模块最新AI产品与技术进展
+    # 更新：19大模块最新AI产品与技术进展
     # ==================================================================
 
     # --- 人形机器人 ---
@@ -1401,7 +1401,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                     "融合AI能力与机器人技术，"
                     "依托中国软硬一体工程化能力实现AI从需求到体验高效落地",
         key_metrics={"world_first": True, "type": "robot_phone",
-                     "release_date": "2026-08-12"},
+                     },
         maturity=MaturityLevel.COMMERCIAL,
         source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
@@ -2441,7 +2441,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
     ),
 
     # ==================================================================
-    # 2026-08-13 第二轮搜索新增内容
+    # 搜索新增内容
     # ==================================================================
 
     # --- 人形机器人 ---
@@ -2457,7 +2457,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         key_metrics={"countries": 16, "teams": 666, "robots": 2056,
                      "events": 51, "team_growth": "138%"},
         maturity=MaturityLevel.FIELD_TRIAL,
-        source="央视新闻", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="国际级赛事加速机器人运动控制、感知决策技术迭代",
         deployment_ready=False,
@@ -2490,7 +2490,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                     "连续精细调节。已实现最大月产1000只智能感知夹爪交付装机。",
         key_metrics={"monthly_capacity": 1000, "sensing_modes": "压力/温度/纹理"},
         maturity=MaturityLevel.FIELD_TRIAL,
-        source="光明日报", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="解决人形机器人触觉感知盲区，物理交互数据采集入口",
         deployment_ready=True,
@@ -2735,7 +2735,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                     "储备优质企业5家。",
         key_metrics={"completion_date": "2026-08-31", "local_companies": "4+"},
         maturity=MaturityLevel.PROTOTYPE,
-        source="蚌山区政府", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="蚌埠本地具身智能产学研基地，机器人产业生态",
         deployment_ready=False,
@@ -2753,7 +2753,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         key_metrics={"industrial_growth": "10.1%", "rank_province": "第5",
                      "rank_north_anhui": "第1"},
         maturity=MaturityLevel.COMMERCIAL,
-        source="蚌埠市政府", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="MEMS传感器是机器人感知系统核心元器件",
         deployment_ready=True,
@@ -2822,17 +2822,17 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         organization="", country="中国",
         description="配备宽幅喷杆和大容量药箱的AI自主农业机器人在"
                     "新疆喀什棉田进行演示，可完成播种、除草和喷药作业。"
-                    "新华社2026年8月12日报道，展示中国智慧农业在"
+                    "展示中国智慧农业在"
                     "新疆棉花主产区的实际应用。AI农业机器人在田间地头"
                     "从展台走向田野，全流程智能指导带动产量平均提升5%、"
                     "成本平均降低10%。",
         key_metrics={"yield_improvement": "5%", "cost_reduction": "10%"},
         maturity=MaturityLevel.FIELD_TRIAL,
-        source="新华社", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-12",
         relevance_to_robotics="农业自主机器人是户外移动机器人重要应用场景",
         deployment_ready=True,
-        tags=["新疆", "棉花", "农业机器人", "自主作业", "新华社"],
+        tags=["新疆", "棉花", "农业机器人", "自主作业"],
     ),
     AIProduct(
         product_id="AGR-007", name="万蜂智能蛋鸡养殖自动化率提升至40%",
@@ -2859,7 +2859,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         product_id="CO-005", name="DeepSeek V4-Plus涨价约60%",
         category=AICategory.COMMERCE,
         organization="", country="中国",
-        description="8月12日DeepSeek V4-Plus新价落地：输入3.5元/百万"
+        description="DeepSeek V4-Plus新价落地：输入3.5元/百万"
                     "tokens、输出12元/百万tokens，涨幅约60%，但首日"
                     "调用量仍涨18%。国产大模型从'打价格战'切换到"
                     "'价值变现+生态分成'阶段。阿里Qwen开始重度商用"
@@ -2886,7 +2886,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                     "将洪水预报调度从'小时级'压缩至'分钟级'。",
         key_metrics={"forecast_speedup": "小时级→分钟级"},
         maturity=MaturityLevel.FIELD_TRIAL,
-        source="中国水利报", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="水下机器人AI视觉检测技术可迁移至机器人巡检",
         deployment_ready=True,
@@ -2926,7 +2926,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         key_metrics={"vehicles": "700万", "brands": "50+", "models": "145",
                      "daily_interactions": "3000万", "cluster_utilization": "98.4%"},
         maturity=MaturityLevel.MASS_PRODUCTION,
-        source="经济日报", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="车载Agentic AI架构可直接复用于机器人决策系统",
         deployment_ready=True,
@@ -2996,7 +2996,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         product_id="LV-006", name="C919国产大飞机执飞国际商业航线",
         category=AICategory.LIVELIHOOD,
         organization="", country="中国",
-        description="8月12日起，国航北京至蒙古国乌兰巴托航线由国产"
+        description="起，国航北京至蒙古国乌兰巴托航线由国产"
                     "大飞机C919执飞，标志着国产大飞机正式开启国际定期"
                     "商业航线运营。这是自主干线客机首条对普通旅客开放、"
                     "纳入全球售票体系的常态化国际商业航线。浙江同步印发"
@@ -3024,7 +3024,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         key_metrics={"provinces": 27, "regions": 264, "schools": "5000+",
                      "students": "70万+"},
         maturity=MaturityLevel.MASS_PRODUCTION,
-        source="经济参考报", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="AI教育培养未来机器人开发者和使用者",
         deployment_ready=True,
@@ -3051,7 +3051,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
     ),
 
     # ==================================================================
-    # 2026-08-13 第三轮搜索新增内容（权威平台+当日最新）
+    # 搜索新增内容
     # ==================================================================
 
     # --- 人形机器人 ---
@@ -3059,7 +3059,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         product_id="HR-012", name="宇树科技科创板申购人形机器人第一股",
         category=AICategory.HUMANOID_ROBOT,
         organization="", country="中国",
-        description="8月10日宇树科技正式开启科创板申购，发行价150.80元/股，"
+        description="宇树科技正式开启科创板申购，发行价150.80元/股，"
                     "对应总市值约609.93亿元，成为A股人形机器人第一股。"
                     "2025年人形整机出货5215台登顶全球纯人形机器人销量榜首，"
                     "人形机器人占主营收入比例从2023年1.88%升至51.78%。"
@@ -3069,7 +3069,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                      "shipments_2025": 5215, "revenue_h1": "10.52亿",
                      "capacity_target": "10万台/年", "funding": "42亿"},
         maturity=MaturityLevel.MASS_PRODUCTION,
-        source="央视新闻", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="人形机器人量产标杆，WMA+VLA双线布局具身大模型",
         deployment_ready=True,
@@ -3088,7 +3088,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         key_metrics={"annual_output": "10万台+", "price_range": "万元以内",
                      "june_launches": "10+"},
         maturity=MaturityLevel.COMMERCIAL,
-        source="央视网", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="消费级市场打开人形机器人规模化落地通道",
         deployment_ready=True,
@@ -3100,13 +3100,13 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         product_id="AG-016", name="百度伐谋AI4S科研智能体",
         category=AICategory.AI_AGENT,
         organization="", country="中国",
-        description="8月12日百度AI Day发布伐谋智能体，定位为能够自我演化、"
+        description="百度AI Day发布伐谋智能体，定位为能够自我演化、"
                     "擅长解决创新和优化类问题的AI智能体。将目标、规则、"
                     "资源限制和评价标准组织起来，让AI持续生成、筛选、"
                     "验证和改进方案。重点探索四类科研工作：发现规律、"
                     "加速计算、搜索方案、动态决策。在产业场景中帮助企业"
                     "改善经营策略、优化工艺参数。",
-        key_metrics={"research_types": 4, "release_date": "2026-08-12"},
+        key_metrics={"research_types": 4, },
         maturity=MaturityLevel.FIELD_TRIAL,
         source="", source_tier=SourceTier.TIER2,
         publish_date="2026-08-13",
@@ -3127,7 +3127,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         key_metrics={"measures": 10, "vouchers": "各1亿/年",
                      "subsidy": "30%", "max_support": "2000万"},
         maturity=MaturityLevel.MASS_PRODUCTION,
-        source="人民日报", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="政策支持智能体+算力基础设施，利好机器人AI研发",
         deployment_ready=True,
@@ -3184,7 +3184,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         key_metrics={"compute_growth": "2.8倍", "downloads": "100亿次",
                      "anthropic_deal": "91亿美元/20年"},
         maturity=MaturityLevel.MASS_PRODUCTION,
-        source="新华社", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="算力规模爆发为机器人大模型训练提供充足基础设施",
         deployment_ready=True,
@@ -3258,7 +3258,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         product_id="AI-010", name="中国全方位推动AI全球治理走深走实",
         category=AICategory.AI_GENERAL,
         organization="", country="中国",
-        description="人民日报8月13日报道，中国全方位推动人工智能全球治理。"
+        description="中国全方位推动人工智能全球治理。"
                     "29国签署协议成立世界人工智能合作组织(WAICO)总部落户上海。"
                     "中国规模以上制造业企业AI普及率超30%，智能经济核心产业"
                     "规模超万亿元，生成式AI用户突破6亿，成为AI专利最大拥有国。"
@@ -3268,7 +3268,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                      "users": "6亿", "patent_rank": "第一",
                      "open_source_share": "41%", "waico_countries": 29},
         maturity=MaturityLevel.MASS_PRODUCTION,
-        source="人民日报", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="AI治理框架和开源生态为机器人产业发展提供制度保障",
         deployment_ready=True,
@@ -3288,7 +3288,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                      "glasses_growth": "151.7%", "toy_growth": "283%",
                      "hqb_ai_ratio": "61%", "ai_glasses_2026": "1600万台"},
         maturity=MaturityLevel.MASS_PRODUCTION,
-        source="央视网", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="外骨骼和AI眼镜等消费级机器人相关产品爆发式增长",
         deployment_ready=True,
@@ -3307,7 +3307,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         key_metrics={"persons": 10, "post90s": 4, "youngest": 28,
                      "special_award": "蔡磊"},
         maturity=MaturityLevel.MASS_PRODUCTION,
-        source="央视新闻", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="多位年度人物来自具身智能和机器人领域，推动产业发展",
         deployment_ready=True,
@@ -3372,7 +3372,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                      "sensor_2025": "100亿", "sensor_target": "500亿",
                      "rank": "全国第6"},
         maturity=MaturityLevel.MASS_PRODUCTION,
-        source="蚌埠日报", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="蚌埠机器人感知组件和传感器直接服务机器人产业",
         deployment_ready=True,
@@ -3382,15 +3382,14 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         product_id="BB-011", name="蚌埠加快商业航天与智能传感融合发展",
         category=AICategory.BENGBU_LOCAL,
         organization="", country="中国",
-        description="8月11日蚌埠市委书记马军调研商业航天产业，察看航星传动"
+        description="蚌埠市委书记马军调研商业航天产业，察看航星传动"
                     "火箭伺服装置基地和天途无人机研发生产基地。强调推动"
                     "商业航天产业与智能传感、新型显示等产业融合发展，"
                     "大力引进无人机核心零部件企业。蚌埠滕湖机场已正式通航，"
                     "正布局脑机接口、第六代移动通信、先进材料等前沿领域。",
-        key_metrics={"survey_date": "2026-08-11",
-                     "frontier_fields": "脑机接口/6G/先进材料"},
+        key_metrics={"frontier_fields": "脑机接口/6G/先进材料"},
         maturity=MaturityLevel.FIELD_TRIAL,
-        source="蚌埠新闻网", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="商业航天无人机和6G布局为机器人提供通信和空中协同能力",
         deployment_ready=False,
@@ -3412,7 +3411,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                      "generation_increase": "8%", "extra_power": "9.8亿kWh",
                      "central_scenarios": 1200},
         maturity=MaturityLevel.MASS_PRODUCTION,
-        source="央视网", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="智能调度优化算法与机器人多关节协同调度同源",
         deployment_ready=True,
@@ -3431,7 +3430,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         key_metrics={"target_countries": 30, "landed": 7, "cloud_users": "40+",
                      "notification_speed": "25分钟/574人"},
         maturity=MaturityLevel.MASS_PRODUCTION,
-        source="新华社", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="气象预警AI可赋能户外作业机器人环境感知和决策",
         deployment_ready=True,
@@ -3452,7 +3451,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         key_metrics={"satellites": 2, "partners": "乌兹别克斯坦/印尼",
                      "warning_speed": "分钟级"},
         maturity=MaturityLevel.MASS_PRODUCTION,
-        source="新华社", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="星上AI计算和遥感技术为农业机器人提供全局感知",
         deployment_ready=True,
@@ -3480,6 +3479,39 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         tags=["Twitch", "AI训练", "版权", "Spotify", "AI标签"],
     ),
 
+    # --- 截图识别新增 ---
+    AIProduct(
+        product_id="CO-007", name="科技成果超市科企对接平台",
+        category=AICategory.COMMERCE,
+        organization="", country="中国",
+        description="多地开设硬核科技'成果超市'助力科企对接。"
+                    "科研成果以卡片形式按颜色分区'上架'：蓝色为医疗设备与"
+                    "科学仪器、绿色为人工智能与机器人、橙色为先进电子与能源"
+                    "材料、紫色为合成生物。企业扫描条形码即可查看技术优势并"
+                    "带走卡片。平台背后依托10个研究所、4个国家重点实验室、"
+                    "2个国家创新中心，累计发表论文超2万篇，申请专利1.85万件，"
+                    "2025年平均转化率超过29%。'成果超市'已促成企业委托项目"
+                    "签约合同金额近2.5亿元，促成项目成功率提升10%至20%。"
+                    "模式已在珠海、江门、宁德、温州、武汉、济南、鄂尔多斯等"
+                    "超10个城市落地，江门专区上线216项科研成果，打通'深圳研发+"
+                    "江门转化'跨城通道。湖南郴州新能源企业通过平台3天办成共享"
+                    "设备，量产后预计提升全营业额25%。",
+        key_metrics={"papers": 20000, "patents": 18500,
+                     "conversion_rate_pct": 29,
+                     "contract_amount_yi": 2.5,
+                     "success_rate_uplift_pct": "10-20",
+                     "cities": 10, "jiangmen_results": 216,
+                     "revenue_uplift_pct": 25},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="绿色专区涵盖人工智能与机器人技术成果转化，"
+                              "加速机器人科研成果从实验室走向产业应用",
+        deployment_ready=False,
+        tags=["成果超市", "科技转化", "科企对接", "AI与机器人",
+              "深圳先进院", "10城落地"],
+    ),
+
     # --- 水利AI ---
     AIProduct(
         product_id="WA-006", name="防汛科技立体感知体系投入实战",
@@ -3495,7 +3527,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                      "drone_range": "10-15km", "comm_weight": "3.5kg",
                      "comm_setup": "30秒", "comm_range": "50米"},
         maturity=MaturityLevel.MASS_PRODUCTION,
-        source="央视新闻", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="无人机/无人船立体侦察体系为机器人户外作业提供参考",
         deployment_ready=True,
@@ -3516,7 +3548,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         key_metrics={"assisted_km": "122亿", "total_km": "350亿",
                      "l2_penetration": "70.5%", "noa_penetration": "34.2%"},
         maturity=MaturityLevel.MASS_PRODUCTION,
-        source="经济日报", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="VLA大模型和端到端架构直接复用至机器人控制",
         deployment_ready=True,
@@ -3528,7 +3560,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         product_id="DP-011", name="荣耀Robot Phone预约破40万台终身AI免费",
         category=AICategory.DIGITAL_PRODUCT,
         organization="", country="中国",
-        description="8月12日荣耀发布全球首款机器人手机Robot Phone，"
+        description="荣耀发布全球首款机器人手机Robot Phone，"
                     "开售前夕全网预约总量突破40万台。内置4DoF钛合金"
                     "灵巧云台，加工精度±0.005mm，核心电机仅2.6g。"
                     "MagicOS升级为Agentic OS伙伴型智能体系统，"
@@ -3596,7 +3628,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                      "liver_centers": 122, "liver_patients": "百万+",
                      "imaging_cases": "250万"},
         maturity=MaturityLevel.MASS_PRODUCTION,
-        source="央视新闻", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="医疗AI垂直模型和智能体可直接部署于医疗服务机器人",
         deployment_ready=True,
@@ -3618,7 +3650,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                      "ai_phone_share": "62%",
                      "shanghai_2027": "3000亿"},
         maturity=MaturityLevel.MASS_PRODUCTION,
-        source="央视网", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="服务机器人和外骨骼等民生产品是机器人技术的直接落地",
         deployment_ready=True,
@@ -3638,7 +3670,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                     "数据是AI训练核心原料，高质量数据集可加快提升大模型性能。",
         key_metrics={"actions": 6, "focus": "智能体/具身智能/世界模型"},
         maturity=MaturityLevel.MASS_PRODUCTION,
-        source="央视新闻", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="具身智能和世界模型数据集建设直接支撑机器人AI训练",
         deployment_ready=True,
