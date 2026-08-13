@@ -5,7 +5,7 @@ AI智能栈统一初始化 - V1.1
 ================================================================
 将17个独立功能模块注册到VLA工厂、世界模型工厂，
 并初始化算力调度、工厂部署、6G网络、蚌埠供应链，
-以及9大行业AI模块（新能源/农业/商业/水利/汽车/数码/医疗/民生/教育）。
+以及11大行业AI模块（新能源/农业/商业/水利/汽车/数码/医疗/民生/教育/家电/医疗设备）。
 
 新增内容：
   1. register_all_vla_backends() - 注册DeepSeek-V4/Nemotron专用后端
@@ -23,7 +23,9 @@ AI智能栈统一初始化 - V1.1
   13. init_healthcare() - 初始化医疗健康AI
   14. init_livelihood() - 初始化民生AI
   15. init_education() - 初始化教育AI
-  16. initialize_all() - 一键初始化全部AI智能栈
+  16. init_home_appliance() - 初始化家用电器AI
+  17. init_medical_device() - 初始化医疗设备AI
+  18. initialize_all() - 一键初始化全部AI智能栈
 """
 
 import os
@@ -154,6 +156,18 @@ def init_education():
     return create_education_ai()
 
 
+def init_home_appliance():
+    """初始化家用电器AI平台。"""
+    from home_appliance_ai import create_home_appliance_ai
+    return create_home_appliance_ai()
+
+
+def init_medical_device():
+    """初始化医疗设备AI平台。"""
+    from medical_device_ai import create_medical_device_ai
+    return create_medical_device_ai()
+
+
 _INDUSTRY_INIT_FUNCS = {
     "renewable_energy": init_renewable_energy,
     "agriculture": init_agriculture,
@@ -164,6 +178,8 @@ _INDUSTRY_INIT_FUNCS = {
     "healthcare": init_healthcare,
     "livelihood": init_livelihood,
     "education": init_education,
+    "home_appliance": init_home_appliance,
+    "medical_device": init_medical_device,
 }
 
 
@@ -235,7 +251,7 @@ if __name__ == "__main__":
     print(f"6G网络: {'OK' if r['sixg_network'] else 'FAIL'}")
     print(f"蚌埠供应链: {'OK' if r['bengbu_supply_chain'] else 'FAIL'}")
     print(f"世界代理: {'OK' if r['world_proxy'] else 'FAIL'}")
-    print(f"\n9大行业模块:")
+    print(f"\n11大行业模块:")
     for name, inst in r["industry_modules"].items():
         print(f"  {name}: {'OK' if inst else 'FAIL'}")
     if r["errors"]:

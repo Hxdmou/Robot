@@ -49,6 +49,8 @@ class AICategory(Enum):
     HEALTHCARE = "healthcare"
     LIVELIHOOD = "livelihood"
     EDUCATION = "education"
+    HOME_APPLIANCE = "home_appliance"
+    MEDICAL_DEVICE = "medical_device"
 
 
 class MaturityLevel(Enum):
@@ -4209,6 +4211,364 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         deployment_ready=True,
         tags=["Google Classroom", "Gemini", "个性化学习", "K-12",
               "情境化辅导"],
+    ),
+
+    # --- 第二十大模块：家用电器AI ---
+    AIProduct(
+        product_id="HA-001", name="海尔智家全屋智慧家庭L4级主动服务",
+        category=AICategory.HOME_APPLIANCE,
+        organization="", country="中国",
+        description="智慧家庭L4级主动服务系统，实现从被动响应到主动预判"
+                    "的质变。多模态感知层通过AI视觉识别300种食材、毫米波"
+                    "雷达精准定位人体位置；用户建模层持续学习使用习惯并"
+                    "主动推送食材采买建议；自主决策层准确率达95%以上，"
+                    "无需人工指令即可完成闭环服务。Seeker套系已入驻珠穆朗玛"
+                    "科考基地，在-30℃低气压环境中燃气灶主动补氧、冰箱"
+                    "为不同食材精准匹配保鲜模式。2026上半年全球智慧家庭"
+                    "发明专利2319件，实现15连冠。",
+        key_metrics={"smart_level": "L4", "ingredient_recognition": 300,
+                     "decision_accuracy_pct": 95, "patents": 2319,
+                     "championship_years": 15,
+                     "extreme_test_temp_c": -30},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="家电的感知-决策-执行闭环与机器人控制架构"
+                              "同源，多模态感知和主动服务技术可迁移至家庭"
+                              "服务机器人",
+        deployment_ready=True,
+        tags=["智慧家庭", "L4主动服务", "多模态感知", "全屋智能", "海尔智家"],
+    ),
+    AIProduct(
+        product_id="HA-002", name="AI家电L1-L5智能分级国标",
+        category=AICategory.HOME_APPLIANCE,
+        organization="", country="中国",
+        description="智能家用电器智能分级国家标准，从智能能力和场景效果"
+                    "两个维度考核，将家电智能水平分为L1至L5级。L4级为"
+                    "当前消费级市场最高水准，要求从被动响应跃升为主动服务。"
+                    "标准要求企业明确标注功能效用和隐私风险提示，消费者可"
+                    "像看能效标识一样一眼判断智能水平。同步发布的《智能"
+                    "家用电器质量安全风险分类评价指南》（GB/T 47777—2026）"
+                    "将风险分为电器安全、功能安全、信息安全、数据与隐私"
+                    "保护四大类别，覆盖网络入侵、系统漏洞、隐私泄露等"
+                    "数字化风险。",
+        key_metrics={"standard": "L1-L5分级", "top_level": "L4",
+                     "risk_categories": 4,
+                     "gb_standard": "GB/T 47777-2026"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="智能分级标准为机器人自主能力分级提供参考"
+                              "框架，信息安全和隐私保护要求同样适用于"
+                              "家庭服务机器人",
+        deployment_ready=True,
+        tags=["智能分级", "国标", "L4主动服务", "信息安全", "隐私保护"],
+    ),
+    AIProduct(
+        product_id="HA-003", name="美的智能家居互联互通平台",
+        category=AICategory.HOME_APPLIANCE,
+        organization="", country="中国",
+        description="智能家居互联互通标准核心编制单位，联合家电院、信通院、"
+                    "电子四院等权威机构推进局域网互联互通标准，聚焦产品"
+                    "发现、会话管理、权限分享、业务交互等关键技术，破解"
+                    "产品生态割裂、交互不畅的行业痛点。美的集团位列2026"
+                    "《财富》世界500强第231位，2025年营收4585亿元、"
+                    "净利润439.5亿元。智慧家庭覆盖空调、冰箱、洗衣机等"
+                    "全品类，AI视觉推理平台已在智能体工厂落地，检测节奏"
+                    "匹配生产节拍。",
+        key_metrics={"fortune_500_rank": 231, "revenue_2025_billion": 458.5,
+                     "net_profit_billion": 43.95,
+                     "standard_role": "核心编制单位",
+                     "interconnection_features": ["产品发现", "会话管理",
+                                                  "权限分享", "业务交互"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="互联互通标准是机器人与智能家居设备协同"
+                              "工作的通信基础，机器人需接入家庭物联网"
+                              "生态",
+        deployment_ready=True,
+        tags=["互联互通", "美的", "智能家居标准", "世界500强", "全品类"],
+    ),
+    AIProduct(
+        product_id="HA-004", name="格力AI节能空调",
+        category=AICategory.HOME_APPLIANCE,
+        organization="", country="中国",
+        description="搭载AI算法的智能空调，可根据天气变化自动切换运行"
+                    "模式：梅雨天自动除湿，高温天自动加强制冷。毫米波"
+                    "雷达检测室内无人时自动进入节能待机模式。实测三月"
+                    "电费较同期降低近50%。同时深耕高端装备领域，实现"
+                    "工业母机技术自主突围，赋能制造业升级。空调行业"
+                    "2026新冷年延续经销商淡季打款进货策略。",
+        key_metrics={"energy_saving_pct": 50,
+                     "sensors": ["毫米波雷达", "温湿度传感器"],
+                     "modes": ["自动除湿", "智能制冷", "节能待机"],
+                     "industrial_machine": "工业母机自主突围"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-08-13",
+        relevance_to_robotics="毫米波雷达人体感知和AI节能决策算法可迁移"
+                              "至机器人环境感知和自主节能调度",
+        deployment_ready=True,
+        tags=["AI空调", "毫米波雷达", "节能待机", "格力", "智能温控"],
+    ),
+    AIProduct(
+        product_id="HA-005", name="AI冰箱视觉食材管理系统",
+        category=AICategory.HOME_APPLIANCE,
+        organization="", country="中国",
+        description="搭载AI视觉识别技术的智能冰箱，可识别300种以上食材"
+                    "种类和数量，主动检测食材保质期并弹出提醒，根据"
+                    "库存食材推荐菜谱。AI之眼为不同食材精准匹配保鲜"
+                    "模式，调节温度、湿度和气体浓度。支持与生鲜电商"
+                    "联动，食材不足时自动生成采购清单。从被动储物"
+                    "升级为主动食材管家。",
+        key_metrics={"ingredient_recognition": 300,
+                     "features": ["保质期提醒", "菜谱推荐", "自动采购清单",
+                                  "精准保鲜"],
+                     "sensors": ["AI摄像头", "温湿度传感器", "气体传感器"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-08-13",
+        relevance_to_robotics="冰箱内机械臂取放食材是家庭机器人典型"
+                              "操作场景，视觉识别和物品管理技术直接"
+                              "支撑机器人厨房作业",
+        deployment_ready=True,
+        tags=["AI冰箱", "视觉识别", "食材管理", "智能保鲜", "菜谱推荐"],
+    ),
+    AIProduct(
+        product_id="HA-006", name="一体化电视AI语音交互系统",
+        category=AICategory.HOME_APPLIANCE,
+        organization="", country="中国",
+        description="将机顶盒功能软件化内置到电视中，无需外接机顶盒，"
+                    "一台电视即可使用直播、时移、回看、点播等全部电视"
+                    "服务。实现开机看直播、一个遥控器操控、智能语音"
+                    "交互、超高清播放。四大运营商面向全国有线电视与"
+                    "IPTV用户规模化推广数千万台，彻底整治电视套娃收费"
+                    "和操作繁琐问题。AI语音支持自然语言换台、搜索内容、"
+                    "控制智能家居设备。",
+        key_metrics={"settop_box_builtin": True,
+                     "operators": 4, "scale": "数千万台",
+                     "features": ["开机看直播", "单遥控器", "智能语音",
+                                  "超高清播放"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="电视语音交互中枢可作为家庭服务机器人的"
+                              "入口和显示终端，机器人通过电视与家庭成员"
+                              "交互",
+        deployment_ready=True,
+        tags=["一体化电视", "AI语音", "套娃收费治理", "智能家居中枢", "IPTV"],
+    ),
+    AIProduct(
+        product_id="HA-007", name="AI洗衣机污渍识别自动程序",
+        category=AICategory.HOME_APPLIANCE,
+        organization="", country="中国",
+        description="搭载AI视觉和传感器的智能洗衣机，可自动识别咖啡渍、"
+                    "油渍、血渍等常见污渍类型，根据面料材质和污渍程度"
+                    "自动匹配洗涤程序、水温、转速和洗涤剂用量。内置"
+                    "称重传感器自动感知衣物重量调节水位。AI算法持续"
+                    "学习用户洗涤偏好优化程序。从用户手动选择程序升级"
+                    "为机器自主判断。",
+        key_metrics={"stain_types": ["咖啡渍", "油渍", "血渍"],
+                     "auto_features": ["程序匹配", "水温调节", "转速控制",
+                                       "洗涤剂定量"],
+                     "sensors": ["AI摄像头", "称重传感器", "浊度传感器"]},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-08-13",
+        relevance_to_robotics="污渍视觉识别和柔性物料处理技术可迁移至"
+                              "机器人清洁和衣物整理任务",
+        deployment_ready=False,
+        tags=["AI洗衣机", "污渍识别", "自动程序", "智能投放", "视觉检测"],
+    ),
+
+    # --- 第二十一模块：医疗设备AI ---
+    AIProduct(
+        product_id="MD-001", name="图迈腔镜手术机器人",
+        category=AICategory.MEDICAL_DEVICE,
+        organization="", country="中国",
+        description="自主研发的腔镜手术机器人，获欧盟CE MDR认证，"
+                    "全球商业化订单突破300台，覆盖60多个国家和地区，"
+                    "品牌影响力位居全球前二。创造近70项全球首例纪录，"
+                    "在全球近30个国家累计完成远程人体临床手术超1000例，"
+                    "占全球远程手术总量50%，手术实施成功率100%。"
+                    "可用于泌尿外科、普通外科、胸外科、妇科机器人远程手术。"
+                    "欧盟首次以法规文件形式确认远程手术医疗模式。",
+        key_metrics={"global_orders": 300, "countries": 60,
+                     "remote_surgeries": 1000,
+                     "remote_share_pct": 50, "success_rate_pct": 100,
+                     "global_firsts": 70, "certifications": ["CE MDR", "NMPA"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="腔镜手术机器人是具身智能在精密操作领域的"
+                              "典型应用，多臂协调、力反馈、远程操控技术"
+                              "直接支撑机器人精细操作能力",
+        deployment_ready=True,
+        tags=["腔镜手术机器人", "远程手术", "CE认证", "微创外科", "国产替代"],
+    ),
+    AIProduct(
+        product_id="MD-002", name="蛇形臂手术机器人",
+        category=AICategory.MEDICAL_DEVICE,
+        organization="", country="中国",
+        description="95%零部件国产化的蛇形臂手术机器人，成本仅为海外"
+                    "同行1/3至1/2。2026上半年手术机器人出口额4.8亿元、"
+                    "同比增长3.3倍，覆盖49个国家和地区。已落地德国、"
+                    "西班牙等欧洲顶级医院。蛇形臂设计可在人体自然腔道"
+                    "和狭窄解剖空间中灵活穿行，实现深部手术的微创入路。",
+        key_metrics={"localization_pct": 95, "cost_ratio": 0.33,
+                     "export_2026h1_billion_rmb": 0.48,
+                     "export_growth_pct": 330, "countries": 49},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="蛇形臂连续体机器人是特种机器人的重要"
+                              "分支，柔性控制和路径规划技术可迁移至"
+                              "工业检测和救援机器人",
+        deployment_ready=True,
+        tags=["蛇形臂", "手术机器人", "国产化95%", "出口暴增", "欧洲医院"],
+    ),
+    AIProduct(
+        product_id="MD-003", name="博睿康NEO-ONE侵入式脑机接口",
+        category=AICategory.MEDICAL_DEVICE,
+        organization="", country="中国",
+        description="全球首款获国家药监局批准上市的侵入式脑机接口"
+                    "医疗器械。128通道全植入式脑机接口系统多中心临床"
+                    "试验由北京天坛医院担任组长单位启动。高位截瘫患者"
+                    "已实现意念操控轮椅与机器狗，意念控制气动手套完成"
+                    "抓握、取物、喝水等日常动作。2026年成为中国脑机"
+                    "接口商业化元年。",
+        key_metrics={"channels": 128, "implant_type": "全植入式",
+                     "approval": "NMPA批准上市",
+                     "clinical_lead": "北京天坛医院",
+                     "applications": ["意念轮椅", "机器狗控制",
+                                      "气动手套", "日常动作"]},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="脑机接口是机器人控制的终极交互方式，"
+                              "意念控制直接打通大脑与机器人的通信链路",
+        deployment_ready=True,
+        tags=["脑机接口", "侵入式", "NMPA首批", "意念控制", "神经康复"],
+    ),
+    AIProduct(
+        product_id="MD-004", name="联影元智医疗大模型uMetaImaging",
+        category=AICategory.MEDICAL_DEVICE,
+        organization="", country="中国",
+        description="整合文本、影像、视觉、语音多模态数据的医疗大模型，"
+                    "已开发10余款智能体。uMetaImaging影像智能体一次"
+                    "胸部CT扫描可检出37种疾病，AUC达0.92。覆盖影像、"
+                    "病理、中医药、科研等多元临床场景，多款医疗大模型"
+                    "达国际领先水平。依托全国示范性医疗AI数据基础设施，"
+                    "汇聚海量优质三医数据。",
+        key_metrics={"modalities": ["文本", "影像", "视觉", "语音"],
+                     "agents": 10, "ct_diseases": 37, "auc": 0.92,
+                     "test_platform": "MedBench 4.0"},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="多模态医学影像理解是机器人辅助诊断和"
+                              "手术导航的核心感知能力",
+        deployment_ready=False,
+        tags=["医疗大模型", "多模态", "CT影像", "37种疾病", "联影"],
+    ),
+    AIProduct(
+        product_id="MD-005", name="祥生乳腺AI超声机器人",
+        category=AICategory.MEDICAL_DEVICE,
+        organization="", country="中国",
+        description="自主研发的乳腺人工智能超声机器人，已获得医疗器械"
+                    "检测报告。集成触摸屏、电动检查床、六自由度机械臂、"
+                    "超声影像自动传输和AI辅助阅片一体化设计，可实现"
+                    "大规模扫查与数据跟踪管理，构建筛查-转诊-治疗全"
+                    "闭环管理模式。在视觉深度点云数据分割算法、力控"
+                    "算法和超声图像伺服控制算法领域处于行业领先。"
+                    "围绕AI技术生态（大脑）—高清探头（眼）—超声"
+                    "机器人（手）三位一体协同体系。",
+        key_metrics={"dof": 6, "components": ["触摸屏", "电动检查床",
+                                              "六自由度机械臂", "AI阅片"],
+                     "workflow": "筛查-转诊-治疗全闭环",
+                     "algorithms": ["点云分割", "力控", "超声伺服"]},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="六自由度机械臂+力控+视觉伺服是典型的"
+                              "机器人技术栈，直接体现具身智能在医疗"
+                              "场景的落地",
+        deployment_ready=False,
+        tags=["超声机器人", "乳腺筛查", "六自由度", "力控算法", "AI阅片"],
+    ),
+    AIProduct(
+        product_id="MD-006", name="强生Ottava软组织手术机器人",
+        category=AICategory.MEDICAL_DEVICE,
+        organization="", country="美国",
+        description="获FDA营销授权的软组织机器人辅助手术系统，正式"
+                    "进入软组织机器人辅助手术市场，直接对标达芬奇。"
+                    "将推进日本、西欧审批。三模合一手术机器人同步获"
+                    "FDA批准，标志着手术机器人从单科室向多科室通用"
+                    "平台演进。直觉外科同步启动达芬奇降本转型，国产"
+                    "替代迎来关键变局。",
+        key_metrics={"approval": "FDA营销授权", "target": "软组织手术",
+                     "competitor": "达芬奇", "next_markets": ["日本", "西欧"],
+                     "mode": "三模合一"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="软组织手术机器人对力反馈、柔组织建模"
+                              "和自主缝合技术要求极高，推动机器人精细"
+                              "操作能力边界",
+        deployment_ready=True,
+        tags=["Ottava", "软组织手术", "FDA批准", "三模合一", "强生"],
+    ),
+    AIProduct(
+        product_id="MD-007", name="龙点睛AI经皮穿刺导航机器人",
+        category=AICategory.MEDICAL_DEVICE,
+        organization="", country="中国",
+        description="国内首款AI经皮穿刺导航机器人，基于术前CT/MRI"
+                    "影像和AI算法自动规划最佳穿刺路径，术中通过光学"
+                    "导航实时跟踪穿刺针位置，动态修正呼吸位移。"
+                    "一次性到位成功率提升45%，显著减少CT扫描次数和"
+                    "手术时间。适用于肝、肾、肺等器官的活检和消融"
+                    "治疗。核心专利覆盖10余国，获国家级知识产权密集型"
+                    "产品认证。",
+        key_metrics={"first_pass_improvement_pct": 45,
+                     "navigation": "光学实时跟踪",
+                     "targets": ["肝", "肾", "肺"],
+                     "procedures": ["活检", "消融"],
+                     "patent_countries": 10},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="穿刺导航是机器人空间定位和路径规划的"
+                              "典型应用，呼吸运动补偿技术对机器人动态"
+                              "跟踪有参考价值",
+        deployment_ready=True,
+        tags=["穿刺导航", "AI路径规划", "光学跟踪", "呼吸补偿", "首款"],
+    ),
+    AIProduct(
+        product_id="MD-008", name="如身具身养老护理机器人",
+        category=AICategory.MEDICAL_DEVICE,
+        organization="", country="中国",
+        description="全球首个载人与服务双模态具身养老护理机器人，"
+                    "搭载七自由度20kg大负载力控柔顺机械臂，实现喂饭、"
+                    "递送、搬运、护理辅助等高频服务动作自主化。完成"
+                    "亿元Pre-A轮融资。作为科技人形护理机器人天枢、天玑"
+                    "集成跨设备智能联动、厘米级灵巧操作、多模态拟人"
+                    "情感陪护等六大核心能力，覆盖失能照护六大场景。"
+                    "国内首个具身智能康复示范基地落地上海，已累计服务"
+                    "超4600名康复治疗者。",
+        key_metrics={"dof": 7, "payload_kg": 20,
+                     "mode": "载人+服务双模态",
+                     "funding": "亿元Pre-A轮",
+                     "rehab_patients": 4600,
+                     "care_scenarios": 6},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="护理机器人是具身智能在民生领域的核心"
+                              "应用，力控柔顺机械臂和情感交互直接体现"
+                              "机器人服务能力",
+        deployment_ready=False,
+        tags=["护理机器人", "具身智能", "七自由度", "养老", "力控柔顺"],
     ),
 
 ]
