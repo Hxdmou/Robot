@@ -984,5 +984,972 @@ AI_LANDSCAPE_DB_PART3: List[AIProduct] = [
         tags=["OpenAI Computer History", "ChatGPT macOS", "应用活动记忆", "可搜索时间线", "上下文个性化", "Codex集成"]
     ),
 
+    AIProduct(
+        product_id="AGR-001", name="长春理工大学第四代智能激光除草机器人 纯电自行走作物识别率99.5%除草率95%",
+        category=AICategory.AGRICULTURE,
+        organization="长春理工大学+宁波一彬电子+吉林长华汽车部件", country="中国",
+        description="历时三年四代迭代，投入超2000万元研发经费，核心技术全面国产化，预计2026年底批量投产。"
+                    "纯电驱动自行走底盘，搭载多作物AI视觉识别系统，构建玉米、大豆、马铃薯、油菜、中草药等10余类作物图像数据库。"
+                    "田间作业时AI实时区分作物与杂草，毫米级激光束精准灼烧杂草分生组织，全程不碰一株秧苗。"
+                    "已申报7项国家发明专利，4项核心专利授权，覆盖激光器封装、激光除草整机、相机振镜标定、杂草精准定位四大关键环节。"
+                    "量产后将推出大型拖挂式（适配东北万亩大田）和小型自行走式（适配大棚/中草药基地）两大系列。",
+        key_metrics={"product": "第四代智能激光除草机器人", "power": "纯电驱动",
+                     "crops_supported": ["玉米", "大豆", "马铃薯", "油菜", "中草药"],
+                     "crop_recognition_rate": "99.5%", "weed_removal_rate": "95%+",
+                     "response_time_ms": 10, "positioning_accuracy_mm": "±2",
+                     "max_speed_kmh": 3.6, "weeds_per_hour": "5-10万株",
+                     "daily_area_mu": 50, "efficiency_multiplier": "人工除草50倍",
+                     "rnd_investment": "超2000万元", "patents": "7项发明申请/4项授权",
+                     "production_date": "2026年底", "series": ["大型拖挂式", "小型自行走式"],
+                     "market_estimate_ne_mu": "东北2.37亿亩玉米对应70-140万台设备需求/千亿元市场",
+                     "features": ["无除草剂零污染", "昼夜全天候作业", "模块化激光单元积木式组合",
+                                  "陀螺仪+编码器抗震动稳定瞄准", "自适应调速根据杂草密度"]},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-07",
+        relevance_to_robotics="农业机器人核心是视觉识别+精准执行+复杂地形自主行走三大能力，"
+                              "激光除草机器人的AI视觉+动态瞄准+模块化设计为田间作业机器人提供完整技术栈参考，"
+                              "10ms响应±2mm精度可迁移至工业精密分拣/装配场景",
+        deployment_ready=True,
+        tags=["激光除草机器人", "第四代", "作物识别率99.5%", "除草率95%", "5万株/小时", "50亩/天", "纯电", "10ms响应", "东北黑土地"]
+    ),
+
+    AIProduct(
+        product_id="MED-001", name="术锐蛇形臂单孔腔镜手术机器人落地欧洲顶级医院 完成12岁男孩肾结石手术",
+        category=AICategory.MEDICAL_DEVICE,
+        organization="北京术锐机器人股份有限公司", country="中国",
+        description="落地西班牙排名第一的瓦尔德希伯伦大学医院，是该院历史上首次引进中国整机手术机器人。"
+                    "连续体蛇形臂采用镍钛合金柔性骨架+专属驱控算法，在单一2.5厘米微小切口内三支蛇形器械+3D摄像系统协同操作，"
+                    "多角度灵活弯折自主避让，解决单孔手术器械相互碰撞的行业难题。"
+                    "10个工作日内完成医护团队系统化培训，如期实施11例多学科复杂微创手术。"
+                    "已落地德国多家医疗机构，2026上半年中国手术机器人出口额4.8亿元，同比增长3.3倍，覆盖49个国家和地区，"
+                    "蛇形臂手术机器人95%零部件国产化，成本仅为海外同行1/3~1/2。",
+        key_metrics={"product": "术锐蛇形臂单孔腔镜手术机器人", "company": "北京术锐机器人（专精特新小巨人）",
+                     "core_tech": "连续体蛇形臂（镍钛合金柔性骨架+专属驱控算法）",
+                     "incision_size_cm": 2.5, "instruments": "3支蛇形器械+3D摄像系统",
+                     "key_advantages": ["滤除人手天然震颤", "单孔多器械不碰撞", "3D高清放大视野",
+                                        "血管脏器间精细分离缝合"],
+                     "deployment_hospital": "西班牙瓦尔德希伯伦大学医院（西班牙综合第一）",
+                     "training_days": 10, "surgeons_trained": 10, "cases_completed": 11,
+                     "case_example": "12岁男孩肾脏多发结石手术，术后48小时出院",
+                     "localization_rate": "95%零部件国产化", "cost_ratio": "海外同行1/3~1/2",
+                     "china_export_h1_2026": {"amount_rmb_yi": 4.8, "yoy_growth": "+330%",
+                                             "countries": 49}},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-07",
+        relevance_to_robotics="蛇形臂连续体机器人技术是柔性机器人、微创介入机器人、狭窄空间检测机器人的核心共性技术，"
+                              "镍钛合金骨架+驱控算法可迁移至管道检测、搜救机器人、精密装配等场景",
+        deployment_ready=True,
+        tags=["术锐机器人", "蛇形臂手术机器人", "单孔腔镜", "欧洲顶级医院", "95%国产化", "成本1/3", "出口3.3倍", "西班牙首例", "4.8亿出口"]
+    ),
+
+    AIProduct(
+        product_id="MED-002", name="全球首个多通道术中协同及质控机器人云南投入临床 北京专家2000公里外200ms延时指导",
+        category=AICategory.MEDICAL_DEVICE,
+        organization="北京安贞医院+北京航空航天大学", country="中国",
+        description="全球首个多通道术中协同及质控机器人，由1.8米机械臂+多个高清摄像设备组成，"
+                    "整合监护仪、腔镜、术中超声等20类设备数据为实时加密数据流，经5G专用网络传回北京，"
+                    "实现云南保山-北京安贞医院2000公里远程手术指导，延时低于200毫秒。"
+                    "AI预警核心能力：实时分析数据流捕捉异常信号、测算风险并发出预警，为手术团队争取处置时间。"
+                    "手术每项操作和数据完整留存，堪称手术室'黑匣子'，可供术后复盘。"
+                    "在云南省保山市人民医院完成首例心脏二尖瓣置换手术远程指导，后续将在多省份试点推广。",
+        key_metrics={"product": "多通道术中协同及质控机器人", "institutions": ["北京安贞医院", "北航", "保山人民医院"],
+                     "arm_length_m": 1.8, "camera_resolution": "毫米级血管细节",
+                     "integrated_devices": 20, "distance_km": 2000, "latency_ms": "<200",
+                     "ai_features": ["实时异常信号捕捉", "风险测算", "术前预警", "全流程数据记录"],
+                     "first_case": "心脏二尖瓣置换手术远程指导", "application": "全国多省份试点推广",
+                     "core_value": ["国家级专家远程站在基层医生身后保驾护航", "手术室黑匣子完整复盘",
+                                    "AI预警致命异常争取抢救时间"]},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-07",
+        relevance_to_robotics="远程医疗机器人是遥操作机器人的典型应用，5G低延迟+多源数据融合+AI预警+机械臂视觉引导技术"
+                              "可直接迁移至远程排爆、深空探测、深海作业、核电站维护等极限场景遥操作机器人系统",
+        deployment_ready=True,
+        tags=["术中协同质控机器人", "全球首个", "1.8米机械臂", "20类设备整合", "5G 200ms延时", "AI预警", "手术室黑匣子", "2000公里远程指导"]
+    ),
+
+    AIProduct(
+        product_id="MED-003", name="如身机器人亿元Pre-A轮 全球首个载人与服务双模态具身养老护理机器人七自由度20kg力控臂",
+        category=AICategory.HEALTHCARE,
+        organization="如身机器人", country="中国",
+        description="全球首个载人与服务双模态具身养老护理机器人，专门针对失能/半失能老人照护场景设计。"
+                    "搭载七自由度20kg大负载力控柔顺机械臂，实现喂饭、递送、搬运、护理辅助等高频服务动作自主化。"
+                    "完成亿元Pre-A轮融资，资金用于产品量产和养老院规模化部署。",
+        key_metrics={"company": "如身机器人", "round": "Pre-A轮", "amount": "亿元级",
+                     "product": "载人与服务双模态具身养老护理机器人",
+                     "robot_arm_dof": 7, "payload_kg": 20, "control": "力控柔顺控制",
+                     "core_capabilities": ["喂饭", "递送物品", "搬运", "护理辅助", "载人移动"],
+                     "target_scene": "失能/半失能老人养老照护", "application_status": "产品研发完成/量产准备中"},
+        maturity=MaturityLevel.PROTOTYPE,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-08",
+        relevance_to_robotics="养老护理机器人是人形机器人/服务机器人最大刚需场景之一，"
+                              "七自由度力控臂+双模态（载人+服务）设计为家庭服务机器人、医疗护理机器人提供产品形态参考",
+        deployment_ready=False,
+        tags=["如身机器人", "亿元Pre-A", "养老护理机器人", "载人与服务双模态", "七自由度机械臂", "20kg负载", "力控柔顺", "失能照护"]
+    ),
+
+    AIProduct(
+        product_id="MED-004", name="三友医疗春风化雨8iRobotics全球首款多臂人形智能化脊柱手术机器人完成欧洲首台装机",
+        category=AICategory.MEDICAL_DEVICE,
+        organization="三友医疗（688085）+法国Implanet", country="中国/法国",
+        description="全球首款多臂人形智能化脊柱手术机器人，集成先进电磁导航、集成数字显微镜、多臂协同、"
+                    "水木天蓬超声骨刀技术等顶尖核心手术机器人技术。"
+                    "已在法国亚眠-皮卡第大学医疗中心完成欧洲首台装机，启动脊柱外科/神经外科临床评估及欧盟CE认证。"
+                    "目前已在北美、亚洲、欧洲五家医院完成科研临床装机。",
+        key_metrics={"product": "春风化雨8iRobotics多臂人形智能化脊柱手术机器人",
+                     "company": "三友医疗控股法国Implanet",
+                     "core_tech": ["电磁导航", "集成数字显微镜", "多臂协同控制", "水木天蓬超声骨刀"],
+                     "deployment": "法国亚眠-皮卡第大学医疗中心（欧洲首台）",
+                     "clinical_status": "欧亚北美5家医院科研临床装机",
+                     "certification": "欧盟CE认证推进中",
+                     "application": "脊柱外科、神经外科手术"},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-07",
+        relevance_to_robotics="多臂协同手术机器人是多机器人协作、精密力控、医学影像导航技术的集大成者，"
+                              "电磁导航+多臂协同可迁移至工业多机器人协同装配场景",
+        deployment_ready=True,
+        tags=["三友医疗", "8iRobotics", "多臂人形脊柱手术机器人", "欧洲首台装机", "电磁导航", "超声骨刀", "欧盟CE认证", "5家医院"]
+    ),
+
+    AIProduct(
+        product_id="AUT-001", name="零跑A05正式上市 6.39万元起激光雷达200TOPS算力43项智驾510km续航2.5C快充16分钟补能",
+        category=AICategory.AUTOMOTIVE,
+        organization="零跑汽车", country="中国",
+        description="零跑全球化车型，定位智能灵动精品两厢纯电轿车，五款配置，CLTC 405km/510km两种续航。"
+                    "车身尺寸4200×1800×1560mm，轴距2605mm，四轮四角布局，最小转弯半径4.9米。"
+                    "全系标配高通骁龙8295旗舰座舱芯片，8.88英寸仪表+14.6英寸2.5K悬浮中控屏，Leapmotor OS+AI大模型。"
+                    "底盘LMC一体化运动控制系统+采埃孚Onebox集成制动。"
+                    "激光雷达版本搭载128线激光雷达+高通8650智驾芯片，等效算力200TOPS，支持车位到车位全场景辅助驾驶，"
+                    "HPA记忆泊车、120米循迹倒车等43项智驾功能，实现地库出库-道路通行-自动泊入完整闭环。",
+        key_metrics={"model": "零跑A05", "positioning": "智能灵动精品两厢纯电轿车",
+                     "price_range": "6.39-9.09万元",
+                     "dimensions_mm": [4200, 1800, 1560], "wheelbase_mm": 2605,
+                     "storage": {"regular_l": 474, "max_l": 1308, "storage_points": 34},
+                     "powertrain": {"405km": {"motor_kw": 70, "battery_kwh": 39.8, "battery_type": "磷酸铁锂"},
+                                    "510km": {"motor_kw": 90, "battery_kwh": 53, "charge_rate": "2.5C",
+                                              "fast_charge_30_80_min": 16}},
+                     "cockpit_chip": "高通骁龙8295", "screens": "8.88寸仪表+14.6寸2.5K中控",
+                     "audio": "12扬声器+无麦车载K歌", "v2l": "3.3kW对外放电",
+                     "smart_drive_base": "纯视觉L2全速域ACC+车道居中",
+                     "smart_drive_lidar": {"lidar_lines": 128, "chip": "高通8650", "computing_power_tops": 200,
+                                           "functions": 43, "key_features": ["车位到车位全场景", "HPA记忆泊车",
+                                                                          "120米循迹倒车", "地库-道路-泊入闭环"]},
+                     "colors": ["摩根粉", "雾凇米", "深空黑", "510S专属撞色"],
+                     "turning_radius_m": 4.9},
+        ram_gb=0, rom_gb=0, price_start_rmb=63900, price_top_rmb=90900,
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08",
+        relevance_to_robotics="200TOPS算力智驾+128线激光雷达下放到6万级小车，标志高阶自动驾驶感知计算硬件成本大幅下降，"
+                              "相关传感器、计算平台、规控算法可迁移至机器人自主导航系统降低成本",
+        deployment_ready=True,
+        tags=["零跑A05", "6.39万起", "128线激光雷达", "200TOPS", "43项智驾", "510km续航", "2.5C快充16分钟", "高通8295", "4.9米转弯半径"]
+    ),
+
+    AIProduct(
+        product_id="AUT-002", name="2027款比亚迪海豹06上市 9.99万起DM-i纯电续航320km综合2370km EV 630km零百5.9秒天神之眼B",
+        category=AICategory.AUTOMOTIVE,
+        organization="比亚迪", country="中国",
+        description="海洋网车型，DM-i插混+EV纯电两套动力共12款配置，DM-i 9.99-14.19万元，EV 10.99-15.59万元。"
+                    "车身4870/1890/1495mm，轴距2820mm，B级空间。DM-i首次与EV统一车身规格。"
+                    "DM-i搭载第五代DM超级混动，CLTC纯电最高320km，NEDC亏电油耗2.59L/100km，满油满电综合续航2370km。"
+                    "EV搭载原生闪充平台+第二代刀片电池，最高630km CLTC，高功率电机峰值240kW，零百加速5.9秒，全系极速闪充。"
+                    "高配搭载云辇-C智能阻尼车身控制+路面预瞄，前麦弗逊+后五连杆独立悬架。"
+                    "天神之眼B激光雷达智驾方案，支持城市NOA、高速领航、全场景自动泊车。"
+                    "DiLink高阶智能系统，15.6英寸自适应旋转大屏，AI大模型连续语音交互。",
+        key_metrics={"model": "2027款海豹06", "brand": "比亚迪海洋网",
+                     "dmi_price": "9.99-14.19万元", "ev_price": "10.99-15.59万元",
+                     "dimensions_mm": [4870, 1890, 1495], "wheelbase_mm": 2820,
+                     "dmi_powertrain": {"dm_generation": "第五代", "ev_range_km": 320,
+                                        "fuel_consumption_l100km": 2.59, "combined_range_km": 2370},
+                     "ev_powertrain": {"battery": "第二代刀片电池", "max_range_km": 630,
+                                       "peak_power_kw": 240, "zero_100_s": 5.9, "charging": "原生闪充平台"},
+                     "chassis": {"front_suspension": "麦弗逊", "rear_suspension": "五连杆独立",
+                                 "high_config": "云辇-C智能阻尼+路面预瞄"},
+                     "smart_drive": "天神之眼B激光雷达方案（城市NOA+高速领航+全场景泊车）",
+                     "cockpit": "DiLink+15.6寸旋转大屏+AI大模型连续语音+FOTA",
+                     "comfort_options": ["座椅通风/加热/按摩", "全景天幕", "智能冷暖冰箱", "多扬声器音响"]},
+        ram_gb=0, rom_gb=0, price_start_rmb=99900, price_top_rmb=155900,
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08",
+        relevance_to_robotics="第五代DM混动极低油耗+刀片电池+云辇-C底盘控制+天神之眼智驾系统，"
+                              "其线控底盘、域控制器、多传感器融合方案为轮式机器人、移动机器人底盘提供成熟车规级技术参考",
+        deployment_ready=True,
+        tags=["比亚迪海豹06", "9.99万起", "DM-i 320km纯电", "综合续航2370km", "EV 630km", "零百5.9秒", "云辇-C", "天神之眼B", "刀片电池"]
+    ),
+
+    AIProduct(
+        product_id="AUT-003", name="小鹏G9L预售25.98万起 纯电/超增程双动力5C超充9分钟450km双腔空悬VLA智驾6.3",
+        category=AICategory.AUTOMOTIVE,
+        organization="小鹏汽车", country="中国",
+        description="黄金大五座科技旗舰，SEPA3.0全域智能架构，纯电+超级增程双动力四配置六车型预售价25.98万起。"
+                    "车身5120/1999/1782mm，轴距3100mm，前法拉利设计师胡安马团队操刀。"
+                    "百万像素AI数字投影大灯，最远识别600米，支持地面光影交互+ADB自适应远光；全系智能四电动门+电动侧踏+1.4㎡迎宾光毯。"
+                    "全球首发全体型AI主动贴合座椅，多传感器实时感知身形动态调节支撑，一二排一键成床+前后排零重力同步舒躺；"
+                    "后备厢常规1152L+230L下沉。双温区冰箱+33扬声器音响+遮阳天幕。"
+                    "全系5C高压超充，最快9分钟补450km CLTC；纯电续航660-755km，四驱零百4.45秒；"
+                    "超增程纯电435km综合1602km支持92号汽油，四驱零百4.95秒。"
+                    "标配前双叉臂+后H臂多连杆+双腔空悬+CDC+X-VMC融合控制+线控后轮转向最小转弯半径5.4米。"
+                    "第二代VLA智驾6.3.0版本，端侧大模型参数+3.5倍，座舱智驾深度融合，下放Robotaxi能力。",
+        key_metrics={"model": "小鹏G9L", "positioning": "黄金大五座科技旗舰", "presale_start": 25.98,
+                     "architecture": "SEPA3.0全域智能架构", "powertrain_options": ["纯电", "超级增程"],
+                     "dimensions_mm": [5120, 1999, 1782], "wheelbase_mm": 3100,
+                     "designer": "前法拉利胡安马团队",
+                     "lighting": "百万像素AI数字投影大灯（识别600米+ADB+地面交互）",
+                     "doors": "智能四电动门+电动侧踏+1.4㎡光毯",
+                     "seats": "全体型AI主动贴合（多传感器动态调节）+一二排一键成床+双零重力",
+                     "trunk_l": {"regular": 1152, "underfloor": 230},
+                     "comfort": "双温区冰箱+33扬声器+遮阳天幕",
+                     "charging": "5C高压超充（9分钟补450km）",
+                     "ev_range": "660-755km（四驱零百4.45s）",
+                     "erev_range": {"ev_km": 435, "combined_km": 1602, "fuel": "92号汽油", "zero_100_s": 4.95},
+                     "chassis": {"front": "双叉臂", "rear": "H臂多连杆", "air_spring": "双腔空悬",
+                                "cdc": True, "x_vmc": True, "rear_wheel_steering": "线控后轮转向",
+                                "turning_radius_m": 5.4},
+                     "smart_drive": "第二代VLA智驾6.3.0（端侧大模型参数+3.5倍+Robotaxi能力下放+模糊语义导航）",
+                     "safety": "全球四大五星标准+一体压铸+11安全气囊+多重冗余"},
+        ram_gb=0, rom_gb=0, price_start_rmb=259800,
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08",
+        relevance_to_robotics="VLA视觉语言动作智驾大模型+双腔空悬+线控后轮转向+5C超充是机器人感知决策控制、高性能底盘、能源补给的标杆参考，"
+                              "Robotaxi能力下放技术栈可直接迁移至户外自主移动机器人",
+        deployment_ready=True,
+        tags=["小鹏G9L", "25.98万预售", "5C超充9分钟450km", "双腔空悬", "线控后轮转向", "VLA智驾6.3", "超增程1602km", "全体型AI座椅", "33扬声器"]
+    ),
+
+    AIProduct(
+        product_id="AUT-004", name="英伟达Alpamayo 2 Super开源340亿参数智驾VLA模型 视觉骨干320亿动作专家23亿开放商用",
+        category=AICategory.LLM,
+        organization="NVIDIA", country="美国",
+        description="面向自动驾驶汽车与无人出租车的开源推理模型，基于Cosmos 3 Super Reasoner构建，强化学习优化，"
+                    "OpenMDW-1.1许可协议下开放商业使用，允许车企/卡车制造商/供应商微调衍生商业化部署。"
+                    "VLA视觉语言动作架构：320亿参数视觉语言骨干理解场景，23亿参数动作专家输出控制，理解侧权重是执行侧近14倍。"
+                    "具备深度思考能力，可生成车辆行驶轨迹、决策推理链、驾驶意图、训练标注、视觉问答，帮助验证决策过程。"
+                    "2026年1月CES发布Alpamayo 1，七个月后从研究开源到开放商用。国内L2渗透率70.5%，NOA渗透率34.2%。",
+        key_metrics={"model": "Alpamayo 2 Super", "release_date": "2026-08-04",
+                     "total_params_bn": 34, "vl_backbone_bn": 32, "action_expert_bn": 2.3,
+                     "architecture": "VLA视觉语言动作", "base_model": "Cosmos 3 Super Reasoner",
+                     "training": "强化学习优化",
+                     "capabilities": ["场景理解与深度思考", "行驶轨迹生成", "决策推理链", "驾驶意图识别",
+                                      "训练标注生成", "视觉问答", "决策过程可解释验证"],
+                     "license": "OpenMDW-1.1（允许商业化微调/部署）",
+                     "users_alpamayo_1": ["捷豹路虎", "Lucid", "Uber", "伯克利DeepDrive"],
+                     "china_market": {"l2_penetration": "70.5%", "noa_penetration": "34.2%",
+                                      "l3_start": "首批L3车型特定区域上路",
+                                      "l2_mandatory_standard": "GB标准2027-01-01实施"}},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-04",
+        relevance_to_robotics="340亿参数VLA架构（理解大权重/执行小权重）是机器人通用大脑的标准范式——感知理解用大模型，"
+                              "实时控制用小专家模型，该架构可直接迁移至人形机器人、工业机器人通用智能控制方案",
+        deployment_ready=True,
+        tags=["英伟达Alpamayo 2", "340亿参数", "VLA智驾", "320亿视觉+23亿动作", "开源商用", "Cosmos 3", "深度思考推理链", "OpenMDW"]
+    ),
+
+    AIProduct(
+        product_id="AUT-005", name="自动驾驶强制性国标GB 44721-2026发布 2027年7月1日实施 系统安全不低于人类驾驶员水平",
+        category=AICategory.AI_GENERAL,
+        organization="国家市场监督管理总局/国家标准化管理委员会", country="中国",
+        description="《智能网联汽车自动驾驶系统安全要求》（GB 44721—2026）强制性国家标准正式发布，2027年7月1日实施。"
+                    "核心要求：自动驾驶系统安全水平至少达到合格且专注的人类驾驶员水平。"
+                    "抬高L3+智驾量产门槛，无冗余架构、DSSAD黑匣子、安全档案工程化能力的车企/纯算法供应商将被挡在量产赛道外。"
+                    "配套L2组合驾驶辅助系统强制性国标已于6月27日发布，2027年1月1日实施。"
+                    "两部门目标：到2030年充电基础设施总量超过4000万个。",
+        key_metrics={"standard": "GB 44721-2026《智能网联汽车自动驾驶系统安全要求》",
+                     "standard_type": "强制性国家标准", "release_date": "2026-08",
+                     "implementation_date": "2027-07-01",
+                     "core_requirement": "自动驾驶系统安全水平≥合格且专注的人类驾驶员水平",
+                     "required_capabilities": ["系统冗余架构", "DSSAD事故数据记录系统（黑匣子）", "安全档案工程化能力"],
+                     "l2_standard": "GB L2组合辅助标准2027-01-01实施",
+                     "policy_targets": {"charging_piles_2030_wan": 4000}},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08",
+        relevance_to_robotics="安全标准是机器人商业化的前提——自动驾驶安全框架（冗余架构、黑匣子、安全档案、人类水平基线）"
+                              "同样适用于服务机器人、医疗机器人、工业协作机器人的安全认证体系建设",
+        deployment_ready=True,
+        tags=["自动驾驶国标GB 44721", "强制性国标", "2027年7月实施", "安全≥人类驾驶员", "冗余架构", "DSSAD黑匣子", "L3+门槛抬高"]
+    ),
+
+    AIProduct(
+        product_id="HOM-001", name="华为Vision智慧屏6 SE RGB发布 首款RGB-MiniLED电视55/65/75寸3499元起105% BT.2020",
+        category=AICategory.HOME_APPLIANCE,
+        organization="华为", country="中国",
+        description="华为首款RGB-MiniLED电视，8月3日发布8月5日开售，55/65/75三种尺寸，起售价3499元。"
+                    "4K分辨率RGB-MiniLED屏幕，色域覆盖105% BT.2020，自研鸿鹄光色同控芯片同步优化亮度与色彩。"
+                    "原生120Hz刷新率，最高300Hz倍频刷新（适配PC/游戏主机高帧率信号）。"
+                    "四核处理器：双核A53+双核A73，3GB RAM+64GB ROM，HarmonyOS 4.3。"
+                    "支持4K超级投屏、鸿蒙AI、智能门锁等鸿蒙生态设备无缝协同。"
+                    "75寸版本内置100W大功率音响系统。",
+        key_metrics={"product": "华为Vision智慧屏6 SE RGB", "release_date": "2026-08-03",
+                     "sale_date": "2026-08-05", "sizes_inch": [55, 65, 75], "price_start": 3499,
+                     "display_type": "RGB-MiniLED", "resolution": "4K", "color_gamut": "105% BT.2020",
+                     "chip": "自研鸿鹄光色同控芯片",
+                     "refresh_rate": {"native_hz": 120, "max_motion_hz": 300},
+                     "processor": "四核（双核A53+双核A73）", "ram_gb": 3, "rom_gb": 64,
+                     "os": "HarmonyOS 4.3",
+                     "audio_75inch": "100W大功率音响",
+                     "features": ["4K超级投屏", "鸿蒙AI能力", "鸿蒙生态设备协同", "智能门锁联动"]},
+        ram_gb=3, rom_gb=64, price_start_rmb=3499,
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-03",
+        relevance_to_robotics="RGB-MiniLED显示技术、鸿鹄光色同控芯片可迁移至机器人交互界面、"
+                              "服务机器人显示屏、工业机器人HMI界面提升色彩和动态显示效果",
+        deployment_ready=True,
+        tags=["华为Vision智慧屏6 SE RGB", "RGB-MiniLED", "3499元起", "105% BT.2020", "120Hz原生/300Hz倍频", "鸿鹄光色同控", "HarmonyOS 4.3", "3+64GB"]
+    ),
+
+    AIProduct(
+        product_id="HOM-002", name="小米8月11日在法发布三款大家电 621L对开门冰箱8kg洗烘一体机8kg滚筒379欧元起",
+        category=AICategory.HOME_APPLIANCE,
+        organization="小米集团", country="中国/法国",
+        description="2026年8月11日在法国市场发布三款米家大家电：Mijia对开门美式冰箱621L、Mijia 8kg洗烘一体机、Mijia 8kg滚筒洗衣机。"
+                    "冰箱621L容量分18个储物区，Ag⁺ Fresh银离子除菌净化（99.99%大肠杆菌去除/除异味），360°风冷双压缩机，"
+                    "支持Xiaomi Home APP远程控制、Google Assistant/Alexa语音，售价849欧元（首发优惠799欧元至9月11日）。"
+                    "洗烘一体机比欧盟A级能效还节能30%，30+程序含15分钟快洗+3D智能烘干，Wash & Care 180分钟完整洗烘，"
+                    "99.99%蒸汽除菌，自动称重控水，售价559欧元（首发479欧元）。"
+                    "滚筒洗衣机（无烘干）同洗衣功能，499欧元（首发449欧元）。",
+        key_metrics={"release_market": "法国", "release_date": "2026-08-11",
+                     "fridge": {"model": "Mijia Réfrigérateur Américain 621L Side-by-Side",
+                                "capacity_l": 621, "compartments": 18,
+                                "sterilization": "Ag⁺ Fresh银离子（99.99%除菌除味）",
+                                "cooling": "360°风冷+双压缩机",
+                                "smart_control": ["Xiaomi Home APP", "Google Assistant", "Alexa"],
+                                "price_eur": 849, "launch_offer_eur": 799,
+                                "offer_valid": "2026-08-11至09-11"},
+                     "washer_dryer": {"model": "Mijia Lave-linge séchant Hublot 8kg",
+                                      "capacity_kg": 8, "energy_efficiency": "比欧盟A级高30%",
+                                      "programs": "30+（含15分钟快洗+3D智能烘干）",
+                                      "wash_care_cycle_min": 180, "sterilization": "99.99%蒸汽除菌",
+                                      "smart_features": "自动称重调水调时",
+                                      "price_eur": 559, "launch_offer_eur": 479},
+                     "washer": {"model": "Mijia Lave-linge Hublot 8kg", "capacity_kg": 8,
+                                "price_eur": 499, "launch_offer_eur": 449}},
+        ram_gb=0, rom_gb=0, price_start_rmb=3600,
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-08-11",
+        relevance_to_robotics="智能大家电是家庭服务机器人的核心控制节点和协作对象，"
+                              "多设备互联+AI节能+自动感知称重等智能功能为家庭服务机器人与家电协同提供场景基础",
+        deployment_ready=True,
+        tags=["小米米家大家电", "法国发布", "621L对开门冰箱", "Ag+除菌", "双压缩机", "8kg洗烘一体", "A级+30%节能", "180分钟洗烘", "智能家电出海"]
+    ),
+
+    AIProduct(
+        product_id="EDU-001", name="进化者机器人小胖教师助手E07/E08 45-48自由度1.28/1.65米10万/13万进驻1.2万园1000校",
+        category=AICategory.EDUCATION,
+        organization="进化者机器人", country="中国",
+        description="十年技术沉淀，2026年初完成8000万元A+轮融资。全球唯一可规模化进校园授课的具身智能产品。"
+                    "自研高性能低成本关节模组+灵巧手绳腱驱动执行器，机械臂+灵巧手成本压缩至行业平均1/3，目标手+臂总成本<3000元。"
+                    "evolve VLA模型针对上课教学垂类场景优化，轻量化可直接在普通手机/PAD运行，无需高端本地算力芯片。"
+                    "累计200+项专利软著：53项国内发明、13项国际发明、50项软著，论文25+篇SCI他引335+次。"
+                    "小学版E07：128cm身高45自由度2个灵巧手，零售价<10万元，无屏实物编程课程。"
+                    "中学/职高/大学版E08：1.65米全尺寸类女性设计48自由度，零售价<13万元，实验演示/技能教学。"
+                    "已进驻超1.2万家幼儿园、1000家小学，累计课程超500万节覆盖400万学生，入校率/周均上课频次/满意度三项全球第一。",
+        key_metrics={"company": "进化者机器人", "round": "A+轮", "amount_wan": 8000,
+                     "core_tech": {"joint_actuator": "自研高性能低成本关节模组",
+                                   "dexterous_hand": "绳腱驱动灵巧手",
+                                   "arm_hand_cost_target": "<3000元（行业1/3）",
+                                   "vla_model": "evolve VLA（垂类优化，手机/PAD可运行）",
+                                   "patents": "200+（53国内发明+13国际发明+50软著）",
+                                   "papers_citations": "25篇SCI，他引335+"},
+                     "e07_primary": {"height_cm": 128, "dof": 45, "dexterous_hands": 2,
+                                     "price_wan": "<10", "feature": "无屏实物编程课程"},
+                     "e08_secondary_plus": {"height_cm": 165, "dof": 48, "design": "全尺寸类女性",
+                                            "price_wan": "<13", "feature": "实验演示/技能教学"},
+                     "deployment": {"kindergartens": "1.2万+", "primary_schools": 1000,
+                                    "lessons": "500万+节", "students": 400, "wan": True,
+                                    "rankings": ["入校率全球第一", "周均上课频次全球第一", "学校满意度全球第一"]},
+                     "plan_2026": "进军海外，目标年增长50%"},
+        ram_gb=0, rom_gb=0, price_start_rmb=100000,
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-01",
+        relevance_to_robotics="教育机器人是人形机器人成本下探和规模落地的先头场景，"
+                              "E07/E08低成本关节+轻量化VLA+大规模进校验证的技术路径，为消费级人形机器人量产提供参考",
+        deployment_ready=True,
+        tags=["进化者小胖", "教师助手机器人", "E07 128cm 10万", "E08 1.65米 13万", "45-48自由度", "evolve VLA", "1.2万园1000校", "500万节课"]
+    ),
+
+    AIProduct(
+        product_id="EDU-002", name="深圳龙岗AI龙老师覆盖50+中小学 作业学情采集197万份AI作文批改19万人次",
+        category=AICategory.EDUCATION,
+        organization="深圳市龙岗区教育局", country="中国",
+        description="龙岗区构建\"1+2+6+N\"AI教育体系，\"AI龙老师\"个性化学习项目覆盖50+中小学，"
+                    "累计智能采集作业学情超197万份，AI作文批改超19万人次，生成个性化学习手册超7万册。"
+                    "龙岗目标人工智能与机器人产业规模达千亿元，坂田机器人街区全球首家人工智能6S店开业，"
+                    "工业端推出\"龙师傅\"AI搭子聚焦电子/模具/汽车/具身机器人四大行业。"
+                    "全国首个AI原生城市治理智能体\"龙小二\"具备自感知/自思考/自执行/自进化能力，融合政务/视频/网络民意数据，部署超百种算法，"
+                    "可调度机器狗自主导航执行城市治理任务。",
+        key_metrics={"region": "深圳龙岗区", "education_system": "1+2+6+N AI教育体系",
+                     "ai_teacher": "AI龙老师个性化学习项目",
+                     "schools_covered": "50+", "homework_collected_wan": 197,
+                     "essay_correction_wan": 19, "personalized_manuals_wan": 7,
+                     "ai_industry_target_yi": 1000,
+                     "industrial_ai": "龙师傅AI搭子（电子/模具/汽车/具身机器人四行业）",
+                     "urban_ai": "龙小二AI原生城市治理智能体（自感知/思考/执行/进化，100+算法，可调度机器狗）",
+                     "robotics_infrastructure": ["坂田机器人街区", "全球首家AI 6S店", "机器人大道", "12个机器人展示盒子"]},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-08-12",
+        relevance_to_robotics="区域级AI+机器人全域应用示范区模式：教育/工业/城市治理三大场景同时落地，"
+                              "教育AI采集大规模学生行为数据、工业AI生产数据、城市治理机器狗调度数据，为机器人算法训练提供丰富真实场景数据",
+        deployment_ready=True,
+        tags=["深圳龙岗", "AI龙老师", "50+学校", "197万作业", "19万作文批改", "千亿产业目标", "龙小二城市治理智能体", "机器狗调度", "龙师傅工业AI"]
+    ),
+
+    AIProduct(
+        product_id="DIG-033", name="华为WATCH GT 7/GT 7 Pro发布 21天超长续航滑雪骑行模式1688元起钛合金纳米微晶陶瓷2688元",
+        category=AICategory.DIGITAL_PRODUCT,
+        organization="华为", country="中国",
+        description="华为全场景新品发布会同期发布WATCH GT 7和WATCH GT 7 Pro两款智能手表，8月14日开售。"
+                    "WATCH GT 7主打身体状态准备度评估、全新滑雪&骑行运动模式，21天超长续航，售价1688元起。"
+                    "WATCH GT 7 Pro采用钛合金表体+纳米微晶陶瓷表圈高端材质，定位户外进阶运动，同样21天续航，售价2688元起。",
+        key_metrics={"models": ["WATCH GT 7", "WATCH GT 7 Pro"],
+                     "gt7": {"price_start": 1688, "features": ["身体状态准备度评估", "全新滑雪模式", "全新骑行模式"],
+                             "battery_days": 21},
+                     "gt7_pro": {"price_start": 2688,
+                                 "materials": ["钛合金表体", "纳米微晶陶瓷表圈"],
+                                 "positioning": "户外进阶运动", "battery_days": 21},
+                     "sale_date": "2026-08-14"},
+        ram_gb=0, rom_gb=0, price_start_rmb=1688, price_top_rmb=2688,
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="智能手表的运动姿态识别、健康监测传感器、低功耗21天续航技术可迁移至机器人腕部可穿戴示教器、"
+                              "机器人运维人员状态监测、人机交互腕部控制器等场景",
+        deployment_ready=True,
+        tags=["华为WATCH GT 7", "1688元", "GT 7 Pro 2688元", "21天续航", "身体状态准备度", "滑雪骑行模式", "钛合金陶瓷"]
+    ),
+
+    AIProduct(
+        product_id="DIG-034", name="华为自带线全能充智能移动电源100W 12000mAh 首批2026新国标3C认证双向快充399元",
+        category=AICategory.DIGITAL_PRODUCT,
+        organization="华为", country="中国",
+        description="华为100W 12000mAh自带线全能充智能移动电源，首批获2026新国标3C认证，"
+                    "支持双向100W高功率超级快充，具备离线查找智慧提醒功能，售价399元。"
+                    "适配手机、平板、笔记本电脑多设备超级快充需求。",
+        key_metrics={"product": "华为自带线全能充智能移动电源", "capacity_mah": 12000,
+                     "power_w": 100, "charging": "双向100W超级快充",
+                     "certification": "首批2026新国标3C认证",
+                     "features": ["自带线材", "离线查找智慧提醒", "多设备兼容"],
+                     "price": 399, "compatible": ["手机", "平板", "笔记本"]},
+        ram_gb=0, rom_gb=0, price_start_rmb=399,
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="高功率密度快充电池技术、离线查找UWB定位技术可迁移至机器人电池快充、"
+                              "机器人资产定位管理等应用场景",
+        deployment_ready=True,
+        tags=["华为移动电源", "100W 12000mAh", "双向超级快充", "新国标3C认证", "离线查找", "399元", "自带线全能充"]
+    ),
+
+    AIProduct(
+        product_id="DIG-035", name="华为MatePad Pro 2026开售 麒麟T93芯片4.7mm厚10400mAh续航最长平板5999元起",
+        category=AICategory.DIGITAL_PRODUCT,
+        organization="华为", country="中国",
+        description="华为MatePad Pro 2026于8月14日正式首销，搭载麒麟T93芯片，机身厚度仅4.7mm，"
+                    "配备10400mAh超大容量电池，是华为续航最长的平板，支持144Hz高刷屏和手写笔，起售价5999元。",
+        key_metrics={"model": "华为MatePad Pro 2026", "chip": "麒麟T93", "thickness_mm": 4.7,
+                     "battery_mah": 10400, "screen_refresh_hz": 144, "stylus": True,
+                     "positioning": "华为续航最长平板", "price_start": 5999, "sale_date": "2026-08-14"},
+        ram_gb=0, rom_gb=0, price_start_rmb=5999,
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="超薄大电池平板的低功耗芯片+高能量密度电池技术，"
+                              "为机器人手持示教终端、移动运维平板提供产品设计和技术参考",
+        deployment_ready=True,
+        tags=["华为MatePad Pro 2026", "麒麟T93", "4.7mm超薄", "10400mAh", "华为续航最长平板", "144Hz高刷", "手写笔", "5999元起"]
+    ),
+
+    AIProduct(
+        product_id="NET-001", name="广东电网AI调度员明月 多智能体协同PINN-GNN物理嵌入省级电网秒级决策落地",
+        category=AICategory.AI_AGENT,
+        organization="深圳市人工智能与机器人研究院（AIRS）+广东电网", country="中国",
+        description="超大规模省级电网多智能体协同AI调度员\"明月\"，入选国家\"AI+能源电力\"典型成果案例（AI+调度类仅2项）。"
+                    "国内首个集感知-决策-控制于一体的省级大电网AI智能调度产品，在广东电网全面推广。"
+                    "架构：多智能体协同+大小模型协同。三大核心创新："
+                    "①全域全息感知：多模态大模型+VLM-BLIP+知识图谱，异构量测/图像/调度知识统一语义空间；"
+                    "②物理-因果双重引导调度大模型：PINN-GNN把电网物理规律嵌入图神经网络，Physics-DPO物理一致性偏好对齐，"
+                    "输出不仅\"看起来合理\"且受物理规律约束，是大模型进入不容许试错的决策回路前提；"
+                    "③分层多智能体知识嵌入学习框架：针对源-网-荷天然分层结构，知识嵌入压缩探索空间，"
+                    "从领域知识出发而非从零学习。"
+                    "解决省级电网难点：百万设备全天候监控、秒级决策、物理硬约束不可违背、不容许在线试错、源网荷分层分布式协同。",
+        key_metrics={"product": "AI调度员\"明月\"", "institutions": ["AIRS深圳人工智能与机器人研究院", "广东电网"],
+                     "award": "国家\"AI+能源电力\"典型成果（调度类仅2项）",
+                     "architecture": "多智能体协同+大小模型协同",
+                     "scale": "省级大电网（百万设备全天候监控）",
+                     "core_innovations": {
+                         "1_perception": "全域全息感知（多模态大模型+VLM-BLIP+知识图谱，统一语义空间）",
+                         "2_physics_ai": "PINN-GNN（物理嵌入图神经网络）+Physics-DPO（物理一致性偏好对齐）——大模型进入不容错决策回路关键",
+                         "3_hierarchical_control": "分层多智能体知识嵌入学习框架（源网荷分层，知识嵌入压缩探索空间）"
+                     },
+                     "key_challenges_solved": ["百万级状态空间", "秒级决策要求", "物理硬约束不可违", "不容许在线试错",
+                                              "源网荷分层分布式协同"],
+                     "deployment": "广东电网全面推广"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-07",
+        relevance_to_robotics="PINN物理嵌入神经网络+分层多智能体+知识嵌入学习是机器人控制大模型落地的核心技术路径——"
+                              "机器人同样有物理约束（运动学/动力学）、分层控制（感知/规划/执行）、不容许试错（安全），技术栈完全通用",
+        deployment_ready=True,
+        tags=["AI调度员明月", "广东电网", "多智能体协同", "PINN-GNN物理嵌入", "Physics-DPO", "省级大电网", "秒级决策", "物理约束AI", "国家典型成果"]
+    ),
+
+    AIProduct(
+        product_id="ROB-078", name="DJI大疆Agras T50农业无人机 40kg喷药50kg播撒IP67 5万+部署全球100国售价15000美元",
+        category=AICategory.AGRICULTURE,
+        organization="大疆创新（DJI）", country="中国",
+        description="全球排名第一的专业农业无人机，RoboScore评分84.6/100。"
+                    "40kg喷洒药箱+50kg播撒箱双负载，IP67防尘防水等级。"
+                    "已在全球100+国家部署超过5万台，是全球应用最广泛的农业无人机产品。"
+                    "支持全自主作业航线规划、地形跟随、多机协同、AI作物识别等功能。",
+        key_metrics={"model": "DJI Agras T50", "ranking": "全球农业机器人#1（RoboScore 84.6）",
+                     "spray_tank_kg": 40, "spread_tank_kg": 50, "ip_rating": "IP67",
+                     "countries": "100+", "deployed_units": "5万+",
+                     "price_usd": 15000,
+                     "features": ["全自主作业规划", "地形跟随", "多机协同", "AI作物识别"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026",
+        relevance_to_robotics="农业无人机是大规模商用最成功的空中机器人系统，其飞控、视觉避障、自主规划、多机协同技术"
+                              "可迁移至工业巡检无人机、物流配送无人机、应急救援无人机等各类空中机器人平台",
+        deployment_ready=True,
+        tags=["大疆Agras T50", "农业无人机", "40kg喷药/50kg播撒", "IP67", "5万+部署", "100+国家", "1.5万美元", "全球第一"]
+    ),
+
+    AIProduct(
+        product_id="ROB-079", name="John Deere See & Spray Ultimate AI精准除草 36摄像头12mph作业减药77%售价50万美元",
+        category=AICategory.AGRICULTURE,
+        organization="John Deere（约翰迪尔）", country="美国",
+        description="全球排名第二的农业机器人产品，RoboScore评分84.2/100。"
+                    "AI深度学习识别杂草与作物，精准对杂草喷施除草剂，可减少77%化学药剂使用。"
+                    "36个摄像头横跨120英尺（约36.6米）喷杆，作业速度12mph（约19.3km/h）。"
+                    "技术源自2017年John Deere以3.05亿美元收购Blue River Technology。",
+        key_metrics={"model": "John Deere See & Spray Ultimate", "ranking": "全球农业机器人#2（RoboScore 84.2）",
+                     "ai_core": "深度学习杂草识别", "cameras": 36, "boom_width_ft": 120,
+                     "speed_mph": 12, "chemical_reduction": "77%",
+                     "acquisition": "Blue River Technology（$3.05亿收购）",
+                     "price_usd": 500000},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026",
+        relevance_to_robotics="大规模多摄像头实时视觉识别+精准执行是工业机器人高速分拣、"
+                              "质检机器人、公路维护机器人等场景的核心技术，作业速度和识别精度可作为行业Benchmark",
+        deployment_ready=True,
+        tags=["John Deere See & Spray", "AI精准除草", "36摄像头", "减药77%", "120英尺喷杆", "12mph作业", "3.05亿收购", "50万美元"]
+    ),
+
+    AIProduct(
+        product_id="REN-063", name="美国Carbon Robotics LaserWeeder 2激光除草机器人 30个CO2激光每小时20万杂草零化学",
+        category=AICategory.AGRICULTURE,
+        organization="Carbon Robotics", country="美国",
+        description="拖拉机牵引式自主除草系统，使用高功率激光消灭杂草，零化学药剂。"
+                    "AI实时识别杂草并摧毁，每小时可消灭20万株杂草，配备30个CO2激光器实现毫米级精度。"
+                    "RoboScore评分81.6/100，全球农业机器人排名第6。"
+                    "纯物理除草方式完全避免化学除草剂对土壤和作物的污染。",
+        key_metrics={"model": "Carbon Robotics LaserWeeder 2",
+                     "type": "拖拉机牵引式自主激光除草",
+                     "ai": "实时杂草识别AI", "lasers": "30个CO2激光器",
+                     "weeds_per_hour": 200000, "precision": "毫米级",
+                     "chemical_free": True,
+                     "roboscore": 81.6, "ranking": "全球农业机器人#6"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026",
+        relevance_to_robotics="激光除草的AI实时识别+激光精准打击技术组合可迁移至激光加工机器人、"
+                              "工业激光清洗、精密激光切割等工业机器人场景",
+        deployment_ready=True,
+        tags=["Carbon Robotics", "LaserWeeder 2", "激光除草", "30个CO2激光", "20万株/小时", "毫米精度", "零化学药剂", "物理除草"]
+    ),
+
+    AIProduct(
+        product_id="ROB-080", name="北京人形开源青龙通用人形机器人 1.85米80kg 43自由度396Nm峰值扭矩400TOPS五感融合",
+        category=AICategory.HUMANOID_ROBOT,
+        organization="国家地方共建人形机器人创新中心（北京）", country="中国",
+        description="全球首款通用人形机器人开源公版机，由工信部和上海市政府2024年5月共同授牌中心打造。"
+                    "科研团队硕博士占比约80%，核心研发团队是国内最早开展仿生腿足式机器人研究团队之一，"
+                    "核心技术经过十多年技术沉淀，构建仿生机器人核心技术体系，建立控制/感知/交互核心技术群。"
+                    "现场可实现行走、对话、做家务（识别桌面面包水果、分类摆放）等能力，"
+                    "包含人形机器人平台技术、具身智能、数据集和智能训练场四大技术板块全部开源。"
+                    "搭载'朱雀'具身大脑（多模态大模型指挥调度中心，感知/任务理解/记忆能力）和'玄武'小脑模型。",
+        key_metrics={"product": "青龙（Blue Dragon）开源公版人形机器人",
+                     "announce_venue": "2024世界人工智能大会",
+                     "organization": "国家地方共建人形机器人创新中心（浦东）",
+                     "team_composition": "硕博士占比约80%",
+                     "rnd_history_years": "10+年技术沉淀（国内最早仿生腿足团队之一）",
+                     "open_source_modules": ["人形机器人平台技术", "具身智能模型", "数据集", "智能训练场"],
+                     "height_m": 1.85, "weight_kg": 80,
+                     "dof_total": 43, "joint_types": "10种共31个关节模组",
+                     "peak_torque_nm": 396, "peak_torque_density_nmkg": 200,
+                     "leg_design": "轻量化高刚度低惯量+高扭矩密度轴向电机（复杂地形稳态行走）",
+                     "arm_hand": "7自由度机械臂+集成触觉感知五指灵巧手（精细操作）",
+                     "power": "能量回收系统+输出稳压管理电源，续航3-4小时（复杂工况）",
+                     "computing_tops": 400, "sensors_fusion": "视/听/触/嗅/动五感融合",
+                     "brain_models": {"cerebrum": "朱雀具身大脑（多模态大模型指挥调度）",
+                                      "cerebellum": "玄武小脑模型"},
+                     "capabilities_demo": ["行走", "自然语言对话", "桌面物体识别（面包/水果）",
+                                           "分类摆放物品", "做家务"],
+                     "technology_modules": ["行走与驱动系统", "操纵与作业系统", "感知与控制系统"]},
+        maturity=MaturityLevel.OPEN_SOURCE,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2024-08",
+        relevance_to_robotics="青龙作为全球首个人形机器人开源公版机，其10年技术沉淀的硬件设计（关节模组/驱动/灵巧手）"
+                              "和大小脑软件架构（朱雀大脑+玄武小脑）为整个人形机器人行业提供基础参考平台，开源模式加速技术迭代",
+        deployment_ready=True,
+        tags=["北京人形青龙", "开源公版机", "1.85米80kg", "43自由度", "396Nm", "200Nm/kg", "400TOPS", "五感融合", "朱雀大脑玄武小脑", "10年研发"]
+    ),
+
+    AIProduct(
+        product_id="ROB-081", name="越疆鹿萌DOBOT LUMO全球首款具身全栖人形陪伴机器人 1.3米空弈大模型多模态情绪感知四栖能力",
+        category=AICategory.SERVICE_ROBOT,
+        organization="越疆科技（DOBOT）", country="中国",
+        description="2026年8月5日正式亮相，全球首款具身全栖人形机器人，定位C端消费陪伴市场，"
+                    "标志越疆完成工业/商用/文旅/消费全场景生态闭环。越疆作为国内少有的覆盖全场景具身智能企业，"
+                    "将深耕多年的工业级运动控制、机器视觉、安全交互技术系统性降维应用至消费级场景。"
+                    "依托全栈自研'空弈'具身大模型，突破传统语音陪伴产品'只闻其声、不见其形、不能行动'的行业瓶颈，"
+                    "实现多模态情绪感知、三维空间理解与主动行动、自主学习与长期进化三大核心突破。"
+                    "产品主张'智生非凡，渐入家境'。",
+        key_metrics={"product": "越疆鹿萌 DOBOT LUMO", "launch_date": "2026-08-05",
+                     "category": "全球首款具身全栖陪伴人形机器人",
+                     "height_m": 1.3,
+                     "company_background": "工业协作机器人+多足巡检+超仿生文旅全场景布局，"
+                                           "工业级运动控制/机器视觉/安全交互技术降维",
+                     "ai_model": "空弈具身大模型（全栈自研）",
+                     "core_breakthroughs": ["多模态情绪感知", "三维空间理解与主动行动", "自主学习与长期进化"],
+                     "four_amphibious_dimensions": {
+                         "space": "空间全栖：自主导航+三维空间感知+复杂地形适配，自由穿梭家庭/办公/校园/公共场景",
+                         "role": "角色全栖：独居人群生活搭子/年轻家庭育儿助手/学龄儿童科普伙伴/校园AI教学载体",
+                         "capability": "能力全栖：视觉情绪识别+环境动态感知+语音交互+自主移动+肢体交互，"
+                                       "从被动应答升级为主动感知与服务",
+                         "lifecycle": "周期全栖：真实场景数据闭环+算法迭代，伴随用户成长持续进化"
+                     },
+                     "scenes": ["职场生活", "家庭陪护", "儿童成长", "校园教育"],
+                     "ipo_status": "越疆科技创业板IPO 2026-07-22过会（申报到过会仅86天）"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-05",
+        relevance_to_robotics="工业级技术降维到消费级是人形机器人成本下降、走向家庭的关键路径；"
+                              "四栖（空间/角色/能力/周期）产品定义框架为服务机器人/陪伴机器人产品设计提供范式参考",
+        deployment_ready=True,
+        tags=["越疆鹿萌LUMO", "具身全栖机器人", "1.3米陪伴人形", "空弈大模型", "多模态情绪感知", "主动服务", "自主学习进化", "四栖定义", "工业技术降维"]
+    ),
+
+    AIProduct(
+        product_id="ROB-082", name="1X NEO挪威美国家用人形机器人 167cm 30kg 75自由度仿生肌腱驱动22dB超静$20000/月$499",
+        category=AICategory.HUMANOID_ROBOT,
+        organization="1X Technologies（原Halodi Robotics）", country="挪威/美国",
+        description="全球首款面向私人家庭的消费级人形机器人，OpenAI领投超1.25亿美元融资，估值100亿美元。"
+                    "2014年5月创立于挪威莫斯，创始人Bernt Oivind Bornich（机器人与纳米电子学背景）。"
+                    "刻意偏离主流重负载工业人形路线，定位消费级家用，优先安全、静音、自然人机交互。"
+                    "NEO Beta 2024年8月发布，NEO Gamma 2025年2月改进，2025年10月28日开放消费者预订，2026年美国交付。"
+                    "人在回路远程操作模式：当前板载AI独立完成60-70%家庭任务，不熟悉任务可预约VR远程操作员完成，系统同时学习。"
+                    "2026年1月发布1X World Model物理基础生成视频模型（通过看视频学新任务）；4月Hayward工厂投产（美国垂直整合度最高人形机器人厂，"
+                    "首年产能1万台，2027年底目标10万台/年）；6月成立World Model Lab；7月9日发布25自由度肌腱驱动灵巧手量产版（物理世界API）。",
+        key_metrics={"product": "1X NEO", "company": "1X Technologies（原Halodi Robotics）",
+                     "founding": "2014年5月 挪威莫斯", "founder": "Bernt Oivind Bornich",
+                     "investors": ["OpenAI", "Samsung Next", "EQT Ventures", "Tiger Global"],
+                     "funding_total_usd_yi": ">1.25亿", "valuation_2025_usd_yi": 100,
+                     "preorder_date": "2025-10-28", "first_delivery": "2026年美国交付",
+                     "factory": "NEO Factory 美国加州Hayward（2026年4月）",
+                     "factory_capacity_year1": 10000, "capacity_target_2027": 100000,
+                     "height_cm": 167, "weight_kg": 30,
+                     "dof_total": 75, "hand_dof": "25（22手指/手掌+3手腕）",
+                     "actuation": "肌腱驱动Tendon Drive（仿生设计）",
+                     "exterior": "柔软防夹伤外壳soft pinch-free exterior",
+                     "noise_db": 22, "computer": "1X NEO Cortex（NVIDIA Jetson Thor）",
+                     "battery_hours": 5.5,
+                     "autonomy_launch": "60-70%任务无需人工介入",
+                     "teleop": "VR头显远程操作员+人在回路学习",
+                     "pricing": {"early_access_usd": 20000, "subscription_monthly_usd": 499},
+                     "versions": ["NEO Beta 2024-08", "NEO Gamma 2025-02", "2026量产灵巧手 2026-07-09"],
+                     "world_model": "1X World Model 2026-01（物理基础视频生成模型，看视频学任务）",
+                     "world_model_lab": "2026-06成立",
+                     "design_philosophy": "刻意区别于重载工业人形，优先安全/安静/自然人机交互，专为家庭设计",
+                     "future_directions": ["提升板载AI自主率至90%+", "量产10万台/年",
+                                           "扩大World Model Lab研发通用家庭自主能力",
+                                           "灵巧手作为'物理世界API'开发生态"]},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2025-10预订/2026交付",
+        relevance_to_robotics="NEO代表人形机器人从工业场景向家庭场景跨越的标杆路线：轻量化（30kg）+仿生肌腱驱动+超静音（22dB）"
+                              "+人在回路学习+世界模型视频训练，为消费级人形机器人产品形态、技术路线、商业模式（订阅制）提供完整参考",
+        deployment_ready=True,
+        tags=["1X NEO", "家用人形机器人", "167cm 30kg", "75自由度", "仿生肌腱驱动", "22dB超静音", "$20000/$499月", "OpenAI投资", "人在回路", "World Model视频学习", "Hayward工厂"]
+    ),
+
+    AIProduct(
+        product_id="ROB-083", name="众擎T800重载级全尺寸通用人形机器人 1.73米75kg41自由度固态电池铝合金覆盖件18万元起批量交付",
+        category=AICategory.HUMANOID_ROBOT,
+        organization="众擎机器人", country="中国",
+        description="众擎机器人旗下首款重载级全尺寸通用人形机器人，2025年8月世界机器人大会首次公开亮相，"
+                    "2025年12月2日正式发布定价，2026年7月24日郑州云智智能制造基地批量下线发运客户。"
+                    "1.73米黄金成人身高、75kg优化自重拟人化形态，搭载41个高自由度关节，"
+                    "配备固态电池与铝合金外覆盖件，可在重载及高动态场景下持续稳定作业。"
+                    "多传感器融合感知系统集成视觉/触觉/力觉等多种传感器，依托内置高性能运算单元快速精准决策。"
+                    "推出基础版/生态版（开源版）/锐化版（Pro版）/旗舰版（Max版）四大梯度产品覆盖不同场景。"
+                    "2026年8月完成B轮2亿元融资。",
+        key_metrics={"product": "众擎T800", "company": "众擎机器人",
+                     "first_show": "2025-08 WRC世界机器人大会",
+                     "release_date": "2025-12-02", "mass_delivery": "2026-07-24 郑州基地批量下线",
+                     "round_b": "2亿元 2026-08",
+                     "height_m": 1.73, "weight_kg": 75,
+                     "dof": 41,
+                     "materials": {"outer_panels": "铝合金外覆盖件",
+                                   "battery": "行业首款人形机器人专用固态动力电池"},
+                     "battery_life_hours": "4-5小时稳定续航",
+                     "sensors": "多传感器融合（视觉+触觉+力觉）",
+                     "performance": "重载及高动态场景下持续稳定作业",
+                     "versions": [{"name": "基础版", "price_wan": 18, "target": "基础应用"},
+                                  {"name": "生态版（开源版）", "target": "开发者/科研/二次开发"},
+                                  {"name": "锐化版Pro", "target": "进阶工业/商业应用"},
+                                  {"name": "旗舰版Max", "target": "高端重载/科研"}],
+                     "price_start_wan": 18,
+                     "scenes": ["智慧交管", "商业服务", "工业智造", "科研教育", "全域场景"],
+                     "events": ["2025-12机甲拳王格斗赛核心机型", "2026-01 CES亮相", "2026-07批量交付"],
+                     "design_optimizations": ["黄金成人身高1.73m", "75kg优化自重", "拟人化形态"],
+                     "future_directions": ["持续扩大量产产能", "拓展工业/商业/科研多场景部署", "开源生态建设"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2025-12发布/2026-07批量交付",
+        relevance_to_robotics="T800作为重载级全尺寸人形18万元起定价、固态电池首次搭载、四大版本梯度覆盖全场景、2026年7月批量下线，"
+                              "标志中国人形机器人从样机阶段正式进入批量交付元年，固态电池应用为后续人形机器人能源方案提供新选择",
+        deployment_ready=True,
+        tags=["众擎T800", "重载全尺寸人形", "1.73米75kg", "41自由度", "固态电池", "铝合金覆盖件", "18万元起", "四版本梯度", "2026-07批量交付", "B轮2亿"]
+    ),
+
+    AIProduct(
+        product_id="COMP-001", name="华为MateBook Fold非凡大师鸿蒙折叠电脑 18寸双层OLED UTG玻璃40微米玄武水滴锆基液态金属铰链7.3mm/1.16kg 24999元",
+        category=AICategory.COMPUTER,
+        organization="华为", country="中国",
+        description="华为首款鸿蒙折叠屏PC，2026年8月5日发布会发布、8月14日全面开售。"
+                    "定位折叠形态大屏生产力工具，补齐折叠PC原生手写交互空白，硬件/软件/生态同步升级，"
+                    "适配商务办公/专业设计/金融分析多行业场景。华为折叠屏技术多年积累从手机延伸到大尺寸PC，"
+                    "从材料、铰链、屏幕到软件全栈自研。",
+        key_metrics={"product": "华为MateBook Fold非凡大师", "release_date": "2026-08-05",
+                     "sale_date": "2026-08-14",
+                     "positioning": "18英寸手写折叠屏鸿蒙电脑 非凡大师旗舰",
+                     "design": {"design_language": "非凡大师高端商务设计",
+                                "colors": ["流光金", "天际白", "幻影黑"],
+                                "morphology": "折叠形态（18寸展开/13寸折叠便携）",
+                                "stand": "业内首款隐藏式支架转轴",
+                                "ergonomics": "支持100-120度无级悬停，适配书写/观影/办公多姿态"},
+                     "materials": {"screen_glass": "大尺寸量产UTG超薄玻璃（40μm厚度）",
+                                   "screen_panel": "双层OLED（双发光层堆叠）",
+                                   "hinge_main_shaft": "锆基液态金属材料",
+                                   "hinge_structure": "MIM高强钢结构件",
+                                   "hinge_architecture": "榫卯阻尼三段式架构（传统榫卯工艺理念融合）"},
+                     "manufacturing_rnd": {"hinge_name": "玄武水滴铰链",
+                                           "hinge_precision": "12个精密机加工钛合金组件（海外版本）/榫卯架构",
+                                           "cycle_test": "20万次开合零像素衰减（远超行业20万次基准）",
+                                           "screen_process": "UTG玻璃全新复合结构",
+                                           "cooling": "超薄逆重力散热架构",
+                                           "antenna": "双模叠层天线+无线桥接技术",
+                                           "rnd_effort": "折叠屏技术多年积累从手机到PC全栈延伸"},
+                     "specs": {"unfolded_screen_inch": 18, "folded_screen_inch": 13,
+                               "thickness_unfolded_mm": 7.3, "thickness_closed_mm": 14.9,
+                               "thickness_avg_mm": 11.2, "weight_kg": 1.16,
+                               "weight_with_accessories_kg": 1.637,
+                               "resolution": "3.3K（3296×2472 4:3展开）",
+                               "folded_resolution": "2472×1648（3:2 双屏独立）",
+                               "refresh_rate": "LTPO自适应（90Hz动态/10Hz静态）",
+                               "peak_brightness_nits": 1600, "screen_ratio": "92%屏占比",
+                               "ar_coating_reflectivity": "2.5%（AR镀膜）",
+                               "pwm_dimming": "1440Hz高频PWM调光",
+                               "panel_efficiency_gain": "+30%能效（双层对比单层）",
+                               "panel_lifespan_gain": "3倍寿命",
+                               "screen_durability": {"impact_resistance_gain": "+90%抗冲击",
+                                                     "bending_resistance_gain": "10倍抗弯曲形变",
+                                                     "compression_gain": "+30%抗挤压",
+                                                     "stylus_taps": "500000次手写点击",
+                                                     "certification": "瑞士SGS金标五星屏幕抗跌落冲击认证"},
+                               "processor": "麒麟X90 Plus", "tdp_w": 28,
+                               "performance_gain": "+25%整机综合性能",
+                               "ram_gb": [24, 32], "ssd_tb": [0.5, 1, 2],
+                               "battery_wh": 75, "fast_charge_w": 140, "reverse_charge_w": 66,
+                               "video_playback_h": 14, "cloud_meeting_h": 12,
+                               "camera_front_mp": 8, "os": "HarmonyOS 6.1",
+                               "stylus": "HUAWEI M-Pen 3（纯平书写/分屏书写/远场空鼠三模式）",
+                               "audio": "联合声场渲染360度移动全景声"},
+                     "pricing": {"24GB+512GB": 24999, "24GB+1TB": 26999, "32GB+2TB": 29999},
+                     "software_optimizations": {"ark_engine": ["WPS大文件打开+30%", "悟空图像处理+25%",
+                                                              "剪映剪辑速度+23%"],
+                                                "hyper_memory_compression": "+50%压缩效率/同时开大文件+40%",
+                                                "xiaoyi_meeting": "本地离线模型语音降噪/转写/发言人区分/自动纪要",
+                                                "xiaoyi_research": "多行业专家智能体协同分析",
+                                                "native_apps": ["华为笔记（无界画布/全景智记）",
+                                                                "天生会画PC首秀（1000+专业笔刷/完整图层/调色）"],
+                                                "third_party": ["WPS双屏演讲者视图", "中望CAD双屏审图标注",
+                                                                "博思白板分屏协同", "东方财富双屏盯盘标注",
+                                                                "悟空图像双屏闪绘（上屏AI/下屏手绘）",
+                                                                "剪映"]},
+                     "future_directions": ["持续扩展鸿蒙PC原生生态", "优化折叠形态手写体验",
+                                           "更多行业软件双屏深度适配", "下一代更轻更薄产品迭代"]},
+        ram_gb=32, rom_gb=2048, price_start_rmb=24999, price_top_rmb=29999,
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-05发布/08-14开售",
+        relevance_to_robotics="玄武水滴铰链（锆基液态金属+MIM高强钢+榫卯架构+20万次开合）、UTG 40微米超薄玻璃、"
+                              "双层OLED LTPO、逆重力散热等精密制造与材料技术，可迁移至机器人关节精密制造、"
+                              "机器人柔性显示屏、可穿戴机器人交互终端等场景；鸿蒙分布式技术为机器人多终端协同提供参考",
+        deployment_ready=True,
+        tags=["华为MateBook Fold非凡大师", "18寸双层OLED", "UTG玻璃40μm", "玄武水滴铰链", "锆基液态金属", "MIM高强钢", "榫卯架构", "麒麟X90 Plus", "7.3mm/1.16kg", "M-Pen 3手写", "24999元起", "SGS五星认证"]
+    ),
+
+    AIProduct(
+        product_id="ROB-084", name="陶世智能微型环面包络正交减速器 体积-40%±0.5弧分精度1300MPa强度1万小时寿命10万台灵巧手订单",
+        category=AICategory.INDUSTRIAL_ROBOT,
+        organization="陶世智能科技（深圳）", country="中国",
+        description="精密减速器企业，2016年成立总部深圳，研发生产正交90度微型减速器及机器人关节模组。"
+                    "核心产品微型环面包络蜗轮蜗杆减速器，把减速与转角功能集成单一结构，更小体积更高精度动力传输。"
+                    "2026年8月完成超亿元融资（国创集团/海川聚义/杭州众燊/新智资本，德太资本FA），资金用于产品研发/产线扩建/市场拓展。"
+                    "成立初期面向工业自动化，2024年获航天领域首笔订单后进入消费电子制造龙头供应链，"
+                    "2025年重点转向机器人关节模组，推出高度集成灵巧手关节模组兼容直驱/连杆/腱绳/混合驱动。"
+                    "已与近百家机器人企业合作，灵巧手领域签署10万台关节模组供货协议。",
+        key_metrics={"company": "陶世智能", "founded": "2016", "headquarters": "深圳",
+                     "round": "超亿元融资（2026-08）",
+                     "investors": ["国创集团", "海川聚义", "杭州众燊", "新智资本"],
+                     "fa": "德太资本",
+                     "core_product": "微型环面包络蜗轮蜗杆减速器（正交90度）",
+                     "design_principle": "传统蜗轮蜗杆单齿啮合→优化齿面接触结构+环面包络设计→多齿同时啮合",
+                     "advantages_vs_traditional": {"volume_reduction": "-40%体积（省去额外转角器）",
+                                                   "no_angle_needed": "集成90度转向无需额外转角机构",
+                                                   "precision_arcmin": "±0.5弧分",
+                                                   "tensile_strength_mpa": 1300,
+                                                   "life_hours": 10000},
+                     "manufacturing_self_developed": {"equipment": "进口设备重新设计开发7轴5联动磨削方案（解决环面蜗杆高精度加工难题）",
+                                                      "testing": "自主搭建测试设备验证精度/寿命/可靠性",
+                                                      "materials_lubrication": "优化材料和润滑体系提高效率与寿命"},
+                     "factory_base": {"current_area_m2": 20000, "current_output": "年产值5亿元/年产50-70万关键模组",
+                                      "new_factory": "建设中，投产后年产能100-150万关键模组"},
+                     "history": {"2016-founded": "成立，工业自动化起步",
+                                 "2024-aerospace": "获航天领域首笔订单，进入消费电子龙头供应链",
+                                 "2025-humanoid": "研发重点转向机器人关节模组，推出灵巧手高度集成关节模组",
+                                 "2026-august": "完成超亿元融资，灵巧手10万台订单",
+                                 "customers": "近百家机器人企业合作/果链/头部灵巧手企业供货"},
+                     "dexterous_hand_module": {"compatibility": ["直驱", "连杆驱动", "腱绳驱动", "混合驱动"],
+                                               "signed_order_units": 100000},
+                     "industry_context": {"actuator_cost_ratio": "执行器系统（电机/减速器/丝杠）占人形整机成本45%",
+                                          "sensor_ratio": "传感器占15%，合计核心零部件>60%",
+                                          "localization": "减速器是国产替代核心环节"},
+                     "future_directions": ["扩建产能至100-150万模组/年", "拓展人形机器人关节全系列产品",
+                                           "深化灵巧手领域头部客户合作", "持续材料工艺优化提升寿命精度"]},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08",
+        relevance_to_robotics="微型正交减速器是灵巧手狭小空间集成的关键突破——陶世环面包络设计在±0.5弧分精度、1300MPa强度、"
+                              "1万小时寿命基础上体积缩小40%，解决了灵巧手关节小型化、高精度、正交传动三大难题，"
+                              "7轴5联动自研磨削工艺、材料润滑体系自建为核心零部件国产化提供完整路径参考",
+        deployment_ready=True,
+        tags=["陶世智能", "微型正交减速器", "环面包络蜗轮蜗杆", "体积-40%", "±0.5弧分", "1300MPa", "1万小时", "7轴5联动磨削", "10万台灵巧手订单", "超亿元融资", "深圳2016"]
+    ),
+
+    AIProduct(
+        product_id="ROB-085", name="HONPINE宏品HPJM一体化人形关节模组 PRO谐波版六合一集成192Nm/kg扭矩密度31.5mm中空120mm外径减重1/3",
+        category=AICategory.INDUSTRIAL_ROBOT,
+        organization="HONPINE宏品", country="中国",
+        description="2026年5月8-11日郑州工业装备博览会发布HPJM一体化关节模组系列，面向下一代人形机器人设计。"
+                    "采用高度集成结构设计理念，将驱动器/无框力矩电机/减速器/制动器/编码器/传感器六大核心组件深度集成于单一紧凑单元。"
+                    "模块化平台策略提供50+种关节模组规格，支持不同性能等级和成本结构灵活开发，大幅降低人形机器人开发门槛。"
+                    "分PRO系列（自研超薄谐波减速器）两大技术路线，针对人形上肢精密作业优化，"
+                    "通过柔轮优化和材料创新解决传统谐波减速器体积大/发热/寿命有限等问题。",
+        key_metrics={"product": "HONPINE HPJM一体化关节模组系列", "exhibition": "2026郑州工博会（5月8-11日）",
+                     "design_concept": "六核合一高度集成（驱动器+无框力矩电机+减速器+制动器+编码器+传感器）",
+                     "platform_strategy": "模块化平台50+规格适配不同性能/成本需求",
+                     "pro_series": {"reducer": "自研超薄谐波减速器",
+                                    "optimization_target": "人形上肢精密作业/负载需求",
+                                    "traditional_issues_solved": ["体积大", "发热严重", "寿命有限"],
+                                    "solutions": ["柔轮结构优化", "材料创新"]},
+                     "thermal_management": "高效散热结构，防止过热性能衰减",
+                     "hollow_shaft": {"design": "中空走线设计",
+                                      "hollow_ratio": ">11%",
+                                      "bore_mm": 31.5,
+                                      "benefit": "方便线缆走线，减少线缆磨损，满足人形布线可靠性要求"},
+                     "encoder": {"type": "自研24位双编码器",
+                                 "features": ["多圈绝对值断电记忆", "高精度定位", "重启无需重新回零校准"]},
+                     "brake": {"type": "凸极磁路永磁制动器",
+                               "design": "电机与制动器一体化结构",
+                               "benefits": ["节省轴向安装空间", "提升制动扭矩", "增强关节安全可靠性"]},
+                     "specs": {"peak_torque_density_nmkg": 192,
+                               "outer_diameter_mm": 120,
+                               "hollow_bore_mm": 31.5,
+                               "weight_reduction": "比传统方案减重>1/3",
+                               "energy_consumption": "整体能耗显著降低",
+                               "volume_optimization": "同扭矩下体积极致优化"},
+                     "motion_capabilities": ["跑步", "跳跃", "动态平衡"],
+                     "future_directions": ["拓展全系列关节模组覆盖人形全身关节",
+                                           "进一步提升扭矩密度至200+Nm/kg",
+                                           "优化散热支持更高持续功率输出",
+                                           "扩大中空比方便更复杂走线",
+                                           "大规模量产降本"]},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER2,
+        publish_date="2026-05",
+        relevance_to_robotics="六合一高度集成+192Nm/kg峰值扭矩密度+31.5mm大中空+减重1/3，"
+                              "代表了人形机器人关节模组集成化、轻量化、高性能的明确发展方向，"
+                              "中空走线设计解决人形布线痛点，24位双编码器断电记忆免去重新校准大幅提升实用性",
+        deployment_ready=True,
+        tags=["HONPINE宏品", "HPJM关节模组", "六合一集成", "PRO超薄谐波", "192Nm/kg", "31.5mm中空", "120mm外径", "减重1/3", "24位双编码器", "凸极磁路制动", "50+规格"]
+    ),
+
+    AIProduct(
+        product_id="ROB-086", name="人形机器人2026交付元年产业数据 全球H1出货1.91万台+272%中国占97%进厂验证规模化启动",
+        category=AICategory.HUMANOID_ROBOT,
+        organization="行业综合数据（Smart Analytics/工信部/高工机器人）", country="全球/中国",
+        description="2026年是人形机器人从'展会样机'走向'交付元年'的转折点，8月被称为'机器人超级月'——"
+                    "世界机器人大会8月19-23日北京亦庄、宇树科技8月下旬A股上市、特斯拉Optimus量产产线安装调试三件大事密集落地。"
+                    "产业叙事从空翻跳舞视频切换到进厂验证、高工时计费、量产爬坡的真实商业化阶段。",
+        key_metrics={"period": "2026年上半年（交付元年）",
+                     "global_shipments_units": 19100, "yoy_growth": "+272%",
+                     "china_share": ">97%全球出货量",
+                     "top6_all_china_share": "87.87%（前六全部中国厂商）",
+                     "china_production": {"2025_total": "约2万台", "2026_h1": ">4万台", "2026_full_year_ggii": "10-20万台"},
+                     "application_structure": {"industrial_commercial_share": ">70%", "previous_year_share": "50%"},
+                     "leading_production_capacity": {"unitree_g1": "杭州工厂月产200台，Q4目标500台/月；累计下线约12500台",
+                                                     "ubtech_walker_s": "月产150台，2026目标3000台",
+                                                     "agibot_a2": "月产100台", "fourier_gr2": "月产80台"},
+                     "factory_deployments": {"ubtech_in_neo": "蔚来合肥工厂3个月验证获量产准入，首批20台编入生产序列执行车门锁检测/安全带安装",
+                                             "byd": "比亚迪尧舜禹150台样机实训，深圳工厂50台宇树G1运营，年底扩至200台",
+                                             "ubtech_in_foxconn": "Walker S进驻富士康，零部件分拣/视觉检测",
+                                             "jd_cainiao": "最后一公里配送+仓储分拣试点"},
+                     "government_procurement": {"state_grid": "年内计划采购8500台特种机器人，约68亿元"},
+                     "unitree_ipo": {"price": "150.80元/股", "market_cap_yi": 610,
+                                    "oversubscription": "45%超募", "ps_ratio": "35.89倍（2025收入）",
+                                    "ipo_subscribers_wan": 978.46,
+                                    "oversubscription_times": 8288, "winning_rate": "0.0181%",
+                                    "funds_use": {"42亿募资": "50%具身大模型研发/50%扩产（2万→10万台年产能）"},
+                                    "strategic_investors": ["全国社保基金", "DeepSeek深度求索（约1.41亿元）",
+                                                           "中国石油集团", "腾讯"]},
+                     "ipo_pipeline": {"dobot": "越疆创业板7月22日过会（86天）",
+                                      "leju_yunshenchu": "乐聚/云深处5月底已问询",
+                                      "agibot_galbot_zhongqing": "智元/银河通用/众擎资本化推进中"},
+                     "valuation": {"apac_pe_median": 22, "us_pe_median": 28},
+                     "key_quotes": {"song_yan": "松延动力田丰：2026是从'高流量视频'走向'高工时计费'的分水岭，拐点不在于空翻，"
+                                                "在于能否顶住夜班、把笨活做稳、失手可控、交付可复制、责任算得清",
+                                    "huayan_securities": "华源证券：产业从0到1验证期全面迈入1到10量产爬坡新阶段"},
+                     "future_directions": ["2026全年产量突破10万台（工信部口径）",
+                                           "进厂验证从单机测试向多机协同产线升级",
+                                           "核心零部件（减速器/电机/灵巧手/传感器）国产替代加速",
+                                           "消费级人形机器人（如1X NEO）开始家庭交付",
+                                           "宇树上市带动全产业链估值重估（类比宁德时代带动锂电）"]},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="2026年人形机器人'交付元年'完整数据画像：出货量/产能/进厂场景/IPO/政策/估值全维度呈现，"
+                              "清晰展示产业从样机到量产爬坡的关键转折，70%工业商业应用、97%中国份额、10-20万台全年预期、"
+                              "进厂验证标准（夜班稳/笨活/失手可控/可复制/责任清晰）"
+                              "为产业研究、投资判断、技术路线选择提供基准数据",
+        deployment_ready=True,
+        tags=["人形机器人交付元年", "H1全球1.91万台", "+272%增长", "中国占97%", "宇树IPO 610亿", "进厂验证", "蔚来/比亚迪/富士康", "国家电网68亿采购", "WRC2026超级月", "高工时计费"]
+    ),
+
 ]
 
