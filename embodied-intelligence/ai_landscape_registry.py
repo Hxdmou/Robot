@@ -7573,7 +7573,998 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         tags=["HomePad", "Apple", "家庭中枢",
               "7英寸屏", "Siri", "新品类"],
     ),
-
+    AIProduct(
+        product_id="MC-041", name="华为MateBook Fold非凡大师鸿蒙折叠电脑",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="华为", country="中国",
+        description="全球首款鸿蒙折叠形态个人电脑，采用创新铰链结构与柔性屏幕"
+                    "技术，在保持极致便携性的同时实现接近传统笔记本的大屏体验，"
+                    "有效平衡轻薄形态与高效生产力，是当前同级别唯一采用折叠形态"
+                    "的个人电脑。搭载麒麟X90 Plus处理器，运行HarmonyOS 7操作系统，"
+                    "支持鸿蒙生态全场景互联，折叠形态满足移动办公、大屏创作双场景"
+                    "需求，玄武水滴铰链核心部件采用超强火箭钢，提供超强防护与"
+                    "可靠折叠寿命。",
+        key_metrics={"series": "MateBook Fold非凡大师",
+                     "form_factor": "折叠形态笔记本电脑",
+                     "chip": "麒麟X90 Plus",
+                     "os": "HarmonyOS 7",
+                     "hinge": "玄武水滴铰链",
+                     "hinge_material": "超强火箭钢",
+                     "positioning": "全球首款鸿蒙折叠电脑",
+                     "scenarios": ["移动办公", "大屏创作", "全场景互联"],
+                     "ecosystem": "鸿蒙全场景互联"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="折叠屏铰链技术可用于机器人可变形交互界面设计，"
+                              "柔性屏幕技术为机器人柔性显示模块提供参考",
+        deployment_ready=False,
+        tags=["华为MateBook Fold", "折叠电脑", "鸿蒙PC", "麒麟X90 Plus",
+              "玄武水滴铰链", "HarmonyOS 7", "非凡大师"],
+    ),
+    AIProduct(
+        product_id="MC-042", name="华为MatePad Pro 2026旗舰平板",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="华为", country="中国",
+        description="华为旗舰平板产品，12.2英寸OLED大屏，支持鸿蒙PC级办公应用，"
+                    "搭配星闪手写笔与磁吸键盘，实现创作、办公、娱乐全场景覆盖。"
+                    "搭载麒麟旗舰处理器，支持超级终端多设备协同，屏幕支持高"
+                    "刷新率与高频PWM调光，办公娱乐两不耽误。",
+        key_metrics={"series": "MatePad Pro 2026",
+                     "screen_size": "12.2英寸",
+                     "screen_type": "OLED",
+                     "chip": "麒麟旗舰处理器",
+                     "accessories": ["星闪手写笔", "磁吸键盘"],
+                     "features": ["PC级办公应用", "超级终端协同", "多设备互联"],
+                     "scenarios": ["创作", "办公", "娱乐"],
+                     "os": "HarmonyOS 7"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="大尺寸高刷OLED屏可作为机器人控制终端显示方案，"
+                              "星闪低延迟连接技术适用于机器人无线控制",
+        deployment_ready=False,
+        tags=["华为MatePad Pro", "旗舰平板", "12.2英寸OLED", "星闪手写笔",
+              "鸿蒙平板", "PC级办公"],
+    ),
+    AIProduct(
+        product_id="MC-043", name="华为MateBook Pro S轻薄本",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="华为", country="中国",
+        description="重新定义轻薄本标准，整机重量仅798克，显著低于主流同类产品，"
+                    "标志着移动计算设备在便携性维度上的又一次重要演进，达到"
+                    "行业新高度。搭载HarmonyOS 7，支持鸿蒙生态全场景互联，"
+                    "在极致轻薄的同时保持性能释放与长续航，满足移动办公高频"
+                    "需求。",
+        key_metrics={"series": "MateBook Pro S",
+                     "weight_g": 798,
+                     "weight_benchmark": "行业轻薄本新标杆",
+                     "os": "HarmonyOS 7",
+                     "chip": "麒麟处理器",
+                     "positioning": "超轻薄鸿蒙笔记本",
+                     "features": ["极致便携", "长续航", "全场景互联"],
+                     "scenarios": ["移动办公", "商务出行"]},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="极致轻量化结构设计可参考机器人便携控制器减重方案",
+        deployment_ready=False,
+        tags=["华为MateBook Pro S", "轻薄本", "798克", "鸿蒙PC",
+              "HarmonyOS 7", "超轻薄"],
+    ),
+    AIProduct(
+        product_id="MC-044", name="华为nova 16 SE手机",
+        category=AICategory.MOBILE_COMPUTER,
+        organization="华为", country="中国",
+        description="nova系列SE产品线回归全新中端力作，主打超大续航、原色影像、"
+                    "流畅鸿蒙体验、轻薄高颜值。6.84英寸OLED直面大屏，1.5K分辨率/"
+                    "10.7亿色/P3广色域/120Hz刷新率/2160Hz高频PWM调光/300Hz触控"
+                    "采样率/8000nits峰值亮度。首次将旗舰级红枫原色影像系统下放"
+                    "至2000元档位，后置5000万像素超感知主摄（RYYB传感器/1/1.56"
+                    "英寸底/F1.9光圈），前置3200万像素。搭载8500mAh巨鲸电池"
+                    "（nova系列最大）+66W Turbo超级快充，麒麟8020处理器，"
+                    "支持北斗卫星通信、星闪E2.0、蓝牙6.0、NFC、红外、IP65防尘"
+                    "抗水，侧边指纹解锁，3D光影雕刻工艺/幻彩贝母配色。2499元"
+                    "起，8月12日正式开售。",
+        key_metrics={"series": "nova 16 SE",
+                     "screen_size": "6.84英寸",
+                     "screen_resolution": "1.5K",
+                     "screen_type": "OLED直面屏",
+                     "screen_colors": "10.7亿色/P3广色域",
+                     "screen_refresh_hz": 120,
+                     "screen_pwm_hz": 2160,
+                     "screen_touch_hz": 300,
+                     "screen_peak_brightness_nits": 8000,
+                     "chip": "麒麟8020",
+                     "battery_mah": 8500,
+                     "battery_tech": "巨鲸电池（nova系列最大）",
+                     "charge_w": 66,
+                     "charge_tech": "Turbo超级快充",
+                     "rear_camera_main_mp": 50,
+                     "rear_camera_main_sensor": "RYYB",
+                     "rear_camera_main_size": "1/1.56英寸",
+                     "rear_camera_main_aperture": "F1.9",
+                     "camera_system": "红枫原色影像系统（旗舰下放）",
+                     "front_camera_mp": 3200,
+                     "ram_gb": [8, 12],
+                     "rom_gb": [256, 512],
+                     "storage_options": ["8GB+256GB 2499元", "12GB+512GB 2999元"],
+                     "price_start_rmb": 2499,
+                     "connectivity": ["北斗卫星通信", "星闪E2.0", "蓝牙6.0", "NFC", "红外"],
+                     "waterproof": "IP65防尘抗水",
+                     "fingerprint": "侧边指纹解锁",
+                     "design": "3D光影雕刻工艺",
+                     "color": "幻彩贝母",
+                     "os": "HarmonyOS",
+                     "features": ["AI防诈", "星盾守护", "侧边快捷按键"],
+                     "onsale_date": "8月12日"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="8500mAh大容量电池方案可为移动机器人续航设计提供参考，"
+                              "RYYB暗光成像技术可提升机器人弱光环境视觉能力",
+        deployment_ready=False,
+        tags=["华为nova 16 SE", "8500mAh巨鲸电池", "66W快充", "麒麟8020",
+              "红枫原色", "北斗卫星", "2499元起", "星闪E2.0"],
+    ),
+    AIProduct(
+        product_id="DP-012", name="华为MateBook Pro麒麟X90 Plus",
+        category=AICategory.DIGITAL_PRODUCT,
+        organization="华为", country="中国",
+        description="华为高性能鸿蒙笔记本，搭载麒麟X90 Plus处理器，"
+                    "HarmonyOS 7花粉Beta版8月中旬开启，与MateBook Fold、"
+                    "MateBook 14鸿蒙版共同构成鸿蒙PC完整产品矩阵。",
+        key_metrics={"series": "MateBook Pro",
+                     "chip": "麒麟X90 Plus",
+                     "os": "HarmonyOS 7",
+                     "beta_date": "8月中旬花粉Beta",
+                     "compatible_models": ["MateBook Fold非凡大师麒麟X90 Plus",
+                                           "MateBook Fold非凡大师",
+                                           "MateBook Pro麒麟X90 Plus",
+                                           "MateBook Pro",
+                                           "MateBook Pro S",
+                                           "MateBook 14鸿蒙版"]},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="鸿蒙PC生态为机器人上位机开发提供国产操作系统选项",
+        deployment_ready=False,
+        tags=["华为MateBook Pro", "麒麟X90 Plus", "HarmonyOS 7", "鸿蒙PC"],
+    ),
+    AIProduct(
+        product_id="MD-023", name="华为WATCH GT 7 Pro智能手表",
+        category=AICategory.MEDICAL_DEVICE,
+        organization="华为", country="中国",
+        description="华为WATCH GT系列专业旗舰款，延续GT系列长续航基因，"
+                    "升级健康监测传感器与运动模式，支持ECG心电分析、"
+                    "血管健康研究、睡眠呼吸暂停监测等专业健康功能，"
+                    "搭配AMOLED高清屏，支持鸿蒙全场景互联。",
+        key_metrics={"series": "WATCH GT 7 Pro",
+                     "positioning": "专业旗舰智能手表",
+                     "display": "AMOLED高清屏",
+                     "health_features": ["ECG心电分析", "血管健康研究",
+                                         "睡眠呼吸暂停监测", "心率监测",
+                                         "血氧监测"],
+                     "sports_modes": 100,
+                     "battery_life_days": 14,
+                     "waterproof": "5ATM+IP68",
+                     "os": "HarmonyOS",
+                     "connectivity": ["蓝牙", "NFC", "星闪"]},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="高精度健康传感器与低功耗设计可参考可穿戴机器人"
+                              "健康监测模块方案",
+        deployment_ready=False,
+        tags=["华为WATCH GT 7 Pro", "智能手表", "ECG心电", "长续航",
+              "鸿蒙穿戴", "健康监测"],
+    ),
+    AIProduct(
+        product_id="MD-024", name="华为WATCH GT 7智能手表",
+        category=AICategory.MEDICAL_DEVICE,
+        organization="华为", country="中国",
+        description="华为WATCH GT系列标准款，主打超长续航与全面健康运动监测，"
+                    "覆盖大众用户日常健康管理与运动记录需求，AMOLED高清彩屏，"
+                    "支持心率、血氧、睡眠、压力全方位健康监测，100+运动模式，"
+                    "鸿蒙系统流畅体验。",
+        key_metrics={"series": "WATCH GT 7",
+                     "positioning": "大众旗舰长续航智能手表",
+                     "display": "AMOLED高清彩屏",
+                     "health_features": ["心率监测", "血氧监测", "睡眠监测",
+                                         "压力监测"],
+                     "sports_modes": 100,
+                     "battery_life_days": 14,
+                     "waterproof": "5ATM",
+                     "os": "HarmonyOS"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="低功耗可穿戴方案为机器人可穿戴交互模块提供参考",
+        deployment_ready=False,
+        tags=["华为WATCH GT 7", "智能手表", "长续航", "健康监测", "鸿蒙穿戴"],
+    ),
+    AIProduct(
+        product_id="WA-012", name="华为HarmonyOS 7鸿蒙操作系统",
+        category=AICategory.WORLD_MODEL,
+        organization="华为", country="中国",
+        description="鸿蒙操作系统最新版本，8月中旬开启花粉Beta测试，覆盖"
+                    "折叠电脑、MateBook Pro系列、MateBook Pro S、MateBook 14"
+                    "鸿蒙版等全系列PC产品，标志着鸿蒙在PC端生态进一步成熟，"
+                    "实现手机、平板、PC、穿戴、车机、IoT全场景统一内核。",
+        key_metrics={"version": "HarmonyOS 7",
+                     "beta_date": "8月中旬花粉Beta",
+                     "supported_pcs": ["MateBook Fold非凡大师麒麟X90 Plus",
+                                       "MateBook Fold非凡大师",
+                                       "MateBook Pro麒麟X90 Plus",
+                                       "MateBook Pro",
+                                       "MateBook Pro S",
+                                       "MateBook 14鸿蒙版"],
+                     "ecosystem": "手机/平板/PC/穿戴/车机/IoT全场景统一",
+                     "kernel": "微内核分布式架构"},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="分布式微内核架构为多机器人协同、机器人-设备互联"
+                              "提供统一操作系统基础",
+        deployment_ready=False,
+        tags=["HarmonyOS 7", "鸿蒙7", "华为PC系统", "全场景互联", "分布式OS"],
+    ),
+    AIProduct(
+        product_id="AU-015", name="尊界V800旗舰MPV",
+        category=AICategory.AUTOMOTIVE,
+        organization="鸿蒙智行×华为", country="中国",
+        description="鸿蒙智行尊界时代旗舰MPV，车长5495mm/宽2006mm/高1850mm，"
+                    "轴距3430mm，有效舱内空间长达3856mm/5.7m²地板面积。"
+                    "提供曜日金棕/破晓金黑/凌云墨白/瑞雪银红双拼车色+星耀黑/"
+                    "云水天青共6种车色，5种内饰选择。配备双百万像素全彩智能"
+                    "投影大灯，星环尾灯多层晶钻映射设计/全彩智能交互流光尾灯"
+                    "共5032颗灯珠。独创L型加高中岛集成多重功能，8L车载冰箱"
+                    "分区储物支持指纹解锁。首创灵云座椅20层叠层设计/恒温加热"
+                    "全覆盖/全手工皮质软包/20处按摩点位中央供气式按摩。"
+                    "推出尊享版/行政版/领航版三个版本，售价76.6万/86.6万/101.6"
+                    "万元，9月启动交付。",
+        key_metrics={"series": "尊界V800",
+                     "length_mm": 5495, "width_mm": 2006, "height_mm": 1850,
+                     "wheelbase_mm": 3430,
+                     "cabin_length_mm": 3856,
+                     "cabin_floor_area_m2": 5.7,
+                     "colors": 6,
+                     "interior_options": 5,
+                     "headlight": "双百万像素全彩智能投影大灯",
+                     "taillight_leds": 5032,
+                     "center_console": "L型加高中岛",
+                     "fridge_l": 8,
+                     "console_features": ["指纹解锁", "分区储物"],
+                     "seat_tech": "灵云座椅",
+                     "seat_layers": 20,
+                     "seat_features": ["恒温加热全覆盖", "全手工皮质软包",
+                                       "20点中央供气式按摩"],
+                     "storage_options": ["尊享版 76.6万元", "行政版 86.6万元",
+                                         "领航版 101.6万元"],
+                     "price_start_rmb": 766000,
+                     "price_top_rmb": 1016000,
+                     "delivery_date": "9月",
+                     "pre_orders_before_aug5": 10000,
+                     "v800_order_ratio_pct": 80},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="车载智能交互系统、多传感器融合方案可为机器人"
+                              "移动平台人机交互设计提供参考",
+        deployment_ready=False,
+        tags=["尊界V800", "鸿蒙智行", "旗舰MPV", "76.6万起", "灵云座椅",
+              "5032颗灯珠", "8L冰箱", "9月交付"],
+    ),
+    AIProduct(
+        product_id="AU-016", name="尊界V680豪华MPV",
+        category=AICategory.AUTOMOTIVE,
+        organization="鸿蒙智行×华为", country="中国",
+        description="鸿蒙智行尊界系列豪华MPV，与V800同期上市，提供星耀黑/"
+                    "瑞锦红/破晓金黑/曜日金棕/凌云墨白共5种车色，定位略低于"
+                    "V800，满足高端商务MPV市场多层次需求。",
+        key_metrics={"series": "尊界V680",
+                     "positioning": "豪华MPV",
+                     "colors": 5,
+                     "color_options": ["星耀黑", "瑞锦红", "破晓金黑",
+                                       "曜日金棕", "凌云墨白"]},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="车载电子架构可参考机器人移动平台设计",
+        deployment_ready=False,
+        tags=["尊界V680", "鸿蒙智行", "豪华MPV"],
+    ),
+    AIProduct(
+        product_id="AU-017", name="享界G9豪华硬派SUV",
+        category=AICategory.AUTOMOTIVE,
+        organization="鸿蒙智行×华为", country="中国",
+        description="鸿蒙智行豪华硬派SUV，开启预售，预售价43.98万元起，"
+                    "硬派越野造型搭配华为智驾系统，填补鸿蒙智行硬派SUV"
+                    "产品空白。",
+        key_metrics={"series": "享界G9",
+                     "segment": "豪华硬派SUV",
+                     "preorder_price_start_rmb": 439800,
+                     "status": "开启预售",
+                     "smart_drive": "华为智驾系统"},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="硬派越野底盘控制技术可参考野外作业机器人设计",
+        deployment_ready=False,
+        tags=["享界G9", "鸿蒙智行", "硬派SUV", "43.98万起", "华为智驾"],
+    ),
+    AIProduct(
+        product_id="CH-012", name="华为升腾950PR AI加速芯片",
+        category=AICategory.AI_CHIP,
+        organization="华为", country="中国",
+        description="华为自研新一代AI推理/训练加速芯片，基于5nm制程工艺，"
+                    "配备112GB自研HiBL高带宽内存，FP16/BF16算力达500 TFLOPS，"
+                    "FP8算力达1000 TFLOPS，FP4算力达1560 TFLOPS，整卡功耗600W。"
+                    "搭载自研HBM内存，FP4性能达Nvidia H20的2.8倍，基于Atlas 350"
+                    "加速板卡形态。2026年下半年下一代新品互联带宽达2TB/s，超过"
+                    "NVLink5.0的1.8TB/s，整体性能达到A720水平，可满足国内大部分"
+                    "推理及部分大模型训练需求。2026年华为升腾芯片出货预计超130万颗。",
+        key_metrics={"model": "Ascend 950PR",
+                     "process_node": "5nm",
+                     "memory_gb": 112,
+                     "memory_type": "自研HiBL高带宽内存",
+                     "fp16_tflops": 500,
+                     "fp8_tflops": 1000,
+                     "fp4_tflops": 1560,
+                     "tdp_w": 600,
+                     "interconnect": "LinQu/HCCS",
+                     "board": "Atlas 350加速板卡",
+                     "fp4_vs_h20_x": 2.8,
+                     "next_gen_interconnect_tbs": 2,
+                     "next_gen_perf_target": "A720水平",
+                     "2026_shipment_forecast": 1300000,
+                     "price_usd": 9600},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="国产高性能AI芯片为机器人端侧推理与VLA模型部署"
+                              "提供自主可控算力选项，2TB/s互联带宽支持多机器"
+                              "人协同训练集群",
+        deployment_ready=True,
+        tags=["华为升腾950PR", "Ascend 950PR", "AI芯片", "5nm", "1560 TFLOPS FP4",
+              "自研HBM", "Atlas 350", "130万颗出货", "2TB/s互联"],
+    ),
+    AIProduct(
+        product_id="CH-013", name="华为存算一体AI芯片",
+        category=AICategory.AI_CHIP,
+        organization="华为", country="中国",
+        description="华为深度布局存算一体技术，完成从芯片架构设计、流片量产到"
+                    "场景落地的全链路打通，改变传统算力运行逻辑，实现存储与计算"
+                    "一体化运作，大幅降低数据搬运损耗，完美适配海量边缘终端、"
+                    "物联网设备的算力需求，成为国产算力差异化突围的核心赛道。"
+                    "2026年已实现规模化量产，良率、稳定性达到商用标准。",
+        key_metrics={"technology": "存算一体（Computing-in-Memory）",
+                     "architecture_advantage": "消除冯诺依曼瓶颈",
+                     "benefits": ["数据搬运功耗大幅降低", "算力利用率提升",
+                                  "适配边缘终端低功耗场景"],
+                     "production_status": "规模化量产",
+                     "yield": "商用标准",
+                     "application_scenarios": ["边缘推理", "物联网终端",
+                                               "工业终端", "民用智能设备"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="存算一体超低功耗架构为机器人端侧AI推理提供理想"
+                              "算力方案，大幅降低机器人功耗提升续航",
+        deployment_ready=True,
+        tags=["华为存算一体", "CIM芯片", "AI芯片", "国产算力", "边缘推理",
+              "低功耗AI", "规模化量产"],
+    ),
+    AIProduct(
+        product_id="CP-012", name="英伟达Vera Rubin R100下一代AI加速芯片",
+        category=AICategory.AI_COMPUTE,
+        organization="NVIDIA", country="美国",
+        description="英伟达下一代旗舰AI加速芯片，3nm制程工艺，3360亿晶体管，"
+                    "288GB HBM4高带宽内存，显存带宽达22TB/s，整卡功耗2300W。"
+                    "FP16/BF16算力达4000 TFLOPS，FP8算力达17500 TFLOPS，FP4算力"
+                    "达50000 TFLOPS（训练）/35000 TFLOPS（推理），采用NVLink 6"
+                    "互联，是Blackwell架构之后的全新一代产品，性能实现量级飞跃。",
+        key_metrics={"model": "Vera Rubin R100",
+                     "process_node": "3nm",
+                     "transistors_bn": 336,
+                     "memory_gb": 288,
+                     "memory_type": "HBM4",
+                     "memory_bandwidth_tbs": 22,
+                     "tdp_w": 2300,
+                     "fp16_tflops": 4000,
+                     "fp8_tflops": 17500,
+                     "fp4_train_tflops": 50000,
+                     "fp4_infer_tflops": 35000,
+                     "interconnect": "NVLink 6"},
+        maturity=MaturityLevel.PROTOTYPE,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="下一代旗舰算力为超大规模VLA模型训练提供基础设施",
+        deployment_ready=False,
+        tags=["英伟达Vera Rubin", "R100", "3nm", "HBM4", "22TB/s",
+              "17500 TFLOPS FP8", "50000 TFLOPS FP4", "NVLink 6"],
+    ),
+    AIProduct(
+        product_id="CP-013", name="AMD MI455X AI加速芯片",
+        category=AICategory.AI_COMPUTE,
+        organization="AMD", country="美国",
+        description="AMD下一代旗舰AI加速卡，2nm制程工艺，3200亿晶体管，"
+                    "432GB HBM4超大容量显存，整卡功耗900W，FP16/BF16算力达"
+                    "5000 TFLOPS，FP8算力达20100 TFLOPS，FP4算力达40300 TFLOPS，"
+                    "采用UALink/PCIe Gen6互联，MI300X系列之后的全新一代产品，"
+                    "算力密度显著领先。AMD 8月6日收购AI推理芯片厂商Taalas"
+                    "（加拿大多伦多），进一步强化推理技术栈。",
+        key_metrics={"model": "MI455X",
+                     "process_node": "2nm",
+                     "transistors_bn": 320,
+                     "memory_gb": 432,
+                     "memory_type": "HBM4",
+                     "tdp_w": 900,
+                     "fp16_tflops": 5000,
+                     "fp8_tflops": 20100,
+                     "fp4_tflops": 40300,
+                     "interconnect": "UALink/PCIe Gen6",
+                     "acquisition": "Taalas推理芯片（8月6日）"},
+        maturity=MaturityLevel.PROTOTYPE,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="432GB超大显存可支持超大规模VLA模型单卡运行",
+        deployment_ready=False,
+        tags=["AMD MI455X", "2nm", "432GB HBM4", "20100 TFLOPS FP8", "UALink",
+              "Taalas收购"],
+    ),
+    AIProduct(
+        product_id="HR-023", name="时耘科技RD3 Ultra工业级全功能全尺寸人形机器人",
+        category=AICategory.HUMANOID_ROBOT,
+        organization="时耘科技", country="中国",
+        description="工业级全功能全尺寸人形机器人，在天津空天数字产业园正式量产"
+                    "下线，被称作7×24小时在岗的特种作业尖兵。身高174cm，身形"
+                    "比例贴合人体，真正全地形适配：草地/地毯/鹅卵石/水泥地/"
+                    "瓷砖/玻璃路面均可平稳通行，自主完成爬坡/登台阶/避障。标准"
+                    "续航8小时，搭配10秒极速换电，可实现7×24小时不间断连续作业。"
+                    "覆盖场站值守（电力/化工/机房全天候安防应急）、工业运维（厂区"
+                    "巡检/点位核查/作业引导）、特种巡检（园区巡逻/管廊/野外线路/"
+                    "环境监测）、科研实训（高校二次开发/算法验证）、环境勘查（高危"
+                    "区域数据采集/采-训-测-推一体化）、应急协同（现场初勘/物资转运/"
+                    "人员引导）六大领域。产线具备行走老化测试（单机连续行走1小时+）"
+                    "/5度坡度测试/台阶上下坡/复杂工况全覆盖，与京东机器人深度共建"
+                    "康养人形方案（医疗问询/情绪陪伴/疗愈辅助），现有百台级量产，"
+                    "明年扩充至千台产能。",
+        key_metrics={"model": "RD3 Ultra",
+                     "height_cm": 174,
+                     "terrain_adapt": ["草地", "地毯", "鹅卵石", "水泥地",
+                                       "瓷砖", "玻璃路面", "爬坡", "登台阶",
+                                       "避障"],
+                     "battery_life_h": 8,
+                     "battery_swap_s": 10,
+                     "operation_mode": "7×24小时不间断作业",
+                     "positioning": "特种作业尖兵",
+                     "application_fields": 6,
+                     "applications": ["场站值守", "工业运维", "特种巡检",
+                                      "科研实训", "环境勘查", "应急协同"],
+                     "testing_standards": ["单机连续行走1小时+老化测试",
+                                           "5度坡度模拟", "台阶/上下坡/后退",
+                                           "复杂工况全覆盖"],
+                     "partners": "京东机器人（康养赛道共建）",
+                     "healthcare_features": ["医疗问询", "情绪陪伴", "疗愈康养辅助"],
+                     "current_capacity": "百台级量产",
+                     "2027_capacity": "千台产能"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="工业级全尺寸人形量产下线，10秒换电+全地形通行"
+                              "为人形机器人工业化落地提供实际参考",
+        deployment_ready=True,
+        tags=["时耘RD3 Ultra", "工业人形机器人", "天津量产", "174cm",
+              "8小时续航", "10秒换电", "7×24作业", "六大领域", "千台产能"],
+    ),
+    AIProduct(
+        product_id="HR-024", name="博银合创BW10重载双臂具身机器人",
+        category=AICategory.HUMANOID_ROBOT,
+        organization="博银合创", country="中国",
+        description="全新工业机型重载双臂具身机器人，负载能力强，支持4分钟"
+                    "快换电，支持工厂7×24小时不间断作业，工业实用性大幅提升。",
+        key_metrics={"model": "BW10",
+                     "type": "重载双臂具身机器人",
+                     "battery_swap_min": 4,
+                     "operation_mode": "7×24小时不间断作业",
+                     "features": ["高负载", "快换电", "工业级稳定性"]},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="重载双臂+快换电方案解决工业人形机器人连续作业痛点",
+        deployment_ready=False,
+        tags=["博银合创BW10", "重载双臂", "4分钟快换电", "7×24作业", "工业人形"],
+    ),
+    AIProduct(
+        product_id="HR-025", name="跨维智能DexForce W1 Pro第二代通用人形机器人",
+        category=AICategory.HUMANOID_ROBOT,
+        organization="跨维智能", country="中国",
+        description="国内首款实现AI引擎-视觉-大脑-本体全链路自研的标杆产品，"
+                    "由贾奎博士（港中深终身教授/全球Top2%科学家）领衔创办，"
+                    "百亿估值具身智能独角兽。搭载全自研双目纯视觉传感器，"
+                    "依托首创Sim2Real VLA模型框架与100%合成数据训练体系，"
+                    "具备±1mm精准定位、0.1N灵敏力控能力，全身40自由度超高"
+                    "灵活度，可独立完成咖啡制作/糖画创作/爆米花制作/精密拧螺丝"
+                    "等高低难度复合任务。坚持沿途下蛋实战策略，依托全国50余个"
+                    "真实落地场景持续反哺模型迭代，在全国15+城市常态化运营，"
+                    "落地1000+项目，毫米级操作任务成功率99.9%以上，覆盖文旅/"
+                    "商业/智能制造/政务迎宾多元场景。",
+        key_metrics={"model": "DexForce W1 Pro",
+                     "generation": "第二代",
+                     "founder": "贾奎博士（港中深终身教授/全球Top2%科学家）",
+                     "valuation": "百亿估值独角兽",
+                     "full_stack_self_research": ["AI引擎", "视觉", "大脑", "本体"],
+                     "vision": "全自研双目纯视觉传感器",
+                     "vla_framework": "Sim2Real VLA（首创）",
+                     "training_data": "100%合成数据",
+                     "positioning_accuracy_mm": "±1",
+                     "force_control_sensitivity_n": 0.1,
+                     "total_dof": 40,
+                     "capabilities": ["咖啡制作", "糖画创作", "爆米花制作",
+                                      "精密拧螺丝", "高低难度复合任务"],
+                     "deployment_cities": 15,
+                     "deployment_projects": 1000,
+                     "deployment_scenarios": 50,
+                     "mm_task_success_rate_pct": 99.9,
+                     "application_areas": ["文旅景区", "商业商圈", "智能制造",
+                                           "政务迎宾"]},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="全链路自研+Sim2Real合成数据训练+±1mm/0.1N精度"
+                              "为人形机器人精细操作树立标杆，1000+项目落地",
+        deployment_ready=True,
+        tags=["跨维智能DexForce W1 Pro", "全链路自研", "Sim2Real VLA",
+              "±1mm定位", "0.1N力控", "40自由度", "99.9%成功率", "1000+项目落地"],
+    ),
+    AIProduct(
+        product_id="IR-010", name="比亚迪尧舜禹工业人形机器人（小迪）",
+        category=AICategory.INDUSTRIAL_ROBOT,
+        organization="比亚迪", country="中国",
+        description="比亚迪自研人形机器人，已累计投放约150台样机在深圳、长沙"
+                    "等基地实训，小迪机器人于8月在郑州全球首秀，依托比亚迪"
+                    "HyWorldVLA视觉语言动作模型与2300万智驾车队数据闭环训练。",
+        key_metrics={"series": "尧舜禹",
+                     "deployed_units": 150,
+                     "deployed_bases": ["深圳", "长沙"],
+                     "xiaodi_debut": "8月郑州全球首秀",
+                     "vla_model": "HyWorldVLA",
+                     "training_data_miles": "2300万智驾车队数据"},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="车企供应链优势赋能人形机器人量产，自动驾驶VLA"
+                              "架构迁移至人形机器人",
+        deployment_ready=False,
+        tags=["比亚迪尧舜禹", "小迪机器人", "150台样机", "HyWorldVLA",
+              "郑州首秀", "汽车人形机器人"],
+    ),
+    AIProduct(
+        product_id="IR-011", name="小鹏IRON人形机器人",
+        category=AICategory.INDUSTRIAL_ROBOT,
+        organization="小鹏汽车", country="中国",
+        description="小鹏汽车自研人形机器人，已进入广州工厂小批量试产阶段，"
+                    "量产进度超预期，依托小鹏汽车智能驾驶与智能制造技术积累。",
+        key_metrics={"model": "IRON",
+                     "production_status": "广州工厂小批量试产",
+                     "tech_source": "小鹏智驾+智能制造积累"},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="车企入局人形机器人加速产业规模化，智驾技术迁移",
+        deployment_ready=False,
+        tags=["小鹏IRON", "人形机器人", "小批量试产", "广州工厂", "车企入局"],
+    ),
+    AIProduct(
+        product_id="LLM-012", name="商汤ACE-Brain具身基础模型",
+        category=AICategory.AI_LLM,
+        organization="商汤科技", country="中国",
+        description="商汤正式开源的具身智能基础模型，适配全品类机器人，大幅"
+                    "降低国产具身智能开发门槛，为国产机器人提供统一大模型底座。",
+        key_metrics={"model": "ACE-Brain",
+                     "type": "具身基础模型",
+                     "license": "开源",
+                     "compatibility": "全品类机器人适配",
+                     "release_date": "8月1日"},
+        maturity=MaturityLevel.RESEARCH,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="开源具身基础模型为国产机器人大脑提供统一底座，"
+                              "降低开发门槛加速生态形成",
+        deployment_ready=True,
+        tags=["商汤ACE-Brain", "开源具身模型", "全品类机器人适配", "国产大模型"],
+    ),
+    AIProduct(
+        product_id="LLM-013", name="Google Gemini Robotics 2全身统一控制模型",
+        category=AICategory.AI_LLM,
+        organization="Google DeepMind", country="美国",
+        description="全球首个全身统一控制模型，一套AI同时搞定人形机器人走路、"
+                    "平衡、手臂精细操作，彻底解决以往软硬件割裂难题，"
+                    "标志着机器人控制从分离模块走向端到端统一。",
+        key_metrics={"model": "Gemini Robotics 2",
+                     "breakthrough": "全球首个全身统一控制模型",
+                     "unified_capabilities": ["行走", "平衡", "手臂精细操作"],
+                     "advantage": "解决软硬件割裂难题",
+                     "architecture": "端到端统一控制"},
+        maturity=MaturityLevel.RESEARCH,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="全身统一控制模型是具身智能重要技术方向，"
+                              "大幅简化机器人控制系统复杂度",
+        deployment_ready=False,
+        tags=["Gemini Robotics 2", "全身统一控制", "端到端机器人AI", "DeepMind"],
+    ),
+    AIProduct(
+        product_id="AG-023", name="OpenAI ChatGPT 8美元额度重置云服务模式",
+        category=AICategory.AI_AGENT,
+        organization="OpenAI", country="美国",
+        description="OpenAI推动ChatGPT从订阅制转向云服务模式，Plus用户（20美元/月）"
+                    "周额度耗尽后可支付8美元立即重置额度，跳过5小时冷却等待期，"
+                    "重置后周度周期顺延7天，Codex/ChatGPT Work/智能体工具共享同一"
+                    "使用池单次解锁全部产品，标志AI商业模式从纯订阅向订阅+按次"
+                    "增购云化转型。",
+        key_metrics={"model": "ChatGPT Plus额度重置",
+                     "plus_monthly_usd": 20,
+                     "reset_cost_usd": 8,
+                     "cooling_period_h": 5,
+                     "unlocks": ["ChatGPT对话", "Codex", "ChatGPT Work",
+                                 "智能体工具"],
+                     "business_model_shift": "订阅制→订阅+按次云服务",
+                     "nature": "购买时间免除冷却等待"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="AI服务云化计费模式可参考机器人即服务(RaaS)商业模式设计",
+        deployment_ready=True,
+        tags=["OpenAI", "ChatGPT", "8美元重置", "云服务商业模式", "订阅+按次"],
+    ),
+    AIProduct(
+        product_id="AG-024", name="Google Gemini Omni多模态创作模型",
+        category=AICategory.AI_AGENT,
+        organization="Google", country="美国",
+        description="Google I/O 2026推出的全新创作模型，首次将Gemini推理能力与"
+                    "创作能力深度融合，支持图像/文本/音频/视频自由组合输入，"
+                    "通过对话式交互直接编辑视频内容，可模拟重力/动能等物理效果，"
+                    "支持对话式视频剪辑与实时预览。Gemini Omni Flash首款型号"
+                    "已上线Gemini应用。",
+        key_metrics={"model": "Gemini Omni",
+                     "flash_model": "Gemini Omni Flash",
+                     "modalities": ["图像", "文本", "音频", "视频"],
+                     "capabilities": ["对话式视频编辑", "物理效果模拟（重力/动能）",
+                                     "实时预览", "多模态自由组合输入"],
+                     "release_status": "Gemini应用付费用户可用",
+                     "milestone": "从理解内容迈向实时创作与操控"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="多模态创作+物理效果模拟能力可用于机器人仿真训练"
+                              "场景生成与世界模型构建",
+        deployment_ready=True,
+        tags=["Gemini Omni", "多模态创作", "视频编辑AI", "物理模拟", "Google I/O 2026"],
+    ),
+    AIProduct(
+        product_id="NET-004", name="中国移动全国统一Token套餐资费",
+        category=AICategory.NETWORK_6G,
+        organization="中国移动", country="中国",
+        description="面向公众市场和政企市场推出全国统一Token套餐资费，聚焦高频场景、"
+                    "高价值客户，打造Token、模型、流量、终端、权益灵活组合按需"
+                    "订购科技服务组合，加速AIDC（AI数据中心）投产。",
+        key_metrics={"initiative": "全国统一Token套餐资费",
+                     "target_markets": ["公众市场", "政企市场"],
+                     "bundles": ["Token", "模型", "流量", "终端", "权益"],
+                     "model": "灵活组合按需订购",
+                     "infrastructure": "加速AIDC投产"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="运营商Token化计费为机器人云端AI服务规模化部署"
+                              "提供网络+算力一体化商业基础",
+        deployment_ready=True,
+        tags=["中国移动", "Token套餐", "全国统一资费", "AIDC", "AI服务订阅"],
+    ),
+    AIProduct(
+        product_id="CM-006", name="宇树科技2026年人形机器人累计下线1.25万台",
+        category=AICategory.COMMERCE,
+        organization="宇树科技", country="中国",
+        description="截至8月12日，宇树科技2026年人形机器人累计生产下线数量约"
+                    "12500台，月均出货量提升显著。8月10日科创板申购收官，发行价"
+                    "150.80元/股，发行市值约610亿元，从受理到申购不到5个月创年内"
+                    "最快IPO纪录；网上有效申购978.46万户刷新科创板历史，申购倍数"
+                    "8288倍，中签率0.0181%，DeepSeek获配约1.41亿元，腾讯等战略"
+                    "投资者入局。",
+        key_metrics={"company": "宇树科技",
+                     "2026_ytd_units": 12500,
+                     "ipo_price_rmb": 150.80,
+                     "ipo_market_cap_bn_rmb": 61,
+                     "ipo_speed_record": "受理到申购不到5个月",
+                     "subscribers_mn": 9.7846,
+                     "subscription_multiple": 8288,
+                     "winning_rate_pct": 0.0181,
+                     "deepseek_allocation_rmb_mn": 141,
+                     "strategic_investors": ["DeepSeek", "腾讯"]},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="万台级年下线标志着人形机器人正式进入规模化量产阶段，"
+                              "资本深度绑定加速产业发展",
+        deployment_ready=True,
+        tags=["宇树科技", "1.25万台下线", "科创板IPO", "610亿市值", "8288倍申购",
+              "DeepSeek战略投资", "腾讯投资"],
+    ),
+    AIProduct(
+        product_id="CO-009", name="联想集团AI服务器储备订单3600亿元",
+        category=AICategory.COMMERCE,
+        organization="联想集团", country="中国",
+        description="联想集团2026/27财年Q1营收269.43亿美元（约1834亿元）同比增长"
+                    "43%，经调整净利润10.75亿美元（约73亿元）同比增长176%，"
+                    "经调整净利润率4%。ISG基础设施方案业务营收579亿元同比增长"
+                    "98%，运营利润约53亿元同比增98%，AI服务器储备订单从上季"
+                    "1400亿元提高至3600亿元。",
+        key_metrics={"company": "联想集团",
+                     "quarter": "2026/27财年Q1",
+                     "revenue_usd_bn": 26.943,
+                     "revenue_yoy_growth_pct": 43,
+                     "adj_profit_usd_bn": 1.075,
+                     "adj_profit_yoy_growth_pct": 176,
+                     "adj_net_margin_pct": 4,
+                     "isg_revenue_rmb_bn": 57.9,
+                     "isg_revenue_yoy_pct": 98,
+                     "isg_op_profit_rmb_bn": 5.3,
+                     "isg_op_profit_yoy_pct": 98,
+                     "ai_server_backlog_rmb_bn": 360,
+                     "prev_backlog_rmb_bn": 140},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="AI服务器储备订单爆发式增长为机器人云端训练与"
+                              "推理算力基础设施提供充足供给",
+        deployment_ready=True,
+        tags=["联想集团", "AI服务器", "3600亿储备订单", "营收增长43%",
+              "净利增长176%", "ISG业务翻倍"],
+    ),
+    AIProduct(
+        product_id="AI-013", name="2026年中国AI芯片国产份额达90%",
+        category=AICategory.AI_GENERAL,
+        organization="中国半导体产业", country="中国",
+        description="受美国芯片出口限制和中国本土芯片产能扩张影响，AMD和NVIDIA"
+                    "在中国高端AI芯片市场份额2026年将降至10%，国产芯片占据90%。"
+                    "2026年中国国产AI芯片出货量预计达到500万片，中芯国际和"
+                    "上海华虹制造芯片未来几年出货量年复合增长率可达50%。"
+                    "2026年中国AI芯片总供应量约240-260万颗，需求量约450万颗，"
+                    "百万颗级供需缺口，2028年前难以闭合。华为升腾超130万颗、"
+                    "寒武纪50-60万颗、海光超30万颗。",
+        key_metrics={"year": 2026,
+                     "nvidia_amd_market_share_pct": 10,
+                     "domestic_market_share_pct": 90,
+                     "domestic_shipment_mn_units": 5,
+                     "smic_hhgrace_cagr_pct": 50,
+                     "total_supply_mn_units": "2.4-2.6",
+                     "total_demand_mn_units": 4.5,
+                     "supply_gap_mn_units": "1.9-2.1",
+                     "gap_close_year": 2028,
+                     "huawei_ascend_shipment_k": 1300,
+                     "cambricon_shipment_k": "500-600",
+                     "hygon_shipment_k": 300},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="国产AI芯片90%份额为机器人端侧/云端算力提供"
+                              "自主可控供应链保障，百万颗缺口带来产业机遇",
+        deployment_ready=True,
+        tags=["国产AI芯片", "90%份额", "500万片出货", "华为130万颗",
+              "百万颗缺口", "中芯国际", "国产替代"],
+    ),
+    AIProduct(
+        product_id="HC-013", name="ChatGPT健康功能",
+        category=AICategory.HEALTHCARE,
+        organization="OpenAI", country="美国",
+        description="ChatGPT推出全新健康体验，美国18岁以上免费/Go/Plus/Pro用户"
+                    "可安全连接受支持健康记录和Apple健康数据，通过仪表板查看健康"
+                    "信息并结合个人健康背景提问，支持化验结果/用药/活动/睡眠"
+                    "查看，可进行趋势探索/就诊准备/检查结果理解/健康目标追踪，"
+                    "对话不用于训练基础模型或定向广告。旨在辅助而非取代医疗服务。",
+        key_metrics={"product": "ChatGPT健康",
+                     "available_regions": "美国",
+                     "eligible_users": ["免费版", "ChatGPT Go", "Plus", "Pro"],
+                     "age_requirement": 18,
+                     "data_sources": ["健康记录", "Apple健康数据"],
+                     "features": ["化验结果查看", "用药管理", "活动追踪",
+                                  "睡眠监测", "健康趋势探索", "就诊准备",
+                                  "检查结果理解", "健康目标追踪"],
+                     "privacy": ["不用于基础模型训练", "不用于定向广告",
+                                 "多层隐私安全防护"]},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="健康数据AI分析模式可为医疗陪护机器人、健康监测"
+                              "机器人的人机对话与数据洞察设计提供参考",
+        deployment_ready=True,
+        tags=["ChatGPT健康", "AI健康助手", "Apple健康集成", "医疗AI",
+              "隐私保护"],
+    ),
+    AIProduct(
+        product_id="AGR-023", name="京东×时耘科技康养人形机器人合作",
+        category=AICategory.AGRICULTURE,
+        organization="京东×时耘科技", country="中国",
+        description="京东与时耘科技深度共建，时耘输出机器人本体硬件与运动控制"
+                    "能力，京东提供大模型作为智能大脑，共同发力康养赛道，落地"
+                    "医疗问询、情绪陪伴、疗愈康养辅助等功能，打造康养人形机器人"
+                    "解决方案。",
+        key_metrics={"parties": ["京东", "时耘科技"],
+                     "hardware": "时耘机器人本体+运动控制",
+                     "brain": "京东大模型",
+                     "focus_track": "康养赛道",
+                     "capabilities": ["医疗问询", "情绪陪伴", "疗愈康养辅助"]},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="互联网大厂+机器人本体厂商合作模式为具身智能商业化"
+                              "落地提供可复制路径",
+        deployment_ready=False,
+        tags=["京东时耘合作", "康养人形机器人", "医疗问询", "情绪陪伴",
+              "大模型+本体"],
+    ),
+    AIProduct(
+        product_id="ED-010", name="优必选U1预售破1.3万台",
+        category=AICategory.EDUCATION,
+        organization="优必选", country="中国",
+        description="优必选Walker U系列首款消费级全尺寸超仿生人形机器人U1"
+                    "预售订单突破13000台，Walker S系列在蔚来合肥工厂通过三个"
+                    "月实地验证获量产准入资格，首批20台编入生产序列执行车门锁"
+                    "检测与安全带安装任务。",
+        key_metrics={"model": "Walker U1",
+                     "preorder_units": 13000,
+                     "walker_s_factory": "蔚来合肥工厂",
+                     "walker_s_validation_months": 3,
+                     "walker_s_batch": 20,
+                     "walker_s_tasks": ["车门锁检测", "安全带安装"]},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="1.3万台预售+车企产线准入双轮驱动，标志人形机器人"
+                              "消费端与工业端同时规模化突破",
+        deployment_ready=False,
+        tags=["优必选U1", "1.3万台预售", "Walker S蔚来产线", "量产准入",
+              "消费级人形"],
+    ),
+    AIProduct(
+        product_id="LW-011", name="中芯国际2026Q2营收30亿美元增长36%",
+        category=AICategory.LIVELIHOOD,
+        organization="中芯国际", country="中国",
+        description="中芯国际2026年第二季度销售收入30.06亿美元同比增长36.06%，"
+                    "毛利7.61亿美元，毛利率25.3%（Q1为20.1%，去年同期20.4%），"
+                    "国产芯片制造产能持续扩张支撑AI芯片国产化。",
+        key_metrics={"company": "中芯国际",
+                     "quarter": "2026Q2",
+                     "revenue_usd_bn": 3.006,
+                     "revenue_yoy_pct": 36.06,
+                     "gross_profit_usd_bn": 0.761,
+                     "gross_margin_pct": 25.3,
+                     "prev_q_margin_pct": 20.1,
+                     "yoy_margin_pct": 20.4},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="晶圆代工产能扩张为机器人国产芯片提供制造基础",
+        deployment_ready=True,
+        tags=["中芯国际", "30亿美元营收", "增长36%", "毛利率25.3%", "国产晶圆代工"],
+    ),
+    AIProduct(
+        product_id="EN-016", name="华为8500mAh巨鲸电池技术",
+        category=AICategory.RENEWABLE_ENERGY,
+        organization="华为", country="中国",
+        description="华为新一代巨鲸电池技术，nova 16 SE首发搭载8500mAh超大容量，"
+                    "为nova系列史上最大电池，配合66W Turbo超级快充，在保持机身"
+                    "轻薄的同时实现超长续航，正常使用一天一充无压力，轻度使用"
+                    "两天续航。",
+        key_metrics={"tech": "巨鲸电池技术",
+                     "capacity_mah": 8500,
+                     "positioning": "nova系列最大电池",
+                     "charge_w": 66,
+                     "charge_tech": "Turbo超级快充",
+                     "battery_life": ["正常使用一天一充", "轻度使用两天"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="高能量密度电池技术为移动机器人续航提升提供参考",
+        deployment_ready=True,
+        tags=["华为巨鲸电池", "8500mAh", "66W快充", "nova 16 SE首发", "超长续航"],
+    ),
+    AIProduct(
+        product_id="HA-017", name="新思科技Synopsys自主化AI芯片设计工作流",
+        category=AICategory.HOME_APPLIANCE,
+        organization="新思科技×AMD×微软", country="美国",
+        description="新思科技推出面向芯片设计的全新自主化智能体AI工作流，与AMD"
+                    "联合开发，可在Microsoft Discovery平台评估，芯片开发周期"
+                    "缩短40%，人工智能从根本层面重塑工程格局，加速从芯片到系统"
+                    "全链路产品开发。",
+        key_metrics={"product": "自主化智能体AI芯片设计工作流",
+                     "developer": "新思科技",
+                     "co_developer": "AMD",
+                     "platform": "Microsoft Discovery",
+                     "dev_cycle_reduction_pct": 40,
+                     "scope": "从芯片到系统全链路"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="AI辅助芯片设计大幅缩短机器人专用芯片开发周期",
+        deployment_ready=True,
+        tags=["新思科技", "AI芯片设计", "AMD合作", "开发周期缩短40%", "智能体工作流"],
+    ),
+    AIProduct(
+        product_id="WC-005", name="北京首批31家人形机器人养老服务试点社区",
+        category=AICategory.WATER_CONSERVANCY,
+        organization="北京", country="中国",
+        description="2026世界机器人大会期间，首批31家人形机器人养老服务试点社区"
+                    "在北京正式挂牌，人形机器人正式进入社区养老服务场景，提供"
+                    "陪护、助行、健康监测等服务。",
+        key_metrics={"initiative": "人形机器人养老服务试点社区",
+                     "pilot_count": 31,
+                     "location": "北京",
+                     "services": ["陪护", "助行", "健康监测"],
+                     "context": "2026世界机器人大会"},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="人形机器人进入社区养老标志家政服务机器人规模化"
+                              "落地开始，真实场景反馈加速产品迭代",
+        deployment_ready=False,
+        tags=["人形机器人养老", "31家试点社区", "北京挂牌", "养老服务机器人",
+              "WRC2026"],
+    ),
+    AIProduct(
+        product_id="RE-008", name="浪潮信息2026年超节点利润预计超50亿",
+        category=AICategory.RENEWABLE_ENERGY,
+        organization="浪潮信息", country="中国",
+        description="浪潮信息2026年全年利润预计超50亿元，40倍PE对应约2000亿"
+                    "市值预期，AI服务器与超节点整机业务高速增长，在国产超节点"
+                    "市场预计占据30%份额。超节点海外单价约800万美元，2026年国内"
+                    "超节点渗透率提升至20%，华勤技术超节点收入预计突破100亿。",
+        key_metrics={"company": "浪潮信息",
+                     "2026_profit_rmb_bn_est": 5,
+                     "pe_ratio": 40,
+                     "market_cap_rmb_bn_est": 200,
+                     "supernode_market_share_pct": 30,
+                     "overseas_unit_price_usd_mn": 8,
+                     "china_penetration_2026_pct": 20,
+                     "huaqin_supernode_rev_rmb_bn": 10},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="AI超节点算力基础设施大规模建设为机器人VLA模型"
+                              "训练与集群推理提供算力保障",
+        deployment_ready=True,
+        tags=["浪潮信息", "50亿利润", "2000亿市值", "超节点30%份额", "AI算力基建"],
+    ),
+    AIProduct(
+        product_id="LM-013", name="Gemini 3.5 Flash成谷歌全系默认模型",
+        category=AICategory.WORLD_MODEL,
+        organization="Google", country="美国",
+        description="Gemini 3.5 Flash正式发布并成为Gemini全系列应用、谷歌搜索AI"
+                    "模式全球默认模型，即刻向全球数十亿用户开放，性能超越前代"
+                    "Gemini 3.1 Pro，速度快4倍、成本低一半，支持多步骤任务执行、"
+                    "自动整理信息、自动调用工具、自动搜索、自动生成代码与应用，"
+                    "主打高响应速度与实时交互体验。",
+        key_metrics={"model": "Gemini 3.5 Flash",
+                     "status": "谷歌全系默认模型",
+                     "user_scale": "全球数十亿用户",
+                     "perf_vs_31pro": "全面超越",
+                     "speed_gain_x": 4,
+                     "cost_reduction_pct": 50,
+                     "capabilities": ["多步骤任务执行", "自动整理信息",
+                                      "自动工具调用", "自动搜索",
+                                      "自动代码生成", "应用生成"],
+                     "optimization": "高响应速度/实时交互"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="高速低成本多模态模型为机器人实时推理与实时交互"
+                              "提供大模型选项",
+        deployment_ready=True,
+        tags=["Gemini 3.5 Flash", "谷歌默认模型", "快4倍", "成本减半",
+              "数十亿用户", "实时交互AI"],
+    ),
 ]
 
 
