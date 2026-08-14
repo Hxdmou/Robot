@@ -12774,6 +12774,352 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         tags=["蚌埠", "中国传感谷", "产值50.49亿", "增长15%",
               "200+企业", "8英寸MEMS", "米小庭", "全国第6位"],
     ),
+
+    # --- 6G/通信AI ---
+    AIProduct(
+        product_id="6G-011", name="英伟达6G AI-RAN时间表2027-2028进入试验网中国占全球基站制造60-70%",
+        category=AICategory.NETWORK_6G,
+        organization="NVIDIA+中国基站产业链", country="中国/美国",
+        description="据产业链消息，英伟达加速布局6G AI-RAN基站，希望2027或"
+                    "2028年进入试验网，2030年商用。英伟达在中国寻找基站合作"
+                    "厂商，深圳佳贤通信已被确认合作，通宇通讯3亿元收购佳贤"
+                    "25%股权。AI-RAN基站用通用GPU替代专用ASIC，通信闲时算力"
+                    "可跑AI任务，基站从'传输管道'变为'边缘算力节点'。全球"
+                    "5G/6G基站硬件制造60-70%集中在中国（深圳、东莞、上海、"
+                    "成都），即使诺基亚、爱立信产能也在中国由立讯/富士康代工。"
+                    "6G三大标志性技术：太赫兹通信（紫金山实验室实现1.2Tbps"
+                    "200米外场）、通感一体ISAC、星地融合（手机直连卫星）。"
+                    "英伟达2025年10月以10亿美元认购诺基亚2.9%股份合作开发6G。",
+        key_metrics={"initiative": "NVIDIA 6G AI-RAN基站",
+                     "trial_network_target": "2027-2028年",
+                     "commercial_target": "2030年",
+                     "china_partner": "深圳佳贤通信",
+                     "tongyu_acquisition": "3亿元收购佳贤25%股权",
+                     "china_share_of_global_base_station_mfg": "60%-70%",
+                     "china_manufacturing_clusters": ["深圳", "东莞", "上海", "成都"],
+                     "air_an_architecture": "通用GPU替代专用ASIC，通信+算力双功能",
+                     "6g_key_technologies": ["太赫兹通信(1.2Tbps@200m)",
+                                           "通感一体ISAC", "星地融合"],
+                     "nvidia_nokia_investment": "10亿美元持股2.9%"},
+        maturity=MaturityLevel.PROTOTYPE,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-09",
+        relevance_to_robotics="6G通感一体和边缘算力将为机器人提供"
+                              "超可靠低延迟通信和环境感知能力，AI-RAN"
+                              "基站可作为机器人边缘计算节点",
+        deployment_ready=False,
+        tags=["6G", "AI-RAN", "英伟达6G", "2028试验网", "基站中国占70%",
+              "通感一体", "太赫兹", "佳贤通信", "边缘算力"],
+    ),
+
+    AIProduct(
+        product_id="6G-012", name="海格通信6G布局完成低轨卫星全系列产品通感融合反无人机低空智联网应用",
+        category=AICategory.NETWORK_6G,
+        organization="海格通信", country="中国",
+        description="2026年8月7-9日，海格通信参加第十五届IEEE/CIC ICCC"
+                    "国际会议（武汉），展示6G布局成果：已形成低轨卫星"
+                    "互联网系列化芯片、模块、天线、终端完整产品体系，"
+                    "深度参与6G网络基础设施建设；通感融合产品已在特殊"
+                    "机构反无人机场景和低空智联网建设中实现应用；AI+"
+                    "无线通信方面自主研发智能通信设备实时识别通信环境"
+                    "自主生成最优波形，融合语义通信解决方案，展现AI原生"
+                    "技术实力。",
+        key_metrics={"company": "海格通信(002465)",
+                     "event": "ICCC 2026武汉国际通信会议",
+                     "event_date": "2026-08-07~09",
+                     "6g_capabilities": ["低轨卫星互联网芯片/模块/天线/终端全系列",
+                                        "通感融合反无人机应用", "低空智联网建设",
+                                        "AI原生通信波形生成", "语义通信"],
+                     "isac_applications": ["特殊机构反无人机", "低空智联网"]},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="通感一体和低轨卫星通信为无人机、户外"
+                              "移动机器人提供广域连接和环境感知能力",
+        deployment_ready=True,
+        tags=["海格通信", "6G布局", "低轨卫星", "通感融合", "反无人机",
+              "低空智联网", "AI原生通信", "ICCC 2026"],
+    ),
+
+    # --- 世界模型/具身智能仿真 ---
+    AIProduct(
+        product_id="WM-008", name="NVIDIA发布Cosmos世界模型+GR00T N1.6/N1.7 VLA+Isaac Lab 3.0+OSMO全栈具身智能平台",
+        category=AICategory.WORLD_MODEL,
+        organization="NVIDIA", country="美国",
+        description="2026年CES NVIDIA发布全新物理AI开放模型与框架："
+                    "1)Cosmos Transfer 2.5/Predict 2.5开放可定制世界模型，"
+                    "实现基于物理的合成数据生成和仿真策略评估；2)Cosmos "
+                    "Reason 2开放推理VLM，让智能机器像人一样看/理解/行动；"
+                    "3)Isaac GR00T N1.6开源推理VLA模型专为人形机器人全身"
+                    "控制，N1.7已开放早期访问带商业授权；4)Isaac Lab 3.0"
+                    "早期访问基于Newton 1.0物理引擎+PhysX，支持多物理场仿"
+                    "真和复杂灵巧操作；5)Isaac Lab-Arena开源大规模机器人"
+                    "策略评估基准框架；6)OSMO云原生编排框架统一机器人开发"
+                    "工作流。Boston Dynamics/Caterpillar/Franka/FANUC/"
+                    "ABB/KUKA/YASKAWA/Figure/1X/Agility等全球机器人巨头均"
+                    "采用NVIDIA平台。NVIDIA与Hugging Face将Isaac模型集成"
+                    "入LeRobot加速开源具身智能社区，Jetson T4000模块发布"
+                    "能效提升4倍。",
+        key_metrics={"organization": "NVIDIA",
+                     "new_releases": ["Cosmos Transfer/Predict 2.5世界模型",
+                                      "Cosmos Reason 2推理VLM",
+                                      "Isaac GR00T N1.6开源VLA（人形机器人）",
+                                      "Isaac GR00T N1.7早期访问（商业授权）",
+                                      "Isaac Lab 3.0（Newton 1.0+PhysX）",
+                                      "Isaac Lab-Arena基准评估框架",
+                                      "OSMO云原生编排框架",
+                                      "Jetson T4000（能效4倍）"],
+                     "ecosystem_partners": ["Boston Dynamics", "Caterpillar",
+                                           "Franka Robotics", "FANUC",
+                                           "ABB Robotics", "KUKA",
+                                           "YASKAWA", "Figure", "1X",
+                                           "Agility", "NEURA Robotics",
+                                           "AGIBOT智元", "Humanoid"],
+                     "hugging_face_integration": "Isaac模型集成入LeRobot",
+                     "physics_engine": "Newton 1.0 + PhysX",
+                     "vla_model_focus": ["人形全身控制", "灵巧操作",
+                                        "通用技能"]},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="NVIDIA全栈Physical AI平台是具身智能"
+                              "开发事实标准，世界模型+VLA模型+仿真框架"
+                              "直接支撑机器人训练-评估-部署全流程",
+        deployment_ready=True,
+        tags=["NVIDIA", "Cosmos世界模型", "GR00T N1.6", "VLA模型",
+              "Isaac Lab 3.0", "OSMO编排", "Newton物理引擎",
+              "Jetson T4000", "LeRobot", "物理AI"],
+    ),
+
+    AIProduct(
+        product_id="SIM-007", name="诺基亚上汽通用基于NVIDIA Isaac GR00T构建工业具身智能仿真平台训练速度提升10倍",
+        category=AICategory.WORLD_MODEL,
+        organization="诺基亚+上汽通用+NVIDIA", country="中国",
+        description="诺基亚与上汽通用基于NVIDIA Isaac GR00T Blueprint"
+                    "开发蓝图，依托Isaac Sim/Lab构建高保真工业具身智能"
+                    "仿真训练平台，突破工业场景数据采集成本高、特定工艺"
+                    "仿真难、虚实鸿沟等核心瓶颈。AI数据飞轮通过'数据采集-"
+                    "处理-训练-反馈-迭代'闭环融合真机数据与仿真合成数据，"
+                    "训练速度提升逾10倍，总体生产效率预计增长30-50%。以"
+                    "汽车玻璃底漆涂覆工序为例（涉挥发性化学物质），风险"
+                    "作业时间预计缩减30%。采用'真机实践+仿真模拟'双训练"
+                    "策略提升场景泛化能力。",
+        key_metrics={"partners": ["诺基亚", "上汽通用", "NVIDIA"],
+                     "platform": "NVIDIA Isaac GR00T Blueprint + Isaac Sim/Lab",
+                     "core_breakthroughs": ["数据采集成本大幅降低",
+                                          "训练速度提升10倍+",
+                                          "生产效率预计提升30-50%",
+                                          "风险作业时间缩减30%"],
+                     "use_case": "汽车玻璃底漆涂覆工序（涉危化品）",
+                     "training_strategy": "真机+仿真双训练策略",
+                     "data_flywheel": "采集-处理-训练-反馈-迭代闭环",
+                     "bottlenecks_solved": ["高数据采集成本", "特定工艺仿真难",
+                                          "虚实鸿沟"]},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-04-21",
+        relevance_to_robotics="工业具身智能仿真训练平台是机器人"
+                              "在制造业规模化落地关键基础设施，虚实"
+                              "迁移方案可推广至更多工业场景",
+        deployment_ready=False,
+        tags=["诺基亚", "上汽通用", "Isaac GR00T", "工业仿真",
+              "训练速度10倍", "效率提升50%", "汽车涂覆", "AI数据飞轮"],
+    ),
+
+    # --- 家电AI ---
+    AIProduct(
+        product_id="HA-018", name="智能家用电器质量安全风险分类评价指南GB/T 47777-2026发布2027年2月实施覆盖电器/功能/信息/隐私四大安全",
+        category=AICategory.HOME_APPLIANCE,
+        organization="国家市场监督管理总局", country="中国",
+        description="市场监管总局批准发布《智能家用电器质量安全风险分类"
+                    "评价指南》（GB/T 47777-2026）国家标准，2027年2月1日"
+                    "实施。该标准首次将智能家电质量安全风险分为四大类别："
+                    "电器安全（漏电起火等）、功能安全（机械夹伤/温控失灵）、"
+                    "信息安全（网络入侵/系统漏洞）、数据与隐私保护（用户"
+                    "隐私泄露/第三方违规读取数据），实现传统物理安全与新型"
+                    "数字安全双重保障，补齐智能设备信息安全隐私保护短板。",
+        key_metrics={"standard": "GB/T 47777-2026",
+                     "title": "智能家用电器质量安全风险分类评价指南",
+                     "issuer": "国家市场监督管理总局",
+                     "publish_date": "2026年8月",
+                     "implementation_date": "2027-02-01",
+                     "risk_categories": ["电器安全（漏电起火/机械危害）",
+                                        "功能安全（温控失灵/夹伤）",
+                                        "信息安全（网络入侵/漏洞）",
+                                        "数据与隐私保护（隐私泄露/违规读取）"],
+                     "significance": "传统物理安全+新型数字安全双重保障"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="智能家电安全标准同样适用于家用/服务"
+                              "机器人，信息安全和隐私保护是消费级机器"
+                              "人规模化部署必备合规基础",
+        deployment_ready=True,
+        tags=["智能家电国标", "GB/T 47777-2026", "信息安全", "隐私保护",
+              "四大安全类别", "2027年2月实施", "智能设备安全"],
+    ),
+
+    AIProduct(
+        product_id="HA-019", name="海尔L4级Seeker主动服务套系获行业首个L4认证AI之眼2.0全品类食材识别从执行指令到预测需求",
+        category=AICategory.HOME_APPLIANCE,
+        organization="海尔", country="中国",
+        description="海尔在AWE 2026发布L4级Seeker智慧套系，获中家院颁发"
+                    "行业首个L4级智能家电认证。搭载AI之眼2.0+智家大脑"
+                    "垂域大模型+UHomeOS操作系统，构建'感知-决策-执行'闭环。"
+                    "AI之眼2.0升级：识别范围从冷藏区230种扩展到冷藏+冷冻"
+                    "全品类覆盖；多模态融合理解复杂语义；毫秒级动态追踪。"
+                    "Seeker冰箱自动识别食材/位置/保鲜状态推送临期提醒推荐"
+                    "菜谱；烟灶系统溢锅前2秒自动调小火；洗衣机识别12种混"
+                    "色衣物防串色；空调毫秒级人体追踪风随人动，实现跨设备"
+                    "主动服务协同，标志家电从'被动执行'到'主动预判'跃迁。",
+        key_metrics={"brand": "海尔",
+                     "product_line": "L4级Seeker智慧套系",
+                     "certification": "中家院行业首个L4级智能家电认证",
+                     "core_tech": ["AI之眼2.0", "智家大脑垂域大模型",
+                                  "UHomeOS操作系统"],
+                     "ai_eye_2_upgrades": {"scope": "冷藏+冷冻全域全品类",
+                                           "modality": "视觉+语音多模态融合",
+                                           "latency": "毫秒级动态追踪"},
+                     "scenarios": {"refrigerator": ["食材识别", "临期提醒", "菜谱推荐"],
+                                   "stove": ["溢锅前2秒自动调火"],
+                                   "washer": ["12种混色识别防串色"],
+                                   "ac": ["毫秒级人体追踪风随人动"]},
+                     "level_4_meaning": "环境感知+需求预判+跨设备协同+无人干预执行"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-03-20",
+        relevance_to_robotics="家庭环境感知、跨设备协同决策、主动"
+                              "服务架构与家用服务机器人家政场景高度"
+                              "相似，L4分级体系可参考机器人智能分级",
+        deployment_ready=True,
+        tags=["海尔Seeker", "L4级主动服务", "AI之眼2.0", "智家大脑",
+              "跨设备协同", "主动预判需求", "行业首个L4认证"],
+    ),
+
+    AIProduct(
+        product_id="HA-020", name="格力EAi自研芯片出货超800万颗闻香技术AI空调蒸烤箱从感知气味到主动适配",
+        category=AICategory.HOME_APPLIANCE,
+        organization="格力电器", country="中国",
+        description="格力AWE 2026推出搭载自研EAi芯片（出货超800万颗）和"
+                    "'闻香技术'的AI家电体系：星厨蒸烤多能机内置气味传感器"
+                    "捕捉食材挥发性分子，判断熟度自动匹配温湿时间参数还原"
+                    "风味峰值；AI冷静王空调通过自研芯片毫秒级环境感知，学"
+                    "习用户习惯在体感不适前主动调节温湿度风向；明珠冰箱配"
+                    "备气味+视觉传感器监测肉类变质气体多端提醒，动态管理"
+                    "食材新鲜周期。格力定义为'原生AI'——AI出厂即具备大脑，"
+                    "从'你按键我干活'转变为'我懂你需要什么'。",
+        key_metrics={"brand": "格力电器",
+                     "core_chip": "自研EAi芯片",
+                     "ea_i_chip_shipment": "超800万颗",
+                     "core_technology": "闻香技术（气味传感+多模态感知）",
+                     "ai_products": {"steam_oven": "气味传感器判断熟度自动匹配参数",
+                                     "ac_cool_king": "毫秒级环境感知+用户习惯学习主动调温",
+                                     "mingzhu_fridge": "气味+视觉监测肉类变质提醒"},
+                     "philosophy": "原生AI——出厂即具备大脑，非外挂功能",
+                     "paradigm_shift": "从被动按键执行→主动懂你需求"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-03-20",
+        relevance_to_robotics="格力自研EAi芯片和气味传感主动适配技术"
+                              "为家政服务机器人环境感知和自主决策提供"
+                              "参考，原生AI理念同样适用于机器人",
+        deployment_ready=True,
+        tags=["格力", "EAi芯片", "自研芯片出货800万", "闻香技术",
+              "AI冷静王", "星厨蒸烤箱", "明珠冰箱", "原生AI"],
+    ),
+
+    AIProduct(
+        product_id="HA-021", name="美的酷省电Pro 2026爆款空调搭载AI省电算法双排冷凝器+电子膨胀阀销量领先",
+        category=AICategory.HOME_APPLIANCE,
+        organization="美的集团", country="中国",
+        description="美的酷省电Pro是2026年空调市场销量爆款，参考价1700-"
+                    "1900元，搭载AI省电算法夜间通宵开电费控制效果突出。"
+                    "硬件配置双排冷凝器+电子膨胀阀不缩水，支持高温自清"
+                    "洁，全国售后网点多。2026《财富》世界500强美的位列"
+                    "第231位（较上年再升15位，连续11年上榜累计跃升250位），"
+                    "2025年营收4585亿元、净利润439.5亿元双位数增长。美的"
+                    "作为智能家居互联互通标准核心编制单位，在上海美的全球"
+                    "创新园区主持接口标准会议，推进局域网互联互通。",
+        key_metrics={"product": "美的酷省电Pro空调",
+                     "price_range_rmb": "1700-1900",
+                     "core_features": ["AI省电算法", "双排冷凝器",
+                                      "电子膨胀阀", "高温自清洁"],
+                     "midea_fortune_500_2026_rank": 231,
+                     "rank_improvement_yoy": 15,
+                     "consecutive_listed_years": 11,
+                     "cumulative_rank_jump": 250,
+                     "2025_revenue_bn_rmb": 458.5,
+                     "2025_profit_bn_rmb": 43.95,
+                     "role_in_standard": "智能家居互联互通标准核心编制单位",
+                     "market_position": "2026年1.5匹空调销量爆款"},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="美的AI省电算法基于用户行为学习优化，"
+                              "类似机器人能耗管理和任务优化算法逻辑",
+        deployment_ready=True,
+        tags=["美的酷省电Pro", "AI省电算法", "双排冷凝器", "世界500强第231位",
+              "美的集团", "空调爆款", "1700元起", "智能家居标准编制"],
+    ),
+
+    # --- AI芯片/融资 ---
+    AIProduct(
+        product_id="CHIP-027", name="面壁智能提交IPO辅导端侧大模型第一股四年估值突破200亿元",
+        category=AICategory.AI_CHIP,
+        organization="面壁智能", country="中国",
+        description="2026年8月消息，端侧大模型企业面壁智能已提交IPO辅导，"
+                    "有望成为'端侧大模型第一股'。公司成立四年估值突破200"
+                    "亿元，专注端侧小模型和端侧AI推理技术，在端侧大模型"
+                    "压缩、推理加速、端云协同等领域有技术积累。端侧大模型"
+                    "市场因AI算力向边缘迁移迎来爆发，手机、机器人、汽车、"
+                    "IoT设备对端侧推理需求快速增长，端侧AI芯片和模型公司"
+                    "成为资本市场热点。",
+        key_metrics={"company": "面壁智能",
+                     "milestone": "提交IPO辅导，端侧大模型第一股候选",
+                     "valuation_bn_rmb": 200,
+                     "founded_years": 4,
+                     "focus": "端侧大模型/端侧推理/模型压缩/推理加速/端云协同",
+                     "market_driver": "AI算力从中心向边缘迁移",
+                     "target_devices": ["手机", "机器人", "汽车", "IoT设备"]},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="端侧大模型压缩和推理加速是机器人板载"
+                              "AI核心能力，面壁技术可用于机器人本体"
+                              "端侧推理部署",
+        deployment_ready=True,
+        tags=["面壁智能", "IPO辅导", "端侧大模型第一股", "估值200亿",
+              "端侧推理", "模型压缩", "机器人端侧AI"],
+    ),
+
+    # --- AI通用技术 ---
+    AIProduct(
+        product_id="GEN-003", name="AMD宣布斥资20亿美元收购以色列Taalas AGI初创强化AI推理能力",
+        category=AICategory.AI_GENERAL,
+        organization="AMD+Taalas", country="美国/以色列",
+        description="2026年8月13日消息，AMD宣布斥资20亿美元收购以色列"
+                    "AGI初创公司Taalas，强化AI推理能力布局。Taalas专注"
+                    "AI推理加速技术，收购将帮助AMD在数据中心和边缘AI推"
+                    "理市场与NVIDIA竞争。近期AI算力领域大额并购频现："
+                    "Anthropic拟60亿美元收购Decart，大模型和AI芯片公司"
+                    "整合加速，产业格局向头部集中。",
+        key_metrics={"acquirer": "AMD",
+                     "target": "Taalas（以色列AGI初创）",
+                     "deal_value_bn_usd": 2,
+                     "target_tech": "AI推理加速技术",
+                     "strategic_goal": "强化AI推理能力与NVIDIA竞争",
+                     "other_recent_deals": ["Anthropic拟60亿美元收购Decart"],
+                     "trend": "AI算力/大模型产业整合加速向头部集中"},
+        maturity=MaturityLevel.RESEARCH,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="AI推理芯片竞争加剧将降低机器人推理"
+                              "硬件成本，更多算力选择有利于具身智能"
+                              "规模化部署",
+        deployment_ready=False,
+        tags=["AMD", "Taalas收购", "20亿美元", "以色列AI初创",
+              "AGI推理加速", "AI芯片竞争", "产业整合"],
+    ),
 ]
 
 
