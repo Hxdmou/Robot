@@ -27,6 +27,13 @@ AI全景注册表 - V1.2
 from typing import List, Dict, Optional, Any
 from dataclasses import dataclass, field
 from enum import Enum
+import sys
+import os
+
+# 新内容资讯统一目录（V3.12 用户指定）
+_NEW_CONTENT_DIR = r"F:\个人作品\新内容资讯"
+if _NEW_CONTENT_DIR not in sys.path:
+    sys.path.insert(0, _NEW_CONTENT_DIR)
 
 
 class AICategory(Enum):
@@ -13125,7 +13132,13 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
 
 class AILandscapeRegistry:
     def __init__(self):
-        self._db = AI_LANDSCAPE_DB
+        self._db = list(AI_LANDSCAPE_DB)
+        # 自动合并各轮补充注册表（V3.11单文件2000行上限规则）
+        try:
+            from ai_landscape_registry_r9 import AI_LANDSCAPE_DB_R9
+            self._db.extend(AI_LANDSCAPE_DB_R9)
+        except Exception:
+            pass
         self._index_by_category: Dict[str, List[AIProduct]] = {}
         self._index_by_country: Dict[str, List[AIProduct]] = {}
         self._build_indices()
