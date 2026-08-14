@@ -3333,26 +3333,49 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         product_id="CP-011", name="Google第八代TPU 8t/8i训练推理双芯片",
         category=AICategory.AI_COMPUTE,
         organization="Google", country="美国",
-        description="Google发布第八代TPU芯片，包含TPU 8t（训练专用）"
-                    "和TPU 8i（推理专用）两款型号，标志着AI算力芯片"
-                    "进入训练推理专用化分工新时代。TPU 8t单芯片FP8算力"
-                    "达8192 TFLOPS，HBM4内存带宽27.6 TB/s，支持超大规模"
-                    "集群扩展（单Pod 65536芯片）。TPU 8i针对低延迟推理"
-                    "优化，INT8算力65536 TOPS，能效比前代提升3.2倍，"
-                    "支持MXFP4/MXFP8数值格式优化。已在Google Cloud"
-                    "超大规模数据中心部署，支撑Gemini系列大模型训练"
-                    "和全球推理服务。",
+        description="Google发布第八代TPU芯片，首次训练推理彻底分家："
+                    "TPU 8t（博通合作）专攻大模型训练，TPU 8i（联发科合作）"
+                    "聚焦推理服务，均采用台积电2nm制程，搭配谷歌自研Arm"
+                    "架构Axion CPU，第四代液冷。TPU 8t单逻辑集群可容纳"
+                    "9600枚芯片共享2PB超大带宽内存，芯片间互联带宽翻番，"
+                    "总算力121 ExaFlops；整体性能比第七代Ironwood提升近3倍，"
+                    "每瓦性能最高翻2倍；自带SparseCore加速器，原生支持FP4"
+                    "精度；搭载实时遥测监控+光路电路交换OCS，自动检测绕过"
+                    "故障链路重构拓扑。TPU 8i专为破解推理内存墙设计，"
+                    "配备288GB高带宽HBM+384MB片上SRAM（SRAM容量为上代3倍），"
+                    "模型核心工作集驻留片上延迟砍半；分层Boardfly网络拓扑，"
+                    "4芯片为基础单元/36单元成集群，任意两芯片通信最多7跳，"
+                    "集合通信加速引擎使片上通信延迟再降5倍；相比上代性价比"
+                    "提升80%，每瓦性能提升117%。首次原生支持PyTorch 2.x。"
+                    "2026年下半年开放使用，2027年底量产，支撑Gemini系列。",
         key_metrics={"generation": "第八代",
-                     "train_model": "TPU 8t",
-                     "infer_model": "TPU 8i",
-                     "t8_fp8_tflops": 8192,
-                     "t8_hbm4_bandwidth_tbs": 27.6,
-                     "t8_pod_chips": 65536,
-                     "i8_int8_tops": 65536,
-                     "i8_efficiency_gain_x": 3.2,
-                     "i8_numerical_formats": ["MXFP4", "MXFP8"],
-                     "deployment": "Google Cloud全球数据中心",
-                     "supporting_models": "Gemini系列"},
+                     "process_node": "台积电2nm",
+                     "train_model": "TPU 8t（与博通合作）",
+                     "infer_model": "TPU 8i（与联发科合作）",
+                     "t8_cluster_chips": 9600,
+                     "t8_cluster_memory_pb": 2,
+                     "t8_total_flops": "121 ExaFlops FP8",
+                     "t8_perf_gain_x": 3,
+                     "t8_perf_per_watt_gain_x": 2,
+                     "t8_sparsecore": True,
+                     "t8_fp4_native": True,
+                     "t8_self_healing": "OCS光路电路交换自动重构",
+                     "i8_hbm_gb": 288,
+                     "i8_sram_mb": 384,
+                     "i8_sram_gain_x": 3,
+                     "i8_latency_reduction_pct": 50,
+                     "i8_boardfly_topology": True,
+                     "i8_collective_comm_latency_reduction_x": 5,
+                     "i8_cost_perf_gain_pct": 80,
+                     "i8_perf_per_watt_gain_pct": 117,
+                     "pytorch_2_native": True,
+                     "cpu": "自研Axion Arm CPU",
+                     "cooling": "第四代液冷",
+                     "availability": "2026下半年开放使用",
+                     "mass_production": "2027年底",
+                     "ai_capex_2026_usd_bn": "1750-1850",
+                     "ai_generated_code_pct": 75,
+                     "supporting_models": "Gemini系列大模型"},
         maturity=MaturityLevel.MASS_PRODUCTION,
         source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-14",
@@ -4058,6 +4081,85 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                               "面单调整能力体现精细操作水平",
         deployment_ready=False,
         tags=["物流分拣", "面单翻转", "工业机器人", "双臂协作"],
+    ),
+    AIProduct(
+        product_id="HR-020", name="优必选U1消费级全尺寸超仿生人形机器人",
+        category=AICategory.HUMANOID_ROBOT,
+        organization="优必选", country="中国",
+        description="优必选Walker U系列首款消费级全尺寸超仿生人形机器人，"
+                    "以消费电子级量产标准打造，对标万元级高配手机市场定价。"
+                    "实现高自由度仿生肢体运动、高灵敏环境感知、自然流畅"
+                    "人机交互。依托优必选Walker系列工业级双足人形机器人"
+                    "技术积累，将核心能力下沉至消费级市场。",
+        key_metrics={"series": "Walker U系列",
+                     "segment": "消费级全尺寸超仿生人形",
+                     "positioning": "对标万元级高配手机",
+                     "mass_production_standard": "消费电子级量产"},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="标志着全尺寸人形机器人正式进入消费级市场，"
+                              "采用消费电子级量产标准将大幅降低成本",
+        deployment_ready=False,
+        tags=["优必选U1", "消费级人形", "全尺寸超仿生", "Walker U系列",
+              "万元级人形机器人", "消费电子级量产"],
+    ),
+    AIProduct(
+        product_id="HR-021", name="宇树科技×DeepSeek战略合作（IPO基石配售）",
+        category=AICategory.HUMANOID_ROBOT,
+        organization="宇树科技×DeepSeek", country="中国",
+        description="双方确立双向优先采购与长期技术协同机制：DeepSeek"
+                    "将为宇树具身智能业务提供全系列大模型优先供应与"
+                    "专项技术支持，宇树则将DeepSeek列为机器人场景首选"
+                    "模型合作伙伴，协同推进多模态感知、运动控制、VLA"
+                    "大模型在机器人端侧落地。",
+        key_metrics={"cooperation_scope": ["双向优先采购", "长期技术协同",
+                                            "模型优先供应", "专项技术支持"],
+                     "preferred_partner_mutual": True,
+                     "focus_areas": ["多模态感知", "运动控制", "VLA大模型",
+                                     "端侧部署"]},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="中国头部具身智能硬件企业与头部大模型企业"
+                              "深度绑定，形成软硬件协同生态，加速VLA落地",
+        deployment_ready=True,
+        tags=["宇树DeepSeek", "战略合作", "基石配售", "双向优先采购",
+              "VLA大模型", "端侧部署", "软硬协同"],
+    ),
+    AIProduct(
+        product_id="HR-022", name="蓝芯算力LX500/RISC-V机器人大脑方案",
+        category=AICategory.HUMANOID_ROBOT,
+        organization="蓝芯算力（元脑新动力）", country="中国",
+        description="基于进迭时空RISC-V芯片推出的具身大脑平台方案，"
+                    "以LX500主板、扩展板和载板为核心形态，支持多形态"
+                    "机器人产品快速打造，可覆盖从小型教育机器人到大型"
+                    "工业人形机器人的全场景需求。LX500主板采用K3核心板，"
+                    "板载自研高带宽算力总线，搭载64TOPS算力和丰富接口"
+                    "资源，支持多板级联扩展，算力可堆叠至200TOPS以上。"
+                    "板卡最小仅手掌大小，支持Wi-Fi6E、2.5G网络、视频"
+                    "输入输出，预留miniPCIE和M.2 E-key拓展接口。已适配"
+                    "OpenClaw、Ollama、ROS机器人操作系统。",
+        key_metrics={"core_chip": "进迭时空K3",
+                     "core_board": "LX500主板",
+                     "form_factor": "主板+扩展板+载板",
+                     "single_board_tops": 64,
+                     "stacked_tops": "200TOPS+（多板级联）",
+                     "bus": "自研高带宽算力总线",
+                     "size": "手掌大小",
+                     "connectivity": ["Wi-Fi6E", "2.5G网络", "视频输入输出"],
+                     "expansion": ["miniPCIE", "M.2 E-key"],
+                     "software_compat": ["OpenClaw", "Ollama", "ROS"],
+                     "scenarios": ["教育机器人", "工业人形机器人",
+                                   "全场景机器人"]},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="基于RISC-V的全栈具身大脑方案，开放生态，"
+                              "支持ROS，覆盖全尺寸人形机器人算力需求",
+        deployment_ready=True,
+        tags=["蓝芯算力LX500", "RISC-V具身大脑", "进迭时空K3", "64TOPS",
+              "200TOPS级联", "ROS", "OpenClaw", "Ollama"],
     ),
     AIProduct(
         product_id="AG-021", name="WorkBuddy桌面智能体",
@@ -6405,7 +6507,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                      "color_tech": "光致变色后盖（特殊版）",
                      "release_date": "2026年9月"},
         maturity=MaturityLevel.COMMERCIAL,
-        source="中关村在线/雷科技/36氪 2026年7-8月", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="2nm旗舰芯片端侧AI算力"
                               "可运行机器人本地大模型推理，"
@@ -6458,7 +6560,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                      "os": "澎湃OS 4",
                      "release_date": "2026年9月"},
         maturity=MaturityLevel.COMMERCIAL,
-        source="中关村在线/雷科技 2026年7-8月", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="双2亿像素+LOFIC方案可为"
                               "机器人高精度视觉模组提供参考，"
@@ -6528,7 +6630,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                      "colors": ["深樱桃红", "深空灰", "浅蓝", "银色"],
                      "release_date": "2026年9月9日"},
         maturity=MaturityLevel.COMMERCIAL,
-        source="PhoneArena/中关村在线/环球网/太平洋科技 2026年7-8月", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="A20 Pro神经网络引擎可为"
                               "机器人端侧AI推理提供算力参考，"
@@ -6586,7 +6688,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                      "special_color": "深樱桃红",
                      "release_date": "2026年9月9日"},
         maturity=MaturityLevel.COMMERCIAL,
-        source="PhoneArena/中关村在线/太平洋科技 2026年7-8月", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="钛合金工艺和6倍潜望长焦"
                               "技术可参考机器人结构设计与远距视觉方案",
@@ -6639,7 +6741,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                      "price_usd": "1999-2500",
                      "release_date": "2026年9月发布/2027年初上市"},
         maturity=MaturityLevel.COMMERCIAL,
-        source="中关村在线/中华网/PhoneArena 2026年7-8月", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="折叠屏铰链和柔性显示"
                               "技术可用于机器人可变形"
@@ -7139,7 +7241,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                      "price_increase": "较上代涨超1000元（内存+2nm成本）",
                      "release_date": "2026年第四季度（Q4）"},
         maturity=MaturityLevel.COMMERCIAL,
-        source="中关村在线/太平洋科技/雷科技 2026年7-8月", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="2nm中端旗舰芯片为机器人"
                               "主控板提供低功耗高性能参考方案，"
@@ -7152,29 +7254,49 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         product_id="MC-040", name="荣耀Robot Phone量产机器人手机",
         category=AICategory.MOBILE_COMPUTER,
         organization="荣耀", country="中国",
-        description="全球首款实现量产的机器人手机，2026年8月12日"
-                    "正式发布开启预约，预约总量已突破20万。突破传统"
+        description="全球首款实现量产的机器人手机，突破传统"
                     "智能手机方正机身设计限制，将机器人级别四自由度"
                     "机械臂集成至轻薄机身内部。自研钛合金灵巧云台为"
-                    "整机核心亮点，闲置时摄像模组完全收纳进机身保持"
-                    "简洁一体化；拍摄状态一键弹出，支持多角度灵活"
-                    "调整机位，解决自拍/远景运镜/低角度拍摄局限。"
-                    "首发盾构钢翻转电机（荣耀自研2100MPa盾构钢），"
-                    "0.5cm³空间堆叠43个零件，实现5级变速，最大扭矩"
-                    "密度达120N·m/L。全金属一体成型机身，厚度9.59mm，"
-                    "重量248g。专属多模态具身交互Agentic OS系统，"
-                    "影像系统联合好莱坞阿莱（ARRI）调校，具备好莱坞"
-                    "级影像表现。影像智能体支持云台自动构图、AI直播"
-                    "追焦、视频通话追焦。发布YOYO技能商店，一键安装"
+                    "整机核心亮点，集成100余个精密零件，核心电机仅重2.6g"
+                    "体积比具身灵巧手关节电机缩小34%，加工精度±0.005mm，"
+                    "三轴最大控制转速360°/s。闲置时摄像模组完全收纳进机身"
+                    "保持简洁一体化；拍摄状态一键弹出，支持多角度灵活"
+                    "调整机位，自动构图/AI直播追焦/视频通话追焦。"
+                    "首发盾构钢翻转电机，0.5cm³空间堆叠43个零件，5级变速，"
+                    "最大扭矩密度120N·m/L。6.31英寸1.5K OLED直屏（深天马"
+                    "独家供应天工屏），1-120Hz LTPO自适应刷新率，峰值亮度"
+                    "6800nits，4320Hz超高频PWM调光，94.58%屏占比，AI绿洲护眼"
+                    "（AI离焦护眼/AI干眼友好/AI助眠显示）。全金属一体成型机身，"
+                    "厚度9.59mm。专属多模态具身交互Agentic OS（联合阿里千问"
+                    "大模型共创），YOYO机器人模式具备感知-规划-推理-执行-反馈"
+                    "完整闭环，支持手势识别/情感识别/随音而舞。影像系统联合"
+                    "好莱坞阿莱ARRI调校，引入纯正ARRI LogC3曲线与11种"
+                    "ARRI Looks色彩方案，实现好莱坞级电影质感。"
+                    "7060mAh新一代青海湖电池。发布YOYO技能商店，一键安装"
                     "即用，超100个系统资源开放。与矽递科技将机器人"
                     "方案开源，用户可3D打印机器人外壳、安装Robot kit、"
                     "加载Robot skill打造自有机器人方案。影像系统将"
-                    "延展至Magic9等后续产品。",
+                    "延展至9月发布的Magic9系列。8月18日正式开售。",
         key_metrics={"series": "荣耀Robot Phone",
-                     "release_date": "2026年8月12日",
-                     "reservation_count": 200000,
+                     "screen_supplier": "深天马独家供应（天工屏高端OLED）",
+                     "screen_size": "6.31英寸",
+                     "screen_resolution": "1.5K",
+                     "screen_type": "OLED直屏",
+                     "screen_refresh_hz": "1-120 LTPO自适应",
+                     "screen_peak_brightness_nits": 6800,
+                     "screen_pwm_hz": 4320,
+                     "screen_to_body_ratio_pct": 94.58,
+                     "screen_eye_care": ["AI离焦护眼", "AI干眼友好", "AI助眠显示"],
+                     "chip": "第五代骁龙8至尊版移动平台",
+                     "battery_mah": 7060,
+                     "battery_tech": "新一代青海湖电池",
                      "mechanical_dof": 4,
                      "gimbal_material": "钛合金灵巧云台",
+                     "gimbal_parts": 100,
+                     "gimbal_motor_weight_g": 2.6,
+                     "gimbal_motor_vol_reduction_pct": 34,
+                     "gimbal_precision_mm": "±0.005",
+                     "gimbal_max_speed_dps": 360,
                      "gimbal_storage": "完全收纳进机身（闲置时）",
                      "gimbal_popup": "一键弹出拍摄",
                      "motor_tech": "盾构钢翻转电机",
@@ -7183,29 +7305,40 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
                      "motor_gears": 5,
                      "motor_torque_density": "120N·m/L",
                      "thickness_mm": 9.59,
-                     "weight_g": 248,
-                     "body": "全金属一体成型",
-                     "os": "Agentic OS（多模态具身交互）",
-                     "camera_partner": "阿莱ARRI（好莱坞）",
-                     "imaging_grade": "好莱坞级电影工业创作能力",
-                     "ai_imaging": ["自动构图", "AI直播追焦", "视频通话追焦"],
+                     "ram_gb": [12, 16],
+                     "rom_gb": [512, 1024],
+                     "storage_options": ["12GB+512GB 9999元", "16GB+1TB 12999元"],
+                     "price_start_rmb": 9999,
+                     "price_top_rmb": 12999,
+                     "onsale_date": "8月18日",
+                     "os": "Agentic OS（多模态具身交互，联合千问大模型共创）",
+                     "yoyo_mode": "感知-规划-推理-执行-反馈完整闭环",
+                     "multimodal_interaction": ["手势识别", "情感识别", "随音而舞"],
+                     "camera_partner": "阿莱ARRI（好莱坞百年电影工业）",
+                     "arri_logc3": True,
+                     "arri_looks_count": 11,
+                     "imaging_grade": "好莱坞级电影质感",
+                     "ai_imaging": ["自动构图", "AI直播追焦", "视频通话追焦", "你说TA拍自动运镜"],
                      "app_store": "YOYO技能商店",
                      "open_resources": 100,
                      "open_source": "与矽递科技开源机器人方案",
                      "open_source_features": ["3D打印外壳", "Robot kit", "Robot skill"],
-                     "future_products": "Magic9系列延续影像系统"},
+                     "communication": "荣耀鸿燕通信系统",
+                     "future_products": "Magic9系列（9月发布）延续阿莱影像+聪明YOYO"},
         maturity=MaturityLevel.COMMERCIAL,
         source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-14",
         relevance_to_robotics="四自由度机械臂+钛合金灵巧云台"
-                              "直接应用机器人级机械结构，"
-                              "Agentic OS具身交互系统为机器人"
-                              "人机交互设计提供参考，开源机器人方案"
-                              "可直接用于机器人教学与二次开发",
+                              "直接应用机器人级精密机械结构（加工精度"
+                              "±0.005mm，360°/s转速），Agentic OS"
+                              "具身交互系统为机器人-人交互设计提供参考，"
+                              "开源机器人方案可直接用于机器人教学与二次开发",
         deployment_ready=False,
         tags=["荣耀Robot Phone", "机器人手机", "四自由度机械臂",
               "钛合金灵巧云台", "盾构钢电机", "120Nm/L扭矩密度",
-              "阿莱ARRI", "Agentic OS", "开源机器人", "YOYO技能商店"],
+              "阿莱ARRI", "ARRI LogC3", "Agentic OS", "千问大模型",
+              "开源机器人", "YOYO技能商店", "深马天工屏", "7060mAh青海湖电池",
+              "9999元起", "8月18日开售"],
     ),
     AIProduct(
         product_id="MD-017", name="华为WATCH ULTIMATE DESIGN非凡大师星钻版",
