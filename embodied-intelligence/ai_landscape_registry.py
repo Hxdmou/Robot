@@ -12403,6 +12403,377 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         tags=["智能外骨骼增长458%", "智能眼镜增长151%", "机器人出口1294万台",
               "248.5亿元", "160国家", "AI消费硬件爆发"],
     ),
+
+    # --- AI大模型 ---
+    AIProduct(
+        product_id="LLM-048", name="谷歌发布Gemini 3.7 Flash编程与Agent能力大幅提升API价格腰斩",
+        category=AICategory.AI_LLM,
+        organization="Google DeepMind", country="美国",
+        description="美国当地时间2026年8月13日，谷歌推出Gemini 3.7 Flash，"
+                    "距离3.6 Flash发布仅三周。本次升级重点在编程、智能体应用、"
+                    "Web开发和复杂知识工作，谷歌称之为'迄今为止编码和智能体"
+                    "领域最智能的Flash级主力模型'。FrontierCode 1.1 Main得分"
+                    "43.6%击败Claude Sonnet 5（42.7%）和GPT-5.6 Terra（41.3%），"
+                    "DeepSWE v1.1从48.6%提升至65.3%，AutomationBench-AA达62.7%"
+                    "领先Kimi K3和GPT-5.6 Sol。支持文本/图像/音频/视频多模态输入，"
+                    "上下文窗口100万Token，输出上限提升至64K Token，可调整思考配置"
+                    "平衡质量/成本/延迟。2026年底前API入门价格减半：输入0.75美元/百万Token，"
+                    "输出3.75美元/百万Token。可实现文本生成3D游戏、PDF转动态网页、"
+                    "辅助机器人训练等多智能体协同场景，安全分诊189个真实威胁实现100%捕获率。",
+        key_metrics={"model": "Gemini 3.7 Flash",
+                     "organization": "Google DeepMind",
+                     "release_date": "2026-08-13",
+                     "context_window_tokens": 1000000,
+                     "output_tokens_max": 64000,
+                     "input_price_per_million_usd": 0.75,
+                     "output_price_per_million_usd": 3.75,
+                     "price_valid_until": "2026-12-31",
+                     "benchmarks": {"FrontierCode_1_1": "43.6% (击败Sonnet5/GPT5.6Terra)",
+                                    "DeepSWE_v1_1": "65.3% (vs 3.6 48.6%)",
+                                    "AutomationBench_AA": "62.7%",
+                                    "AA_AnalystAgent": "60% pass"},
+                     "multimodal_inputs": ["文本", "图像", "音频", "视频"],
+                     "key_improvements": ["自适应障碍处理", "多步骤规划深入思考",
+                                          "减少死循环重试", "生产级代码质量提升"],
+                     "agent_use_cases": ["智能体工作流", "编程开发", "Web开发",
+                                        "复杂知识工作", "机器人训练辅助", "安全分诊"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="Gemini 3.7 Flash在智能体工具调用和多模态理解"
+                              "能力的提升，可用于机器人多智能体协同决策、"
+                              "视觉感知任务规划等具身智能场景",
+        deployment_ready=True,
+        tags=["Gemini 3.7 Flash", "谷歌", "智能体主力模型", "价格腰斩",
+              "FrontierCode 43.6%", "100万上下文", "64K输出", "多模态Agent"],
+    ),
+
+    AIProduct(
+        product_id="LLM-049", name="OpenAI为GPT-5.6 Sol推出Ultrafast模式处理速度提升14倍",
+        category=AICategory.AI_LLM,
+        organization="OpenAI", country="美国",
+        description="2026年8月14日，OpenAI宣布为GPT-5.6 Sol推出全新Ultrafast"
+                    "（超快）模式，处理速度提升14倍，面向部分客户开放。新"
+                    "模式针对高频低延迟场景优化，大幅提升推理响应速度，适合"
+                    "实时智能体、代码补全、交互式对话等需要毫秒级响应的应用。"
+                    "OpenAI同时对免费用户开放ChatGPT文本对话无限量使用，并"
+                    "新增推理滑块允许用户在速度和质量之间灵活权衡。此前8月"
+                    "6日OpenAI刚发布GPT-5.6 Sol，加入推理滑块等功能。",
+        key_metrics={"model": "GPT-5.6 Sol Ultrafast",
+                     "organization": "OpenAI",
+                     "release_date": "2026-08-14",
+                     "speed_improvement": "14倍",
+                     "availability": "部分客户开放",
+                     "new_features": ["推理滑块（速度/质量权衡）", "免费用户无限文本聊天"],
+                     "target_scenarios": ["实时智能体", "代码补全", "交互式对话",
+                                         "低延迟高频调用", "实时响应系统"]},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="14倍速推理模式为机器人实时控制、低延迟"
+                              "决策提供了更强端侧/云侧响应能力",
+        deployment_ready=True,
+        tags=["GPT-5.6 Sol", "OpenAI", "Ultrafast模式", "提速14倍",
+              "实时推理", "推理滑块"],
+    ),
+
+    AIProduct(
+        product_id="LLM-050", name="Needle 2仅14MB工具调用模型可在手机机器人微控制器上运行",
+        category=AICategory.AI_LLM,
+        organization="Cactus Compute", country="美国",
+        description="2026年8月10日，Cactus Compute发布Needle 2，一个仅14MB"
+                    "大小、4500万参数的工具调用模型，可在手机、机器人和"
+                    "微控制器等资源受限硬件上运行。Needle 2专为智能体场景"
+                    "设计，在极小体积下实现可靠的工具调用能力，为边缘端"
+                    "AI Agent提供了可行方案，打破了端侧智能体必须依赖大"
+                    "模型的固有认知。",
+        key_metrics={"model": "Needle 2",
+                     "organization": "Cactus Compute",
+                     "release_date": "2026-08-10",
+                     "binary_size_mb": 14,
+                     "parameters_m": 45,
+                     "capability": "工具调用/Agent",
+                     "target_hardware": ["手机", "机器人", "微控制器", "MCU"],
+                     "significance": "极小体积端侧Agent可行性验证"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="14MB超小模型可直接部署在机器人微控制器"
+                              "上，实现板级实时工具调用和本地决策，降低"
+                              "具身智能对云端依赖",
+        deployment_ready=True,
+        tags=["Needle 2", "端侧大模型", "14MB", "机器人MCU",
+              "边缘Agent", "工具调用", "Cactus Compute"],
+    ),
+
+    AIProduct(
+        product_id="LLM-051", name="NVIDIA Alpamayo 2 Super 34B开放VLA模型面向机器人出租车自动驾驶",
+        category=AICategory.AI_LLM,
+        organization="NVIDIA", country="美国",
+        description="2026年8月4日，NVIDIA发布Alpamayo 2 Super，这是英伟达"
+                    "迄今最大的开放视觉-语言-动作（VLA）模型，参数规模34B，"
+                    "面向生产级机器人出租车和自动驾驶应用。VLA模型是具身"
+                    "智能核心技术，可同时处理视觉感知、语言理解和动作输出，"
+                    "英伟达开放该模型将加速自动驾驶和机器人领域VLA技术研究。",
+        key_metrics={"model": "NVIDIA Alpamayo 2 Super",
+                     "organization": "NVIDIA",
+                     "release_date": "2026-08-04",
+                     "parameters_b": 34,
+                     "model_type": "VLA视觉-语言-动作模型",
+                     "openness": "开放权重",
+                     "target_applications": ["机器人出租车", "自动驾驶",
+                                            "具身智能", "机器人操作"],
+                     "significance": "英伟达迄今最大开放VLA模型"},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="VLA模型是具身智能决策核心，34B开放模型"
+                              "为机器人视觉-语言-动作端到端学习提供了"
+                              "高质量基础模型",
+        deployment_ready=False,
+        tags=["Alpamayo 2", "NVIDIA", "VLA模型", "视觉语言动作",
+              "34B开放权重", "自动驾驶", "机器人出租车"],
+    ),
+
+    AIProduct(
+        product_id="LLM-052", name="中科院发布全球海洋智能预报大模型琅琊预报时效精度双提升",
+        category=AICategory.AI_LLM,
+        organization="中国科学院", country="中国",
+        description="2026年8月13日消息，中国科学院正式发布全球海洋智能预报"
+                    "大模型'琅琊'，这是首个覆盖全球海洋的智能预报系统，在"
+                    "预报时效和精度上实现双重提升，为海洋航运、渔业生产、"
+                    "防灾减灾、气候变化研究提供AI支撑。琅琊大模型可处理海温、"
+                    "海流、海浪、盐度等多维度海洋数据，实现从传统数值模式"
+                    "到AI智能预报的跨越，标志我国海洋AI预报能力进入国际先"
+                    "进行列。",
+        key_metrics={"model": "琅琊全球海洋智能预报大模型",
+                     "organization": "中国科学院",
+                     "release_date": "2026-08-13",
+                     "coverage": "全球海洋",
+                     "data_dimensions": ["海温", "海流", "海浪", "盐度"],
+                     "improvements": ["预报时效延长", "预报精度提升"],
+                     "applications": ["海洋航运", "渔业生产", "防灾减灾",
+                                     "气候变化研究"],
+                     "milestone": "首个全球海洋AI智能预报系统"},
+        maturity=MaturityLevel.RESEARCH,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="海洋大模型的时空预测、多源数据融合、"
+                              "物理规律嵌入等技术可迁移至机器人环境"
+                              "预测与运动规划",
+        deployment_ready=False,
+        tags=["琅琊大模型", "中科院", "海洋预报", "全球首个",
+              "AI预报", "海洋AI"],
+    ),
+
+    # --- AI智能体 ---
+    AIProduct(
+        product_id="AGENT-008", name="华为WorkSwarm蜂群办公智能体上架鸿蒙PC支持Windows/Mac协同工程Coordination Engineering",
+        category=AICategory.AI_AGENT,
+        organization="华为", country="中国",
+        description="由华为2012实验室、华为云、终端、计算联合构建的开源"
+                    "AI Agent平台openJiuwen旗下蜂群智能体全面升级为"
+                    "WorkSwarm蜂群办公智能体，率先上架鸿蒙PC应用市场，"
+                    "同时支持Windows、Mac平台。WorkSwarm提出Coordination"
+                    "Engineering（协同工程）概念，核心突破是从'单个AI助手'"
+                    "升级为'AI团队'——'工作'与'Code'双空间覆盖办公编程，"
+                    "支持HOTS（人在团队之上指挥）和HITS（人作为队员参与）"
+                    "两种人机协同模式。可实现手机飞书唤起鸿蒙PC汇报团队、"
+                    "20分钟生成200页PPT、集群模式多智能体并行开发应用、"
+                    "五子棋/狼人杀人机组队游戏等场景，覆盖办公编程娱乐全场景。",
+        key_metrics={"product": "WorkSwarm蜂群办公智能体",
+                     "organization": "华为openJiuwen开源平台",
+                     "release_date": "2026-08-13",
+                     "platforms": ["鸿蒙PC", "Windows", "Mac"],
+                     "core_concept": "Coordination Engineering协同工程",
+                     "workspaces": ["工作（办公）", "Code（编程）"],
+                     "human_ai_modes": ["HOTS（人在团队之上指挥）",
+                                       "HITS（人作为队员参与协作）"],
+                     "demo_cases": ["飞书唤起PC团队生成200页PPT（20分钟）",
+                                    "多Agent并行开发鸿蒙应用",
+                                    "五子棋/狼人杀人机组队博弈"],
+                     "differentiation": "AI团队协作而非单个助手，人机并肩作战"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="多智能体协同框架HOTS/HITS模式可直接"
+                              "应用于机器人群体协作，蜂群智能为多机"
+                              "器人协同调度提供参考架构",
+        deployment_ready=True,
+        tags=["WorkSwarm", "华为", "蜂群智能体", "openJiuwen",
+              "协同工程", "鸿蒙PC", "多Agent团队", "HOTS/HITS"],
+    ),
+
+    # --- AI算力/存储 ---
+    AIProduct(
+        product_id="COMP-027", name="长江存储AI SSD首次亮相16GB内存也能跑120B大模型",
+        category=AICategory.AI_COMPUTE,
+        organization="长江存储YMTC", country="中国",
+        description="2026年8月消息，长江存储首次展示专为AI大模型设计的"
+                    "AI SSD产品，通过存储与计算协同优化，实现16GB普通内存"
+                    "配置即可运行120B参数大模型，大幅降低大模型推理硬件门槛。"
+                    "AI SSD采用创新架构将部分计算任务卸载到存储端，通过"
+                    "高速NAND闪存与智能调度协同突破内存容量瓶颈，为端侧和"
+                    "边缘侧部署大规模模型提供了全新技术路径。",
+        key_metrics={"product": "长江存储AI SSD",
+                     "organization": "长江存储YMTC",
+                     "key_breakthrough": "16GB内存跑120B参数大模型",
+                     "technology": "存算协同/计算卸载到存储端",
+                     "benefit": "大幅降低大模型推理硬件门槛",
+                     "enables": ["端侧大模型部署", "边缘AI推理",
+                                "低配置设备跑大模型"]},
+        maturity=MaturityLevel.PROTOTYPE,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-13",
+        relevance_to_robotics="AI SSD存算协同技术可让机器人端侧在"
+                              "有限内存下运行更大具身智能模型，降低"
+                              "机器人计算硬件成本和功耗",
+        deployment_ready=False,
+        tags=["长江存储", "AI SSD", "16GB跑120B", "存算协同",
+              "大模型端侧部署", "YMTC", "存储创新"],
+    ),
+
+    # --- 医疗AI ---
+    AIProduct(
+        product_id="HC-011", name="迈瑞医疗联合腾讯发布全球首个医疗技术服务大模型设备故障排查压缩到几秒",
+        category=AICategory.HEALTHCARE,
+        organization="迈瑞医疗+腾讯", country="中国",
+        description="2026年8月13日消息，迈瑞医疗联合腾讯发布全球首个医疗"
+                    "技术服务大模型，将医疗设备故障排查时间从传统数小时"
+                    "压缩到几秒级。该大模型基于迈瑞海量设备运维数据和"
+                    "腾讯大模型技术训练，覆盖监护仪、超声、呼吸机、检验"
+                    "设备等多种医疗设备，可辅助工程师快速定位故障原因、"
+                    "提供维修方案，提升医疗设备售后服务效率，降低医院因"
+                    "设备停机造成的诊疗影响。",
+        key_metrics={"product": "迈瑞×腾讯医疗技术服务大模型",
+                     "organizations": ["迈瑞医疗", "腾讯"],
+                     "release_date": "2026-08-13",
+                     "milestone": "全球首个医疗技术服务大模型",
+                     "diagnosis_time": "从数小时压缩到几秒",
+                     "covered_equipment": ["监护仪", "超声", "呼吸机", "检验设备"],
+                     "functions": ["故障快速定位", "维修方案推荐",
+                                  "工程师辅助决策", "售后服务提效"],
+                     "benefits": ["设备停机时间大幅缩短", "运维效率提升",
+                                  "降低医院诊疗影响"]},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="医疗设备故障快速诊断的知识库+推理"
+                              "架构可迁移到工业机器人预测性维护和"
+                              "故障自诊断场景",
+        deployment_ready=True,
+        tags=["迈瑞医疗", "腾讯", "医疗技术服务大模型", "全球首个",
+              "故障排查几秒", "医疗AI", "设备运维"],
+    ),
+
+    # --- 蚌埠本地 ---
+    AIProduct(
+        product_id="BB-018", name="蚌埠2亿元高速高精密AI全自动压铸机项目土建施工年产8万吨新能源汽车铝合金结构件",
+        category=AICategory.BENGBU_LOCAL,
+        organization="", country="中国",
+        description="蚌埠市重点推进的总投资2亿元的高速高精密AI全自动"
+                    "压铸机及工业自动化制造建设项目已进入土建施工阶段，"
+                    "选址蚌埠高新区，计划2027年10月竣工投产。项目引进"
+                    "≥2500吨智能压铸单元，集成熔汤温度AI预测调控、压射"
+                    "参数自适应优化、铸件在线3D光学检测等AI功能，配套"
+                    "MES+SCADA工业互联网平台，建成后年产8万吨高性能铝"
+                    "合金结构件，服务新能源汽车底盘、电池壳体、5G通信"
+                    "精密结构件，带动50家以上上下游配套企业协同发展。",
+        key_metrics={"project": "高速高精密AI全自动压铸机及工业自动化",
+                     "location": "蚌埠高新区",
+                     "total_investment_wan_rmb": 20000,
+                     "construction_start": "2026年4月",
+                     "completion": "2027年10月",
+                     "die_casting_ton": "≥2500吨智能压铸单元",
+                     "ai_features": ["熔汤温度AI预测调控", "压射参数自适应优化",
+                                    "铸件在线3D光学检测"],
+                     "platforms": ["MES+SCADA工业互联网平台"],
+                     "annual_output_tons": 80000,
+                     "target_applications": ["新能源汽车底盘", "电池壳体",
+                                           "5G通信精密结构件"],
+                     "supply_chain_impact": "带动50家以上配套企业"},
+        maturity=MaturityLevel.FIELD_TRIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-05",
+        relevance_to_robotics="AI全自动压铸单元集成工业机器人、"
+                              "机器视觉、自适应控制，是智能制造"
+                              "在蚌埠本地的典型工业落地",
+        deployment_ready=False,
+        tags=["蚌埠", "AI压铸机", "2亿元投资", "年产8万吨",
+              "新能源汽车", "2500吨压铸", "工业自动化", "蚌埠高新区"],
+    ),
+
+    AIProduct(
+        product_id="BB-019", name="蚌埠广鼎科技专注AI Agent研发集团旗下含科技传媒出行三子公司",
+        category=AICategory.BENGBU_LOCAL,
+        organization="蚌埠广鼎科技集团", country="中国",
+        description="蚌埠广鼎科技集团有限公司是注册于蚌埠高新区的人工智能"
+                    "综合科技企业，专注AI Agent及上下游应用与尖端算力硬件"
+                    "创新研发，注册资本2000万元，旗下拥有广鼎科技（大数据/AI）、"
+                    "广鼎传媒、广鼎出行三家子公司，业务覆盖AI基础软件开发、"
+                    "智能机器人研发制造（工业/特种/服务消费机器人）、AI"
+                    "硬件销售、云计算设备、物联网技术服务等，是蚌埠本地"
+                    "AI Agent和机器人领域代表性企业。",
+        key_metrics={"company": "蚌埠广鼎科技集团有限公司",
+                     "registered_location": "蚌埠高新区迎宾大道399号电商大厦",
+                     "registered_capital_wan": 2000,
+                     "established": "2021-11-26",
+                     "focus": "AI Agent及上下游应用、尖端算力硬件",
+                     "subsidiaries": ["广鼎科技（大数据/AI）",
+                                     "广鼎传媒", "广鼎出行"],
+                     "business_scope": ["AI基础软件开发", "智能机器人研发制造",
+                                       "工业/特种/服务机器人", "AI硬件销售",
+                                       "云计算设备", "物联网技术"],
+                     "size": "20-99人"},
+        maturity=MaturityLevel.COMMERCIAL,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-08-14",
+        relevance_to_robotics="广鼎科技是蚌埠本地专注AI Agent和"
+                              "机器人研发制造的企业，覆盖从基础软件"
+                              "到整机制造全链条",
+        deployment_ready=True,
+        tags=["蚌埠", "广鼎科技", "AI Agent", "机器人研发",
+              "蚌埠高新区", "本地AI企业", "三子公司"],
+    ),
+
+    AIProduct(
+        product_id="BB-020", name="2026上半年蚌埠智能传感产业82家规上企业产值50.49亿元同比增长15%中国传感谷集聚200+企业",
+        category=AICategory.BENGBU_LOCAL,
+        organization="", country="中国",
+        description="据蚌埠市政府发布，2026年上半年全市智能传感产业82家"
+                    "规上工业企业实现产值50.49亿元，同比增长15%。中国传感谷"
+                    "已集聚200多家上下游企业，构建起智能传感器材料、设计、"
+                    "制造、封装、测试、应用全产业链体系，是安徽唯一、全国"
+                    "为数不多同时拥有集成电路及MEMS晶圆生产线的城市。全国"
+                    "首个米小庭智慧社区（小米生态全体系落地）投入运营，"
+                    "8英寸MEMS晶圆全自动生产线昼夜运转，2025年全市智能"
+                    "传感产业产值突破100亿元（同比增长29%），跻身全国MEMS"
+                    "十大高质量传感器园区第6位。中宣部'活力中国调研行'"
+                    "8月8日走访蚌埠，对中国传感谷和中国玻璃谷（400+企业、"
+                    "660亿规模）两大国家级名片给予高度关注。",
+        key_metrics={"location": "蚌埠中国传感谷",
+                     "h1_2026_enterprises": 82,
+                     "h1_2026_output_bn_rmb": 50.49,
+                     "h1_2026_growth_yoy": "15%",
+                     "total_enterprises": "200+",
+                     "industry_chain": ["材料", "设计", "制造", "封装", "测试", "应用"],
+                     "unique_position": "安徽唯一同时拥有IC+MEMS晶圆线",
+                     "flagship_project": "米小庭智慧社区（小米生态全体系全国首个）",
+                     "key_production_line": "国内首条8英寸MEMS晶圆全自动生产线",
+                     "2025_total_output_bn": 100,
+                     "2025_growth": "29%",
+                     "national_ranking": "全国MEMS十大高质量园区第6位",
+                     "glass_valley": {"enterprises": "400+", "scale_bn": 660}},
+        maturity=MaturityLevel.MASS_PRODUCTION,
+        source="", source_tier=SourceTier.TIER1,
+        publish_date="2026-07-30",
+        relevance_to_robotics="传感器是机器人感知硬件基础，蚌埠中国"
+                              "传感谷全产业链MEMS产能为机器人传感器"
+                              "国产化提供了产业支撑",
+        deployment_ready=True,
+        tags=["蚌埠", "中国传感谷", "产值50.49亿", "增长15%",
+              "200+企业", "8英寸MEMS", "米小庭", "全国第6位"],
+    ),
 ]
 
 
