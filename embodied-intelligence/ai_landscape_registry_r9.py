@@ -28,5 +28,6 @@ def _load_registry_part(filename):
 _parts = []
 # === 在此处追加新文件 ===
 _parts.extend(_load_registry_part("ai_landscape_registry(1).py"))
+_parts.extend(_load_registry_part("ai_landscape_registry(2).py"))
 
 AI_LANDSCAPE_DB_R9 = _parts
