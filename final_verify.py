@@ -19,6 +19,11 @@ for fp in FILES:
     gp = 0
     worst = []
     for si in range(1, P.Slides.Count + 1):
+        try:
+            P.Slides(si).Select()
+        except Exception:
+            pass
+        time.sleep(0.05)
         for shape in P.Slides(si).Shapes:
             if not shape.HasTextFrame:
                 continue
@@ -28,14 +33,13 @@ for fp in FILES:
                     continue
                 H = shape.Height
                 B = tr.BoundHeight
-                sa = tr.Paragraphs(tr.Paragraphs().Count).ParagraphFormat.SpaceAfter
-                real = B + sa
+                # 末段sa=0时，B即真实可见内容高度
                 if B > H + 0.5:
                     ov += 1
                     worst.append(f'页{si} 溢出{B-H:.1f}')
-                elif H - real > 3:
+                elif H - B > 4:
                     gp += 1
-                    worst.append(f'页{si} 空隙{H-real:.1f}')
+                    worst.append(f'页{si} 空隙{H-B:.1f}')
             except Exception:
                 pass
     print(f"{fp.split(chr(92))[-1]}: 溢出={ov} 真实空隙={gp}")

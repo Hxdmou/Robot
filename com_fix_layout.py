@@ -57,14 +57,14 @@ def fix_box(shape):
     W = shape.Width
     chars_per_line = max(int(W / 10.6), 20)
     pf = tr.ParagraphFormat
-    # 确定性公式法：先归零段间距读真实自然高度B0（该读数可靠）
+    # 确定性法：BoundHeight读数有±5pt波动，读3次取最大值（保守），一次公式解
     pf.SpaceAfter = 0.0
-    B0 = tr.BoundHeight
-    # 溢出：保格式裁剪最长段直到B0<=H-1
+    B0 = max(tr.BoundHeight, tr.BoundHeight, tr.BoundHeight, tr.BoundHeight, tr.BoundHeight)
+    # 真实溢出：保格式裁剪最长段直到B0<=H-3
     guard = 0
-    while B0 > H - 1 and guard < 60:
+    while B0 > H - 3 and guard < 60:
         guard += 1
-        overflow_lines = (B0 - H + 1) / 11.0
+        overflow_lines = (B0 - H + 3) / 11.0
         chars = int(overflow_lines * chars_per_line) + 8
         worst, wl = -1, 0
         for i in range(2, n + 1):
@@ -77,10 +77,15 @@ def fix_box(shape):
         if removed <= 0:
             break
         acts.append('裁剪%d字' % removed)
-        B0 = tr.BoundHeight
-    # 空隙：公式反解段间距一次到位 B=B0+n*sa，目标差1pt
-    sa = max(0.0, min((H - B0 - 1.0) / n, 40.0))
+        B0 = max(tr.BoundHeight, tr.BoundHeight)
+    # 段间距一次解：末段sa=0（末段sa是底部不可见空白），sa只加在前n-1段
+    # 目标：B0+(n-1)*sa = H-2（吸收读数波动）
+    if n > 1:
+        sa = max(0.0, min((H - 2 - B0) / (n - 1), 40.0))
+    else:
+        sa = 0.0
     pf.SpaceAfter = sa
+    tr.Paragraphs(n).ParagraphFormat.SpaceAfter = 0.0
     acts.append('sa=%.2f B0=%.1f' % (sa, B0))
     return acts
 
@@ -96,6 +101,12 @@ for fp in FILES:
     trim_cnt = 0
     for si in range(1, Presentation.Slides.Count + 1):
         slide = Presentation.Slides(si)
+        # 关键：激活幻灯片强制布局，否则BoundHeight读数不准（懒加载）
+        try:
+            slide.Select()
+        except Exception:
+            pass
+        time.sleep(0.05)
         for shape in slide.Shapes:
             if not shape.HasTextFrame:
                 continue
