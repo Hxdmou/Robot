@@ -594,7 +594,7 @@ AI_LANDSCAPE_DB_PART3: List[AIProduct] = [
 
     AIProduct(
         product_id="DIG-032", name="小米澎湃OS 4官宣Beta测试招募 清空MIUI冗余流畅度提升40% 超级小爱2.0",
-        category=AICategory.AI_SOFTWARE,
+        category=AICategory.AI_GENERAL,
         organization="小米集团", country="中国",
         description="8月13日小米官方正式官宣澎湃OS 4，主要升级：①底层流畅大优化，清空MIUI遗留冗余代码，"
                     "内核新增负载精算、内存预载技术，系统精简瘦身，流畅度提升40%；②全新柔光玻璃UI，"
@@ -618,7 +618,7 @@ AI_LANDSCAPE_DB_PART3: List[AIProduct] = [
 
     AIProduct(
         product_id="LLM-051", name="OpenAI GPT-5.6 Sol Ultrafast模式预览 速度提升14倍每秒750tokens Cerebras硬件支持",
-        category=AICategory.LLM,
+        category=AICategory.AI_LLM,
         organization="OpenAI", country="美国",
         description="8月14日OpenAI CEO Sam Altman通过Twitter预览GPT-5.6 Sol Ultrafast新模式，"
                     "宣称在保持前沿模型能力不变的前提下，运行速度最高提升14倍，输出速度达每秒750个tokens，"
@@ -640,7 +640,7 @@ AI_LANDSCAPE_DB_PART3: List[AIProduct] = [
 
     AIProduct(
         product_id="LLM-052", name="OpenAI发布GPT-5.6-Cyber安全专用模型 Daybreak Red分级审批95%请求完成率",
-        category=AICategory.LLM,
+        category=AICategory.AI_LLM,
         organization="OpenAI", country="美国",
         description="8月10日OpenAI发布GPT-5.6-Cyber安全专用模型，需通过Daybreak Red项目单独审批，"
                     "面向授权防御性安全研究人员。定价：输入$12.50/百万tokens，输出$75/百万tokens（约为Sol的2.5倍），"
@@ -661,7 +661,7 @@ AI_LANDSCAPE_DB_PART3: List[AIProduct] = [
 
     AIProduct(
         product_id="LLM-053", name="Qwen3.8-Max开放权重发布 2.4万亿总参数950亿激活262K上下文",
-        category=AICategory.LLM,
+        category=AICategory.AI_LLM,
         organization="阿里巴巴", country="中国",
         description="8月13日Qwen3.8-Max完成开放权重发布：总参数2.4万亿、单词元激活950亿（MoE架构），"
                     "原生上下文262144词元（256K）并可扩展至约101万。支持可调推理强度，面向数据中心级部署场景，"
@@ -945,7 +945,7 @@ AI_LANDSCAPE_DB_PART3: List[AIProduct] = [
 
     AIProduct(
         product_id="LLM-054", name="Anthropic Opus 5在ARC-AGI3评测首次超越人类专家 Prime Agent达95.5%",
-        category=AICategory.LLM,
+        category=AICategory.AI_LLM,
         organization="Anthropic", country="美国",
         description="8月14日消息，递归语言模型（RLM）与持续工具链（Continual Harness）使Prime Agent"
                     "能够扩展Opus 5的流体智能，在ARC-AGI3公开评测中以95.5%的成绩首次超越人类专家基线（95.4%）。"
@@ -1225,7 +1225,7 @@ AI_LANDSCAPE_DB_PART3: List[AIProduct] = [
 
     AIProduct(
         product_id="AUT-004", name="英伟达Alpamayo 2 Super开源340亿参数智驾VLA模型 视觉骨干320亿动作专家23亿开放商用",
-        category=AICategory.LLM,
+        category=AICategory.AI_LLM,
         organization="NVIDIA", country="美国",
         description="面向自动驾驶汽车与无人出租车的开源推理模型，基于Cosmos 3 Super Reasoner构建，强化学习优化，"
                     "OpenMDW-1.1许可协议下开放商业使用，允许车企/卡车制造商/供应商微调衍生商业化部署。"
@@ -1610,7 +1610,7 @@ AI_LANDSCAPE_DB_PART3: List[AIProduct] = [
 
     AIProduct(
         product_id="ROB-081", name="越疆鹿萌DOBOT LUMO全球首款具身全栖人形陪伴机器人 1.3米空弈大模型多模态情绪感知四栖能力",
-        category=AICategory.SERVICE_ROBOT,
+        category=AICategory.HUMANOID_ROBOT,
         organization="越疆科技（DOBOT）", country="中国",
         description="2026年8月5日正式亮相，全球首款具身全栖人形机器人，定位C端消费陪伴市场，"
                     "标志越疆完成工业/商用/文旅/消费全场景生态闭环。越疆作为国内少有的覆盖全场景具身智能企业，"
@@ -1728,7 +1728,7 @@ AI_LANDSCAPE_DB_PART3: List[AIProduct] = [
 
     AIProduct(
         product_id="COMP-001", name="华为MateBook Fold非凡大师鸿蒙折叠电脑 18寸双层OLED UTG玻璃40微米玄武水滴锆基液态金属铰链7.3mm/1.16kg 24999元",
-        category=AICategory.COMPUTER,
+        category=AICategory.MOBILE_COMPUTER,
         organization="华为", country="中国",
         description="华为首款鸿蒙折叠屏PC，2026年8月5日发布会发布、8月14日全面开售。"
                     "定位折叠形态大屏生产力工具，补齐折叠PC原生手写交互空白，硬件/软件/生态同步升级，"
@@ -1953,7 +1953,7 @@ AI_LANDSCAPE_DB_PART3: List[AIProduct] = [
 
     AIProduct(
         product_id="EMB-032", name="第四届中国具身智能机器人产业大会（上海8.12-14）场景落地年 台科电感编码器/今飞智朗合金压铸件/魔迅HZ-EG1PRO电磁动捕手套集体亮相",
-        category=AICategory.HUMANOID,
+        category=AICategory.HUMANOID_ROBOT,
         organization="中国具身智能机器人产业大会组委会+多家展商", country="中国",
         description="8月12-14日上海举行第四届中国具身智能机器人产业大会暨展览会，标志着产业从技术原理/原型样机展示阶段进入场景落地年——"
                     "'十五五'规划纲要将具身智能列为未来产业之一，大会直击落地难题，围绕技术验证、成本压降、场景规模化三条主线搭建协作桥梁。"
@@ -1973,7 +1973,7 @@ AI_LANDSCAPE_DB_PART3: List[AIProduct] = [
                                   "无锡锡山智能机器人产业园：7000+工业企业支撑 重点发力工业/协作机器人及关键零部件"],
                      "conference_theme": "技术验证+成本压降+场景规模化", "future_directions": ["B端先行由易到难规模化应用", "特种服务场景优先试点", "配套仿真/调试/运维一体化服务包"]},
         maturity=MaturityLevel.COMMERCIAL,
-        source="千龙网 2026-08-14 08:40", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-14",
         relevance_to_robotics="大会集中展示了具身智能从技术原型到场景落地的完整产业图景，电感编码器/合金压铸件/电磁动捕手套三款核心零部件的亮相，"
                               "填补了关节传感、轻量化结构件、灵巧手数据采集三个关键环节的国产空白，为规模化量产奠定硬件底座",
@@ -1983,7 +1983,7 @@ AI_LANDSCAPE_DB_PART3: List[AIProduct] = [
 
     AIProduct(
         product_id="ROB-086", name="时耘科技RD3 Ultra全尺寸特种人形机器人量产下线 174cm标准人身形7×24小时特种作业尖兵 天津河西764具身园首条产线投产",
-        category=AICategory.HUMANOID,
+        category=AICategory.HUMANOID_ROBOT,
         organization="时耘科技（天津）有限公司", country="中国",
         description="8月13日时耘科技首批全尺寸人形机器人RD3 Ultra下线仪式在天津河西区764具身智能产业主题园举行，"
                     "标志着时耘科技总部落户河西后在研发制造领域实现关键产业化突破。"
@@ -2006,7 +2006,7 @@ AI_LANDSCAPE_DB_PART3: List[AIProduct] = [
                      "policy": "天津市智能机器人产业创新发展行动方案（2026-2028）支持河西764具身园",
                      "future_directions": ["持续提升研发创新能力", "夯实规模化量产支撑", "赋能千行百业"]},
         maturity=MaturityLevel.COMMERCIAL,
-        source="津云 2026-08-14 10:17", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="RD3 Ultra量产标志着特种作业人形机器人从研发走向批量交付，174cm标准人身形+全时自主+全链路安全三大设计方向为特种人形（替代高危人工）树立了产品基准，"
                               "格斗场景动态平衡展示也验证了抗冲击控制技术成熟度，京东康养/卡乐文旅合作拓展了B端G端落地场景",
@@ -2044,7 +2044,7 @@ AI_LANDSCAPE_DB_PART3: List[AIProduct] = [
                      "project_site": "schedulestream.github.io", "language": "全Python开发 无PDDL直接代码定义",
                      "future_directions": ["大模型与调度框架深度融合", "简化任务交互", "拓展柔性分拣/轻型装配/移动服务机器人更多落地场景"]},
         maturity=MaturityLevel.RESEARCH,
-        source="Blue机器人 2026-08-14 11:10", source_tier=SourceTier.TIER2,
+        source="", source_tier=SourceTier.TIER2,
         publish_date="2026-08-14",
         relevance_to_robotics="ScheduleStream解决了双臂机器人长期串行作业的算力浪费难题——GPU加速将规划耗时从30秒级压缩至1.9秒（实时控制级），"
                               "99%成功率+Makespan减半+全Python开源生态大幅降低双臂协作落地门槛，"
@@ -2055,7 +2055,7 @@ AI_LANDSCAPE_DB_PART3: List[AIProduct] = [
 
     AIProduct(
         product_id="EMB-033", name="中央企业机器人创新联合体将在WRC2026揭牌 国家队共研共用共享 国网六足巡检/北自所核电钢筋绑扎/中国电建5000台采购集中落地",
-        category=AICategory.HUMANOID,
+        category=AICategory.HUMANOID_ROBOT,
         organization="国务院国资委+工信部+多家央企", country="中国",
         description="具身智能机器人正从翻跟头/跳街舞的'炫技派'转变为特高压巡检/重载搬运/智能加油的'实战派'，在电力/石化/钢铁等重点工业领域生产一线加速落地。"
                     "2026世界机器人大会期间，国务院国资委将揭牌成立中央企业机器人创新联合体，整合全行业央企资源，补齐全具身智能量产短板。"
@@ -2081,7 +2081,7 @@ AI_LANDSCAPE_DB_PART3: List[AIProduct] = [
                      "industry_context": "国家电网数百万公里输电线路/中石油数万公里油气管道/中车庞大轨道交通装备 真实场景需求迫切",
                      "future_directions": ["从炫技到实战深度赋能产业一线", "央企压舱石推动全链协同", "服务国家重大工程 成为高端制造出口新名片"]},
         maturity=MaturityLevel.FIELD_TRIAL,
-        source="中国电子报 2026-08-14 10:00", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-14",
         relevance_to_robotics="央企创新联合体的成立标志着中国具身智能产业从民企单打独斗进入国家统筹阶段——国网/核电/电建等真实高危场景提供海量稀缺真机数据，"
                               "解决了仿真数据与现实工况脱节、核心零部件高投入长周期两大瓶颈，'训练-迭代-应用-再优化'产业闭环加速形成，万台级规模落地进入实质推进阶段",
@@ -2115,7 +2115,7 @@ AI_LANDSCAPE_DB_PART3: List[AIProduct] = [
                                         "bengbu_siyi": "中电科思仪 6G通信测试一流企业"},
                      "future_directions": ["平台型企业生态化招商", "梯次培育优质企业矩阵", "中试验证集成孵化平台", "车芯联动6G车路云协同"]},
         maturity=MaturityLevel.COMMERCIAL,
-        source="江淮观察 2026-08-13 10:37", source_tier=SourceTier.TIER1,
+        source="", source_tier=SourceTier.TIER1,
         publish_date="2026-08-13",
         relevance_to_robotics="安徽将具身智能列为半导体/6G重点融合方向，44家上市公司+完整半导体产业链+全球前四显示/存储产能为机器人算力芯片、传感器、显示交互模组提供本土供应链支撑，"
                               "池州/蚌埠等产业集群300亿产值规模有助于核心零部件成本压降，车芯联动经验可迁移至机器人产业生态建设",

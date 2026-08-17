@@ -45,6 +45,7 @@
 
 import os
 import sys
+sys.stdout.reconfigure(encoding='utf-8')
 import json
 import time
 import socket
@@ -1124,11 +1125,18 @@ class DeploymentReadinessChecker:
             return
 
         # AIS-002: AI_LANDSCAPE_DB 非空且覆盖全部22大类别
+        # 口径：基础注册表 + r9活动链（新内容资讯目录编号文件）合并校验
         t0 = time.time()
         try:
-            total = len(AI_LANDSCAPE_DB)
-            categories_present = {p.category for p in AI_LANDSCAPE_DB}
-            expected_cats = set(AICategory)
+            try:
+                from ai_landscape_registry_r9 import AI_LANDSCAPE_DB_R9
+                db_all = list(AI_LANDSCAPE_DB) + list(AI_LANDSCAPE_DB_R9)
+            except Exception:
+                db_all = list(AI_LANDSCAPE_DB)
+            total = len(db_all)
+            # 按value比较：各编号文件各自定义AICategory枚举类，跨类成员对象不相等
+            categories_present = {getattr(p.category, "value", str(p.category)) for p in db_all}
+            expected_cats = {c.value for c in AICategory}
             missing_cats = expected_cats - categories_present
             ok = total > 0 and len(missing_cats) == 0
             if ok:

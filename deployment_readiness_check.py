@@ -17,6 +17,7 @@ import re
 import ast
 import json
 import sys
+sys.stdout.reconfigure(encoding='utf-8')
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Any, Tuple
@@ -138,7 +139,8 @@ def check_all() -> Dict[str, Any]:
     results: List[Dict[str, Any]] = []
     has_comm = 0
     comm_complete = 0  # protocol+host+port 三项全有
-    robot_complete = 0  # dofs+joint_limits 全有
+    robot_complete = 0  # dofs+joint_limits 全有（仅运动体）
+    motion_total = 0  # 运动体总数（dofs>0，传感器/算力卡等非运动体不计入）
     protocols_registered = 0
     ready_full = 0  # 所有必填齐全 + 协议注册
 
@@ -174,8 +176,15 @@ def check_all() -> Dict[str, Any]:
             has_comm += 1
         if item["comm_complete_effective"]:
             comm_complete += 1
-        if not item["robot_missing"]:
-            robot_complete += 1
+        # 运动体判定：dofs>0才是运动体；传感器/算力卡等非运动体运动参数不适用
+        _dofs_val = meta.get("dofs")
+        _is_motion = isinstance(_dofs_val, int) and _dofs_val > 0
+        if _is_motion:
+            motion_total += 1
+            if not item["robot_missing"]:
+                robot_complete += 1
+        else:
+            item["robot_missing"] = []  # 非运动体：运动参数不适用，视为齐备
 
         # 通过 BRAND_COMM_MAP 拿协议（robots_config 顶层字典嵌套太深不解析）
         proto = brand_map.get(arm_key)
@@ -226,6 +235,7 @@ def check_all() -> Dict[str, Any]:
         "has_communication": has_comm,
         "comm_complete_count": comm_complete,
         "robot_complete_count": robot_complete,
+        "motion_total": motion_total,
         "protocol_registered_count": protocols_registered,
         "fully_ready_count": ready_full,
         "by_product": results,
@@ -234,7 +244,7 @@ def check_all() -> Dict[str, Any]:
         "ratios": {
             "communication_presence": round(has_comm / total, 3) if total else 0,
             "comm_complete": round(comm_complete / total, 3) if total else 0,
-            "robot_complete": round(robot_complete / total, 3) if total else 0,
+            "robot_complete": round(robot_complete / motion_total, 3) if motion_total else 0,
             "protocol_registered_within_brands": round(
                 protocols_registered / len(brand_map), 3) if brand_map else 0,
             "protocol_registered_within_products": round(
@@ -268,7 +278,8 @@ def print_report(r: Dict[str, Any]):
     ratios = r["ratios"]
     print(f'    · 具备 communication 字典:     {r["has_communication"]:>4} / {r["total_robots"]}  ({ratios["communication_presence"] * 100:5.1f}%)')
     print(f'    · 通信三项齐全(protocol/host/port): {r["comm_complete_count"]:>4} / {r["total_robots"]}  ({ratios["comm_complete"] * 100:5.1f}%)')
-    print(f'    · 运动参数齐全(dofs/joint_limits): {r["robot_complete_count"]:>4} / {r["total_robots"]}  ({ratios["robot_complete"] * 100:5.1f}%)')
+    _mt = int(r.get("motion_total", 0))
+    print(f'    · 运动参数齐全(dofs/joint_limits·仅运动体): {r["robot_complete_count"]:>4} / {_mt}  ({ratios["robot_complete"] * 100:5.1f}%)')
     # ---- 产品维度协议映射覆盖率（ROBOT_BRANDS 193 为分母，100% 就标 ✅）----
     pvp_cnt = r.get("products_with_valid_protocol_count", 0)
     pvp_ratio = float(ratios.get("protocol_registered_within_products", 0.0))

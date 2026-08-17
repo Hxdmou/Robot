@@ -33,5 +33,6 @@ _parts = []
 _parts.extend(_load_registry_part("ai_landscape_registry（1）.py"))
 _parts.extend(_load_registry_part("ai_landscape_registry（2）.py"))
 _parts.extend(_load_registry_part("ai_landscape_registry（3）.py"))
+_parts.extend(_load_registry_part("ai_landscape_registry（4）.py"))
 
 AI_LANDSCAPE_DB_R9 = _parts

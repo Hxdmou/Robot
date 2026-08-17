@@ -59,6 +59,7 @@ class AICategory(Enum):
     HOME_APPLIANCE = "home_appliance"
     MEDICAL_DEVICE = "medical_device"
     MOBILE_COMPUTER = "mobile_computer"
+    EMBODIED_INTELLIGENCE = "embodied_intelligence"
 
 
 class MaturityLevel(Enum):
@@ -100,7 +101,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
     AIProduct(
         product_id="HR-000", name="2026年人形机器人产业链全景数据汇总",
         category=AICategory.HUMANOID_ROBOT,
-        organization="高工机器人/工信部/各企业发布会", country="中国",
+        organization="行业研究机构（综合数据）", country="中国",
         description="2026年人形机器人行业核心数据全景汇总："
                     "核心零部件成本结构：精密减速器占36%、专用传感器11%、"
                     "高性能伺服电机10%、芯片9%、电池及其他34%；"
@@ -3683,7 +3684,7 @@ AI_LANDSCAPE_DB: List[AIProduct] = [
         tags=["Twitch", "AI训练", "版权", "Spotify", "AI标签"],
     ),
 
-    # --- 截图识别新增 ---
+    # --- 新增 ---
     AIProduct(
         product_id="CO-007", name="科技成果超市科企对接平台",
         category=AICategory.COMMERCE,
