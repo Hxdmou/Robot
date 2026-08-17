@@ -10,8 +10,8 @@ import win32com.client
 import time
 
 FILES = [
-    r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260816_商务汇报_无水印_v29.pptx",
-    r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260816_商务汇报_水印版_v29.pptx",
+    r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260817_商务汇报_无水印_v29.pptx",
+    r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260817_商务汇报_水印版_v29.pptx",
 ]
 
 def trim_paragraph(pr, chars):
@@ -57,14 +57,15 @@ def fix_box(shape):
     W = shape.Width
     chars_per_line = max(int(W / 10.6), 20)
     pf = tr.ParagraphFormat
-    # 确定性法：BoundHeight读数有±5pt波动，读3次取最大值（保守），一次公式解
+    # 确定性法：BoundHeight读数有±5pt波动，读5次取最大值（保守），一次公式解
     pf.SpaceAfter = 0.0
+    time.sleep(0.3)  # 等sa=0重排布完成，否则读到脏值
     B0 = max(tr.BoundHeight, tr.BoundHeight, tr.BoundHeight, tr.BoundHeight, tr.BoundHeight)
-    # 真实溢出：保格式裁剪最长段直到B0<=H-3
+    # 真实溢出：保格式裁剪最长段直到B0<=H-1（与sa目标H对齐，避免裁剪框反溢出）
     guard = 0
-    while B0 > H - 3 and guard < 60:
+    while B0 > H - 1 and guard < 60:
         guard += 1
-        overflow_lines = (B0 - H + 3) / 11.0
+        overflow_lines = (B0 - H + 1) / 11.0
         chars = int(overflow_lines * chars_per_line) + 8
         worst, wl = -1, 0
         for i in range(2, n + 1):
@@ -79,9 +80,9 @@ def fix_box(shape):
         acts.append('裁剪%d字' % removed)
         B0 = max(tr.BoundHeight, tr.BoundHeight)
     # 段间距一次解：末段sa=0（末段sa是底部不可见空白），sa只加在前n-1段
-    # 目标：B0+(n-1)*sa = H-2（吸收读数波动）
+    # 目标：B0+(n-1)*sa = H（填满到框底，消除刻意2pt留白导致的空隙误报）
     if n > 1:
-        sa = max(0.0, min((H - 2 - B0) / (n - 1), 40.0))
+        sa = max(0.0, min((H - B0) / (n - 1), 40.0))
     else:
         sa = 0.0
     pf.SpaceAfter = sa
@@ -89,7 +90,7 @@ def fix_box(shape):
     acts.append('sa=%.2f B0=%.1f' % (sa, B0))
     return acts
 
-Application = win32com.client.Dispatch("PowerPoint.Application")
+Application = win32com.client.DispatchEx("PowerPoint.Application")
 Application.Visible = True
 time.sleep(1)
 

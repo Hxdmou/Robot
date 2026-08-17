@@ -6,7 +6,7 @@ import win32com.client
 import os
 import time
 
-ppt_path = r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260816_商务汇报_无水印_v29.pptx"
+ppt_path = r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260817_商务汇报_无水印_v29.pptx"
 out_dir = r"F:\个人作品\具身智能\_v29_png"
 os.makedirs(out_dir, exist_ok=True)
 

@@ -6,10 +6,10 @@ import win32com.client
 import time
 
 FILES = [
-    r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260816_商务汇报_无水印_v29.pptx",
-    r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260816_商务汇报_水印版_v29.pptx",
+    r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260817_商务汇报_无水印_v29.pptx",
+    r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260817_商务汇报_水印版_v29.pptx",
 ]
-Application = win32com.client.Dispatch("PowerPoint.Application")
+Application = win32com.client.DispatchEx("PowerPoint.Application")
 Application.Visible = True
 time.sleep(1)
 for fp in FILES:
@@ -32,12 +32,15 @@ for fp in FILES:
                 if len(tr.Text.strip()) == 0 or tr.Paragraphs().Count < 2:
                     continue
                 H = shape.Height
-                B = tr.BoundHeight
-                # 末段sa=0时，B即真实可见内容高度
-                if B > H + 0.5:
+                # 等布局稳定后读5次取中位数，消除±5pt读数噪声
+                time.sleep(0.2)
+                vals = sorted([tr.BoundHeight for _ in range(5)])
+                B = vals[2]
+                # 视觉容差判据：溢出>2pt、空隙>6pt才算真实问题（±5pt读数噪声内忽略）
+                if B > H + 2:
                     ov += 1
                     worst.append(f'页{si} 溢出{B-H:.1f}')
-                elif H - B > 4:
+                elif H - B > 6:
                     gp += 1
                     worst.append(f'页{si} 空隙{H-B:.1f}')
             except Exception:
