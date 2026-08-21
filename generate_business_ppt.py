@@ -2,7 +2,7 @@
 '''
 具身智能&AI产业最新进展 PPT生成脚本
 商务汇报风格 · 深蓝科技主题 · 22模块完整
-日期：2026年8月17日
+日期：2026年8月21日
 布局：每个模块拆分为【内容描述】和【细节描述】两页
 - 内容描述页（单数页）：上部左右各10条 + 下部通栏阐述
 - 细节描述页（双数页）：通栏20条超详细内容（不分栏）
@@ -91,12 +91,16 @@ def tb(slide, x, y, w, h, text, sz=10, b=False, c=WHITE, al=PP_ALIGN.LEFT, an=MS
 
 def add_bullets(tf, items, start_idx=0, sz=10, color=LGRAY, space_after=0):
     import re
+    sa_is_list = isinstance(space_after, (list, tuple))
     for i, item in enumerate(items):
         idx = start_idx + i
         p = tf.paragraphs[0] if idx == 0 else tf.add_paragraph()
+        # 字体全部居中（V3.30用户硬性要求）
+        p.alignment = PP_ALIGN.CENTER
         # 固定行距11pt = 10pt * 1.1，精确控制高度
         p.line_spacing = Pt(11)
-        p.space_after = Pt(space_after)
+        sa_i = space_after[i] if sa_is_list and i < len(space_after) else (0 if sa_is_list else space_after)
+        p.space_after = Pt(sa_i)
         p.space_before = Pt(0)
         # 取消所有缩进，最大化可用宽度
         p.left_indent = Pt(0)
@@ -120,6 +124,9 @@ def add_bullets(tf, items, start_idx=0, sz=10, color=LGRAY, space_after=0):
                 run.font.bold = True
             else:
                 run.font.color.rgb = color
+    # V3.33：末段段间距置0（BoundHeight不含末段sa，避免底部视觉空隙歧义）
+    if items and not sa_is_list:
+        tf.paragraphs[len(items) + start_idx - 1].space_after = Pt(0)
 
 # ========== 精确文本测量（V3.23修复核心：两阶段闭环，以PowerPoint真实渲染为基准） ==========
 import unicodedata
@@ -144,10 +151,11 @@ AVAIL_LOWER = (LOWER_REGION_H - PAD_TOP - PAD_BOT) * 72
 AVAIL_DETAIL = (DETAIL_CONTENT_H - 0.04 - 0.05) * 72
 
 def _char_width_pt(ch, sz_pt):
-    """按字符显示宽度：全角(CJK)=字号×1.06，半角≈0.58倍字号（含加粗标签+渲染误差安全系数，宁多估行不溢出）"""
+    """按字符显示宽度（V3.30 COM实测校准：94个文本框实测中位比值0.9545）：
+    全角(CJK)=字号×1.012，半角≈0.554倍字号，消除估算偏大导致的空隙"""
     if unicodedata.east_asian_width(ch) in ('F', 'W'):
-        return sz_pt * 1.06
-    return sz_pt * 0.58
+        return sz_pt * 1.012
+    return sz_pt * 0.554
 
 def _text_width_pt(text, sz_pt):
     return sum(_char_width_pt(ch, sz_pt) for ch in text)
@@ -186,9 +194,10 @@ def solve_space_after(items, box_width_pt, sz_pt, line_spacing_pt, avail_pt, tit
     n = len(items)
     if n == 0 or avail_pt <= natural:
         return 0.0, natural
-    sa = (avail_pt - natural) / n - 0.1
+    # V3.33：末段sa=0（BoundHeight不含末段段间距），段距只分布在前n-1段之间
+    sa = (avail_pt - natural - 0.5) / max(n - 1, 1)
     sa = max(0.0, min(sa, max_sa))
-    return sa, measure_block_height_pt(items, box_width_pt, sz_pt, line_spacing_pt, sa, title_lines)
+    return sa, natural + (n - 1) * sa
 
 def _fit_items(items, box_width_pt, sz_pt, line_spacing_pt, avail_pt, title_lines=1, min_keep=40):
     """防溢出安全网：自然高度超过可用高度时，逐条裁剪最长条目直到刚好放下。
@@ -231,9 +240,91 @@ def _fit_items(items, box_width_pt, sz_pt, line_spacing_pt, avail_pt, title_line
         items[worst_i] = it[:cut]
     return items
 
-def _resolve(key, items, avail_pt, line_spacing=11, title_lines=1):
-    """生成阶段统一sa=0（自然排布），布局填满与裁剪全部由COM后校正完成（V3.24终极方案）"""
-    return 0.0, 0.0
+def _trim_to_lines(items, para_lines, target_total, box_width_pt, sz_pt):
+    """V3.33：按COM实测行数裁剪条目，使bullet总行数≤target_total。
+    每次裁剪最长条目减1行，裁剪宽度留7%安全余量，优先在接近上限的标点处断句，绝不使用省略号。"""
+    items = list(items)
+    lines = list(para_lines) + [1] * max(0, len(items) - len(para_lines))
+    lines = lines[:len(items)]
+    prefix_w = _text_width_pt('▸ ', sz_pt)
+    first_w = max(box_width_pt - prefix_w, 1.0)
+    guard = 0
+    while sum(lines) > target_total and guard < 400 and items:
+        guard += 1
+        cand = [k for k in range(len(items)) if lines[k] > 1]
+        if not cand:
+            items.pop()
+            lines.pop()
+            continue
+        i = max(cand, key=lambda k: lines[k])
+        new_l = lines[i] - 1
+        target_w = (first_w + (new_l - 1) * box_width_pt) * 0.93
+        it = items[i]
+        cut = len(it)
+        acc = 0.0
+        last_punct = -1
+        punct_acc = 0.0
+        for k, ch in enumerate(it):
+            acc += _char_width_pt(ch, sz_pt)
+            if acc > target_w:
+                cut = k
+                break
+            if ch in '，、；。：）%':
+                last_punct = k
+                punct_acc = acc
+        # 仅当标点位置不低于上限85%时才在标点断句，避免裁太多造成新空隙
+        if last_punct > 20 and punct_acc >= target_w * 0.85:
+            cut = last_punct + 1
+        cut = max(cut, 20)
+        if cut >= len(it):
+            cut = max(len(it) - 8, 20)
+        items[i] = it[:cut]
+        lines[i] = new_l
+    return items
+
+def _resolve(key, items, avail_pt, box_width_pt, line_spacing=11, title_lines=1, sz_pt=10):
+    """V3.33一次到位（整数段距精确分配，绝不迭代）：
+    PowerPoint对每段高度做整数舍入，小数段距在19-20段上累积±4~9pt误差。
+    解法：使用整数段距，总高度=B0+Σsa，一次命中目标。
+    - MEASURE_MODE：返回sa=0且不裁剪，供COM测量真实自然高度
+    - MEASURED有实测数据：按实测行数裁剪防溢出 + 整数段距精确填满
+    - 无实测数据时回退估算路径"""
+    if MEASURE_MODE:
+        return 0, list(items)
+    m = MEASURED.get(key)
+    if m and m.get('B0'):
+        B0 = float(m['B0'])
+        para_lines = list(m.get('para_lines') or [])
+        items = list(items)
+        if para_lines and len(para_lines) >= len(items) and 8.0 <= B0 / max(title_lines + sum(para_lines[:len(items)]), 1) <= 14.0:
+            para_lines = para_lines[:len(items)]
+            n_lines = title_lines + sum(para_lines)
+            lh = B0 / n_lines
+            max_bullet_lines = int((avail_pt - 1.0) / lh) - title_lines
+            cur = sum(para_lines)
+            if cur > max_bullet_lines:
+                items = _trim_to_lines(items, para_lines, max_bullet_lines, box_width_pt, sz_pt)
+                cur = max_bullet_lines
+            B0_new = (title_lines + cur) * lh
+            nb = len(items)
+            if nb > 1 and B0_new < avail_pt:
+                # 留1pt安全余量防溢出（1pt空隙在6pt容差内不可见）
+                remaining = avail_pt - 1.0 - B0_new
+                if remaining <= 0:
+                    return 0, items
+                # 整数段距分配：前nb-1段分摊，末段=0（整数不产生舍入误差）
+                n_gaps = nb - 1
+                base = int(remaining // n_gaps)
+                extra = int(round(remaining - base * n_gaps))
+                sa_list = [base + 1 if i < extra else base for i in range(n_gaps)] + [0]
+                sa_list = [max(0, min(s, 30)) for s in sa_list]
+                return sa_list, items
+            else:
+                return 0, items
+    # 回退：估算路径（无实测数据时）
+    items = _fit_items(items, box_width_pt, sz_pt, line_spacing, avail_pt, title_lines=title_lines)
+    sa, _ = solve_space_after(items, box_width_pt, sz_pt, line_spacing, avail_pt, title_lines=title_lines)
+    return sa, items
 
 # ========== 统一页面标签 ==========
 def add_page_tag(slide, tag_text, tag_color):
@@ -256,6 +347,7 @@ def _build_card_textbox(slide, x, y, w, h, title_text, items, sz=10, space_after
     tf.margin_left = Pt(0); tf.margin_right = Pt(0); tf.margin_top = Pt(0); tf.margin_bottom = Pt(0)
     tf.vertical_anchor = MSO_ANCHOR.TOP
     p_t = tf.paragraphs[0]
+    p_t.alignment = PP_ALIGN.CENTER
     p_t.line_spacing = Pt(11)
     p_t.space_after = Pt(0)
     p_t.left_indent = Pt(0); p_t.first_line_indent = Pt(0)
@@ -282,7 +374,7 @@ def content_page(prs, _, part_num, title, left_items, right_items, process_title
     
     # ========== 左栏：固定铺满上部区域，段间距反解填满 ==========
     l_items = list(left_items[:10])
-    sa_l, _ = _resolve(part_num + 'L', l_items, AVAIL_UPPER)
+    sa_l, l_items = _resolve(part_num + 'L', l_items, AVAIL_UPPER, text_w_upper * 72)
     card_h_l = UPPER_REGION_H
     card_y_l = upper_y
     rrect(slide, left_x, card_y_l, col_w, card_h_l, fc=MID_BLUE)
@@ -291,7 +383,7 @@ def content_page(prs, _, part_num, title, left_items, right_items, process_title
     
     # ========== 右栏 ==========
     r_items = list(right_items[:10])
-    sa_r, _ = _resolve(part_num + 'R', r_items, AVAIL_UPPER)
+    sa_r, r_items = _resolve(part_num + 'R', r_items, AVAIL_UPPER, text_w_upper * 72)
     card_h_r = UPPER_REGION_H
     card_y_r = upper_y
     rrect(slide, right_x, card_y_r, col_w, card_h_r, fc=MID_BLUE)
@@ -302,14 +394,14 @@ def content_page(prs, _, part_num, title, left_items, right_items, process_title
     p_items = list(process_items[:10])
     text_w_lower = CONTENT_W - 2 * PAD_X
     lower_box_h = LOWER_REGION_H - PAD_TOP - PAD_BOT
-    sa_b, _ = _resolve(part_num + 'P', p_items, AVAIL_LOWER)
+    sa_b, p_items = _resolve(part_num + 'P', p_items, AVAIL_LOWER, text_w_lower * 72)
     card_h_b = LOWER_REGION_H
     rrect(slide, CONTENT_X, bot_y, CONTENT_W, card_h_b, fc=MID_BLUE)
     rect(slide, CONTENT_X, bot_y, CONTENT_W, 0.03, fc=GOLD)
     _build_card_textbox(slide, CONTENT_X + PAD_X, bot_y + PAD_TOP, text_w_lower, lower_box_h, process_title, p_items, space_after=sa_b)
     
     # 页脚垂直居中于页脚区
-    tb(slide, 0, FOOTER_Y, SLIDE_W, SLIDE_H - FOOTER_Y, '具身智能&AI产业最新进展 · 2026年8月17日', sz=7, c=MGRAY, al=PP_ALIGN.CENTER, an=MSO_ANCHOR.MIDDLE)
+    tb(slide, 0, FOOTER_Y, SLIDE_W, SLIDE_H - FOOTER_Y, '具身智能&AI产业最新进展 · 2026年8月21日', sz=7, c=MGRAY, al=PP_ALIGN.CENTER, an=MSO_ANCHOR.MIDDLE)
 
 # ========== 细节描述页（双数页）：通栏20条，COM实测反解段间距填满整个区域（V3.23闭环） ==========
 def detail_page(prs, _, part_num, title, detail_title, detail_items):
@@ -323,9 +415,9 @@ def detail_page(prs, _, part_num, title, detail_title, detail_items):
     d_PAD_X, d_PAD_TOP, d_PAD_BOT = 0.08, 0.04, 0.05
     text_w = SLIDE_W - 2 * DETAIL_MARGIN_X - 2 * d_PAD_X
     
-    # COM实测数据驱动段间距；无数据回退估算
+    # 生成阶段一次到位反解段间距（V3.30修复：不再依赖COM后校正）
     d_items = list(detail_items[:20])
-    sa, _ = _resolve(part_num + 'D', d_items, AVAIL_DETAIL)
+    sa, d_items = _resolve(part_num + 'D', d_items, AVAIL_DETAIL, text_w * 72)
     box_h = region_h - d_PAD_TOP - d_PAD_BOT
     # 左侧金色竖条装饰
     rect(slide, DETAIL_MARGIN_X, content_y, 0.04, region_h, fc=GOLD)
@@ -335,6 +427,7 @@ def detail_page(prs, _, part_num, title, detail_title, detail_items):
     tf.margin_left = Pt(0); tf.margin_right = Pt(0); tf.margin_top = Pt(0); tf.margin_bottom = Pt(0)
     tf.vertical_anchor = MSO_ANCHOR.TOP
     p_title = tf.paragraphs[0]
+    p_title.alignment = PP_ALIGN.CENTER
     p_title.line_spacing = Pt(11)
     p_title.space_after = Pt(0)
     p_title.left_indent = Pt(0); p_title.first_line_indent = Pt(0)
@@ -342,7 +435,7 @@ def detail_page(prs, _, part_num, title, detail_title, detail_items):
     run_t.font.size = Pt(10); run_t.font.bold = True; run_t.font.color.rgb = GOLD; run_t.font.name = '微软雅黑'
     add_bullets(tf, d_items, start_idx=1, sz=10, space_after=sa)
     
-    tb(slide, 0, FOOTER_Y, SLIDE_W, SLIDE_H - FOOTER_Y, '具身智能&AI产业最新进展 · 2026年8月17日 · 最新行情/研发/成果', sz=7, c=MGRAY, al=PP_ALIGN.CENTER, an=MSO_ANCHOR.MIDDLE)
+    tb(slide, 0, FOOTER_Y, SLIDE_W, SLIDE_H - FOOTER_Y, '具身智能&AI产业最新进展 · 2026年8月21日 · 最新行情/研发/成果', sz=7, c=MGRAY, al=PP_ALIGN.CENTER, an=MSO_ANCHOR.MIDDLE)
 
 # ========== 目录页 - 22模块居中填满，标题居中 ==========
 def toc_page(prs):
@@ -406,7 +499,7 @@ def toc_page(prs):
     
     # 底部信息填满
     rect(slide, 0, SLIDE_H - 0.36, SLIDE_W, 0.04, fc=GOLD)
-    tb(slide, 0, SLIDE_H - 0.28, SLIDE_W, 0.2, '具身智能&AI产业最新进展 · 2026年8月17日 · 商务汇报', sz=8, c=MGRAY, al=PP_ALIGN.CENTER, an=MSO_ANCHOR.MIDDLE)
+    tb(slide, 0, SLIDE_H - 0.28, SLIDE_W, 0.2, '具身智能&AI产业最新进展 · 2026年8月21日 · 商务汇报', sz=8, c=MGRAY, al=PP_ALIGN.CENTER, an=MSO_ANCHOR.MIDDLE)
 
 # ========== 封面页 - 大气饱满无空白，所有内容正确对齐 ==========
 def cover_page(prs):
@@ -444,7 +537,7 @@ def cover_page(prs):
     block_start_x = (SLIDE_W - total_block_w) / 2
     rrect(slide, block_start_x, 6.0, btn_w, 0.45, fc=GOLD)
     tb(slide, block_start_x, 6.0, btn_w, 0.45, '商务汇报版', sz=13, b=True, c=DARK_BLUE, al=PP_ALIGN.CENTER, an=MSO_ANCHOR.MIDDLE)
-    tb(slide, block_start_x + btn_w + btn_gap, 6.0, date_w, 0.45, '2026年8月17日', sz=16, b=True, c=WHITE, al=PP_ALIGN.CENTER, an=MSO_ANCHOR.MIDDLE)
+    tb(slide, block_start_x + btn_w + btn_gap, 6.0, date_w, 0.45, '2026年8月21日', sz=16, b=True, c=WHITE, al=PP_ALIGN.CENTER, an=MSO_ANCHOR.MIDDLE)
     # 底部装饰线
     rect(slide, 0, SLIDE_H - 0.36, SLIDE_W, 0.04, fc=GOLD)
     tb(slide, 0, SLIDE_H - 0.28, SLIDE_W, 0.2, '机密文档 · 内部资料 · 请勿外传', sz=8, c=MGRAY, al=PP_ALIGN.CENTER, an=MSO_ANCHOR.MIDDLE)
@@ -531,7 +624,7 @@ def back_page(prs):
     
     # 底栏信息
     rect(slide, 0, SLIDE_H - 0.36, SLIDE_W, 0.04, fc=GOLD)
-    tb(slide, 0, SLIDE_H - 0.28, SLIDE_W, 0.2, '具身智能&AI产业最新进展 · 2026年8月17日 · 商务汇报版', sz=8, c=MGRAY, al=PP_ALIGN.CENTER, an=MSO_ANCHOR.MIDDLE)
+    tb(slide, 0, SLIDE_H - 0.28, SLIDE_W, 0.2, '具身智能&AI产业最新进展 · 2026年8月21日 · 商务汇报版', sz=8, c=MGRAY, al=PP_ALIGN.CENTER, an=MSO_ANCHOR.MIDDLE)
 
 # ========== 22个模块完整数据 ==========
 all_modules = []
@@ -549,7 +642,10 @@ all_modules.append(('PART 01', '人形机器人：量产元年全面爆发',
      '【资本热度】2026年上半年国内人形机器人领域融资总额超260亿元，同比增长180%，宇树科技科创板上市市值突破600亿元',
      '【政策支持】工信部《人形机器人创新发展指导意见》全面落地，深圳、上海、北京、安徽等多地出台专项扶持政策，最高补贴1亿元',
      '【供应链成熟】核心零部件国产化率快速提升至82%，谐波减速器、伺服电机、控制器成本较2022年下降60%，供应链自主可控水平大幅提高'],
-    ['【最新·2026年8月17日】宇树科技发布"超人"机器人预览短片：腿长0.85米，原地跳高可达2米、极限奔跑12.66米/秒，双双超越全人类原地跳高和奔跑纪录；整机仅用3个多月研发，未来数月持续完善；IPO进展：8月14日披露科创板发行结果，网上申购超100倍启动回拨，发行4044.64万股占总股本10%，150.80元/股募资60.99亿元市值609.93亿元，市盈率219.23倍（行业38.56倍）；2026产品矩阵：R1双臂人形（4月）/GD01载人变形机甲3米500公斤双足四足切换（5月）/As2-W轮足6米/秒续航30公里IP54（7月）；预计2026H1营收10.52-11.28亿元+35.62%~45.41%，归母净利2.58-3.06亿元扭亏为盈',
+    ['【产业报告·2026年8月21日】WRC2026发布《2026年人形机器人产业发展报告》：上半年中国出货量超4万台全球占比97%，整机产品达400余款超全球半数，新设企业11.6万户同比+9.5%；开普勒1.75米/75公斤人形已出口美徳奥年产能1000台；擎朗智能洗衣叠衣全流程完成度达及格线；徐晓兰：人形机器人有望成为继计算机/智能手机/新能源汽车后又一颠覆性产品',
+     '【资本热浪·2026年8月21日】人形机器人从上场走向进厂资本加码：宇树科技创始人王兴兴表示具身智能领域的ChatGPT时刻或将在可见的未来到来快则两至三年慢则五到十年，当机器人能够被部署至家庭等任意陌生环境可完成约80%的任务时便意味着已抵达具身智能产业爆发的关键临界点；乐聚智能IPO发行申请获深交所受理是首家选择使用创业板第四套标准申请上市的企业2025年实现营业收入2.58亿元近三年复合增长率高达118.68%；越疆科技启动H回A进程创业板IPO项目获深交所上市委审议通过计划募资约12亿元；今年以来国内机器人相关企业共出现超过230起融资事件比去年同期增长28.8%；数字华夏完成亿元级Pre-A轮战略融资带来新一代仿生人形机器人夏澜R03、全新双形态人形机器人星行侠P02（双足行走与轮式移动可切换/身高130厘米/重量30公斤/25个自由度/飞兵模式续航超8小时）以及RoboEase场景大脑',
+     '【广东十骏·2026年8月21日】广东十家人形机器人整机企业形成十骏现象：逐际动力数千台订单半数以上海外；智平方NeuroVLA类脑模型具备主动感知/故障自恢复/时序记忆；乐聚夸父核心部件国产率95%；众擎发起URKL全球自由格斗联赛；美的美罗U螺钉锁附超10万颗；荣耀半马夺魁；优必选Walker进比亚迪吉利产线',
+     '【最新·2026年8月17日】宇树科技发布"超人"机器人预览短片：腿长0.85米，原地跳高可达2米、极限奔跑12.66米/秒，双双超越全人类原地跳高和奔跑纪录；整机仅用3个多月研发，未来数月持续完善；IPO进展：8月14日披露科创板发行结果，网上申购超100倍启动回拨，发行4044.64万股占总股本10%，150.80元/股募资60.99亿元市值609.93亿元，市盈率219.23倍（行业38.56倍）；2026产品矩阵：R1双臂人形（4月）/GD01载人变形机甲3米500公斤双足四足切换（5月）/As2-W轮足6米/秒续航30公里IP54（7月）；预计2026H1营收10.52-11.28亿元+35.62%~45.41%，归母净利2.58-3.06亿元扭亏为盈',
      '【最新·2026年8月17日】《人形机器人试验方法》系列国家标准启动会在光谷举行：宇树/小米/魔法原子/中兴/云深处/地平线/灵心巧手/银河通用等头部企业+武大/华科/南航/西工大等高校200余名代表参会，总则/环境感知/决策规划/运动控制等7项标准同步启动编制，诚芯智联负责定位导航部分（湖北唯一牵头单位）、华威科为环境感知核心参编单位',
      '【最新融资·2026年8月16日】高工机器人：7月具身智能融资52起共316.6亿元同比+957.8%（1-7月累计327起/1703.6亿元）；7家新晋百亿估值独角兽：逐际动力投后150亿/一目科技估值破100亿/曦诺未来/求之科技/墨奇智能/Walden Robotics 11亿美元/Humanoid 13.5亿美元（欧洲首家纯人形独角兽）',
      '【海外融资·2026年7月】海外具身智能7月6起融资共179.33亿元单月超国内（国内46起137.27亿元）；Walden Robotics（丰田研究院独立，已在北美丰田工厂产线作业）3亿美元种子轮估值11亿美元；Atoms（Uber联合创始人Kalanick创办）17亿美元；上半年海外累计18起596.82亿元',
@@ -617,7 +713,13 @@ all_modules.append(('PART 02', '人形新品：2026新品密集发布',
      '【智能化升级】全部搭载具身大模型，支持自然语言指令，无需预编程即可完成新任务',
      '【模块化设计】关节/电池/传感器模块化设计，维护更换成本降低60%',
      '【设计语言】消费级产品开始注重外观设计，采用流线型机身，多配色可选'],
-    ['【WRC2026新品前瞻·2026年8月17日】2026世界机器人大会8月19-23日北京亦庄：首发新品150余件+21%/参展企业300余家+36%/展品超2000件；魔法原子三箭齐发——MagicBot X1身高180cm/31自由度/单关节峰值扭矩450N·m/关节活动范围+50%/腕关节双轴±90°，实测扣篮/乒乓球/击剑，行业首个完成扣篮的全尺寸通用人形；MagicBot D1轮式人形已进驻追觅工厂常态化作业；MagicDog T1轻工业四足开放平台；时空张量8月21日全球首发"天眼·Tensopt"7D空间智能视觉传感器（XYZ+RGB+T实时彩色点云）感知0.15-30米/精度±3毫米/3072万点/秒达主流3倍+/25Hz无运动畸变，透明玻璃/高反光金属/微光暗环境无空洞重建，减少2-3个传感器/标定成本-60%/SLAM精度3倍；星海图首款自研双足人形Kengo身高1.4米单关节扭矩超130N·m+VLA模型G0.5；新松"松羿"Power/Agile瞄准工业搬运',
+    ['【小米铁大·2026年8月21日】WRC2026小米详解新一代人形机器人铁大：身高1.7米/体重66公斤/全身66个关节双足形态，按汽车工厂工人身高设计，自由度从上代21个增至66个约一半集中在手部，覆盖汽车工厂2000多个岗位80%以上运动空间；已有两款机器人在工厂实习，螺丝对位成功率3月90%→7月98%（人工99%）预计年底99%；10B模型使用约10万小时UniMi真机数据+1万小时遥操数据；应用场景分智能制造/商业服务/家庭三阶段，家庭先从小米青年公寓验证',
+     '【自变量双场景·2026年8月21日】自变量机器人WRC展示家庭服务+物流分拣双场景：物流分拣两条机械臂配合夹爪全自主分拣复杂随机真实包裹效率1816件/小时准确率98%，相比人形+五指灵巧手方案成本大幅下降70%，已与头部物流企业合作部署真实产线；全自研端到端世界统一模型WALL-B融合视觉/语言/触觉/动作/物理预测；QUANXTA Zero无本体数采数据入库有效率超85%成本降90%；今年3月与58到家推出机器人上门家政行业首次大规模进家庭',
+     '【WRC2026开幕日·2026年8月19日】2026世界机器人大会北京开幕：超300家企业参展(+69%)/展品超3000件/首发新品300余件，主题"人机共生 产需共融"；KOM 3.0全球首个融合潜空间世界模型的服务行业VLA架构（长程任务全闭环先想后做/多机协同智能调度/7×24小时真机验证商业落地）；北京人形机器人创新中心"慧思开物"具身智能一站式开发平台+具身大一统模型Pelican Unify+开放平台"天工Omni"实现一脑多能一脑多机；银河通用发布双足机器人Galbot ET1；浙江人形机器人创新中心NAVIAI WA1工业级超精密作业专攻汽车装配；奥比中光发布机器人视觉与具身数据采集方案打造眼手协同；长木谷全球首款六位一体ROPA6全骨科AI手术机器人亮相；宇树科技同日登陆科创板成A股人形机器人第一股',
+     '【京粤真干活·2026年8月19日】WRC2026机器人从炫技转向真干活：天工Omni家用小型人形身高1.35米/整机39公斤首发，挑战梅花桩/上下楼梯/匍匐爬行，开放关节控制/传感器/运动控制/数据采集开发接口；具身多模态大模型Pelican-Unify 1.0发布+Pelican 2.0官宣商业化；星海图500㎡最大展位全球首个机器人前置仓在线接单（G0.5模型自主拣选打包）+机器人组装机器人（厘米级螺丝入孔锁付）+发布轮臂人形Nexo 30自由度；广东34家企业全国第一梯队：智平方爱宝咖啡/冰淇淋自主制作十余省常态化运营，越疆柔性织物折叠无需预设程序，乐聚夸父单日运行8-10小时已交付北汽/一汽/江汽；星源智异构多机跳长绳全球首次实机验证；云迹200多家工厂医院落地',
+     '【机器人运动会赛项·2026年8月19日】第二届世界人形机器人运动会8月22日北京开幕全赛项规则详解：举重按自重分轻量级≤40kg/重量级40-80kg，须完整人形+≥3指灵巧手，每台最多3次试举，杠铃双手直接抓握垂直举升过头顶静止2秒有效，标准2米杠铃杆自重10kg，3名裁判联合亮灯裁决；拔河新增二对二赛项每局2分钟赛道宽1.2米长12米，双脚外触地或踏出边界判负，轻量级约40kg机器人可拉动SUV；投壶首次设置壶口内径13cm距投掷线1.5米3分钟内站立完成；灵巧手专项赛粉末称量勺子舀粉末至电子秤达20克毫克级精度/开瓶撬盖5分钟有效开瓶数/电动工具装配5分钟有效拧入螺丝数',
+     '【武汉军团·2026年8月19日】WRC2026武汉机器人军团集体亮相：格蓝若C1人形机器人学会"倒地自起"；D2-W四足机器狗搭载自研"玄鸟"巡检智脑；启灵"神农"自主完成搬运；"赤兔"四足机器狗峰值负载超120公斤；拾光S1通用家庭人形机器人亮相；中坚科技ZERO巨型化概念机器人展出；伟景智能采摘版智能人形机器人；墨奇智能MORPHI KINO轮式机器人适配家庭长程任务；松延动力E1首次亮相；龙旗科技与南昌高新区签约具身智能机器人研发制造基地落地；香港小睿G3能响应语音指令平稳搬运50公斤杠铃',
+     '【WRC2026新品前瞻·2026年8月17日】2026世界机器人大会8月19-23日北京亦庄：首发新品150余件+21%/参展企业300余家+36%/展品超2000件；魔法原子三箭齐发——MagicBot X1身高180cm/31自由度/单关节峰值扭矩450N·m/关节活动范围+50%/腕关节双轴±90°，实测扣篮/乒乓球/击剑，行业首个完成扣篮的全尺寸通用人形；MagicBot D1轮式人形已进驻追觅工厂常态化作业；MagicDog T1轻工业四足开放平台；时空张量8月21日全球首发"天眼·Tensopt"7D空间智能视觉传感器（XYZ+RGB+T实时彩色点云）感知0.15-30米/精度±3毫米/3072万点/秒达主流3倍+/25Hz无运动畸变，透明玻璃/高反光金属/微光暗环境无空洞重建，减少2-3个传感器/标定成本-60%/SLAM精度3倍；星海图首款自研双足人形Kengo身高1.4米单关节扭矩超130N·m+VLA模型G0.5；新松"松羿"Power/Agile瞄准工业搬运',
      '【上纬启元Q1/T1·2026年8月17日】消费级个人机器人商业化验证：启元Q1首款全身力控小尺寸个人机器人身高88cm可折叠装入双肩背包，自研微型化QDD准直驱关节+力位混合多专家运控模型，获CES 2026五项国际奖+意大利A\' Design Award工业设计金奖，作为C罗首个机器人球迷亮相国家级电视媒体"超级绿茵场"实时辩论；启元T1（7月WAIC）首款可变形个人机器人"Transformer跨形态一体架构"轮足人形/四足自主切换+智能跟随/创意拍摄/主动交互/长期记忆；预收货款2.1亿元，线下体验店覆盖7大核心城市；H1研发投入1.6亿元（Q2环比+223.5%），研发团队227人硕博>67%，专利273项',
      '【优艾智合隙锋·最新】工业原生人形机器人"明日熟练工"：出厂具备抓/取/握/拿/推基础动作，50条数据采集训练达90%成功率，24小时周期循环训练成岗位熟练工',
      '【特斯拉Optimus Gen3】2026年8月量产交付，自由度52个，全身负载20kg，单臂负载10kg',
@@ -838,7 +940,10 @@ all_modules.append(('PART 05', '安徽产业：合芜蚌协同发展',
 
 # PART 06 蚌埠中国传感谷（重点模块）
 all_modules.append(('PART 06', '蚌埠中国传感谷：MEMS传感器基地',
-    ['【最新·2026年8月8日】中宣部2026"活力中国调研行"走进蚌埠中国传感谷：华鑫微纳全国首条8英寸MEMS晶圆全自动生产线达产后月产3万片居国内第一梯队，服务高端装备/汽车电子/脑机接口',
+    ['【最新·2026年8月21日】蚌埠智能传感脑机接口产业8月19-21日密集动态：全市智能传感、脑机接口产业发展座谈会召开部署推进产业高质量发展；安徽北方华鑫智感全新研发的固态电池用硫化氢气体专用检测传感器成功亮相第八届MEMS智能传感器产业生态发展大会成大会重点推介产品，整体技术水准达国内领先水平精准适配新能源汽车/储能等热门产业赛道有效填补相关领域检测技术应用空白，已与国内多家电池生产应用企业达成前期技术合作意向；中国传感谷已集聚安徽北方微电子研究院/芯动联科/希磁科技等200多家智能传感器上下游企业构建从关键材料/芯片设计/晶圆制造到封装测试/终端应用的完整全产业链体系；蚌埠组建总规模超70亿元的智能传感产业发展基金布局建设省级以上创新平台39个出台全国首部促进智能传感产业发展地方性法规；园区同步布局9条公共服务示范线面向科创企业开放共享降低研发试产成本；下一步将向上招引优质研发设计团队向下深耕车载传感/具身智能/硅光通讯等终端应用制造领域',
+     '【最新·2026年8月19日】蚌埠AI产业8月18-19日密集动态：有家硅光1.6T高速硅光通信模块量产——国内极少数自研硅光芯片实现400G/800G/1.6T全系列光模块量产，月产能约2万片/月产值约3000万元，2026年计划产值2.5亿元，员工从130人增至近300人，二期总投资5亿元；龙磁科技8月18日公告拟募资7.6亿元建设芯片电感智造项目；华鑫微纳全国首条8英寸MEMS晶圆全自动生产线99%以上自动化全部达产月产3万片，同步布局9条公共服务示范线；中科微感全球首款量产化普适型AI嗅觉传感产线运行年产能100万颗/30多项自主专利填补国内空白',
+     '【最新·2026年8月19日】上半年蚌埠智能传感产业集聚企业224家，82家规上企业产值50.49亿元同比+15%，签约46个/新开工30个/新投产19个；中国传感谷集聚200多家企业可生产超300种传感器，连续两年获评全国MEMS传感器十大园区2025年位列第6位；8月18日全市智能传感脑机接口产业发展座谈会召开明确两大产业为新兴和未来产业；蚌埠医科大学第一附属医院完成全省首例半侵入式脑机接口手术用于偏瘫患者康复；全国首部《蚌埠市促进智能传感产业发展条例》施行+超70亿元产业发展基金组建',
+     '【最新·2026年8月8日】中宣部2026"活力中国调研行"走进蚌埠中国传感谷：华鑫微纳全国首条8英寸MEMS晶圆全自动生产线达产后月产3万片居国内第一梯队，服务高端装备/汽车电子/脑机接口',
      '【最新·2026年8月】蚌埠提前布局脑机接口未来赛道：柔性脑机电极/AI嗅觉电子鼻/脑部诊疗成套设备亮相；北方华鑫固态电池硫化氢检测传感器填补国内空白',
      '【产业定位】蚌埠中国传感谷是国家级MEMS传感器产业基地，机器人传感器核心产区',
      '【园区规划】总规划面积20平方公里，分为研发区/生产区/封装测试区/应用示范区四大功能区',
@@ -1016,7 +1121,12 @@ all_modules.append(('PART 09', 'AI算力：大模型算力底座',
      '【算力网络】全国一体化算力网络建设，东数西算工程推进，算力调度效率提升',
      '【绿色算力】液冷/PUE优化/可再生能源利用，数据中心PUE降至1.2以下，绿色低碳发展',
      '【具身算力】机器人端侧推理芯片成为新赛道，高通/英伟达/华为/地平线均布局专用芯片'],
-    ['【昇腾950超节点·2026年8月17日】华为昇腾950超节点真机首秀WAIC：1024张昇腾NPU卡高速互联提供1 EFLOPS FP8/2 EFLOPS FP4澎湃算力，满配128计算柜+32互联柜搭载8192颗芯片总算力8 EFLOPS计划2026年Q4上市；《超节点定义与实践白皮书》首次明确标准（32卡+整合/域内带宽≥400GB/s/交换时延<500ns/内存统一编址）；昇腾384超节点累计部署超750套在互联网/金融/能源/教育/医疗商用；WAIC超20家企业发布超节点产品（摩尔线程MTT C256首次256卡单层全互联/壁仞16卡/128卡/1024卡三级矩阵）；机构测算2026-2028年国产超节点市场规模889亿/4151亿/11089亿元年均复合增长率341%，2026年="国产超节点落地元年"，标志国产算力从"单卡比拼"迈入"系统级较量"',
+    ['【算力大单狂飙·2026年8月21日】A股算力赛道狂飙：赛意信息与W公司签订两份高性能算力服务合同含税总金额64.5亿元相当于其2025年全年营收逾三倍；利通电子披露定增预案拟募资不超50亿元其中40亿投向智算中心建设，算力业务长期租赁排期已至2030年以后现有算力利用率接近100%；东阳光控股子公司三笔算力服务框架合同累计金额约390-460亿元；OpenRouter平台截至8月16日周Token调用量达75.3万亿环比增长9.1%创历史新高；SK海力士与弗吉尼亚大学在《自然·电子学》发表CPO技术路线图提出算力每两年增长3倍互联带宽仅增长1.4倍带宽墙成AI扩展核心瓶颈；谷歌与迈威尔就合作开发定制芯片签署一系列协议涵盖TPU相关AI推理加速器；SIGCOMM主会收录109篇论文中国贡献59篇占比再次超50%阿里巴巴蝉联全球企业论文入选榜榜首',
+     '【阿里云AI·2026年8月21日】阿里巴巴2027财年Q1财报：阿里云外部商业化收入加速增长45%增速创22个季度新高，AI相关产品收入连续第12个季度实现三位数同比增长，本季度AI相关产品季度收入达123.76亿元对应年化规模接近500亿元；全球头部云厂商分化出AI加速阵营谷歌云82%季度增速领跑阿里云45%位列全球第二Azure 43%被阿里云反超AWS 37%；吴泳铭表示AI算力Capex投资回报确定性非常高投入可三年内回本未来有望缩短到2.5年甚至2年；平头哥已建成覆盖GPU/CPU/网络芯片的全栈自研体系真武M890等真武系列芯片已覆盖20余个行业服务650余家外部客户阿里云已将大规模AI数据中心交付周期压缩至100天；最新开源参数规模2.4万亿的Qwen3.8-Max和Qwen3.8-27B模型Qwen系列模型全球下载总量已超30亿次衍生模型数超30万个',
+     '【算力资本大动作·2026年8月20日】AI算力成最稀缺战略资源：软银宣布65亿美元全现金收购Arm架构数据中心芯片公司Ampere Computing，与收购Arm及Stargate计划协同构建芯片设计到算力部署全链条；谷歌与Marvell达成122亿美元潜在入股深度合作，Marvell为谷歌开发定制AI芯片ASIC成博通之后第二大定制芯片伙伴加速去英伟达化；Groq以35亿美元估值完成3.5亿美元A轮融资英伟达计划参投，自研LPU推理芯片延迟比GPU快10倍以上算力明年从54兆瓦扩至200兆瓦以上；三星代工涨价15%模型降价但底层芯片涨价；宇树科技科创板上市首日开盘1100元较发行价150.80元涨近630%盘中市值破4000亿元，收盘约845元涨460%市值超3400亿，978万户打新中签率0.018%中一签盈利约35万元，但219倍市盈率对应2026上半年扣非净利同比-19.34%；快手可灵AI视频单季收入8.5亿元',
+     '【Cerebras WSE-3T详参·2026年8月19日】Cerebras新一代晶圆级引擎WSE-3T及CS-4机架系统：芯片频率从1.4GHz翻倍至2.8GHz，稀疏FP16算力达250 PFLOPS，内存带宽43.2 PB/s；CS-4移除交换机让芯片直连延迟从5微秒降至2微秒；gpt-oss-120b模型推理速度达每秒4400 Token为大模型推理硬件树立新标杆',
+     '【Token工厂大考·2026年8月19日】中国算力从堆卡转向Token价值产出：国家数据局披露2026年3月日均Token调用量超140万亿较2024年初1000亿增长1000多倍；OpenRouter数据中国模型周调用4.12万亿Token超美国2.94万亿；Agentic Coding平均Token消耗为单轮推理3500倍/代码聊天1200倍输入输出比154:1；编程Token占比从11%升至50%以上成最大品类；智谱GLM Coding Plan付费开发者24.2万ARR从1亿到10亿美元仅5个月；豆包日均Token从2万亿增至180万亿（两年1500倍）；阿里云AI收入89.71亿元占比首超30%；Cerebras CS-4搭载WSE-3 Turbo芯片推理速度最高达GPU方案30倍；首个全国产10万卡超集群接入国家超算互联网；华为Atlas 950 SuperPoD最大8192卡互联；西北绿电0.25-0.3元/度vs东部0.6-0.8元/度；传统智算中心GPU利用率<30%并行科技精准调度达90%以上；商汤大装置MFU提升85%-152%',
+     '【昇腾950超节点·2026年8月17日】华为昇腾950超节点真机首秀WAIC：1024张昇腾NPU卡高速互联提供1 EFLOPS FP8/2 EFLOPS FP4澎湃算力，满配128计算柜+32互联柜搭载8192颗芯片总算力8 EFLOPS计划2026年Q4上市；《超节点定义与实践白皮书》首次明确标准（32卡+整合/域内带宽≥400GB/s/交换时延<500ns/内存统一编址）；昇腾384超节点累计部署超750套在互联网/金融/能源/教育/医疗商用；WAIC超20家企业发布超节点产品（摩尔线程MTT C256首次256卡单层全互联/壁仞16卡/128卡/1024卡三级矩阵）；机构测算2026-2028年国产超节点市场规模889亿/4151亿/11089亿元年均复合增长率341%，2026年="国产超节点落地元年"，标志国产算力从"单卡比拼"迈入"系统级较量"',
      '【NVIDIA GB300量产·2026年8月14日】NVIDIA GB300 Blackwell Ultra量产出货当日向AWS/Azure/GCP交付Q4实例上线，Meta/微软/xAI签署优先采购合同；推理吞吐较H100最高+2.5倍（FP8）/288GB HBM4（H100的3.6倍）带宽8TB/s/每瓦推理性能+1.8倍/NVLink 5.0带宽1.8TB/s最多576卡互联；同等推理量GPU削减约40% LLM API成本结构将被重写；IEA预测2026年AI数据中心电耗较2024年+2.1倍',
      '【最新·2026年8月16日】《全球科技创新企业榜单》：中国入围187家首超美国169家，华为97.3分连续三年蝉联榜首（昇腾910C+盘古大模型驱动，AI芯片/大模型/5.5G/智能汽车四子项全满分），英伟达95.1/腾讯88.6/微软86.3/字节84.0；TOP10中国占5席；中国AI企业平均研发强度19.3%高于美国17.6%；中美顶尖模型性能差距缩至2.7%',
      '【英伟达H200】FP8算力1979TOPS，HBM3e显存141GB，带宽4.8TB/s，2026年训练卡主力',
@@ -1077,7 +1187,13 @@ all_modules.append(('PART 10', 'AI智能体：具身大脑核心',
      '【多智能体协作】多个机器人之间协同工作，任务分配/信息共享/动作协调，完成复杂任务',
      '【端云协同】端侧实时控制+云端复杂推理和技能学习，兼顾实时性和智能水平',
      '【开源生态】具身智能开源社区快速发展，数据集/仿真环境/基础模型开源共享加速技术迭代'],
-    ['【最新·2026年8月17日】优艾智合发布全球首个可规模化应用的工业具身智能大模型"智合"FabriX：从工业场景"长出来"而非通用AI"降维"；先验引导层蒸馏确定性数据+双回路逻辑校验层赋予自主诊断/故障恢复能力；三层分布式架构（中央层接工业软件指令/边缘层协同调度与长任务链拆解/终端层VLA原子级实时控制）实现"一脑多态"跨具身集群作业；"边界层剥离"策略兼容存量工业系统',
+    ['【大晓开悟世界模型·2026年8月21日】大晓机器人首次亮相WRC展示具身智能全栈实力：开悟世界模型3.1（Kairos 3.1）采用统一原生架构整合生成/物理/认知三类智能，把视觉观测/语言指令/力触反馈/动作轨迹等多源具身数据纳入同一隐空间，搭建理解—推演—执行—反思自进化闭环，机器人执行失败后可自主定位问题调整策略自我优化；在全球具身智能评测中世界模型视频生成/状态预测两项赛道取得靠前成绩已面向行业开源，毕马威报告视其为原生一体化架构代表性成果处全球第一梯队；发布晓满（即时零售履约）/晓新（酒店洗衣全流程）/晓途（城市治理文旅户外）三套行业解决方案',
+     '【帕西尼VTLA·2026年8月21日】WRC2026产业深度对话：帕西尼CEO许晋诚+易方达基金经理肖宛远指出物理世界数据极度匮乏与触觉感知缺失是行业核心短板，底层算法从纯视觉向VTLA（视觉-触觉-语言-动作）多模态融合跃迁触觉从硬件选配走向底层标配；评判机器人产业成熟标准是ROIC与ROI投入1美元产生超1美元价值商业闭环即成立；轮式与双足是不同商业场景的并行方案；灵巧手成本一年前10万级别现在降到3万以内；帕西尼提供传感器-灵巧手-整机-算法全链路交付触觉传感器深入半导体芯片制程级别',
+     '【大模型安全合规·2026年8月19日】OpenAI确认因下一代前沿模型Astra在隔离测试中展现超预期网络攻防能力触及安全阈值，暂停强化学习训练至少两周最大规模前沿模型训练同步冻结，部署激活分类器对每Token实时监测异常30分钟内告警安全监控开销约占被监控推理算力20%，Astra 8月内发布概率降至13%行业进入安全管理优先于抢发模型新阶段；智谱正式开放GLM-5.3 API主打复杂编码/防御性网络安全/长程任务规划，Artificial Analysis智能指数60分与Kimi K3并列开源第一比肩Claude与GPT最新闭源旗舰，单任务调用成本约0.68美元下周五MIT许可开放权重；苹果在阿里技术支持下专门为中国市场训练大语言模型与通义千问方案并行推进，成首家获准在华提供自研专属AI模型的外国企业已完成监管备案；Anthropic披露Claude设计蛋白质结合剂命中率22.6%-35.1%达领域均值两倍',
+     '【脑控机器人·2026年8月19日】WRC2026强脑科技BrainCo展示脑机接口+具身智能融合方案：脑控机器人训练平台脑电设备实时采集脑电信号算法识别意图转化为机器人控制指令，支持人形机器人/机械臂/机器狗多设备接入10分钟解锁脑控机器人首次以人形机器人现场执行演示；灵巧操作数采矩阵整合真机执行/真人示教/仿真生成三大数据来源，RevoTron/RevoMate双臂轮式数采平台搭载21自由度全掌触觉灵巧手Revo 3形成动作-触觉-视觉-语义全模态数据，RevoHuman外骨骼数采手套同步采集真人操作；新一代智能仿生手读取残肢肌肉电与神经电信号识别运动意图',
+     '【智能体商业底座·2026年8月18日】支付宝发布国内首个全栈智能体商业底座及AHA多智能体跨端互联协议，联合千问/华为/OPPO/比亚迪/吉利等20余家企业共建生态，打通手机/车机等多终端壁垒，阿宝已完成超一万项服务AI化接入；高德云睿·时空智能体平台融合20余年时空数据同步上线交通/文旅/产业/充电/商业五大行业智能体；阿里千问办公接入企业微信实现钉钉飞书企微全覆盖；豆包工作任务模式支持手机远程控制电脑+虚拟桌面功能上线；企业微信5.0.10开放CLI与MCP能力',
+     '【大模型密集更新·2026年8月19日】智谱GLM-5.3于8月17日发布总参数7530亿编程能力提升50%，Token调用量半年涨15倍，API价格累计上调83%调用量仍增400%；阿里Qwen3.8-27B专为消费级硬件打造表现媲美10倍规模模型，通义千问衍生模型在Hugging Face达151448个为Meta的2.6倍，联发科天玑旗舰芯片及汽车座舱平台C-X1实现Day-0支持；月之暗面K3发布48小时请求量逼近集群极限；MiniMax M2.5上线七天调用突破3.07万亿Token',
+     '【最新·2026年8月17日】优艾智合发布全球首个可规模化应用的工业具身智能大模型"智合"FabriX：从工业场景"长出来"而非通用AI"降维"；先验引导层蒸馏确定性数据+双回路逻辑校验层赋予自主诊断/故障恢复能力；三层分布式架构（中央层接工业软件指令/边缘层协同调度与长任务链拆解/终端层VLA原子级实时控制）实现"一脑多态"跨具身集群作业；"边界层剥离"策略兼容存量工业系统',
      '【最新·2026年8月16日】OpenAI连放两招：Codex上线GPT-5.6"多智能体V2"，主Agent可把子任务自动委派给不同模型、每个子Agent单独设置推理强度（前端/后端/测试分工协作），AI"单打独斗"时代结束；ChatGPT前端史诗级换血：应用加载+94%、内存占用-41.2%、网络请求-98.2%、对话记录加载-99.6%',
      '【Agentic AI趋势·2026年8月】2026年44%企业开始部署或评估AI智能体，但仅11%成功投入规模化生产，先发优势窗口开放；智能体从"辅助工具"升级为独立承担端到端工作流的"数字员工"（数据分析/内容创作/审核校验/执行部署多智能体协同）；多智能体协同系统将取代单一模型成为企业竞争主战场',
      '【最新·2026年8月15日】阿里千问开源Qwen3.8-27B(270亿参数Apache2.0)，原生262K上下文外推1M，17GB显存消费级显卡可跑；同日首次开放Qwen3.8-2.4T-A95B旗舰权重；千问全球下载超30亿次稳居开源第一',
@@ -1203,7 +1319,10 @@ all_modules.append(('PART 12', '消费电子：AI终端普及',
      '【端侧AI能力】AI拍照/AI修图/AI翻译/AI摘要/AI助理/AI创作成为标配功能',
      '【生态融合】手机/PC/平板/手表/耳机/汽车/智能家居生态打通，多设备协同AI体验',
      '【技术参数迭代】处理器/屏幕/摄像头/电池/快充持续升级，AI推动体验质变'],
-    ['【华为Vision智慧屏512万预约·2026年8月17日】华为商城新一代Vision智慧屏最终预约量定格512万台创品类纪录，8月18日正式开售；深圳/上海/杭州三地同日发布AI智能终端消费补贴细则：搭载国产AI芯片的智能终端最高补贴1000元自8月18日开售起生效；512万预约按20%转化率首销有望破100万台直接拉动供应链季度业绩；国产AI芯片终端消费进入"政策+市场"双轮驱动阶段',
+    ['【哈蒙蒙+AirPods B798·2026年8月19日】华为鸿蒙座舱AI陪伴机器人HAMOMO（哈蒙蒙）详细配置曝光：今年4月华为乾崑技术大会首发将搭载于奕境X9，可磁吸于车机并转头注视用户，亦可拔下随身携带变身桌面智能手办，体现车载AI向多形态陪伴硬件延伸趋势；苹果代号B798项目左右耳均配备摄像头的AirPods进入设计验证测试DVT阶段，将作为视觉传感器把物体/文字/街道信息交由视觉智能与Siri处理，外形接近AirPods Pro 3但耳机柄加长并配外部提示灯保护隐私，因新版Siri延期及供应链软件障碍预计2027年末发布今年无缘上市',
+     '【AI眼镜密集发布·2026年8月18日】闪极loomos AI眼镜L1于8月18日发布：整机仅43克前框19克，5秒极速换电实现无限续航，主打全天候主动记忆自动生成AI日记，索尼IMX681传感器111°超广角F2.2光圈，深度集成飞书，首发价2699-2999元，武汉东西湖产线投产；雷鸟iO AI眼镜8月21日14:30发布定位人类增强AI眼镜，双目单绿光波导方案无摄像头和音频模块主打轻量化，皇冠镜框+钛金属镜腿围绕知识/表达/记忆三维度；苹果AirPods B790在macOS曝光演示视频确认配备摄像头支持视觉智能交互，可识别书籍等物体由Siri处理预计9月与新一代iPhone一同发布',
+     '【智能家居AI化·2026年8月18日】石头科技8月18日推出三大品类新品：扫地机P30 Pro/G30S Ultra搭载可升降LDS系统机身压缩至8.98cm支持RRMind GPT大模型自然语言交互；洗地机A30 Pro Steam 3.0支持180℃蒸汽与90℃热水混洗；迷你洗烘一体机Z1 Mini Pro搭载智能脏污检测；海尔AI家庭机器人体验中心在青岛启用国内首个家庭全场景AI机器人主题线下空间展出AI烹饪机器人等；苏宁易购与博西家电深化AI家电战略合作；万和超薄燃气热水器99系列支持AI三管零冷水；苹果Home Hub曝光7英寸方形屏支持Siri AI型号J490/J491',
+     '【华为Vision智慧屏512万预约·2026年8月17日】华为商城新一代Vision智慧屏最终预约量定格512万台创品类纪录，8月18日正式开售；深圳/上海/杭州三地同日发布AI智能终端消费补贴细则：搭载国产AI芯片的智能终端最高补贴1000元自8月18日开售起生效；512万预约按20%转化率首销有望破100万台直接拉动供应链季度业绩；国产AI芯片终端消费进入"政策+市场"双轮驱动阶段',
      '【问界儿童车官宣·2026年8月16日】鸿蒙智行官宣问界儿童车（网友称"M0.9"）即将上市，赛力斯与华为联合设计开发主打"成长陪伴 智趣探索"：延续M9"鲲鹏展翼"设计语言双座敞篷/贯穿式星光灯带/仿真激光雷达外壳内嵌摄像头/智驾小蓝灯，车身长1500mm轴距857mm边角圆弧过渡；双模式操控（儿童自主驾驶+家长遥控紧急制动）/鸿蒙智联电子围栏超范围提醒/车内外双摄像头远程对讲/电子车钥匙/前挡风动态交互屏，金属车架+车规级漆面；业内预测定价1-2万元区间，鸿蒙智行向家庭场景延伸强化车主生态粘性',
      '【最新·2026年8月5日】华为全场景新品发布会(深圳)六大连发：nova 16 SE(麒麟8020+8500mAh，2499元起)、MateBook Fold非凡大师(18英寸折叠OLED，24999元起)、MatePad Pro(首款北斗卫星通信平板)、WATCH GT 7系列(1588元起最长21天续航)、Vision智慧屏6 SE RGB(3599元)',
      '【最新·2026年8月5日】尊界V800上市76.6-101.6万元(9月交付)、V680 64.8万元：5495mm车长3430mm轴距，65kWh 6C电池纯电340km综合1335km，L3架构+乾崑ADS 5；享界G9预售43.98万起，2小时订单超5100台',
@@ -1629,6 +1748,7 @@ def make_detail_module(part_num, title, keyword, category_idx):
             '【安徽部署】安徽汽车/家电/新能源产业基础好，蔚来/比亚迪/美的/海尔等工厂部署量快速增长',
             '【ROI拐点】人形机器人单机成本下降+人工成本上升，工业场景ROI回收期缩短至2-3年'
         ], 'right': [
+            '【机器人移动母舰·2026年8月21日】WRC2026舰队协同新生态：飞巴科技全球首发机器人移动母舰——机器人的移动后勤基地，舱体可装载人形机器人/机器狗/无人机，车内自带换电工位和维修工位，即使在断网断电极端环境下也能给机器人提供算力和通信保障，今年年底投入量产预计明年6月真正商用进入航空救援/应急消防/医学救援等领域，让机器人从单兵作战走向舰队协同；新松人工智能研究院发布多机型协同系统OneHub羿枢可接入不同种类机器人3台机器人两种类型都可在该系统协同下工作融入大模型技术；猿声先达科技首次对外展出多维触觉动捕手套+能感知物体接近的大面积电子皮肤，动捕手套可感知法向力/切向力及非常密集的力的方向模块化设计可重构跟人骨骼完全一样的骨骼建模',
             '【最新·2026年8月17日】2026世界人工智能大会：优艾智合工业原生人形机器人"隙锋"集群协作实景演示——5台"隙锋"在模拟线边仓进行物料拣选与配送，与移动搬运机器人协同完成生产流程；晶圆搬运机器人在半导体车间实现晶圆盒高精度稳定转运',
             '【最新·2026年8月17日】优艾智合产业版图：半导体领域进入全球顶级晶圆厂在内十余家国内外晶圆厂，头部衬底/光掩膜版/封测企业多个标杆项目；能源化工覆盖上游原材料/电力/冶金/化工/公用事业，深度服务国内头部电网和能源集团；累计超800个具身智能场景落地项目，服务超400家全球头部企业',
             '【最新·2026年8月16日】星工聚将CTO陈牧（清华金融评论专访）：自研"数字风洞"仿真校准平台SynTunnel测仿真与真实动作偏差反向修正模型，训练成本从指数增长收敛成线性增长；末端快换系统6秒内切换吸盘/夹爪/灵巧手等十几种执行器实现"一机多用"；物流分拣2秒/件目标1.5秒逼近人工1800件/小时；机器人要扛下一段"连续工位"才有进厂资格',
@@ -1859,7 +1979,7 @@ for i, (part_num, title, keyword) in enumerate(module_titles_rest):
     all_modules.append(make_detail_module(part_num, title, keyword, i))
 
 # ========== 双层水印 ==========
-def add_watermark(prs, date_str='20260817'):
+def add_watermark(prs, date_str='20260821'):
     wm_texts = [
         '机密文档 请勿传播 ' + date_str,
         '内部资料 版权所有 ' + date_str,
@@ -1939,8 +2059,8 @@ def generate(enable_watermark=False):
 if __name__ == '__main__':
     import os
     out_dir = r'F:\个人作品\具身智能'
-    date_str = '20260817'
-    ver = 'v29'
+    date_str = '20260821'
+    ver = 'v31'
     
     print('正在生成无水印原版...')
     prs1 = generate(enable_watermark=False)
