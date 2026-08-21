@@ -54,10 +54,11 @@ def read_bound(tr):
 
 n_slides = P.Slides.Count
 print('总页数: ' + str(n_slides))
-for si in range(3, n_slides):  # 第3页到倒数第2页（内容/细节页），跳过封面/目录/封底
-    module_idx = (si - 3) // 2
+# V3.36四页/模块：第3页起每模块4页（C1内容第一页/C2内容第二页/D1细节第一页/D2细节第二页）
+for si in range(3, n_slides):
+    module_idx = (si - 3) // 4
+    pos = (si - 3) % 4
     part_num = 'PART %02d' % (module_idx + 1)
-    is_detail = (si % 2 == 0)
     try:
         P.Slides(si).Select()
     except Exception:
@@ -84,16 +85,18 @@ for si in range(3, n_slides):  # 第3页到倒数第2页（内容/细节页）�
                     para_lines.append(max(1, int(round(ph / 11.0))))
                 except Exception:
                     para_lines.append(1)
-            if is_detail:
-                key = part_num + 'D'
-            else:
-                w_in = shape.Width / 72.0
-                if w_in > 10:
-                    key = part_num + 'P'
-                elif shape.Left / 72.0 < SLIDE_W / 2:
-                    key = part_num + 'L'
+            if pos == 0:
+                key = part_num + 'C1'
+            elif pos == 1:
+                # C2页有两个文本框：上部代表动态(top<2英寸)/下部过程阐述
+                if shape.Top / 72.0 < 2.0:
+                    key = part_num + 'C2R'
                 else:
-                    key = part_num + 'R'
+                    key = part_num + 'C2P'
+            elif pos == 2:
+                key = part_num + 'D1'
+            else:
+                key = part_num + 'D2'
             MEASURED[key] = {'B0': round(float(B0), 2), 'para_lines': para_lines}
         except Exception:
             pass

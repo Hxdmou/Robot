@@ -6,8 +6,8 @@ import win32com.client
 import time
 
 FILES = [
-    r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260821_商务汇报_无水印_v32.pptx",
-    r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260821_商务汇报_水印版_v32.pptx",
+    r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260821_商务汇报_无水印_v33.pptx",
+    r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260821_商务汇报_水印版_v33.pptx",
 ]
 Application = win32com.client.DispatchEx("PowerPoint.Application")
 Application.Visible = True

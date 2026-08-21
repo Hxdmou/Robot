@@ -151,6 +151,8 @@ PAD_X, PAD_TOP, PAD_BOT = 0.05, 0.04, 0.05
 AVAIL_UPPER = (UPPER_REGION_H - PAD_TOP - PAD_BOT) * 72
 AVAIL_LOWER = (LOWER_REGION_H - PAD_TOP - PAD_BOT) * 72
 AVAIL_DETAIL = (DETAIL_CONTENT_H - 0.04 - 0.05) * 72
+# V3.36四页/模块铁律：内容/细节各拆2页，每页用全高区域，更宽松不紧凑
+AVAIL_FULL = (CONTENT_H - PAD_TOP - PAD_BOT) * 72
 
 def _char_width_pt(ch, sz_pt):
     """按字符显示宽度（V3.30 COM实测校准：94个文本框实测中位比值0.9545）：
@@ -319,7 +321,8 @@ def _resolve(key, items, avail_pt, box_width_pt, line_spacing=11, title_lines=1,
                 base = int(remaining // n_gaps)
                 extra = int(round(remaining - base * n_gaps))
                 sa_list = [base + 1 if i < extra else base for i in range(n_gaps)] + [0]
-                sa_list = [max(0, min(s, 30)) for s in sa_list]
+                # V3.36：段距上限60pt（四页/模块全高布局需要大段距填满，用户要求不紧凑）
+                sa_list = [max(0, min(s, 60)) for s in sa_list]
                 return sa_list, items
             else:
                 return 0, items
@@ -341,7 +344,7 @@ def add_page_header(slide, part_num, title):
     tb(slide, 0.85, 0.06, 10.8, 0.28, title, sz=13, b=True, c=WHITE, an=MSO_ANCHOR.MIDDLE)
     rect(slide, 0.06, HEADER_Y, SLIDE_W - 0.12, 0.01, fc=RGBColor(0x20, 0x35, 0x60))
 
-# ========== 内容描述页（单数页）：卡片高度按实测文本动态计算，段间距自动填满（V3.23重写） ==========
+# ========== V3.36四页/模块：内容描述第一页（核心内容·全高单栏·宽松不紧凑） ==========
 def _build_card_textbox(slide, x, y, w, h, title_text, items, sz=10, space_after=0.0):
     """创建卡片文本框：金色标题+bullets，返回文本框"""
     box = slide.shapes.add_textbox(Inches(x), Inches(y), Inches(w), Inches(h))
@@ -358,72 +361,62 @@ def _build_card_textbox(slide, x, y, w, h, title_text, items, sz=10, space_after
     add_bullets(tf, items, start_idx=1, sz=sz, space_after=space_after)
     return box
 
-def content_page(prs, _, part_num, title, left_items, right_items, process_title, process_items):
+def content_page_1(prs, part_num, title, left_items):
+    """内容描述（第一页）：核心内容全高单栏，宽松可读"""
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     bg(slide, DARK_BLUE)
     add_page_header(slide, part_num, title)
-    add_page_tag(slide, '内容描述', ACCENT_BLUE)
-    
-    col_gap = 0.12
-    col_w = (CONTENT_W - col_gap) / 2
-    upper_y = CONTENT_TOP
-    left_x = CONTENT_X
-    right_x = CONTENT_X + col_w + col_gap
-    bot_y = upper_y + UPPER_REGION_H + CONTENT_GAP
-    
-    text_w_upper = col_w - 2 * PAD_X
-    region_box_h = UPPER_REGION_H - PAD_TOP - PAD_BOT
-    
-    # ========== 左栏：固定铺满上部区域，段间距反解填满 ==========
-    l_items = list(left_items[:10])
-    sa_l, l_items = _resolve(part_num + 'L', l_items, AVAIL_UPPER, text_w_upper * 72)
-    card_h_l = UPPER_REGION_H
-    card_y_l = upper_y
-    rrect(slide, left_x, card_y_l, col_w, card_h_l, fc=MID_BLUE)
-    rect(slide, left_x, card_y_l, 0.04, card_h_l, fc=ACCENT_BLUE)
-    _build_card_textbox(slide, left_x + PAD_X, card_y_l + PAD_TOP, text_w_upper, region_box_h, '▎核心内容', l_items, space_after=sa_l)
-    
-    # ========== 右栏 ==========
-    r_items = list(right_items[:10])
-    sa_r, r_items = _resolve(part_num + 'R', r_items, AVAIL_UPPER, text_w_upper * 72)
-    card_h_r = UPPER_REGION_H
-    card_y_r = upper_y
-    rrect(slide, right_x, card_y_r, col_w, card_h_r, fc=MID_BLUE)
-    rect(slide, right_x, card_y_r, 0.04, card_h_r, fc=ACCENT_BLUE)
-    _build_card_textbox(slide, right_x + PAD_X, card_y_r + PAD_TOP, text_w_upper, region_box_h, '▎代表动态', r_items, space_after=sa_r)
-    
-    # ========== 下部通栏：固定铺满底部区域，段间距反解填满 ==========
-    p_items = list(process_items[:10])
-    text_w_lower = CONTENT_W - 2 * PAD_X
-    lower_box_h = LOWER_REGION_H - PAD_TOP - PAD_BOT
-    sa_b, p_items = _resolve(part_num + 'P', p_items, AVAIL_LOWER, text_w_lower * 72)
-    card_h_b = LOWER_REGION_H
-    rrect(slide, CONTENT_X, bot_y, CONTENT_W, card_h_b, fc=MID_BLUE)
-    rect(slide, CONTENT_X, bot_y, CONTENT_W, 0.03, fc=GOLD)
-    _build_card_textbox(slide, CONTENT_X + PAD_X, bot_y + PAD_TOP, text_w_lower, lower_box_h, process_title, p_items, space_after=sa_b)
-    
-    # 页脚垂直居中于页脚区（V3.35统一页脚：所有页完全一致）
+    add_page_tag(slide, '内容描述·第一页', ACCENT_BLUE)
+    text_w = CONTENT_W - 2 * PAD_X
+    box_h = CONTENT_H - PAD_TOP - PAD_BOT
+    l_items = list(left_items)
+    sa, l_items = _resolve(part_num + 'C1', l_items, AVAIL_FULL, text_w * 72)
+    rrect(slide, CONTENT_X, CONTENT_TOP, CONTENT_W, CONTENT_H, fc=MID_BLUE)
+    rect(slide, CONTENT_X, CONTENT_TOP, 0.04, CONTENT_H, fc=ACCENT_BLUE)
+    _build_card_textbox(slide, CONTENT_X + PAD_X, CONTENT_TOP + PAD_TOP, text_w, box_h, '▎核心内容', l_items, space_after=sa)
     tb(slide, 0, FOOTER_Y, SLIDE_W, SLIDE_H - FOOTER_Y, FOOTER_TEXT, sz=7, c=MGRAY, al=PP_ALIGN.CENTER, an=MSO_ANCHOR.MIDDLE)
 
-# ========== 细节描述页（双数页）：通栏20条，COM实测反解段间距填满整个区域（V3.23闭环） ==========
-def detail_page(prs, _, part_num, title, detail_title, detail_items):
+def content_page_2(prs, part_num, title, right_items, process_title, process_items):
+    """内容描述（第二页）：代表动态（上）+过程阐述（下），沿用已验证区域高度"""
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     bg(slide, DARK_BLUE)
     add_page_header(slide, part_num, title)
-    add_page_tag(slide, '细节描述', GOLD)
-    
+    add_page_tag(slide, '内容描述·第二页', ACCENT_BLUE)
+    # 上部：代表动态（3.35英寸，与旧版已验证高度一致）
+    upper_h = UPPER_REGION_H
+    lower_h = CONTENT_H - upper_h - CONTENT_GAP
+    text_w = CONTENT_W - 2 * PAD_X
+    upper_box_h = upper_h - PAD_TOP - PAD_BOT
+    lower_box_h = lower_h - PAD_TOP - PAD_BOT
+    avail_upper = upper_box_h * 72
+    avail_lower = lower_box_h * 72
+    r_items = list(right_items)
+    sa_r, r_items = _resolve(part_num + 'C2R', r_items, avail_upper, text_w * 72)
+    rrect(slide, CONTENT_X, CONTENT_TOP, CONTENT_W, upper_h, fc=MID_BLUE)
+    rect(slide, CONTENT_X, CONTENT_TOP, 0.04, upper_h, fc=ACCENT_BLUE)
+    _build_card_textbox(slide, CONTENT_X + PAD_X, CONTENT_TOP + PAD_TOP, text_w, upper_box_h, '▎代表动态', r_items, space_after=sa_r)
+    # 下部：过程阐述（3.5英寸，与旧版已验证高度一致）
+    bot_y = CONTENT_TOP + upper_h + CONTENT_GAP
+    p_items = list(process_items)
+    sa_p, p_items = _resolve(part_num + 'C2P', p_items, avail_lower, text_w * 72)
+    rrect(slide, CONTENT_X, bot_y, CONTENT_W, lower_h, fc=MID_BLUE)
+    rect(slide, CONTENT_X, bot_y, CONTENT_W, 0.03, fc=GOLD)
+    _build_card_textbox(slide, CONTENT_X + PAD_X, bot_y + PAD_TOP, text_w, lower_box_h, process_title, p_items, space_after=sa_p)
+    tb(slide, 0, FOOTER_Y, SLIDE_W, SLIDE_H - FOOTER_Y, FOOTER_TEXT, sz=7, c=MGRAY, al=PP_ALIGN.CENTER, an=MSO_ANCHOR.MIDDLE)
+
+# ========== V3.36四页/模块：细节描述拆2页，均匀拆分前半+后半，宽松不紧凑 ==========
+def _detail_page_render(prs, part_num, title, detail_title, d_items, key_suffix, page_label):
+    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    bg(slide, DARK_BLUE)
+    add_page_header(slide, part_num, title)
+    add_page_tag(slide, '细节描述·' + page_label, GOLD)
     content_y = CONTENT_TOP
     region_h = DETAIL_CONTENT_H
     d_PAD_X, d_PAD_TOP, d_PAD_BOT = 0.08, 0.04, 0.05
     text_w = SLIDE_W - 2 * DETAIL_MARGIN_X - 2 * d_PAD_X
-    
-    # 生成阶段一次到位反解段间距（V3.30修复：不再依赖COM后校正）
-    d_items = list(detail_items[:20])
-    sa, d_items = _resolve(part_num + 'D', d_items, AVAIL_DETAIL, text_w * 72)
+    sa, d_items = _resolve(part_num + key_suffix, d_items, AVAIL_DETAIL, text_w * 72)
     box_h = region_h - d_PAD_TOP - d_PAD_BOT
-    # 左侧金色竖条装饰
     rect(slide, DETAIL_MARGIN_X, content_y, 0.04, region_h, fc=GOLD)
-    # 文本框通栏铺满
     box = slide.shapes.add_textbox(Inches(DETAIL_MARGIN_X + d_PAD_X), Inches(content_y + d_PAD_TOP), Inches(text_w), Inches(box_h))
     tf = box.text_frame; tf.word_wrap = True
     tf.margin_left = Pt(0); tf.margin_right = Pt(0); tf.margin_top = Pt(0); tf.margin_bottom = Pt(0)
@@ -436,8 +429,19 @@ def detail_page(prs, _, part_num, title, detail_title, detail_items):
     run_t = p_title.add_run(); run_t.text = detail_title
     run_t.font.size = Pt(10); run_t.font.bold = True; run_t.font.color.rgb = GOLD; run_t.font.name = '微软雅黑'
     add_bullets(tf, d_items, start_idx=1, sz=10, space_after=sa)
-    
     tb(slide, 0, FOOTER_Y, SLIDE_W, SLIDE_H - FOOTER_Y, FOOTER_TEXT, sz=7, c=MGRAY, al=PP_ALIGN.CENTER, an=MSO_ANCHOR.MIDDLE)
+
+def detail_page_1(prs, part_num, title, detail_title, detail_items):
+    """细节描述（第一页）：前半细节"""
+    items = list(detail_items)
+    mid = (len(items) + 1) // 2
+    _detail_page_render(prs, part_num, title, detail_title, items[:mid], 'D1', '第一页')
+
+def detail_page_2(prs, part_num, title, detail_title, detail_items):
+    """细节描述（第二页）：后半细节"""
+    items = list(detail_items)
+    mid = (len(items) + 1) // 2
+    _detail_page_render(prs, part_num, title, detail_title, items[mid:], 'D2', '第二页')
 
 # ========== 目录页 - 22模块居中填满，标题居中 ==========
 def toc_page(prs):
@@ -2051,8 +2055,11 @@ def generate(enable_watermark=False):
     cover_page(prs)
     toc_page(prs)
     for module in all_modules:
-        content_page(prs, None, *module[:4], module[4], module[5])
-        detail_page(prs, None, module[0], module[1], module[6], module[7])
+        # V3.36四页/模块：内容描述第一页+第二页+细节描述第一页+第二页
+        content_page_1(prs, module[0], module[1], module[2])
+        content_page_2(prs, module[0], module[1], module[3], module[4], module[5])
+        detail_page_1(prs, module[0], module[1], module[6], module[7])
+        detail_page_2(prs, module[0], module[1], module[6], module[7])
     back_page(prs)
     if enable_watermark:
         add_watermark(prs)
@@ -2062,7 +2069,7 @@ if __name__ == '__main__':
     import os
     out_dir = r'F:\个人作品\具身智能'
     date_str = '20260821'
-    ver = 'v32'
+    ver = 'v33'
     
     print('正在生成无水印原版...')
     prs1 = generate(enable_watermark=False)
@@ -2077,6 +2084,6 @@ if __name__ == '__main__':
     print('完成：' + str(len(prs2.slides)) + '页')
     
     print('')
-    print('总页数验证：1封面 + 1目录 + 22模块×2页 + 1封底 = 47页')
+    print('总页数验证：1封面 + 1目录 + 22模块×4页 + 1封底 = 91页')
     print('无水印：' + f1)
     print('水印版：' + f2)
