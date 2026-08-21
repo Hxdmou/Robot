@@ -91,7 +91,7 @@ def tb(slide, x, y, w, h, text, sz=10, b=False, c=WHITE, al=PP_ALIGN.LEFT, an=MS
     run.font.name = '微软雅黑'
     return box
 
-def add_bullets(tf, items, start_idx=0, sz=10, color=LGRAY, space_after=0):
+def add_bullets(tf, items, start_idx=0, sz=10, color=LGRAY, space_after=0, line_spacing=11):
     import re
     sa_is_list = isinstance(space_after, (list, tuple))
     for i, item in enumerate(items):
@@ -99,8 +99,8 @@ def add_bullets(tf, items, start_idx=0, sz=10, color=LGRAY, space_after=0):
         p = tf.paragraphs[0] if idx == 0 else tf.add_paragraph()
         # 字体全部居中（V3.30用户硬性要求）
         p.alignment = PP_ALIGN.CENTER
-        # 固定行距11pt = 10pt * 1.1，精确控制高度
-        p.line_spacing = Pt(11)
+        # 行距可配（V3.38：内容页用15pt更饱满，细节页用11pt紧凑）
+        p.line_spacing = Pt(line_spacing)
         sa_i = space_after[i] if sa_is_list and i < len(space_after) else (0 if sa_is_list else space_after)
         p.space_after = Pt(sa_i)
         p.space_before = Pt(0)
@@ -292,9 +292,10 @@ def _resolve(key, items, avail_pt, box_width_pt, line_spacing=11, title_lines=1,
     解法：使用整数段距，总高度=B0+Σsa，一次命中目标。
     - MEASURE_MODE：返回sa=0且不裁剪，供COM测量真实自然高度
     - MEASURED有实测数据：按实测行数裁剪防溢出 + 整数段距精确填满
-    - 无实测数据时回退估算路径"""
+    - 无实测数据时回退估算路径
+    V3.38：返回三元组(sa, items, 实际内容高度pt)，供卡片按实际高度收缩居中，杜绝大段距空隙"""
     if MEASURE_MODE:
-        return 0, list(items)
+        return 0, list(items), avail_pt
     m = MEASURED.get(key)
     if m and m.get('B0'):
         B0 = float(m['B0'])
@@ -315,21 +316,21 @@ def _resolve(key, items, avail_pt, box_width_pt, line_spacing=11, title_lines=1,
                 # 留1pt安全余量防溢出（1pt空隙在6pt容差内不可见）
                 remaining = avail_pt - 1.0 - B0_new
                 if remaining <= 0:
-                    return 0, items
+                    return 0, items, B0_new
                 # 整数段距分配：前nb-1段分摊，末段=0（整数不产生舍入误差）
                 n_gaps = nb - 1
                 base = int(remaining // n_gaps)
                 extra = int(round(remaining - base * n_gaps))
                 sa_list = [base + 1 if i < extra else base for i in range(n_gaps)] + [0]
-                # V3.36：段距上限60pt（四页/模块全高布局需要大段距填满，用户要求不紧凑）
-                sa_list = [max(0, min(s, 60)) for s in sa_list]
-                return sa_list, items
+                # V3.38：段距上限12pt，绝不用大段距硬撑全高制造视觉空隙
+                sa_list = [max(0, min(s, 12)) for s in sa_list]
+                return sa_list, items, B0_new + sum(sa_list)
             else:
-                return 0, items
+                return 0, items, B0_new
     # 回退：估算路径（无实测数据时）
     items = _fit_items(items, box_width_pt, sz_pt, line_spacing, avail_pt, title_lines=title_lines)
-    sa, _ = solve_space_after(items, box_width_pt, sz_pt, line_spacing, avail_pt, title_lines=title_lines)
-    return sa, items
+    sa, total_h = solve_space_after(items, box_width_pt, sz_pt, line_spacing, avail_pt, title_lines=title_lines)
+    return sa, items, total_h
 
 # ========== 统一页面标签 ==========
 def add_page_tag(slide, tag_text, tag_color):
@@ -379,17 +380,22 @@ def _build_card_textbox(slide, x, y, w, h, title_text, items, sz=10, space_after
     return box
 
 def _content_page_render(prs, part_num, title, items, key_suffix, page_label):
-    """内容描述页统一版式：全高单栏卡片，两页完全一致"""
+    """内容描述页统一版式：卡片高度跟随实际内容收缩+垂直居中，杜绝大段距空隙"""
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     bg(slide, DARK_BLUE)
     add_page_header(slide, part_num, title)
     add_page_tag(slide, '内容描述·' + page_label, ACCENT_BLUE)
     text_w = CONTENT_W - 2 * PAD_X
-    box_h = CONTENT_H - PAD_TOP - PAD_BOT
-    sa, items = _resolve(part_num + key_suffix, list(items), AVAIL_FULL, text_w * 72)
-    rrect(slide, CONTENT_X, CONTENT_TOP, CONTENT_W, CONTENT_H, fc=MID_BLUE)
-    rect(slide, CONTENT_X, CONTENT_TOP, 0.04, CONTENT_H, fc=ACCENT_BLUE)
-    _build_card_textbox(slide, CONTENT_X + PAD_X, CONTENT_TOP + PAD_TOP, text_w, box_h, '▎核心内容 · 代表动态 · 过程阐述', items, space_after=sa)
+    avail = AVAIL_FULL
+    sa, items, content_h_pt = _resolve(part_num + key_suffix, list(items), avail, text_w * 72)
+    # V3.38：卡片高度=实际内容高度+上下padding，垂直居中于可用区域
+    content_h_in = content_h_pt / 72.0
+    card_h = min(CONTENT_H, content_h_in + PAD_TOP + PAD_BOT)
+    card_y = CONTENT_TOP + (CONTENT_H - card_h) / 2.0
+    box_h = card_h - PAD_TOP - PAD_BOT
+    rrect(slide, CONTENT_X, card_y, CONTENT_W, card_h, fc=MID_BLUE)
+    rect(slide, CONTENT_X, card_y, 0.04, card_h, fc=ACCENT_BLUE)
+    _build_card_textbox(slide, CONTENT_X + PAD_X, card_y + PAD_TOP, text_w, box_h, '▎核心内容 · 代表动态 · 过程阐述', items, space_after=sa)
     tb(slide, 0, FOOTER_Y, SLIDE_W, SLIDE_H - FOOTER_Y, FOOTER_TEXT, sz=7, c=MGRAY, al=PP_ALIGN.CENTER, an=MSO_ANCHOR.MIDDLE)
 
 def content_page_1(prs, part_num, title, left_items, right_items, process_items):
@@ -404,20 +410,23 @@ def content_page_2(prs, part_num, title, left_items, right_items, process_items)
     _, second = _split_by_chars(pool)
     _content_page_render(prs, part_num, title, second, 'C2', '第二页')
 
-# ========== V3.36四页/模块：细节描述拆2页，均匀拆分前半+后半，宽松不紧凑 ==========
+# ========== V3.38四页/模块：细节描述拆2页，按字数均匀拆分，卡片收缩+垂直居中 ==========
 def _detail_page_render(prs, part_num, title, detail_title, d_items, key_suffix, page_label):
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     bg(slide, DARK_BLUE)
     add_page_header(slide, part_num, title)
     add_page_tag(slide, '细节描述·' + page_label, GOLD)
-    content_y = CONTENT_TOP
     region_h = DETAIL_CONTENT_H
     d_PAD_X, d_PAD_TOP, d_PAD_BOT = 0.08, 0.04, 0.05
     text_w = SLIDE_W - 2 * DETAIL_MARGIN_X - 2 * d_PAD_X
-    sa, d_items = _resolve(part_num + key_suffix, d_items, AVAIL_DETAIL, text_w * 72)
-    box_h = region_h - d_PAD_TOP - d_PAD_BOT
-    rect(slide, DETAIL_MARGIN_X, content_y, 0.04, region_h, fc=GOLD)
-    box = slide.shapes.add_textbox(Inches(DETAIL_MARGIN_X + d_PAD_X), Inches(content_y + d_PAD_TOP), Inches(text_w), Inches(box_h))
+    sa, d_items, content_h_pt = _resolve(part_num + key_suffix, d_items, AVAIL_DETAIL, text_w * 72)
+    # V3.38：卡片高度=实际内容高度+上下padding，垂直居中于可用区域
+    content_h_in = content_h_pt / 72.0
+    card_h = min(region_h, content_h_in + d_PAD_TOP + d_PAD_BOT)
+    card_y = CONTENT_TOP + (region_h - card_h) / 2.0
+    box_h = card_h - d_PAD_TOP - d_PAD_BOT
+    rect(slide, DETAIL_MARGIN_X, card_y, 0.04, card_h, fc=GOLD)
+    box = slide.shapes.add_textbox(Inches(DETAIL_MARGIN_X + d_PAD_X), Inches(card_y + d_PAD_TOP), Inches(text_w), Inches(box_h))
     tf = box.text_frame; tf.word_wrap = True
     tf.margin_left = Pt(0); tf.margin_right = Pt(0); tf.margin_top = Pt(0); tf.margin_bottom = Pt(0)
     tf.vertical_anchor = MSO_ANCHOR.TOP
