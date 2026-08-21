@@ -344,7 +344,24 @@ def add_page_header(slide, part_num, title):
     tb(slide, 0.85, 0.06, 10.8, 0.28, title, sz=13, b=True, c=WHITE, an=MSO_ANCHOR.MIDDLE)
     rect(slide, 0.06, HEADER_Y, SLIDE_W - 0.12, 0.01, fc=RGBColor(0x20, 0x35, 0x60))
 
-# ========== V3.36四页/模块：内容描述第一页（核心内容·全高单栏·宽松不紧凑） ==========
+# ========== V3.37字数均衡铁律：内容/细节各拆2页，按字数均匀拆分，两页同版式 ==========
+def _split_by_chars(items):
+    """按累计字数均匀拆成前后两页，遍历所有拆分点找字数差最小的位置"""
+    items = list(items)
+    if len(items) <= 1:
+        return items, []
+    total = sum(len(it) for it in items)
+    best_split = 1
+    best_diff = float('inf')
+    acc = 0
+    for i in range(len(items) - 1):
+        acc += len(items[i])
+        diff = abs(acc - (total - acc))
+        if diff < best_diff:
+            best_diff = diff
+            best_split = i + 1
+    return items[:best_split], items[best_split:]
+
 def _build_card_textbox(slide, x, y, w, h, title_text, items, sz=10, space_after=0.0):
     """创建卡片文本框：金色标题+bullets，返回文本框"""
     box = slide.shapes.add_textbox(Inches(x), Inches(y), Inches(w), Inches(h))
@@ -361,48 +378,31 @@ def _build_card_textbox(slide, x, y, w, h, title_text, items, sz=10, space_after
     add_bullets(tf, items, start_idx=1, sz=sz, space_after=space_after)
     return box
 
-def content_page_1(prs, part_num, title, left_items):
-    """内容描述（第一页）：核心内容全高单栏，宽松可读"""
+def _content_page_render(prs, part_num, title, items, key_suffix, page_label):
+    """内容描述页统一版式：全高单栏卡片，两页完全一致"""
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     bg(slide, DARK_BLUE)
     add_page_header(slide, part_num, title)
-    add_page_tag(slide, '内容描述·第一页', ACCENT_BLUE)
+    add_page_tag(slide, '内容描述·' + page_label, ACCENT_BLUE)
     text_w = CONTENT_W - 2 * PAD_X
     box_h = CONTENT_H - PAD_TOP - PAD_BOT
-    l_items = list(left_items)
-    sa, l_items = _resolve(part_num + 'C1', l_items, AVAIL_FULL, text_w * 72)
+    sa, items = _resolve(part_num + key_suffix, list(items), AVAIL_FULL, text_w * 72)
     rrect(slide, CONTENT_X, CONTENT_TOP, CONTENT_W, CONTENT_H, fc=MID_BLUE)
     rect(slide, CONTENT_X, CONTENT_TOP, 0.04, CONTENT_H, fc=ACCENT_BLUE)
-    _build_card_textbox(slide, CONTENT_X + PAD_X, CONTENT_TOP + PAD_TOP, text_w, box_h, '▎核心内容', l_items, space_after=sa)
+    _build_card_textbox(slide, CONTENT_X + PAD_X, CONTENT_TOP + PAD_TOP, text_w, box_h, '▎核心内容 · 代表动态 · 过程阐述', items, space_after=sa)
     tb(slide, 0, FOOTER_Y, SLIDE_W, SLIDE_H - FOOTER_Y, FOOTER_TEXT, sz=7, c=MGRAY, al=PP_ALIGN.CENTER, an=MSO_ANCHOR.MIDDLE)
 
-def content_page_2(prs, part_num, title, right_items, process_title, process_items):
-    """内容描述（第二页）：代表动态（上）+过程阐述（下），沿用已验证区域高度"""
-    slide = prs.slides.add_slide(prs.slide_layouts[6])
-    bg(slide, DARK_BLUE)
-    add_page_header(slide, part_num, title)
-    add_page_tag(slide, '内容描述·第二页', ACCENT_BLUE)
-    # 上部：代表动态（3.35英寸，与旧版已验证高度一致）
-    upper_h = UPPER_REGION_H
-    lower_h = CONTENT_H - upper_h - CONTENT_GAP
-    text_w = CONTENT_W - 2 * PAD_X
-    upper_box_h = upper_h - PAD_TOP - PAD_BOT
-    lower_box_h = lower_h - PAD_TOP - PAD_BOT
-    avail_upper = upper_box_h * 72
-    avail_lower = lower_box_h * 72
-    r_items = list(right_items)
-    sa_r, r_items = _resolve(part_num + 'C2R', r_items, avail_upper, text_w * 72)
-    rrect(slide, CONTENT_X, CONTENT_TOP, CONTENT_W, upper_h, fc=MID_BLUE)
-    rect(slide, CONTENT_X, CONTENT_TOP, 0.04, upper_h, fc=ACCENT_BLUE)
-    _build_card_textbox(slide, CONTENT_X + PAD_X, CONTENT_TOP + PAD_TOP, text_w, upper_box_h, '▎代表动态', r_items, space_after=sa_r)
-    # 下部：过程阐述（3.5英寸，与旧版已验证高度一致）
-    bot_y = CONTENT_TOP + upper_h + CONTENT_GAP
-    p_items = list(process_items)
-    sa_p, p_items = _resolve(part_num + 'C2P', p_items, avail_lower, text_w * 72)
-    rrect(slide, CONTENT_X, bot_y, CONTENT_W, lower_h, fc=MID_BLUE)
-    rect(slide, CONTENT_X, bot_y, CONTENT_W, 0.03, fc=GOLD)
-    _build_card_textbox(slide, CONTENT_X + PAD_X, bot_y + PAD_TOP, text_w, lower_box_h, process_title, p_items, space_after=sa_p)
-    tb(slide, 0, FOOTER_Y, SLIDE_W, SLIDE_H - FOOTER_Y, FOOTER_TEXT, sz=7, c=MGRAY, al=PP_ALIGN.CENTER, an=MSO_ANCHOR.MIDDLE)
+def content_page_1(prs, part_num, title, left_items, right_items, process_items):
+    """内容描述（第一页）：内容池前半（按字数均匀拆分）"""
+    pool = list(left_items) + list(right_items) + list(process_items)
+    first, _ = _split_by_chars(pool)
+    _content_page_render(prs, part_num, title, first, 'C1', '第一页')
+
+def content_page_2(prs, part_num, title, left_items, right_items, process_items):
+    """内容描述（第二页）：内容池后半（按字数均匀拆分）"""
+    pool = list(left_items) + list(right_items) + list(process_items)
+    _, second = _split_by_chars(pool)
+    _content_page_render(prs, part_num, title, second, 'C2', '第二页')
 
 # ========== V3.36四页/模块：细节描述拆2页，均匀拆分前半+后半，宽松不紧凑 ==========
 def _detail_page_render(prs, part_num, title, detail_title, d_items, key_suffix, page_label):
@@ -432,16 +432,14 @@ def _detail_page_render(prs, part_num, title, detail_title, d_items, key_suffix,
     tb(slide, 0, FOOTER_Y, SLIDE_W, SLIDE_H - FOOTER_Y, FOOTER_TEXT, sz=7, c=MGRAY, al=PP_ALIGN.CENTER, an=MSO_ANCHOR.MIDDLE)
 
 def detail_page_1(prs, part_num, title, detail_title, detail_items):
-    """细节描述（第一页）：前半细节"""
-    items = list(detail_items)
-    mid = (len(items) + 1) // 2
-    _detail_page_render(prs, part_num, title, detail_title, items[:mid], 'D1', '第一页')
+    """细节描述（第一页）：前半细节（按字数均匀拆分）"""
+    first, _ = _split_by_chars(detail_items)
+    _detail_page_render(prs, part_num, title, detail_title, first, 'D1', '第一页')
 
 def detail_page_2(prs, part_num, title, detail_title, detail_items):
-    """细节描述（第二页）：后半细节"""
-    items = list(detail_items)
-    mid = (len(items) + 1) // 2
-    _detail_page_render(prs, part_num, title, detail_title, items[mid:], 'D2', '第二页')
+    """细节描述（第二页）：后半细节（按字数均匀拆分）"""
+    _, second = _split_by_chars(detail_items)
+    _detail_page_render(prs, part_num, title, detail_title, second, 'D2', '第二页')
 
 # ========== 目录页 - 22模块居中填满，标题居中 ==========
 def toc_page(prs):
@@ -2055,9 +2053,9 @@ def generate(enable_watermark=False):
     cover_page(prs)
     toc_page(prs)
     for module in all_modules:
-        # V3.36四页/模块：内容描述第一页+第二页+细节描述第一页+第二页
-        content_page_1(prs, module[0], module[1], module[2])
-        content_page_2(prs, module[0], module[1], module[3], module[4], module[5])
+        # V3.37字数均衡：内容池合并按字数拆2页+细节按字数拆2页
+        content_page_1(prs, module[0], module[1], module[2], module[3], module[5])
+        content_page_2(prs, module[0], module[1], module[2], module[3], module[5])
         detail_page_1(prs, module[0], module[1], module[6], module[7])
         detail_page_2(prs, module[0], module[1], module[6], module[7])
     back_page(prs)

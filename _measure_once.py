@@ -88,11 +88,7 @@ for si in range(3, n_slides):
             if pos == 0:
                 key = part_num + 'C1'
             elif pos == 1:
-                # C2页有两个文本框：上部代表动态(top<2英寸)/下部过程阐述
-                if shape.Top / 72.0 < 2.0:
-                    key = part_num + 'C2R'
-                else:
-                    key = part_num + 'C2P'
+                key = part_num + 'C2'
             elif pos == 2:
                 key = part_num + 'D1'
             else:
