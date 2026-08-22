@@ -8,20 +8,20 @@ t = io.open(FILE, encoding='utf-8').read()
 lines = t.split('\n')
 
 def stale_dates_in_line(line):
-    """返回行内【】标签中的所有过期日期字符串"""
+    """返回行内【】标签中的所有过期日期字符串（2026-08-22：窗口08-21/08-22，08-20及更早=过期）"""
     results = []
     tags = re.findall(r'【[^】]*】', line)
     for tag in tags:
         for m in re.finditer(r'2026年(\d{1,2})月(\d{1,2})日', tag):
             month, day = int(m.group(1)), int(m.group(2))
-            if (month < 8) or (month == 8 and day < 20):
+            if (month < 8) or (month == 8 and day < 21):
                 results.append(f'2026年{month}月{day}日')
         for m in re.finditer(r'2026年(\d{1,2})月(?!\d)', tag):
             if int(m.group(1)) < 8:
                 results.append(f'2026年{m.group(1)}月')
         for m in re.finditer(r'(?<!2026年)(\d{1,2})月(\d{1,2})日', tag):
             month, day = int(m.group(1)), int(m.group(2))
-            if (month < 8) or (month == 8 and day < 20):
+            if (month < 8) or (month == 8 and day < 21):
                 results.append(f'{month}月{day}日')
     return results
 

@@ -9,22 +9,23 @@ sys.stdout.reconfigure(encoding='utf-8')
 from pptx import Presentation
 
 FILES = [
-    r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260821_商务汇报_无水印_v33.pptx",
-    r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260821_商务汇报_水印版_v33.pptx",
+    r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260822_商务汇报_无水印_v34.pptx",
+    r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260822_商务汇报_水印版_v34.pptx",
 ]
 SLIDE_H = 7.5  # 16:9标准高度（英寸）
 
 def is_stale(tag):
+    # 2026-08-22：窗口08-21/08-22，08-20及更早=过期
     for m in re.finditer(r'2026年(\d{1,2})月(\d{1,2})日', tag):
         mo, d = int(m.group(1)), int(m.group(2))
-        if mo < 8 or (mo == 8 and d < 20):
+        if mo < 8 or (mo == 8 and d < 21):
             return True
     for m in re.finditer(r'2026年(\d{1,2})月(?!\d)', tag):
         if int(m.group(1)) < 8:
             return True
     for m in re.finditer(r'(?<!2026年)(\d{1,2})月(\d{1,2})日', tag):
         mo, d = int(m.group(1)), int(m.group(2))
-        if mo < 8 or (mo == 8 and d < 20):
+        if mo < 8 or (mo == 8 and d < 21):
             return True
     return False
 
