@@ -9,8 +9,8 @@ sys.stdout.reconfigure(encoding='utf-8')
 from pptx import Presentation
 
 FILES = [
-    r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260822_商务汇报_无水印_v34.pptx",
-    r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260822_商务汇报_水印版_v34.pptx",
+    r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260822_商务汇报_无水印_v35.pptx",
+    r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260822_商务汇报_水印版_v35.pptx",
 ]
 SLIDE_H = 7.5  # 16:9标准高度（英寸）
 

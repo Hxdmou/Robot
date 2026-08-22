@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 '''最终验证：真实高度=B+末段SpaceAfter（BoundHeight不含末段段间距）'''
-import sys
+import sys, io
 sys.stdout.reconfigure(encoding='utf-8')
 import win32com.client
 import time
 
 FILES = [
-    r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260822_商务汇报_无水印_v34.pptx",
-    r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260822_商务汇报_水印版_v34.pptx",
+    r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260822_商务汇报_无水印_v36.pptx",
 ]
+out = io.open(r'F:\个人作品\具身智能\_verify_v36.txt', 'w', encoding='utf-8')
 Application = win32com.client.DispatchEx("PowerPoint.Application")
 Application.Visible = True
 time.sleep(1)
@@ -32,23 +32,23 @@ for fp in FILES:
                 if len(tr.Text.strip()) == 0 or tr.Paragraphs().Count < 2:
                     continue
                 H = shape.Height
-                # 等布局稳定后读5次取中位数，消除±5pt读数噪声
                 time.sleep(0.2)
                 vals = sorted([tr.BoundHeight for _ in range(5)])
                 B = vals[2]
-                # 视觉容差判据：溢出>2pt、空隙>6pt才算真实问题（±5pt读数噪声内忽略）
                 if B > H + 2:
                     ov += 1
-                    worst.append(f'页{si} 溢出{B-H:.1f}')
+                    worst.append('页%d 溢出%.1f (B=%.1f H=%.1f)' % (si, B - H, B, H))
                 elif H - B > 6:
                     gp += 1
-                    worst.append(f'页{si} 空隙{H-B:.1f}')
+                    worst.append('页%d 空隙%.1f' % (si, H - B))
             except Exception:
                 pass
-    print(f"{fp.split(chr(92))[-1]}: 溢出={ov} 真实空隙={gp}")
-    for w in worst[:10]:
-        print('  ', w)
+    out.write('%s: 溢出=%d 真实空隙=%d\n' % (fp.split('\\')[-1], ov, gp))
+    for w in worst:
+        out.write('  %s\n' % w)
     P.Close()
     time.sleep(1)
 Application.Quit()
-print('最终验证完成')
+out.write('最终验证完成\n')
+out.close()
+print('验证结果已写入 _verify_v36.txt')
