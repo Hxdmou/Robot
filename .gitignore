@@ -126,6 +126,29 @@ baseline_log*.csv
 *.pptx
 *.ppt
 
+# ===== 算法模块（训练/评估产物，本地保留作训练证据，公共仓库只展示工程化能力） =====
+embodied-intelligence/train_*.py
+embodied-intelligence/ppo_*/
+embodied-intelligence/rrt_*.py
+embodied-intelligence/config_rrt*.py
+embodied-intelligence/logger_rrt*.py
+embodied-intelligence/trajectory_planning.py
+embodied-intelligence/config_traj.py
+embodied-intelligence/logger_traj.py
+embodied-intelligence/path_smoothing.py
+embodied-intelligence/ik_validation.py
+embodied-intelligence/config_ik.py
+embodied-intelligence/logger_ik.py
+embodied-intelligence/rl_algorithm_comparison.py
+embodied-intelligence/baseline_*.py
+embodied-intelligence/collect_baseline.py
+embodied-intelligence/config_baseline*.py
+embodied-intelligence/logger_baseline*.py
+embodied-intelligence/evaluate_generalization*.py
+embodied-intelligence/eval_logs_*/
+embodied-intelligence/logs/
+embodied-intelligence/good_targets.npz
+
 # ===== Temporary audit scripts =====
 _*_audit.py
 _*_check.py
