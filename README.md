@@ -1,29 +1,43 @@
 <div align="center">
 
-# 🤖 Hxdmou · 个人作品集 · Robot
+# 🤖 个人作品集
 
-> **AI 系统工程师 / 具身智能工程师 / RAG 系统开发**
+> **个人系统架构师 · AI 系统工程师 · 具身智能工程师**
 >
-> 专注**具身智能系统工程化落地** · 企业级 RAG 知识问答系统定制 · AI 智能体架构设计
+> 专注**把 AI 能力做成可交付、可验证、可维护的系统**：具身智能工程化部署 · 企业级 RAG 定制 · AI 智能体架构
 >
 > 📍 安徽蚌埠（可周边）· 💼 全职 / 远程 · 📧 `979718240@qq.com`
 
-![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python)
-![PyBullet](https://img.shields.io/badge/Sim-PyBullet-orange)
-![RAG](https://img.shields.io/badge/AI-RAG--v3-purple)
-![LangChain](https://img.shields.io/badge/LLM-LangChain-green)
-![FAISS](https://img.shields.io/badge/Vector-FAISS-yellow)
-![Streamlit](https://img.shields.io/badge/Web-Streamlit-red)
-![ROS](https://img.shields.io/badge/Robot-ROS-22314E?logo=ros)
-![License](https://img.shields.io/badge/License-MIT-green)
-![Last Commit](https://img.shields.io/github/last-commit/Hxdmou/Robot?color=ff69b4)
-![Repo Size](https://img.shields.io/github/repo-size/Hxdmou/Robot?color=9cf)
+![编程语言](https://img.shields.io/badge/编程语言-Python3.10以上-blue)
+![仿真](https://img.shields.io/badge/仿真-PyBullet-orange)
+![知识库问答](https://img.shields.io/badge/知识库问答-RAG-purple)
+![大模型](https://img.shields.io/badge/大模型-LangChain-green)
+![向量检索](https://img.shields.io/badge/向量检索-FAISS-yellow)
+![界面](https://img.shields.io/badge/界面-Streamlit-red)
+![机器人](https://img.shields.io/badge/机器人-ROS-22314E)
+![开源协议](https://img.shields.io/badge/开源协议-MIT-green)
+![最近更新](https://img.shields.io/badge/最近更新-2026--08--23-brightgreen)
 
 </div>
 
 ---
 
-## 📑 快速导航（Table of Contents）
+## ⭐ 亮点速览（招聘方 30 秒版）
+
+| 亮点 | 数字 | 说明了什么 |
+|------|------|-----------|
+| 🏆 真机部署前验证 | **398/398 项全绿** | 交付前全量自检，零侥幸 |
+| 🔁 强化学习训练规模 | **500 万+ 步** | 有真实训练与调参经验，不是玩具 Demo |
+| 🧠 垂直领域 RAG | **10 套上线** | 一套骨架复用 10 个行业，架构复用能力 |
+| 🚪 交付质量门禁 | **9 道硬门禁 · 100% 标准** | 把 SOP 写成自动化守门员，任何人可复现 |
+| 📄 商务汇报 PPT | **91 页 · 22 模块 · 0 溢出 0 空隙** | 文档输出与细节把控能力 |
+| 🛡️ 工程安全意识 | **公私仓库分离 + 推送前安全门禁** | 密钥/隐私零泄露的工程习惯 |
+
+> **一句话定位**：我不是写 Demo 的人，我是**把 AI 能力做成可交付产品、并用自动化门禁保证交付质量**的系统架构师。
+
+---
+
+## 📑 快速导航
 
 | # | 板块 | 一句话 |
 |---|------|-------|
