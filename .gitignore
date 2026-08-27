@@ -126,6 +126,9 @@ baseline_log*.csv
 *.pptx
 *.ppt
 
+# ===== 商业合同模板（含个人身份信息，严禁上传） =====
+contract_templates/
+
 # ===== 算法模块（训练/评估产物，本地保留作训练证据，公共仓库只展示工程化能力） =====
 embodied-intelligence/train_*.py
 embodied-intelligence/ppo_*/
