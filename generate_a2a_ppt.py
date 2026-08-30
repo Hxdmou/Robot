@@ -90,9 +90,21 @@ def render_text_page(prs, part_num, title, shapes):
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     bg(slide, DARK_BLUE)
     add_page_header(slide, part_num, title)
-    for sh in shapes:
-        if sh['top'] < 30:
-            continue
+    valid = [sh for sh in shapes if sh['top'] >= 30]
+    # 按列分组（left相近=同列），列内按top排序；每列最后一个框拉伸到页底钳制线，其余框只填到原底边（不侵入下一框）
+    cols = {}
+    for i, sh in enumerate(valid):
+        cols.setdefault(round(sh['left'] / 50.0), []).append(i)
+    targets = {}
+    for key, idxs in cols.items():
+        idxs.sort(key=lambda i: valid[i]['top'])
+        for pos, i in enumerate(idxs):
+            if pos == len(idxs) - 1:
+                targets[i] = (CONTENT_BOTTOM - 0.12) * 72
+            else:
+                # 填满到下一框顶边（留4pt视觉分隔），消除框间空隙
+                targets[i] = valid[idxs[pos + 1]]['top'] - 4.0
+    for i, sh in enumerate(valid):
         x = sh['left'] / 72.0
         y = sh['top'] / 72.0
         w = sh['width'] / 72.0
@@ -100,16 +112,16 @@ def render_text_page(prs, part_num, title, shapes):
         text = sh['text'].replace('\x0b', '\n')
         lines = text.split('\n')
         n = len(lines)
-        # 填满无空隙铁律：整数段距分配，把内容铺到底部钳制线（CONTENT_BOTTOM-0.12）
+        # 填满无空隙铁律：整数段距分配，把内容铺到目标底边
         top_pt = sh['top']
         natural = n * 12.0
-        target = (CONTENT_BOTTOM - 0.12) * 72 - top_pt
+        target = targets[i] - top_pt
         sa_list = [0] * n
         if n > 1 and target - natural > 30:
             remaining = target - natural - 1.0
             base = int(remaining // (n - 1))
             extra = int(round(remaining - base * (n - 1)))
-            sa_list = [base + 1 if i < extra else base for i in range(n - 1)] + [0]
+            sa_list = [base + 1 if i2 < extra else base for i2 in range(n - 1)] + [0]
             sa_list = [max(0, min(s, 20)) for s in sa_list]
         h = (natural + sum(sa_list)) / 72.0
         box = slide.shapes.add_textbox(Inches(x), Inches(y), Inches(w), Inches(h))
