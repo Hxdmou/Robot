@@ -112,18 +112,21 @@ def render_text_page(prs, part_num, title, shapes):
         text = sh['text'].replace('\x0b', '\n')
         lines = text.split('\n')
         n = len(lines)
-        # 填满无空隙铁律：整数段距分配，把内容铺到目标底边
+        # 填满无空隙铁律：内容不足→整数段距拉伸铺满；内容超目标→行距收缩精确填满（下限=字号+1防挤叠）
         top_pt = sh['top']
         natural = n * 12.0
         target = targets[i] - top_pt
+        ls = 12.0
         sa_list = [0] * n
-        if n > 1 and target - natural > 30:
+        if n > 1 and natural <= target - 30:
             remaining = target - natural - 1.0
             base = int(remaining // (n - 1))
             extra = int(round(remaining - base * (n - 1)))
             sa_list = [base + 1 if i2 < extra else base for i2 in range(n - 1)] + [0]
             sa_list = [max(0, min(s, 20)) for s in sa_list]
-        h = (natural + sum(sa_list)) / 72.0
+        elif n > 0 and natural > target:
+            ls = max(float(sz) + 1.0, min(12.0, target / n))
+        h = (n * ls + sum(sa_list)) / 72.0
         box = slide.shapes.add_textbox(Inches(x), Inches(y), Inches(w), Inches(h))
         tf = box.text_frame
         tf.word_wrap = True
@@ -131,7 +134,7 @@ def render_text_page(prs, part_num, title, shapes):
         tf.vertical_anchor = MSO_ANCHOR.TOP
         for li, line in enumerate(lines):
             p = tf.paragraphs[0] if li == 0 else tf.add_paragraph()
-            p.line_spacing = Pt(12)
+            p.line_spacing = Pt(ls)
             p.space_after = Pt(sa_list[li])
             p.space_before = Pt(0)
             run = p.add_run()
