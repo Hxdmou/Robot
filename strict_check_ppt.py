@@ -5,7 +5,7 @@ import win32com.client
 import os
 import time
 
-ppt_path = r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260816_商务汇报_无水印_v28.pptx"
+ppt_path = r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260829_商务汇报_无水印_v38.pptx"
 
 print("=" * 80)
 print("【PowerPoint COM 严格检查】溢出 + 空隙计算")
@@ -78,7 +78,7 @@ print()
 print("=" * 80)
 print("【水印版检查】")
 print("=" * 80)
-ppt_path_wm = r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260816_商务汇报_水印版_v28.pptx"
+ppt_path_wm = r"F:\个人作品\具身智能\具身智能AI产业最新进展_20260828_商务汇报_水印版_v37.pptx"
 Presentation_wm = Application.Presentations.Open(ppt_path_wm, ReadOnly=False)
 time.sleep(2)
 
