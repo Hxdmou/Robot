@@ -118,12 +118,13 @@ def render_text_page(prs, part_num, title, shapes):
         target = targets[i] - top_pt
         ls = 12.0
         sa_list = [0] * n
-        if n > 1 and natural <= target - 30:
+        # 填满无空隙铁律V2：natural<target一律整数段距拉伸铺满（无死区、无20pt钳制）；natural>target行距收缩精确填满
+        if n > 1 and natural < target:
             remaining = target - natural - 1.0
             base = int(remaining // (n - 1))
             extra = int(round(remaining - base * (n - 1)))
             sa_list = [base + 1 if i2 < extra else base for i2 in range(n - 1)] + [0]
-            sa_list = [max(0, min(s, 20)) for s in sa_list]
+            sa_list = [max(0, s) for s in sa_list]
         elif n > 0 and natural > target:
             ls = max(float(sz) + 1.0, min(12.0, target / n))
         h = (n * ls + sum(sa_list)) / 72.0
