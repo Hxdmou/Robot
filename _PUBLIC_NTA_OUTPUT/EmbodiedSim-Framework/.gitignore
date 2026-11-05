@@ -1,0 +1,96 @@
+# ============================================================
+# EmbodiedSim-Framework Git忽略规则
+# ============================================================
+
+# ---------- 环境变量与凭证 ----------
+.env
+.env.local
+.env.*.local
+
+# ---------- Python虚拟环境 ----------
+venv/
+env/
+.venv/
+env_*/
+ENV/
+
+# ---------- Python缓存 ----------
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+*.pyo
+
+# ---------- 依赖与构建 ----------
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+*.whl
+
+# ---------- IDE与编辑器 ----------
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# ---------- 操作系统 ----------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---------- 日志与临时文件 ----------
+*.log
+*.log.*
+logs/
+tmp/
+temp/
+*.tmp
+*.bak
+
+# ---------- 敏感数据（绝对禁止提交） ----------
+# 私钥与证书
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+*.jks
+
+# 凭证与个人数据
+credentials.json
+secrets.yaml
+tokens.json
+personal_data/
+chat_histories/
+
+# 知识库与向量索引
+*_faiss_index/
+*_knowledge_base/
+
+# 备份与加密文件
+*.enc
+*_backup/
+backup/
+old_versions/
+
+# 仿真训练模型
+ppo_*/
+eval_logs_*/
+*.pth
+*.npz
+
+# 截图与媒体
+screenshots/
+*.png
+*.jpg
+*.jpeg
+*.mp4
+*.mov
+*.wav
+*.mp3

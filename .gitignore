@@ -1,0 +1,659 @@
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pyc
+*.pyo
+*.pyd
+
+# ===== Virtual environments =====
+env_isaacsim/
+env_pybullet/
+venv/
+env/
+.venv/
+
+# ===== Distribution / packaging =====
+dist/
+build/
+*.egg-info/
+*.egg
+*.manifest
+*.spec
+
+# ===== Installer logs =====
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ===== Unit test & coverage =====
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.pytest_cache/
+
+# ===== IDE =====
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== Debug logs & temp =====
+debug.log
+*.log
+*.tmp
+*.bak
+*.lnk
+MUJOCO_LOG.TXT
+
+# ===== Environment variables =====
+.env
+.env.local
+.env.*.local
+
+# ===== Streamlit/Gradio cache =====
+.streamlit/
+.gradio/
+
+# ===== Trae IDE settings =====
+.trae/
+
+# ===== Chat history (user privacy) =====
+chat_histories/
+
+# ===== Legal documents =====
+legal_knowledge_base/
+
+# ===== FAISS index =====
+*_faiss_index/
+
+# ===== 注意：以下通配符规则只匹配根目录（法律RAG系统），不影响 embodied-intelligence/ 子目录 =====
+/*.json
+/*.csv
+/*.txt
+/*.pdf
+
+# ===== Model files (large binary) - 只匹配根目录 =====
+/*.bin
+/*.pth
+/*.pt
+/*.h5
+/*.joblib
+/*.pkl
+
+# ===== Screenshots & images (privacy) =====
+transformed_screenshots/
+*_screenshots/
+screenshots/
+*.jpg
+*.jpeg
+*.png
+*.webp
+*.gif
+*.bmp
+
+# ===== 白名单：项目产品截图目录（允许提交到公共仓库） =====
+!embodied-intelligence/assets/
+!embodied-intelligence/assets/**/*.jpg
+!embodied-intelligence/assets/**/*.jpeg
+!embodied-intelligence/assets/**/*.png
+!embodied-intelligence/assets/**/*.webp
+!embodied-intelligence/assets/**/*.gif
+
+# ===== Data directories (privacy & large files) =====
+drag_teach_data/
+*_data/
+data/
+
+# ===== Generated reports & logs =====
+*_report.txt
+*_log.csv
+baseline_report*.txt
+baseline_log*.csv
+
+# ===== PPT files (may contain sensitive info) =====
+*.pptx
+*.ppt
+
+# ===== 商业合同模板（含个人身份信息，严禁上传） =====
+contract_templates/
+
+# ===== 算法模块（训练/评估产物，本地保留作训练证据，公共仓库只展示工程化能力） =====
+embodied-intelligence/train_*.py
+embodied-intelligence/ppo_*/
+embodied-intelligence/rrt_*.py
+embodied-intelligence/config_rrt*.py
+embodied-intelligence/logger_rrt*.py
+embodied-intelligence/trajectory_planning.py
+embodied-intelligence/config_traj.py
+embodied-intelligence/logger_traj.py
+embodied-intelligence/path_smoothing.py
+embodied-intelligence/ik_validation.py
+embodied-intelligence/config_ik.py
+embodied-intelligence/logger_ik.py
+embodied-intelligence/rl_algorithm_comparison.py
+embodied-intelligence/baseline_*.py
+embodied-intelligence/collect_baseline.py
+embodied-intelligence/config_baseline*.py
+embodied-intelligence/logger_baseline*.py
+embodied-intelligence/evaluate_generalization*.py
+embodied-intelligence/eval_logs_*/
+embodied-intelligence/logs/
+embodied-intelligence/good_targets.npz
+
+# ===== Temporary audit scripts =====
+_*_audit.py
+_*_check.py
+_*_sanitize.py
+_*_disclaimers.py
+_github_audit.py
+
+# ===== 一次性调试/临时脚本（禁止上传；已跟踪的 _layout_final.py 等不受影响） =====
+_diag_*
+_tmp_*
+/_*.py
+/_*.xml
+
+# ============================================================================
+# ===== 安全防线：密钥、凭证、令牌、SSH、云端敏感配置（强制忽略） =====
+# ============================================================================
+# ---- SSH / GPG / 私钥 ----
+.ssh/
+id_rsa
+id_rsa.pub
+id_ecdsa
+id_ecdsa.pub
+id_ed25519
+id_ed25519.pub
+id_dsa
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+*.cer
+*.p7b
+*.jks
+*.keystore
+*.pubring.gpg
+*.secring.gpg
+
+# ---- 凭证/令牌/密钥文件 ----
+.credentials
+credentials
+credentials.json
+credentials.yaml
+credentials.yml
+credentials.toml
+secrets.json
+secrets.yaml
+secrets.yml
+secrets.toml
+secrets.env
+tokens.json
+tokens.yaml
+*.token
+access_tokens.txt
+api_keys.txt
+api_keys.json
+*.api_key
+auth.conf
+auth.json
+auth.yaml
+*.auth
+
+# ---- 云端厂商私有配置 ----
+# AWS
+.aws/
+aws-credentials
+config-aws
+# GCP
+.gcp/
+application_default_credentials.json
+gcloud-credentials.json
+*.gcp.json
+# Azure
+.azure/
+.azureConfig
+azure-credentials.json
+msal_token_cache.bin
+# 阿里云/腾讯云/华为云
+.aliyun/
+.tencentcloud/
+.huaweicloud/
+clouds.yaml
+# Kubernetes / Helm
+.kube/
+kubeconfig
+*.kubeconfig
+helm-values-secrets.yaml
+# Docker / 容器
+.docker/
+.docker/config.json
+secrets/
+# Terraform / IaC
+.terraform/
+terraform.tfstate
+terraform.tfstate.*
+*.tfvars
+*.tfvars.json
+
+# ---- 真实设备 / 产线 / 内网配置 ----
+hosts.ini
+inventory.ini
+production_config*.yaml
+production_config*.json
+*.production.json
+*.production.yaml
+deploy_hosts*.conf
+deploy_snapshots/
+deploy_snapshot*.json
+snapshot_*.json
+calibration_results*.json
+site_secrets.py
+local_settings.py
+settings_local.py
+config_local.py
+device_passwords*.txt
+robot_keys*.json
+factory_ip*.json
+
+# ---- 隐私/个人数据类 ----
+*.exported_personal_data.*
+*.pii.*
+*.personal.*
+contacts.json
+address_book.*
+user_profiles.*
+biometric_data.*
+*.face.*
+*.fingerprint.*
+*.voice_sample.*
+
+# ---- 备份/归档（可能含敏感快照）----
+*.zip
+*.7z
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+backup*/
+*_backup*/
+old_versions/
+archived/
+
+# ============================================================================
+# ===== 文件加密工具生成的文件（禁止提交加密后的源代码/备份） =====
+# ============================================================================
+# file_encryptor.py 加密输出
+*.enc
+*.py.enc
+*.env.enc
+*.yaml.enc
+*.yml.enc
+*.json.enc
+*.toml.enc
+*.ini.enc
+*.cfg.enc
+*.conf.enc
+*.md.enc
+*.txt.enc
+*.bat.enc
+*.ps1.enc
+*.sh.enc
+*.db.enc
+*.sqlite.enc
+*.csv.enc
+
+# file_encryptor.py 解密前的原文件备份（加密前自动生成）
+*.bak_unenc
+
+# 安全扫描与修复生成的文件
+security_report_*.json
+security_checklist_*.json
+*.bak_before_fix
+
+# ============================================================================
+# ===== PIN 码门禁工具生成的文件（禁止提交：哈希存储、会话缓存等） =====
+# ============================================================================
+# pin_gate.py 生成的 PIN 不可逆哈希存储
+.pin_hash.json
+# PIN 门禁可能产生的会话缓存 / 审计日志
+.pin_session_*
+pin_audit_*.log
+
+# ============================================================================
+# ===== 漏洞 2 修复：Git 身份/凭据备份文件（禁止提交：before_lend.py 生成） =====
+# ============================================================================
+# before_lend.py / after_takeback.py 产生的一键备份/还原锚点
+.git_identity_backup.json
+# ~/.git-credentials 的临时重命名备份
+.git-credentials.lendbak
+.git-credentials.lendbak.*
+
+# ============================================================================
+# ===== Windows 本地凭据与隐私类（禁止提交） =====
+# ============================================================================
+# Windows 凭据管理器 / 证书
+AppData/Local/Microsoft/Credentials/
+AppData/Roaming/Microsoft/Credentials/
+AppData/Local/Microsoft/Crypto/
+*.p7b
+*.spc
+*.pfx
+*.pvk
+
+# RDP / 远程桌面连接历史
+*.rdp
+Default.rdp
+
+# Windows 搜索/活动历史
+AppData/Local/Microsoft/Windows/History/
+AppData/Local/Microsoft/Windows/Recent/
+AppData/Roaming/Microsoft/Windows/Recent/
+*.lnk
+
+# 浏览器/应用缓存（可能含 Token/Session）
+AppData/Local/Microsoft/Edge/User Data/
+AppData/Local/Google/Chrome/User Data/
+AppData/Local/BraveSoftware/User Data/
+AppData/Local/Mozilla/Firefox/Profiles/
+
+# 剪贴板/截图历史
+AppData/Local/Microsoft/Windows/Clipboard/
+AppData/Local/Packages/MicrosoftWindows.Client.CBS_*/
+AppData/Local/Packages/Microsoft.ScreenSketch_*/
+
+# 本机 PowerShell 历史（可能暴露命令与参数）
+AppData/Roaming/Microsoft/Windows/PowerShell/PSReadLine/ConsoleHost_history.txt
+*.ps1_history
+
+# Python IDE / 调试器本地变量缓存
+.pudb/
+.pydevproject
+.lspci/
+.ruff_cache/
+.mypy_cache/
+.jupyter/
+.ipython/
+.local/share/jupyter/runtime/*.json
+sitecustomize.py
+usercustomize.py
+
+# 临时安全审查脚本输出
+*_security_*.txt
+*_leak_report.*
+*_sensitive_list.*
+
+# 本地 OCR/截图中间产物（可能含个人信息）
+ocr_temp/
+*_ocr_*.txt
+*_processed.*
+
+# ============================================================================
+# ===== END OF SECURITY BLOCK - NEVER COMMIT FILES MATCHING THE ABOVE =====
+# ============================================================================
+
+# ============================================================================
+# ===== 100%严格标准·安全加固补充块（2026-08-07新增） =====
+# 目标：防诈骗分子利用AI冒充/仿冒/语音/视频/隐私数据泄露
+# ============================================================================
+
+# ---- 子目录通配：任何路径下的文件名含敏感关键词即忽略 ----
+**/*credentials*.json
+**/*credentials*.yaml
+**/*credentials*.yml
+**/*credentials*.toml
+**/*secrets*.json
+**/*secrets*.yaml
+**/*secrets*.yml
+**/*api_key*
+**/*api_secret*
+**/*access_token*
+**/*refresh_token*
+**/*auth_token*
+**/*private_key*
+**/*password*
+**/*passwd*
+**/*pin_code*
+**/*pin_hash*
+
+# ---- 诈骗高危资产：音频/视频/录音录像（防止冒充老人亲属/公检法/社保局）----
+*.mp3
+*.wav
+*.flac
+*.aac
+*.ogg
+*.m4a
+*.opus
+*.wma
+*.amr
+# 视频类
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.wmv
+*.flv
+*.webm
+*.m4v
+*.3gp
+*.ts
+*.rmvb
+# 实时记录与聊天导出（可能被话术伪造）
+*.wechatmsg
+*_wechat_*
+*_dingtalk_*
+*_feishu_*
+*_chat_export*
+*_chat_history*
+*_messages*.*
+
+# ---- 生物特征/身份证/银行卡/手机号等公民信息批量文件 ----
+*_idcard*.*
+*_id_card*.*
+*_identity*.*
+*_passport*.*
+*_driver_license*.*
+*_bankcard*.*
+*_credit_card*.*
+*_phone_list*.*
+*_mobile_list*.*
+*_address_list*.*
+*_employee_list*.*
+*_customer_list*.*
+*_member_list*.*
+*_name_list*.*
+*_contact_list*.*
+*_family_*.*
+*_relative_*.*
+*_elder*.*          # 老年人名单：诈骗分子最高价值目标
+*_pension*.*         # 养老金/社保相关文件
+*_shebao*.*
+*_social_security*.*
+*_yibao*.*
+*_medical_insurance*.*
+*_fund*.*            # 基金/理财名单
+*_stock_account*.*
+
+# ---- 数据库文件（可能含海量用户隐私）----
+*.db
+*.sqlite
+*.sqlite3
+*.db3
+*.sdb
+*.mdb
+*.accdb
+*.sql
+*.dmp
+*.dump
+
+# ---- 运行时内存/核心转储（含进程内密钥明文/Token）----
+core
+core.*
+*.core
+memory.dmp
+*.dmp
+*.hprof
+*.heapdump
+
+# ---- 子目录通配：任何路径下的临时本地配置 ----
+**/local_settings.py
+**/settings_local.py
+**/config_local.py
+**/secrets.py
+**/site_secrets.py
+**/deploy_hosts*.conf
+**/production_config*.yaml
+**/production_config*.json
+**/.env
+**/.env.*
+**/device_passwords*.txt
+**/robot_keys*.json
+**/factory_ip*.json
+**/calibration_results*.json
+**/snapshot_*.json
+**/deploy_snapshot*.json
+**/deploy_snapshots/
+
+# ---- 任何路径下的知识库/向量索引（犯罪分子拿不到专业内容）----
+**/*_faiss_index/
+**/*faiss_index/
+**/legal_knowledge_base/
+**/medical_knowledge_base/
+**/finance_knowledge_base/
+**/education_knowledge_base/
+**/tech_knowledge_base/
+**/knowledge_base/
+**/knowledge_base_data/
+**/kb_*/
+**/vectorstore/
+**/vector_store/
+**/chroma_db/
+**/chroma/
+**/milvus_data/
+**/qdrant/
+**/pgvector/
+
+# ---- 任何路径下的聊天历史/用户交互日志文件 ----
+**/chat_histories/
+**/chat_history/
+**/chat_logs/
+**/dialog_history/
+**/conversation/
+**/sessions/
+**/user_sessions/
+**/interactions/
+**/chat.jsonl
+**/chat.log
+**/*_chat.jsonl
+**/*_dialog.jsonl
+**/*_session*.json
+
+# ============================================================================
+# ===== 敏感永久保存文件（防AI诈骗10层防线等核心规则，只能在私人仓库） =====
+# ============================================================================
+/SECURITY.md
+/SECURITY_HARDENING.md
+/RED_TEAM_REPORT.md
+/PIN_CODE_MANAGEMENT.md
+/PHYSICAL_SECURITY_PROTOCOL.md
+
+# 私人仓库本地工作目录（绝对禁止推送到公共仓库）
+/_private_repo_work/
+
+# ============================================================================
+# ===== 根目录私人RAG/安全/营销文件（禁止推送到公共仓库Robot.git） =====
+# ============================================================================
+# RAG十套系统核心文件
+/rag.py
+/academic_qa.py
+/medical_qa.py
+/finance_qa.py
+/government_qa.py
+/hr_qa.py
+/tech_qa.py
+/e_commerce_qa.py
+/education_qa.py
+/legal_qa.py
+/chat_history.py
+/batch_processor.py
+/build_all_indexes.py
+/document_visualizer.py
+/export_utils.py
+/inference.py
+/logger.py
+/run.py
+/train.py
+/backup_j.py
+/api_example.md
+
+# 安全工具
+/file_encryptor.py
+/pin_gate.py
+/security_scan.py
+/security_checklist.py
+/pre_commit_gate.py
+/commit_msg_gate.py
+/install_security_hooks.py
+
+# Git身份备份工具
+/before_lend.py
+/after_takeback.py
+
+# 私人配置与数据
+/config/
+/nlp_news_classification/
+/hosts/
+/.env.example
+/.vscode/launch.json
+
+# PPT/营销文档
+/A2A_ENTERPRISE_PPT.md
+/A2A_PPT优化方案.md
+/A2A_PPT完整升级内容.md
+/PPT优化最终检查报告.md
+/PPT优化检查报告.md
+/产品目录.md
+/完整表格数据汇总.md
+/完整表格数据汇总_最终版.md
+/知识推送文档.md
+/知识推送文档更新内容.md
+/程序图标科技服务.md
+
+# 私人脚本
+/I盘清理工具_请手动运行.py
+/RAG十套系统一键启动.bat
+
+# ============================================================================
+# ===== 私人md文件（永久保存/新闻资讯/学习笔记，只能在私人仓库） =====
+# ============================================================================
+/行业资讯参考_2026.md
+/文章模板.md
+/prompt-engineering.md
+/rag-learning-guide.md
+/vector-database-notes.md
+/操作文档.md
+/LICENSE_fromF盘.md
+/README_fromF盘.md
+/A2A_PROTOCOL_DEEP_DIVE.md
+/知乎推荐文案.md
+/知乎推广文章.md
+/知乎文章更新内容.md
+/程序员客栈服务介绍.md
+
+# ============================================================================
+# ===== FINAL：以上任何模式匹配成功 = 绝对禁止被 git 追踪 =====
+# ============================================================================
+
